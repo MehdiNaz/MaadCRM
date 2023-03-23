@@ -1,8 +1,3 @@
-using Application.Interfaces;
-using Domain.Models;
-using Domain.Enum;
-using Microsoft.EntityFrameworkCore;
-
 namespace DataAccess.Repositories;
 
 public class LogRepository: ILogRepository
@@ -13,7 +8,7 @@ public class LogRepository: ILogRepository
     {
         _context = context;
     }
-    public async Task<List<Log?>> GetAllLogs(LogKinds? logKind, string? userId, int skip, int take)
+    public async ValueTask<List<Log?>> GetAllLogs(LogKinds? logKind, string? userId, int skip, int take)
     {
         var logs = _context.Logs.AsNoTracking();
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
@@ -29,29 +24,29 @@ public class LogRepository: ILogRepository
                     .ToListAsync();
     }
 
-    public async Task<Log?> GetLogById(int postId)
+    public async ValueTask<Log?> GetLogById(int postId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Log> CreateLog(Log toCreate)
+    public async ValueTask<Log> CreateLog(Log toCreate)
     {
         await _context.Logs.AddAsync(toCreate);
         await _context.SaveChangesAsync();
         return toCreate;
     }
 
-    public async Task<Log?> UpdateLog(string updateContent, int logId)
+    public async ValueTask<Log?> UpdateLog(string updateContent, int logId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task DeleteLog(int logId)
+    public async ValueTask DeleteLog(int logId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<int> CountLog(string userId)
+    public async ValueTask<int> CountLog(string userId)
     {
         IQueryable<Log> logs = _context.Logs.Where(l => l.IdUser == userId);
         // if (logKind != null) logs = logs.Where(x => x.Kind == logKind.Value);

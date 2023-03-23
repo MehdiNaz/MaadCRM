@@ -1,7 +1,3 @@
-using Application.Interfaces;
-using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-
 namespace DataAccess.Repositories;
 
 public class PostRepository : IPostRepository
@@ -13,7 +9,7 @@ public class PostRepository : IPostRepository
         _context = context;
     }
 
-    public async Task<Post> CreatePost(Post toCreate)
+    public async ValueTask<Post> CreatePost(Post toCreate)
     {
         toCreate.DateCreated = DateTime.Now;
         toCreate.LastModfied = DateTime.Now;
@@ -22,7 +18,7 @@ public class PostRepository : IPostRepository
         return toCreate;
     }
 
-    public async Task DeletePost(int postId)
+    public async ValueTask DeletePost(int postId)
     {
         var post = await GetPostById(postId);
         if(post == null) return;
@@ -31,17 +27,17 @@ public class PostRepository : IPostRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<ICollection<Post?>> GetAllPost()
+    public async ValueTask<ICollection<Post?>> GetAllPost()
     {
         return await _context.Posts.ToListAsync();
     }
 
-    public async Task<Post?> GetPostById(int postId)
+    public async ValueTask<Post?> GetPostById(int postId)
     {
         return await _context.Posts.FindAsync(postId);
     }
 
-    public async Task<Post?> UpdatePost(string updateContent, int postId)
+    public async ValueTask<Post?> UpdatePost(string updateContent, int postId)
     {
         var post = await GetPostById(postId);
         post.Content = updateContent;

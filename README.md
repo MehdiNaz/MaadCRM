@@ -5,6 +5,7 @@ maad-api
 ├── Domain
 │   ├── Entities
 │   ├── Exceptions
+│   ├── Validation
 │   └── ValueObjects
 ├── Application
 │   ├── Interfaces

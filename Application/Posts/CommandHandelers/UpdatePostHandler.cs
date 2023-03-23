@@ -1,6 +1,5 @@
 using Application.Interfaces;
 using Application.Posts.Commands;
-using Domain.Models;
 using MediatR;
 
 namespace Application.Posts.CommandHandelers;

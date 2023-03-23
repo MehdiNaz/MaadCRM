@@ -1,5 +1,3 @@
-using Domain.Enum;
-using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;

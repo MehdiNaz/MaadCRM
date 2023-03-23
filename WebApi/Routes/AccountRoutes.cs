@@ -11,7 +11,7 @@ public static class AccountRouts
             .WithOpenApi();
 
         account.MapPost("Login", async (
-            [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestLogin model,
+            [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestLoginByMail model,
             IAccountService accountService
         ) =>
         {
