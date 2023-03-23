@@ -1,9 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.Customers;
-using Domain.Models.SpecialFields;
-using Domain.Models.Users;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models;
 
 public class Business:BaseEntity
 {

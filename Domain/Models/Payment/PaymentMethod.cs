@@ -1,12 +1,7 @@
-namespace Domain.Models;
+namespace Domain.Models.Payment;
 
-public partial class PaymentMethod
+public class PaymentMethod
 {
-    public PaymentMethod()
-    {
-        Factors = new HashSet<Factor>();
-    }
-
     public int Id { get; set; }
     public string Name { get; set; }
     public string Note { get; set; }

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.General;
-using Domain.Models.Notes;
-using Domain.Models.SpecialFields;
+﻿using Domain.Models.Notes;
 
 namespace Domain.Models.Customers;
 
@@ -19,7 +16,7 @@ public class Customer:BaseEntity
     public Business Business { get; set; }
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     public ICollection<PhoneNubmer> PhoneNubmers { get; set; }
-    public ICollection<Address> Addresses{ get; set; }
+    public ICollection<Address.Address> Addresses{ get; set; }
     public ICollection<Note> Notes { get; set; }
     public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
     public ICollection<CustomerActivityHistory> CustomerActivityHistorys { get; set; }

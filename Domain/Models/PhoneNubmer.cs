@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.Customers;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models;
 
 public class PhoneNubmer:BaseEntity
 {

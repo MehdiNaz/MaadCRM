@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.Users;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models;
 
 public class Notification:BaseEntity
 {

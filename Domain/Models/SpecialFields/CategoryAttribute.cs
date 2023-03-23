@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.General;
-
-namespace Domain.Models.SpecialFields;
+﻿namespace Domain.Models.SpecialFields;
 
 public class CategoryAttribute:BaseEntity
 {

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models;
 
 public class FileBinary:BaseEntity
 {

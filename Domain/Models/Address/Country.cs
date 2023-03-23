@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.General;
+﻿namespace Domain.Models.Address;
 
 public class Country:BaseEntity
 {

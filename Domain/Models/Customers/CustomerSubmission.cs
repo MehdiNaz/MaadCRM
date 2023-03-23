@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Models.Users;
-
-namespace Domain.Models.Customers;
+﻿namespace Domain.Models.Customers;
 
 public class CustomerSubmission:BaseEntity
 {

@@ -1,6 +1,4 @@
-﻿using Domain.Models.Notes;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models.Notes;
 
 public class Tags:BaseEntity
 {

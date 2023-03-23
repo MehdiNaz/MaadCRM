@@ -1,6 +1,4 @@
-﻿using Domain.Models.General;
-
-namespace Domain.Models.Notes;
+﻿namespace Domain.Models.Notes;
 
 public class Note_Tag_Mapping : BaseEntity
 {

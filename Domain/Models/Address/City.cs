@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.General;
+﻿namespace Domain.Models.Address;
 
 public class City:BaseEntity
 {
@@ -10,5 +8,5 @@ public class City:BaseEntity
     public int ProvinceId { get; set; }
     [ForeignKey(nameof(ProvinceId))]
     public Province Province { get; set; }
-    public ICollection<Address> Addresses { get; set; }
+    public ICollection<Models.Address.Address> Addresses { get; set; }
 }

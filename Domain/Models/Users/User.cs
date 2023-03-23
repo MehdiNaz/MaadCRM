@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Domain.Models.Customers;
-using Domain.Models.General;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Models.Users;
 

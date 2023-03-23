@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.Customers;
+﻿namespace Domain.Models.Customers;
 
 public class CustomerFeedbackHistory : BaseEntity
 {

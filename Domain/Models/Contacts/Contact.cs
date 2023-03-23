@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.Contacts;
+﻿namespace Domain.Models.Contacts;
 
 public class Contact:BaseEntity
 {

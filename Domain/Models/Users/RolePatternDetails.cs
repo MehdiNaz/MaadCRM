@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.Users;
+﻿namespace Domain.Models.Users;
 
 public class RolePatternDetails: BaseEntity
 {

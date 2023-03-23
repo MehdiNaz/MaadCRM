@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Models.SpecialFields;
+﻿namespace Domain.Models.SpecialFields;
 
 public class AttributeOptions:BaseEntity
 {
