@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Posts\Queries" />
+      <Folder Include="Posts\QueryHandlers" />
+    </ItemGroup>
+
+</Project>
