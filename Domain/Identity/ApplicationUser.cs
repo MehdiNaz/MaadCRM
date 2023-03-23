@@ -1,4 +1,3 @@
-using Domain.Enum;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity;
@@ -26,4 +25,5 @@ public class ApplicationUser : IdentityUser
     public string WebSite { get; set; }
 
     public List<Log> Logs { get; set; }
+    public List<SanAt> SanAts { get; set; }
 }

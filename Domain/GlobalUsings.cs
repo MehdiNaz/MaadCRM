@@ -2,6 +2,8 @@
 
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
+global using Domain.Enum;
+global using Domain.Identity;
 global using Domain.Models;
 global using Domain.Models.Address;
 global using Domain.Models.Customers;
