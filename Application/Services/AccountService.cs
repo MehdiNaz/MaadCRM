@@ -1,18 +1,8 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Application.Requests;
-using Application.Responses;
-using Domain.Enum;
-using Domain.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-
 namespace Application.Services;
+
 public interface IAccountService
 {
-    Task<ResponseAccount> Login(RequestLogin model);
+    Task<ResponseAccount> Login(RequestLoginByMail model);
     Task<ResponseAccount> Register(RequestRegister model);
     JwtSecurityToken GetToken(List<Claim> authClaims);
 }
@@ -35,7 +25,7 @@ public class AccountService : IAccountService
     }
 
 
-    public async Task<ResponseAccount> Login(RequestLogin model)
+    public async Task<ResponseAccount> Login(RequestLoginByMail model)
     {
         var user = await _userManager.FindByNameAsync(model.Email);
         if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
@@ -108,7 +98,7 @@ public class AccountService : IAccountService
         };
 
         if (!_userManager.Options.SignIn.RequireConfirmedAccount)
-            return await Login(new RequestLogin
+            return await Login(new RequestLoginByMail
             {
                 Email = model.Email,
                 Password = model.Password

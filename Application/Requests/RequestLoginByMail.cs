@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Application.Requests;
 
-public struct RequestLogin
+public struct RequestLoginByMail
 {
     [Required(ErrorMessage = "Enter Email")]
     [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]

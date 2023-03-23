@@ -1,12 +1,10 @@
-using Domain.Models;
-
 namespace Application.Interfaces;
 
 public interface IPostRepository
 {
-    Task<ICollection<Post?>> GetAllPost();
-    Task<Post?> GetPostById(int postId);
-    Task<Post> CreatePost(Post toCreate);
-    Task<Post?> UpdatePost(string updateContent, int postId);
-    Task DeletePost(int postId);
+    ValueTask<ICollection<Post?>> GetAllPost();
+    ValueTask<Post?> GetPostById(int postId);
+    ValueTask<Post> CreatePost(Post toCreate);
+    ValueTask<Post?> UpdatePost(string updateContent, int postId);
+    ValueTask DeletePost(int postId);
 }

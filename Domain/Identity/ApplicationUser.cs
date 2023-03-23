@@ -24,4 +24,6 @@ public class ApplicationUser : IdentityUser
     public DateTime? CreatedOn { get; set; }
     
     public string WebSite { get; set; }
+
+    public List<Log> Logs { get; set; }
 }

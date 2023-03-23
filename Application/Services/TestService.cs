@@ -1,6 +1,3 @@
-using Domain.Enum;
-using Microsoft.AspNetCore.Identity;
-
 namespace Application.Services;
 public interface ITestService
 {
