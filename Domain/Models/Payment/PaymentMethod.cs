@@ -11,8 +11,6 @@ public partial class PaymentMethod
     public string Name { get; set; }
     public string Note { get; set; }
     public byte Status { get; set; }
-    public DateTime DateCreated { get; set; }
-    public byte[] Rowversion { get; set; }
     public string Mid { get; set; }
     public string RedirectUrl { get; set; }
 
