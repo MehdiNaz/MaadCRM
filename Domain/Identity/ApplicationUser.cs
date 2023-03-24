@@ -31,4 +31,5 @@ public class ApplicationUser : IdentityUser
     public ICollection<Notification> Notifications { get; set; }
     
     public List<Log> Logs { get; set; }
+    public List<SanAt> SanAts { get; set; }
 }
