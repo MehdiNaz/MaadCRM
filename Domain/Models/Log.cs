@@ -1,6 +1,3 @@
-using Domain.Enum;
-using Domain.Identity;
-
 namespace Domain.Models;
 
 /// <summary>

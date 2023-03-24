@@ -2,12 +2,6 @@ namespace Domain.Models;
 
 public  class Category
 {
-    public Category()
-    {
-        InverseIdParrentNavigation = new HashSet<Category>();
-        Koupons = new HashSet<Koupon>();
-    }
-
     public int Id { get; set; }
     public int? IdParrent { get; set; }
     public byte? OrderC { get; set; }
@@ -20,5 +14,5 @@ public  class Category
 
     public virtual Category IdParrentNavigation { get; set; }
     public virtual ICollection<Category> InverseIdParrentNavigation { get; set; }
-    public virtual ICollection<Koupon> Koupons { get; set; }
+    public virtual ICollection<Product> Koupons { get; set; }
 }

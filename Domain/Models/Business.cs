@@ -11,7 +11,7 @@ public class Business:BaseEntity
     public int DisplayOrder { get; set; } = 0;
     public int UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
+    public ApplicationUser User { get; set; }
     public ICollection<Setting> Setting { get; set; }
     public ICollection<Customer> Customers { get; set; }
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }

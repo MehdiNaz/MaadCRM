@@ -1,6 +1,4 @@
-﻿using Domain.Models.Products;
-
-namespace Domain.Models.Notes;
+﻿namespace Domain.Models.Notes;
 
 public class Note_Product_Mapping : BaseEntity
 {

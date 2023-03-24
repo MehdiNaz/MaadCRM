@@ -1,6 +1,3 @@
-using Domain.Enum;
-using Microsoft.AspNetCore.Identity;
-
 namespace Domain.Identity;
 public class ApplicationUser : IdentityUser
 {
@@ -25,5 +22,13 @@ public class ApplicationUser : IdentityUser
     
     public string WebSite { get; set; }
 
+    public string OtpPassword { get; set; }
+    public DateTime OtpPasswordExpired { get; set; }
+    public DateTimeOffset? LastLoginDate { get; set; }
+    public ICollection<Business> Business { get; set; }
+    public ICollection<CustomerSubmission> customerSubmissions { get; set; }
+    public ICollection<ActivityLog> ActivityLogs { get; set; }
+    public ICollection<Notification> Notifications { get; set; }
+    
     public List<Log> Logs { get; set; }
 }

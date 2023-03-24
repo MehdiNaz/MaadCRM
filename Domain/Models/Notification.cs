@@ -12,16 +12,5 @@ public class Notification:BaseEntity
     public AlaramType AlaramTypeId { get; set; }
     public bool IsDeleted { get; set; } = false;
     [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
-}
-public enum AlaramType
-{
-    [Display(Name ="فقط اعلام پیام در پنل سایت ")]
-    AlaramInPanel=1,
-    [Display(Name = "ارسال ناتیفیکیشن")]
-    PushNotification = 2,
-    [Display(Name = "ارسال ایمیل")]
-    EmailNotification=3,
-    [Display(Name ="ارسال پیامک")]
-    SMSNotification=4
+    public ApplicationUser User { get; set; }
 }
