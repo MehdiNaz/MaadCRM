@@ -8,7 +8,7 @@ public static class IEndpointConventionBuilderExtensions
     public static TBuilder EnableOpenApiWithAuthentication<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
-        var scheme = new OpenApiSecurityScheme()
+        var scheme = new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.Http,
             Name = JwtBearerDefaults.AuthenticationScheme,

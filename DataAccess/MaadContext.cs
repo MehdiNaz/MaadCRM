@@ -6,17 +6,40 @@ public class MaadContext : IdentityDbContext
     {
     }
 
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<Log> Logs { get; set; }
-    public DbSet<Plan?> Plans { get; set; }
-    public DbSet<SanAt?> SanAts { get; set; }
+    public DbSet<Post>? Posts { get; set; }
+    public DbSet<Log>? Logs { get; set; }
+    public DbSet<Plan>? Plans { get; set; }
+    public DbSet<SanAt>? SanAts { get; set; }
+    public DbSet<Customer>? Customers { get; set; }
+    public DbSet<CustCategory>? CustCategories { get; set; }
+    public DbSet<Address>? Addresses { get; set; }
+    public DbSet<City>? Cities { get; set; }
+    public DbSet<Country>? Countries { get; set; }
+    public DbSet<Province>? Provinces { get; set; }
+    public DbSet<Moaref>? Moarefs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.ApplyConfiguration(new CustomerActivityHistoryMapping());
+        builder.ApplyConfiguration(new CustomerActivityMapping());
+        builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());
+        builder.ApplyConfiguration(new CustomerMapping());
+        builder.ApplyConfiguration(new CusCategoryMapping());
+        builder.ApplyConfiguration(new CustomerRepresentativeHistoryMapping());
+        builder.ApplyConfiguration(new CustomerRepresentativeTypeMapping());
+        builder.ApplyConfiguration(new CustomerSubmissionMapping());
+        builder.ApplyConfiguration(new PhoneNumberMapping());
+        builder.ApplyConfiguration(new AddressMapping());
+        builder.ApplyConfiguration(new CityMapping());
+        builder.ApplyConfiguration(new CountryMapping());
+        builder.ApplyConfiguration(new ProvinceMapping());
+        builder.ApplyConfiguration(new AttributeOptionsValueMapping());
+        builder.ApplyConfiguration(new LogMapping());
+        builder.ApplyConfiguration(new NoteMapping());
         builder.ApplyConfiguration(new PlanMapping());
         builder.ApplyConfiguration(new PostMapping());
-        builder.ApplyConfiguration(new LogMapping());
         builder.ApplyConfiguration(new SanAtMapping());
+        builder.ApplyConfiguration(new MoarefMapping());
         base.OnModelCreating(builder);
     }
 }

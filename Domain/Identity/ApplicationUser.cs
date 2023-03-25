@@ -1,4 +1,5 @@
 namespace Domain.Identity;
+
 public class ApplicationUser : IdentityUser
 {
     public string? Name { get; set; }
@@ -26,7 +27,7 @@ public class ApplicationUser : IdentityUser
     public DateTime OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
     public ICollection<Business> Business { get; set; }
-    public ICollection<CustomerSubmission> customerSubmissions { get; set; }
+    public ICollection<CustomerSubmission> CustomerSubmissions { get; set; }
     public ICollection<ActivityLog> ActivityLogs { get; set; }
     public ICollection<Notification> Notifications { get; set; }
     

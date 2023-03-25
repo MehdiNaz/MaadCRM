@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.SpecialFields;
 
-public class AttributeOptions:BaseEntity
+public class AttributeOptions : BaseEntity
 {
     public string Name { get; set; }
     public string ColorSquaresRgb { get; set; }
@@ -8,7 +8,7 @@ public class AttributeOptions:BaseEntity
     public int? ImageSequrePictureId { get; set; }
     public int DisplayOrder { get; set; } = 0;
 
-    [ForeignKey(nameof(BusinessAttributeId))]
+    //[ForeignKey(nameof(BusinessAttributeId))]
     public BusinessAttribute BusinessAttribute { get; set; }
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
 }

@@ -1,13 +1,9 @@
-using System.Threading.RateLimiting;
-using Application;
-using Coravel;
-using DataAccess;
-using MaadApi;
-using Microsoft.AspNetCore.RateLimiting;
-using Serilog;
-using WebApi.Routes;
 
 // ============================ Builder ========================================
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Application.Validator;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ========================== Configuration ====================================
@@ -183,7 +179,7 @@ builder.Services.AddRateLimiter(_ => _
 
 #endregion
 
-builder.Host.UseSerilog((context,loggerConfiguration) => 
+builder.Host.UseSerilog((context, loggerConfiguration) =>
     loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
 // ============================ App ============================================
@@ -229,7 +225,7 @@ var clients = app.MapGroup("/log")
     {
         var loggerFactory = handlerContext.ApplicationServices.GetRequiredService<ILoggerFactory>();
         var logger = loggerFactory.CreateLogger("RequestAuditor");
-        return (invocationContext) =>
+        return invocationContext =>
         {
             logger.LogInformation($"[⚙️] Received a request for: {invocationContext.HttpContext.Request.Path}");
             return next(invocationContext);
@@ -289,6 +285,17 @@ app.MapAccountRouts();
 #endregion
 // ============================ End Routes =====================================
 
-app.Run();
 
+// ============================ FluentValidation ===============================
+#region FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly); 
+builder.Services.AddValidatorsFromAssembly(typeof(RequestLoginByPhoneAndPasswordValidator).Assembly); 
+builder.Services.AddValidatorsFromAssembly(typeof(RequestLoginByPhoneValidator).Assembly); 
+#endregion
+// ============================ End FluentValidation ============================
+
+
+app.Run();
 

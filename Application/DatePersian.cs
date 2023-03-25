@@ -20,15 +20,13 @@ public class DatePersian
         {
             return "";
         }
-        else
-        {
-            var persian = new PersianCalendar();
-            var year = persian.GetYear(date.Value);
-            var month = persian.GetMonth(date.Value);
-            var day = persian.GetDayOfMonth(date.Value);
-            return year + "/" + month.ToString().PadLeft(2, '0') + "/" + day.ToString().PadLeft(2, '0') + " " +
-                   date.Value.ToString("HH:mm:ss tt");
-        }
+
+        var persian = new PersianCalendar();
+        var year = persian.GetYear(date.Value);
+        var month = persian.GetMonth(date.Value);
+        var day = persian.GetDayOfMonth(date.Value);
+        return year + "/" + month.ToString().PadLeft(2, '0') + "/" + day.ToString().PadLeft(2, '0') + " " +
+               date.Value.ToString("HH:mm:ss tt");
     }
 
     public static string ToPersianDateTimeNew(DateTime? date)
@@ -37,15 +35,13 @@ public class DatePersian
         {
             return "";
         }
-        else
-        {
-            var persian = new PersianCalendar();
-            var year = persian.GetYear(date.Value);
-            var month = persian.GetMonth(date.Value);
-            var day = persian.GetDayOfMonth(date.Value);
-            return year + "/" + month.ToString().PadLeft(2, '0') + "/" + day.ToString().PadLeft(2, '0') + " " +
-                   date.Value.Hour.ToString().PadLeft(2, '0') + ":" + date.Value.Minute.ToString().PadLeft(2, '0');
-        }
+
+        var persian = new PersianCalendar();
+        var year = persian.GetYear(date.Value);
+        var month = persian.GetMonth(date.Value);
+        var day = persian.GetDayOfMonth(date.Value);
+        return year + "/" + month.ToString().PadLeft(2, '0') + "/" + day.ToString().PadLeft(2, '0') + " " +
+               date.Value.Hour.ToString().PadLeft(2, '0') + ":" + date.Value.Minute.ToString().PadLeft(2, '0');
     }
 
     public static string CalculateDate(DateTime date)
@@ -53,17 +49,17 @@ public class DatePersian
         var diff = DateTime.Now - date;
         if (diff.Days >= 1)
         {
-            return diff.Days.ToString() + " روز پیش";
+            return diff.Days + " روز پیش";
         }
 
         if (diff.Hours is <= 24 and >= 1)
         {
-            return diff.Hours.ToString() + " ساعت پیش";
+            return diff.Hours + " ساعت پیش";
         }
 
         if (diff.Minutes is <= 60 and >= 1)
         {
-            return diff.Minutes.ToString() + " دقیقه پیش";
+            return diff.Minutes + " دقیقه پیش";
         }
 
         return "لحظاتی پیش";

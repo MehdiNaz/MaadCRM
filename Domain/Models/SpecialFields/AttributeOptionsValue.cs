@@ -1,7 +1,8 @@
 ﻿namespace Domain.Models.SpecialFields;
 
-public class AttributeOptionsValue:BaseEntity
+public class AttributeOptionsValue : BaseEntity
 {
+    public Ulid AttributeOptionsValueId { get; set; }
     public int ForCustomerId { get; set; }
     public string AttributeDescriptionValue { get; set; }
     public string AttributeXMLValue { get; set; }
@@ -10,10 +11,12 @@ public class AttributeOptionsValue:BaseEntity
     public int? PictureId { get; set; }
     public string FilePath { get; set; }
     public string ImagePath { get; set; }
-    public int AttributeOptionId { get; set; }
-        
-    [ForeignKey(nameof(ForCustomerId))]
+    public Ulid CustomerId { get; set; }
+    public Ulid AttributeOptionId { get; set; }
+
+
+    //[ForeignKey(nameof(ForCustomerId))]
     public Customer Customer { get; set; }
-    [ForeignKey(nameof(AttributeOptionId))]
+    //[ForeignKey(nameof(AttributeOptionId))]
     public AttributeOptions AttributeOptions { get; set; }
 }

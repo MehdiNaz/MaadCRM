@@ -1,9 +1,10 @@
 ﻿namespace Domain.Models.Address;
 
-public class Country:BaseEntity
+public class Country : BaseEntity
 {
-    public string Name { get; set; }
+    public Ulid CountryId { get; set; }
+    public string CountryName { get; set; }
     public bool IsDefault { get; set; }
     public int DisplayOrder { get; set; }
-    public ICollection<Province> Provinces { get; set; } 
+    public ICollection<Province> Provinces { get; set; }
 }

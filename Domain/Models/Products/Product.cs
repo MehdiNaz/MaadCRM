@@ -1,6 +1,4 @@
-﻿using Domain.Models.Notes;
-
-namespace Domain.Models.Products;
+﻿namespace Domain.Models.Products;
 
 public class Product:BaseEntity
 {

@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Application.Services;
 
 public interface ILogService
@@ -12,11 +10,6 @@ public interface ILogService
 
 public class LogService : ILogService
 {
-
-    public LogService()
-    {
-    }
-
     // public async Task<int> Add(string userId, LogKinds kind)
     // {
     //     var log = new Log

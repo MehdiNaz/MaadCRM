@@ -1,6 +1,6 @@
 namespace Domain.Models;
 
-public  class Category
+public class Category
 {
     public int Id { get; set; }
     public int? IdParrent { get; set; }

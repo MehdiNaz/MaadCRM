@@ -2,6 +2,7 @@
 
 public class CustomerRepresentativeType : BaseEntity
 {
+    public Ulid CustomerRepresentativeTypeId { get; set; }
     public int CustomerRepresentativeName { get; set; }
     public int DisplayOrder { get; set; }
     public decimal Point { get; set; }
