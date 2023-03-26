@@ -14,3 +14,4 @@ global using System.Security.Claims;
 global using System.Text;
 global using Domain.Models;
 global using Domain.Models.Customers;
+global using Domain.Models.SpecialFields;

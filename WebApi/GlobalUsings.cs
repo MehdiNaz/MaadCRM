@@ -1,10 +1,34 @@
-// Global using directives
-
-global using System.Threading.RateLimiting;
 global using Application;
+global using Application.Interfaces;
+global using Application.Interfaces.Customers;
+global using Application.Interfaces.SpecialFields;
+global using Application.Requests;
+global using Application.Services;
+global using Application.Validator;
+global using Application.Validator.Customers;
+global using Application.Validator.SpecialFields;
 global using Coravel;
 global using DataAccess;
+global using DataAccess.Repositories;
+global using DataAccess.Repositories.Customers;
+global using DataAccess.Repositories.SpecialFields;
+global using Domain.Enum;
+global using Domain.Identity;
+global using FluentValidation;
+global using FluentValidation.AspNetCore;
 global using MaadApi;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.RateLimiting;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
 global using Serilog;
+global using Swashbuckle.AspNetCore.SwaggerGen;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using System.Threading.RateLimiting;
 global using WebApi.Routes;
+global using WebApi.StartupConfiguration;
+global using Version = Domain.Class.Version;

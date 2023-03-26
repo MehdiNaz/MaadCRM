@@ -25,13 +25,6 @@ public class Customer : BaseEntity
 
 
 
-
-
-
-
-
-
-
     //[ForeignKey(nameof(BusinessId))]
     public Business Business { get; set; }
     public Moaref Moaref { get; set; }
@@ -41,6 +34,7 @@ public class Customer : BaseEntity
     public ICollection<Address.Address> Addresses { get; set; }
     public ICollection<Note> Notes { get; set; }
     public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
+    public ICollection<CustomerActivity> CustomerActivities{ get; set; }
     public ICollection<CustomerActivityHistory> CustomerActivityHistorys { get; set; }
     public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistory { get; set; }
     //[InverseProperty(nameof(CustomerRepresentativeHistory.Customers))]

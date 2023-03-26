@@ -2,9 +2,10 @@
 
 public class AttributeOptions : BaseEntity
 {
+    public Ulid AttributeOptionsId { get; set; }
     public string Name { get; set; }
     public string ColorSquaresRgb { get; set; }
-    public int BusinessAttributeId { get; set; }
+    public Ulid BusinessAttributeId { get; set; }
     public int? ImageSequrePictureId { get; set; }
     public int DisplayOrder { get; set; } = 0;
 

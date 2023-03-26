@@ -17,6 +17,12 @@ public class MaadContext : IdentityDbContext
     public DbSet<Country>? Countries { get; set; }
     public DbSet<Province>? Provinces { get; set; }
     public DbSet<Moaref>? Moarefs { get; set; }
+    public DbSet<Business>? Businesses { get; set; }
+    public DbSet<Setting>? Settings { get; set; }
+    public DbSet<CategoryAttribute>? CategoryAttributes { get; set; }
+    public DbSet<BusinessAttribute>? BusinessAttributes { get; set; }
+    public DbSet<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
+    public DbSet<AttributeOptions>? AttributeOptions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -40,6 +46,10 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new PostMapping());
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new MoarefMapping());
+        builder.ApplyConfiguration(new SettingMapping());
+        builder.ApplyConfiguration(new BusinessAttributeMapping());
+        builder.ApplyConfiguration(new CategoryAttributeMapping());
+        builder.ApplyConfiguration(new AttributeOptionsMapping());
         base.OnModelCreating(builder);
     }
 }

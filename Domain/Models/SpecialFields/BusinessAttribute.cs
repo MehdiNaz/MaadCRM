@@ -1,7 +1,8 @@
 ﻿namespace Domain.Models.SpecialFields;
 
-public class BusinessAttribute:BaseEntity
+public class BusinessAttribute : BaseEntity
 {
+    public Ulid BusinessAttributeId { get; set; }
     public string TextPrompt { get; set; }
     public bool IsRequired { get; set; }
     public AttributeControlType AttributeControlTypeId { get; set; }
@@ -12,9 +13,9 @@ public class BusinessAttribute:BaseEntity
     public int? ValidationFileMaximumSize { get; set; }
     public string DefaultValue { get; set; }
     public string ConditionValue { get; set; }
-    public int CategoryAttributeId { get; set; }
+    public Ulid CategoryAttributeId { get; set; }
 
-    [ForeignKey(nameof(CategoryAttributeId))]
+    //[ForeignKey(nameof(CategoryAttributeId))]
     public CategoryAttribute CategoryAttribute { get; set; }
     public ICollection<AttributeOptions> AttributeOptions { get; set; }
 }

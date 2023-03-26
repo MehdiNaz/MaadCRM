@@ -1,155 +1,32 @@
-
 // ============================ Builder ========================================
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Application.Validator;
-
 var builder = WebApplication.CreateBuilder(args);
 
-// ========================== Configuration ====================================
-var configuration = builder.Configuration;
+// ========================== Declarations ====================================
+ConfigurationManager configuration = builder.Configuration;
+const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // ============================ Services =======================================
 #region Services
+LogConfiguration.Configuration(builder);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 
-builder.Services.AddScheduler();
-
-#region CORS
-const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: myAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins(
-                    "http://192.168.43.118:3000",
-                    "http://localhost:3000"
-                )
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
-        });
-});
-#endregion
+// Cors
+CorsConfiguration.Configure(builder.Services, myAllowSpecificOrigins);
 
 // Health Check
 builder.Services.AddHealthChecks();
 
 // DataBase connection For Entity Framework
-#region DataBase_connection_For_Entity_Framework
+DataBaseConnectionConfiguration.Configure(builder.Services, configuration);
 
-var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<MaadContext>(options =>
-    options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-#endregion
-
-// Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = false;
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedPhoneNumber = false;
-
-    // Password settings
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 4;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-
-    // Lockout settings
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-    options.Lockout.MaxFailedAccessAttempts = 10;
-
-
-    // User settings
-    options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedPhoneNumber = false;
-    // options.User.AllowedUserNameCharacters = "0123456789";
-})
-    .AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<MaadContext>();
-
-// Authentication
-#region Authentication
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidAudience = configuration["JWT:ValidAudience"],
-            ValidIssuer = configuration["JWT:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"] ?? "JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr"))
-        };
-
-
-
-        // config.TokenValidationParameters = new TokenValidationParameters()
-        // {
-        //     ValidateAudience = false,
-        //     ValidateIssuer = false,
-        // };
-        // config.Events = new JwtBearerEvents()
-        // {
-        //     OnMessageReceived = (ctx) =>
-        //     {
-        //         if (ctx.Request.Query.ContainsKey("t"))
-        //         { 
-        //             ctx.Token = ctx.Request.Query["t"];
-        //         }
-        //
-        //         return Task.CompletedTask;
-        //     }
-        // };
-        // config.Configuration = new OpenIdConnectConfiguration()
-        // {
-        //     SigningKeys = 
-        //     {
-        //         new RsaSecurityKey(rsaKey)
-        //     }
-        // };
-        // config.MapInboundClaims = false;
-    });
-
-// Authorization
-builder.Services.AddAuthorization(o =>
-{
-    o.AddPolicy(UserRole.Admin, policy => policy.RequireRole(UserRole.Admin));
-    o.AddPolicy(UserRole.Company, policy => policy.RequireRole(UserRole.Company));
-    o.AddPolicy(UserRole.User, policy => policy.RequireRole(UserRole.User));
-});
-#endregion
+// Identity Authentication Authorization
+IdentityConfiguration.Configure(builder.Services, configuration);
 
 // Swagger
-#region Swagger
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.Configure<SwaggerGeneratorOptions>(opts =>
-{
-    opts.InferSecuritySchemes = true;
-});
-
-#endregion
+SwaggerConfiguration.Configure(builder.Services);
 
 
-builder.Services
-    .AddApplication();
+builder.Services.AddApplication();
 
 // Register services
 #region Register services
@@ -159,28 +36,15 @@ builder.Services
 // var logger = serviceProvider.GetService<ILogger<ScheduleDatabaseInvocable>>();
 // builder.Services.AddSingleton(typeof(ILogger), logger!);
 
+RepositoryConfiguration.Configure(builder.Services);
 
-// services
-builder.Services.AddTransient<IAccountService, AccountService>();
-builder.Services.AddTransient<ITestService, TestService>();
-builder.Services.AddTransient<ILogService, LogService>();
 
 #endregion
 
 // Rate Limiter
-builder.Services.AddRateLimiter(_ => _
-    .AddFixedWindowLimiter(policyName: "fixed", options =>
-    {
-        options.PermitLimit = 4;
-        options.Window = TimeSpan.FromSeconds(12);
-        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        options.QueueLimit = 2;
-    }));
-
+RateLimiterConfiguration.Configure(builder.Services);
 #endregion
 
-builder.Host.UseSerilog((context, loggerConfiguration) =>
-    loggerConfiguration.ReadFrom.Configuration(context.Configuration));
 
 // ============================ App ============================================
 #region App
@@ -281,21 +145,9 @@ app.MapGet("/jwt", () =>
 #endregion
 
 app.MapAccountRouts();
-
 #endregion
-// ============================ End Routes =====================================
 
-
-// ============================ FluentValidation ===============================
-#region FluentValidation
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly); 
-builder.Services.AddValidatorsFromAssembly(typeof(RequestLoginByPhoneAndPasswordValidator).Assembly); 
-builder.Services.AddValidatorsFromAssembly(typeof(RequestLoginByPhoneValidator).Assembly); 
-#endregion
-// ============================ End FluentValidation ============================
-
+//Fluent Validation
+FluentValidationConfiguration.Configure(builder.Services);
 
 app.Run();
-

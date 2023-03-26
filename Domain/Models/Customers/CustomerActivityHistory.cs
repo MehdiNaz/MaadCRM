@@ -3,8 +3,8 @@
 public class CustomerActivityHistory : BaseEntity
 {
     public Ulid CustomerActivityHistoryId { get; set; }
-    public int CustomerId { get; set; }
-    public int CustomerActivityId { get; set; }
+    public Ulid CustomerId { get; set; }
+    public Ulid CustomerActivityId { get; set; }
     public string Description { get; set; }
     public bool IsActivePoint { get; set; }
    

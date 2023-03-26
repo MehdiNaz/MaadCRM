@@ -16,5 +16,6 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
 
 
         builder.HasOne(x => x.CustomersCategories).WithMany(x => x.Customers).HasForeignKey(x => x.CategoryId);
+        builder.HasOne(x => x.Business).WithMany(x => x.Customers).HasForeignKey(x => x.BusinessId);
     }
 }
