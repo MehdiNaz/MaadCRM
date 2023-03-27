@@ -11,27 +11,48 @@ public class SanAtRepository : ISanAtRepository
 
     public async Task<ICollection<SanAt?>> GetAllSanAtsAsync() => (await _context.SanAts!.ToListAsync())!;
 
-    public async ValueTask<SanAt?> GetSanAtsByIdAsync(int sanAtId) => await _context.SanAts!.FindAsync(sanAtId);
+    public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId) => await _context.SanAts!.FindAsync(sanAtId);
 
-    public async ValueTask<SanAt?> CreateSanAtsAsync(SanAt? toCreate)
+    public async ValueTask<SanAt?> CreateSanAtsAsync(SanAt? entity)
     {
-        await _context.SanAts.AddAsync(toCreate);
-        await _context.SaveChangesAsync();
-        return toCreate;
+        try
+        {
+            await _context.SanAts!.AddAsync(entity!);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask<SanAt?> UpdateSanAtsAsync(string updateContent, int sanAtId)
+    public async ValueTask<SanAt?> UpdateSanAtsAsync(SanAt? entity, Ulid sanAtId)
     {
-        var sanAt = await GetSanAtsByIdAsync(sanAtId);
-        _context.Update(sanAt);
-        await _context.SaveChangesAsync();
-        return sanAt;
+        try
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask DeleteSanAtsAsync(int sanAtId)
+    public async ValueTask<SanAt?> DeleteSanAtsAsync(Ulid sanAtId)
     {
-        var sanAt = await GetSanAtsByIdAsync(sanAtId);
-        _context.SanAts.Remove(sanAt);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var sanAt = await GetSanAtsByIdAsync(sanAtId);
+            sanAt.IsDeleted = (byte)Status.Deleted;
+            await _context.SaveChangesAsync();
+            return sanAt;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

@@ -2,6 +2,11 @@
 
 public class Customer : BaseEntity
 {
+    public Customer()
+    {
+        IsDeleted = (byte)Status.NotDeleted;
+    }
+
     public Ulid CustomerId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }

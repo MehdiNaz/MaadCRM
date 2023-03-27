@@ -11,27 +11,48 @@ public class CustCategoryRepository : ICustCategoryRepository
 
     public async Task<ICollection<CustCategory?>> GetAllCustCategoryAsync() => (await _context.CustCategories!.ToListAsync())!;
 
-    public async ValueTask<CustCategory?> GetCustCategoryByIdAsync(int custCategoryId) => await _context.CustCategories!.FindAsync(custCategoryId);
+    public async ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId) => await _context.CustCategories!.FindAsync(custCategoryId);
 
-    public async ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? toCreate)
+    public async ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? entity)
     {
-        await _context.CustCategories!.AddAsync(toCreate);
-        await _context.SaveChangesAsync();
-        return toCreate;
+        try
+        {
+            await _context.CustCategories!.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask<CustCategory?> UpdateCustCategoryAsync(string updateContent, int custCategoryId)
+    public async ValueTask<CustCategory?> UpdateCustCategoryAsync(CustCategory entity, Ulid custCategoryId)
     {
-        var custCategory = await GetCustCategoryByIdAsync(custCategoryId);
-        _context.Update(custCategory);
-        await _context.SaveChangesAsync();
-        return custCategory;
+        try
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask DeleteCusCustomerAsync(int custCategoryId)
+    public async ValueTask<CustCategory?> DeleteCusCustomerAsync(Ulid custCategoryId)
     {
-        var custCategory = await GetCustCategoryByIdAsync(custCategoryId);
-        _context.CustCategories.Remove(custCategory);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var custCategory = await GetCustCategoryByIdAsync(custCategoryId);
+            custCategory.IsDeleted = (byte)Status.Deleted;
+            await _context.SaveChangesAsync();
+            return custCategory;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

@@ -11,20 +11,48 @@ public class MoarefRepository : IMoarefRepository
 
     public async Task<ICollection<Moaref?>> GetAllMoarefsAsync() => (await _context.Moarefs!.ToListAsync())!;
 
-    public async ValueTask<Moaref?> GetMoarefByIdAsync(int moarefId) => await _context.Moarefs!.FindAsync(moarefId);
+    public async ValueTask<Moaref?> GetMoarefByIdAsync(Ulid moarefId) => await _context.Moarefs!.FindAsync(moarefId);
 
-    public async ValueTask<Moaref?> CreateMoarefAsync(Moaref? toCreate)
+    public async ValueTask<Moaref?> CreateMoarefAsync(Moaref? entity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _context.Moarefs!.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask<Moaref?> UpdateMoarefAsync(string updateContent, int moarefId)
+    public async ValueTask<Moaref?> UpdateMoarefAsync(Moaref entity, Ulid moarefId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask DeleteMoarefAsync(int moarefId)
+    public async ValueTask<Moaref?> DeleteMoarefAsync(Ulid moarefId)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var item = await GetMoarefByIdAsync(moarefId);
+            item!.IsDeleted = (byte)Status.Deleted;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

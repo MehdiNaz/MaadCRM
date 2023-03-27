@@ -3,8 +3,8 @@
 public interface ICustomerRepository
 {
     Task<ICollection<Customer?>> GetAllCustomersAsync();
-    ValueTask<Customer?> GetCustomerByIdAsync(int customerId);
-    ValueTask<Customer?> CreateCustomerAsync(Customer? toCreate);
-    ValueTask<Customer?> UpdateCustomerAsync(string updateContent, int customerId);
-    ValueTask DeleteCustomerAsync(int customerId);
+    ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId);
+    ValueTask<Customer?> CreateCustomerAsync(Customer? entity);
+    ValueTask<Customer?> UpdateCustomerAsync(Customer entity, Ulid customerId);
+    ValueTask<Customer?> DeleteCustomerAsync(Ulid customerId);
 }

@@ -23,6 +23,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<BusinessAttribute>? BusinessAttributes { get; set; }
     public DbSet<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
     public DbSet<AttributeOptions>? AttributeOptions { get; set; }
+    public DbSet<PhoneNumber>? PhoneNumbers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

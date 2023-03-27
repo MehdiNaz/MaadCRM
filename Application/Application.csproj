@@ -23,8 +23,17 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\SpecialFields\" />
-      <Folder Include="Posts\Queries" />
-      <Folder Include="Posts\QueryHandlers" />
+      <Folder Include="Services\CustomerCategoryService\QueryHandlers\" />
+      <Folder Include="Services\CustomerService\Query\" />
+      <Folder Include="Services\MoarefService\CommandHandlers\" />
+      <Folder Include="Services\PhoneNumberService\CommandHandlers\" />
+      <Folder Include="Services\PhoneNumberService\Commands\" />
+      <Folder Include="Services\PhoneNumberService\Queries\" />
+      <Folder Include="Services\PhoneNumberService\QueryHandlers\" />
+      <Folder Include="Services\SanAtService\CommandHandlers\" />
+      <Folder Include="Services\SanAtService\Commands\" />
+      <Folder Include="Services\SanAtService\Queries\" />
+      <Folder Include="Services\SanAtService\QueryHandlers\" />
     </ItemGroup>
 
 </Project>

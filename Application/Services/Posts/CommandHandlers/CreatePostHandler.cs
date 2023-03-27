@@ -1,10 +1,6 @@
-using Application.Interfaces;
-using Application.Posts.Commands;
-using MediatR;
+namespace Application.Services.Posts.CommandHandlers;
 
-namespace Application.Posts.CommandHandelers;
-
-public class CreatePostCommandHandler:IRequestHandler<CreatePostCommand, Post>
+public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Post>
 {
     private readonly IPostRepository _postRepository;
     public CreatePostCommandHandler(IPostRepository postRepository)

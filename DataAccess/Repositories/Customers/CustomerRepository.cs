@@ -10,27 +10,48 @@ public class CustomerRepository : ICustomerRepository
     }
 
     public async Task<ICollection<Customer?>> GetAllCustomersAsync() => (await _context.Customers!.ToListAsync())!;
-    public async ValueTask<Customer?> GetCustomerByIdAsync(int customerId) => await _context.Customers!.FindAsync(customerId);
+    public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
 
-    public async ValueTask<Customer?> CreateCustomerAsync(Customer? toCreate)
+    public async ValueTask<Customer?> CreateCustomerAsync(Customer? entity)
     {
-        await _context.Customers!.AddAsync(toCreate);
-        await _context.SaveChangesAsync();
-        return toCreate;
+        try
+        {
+            await _context.Customers!.AddAsync(entity!);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask<Customer?> UpdateCustomerAsync(string updateContent, int customerId)
+    public async ValueTask<Customer?> UpdateCustomerAsync(Customer entity, Ulid customerId)
     {
-        var customer = await GetCustomerByIdAsync(customerId);
-        _context.Update(customer);
-        await _context.SaveChangesAsync();
-        return customer;
+        try
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async ValueTask DeleteCustomerAsync(int customerId)
+    public async ValueTask<Customer?> DeleteCustomerAsync(Ulid customerId)
     {
-        var customer = await GetCustomerByIdAsync(customerId);
-        _context.Customers.Remove(customer);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var customer = await GetCustomerByIdAsync(customerId);
+            customer!.IsDeleted = (byte)Status.Deleted;
+            await _context.SaveChangesAsync();
+            return customer;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

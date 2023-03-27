@@ -1,8 +1,6 @@
-using MediatR;
-
-namespace Application.Posts.Queries;
+namespace Application.Services.Posts.Queries;
 
 public class GetAllPostsQuery : IRequest<ICollection<Post?>>
 {
-    
+
 }

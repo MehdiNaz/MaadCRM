@@ -3,8 +3,8 @@
 public interface ICustCategoryRepository
 {
     Task<ICollection<CustCategory?>> GetAllCustCategoryAsync();
-    ValueTask<CustCategory?> GetCustCategoryByIdAsync(int custCategoryId);
-    ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? toCreate);
-    ValueTask<CustCategory?> UpdateCustCategoryAsync(string updateContent, int custCategoryId);
-    ValueTask DeleteCusCustomerAsync(int custCategoryId);
+    ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId);
+    ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? entity);
+    ValueTask<CustCategory?> UpdateCustCategoryAsync(CustCategory entity, Ulid custCategoryId);
+    ValueTask<CustCategory?> DeleteCusCustomerAsync(Ulid custCategoryId);
 }

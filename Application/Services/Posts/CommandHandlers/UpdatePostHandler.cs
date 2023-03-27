@@ -1,10 +1,6 @@
-using Application.Interfaces;
-using Application.Posts.Commands;
-using MediatR;
+namespace Application.Services.Posts.CommandHandlers;
 
-namespace Application.Posts.CommandHandelers;
-
-public class UpdatePostHandler:IRequestHandler<UpdatePostCommand, Post>
+public class UpdatePostHandler : IRequestHandler<UpdatePostCommand, Post>
 {
     private readonly IPostRepository _postRepository;
     public UpdatePostHandler(IPostRepository postRepository)

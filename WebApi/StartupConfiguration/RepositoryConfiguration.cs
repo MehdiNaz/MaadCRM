@@ -10,6 +10,7 @@ public static class RepositoryConfiguration
         //Application ==> Interfaces :
         collection.AddTransient<ICustCategoryRepository, CustCategoryRepository>();
         collection.AddTransient<ICustomerRepository, CustomerRepository>();
+        collection.AddTransient<IPhoneNumberRepository, PhoneNumberRepository>();
         collection.AddTransient<ILogService, LogService>();
         collection.AddTransient<IMoarefRepository, MoarefRepository>();
         collection.AddTransient<IPlanRepository, PlanRepository>();

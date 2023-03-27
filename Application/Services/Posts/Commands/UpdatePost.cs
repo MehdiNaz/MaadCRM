@@ -1,6 +1,4 @@
-using MediatR;
-
-namespace Application.Posts.Commands;
+namespace Application.Services.Posts.Commands;
 
 public class UpdatePostCommand : IRequest<Post>
 {
