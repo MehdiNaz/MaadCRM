@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 namespace WebApi.Routes;
 
 public static class AccountRouts

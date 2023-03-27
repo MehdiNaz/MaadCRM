@@ -1,5 +1,3 @@
-// Global using directives
-
 global using Application.Interfaces;
 global using Application.Interfaces.Customers;
 global using Application.Interfaces.SpecialFields;
@@ -14,4 +12,3 @@ global using Domain.Models.General;
 global using Domain.Models.SpecialFields;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
-global using Microsoft.EntityFrameworkCore.Metadata.Builders;

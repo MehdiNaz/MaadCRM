@@ -1,5 +1,3 @@
-using Application.Services.Posts.Queries;
-
 namespace Application.Services.Posts.QueryHandlers;
 
 public class GetAllPostsHandler : IRequestHandler<GetAllPostsQuery, ICollection<Post?>>

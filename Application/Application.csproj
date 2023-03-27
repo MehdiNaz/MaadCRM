@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
-      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="MediatR" Version="11.1.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
@@ -20,20 +20,4 @@
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Interfaces\SpecialFields\" />
-      <Folder Include="Services\CustomerCategoryService\QueryHandlers\" />
-      <Folder Include="Services\CustomerService\Query\" />
-      <Folder Include="Services\MoarefService\CommandHandlers\" />
-      <Folder Include="Services\PhoneNumberService\CommandHandlers\" />
-      <Folder Include="Services\PhoneNumberService\Commands\" />
-      <Folder Include="Services\PhoneNumberService\Queries\" />
-      <Folder Include="Services\PhoneNumberService\QueryHandlers\" />
-      <Folder Include="Services\SanAtService\CommandHandlers\" />
-      <Folder Include="Services\SanAtService\Commands\" />
-      <Folder Include="Services\SanAtService\Queries\" />
-      <Folder Include="Services\SanAtService\QueryHandlers\" />
-    </ItemGroup>
-
 </Project>

@@ -1,5 +1,3 @@
-// Global using directives
-
 global using Application.Requests;
 global using Application.Responses;
 global using Domain.Enum;
@@ -22,10 +20,13 @@ global using Application.Services.MoarefService.Commands;
 global using Application.Services.MoarefService.Queries;
 global using Application.Services.PhoneNumberService.Commands;
 global using Application.Services.PhoneNumberService.Queries;
-global using Application.Services.Posts.Commands;
 global using Application.Services.SanAtService.Commands;
 global using Application.Services.SanAtService.Queries;
 global using Domain.Models;
 global using Domain.Models.Customers;
+global using MediatR;
+global using Application.Interfaces;
+global using Application.Services.Posts.Commands;
+global using Application.Services.Posts.Queries;
 global using Domain.Models.SpecialFields;
 global using MediatR;

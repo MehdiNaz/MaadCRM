@@ -1,5 +1,3 @@
-using Microsoft.OpenApi.Models;
-
 namespace MaadApi;
 
 // ReSharper disable once InconsistentNaming

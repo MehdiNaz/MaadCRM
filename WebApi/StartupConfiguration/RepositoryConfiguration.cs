@@ -4,6 +4,12 @@ public static class RepositoryConfiguration
 {
     public static void Configure(IServiceCollection collection)
     {
+        // builder.Services.AddTransient<ScheduleDatabaseInvocable>();
+
+        // var serviceProvider = builder.Services.BuildServiceProvider();
+        // var logger = serviceProvider.GetService<ILogger<ScheduleDatabaseInvocable>>();
+        // builder.Services.AddSingleton(typeof(ILogger), logger!);
+
         collection.AddTransient<IAccountService, AccountService>();
         collection.AddTransient<ITestService, TestService>();
 

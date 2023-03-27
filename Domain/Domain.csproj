@@ -14,9 +14,4 @@
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
       <PackageReference Include="Ulid" Version="1.2.6" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Validator\" />
-    </ItemGroup>
-
 </Project>
