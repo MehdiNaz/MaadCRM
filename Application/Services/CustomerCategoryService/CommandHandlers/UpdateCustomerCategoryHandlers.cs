@@ -14,7 +14,6 @@ public class UpdateCustomerCategoryHandlers : IRequestHandler<UpdateCustomerCate
         CustCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
-            IsDeleted = request.IsDeleted,
             IsShown = request.IsShown,
             CategoryId = request.CategoryId
         };

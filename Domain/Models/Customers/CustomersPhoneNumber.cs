@@ -1,8 +1,8 @@
 ﻿namespace Domain.Models.Customers;
 
-public class PhoneNumber : BaseEntity
+public class CustomersPhoneNumber : BaseEntity
 {
-    public PhoneNumber()
+    public CustomersPhoneNumber()
     {
         IsDeleted = (byte)Status.NotDeleted;
     }
@@ -16,5 +16,5 @@ public class PhoneNumber : BaseEntity
 
     //[ForeignKey(nameof(CustomerId))]
 
-    public Customer Customer { get; set; }
+    public ICollection<Customer> Customers { get; set; }
 }

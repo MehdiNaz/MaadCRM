@@ -9,7 +9,8 @@ public class SanAtRepository : ISanAtRepository
         _context = context;
     }
 
-    public async Task<ICollection<SanAt?>> GetAllSanAtsAsync() => (await _context.SanAts!.ToListAsync())!;
+    public async Task<ICollection<SanAt?>> GetAllSanAtsAsync()
+        => (await _context.SanAts!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
 
     public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId) => await _context.SanAts!.FindAsync(sanAtId);
 

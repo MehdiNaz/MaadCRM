@@ -16,7 +16,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, Cust
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate,
-            Email = request.Email,
+            EmailId = request.EmailId,
             PhoneNumberId = request.PhoneNumberId,
             AddressId = request.AddressId,
             CityId = request.CityId,
@@ -25,11 +25,8 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, Cust
             CategoryId = request.CategoryId,
             WishProductId = request.WishProductId,
             ProfileImageId = request.ProfileImageId,
-            BusinessId = request.BusinessId,
-            CustomerRepresentativeHistoryId = request.CustomerRepresentativeHistoryId,
             MoarefId = request.MoarefId,
-            CustomerState = request.CustomerState,
-            IsDeleted = request.IsDeleted,
+            CustomerStatues = request.CustomerState,
             Gender = request.Gender
         };
         await _repository.CreateCustomerAsync(item);

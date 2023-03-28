@@ -1,22 +1,21 @@
 ﻿namespace Application.Services.PhoneNumberService.CommandHandlers;
 
-public class UpdatePhoneNumberHandler : IRequestHandler<UpdatePhoneNumberCommand, PhoneNumber>
+public class UpdatePhoneNumberHandler : IRequestHandler<UpdatePhoneNumberCommand, CustomersPhoneNumber>
 {
-    private readonly IPhoneNumberRepository _repository;
+    private readonly ICustomersPhoneNumberRepository _repository;
 
-    public UpdatePhoneNumberHandler(IPhoneNumberRepository repository)
+    public UpdatePhoneNumberHandler(ICustomersPhoneNumberRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<PhoneNumber> Handle(UpdatePhoneNumberCommand request, CancellationToken cancellationToken)
+    public async Task<CustomersPhoneNumber> Handle(UpdatePhoneNumberCommand request, CancellationToken cancellationToken)
     {
-        PhoneNumber item = new()
+        CustomersPhoneNumber item = new()
         {
             PhoneNo = request.PhoneNo,
             PhoneType = request.PhoneType,
-            CustomerId = request.CustomerId,
-            IsDeleted = request.IsDeleted
+            CustomerId = request.CustomerId
         };
         await _repository.UpdatePhoneNumberAsync(item, request.PhoneNumberId);
         return item;

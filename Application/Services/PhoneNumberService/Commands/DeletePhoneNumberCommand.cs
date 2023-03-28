@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PhoneNumberService.Commands;
 
-public class DeletePhoneNumberCommand : IRequest<PhoneNumber>
+public class DeletePhoneNumberCommand : IRequest<CustomersPhoneNumber>
 {
     public Ulid PhoneNumberId { get; set; }
 }

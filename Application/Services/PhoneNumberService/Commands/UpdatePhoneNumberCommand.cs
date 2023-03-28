@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PhoneNumberService.Commands;
 
-public class UpdatePhoneNumberCommand : IRequest<PhoneNumber>
+public class UpdatePhoneNumberCommand : IRequest<CustomersPhoneNumber>
 {
     public Ulid PhoneNumberId { get; set; }
     public string PhoneNo { get; set; }

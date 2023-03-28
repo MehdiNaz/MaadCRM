@@ -62,6 +62,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
+global using Application.Interfaces.Contacts;
 // global using Microsoft.AspNetCore.Authentication;
 // global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -89,6 +90,8 @@ global using Domain.Enum;
 global using Domain.Identity;
 global using Application.Services;
 global using Application.Requests;
+global using Application.Validator.Contacts;
+global using DataAccess.Repositories.Contacts;
 global using Version = Domain.Class.Version;
 
 global using WebApi.StartupConfiguration;

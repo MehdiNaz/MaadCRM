@@ -1,19 +1,20 @@
 ﻿namespace DataAccess.Repositories.Customers;
 
-public class PhoneNumberRepository : IPhoneNumberRepository
+public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
 {
     private readonly MaadContext _context;
 
-    public PhoneNumberRepository(MaadContext context)
+    public CustomersPhoneNumberRepository(MaadContext context)
     {
         _context = context;
     }
 
-    public async ValueTask<ICollection<PhoneNumber?>> GetAllPhoneNumbersAsync() => (await _context.PhoneNumbers!.ToListAsync())!;
+    public async ValueTask<ICollection<CustomersPhoneNumber?>> GetAllPhoneNumbersAsync()
+        => (await _context.PhoneNumbers!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
 
-    public async ValueTask<PhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId) => await _context.PhoneNumbers!.FindAsync(phoneNumberId);
+    public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId) => await _context.PhoneNumbers!.FindAsync(phoneNumberId);
 
-    public async ValueTask<PhoneNumber?> CreatePhoneNumberAsync(PhoneNumber? entity)
+    public async ValueTask<CustomersPhoneNumber?> CreatePhoneNumberAsync(CustomersPhoneNumber? entity)
     {
         try
         {
@@ -27,7 +28,7 @@ public class PhoneNumberRepository : IPhoneNumberRepository
         }
     }
 
-    public async ValueTask<PhoneNumber?> UpdatePhoneNumberAsync(PhoneNumber entity, Ulid phoneNumberId)
+    public async ValueTask<CustomersPhoneNumber?> UpdatePhoneNumberAsync(CustomersPhoneNumber entity, Ulid phoneNumberId)
     {
         try
         {
@@ -41,7 +42,7 @@ public class PhoneNumberRepository : IPhoneNumberRepository
         }
     }
 
-    public async ValueTask<PhoneNumber?> DeletePhoneNumberAsync(Ulid phoneNumberId)
+    public async ValueTask<CustomersPhoneNumber?> DeletePhoneNumberAsync(Ulid phoneNumberId)
     {
         try
         {

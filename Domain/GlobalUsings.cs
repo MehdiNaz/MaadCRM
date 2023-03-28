@@ -4,6 +4,7 @@ global using Domain.Enum;
 global using Domain.Identity;
 global using Domain.Models;
 global using Domain.Models.Address;
+global using Domain.Models.Contacts;
 global using Domain.Models.Customers;
 global using Domain.Models.General;
 global using Domain.Models.Notes;

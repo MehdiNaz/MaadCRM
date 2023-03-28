@@ -9,7 +9,8 @@ public class MoarefRepository : IMoarefRepository
         _context = context;
     }
 
-    public async Task<ICollection<Moaref?>> GetAllMoarefsAsync() => (await _context.Moarefs!.ToListAsync())!;
+    public async Task<ICollection<Moaref?>> GetAllMoarefsAsync()
+        => (await _context.Moarefs!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
 
     public async ValueTask<Moaref?> GetMoarefByIdAsync(Ulid moarefId) => await _context.Moarefs!.FindAsync(moarefId);
 

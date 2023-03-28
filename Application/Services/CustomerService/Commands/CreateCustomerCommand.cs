@@ -5,7 +5,7 @@ public class CreateCustomerCommand : IRequest<Customer>
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime BirthDayDate { get; set; }
-    public string Email { get; set; }
+    public Ulid EmailId { get; set; }
     public Ulid PhoneNumberId { get; set; }
     public Ulid AddressId { get; set; }
     public Ulid CityId { get; set; }

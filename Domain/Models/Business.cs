@@ -11,10 +11,12 @@ public class Business : BaseEntity
     public bool SslEnabled { get; set; }
     public int DisplayOrder { get; set; } = 0;
     public Ulid UserId { get; set; }
+    public Ulid CustomerId { get; set; }
     //[ForeignKey(nameof(UserId))]
 
     public ApplicationUser User { get; set; }
+    public Customer Customer { get; set; }
+    public ContactGroup ContactGroup{ get; set; }
     public ICollection<Setting> Setting { get; set; }
-    public ICollection<Customer> Customers { get; set; }
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
 }

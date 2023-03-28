@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PhoneNumberService.Commands;
 
-public class CreatePhoneNumberCommand : IRequest<PhoneNumber>
+public class CreatePhoneNumberCommand : IRequest<CustomersPhoneNumber>
 {
     public string PhoneNo { get; set; }
     public int PhoneType { get; set; }

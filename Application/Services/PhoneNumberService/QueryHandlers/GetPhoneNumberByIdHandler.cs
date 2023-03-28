@@ -1,14 +1,14 @@
 ﻿namespace Application.Services.PhoneNumberService.QueryHandlers;
 
-public class GetPhoneNumberByIdHandler : IRequestHandler<GetPhoneNumberById, PhoneNumber?>
+public class GetPhoneNumberByIdHandler : IRequestHandler<GetPhoneNumberById, CustomersPhoneNumber?>
 {
-    private readonly IPhoneNumberRepository _repository;
+    private readonly ICustomersPhoneNumberRepository _repository;
 
-    public GetPhoneNumberByIdHandler(IPhoneNumberRepository repository)
+    public GetPhoneNumberByIdHandler(ICustomersPhoneNumberRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<PhoneNumber?> Handle(GetPhoneNumberById request, CancellationToken cancellationToken)
+    public async Task<CustomersPhoneNumber?> Handle(GetPhoneNumberById request, CancellationToken cancellationToken)
         => await _repository.GetPhoneNumberByIdAsync(request.PhoneNumberId);
 }

@@ -1,22 +1,21 @@
 ﻿namespace Application.Services.PhoneNumberService.CommandHandlers;
 
-public class CreatePhoneNumberHandler : IRequestHandler<CreatePhoneNumberCommand, PhoneNumber>
+public class CreatePhoneNumberHandler : IRequestHandler<CreatePhoneNumberCommand, CustomersPhoneNumber>
 {
-    private readonly IPhoneNumberRepository _repository;
+    private readonly ICustomersPhoneNumberRepository _repository;
 
-    public CreatePhoneNumberHandler(IPhoneNumberRepository repository)
+    public CreatePhoneNumberHandler(ICustomersPhoneNumberRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<PhoneNumber> Handle(CreatePhoneNumberCommand request, CancellationToken cancellationToken)
+    public async Task<CustomersPhoneNumber> Handle(CreatePhoneNumberCommand request, CancellationToken cancellationToken)
     {
-        PhoneNumber item = new()
+        CustomersPhoneNumber item = new()
         {
             PhoneNo = request.PhoneNo,
             PhoneType = request.PhoneType,
-            CustomerId = request.CustomerId,
-            IsDeleted = request.IsDeleted
+            CustomerId = request.CustomerId
         };
         await _repository.CreatePhoneNumberAsync(item);
         return item;

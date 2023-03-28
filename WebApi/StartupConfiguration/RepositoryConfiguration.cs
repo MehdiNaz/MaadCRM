@@ -16,7 +16,8 @@ public static class RepositoryConfiguration
         //Application ==> Interfaces :
         collection.AddTransient<ICustCategoryRepository, CustCategoryRepository>();
         collection.AddTransient<ICustomerRepository, CustomerRepository>();
-        collection.AddTransient<IPhoneNumberRepository, PhoneNumberRepository>();
+        collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
+        collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();
         collection.AddTransient<ILogService, LogService>();
         collection.AddTransient<IMoarefRepository, MoarefRepository>();
         collection.AddTransient<IPlanRepository, PlanRepository>();
@@ -29,5 +30,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<IAttributeOptionsValueRepository, AttributeOptionsValueRepository>();
         collection.AddTransient<IBusinessAttributeRepository, BusinessAttributeRepository>();
         collection.AddTransient<ICategoryAttributeRepository, CategoryAttributeRepository>();
+
+        collection.AddTransient<IContactGroupRepository, ContactGroupRepository>();
     }
 }

@@ -9,7 +9,9 @@ public class CustomerRepository : ICustomerRepository
         _context = aadContext;
     }
 
-    public async Task<ICollection<Customer?>> GetAllCustomersAsync() => (await _context.Customers!.ToListAsync())!;
+    public async Task<ICollection<Customer?>> GetAllCustomersAsync()
+        => (await _context.Customers!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
 
     public async ValueTask<Customer?> CreateCustomerAsync(Customer? entity)

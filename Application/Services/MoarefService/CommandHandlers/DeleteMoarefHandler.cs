@@ -2,7 +2,7 @@
 
 public class DeleteMoarefHandler : IRequestHandler<DeleteMoarefCommand, Moaref>
 {
-    IMoarefRepository _repository;
+    private readonly IMoarefRepository _repository;
 
     public DeleteMoarefHandler(IMoarefRepository repository)
     {

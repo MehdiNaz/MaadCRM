@@ -15,7 +15,6 @@ public class CreateSanAtHandler : IRequestHandler<CreateSanAtCommand, SanAt>
         {
             SanAtName = request.SanAtName,
             IdUser = request.IdUser,
-            IsDeleted = request.IsDeleted
         };
         await _repository.CreateSanAtsAsync(item);
         throw new NotImplementedException();

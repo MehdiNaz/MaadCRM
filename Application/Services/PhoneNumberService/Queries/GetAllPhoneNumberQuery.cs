@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.PhoneNumberService.Queries;
 
-public class GetAllPhoneNumberQuery : IRequest<ICollection<PhoneNumber?>>
+public class GetAllPhoneNumberQuery : IRequest<ICollection<CustomersPhoneNumber?>>
 {
 }

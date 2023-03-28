@@ -23,7 +23,9 @@ public class MaadContext : IdentityDbContext
     public DbSet<BusinessAttribute>? BusinessAttributes { get; set; }
     public DbSet<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
     public DbSet<AttributeOptions>? AttributeOptions { get; set; }
-    public DbSet<PhoneNumber>? PhoneNumbers { get; set; }
+    public DbSet<CustomersPhoneNumber>? PhoneNumbers { get; set; }
+    public DbSet<CustomersEmailAddress>? EmailAddresses { get; set; }
+    public DbSet<ContactGroup>? ContactGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -35,7 +37,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CustomerRepresentativeHistoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeTypeMapping());
         builder.ApplyConfiguration(new CustomerSubmissionMapping());
-        builder.ApplyConfiguration(new PhoneNumberMapping());
+        builder.ApplyConfiguration(new CustomersPhoneNumberMapping());
         builder.ApplyConfiguration(new AddressMapping());
         builder.ApplyConfiguration(new CityMapping());
         builder.ApplyConfiguration(new CountryMapping());
@@ -51,6 +53,8 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new BusinessAttributeMapping());
         builder.ApplyConfiguration(new CategoryAttributeMapping());
         builder.ApplyConfiguration(new AttributeOptionsMapping());
+        builder.ApplyConfiguration(new CustomersEmailAddressMapping());
+        builder.ApplyConfiguration(new ContactGroupMapping());
         base.OnModelCreating(builder);
     }
 }

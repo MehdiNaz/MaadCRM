@@ -9,7 +9,8 @@ public class CustCategoryRepository : ICustCategoryRepository
         _context = context;
     }
 
-    public async Task<ICollection<CustCategory?>> GetAllCustCategoryAsync() => (await _context.CustCategories!.ToListAsync())!;
+    public async Task<ICollection<CustCategory?>> GetAllCustCategoryAsync()
+        => (await _context.CustCategories!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
 
     public async ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId) => await _context.CustCategories!.FindAsync(custCategoryId);
 

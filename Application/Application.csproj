@@ -20,4 +20,12 @@
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Interfaces\Contacts\" />
+      <Folder Include="Services\ContactGroupService\Commands\" />
+      <Folder Include="Services\ContactGroupService\QueryHandler\" />
+      <Folder Include="Services\ContactGroupService\Queries\" />
+      <Folder Include="Validator\Contacts\" />
+    </ItemGroup>
 </Project>
