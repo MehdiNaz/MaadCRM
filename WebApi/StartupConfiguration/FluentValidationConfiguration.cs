@@ -20,6 +20,9 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(SanAtValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactGroupValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ContactValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ContactPhoneNumberValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ContactsEmailAddressValidation).Assembly);
 
     }
 }

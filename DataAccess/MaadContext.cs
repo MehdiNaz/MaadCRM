@@ -26,6 +26,9 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomersPhoneNumber>? PhoneNumbers { get; set; }
     public DbSet<CustomersEmailAddress>? EmailAddresses { get; set; }
     public DbSet<ContactGroup>? ContactGroups { get; set; }
+    public DbSet<Contact>? Contacts { get; set; }
+    public DbSet<ContactPhoneNumber>? ContactPhoneNumbers { get; set; }
+    public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -55,6 +58,9 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new AttributeOptionsMapping());
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());
+        builder.ApplyConfiguration(new ContactMapping());
+        builder.ApplyConfiguration(new ContactPhoneNumberMapping());
+        builder.ApplyConfiguration(new ContactsEmailAddressMapping());
         base.OnModelCreating(builder);
     }
 }

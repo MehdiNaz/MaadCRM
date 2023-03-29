@@ -1,0 +1,22 @@
+﻿namespace Application.Services.ContactPhoneNumberService.CommandHandler;
+
+public class UpdateContactPhoneNumberHandler : IRequestHandler<UpdateContactPhoneNumberCommand, ContactPhoneNumber>
+{
+    private readonly IContactPhoneNumberRepository _repository;
+
+    public UpdateContactPhoneNumberHandler(IContactPhoneNumberRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<ContactPhoneNumber> Handle(UpdateContactPhoneNumberCommand request, CancellationToken cancellationToken)
+    {
+        ContactPhoneNumber item = new()
+        {
+            PhoneNo = request.PhoneNo,
+            CustomerId = request.CustomerId
+        };
+        await _repository.UpdateContactPhoneNumberAsync(item, request.ContactPhoneNumberId);
+        return item;
+    }
+}

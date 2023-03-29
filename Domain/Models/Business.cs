@@ -18,5 +18,6 @@ public class Business : BaseEntity
     public Customer Customer { get; set; }
     public ContactGroup ContactGroup{ get; set; }
     public ICollection<Setting> Setting { get; set; }
+    public ICollection<Contact> Contacts{ get; set; }
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
 }

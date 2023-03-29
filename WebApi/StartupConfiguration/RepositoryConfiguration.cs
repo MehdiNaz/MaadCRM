@@ -32,5 +32,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICategoryAttributeRepository, CategoryAttributeRepository>();
 
         collection.AddTransient<IContactGroupRepository, ContactGroupRepository>();
+        collection.AddTransient<IContactRepository, ContactRepository>();
+        collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
+        collection.AddTransient<IContactsEmailAddressRepository, ContactsEmailAddressRepository>();
     }
 }

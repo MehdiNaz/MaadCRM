@@ -12,6 +12,6 @@ public class ContactGroup : BaseEntity
     public int DisplayOrder { get; set; }
     public byte IsDeleted { get; set; }
 
-    public ICollection<Contact> Contact { get; set; }
+    public ICollection<Contact> Contacts { get; set; }
     public ICollection<Business> Businesses { get; set; }
 }

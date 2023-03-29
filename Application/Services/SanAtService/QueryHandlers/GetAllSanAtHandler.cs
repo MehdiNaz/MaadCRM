@@ -1,10 +1,10 @@
 ﻿namespace Application.Services.SanAtService.QueryHandlers;
 
-public class GetAllSanAtHandler : IRequestHandler<GetAllSanAtQuery, ICollection<SanAt?>>
+public class GetAllContactHandler : IRequestHandler<GetAllSanAtQuery, ICollection<SanAt?>>
 {
     private readonly ISanAtRepository _repository;
 
-    public GetAllSanAtHandler(ISanAtRepository repository)
+    public GetAllContactHandler(ISanAtRepository repository)
     {
         _repository = repository;
     }
