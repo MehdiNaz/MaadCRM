@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.Commands;
 
-public class DeleteContactCommand : IRequest<Contact>
+public struct DeleteContactCommand : IRequest<Contact>
 {
     public Ulid ContactId { get; set; }
 }

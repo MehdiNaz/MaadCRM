@@ -10,7 +10,7 @@ public class MoarefRepository : IMoarefRepository
     }
 
     public async Task<ICollection<Moaref?>> GetAllMoarefsAsync()
-        => (await _context.Moarefs!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.Moarefs!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<Moaref?> GetMoarefByIdAsync(Ulid moarefId) => await _context.Moarefs!.FindAsync(moarefId);
 
@@ -47,7 +47,7 @@ public class MoarefRepository : IMoarefRepository
         try
         {
             var item = await GetMoarefByIdAsync(moarefId);
-            item!.IsDeleted = (byte)Status.Deleted;
+            item!.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return item;
         }

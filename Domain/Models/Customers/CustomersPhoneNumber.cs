@@ -4,17 +4,18 @@ public class CustomersPhoneNumber : BaseEntity
 {
     public CustomersPhoneNumber()
     {
-        IsDeleted = (byte)Status.NotDeleted;
+        IsDeleted = Status.NotDeleted;
+        IsShown = ShowTypes.Show;
     }
 
     public Ulid PhoneNumberId { get; set; }
     public string PhoneNo { get; set; }
-    public int PhoneType { get; set; }
+    public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
-    public byte IsDeleted { get; set; }
+    public Status IsDeleted { get; set; }
+    public ShowTypes IsShown { get; set; }
 
 
     //[ForeignKey(nameof(CustomerId))]
-
     public ICollection<Customer> Customers { get; set; }
 }

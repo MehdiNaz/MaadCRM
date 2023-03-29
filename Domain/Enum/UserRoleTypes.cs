@@ -1,6 +1,6 @@
 namespace Domain.Enum;
 
-public static class UserRole
+public static class UserRoleTypes
 {
     public const string Admin = "Admin";
     public const string Company = "Company";

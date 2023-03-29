@@ -10,7 +10,7 @@ public class CustomerRepository : ICustomerRepository
     }
 
     public async Task<ICollection<Customer?>> GetAllCustomersAsync()
-        => (await _context.Customers!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.Customers!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
 
@@ -47,7 +47,7 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var customer = await GetCustomerByIdAsync(customerId);
-            customer!.IsDeleted = (byte)Status.Deleted;
+            customer!.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return customer;
         }

@@ -11,5 +11,5 @@ public class CustomerSubmission : BaseEntity
     //[ForeignKey(nameof(CustomerId))]
     public Customer Customers { get; set; }
     //[ForeignKey(nameof(UserId))]
-    public ApplicationUser Users { get; set; }
+    public User Users { get; set; }
 }

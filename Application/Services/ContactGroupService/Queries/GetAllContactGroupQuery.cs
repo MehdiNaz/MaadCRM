@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.ContactGroupService.Queries;
 
-public class GetAllContactGroupQuery: IRequest<ICollection<ContactGroup>>
+public struct GetAllContactGroupQuery: IRequest<ICollection<ContactGroup>>
 {
 }

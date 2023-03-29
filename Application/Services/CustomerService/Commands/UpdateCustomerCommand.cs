@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Commands;
 
-public class UpdateCustomerCommand : IRequest<Customer>
+public struct UpdateCustomerCommand : IRequest<Customer>
 {
     public Ulid CustomerId { get; set; }
     public string FirstName { get; set; }
@@ -19,7 +19,5 @@ public class UpdateCustomerCommand : IRequest<Customer>
     public Ulid CustomerRepresentativeHistoryId { get; set; }
     public Ulid MoarefId { get; set; }
     public Ulid CategoryId { get; set; }
-    public byte CustomerState { get; set; }
-    public byte IsDeleted { get; set; }
-    public byte Gender { get; set; }
+    public GenderTypes Gender { get; set; }
 }

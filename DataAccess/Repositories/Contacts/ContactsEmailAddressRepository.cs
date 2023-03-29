@@ -10,7 +10,7 @@ public class ContactsEmailAddressRepository : IContactsEmailAddressRepository
     }
 
     public async ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync()
-        => (await _context.ContactsEmailAddresses!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.ContactsEmailAddresses!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId) => await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
 
@@ -48,7 +48,7 @@ public class ContactsEmailAddressRepository : IContactsEmailAddressRepository
         try
         {
             var contactsEmailAddress = await GetContactsEmailAddressByIdAsync(contactsEmailAddressId);
-            contactsEmailAddress!.IsDeleted = (byte)Status.Deleted;
+            contactsEmailAddress!.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactsEmailAddress;
         }

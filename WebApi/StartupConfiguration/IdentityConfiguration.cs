@@ -4,7 +4,7 @@ public static class IdentityConfiguration
 {
     public static void Configure(IServiceCollection collection, ConfigurationManager configuration)
     {
-        collection.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        collection.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
@@ -84,9 +84,9 @@ public static class IdentityConfiguration
 
         collection.AddAuthorization(o =>
         {
-            o.AddPolicy(UserRole.Admin, policy => policy.RequireRole(UserRole.Admin));
-            o.AddPolicy(UserRole.Company, policy => policy.RequireRole(UserRole.Company));
-            o.AddPolicy(UserRole.User, policy => policy.RequireRole(UserRole.User));
+            o.AddPolicy(UserRoleTypes.Admin, policy => policy.RequireRole(UserRoleTypes.Admin));
+            o.AddPolicy(UserRoleTypes.Company, policy => policy.RequireRole(UserRoleTypes.Company));
+            o.AddPolicy(UserRoleTypes.User, policy => policy.RequireRole(UserRoleTypes.User));
         });
     }
 }

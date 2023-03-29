@@ -10,7 +10,7 @@ public class SanAtRepository : ISanAtRepository
     }
 
     public async Task<ICollection<SanAt?>> GetAllSanAtsAsync()
-        => (await _context.SanAts!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.SanAts!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId) => await _context.SanAts!.FindAsync(sanAtId);
 
@@ -47,7 +47,7 @@ public class SanAtRepository : ISanAtRepository
         try
         {
             var sanAt = await GetSanAtsByIdAsync(sanAtId);
-            sanAt.IsDeleted = (byte)Status.Deleted;
+            sanAt.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return sanAt;
         }

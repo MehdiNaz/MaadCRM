@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Commands;
 
-public class CreateCustomerCommand : IRequest<Customer>
+public struct CreateCustomerCommand : IRequest<Customer>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -18,7 +18,5 @@ public class CreateCustomerCommand : IRequest<Customer>
     public Ulid CustomerRepresentativeHistoryId { get; set; }
     public Ulid MoarefId { get; set; }
     public Ulid CategoryId { get; set; }
-    public byte CustomerState { get; set; }
-    public byte IsDeleted { get; set; }
-    public byte Gender { get; set; }
+    public GenderTypes Gender { get; set; }
 }

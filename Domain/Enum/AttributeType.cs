@@ -1,21 +1,21 @@
 namespace Domain.Enum;
 
-public enum AttributeControlType
+public enum AttributeType
 {
     [Display(Name = "فهرست کشویی")]
     DropDownList = 1,
     [Display(Name = "دکمه های رادیویی")]
     RadioButtonList = 2,
     [Display(Name = "کادر انتخابی (checkboxs)")]
-    CheckBoxList =3,
+    CheckBoxList = 3,
     [Display(Name = "کادر متنی")]
-    TextBox =4,
+    TextBox = 4,
     [Display(Name = "کادر متنی چند خطی")]
-    MultilineText =5,
+    MultilineText = 5,
     [Display(Name = "انتخاب تاریخ")]
-    DatePicker =6,
+    DatePicker = 6,
     [Display(Name = "بارگذاری فایل")]
-    UploadFile =7,
+    UploadFile = 7,
     [Display(Name = "مربع رنگ")]
-    ColorSqr =8
+    ColorSqr = 8
 }

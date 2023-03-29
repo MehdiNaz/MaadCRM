@@ -14,7 +14,7 @@ public class CreateSanAtHandler : IRequestHandler<CreateSanAtCommand, SanAt>
         SanAt item = new()
         {
             SanAtName = request.SanAtName,
-            IdUser = request.IdUser,
+            UserId = request.UserId,
         };
         await _repository.CreateSanAtsAsync(item);
         throw new NotImplementedException();

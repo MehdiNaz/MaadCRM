@@ -14,7 +14,7 @@ public class Business : BaseEntity
     public Ulid CustomerId { get; set; }
     //[ForeignKey(nameof(UserId))]
 
-    public ApplicationUser User { get; set; }
+    public User User { get; set; }
     public Customer Customer { get; set; }
     public ContactGroup ContactGroup{ get; set; }
     public ICollection<Setting> Setting { get; set; }

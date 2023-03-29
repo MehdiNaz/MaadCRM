@@ -26,7 +26,6 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Cust
             WishProductId = request.WishProductId,
             ProfileImageId = request.ProfileImageId,
             MoarefId = request.MoarefId,
-            CustomerStatues = request.CustomerState,
             Gender = request.Gender
         };
         await _repository.UpdateCustomerAsync(item, request.CustomerId);

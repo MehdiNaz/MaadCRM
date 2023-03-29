@@ -6,6 +6,15 @@ public class MaadContext : IdentityDbContext
     {
     }
 
+    //Identity : ==>
+    public DbSet<Role>? Roles { get; set; }
+    public DbSet<RoleClaim>? RoleClaims { get; set; }
+    public DbSet<UserClaim>? UserClaims { get; set; }
+    public DbSet<UserLogin>? UserLogins { get; set; }
+    public DbSet<UserRole>? UserRoles { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<UserToken>? UserTokens { get; set; }
+
     public DbSet<Post>? Posts { get; set; }
     public DbSet<Log>? Logs { get; set; }
     public DbSet<Plan>? Plans { get; set; }
@@ -32,6 +41,17 @@ public class MaadContext : IdentityDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        //Identity : ==>
+        builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
+        builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
+        builder.ApplyConfiguration(new RoleMapping());
+        builder.ApplyConfiguration(new RoleClaimMapping());
+        builder.ApplyConfiguration(new UserClaimMapping());
+        builder.ApplyConfiguration(new UserLoginMapping());
+        builder.ApplyConfiguration(new UserRoleMapping());
+        builder.ApplyConfiguration(new UserMapping());
+        builder.ApplyConfiguration(new UserTokenMapping());
+
         builder.ApplyConfiguration(new CustomerActivityHistoryMapping());
         builder.ApplyConfiguration(new CustomerActivityMapping());
         builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());

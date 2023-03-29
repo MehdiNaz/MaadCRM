@@ -10,7 +10,6 @@ public static class RepositoryConfiguration
         // var logger = serviceProvider.GetService<ILogger<ScheduleDatabaseInvocable>>();
         // builder.Services.AddSingleton(typeof(ILogger), logger!);
 
-        collection.AddTransient<IAccountService, AccountService>();
         collection.AddTransient<ITestService, TestService>();
 
         //Application ==> Interfaces :

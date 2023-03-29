@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Application;
 
 public class DatePersian

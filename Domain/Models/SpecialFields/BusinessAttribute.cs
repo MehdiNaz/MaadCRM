@@ -5,7 +5,7 @@ public class BusinessAttribute : BaseEntity
     public Ulid BusinessAttributeId { get; set; }
     public string TextPrompt { get; set; }
     public bool IsRequired { get; set; }
-    public AttributeControlType AttributeControlTypeId { get; set; }
+    public AttributeType AttributeTypeId { get; set; }
     public int DisplayOrder { get; set; }
     public int? ValidationMinLength { get; set; }
     public int? ValidationMaxLength { get; set; }

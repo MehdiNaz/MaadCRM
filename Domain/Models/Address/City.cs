@@ -11,4 +11,5 @@ public class City : BaseEntity
     public Province Province { get; set; }
 
     public ICollection<Address> Addresses { get; set; }
+    public ICollection<User> Users{ get; set; }
 }

@@ -4,14 +4,16 @@ public class SanAt : BaseEntity
 {
     public SanAt()
     {
-        IsDeleted = (byte)Status.NotDeleted;
+        IsDeleted = Status.NotDeleted;
+        IsShown = ShowTypes.Show;
     }
 
     public Ulid SanAtId { get; set; }
     public string SanAtName { get; set; }
-    public string IdUser { get; set; }
-    public byte IsDeleted { get; set; }
+    public Ulid UserId { get; set; }
+    public Status IsDeleted { get; set; }
+    public ShowTypes IsShown { get; set; }
 
 
-    public ApplicationUser User { get; set; }
+    public User User { get; set; }
 }

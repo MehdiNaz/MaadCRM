@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.MoarefService.Queries;
 
-public class GetAllMoarefQuery : IRequest<ICollection<Moaref>>
+public struct GetAllMoarefQuery : IRequest<ICollection<Moaref>>
 {
 }

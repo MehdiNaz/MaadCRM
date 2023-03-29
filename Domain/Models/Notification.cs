@@ -1,9 +1,9 @@
 ﻿namespace Domain.Models;
 
-public class Notification:BaseEntity
+public class Notification : BaseEntity
 {
     public int UserId { get; set; }
-    public bool IsRead { get; set; } = false; 
+    public bool IsRead { get; set; } = false;
     public DateTime DateTimeForAlaram { get; set; }
     public string Url { get; set; }
     public string Message { get; set; }
@@ -12,5 +12,5 @@ public class Notification:BaseEntity
     public AlaramType AlaramTypeId { get; set; }
     public bool IsDeleted { get; set; } = false;
     [ForeignKey(nameof(UserId))]
-    public ApplicationUser User { get; set; }
+    public User User { get; set; }
 }

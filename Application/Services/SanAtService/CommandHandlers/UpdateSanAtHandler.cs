@@ -14,7 +14,7 @@ public class UpdateSanAtHandler : IRequestHandler<UpdateSanAtCommand, SanAt>
         SanAt item = new()
         {
             SanAtName = request.SanAtName,
-            IdUser = request.IdUser,
+            UserId = request.UserId,
         };
         await _repository.UpdateSanAtsAsync(item, request.SanAtId);
         return item;

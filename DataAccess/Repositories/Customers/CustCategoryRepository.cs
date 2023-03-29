@@ -10,7 +10,7 @@ public class CustCategoryRepository : ICustCategoryRepository
     }
 
     public async Task<ICollection<CustCategory?>> GetAllCustCategoryAsync()
-        => (await _context.CustCategories!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.CustCategories!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId) => await _context.CustCategories!.FindAsync(custCategoryId);
 
@@ -47,7 +47,7 @@ public class CustCategoryRepository : ICustCategoryRepository
         try
         {
             var custCategory = await GetCustCategoryByIdAsync(custCategoryId);
-            custCategory.IsDeleted = (byte)Status.Deleted;
+            custCategory.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return custCategory;
         }

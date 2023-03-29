@@ -1,8 +1,7 @@
-﻿namespace Application.Services.EmailAddressService.Commands;
+﻿namespace Application.Services.CustomersEmailAddressService.Commands;
 
-public class UpdateCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
+public struct UpdateCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
 {
     public Ulid EmailAddressId { get; set; }
     public string EmailAddrs { get; set; }
-    public byte IsDeleted { get; set; }
 }

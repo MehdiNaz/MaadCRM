@@ -1,10 +1,9 @@
 ﻿namespace Application.Services.PhoneNumberService.Commands;
 
-public class UpdatePhoneNumberCommand : IRequest<CustomersPhoneNumber>
+public struct UpdatePhoneNumberCommand : IRequest<CustomersPhoneNumber>
 {
     public Ulid PhoneNumberId { get; set; }
     public string PhoneNo { get; set; }
-    public int PhoneType { get; set; }
+    public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
-    public byte IsDeleted { get; set; }
 }

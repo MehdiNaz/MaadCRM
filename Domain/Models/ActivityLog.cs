@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models;
 
-public class ActivityLog:BaseEntity
+public class ActivityLog : BaseEntity
 {
     public string Comment { get; set; }
     public string IpAddress { get; set; }
@@ -9,7 +9,7 @@ public class ActivityLog:BaseEntity
     public int UserId { get; set; }
     public int EntityId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public ApplicationUser User { get; set; }
+    public User User { get; set; }
     [ForeignKey(nameof(ActivityLogTypeId))]
     public ActivityLogType ActivityLogType { get; set; }
 }

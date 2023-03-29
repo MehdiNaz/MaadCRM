@@ -1,6 +1,6 @@
-﻿namespace Application.Services.EmailAddressService.Commands;
+﻿namespace Application.Services.CustomersEmailAddressService.Commands;
 
-public class DeleteCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
+public struct DeleteCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
 {
     public Ulid EmailAddressId { get; set; }
 }

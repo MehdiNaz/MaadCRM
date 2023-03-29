@@ -1,4 +1,4 @@
-﻿namespace Application.Services.EmailAddressService.CommandHandler;
+﻿namespace Application.Services.CustomersEmailAddressService.CommandHandler;
 
 public class DeleteCustomersEmailAddressHandler : IRequestHandler<DeleteCustomersEmailAddressCommand, CustomersEmailAddress>
 {

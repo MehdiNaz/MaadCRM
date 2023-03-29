@@ -6,9 +6,9 @@ namespace Domain.Models;
 public class Log
 {
     public Guid Id { get; set; }
-    public string IdUser { get; set; }
+    public string UserId { get; set; }
     public LogKinds Kind { get; set; }
     public DateTime DateCreated { get; set; }
 
-    public ApplicationUser User { get; init; }
+    public User User { get; init; }
 }

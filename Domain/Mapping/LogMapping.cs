@@ -7,6 +7,6 @@ public class LogMapping : IEntityTypeConfiguration<Log>
         builder.ToTable("Logs");
         builder.HasKey(x => x.Id);
 
-        builder.HasOne(x => x.User).WithMany(x => x.Logs).HasForeignKey(x => x.IdUser);
+        builder.HasOne(x => x.User).WithMany(x => x.Logs).HasForeignKey(x => x.UserId);
     }
 }

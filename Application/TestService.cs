@@ -21,9 +21,9 @@ public class TestService : ITestService
 
     public async Task<bool> AddRole()
     {
-        await _roleManager.CreateAsync(new IdentityRole(UserRole.User));
-        await _roleManager.CreateAsync(new IdentityRole(UserRole.Company));
-        await _roleManager.CreateAsync(new IdentityRole(UserRole.Admin));
+        await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.User));
+        await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.Company));
+        await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.Admin));
         return true;
     }
 }

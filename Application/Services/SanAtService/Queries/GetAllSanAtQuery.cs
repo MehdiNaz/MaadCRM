@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.SanAtService.Queries;
 
-public class GetAllSanAtQuery : IRequest<ICollection<SanAt?>>
+public struct GetAllSanAtQuery : IRequest<ICollection<SanAt?>>
 {
 }

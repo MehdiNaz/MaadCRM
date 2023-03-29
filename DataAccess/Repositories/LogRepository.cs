@@ -14,7 +14,7 @@ public class LogRepository: ILogRepository
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 if (logKind != null) logs = logs.Where(x => x.Kind == logKind.Value);
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                if (!string.IsNullOrEmpty(userId)) logs = logs.Where(x => x.IdUser == userId);
+                if (!string.IsNullOrEmpty(userId)) logs = logs.Where(x => x.UserId == userId);
         
                 return await logs
                     .Include(u => u.User)
@@ -48,7 +48,7 @@ public class LogRepository: ILogRepository
 
     public async ValueTask<int> CountLog(string userId)
     {
-        IQueryable<Log> logs = _context.Logs.Where(l => l.IdUser == userId);
+        IQueryable<Log> logs = _context.Logs.Where(l => l.UserId == userId);
         // if (logKind != null) logs = logs.Where(x => x.Kind == logKind.Value);
 
         return await logs.CountAsync();

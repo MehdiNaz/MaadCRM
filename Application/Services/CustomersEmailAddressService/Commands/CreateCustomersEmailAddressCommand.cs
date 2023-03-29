@@ -1,7 +1,6 @@
-﻿namespace Application.Services.EmailAddressService.Commands;
+﻿namespace Application.Services.CustomersEmailAddressService.Commands;
 
-public class CreateCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
+public struct CreateCustomersEmailAddressCommand : IRequest<CustomersEmailAddress>
 {
     public string EmailAddrs { get; set; }
-    public byte IsDeleted { get; set; }
 }

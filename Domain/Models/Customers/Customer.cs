@@ -4,7 +4,8 @@ public class Customer : BaseEntity
 {
     public Customer()
     {
-        IsDeleted = (byte)Status.NotDeleted;
+        IsDeleted = Status.NotDeleted;
+        IsShown = ShowTypes.Show;
     }
 
     public Ulid CustomerId { get; set; }
@@ -23,8 +24,9 @@ public class Customer : BaseEntity
     public Ulid MoarefId { get; set; }
     public Ulid CategoryId { get; set; }
     public byte CustomerStatues { get; set; }
-    public byte IsDeleted { get; set; }
-    public byte Gender { get; set; }
+    public Status IsDeleted { get; set; }
+    public GenderTypes Gender { get; set; }
+    public ShowTypes IsShown { get; set; }
 
 
 
@@ -33,7 +35,7 @@ public class Customer : BaseEntity
     public Moaref Moaref { get; set; }
     public CustomersEmailAddress EmailAddress { get; set; }
     public CustomersPhoneNumber PhoneNubmer { get; set; }
-    public CustomersCategories CustomersCategories { get; set; }
+    public CustCategory CustCategory { get; set; }
     public ICollection<Business> Businesses { get; set; }
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     public ICollection<Address.Address> Addresses { get; set; }

@@ -4,7 +4,8 @@ public class Contact : BaseEntity
 {
     public Contact()
     {
-        IsDeleted = (byte)Status.NotDeleted;
+        IsDeleted = Status.NotDeleted;
+        IsShown = ShowTypes.Show;
     }
 
     public Ulid ContactId { get; set; }
@@ -14,7 +15,8 @@ public class Contact : BaseEntity
     public Ulid EmailId { get; set; }
     public Ulid ContactGroupId { get; set; }
     public string Job { get; set; }
-    public byte IsDeleted { get; set; }
+    public Status IsDeleted { get; set; }
+    public ShowTypes IsShown { get; set; }
     public Ulid BusinessId { get; set; }
     //[ForeignKey(nameof(ContactGroupId))]
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.MoarefService.Commands;
 
-public class UpdateMoarefCommand : IRequest<Moaref>
+public struct UpdateMoarefCommand : IRequest<Moaref>
 {
     public Ulid MoarefId { get; set; }
     public string MoarefName { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.Commands;
 
-public class CreateContactCommand : IRequest<Contact>
+public struct CreateContactCommand : IRequest<Contact>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

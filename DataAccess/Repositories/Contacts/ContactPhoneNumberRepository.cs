@@ -10,7 +10,7 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
     }
 
     public async ValueTask<ICollection<ContactPhoneNumber?>> GetAllContactPhoneNumberAsync()
-        => (await _context.ContactPhoneNumbers!.ToListAsync()).Where(x => x.IsDeleted == (byte)Status.NotDeleted).ToList()!;
+        => (await _context.ContactPhoneNumbers!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
     public async ValueTask<ContactPhoneNumber?> GetContactPhoneNumberByIdAsync(Ulid contactPhoneNumberId) => await _context.ContactPhoneNumbers!.FindAsync(contactPhoneNumberId);
 
@@ -47,7 +47,7 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         try
         {
             var contactPhoneNumber = await GetContactPhoneNumberByIdAsync(contactPhoneNumberId);
-            contactPhoneNumber!.IsDeleted = (byte)Status.Deleted;
+            contactPhoneNumber!.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactPhoneNumber;
         }

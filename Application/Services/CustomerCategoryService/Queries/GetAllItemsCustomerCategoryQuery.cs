@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.CustomerCategoryService.Queries;
 
-public class GetAllItemsCustomerCategoryQuery : IRequest<ICollection<CustCategory?>>
+public struct GetAllItemsCustomerCategoryQuery : IRequest<ICollection<CustCategory?>>
 {
 }

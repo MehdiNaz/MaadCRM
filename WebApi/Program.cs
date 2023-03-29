@@ -63,8 +63,4 @@ app.UseSerilogRequestLogging();
 
 #endregion
 
-// Routes
-app.MapGet("/Identity/Account/Login", Results.Unauthorized);
-app.MapAccountRouts();
-
 app.Run();

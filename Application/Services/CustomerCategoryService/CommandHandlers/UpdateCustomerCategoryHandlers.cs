@@ -14,8 +14,7 @@ public class UpdateCustomerCategoryHandlers : IRequestHandler<UpdateCustomerCate
         CustCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
-            IsShown = request.IsShown,
-            CategoryId = request.CategoryId
+            IsShown = request.IsShown
         };
 
         await _repository.UpdateCustCategoryAsync(customerCategory, request.CustCategoryId);
