@@ -12,12 +12,23 @@ public class Business : BaseEntity
     public int DisplayOrder { get; set; } = 0;
     public Ulid UserId { get; set; }
     public Ulid CustomerId { get; set; }
+    public Ulid ContactId { get; set; }
+    public Ulid ContactGroupId { get; set; }
+    public Ulid AttributeOptionsId { get; set; }
+    public Ulid AttributeOptionsValueId { get; set; }
+    public Ulid BusinessAttributeId { get; set; }
+    public Ulid CategoryAttributeId { get; set; }
     //[ForeignKey(nameof(UserId))]
 
     public User User { get; set; }
     public Customer Customer { get; set; }
-    public ContactGroup ContactGroup{ get; set; }
+    public Contact Contact { get; set; }
+    public ContactGroup ContactGroup { get; set; }
+    public AttributeOptions AttributeOptions { get; set; }
+    public AttributeOptionsValue AttributeOptionsValue { get; set; }
+    public BusinessAttribute BusinessAttribute { get; set; }
+    public CategoryAttribute CategoryAttribute { get; set; }
+
     public ICollection<Setting> Setting { get; set; }
-    public ICollection<Contact> Contacts{ get; set; }
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
 }

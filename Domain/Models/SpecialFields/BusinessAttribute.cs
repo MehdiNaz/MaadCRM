@@ -16,6 +16,7 @@ public class BusinessAttribute : BaseEntity
     public Ulid CategoryAttributeId { get; set; }
 
     //[ForeignKey(nameof(CategoryAttributeId))]
+    public ICollection<Business> Businesses { get; set; }
     public CategoryAttribute CategoryAttribute { get; set; }
     public ICollection<AttributeOptions> AttributeOptions { get; set; }
 }

@@ -46,4 +46,5 @@ public class User : IdentityUser<string>
     public ICollection<Notification> Notifications { get; set; }
     public ICollection<Log> Logs { get; set; }
     public ICollection<SanAt> SanAts { get; set; }                               //OK
+    public ICollection<Customer> Customers{ get; set; }                         //OK
 }

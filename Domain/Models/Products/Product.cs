@@ -1,12 +1,12 @@
 ﻿namespace Domain.Models.Products;
 
-public class Product:BaseEntity
+public class Product : BaseEntity
 {
-    public string Name { get; set; }
+    public Ulid ProductId { get; set; }
+    public string ProductName { get; set; }
     public bool Published { get; set; }
-    
     public int Id { get; set; }
-    public int? IdParrent { get; set; }
+    public int? IdParent { get; set; }
     public int IdCompany { get; set; }
     public int IdCategory { get; set; }
     public string Title { get; set; }
@@ -23,6 +23,15 @@ public class Product:BaseEntity
     public short? MinSell { get; set; }
     public short? MinSellPerPerson { get; set; }
     public short? MaxSellPerPerson { get; set; }
+    public Ulid FavoritesListId { get; set; }
+
+
+
+
+    public ProductCustomerFavoritesList ProductCustomerFavoritesList{ get; set; }
+
+
+
 
     public virtual Category IdCategoryNavigation { get; set; }
     public virtual Company IdCompanyNavigation { get; set; }

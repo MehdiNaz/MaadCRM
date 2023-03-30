@@ -16,6 +16,7 @@ public class AttributeOptionsValue : BaseEntity
 
 
     //[ForeignKey(nameof(ForCustomerId))]
+    public ICollection<Business> Businesses { get; set; }
     public Customer Customer { get; set; }
     //[ForeignKey(nameof(AttributeOptionId))]
     public AttributeOptions AttributeOptions { get; set; }

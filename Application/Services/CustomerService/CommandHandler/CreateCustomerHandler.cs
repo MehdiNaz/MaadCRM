@@ -25,7 +25,7 @@ public class CreateCustomerHandler : IRequestHandler<CreateCustomerCommand, Cust
             CategoryId = request.CategoryId,
             WishProductId = request.WishProductId,
             ProfileImageId = request.ProfileImageId,
-            MoarefId = request.MoarefId,
+            CustomerMoarefId = request.MoarefId,
             Gender = request.Gender
         };
         await _repository.CreateCustomerAsync(item);

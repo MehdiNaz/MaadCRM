@@ -16,7 +16,7 @@ public class CustomerValidation : AbstractValidator<Customer>
         RuleFor(x => x.CountryId).NotEmpty();
         RuleFor(x => x.WishProductId).NotEmpty();
         RuleFor(x => x.ProfileImageId).NotEmpty();
-        RuleFor(x => x.MoarefId).NotEmpty();
+        RuleFor(x => x.CustomerMoarefId).NotEmpty();
         RuleFor(x => x.CategoryId).NotEmpty();
         RuleFor(x => x.CustomerStatues).NotEmpty();
         RuleFor(x => x.Gender).NotEmpty();

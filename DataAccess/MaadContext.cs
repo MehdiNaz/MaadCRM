@@ -25,7 +25,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<City>? Cities { get; set; }
     public DbSet<Country>? Countries { get; set; }
     public DbSet<Province>? Provinces { get; set; }
-    public DbSet<Moaref>? Moarefs { get; set; }
     public DbSet<Business>? Businesses { get; set; }
     public DbSet<Setting>? Settings { get; set; }
     public DbSet<CategoryAttribute>? CategoryAttributes { get; set; }
@@ -38,6 +37,8 @@ public class MaadContext : IdentityDbContext
     public DbSet<Contact>? Contacts { get; set; }
     public DbSet<ContactPhoneNumber>? ContactPhoneNumbers { get; set; }
     public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
+    public DbSet<Product>? Products { get; set; }
+    public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -71,7 +72,6 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new PlanMapping());
         builder.ApplyConfiguration(new PostMapping());
         builder.ApplyConfiguration(new SanAtMapping());
-        builder.ApplyConfiguration(new MoarefMapping());
         builder.ApplyConfiguration(new SettingMapping());
         builder.ApplyConfiguration(new BusinessAttributeMapping());
         builder.ApplyConfiguration(new CategoryAttributeMapping());
@@ -81,6 +81,8 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ContactMapping());
         builder.ApplyConfiguration(new ContactPhoneNumberMapping());
         builder.ApplyConfiguration(new ContactsEmailAddressMapping());
+        builder.ApplyConfiguration(new ProductsMapping());
+        builder.ApplyConfiguration(new ProductCustomerFavoritesListMapping());
         base.OnModelCreating(builder);
     }
 }

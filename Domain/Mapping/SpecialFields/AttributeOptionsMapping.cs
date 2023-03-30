@@ -1,4 +1,4 @@
-﻿namespace Domain.Mapping;
+﻿namespace Domain.Mapping.SpecialFields;
 
 public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOptions>
 {
@@ -6,7 +6,7 @@ public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOptions
     {
         builder.ToTable("AttributeOptions");
         builder.HasKey(x => x.AttributeOptionsId);
-        builder.Property(x => x.Name).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
         builder.Property(x => x.ColorSquaresRgb).HasMaxLength(255).IsRequired();
 
 

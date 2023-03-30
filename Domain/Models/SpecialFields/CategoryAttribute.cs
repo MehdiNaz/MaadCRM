@@ -10,9 +10,9 @@ public class CategoryAttribute : BaseEntity
     public string Description { get; set; }
     public int DisplayOrder { get; set; } = 0;
     public Ulid BusinessId { get; set; }
-    
-    
+
+
     //[ForeignKey(nameof(BusinessId))]
-    public Business Business { get; set; }
+    public ICollection<Business> Businesses { get; set; }
     public ICollection<BusinessAttribute> BusinessAttributes { get; set; }
 }

@@ -17,5 +17,6 @@
 
     <ItemGroup>
       <Folder Include="Mapping\Contacts\" />
+      <Folder Include="Mapping\Products\" />
     </ItemGroup>
 </Project>

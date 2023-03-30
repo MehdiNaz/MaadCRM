@@ -7,7 +7,13 @@ public class City : BaseEntity
     public bool IsDefault { get; set; }
     public int DisplayOrder { get; set; }
     public Ulid ProvinceId { get; set; }
+    public Ulid CustomerId { get; set; }
+
+
+
+
     //[ForeignKey(nameof(ProvinceId))]
+    public Customer Customer { get; set; }
     public Province Province { get; set; }
 
     public ICollection<Address> Addresses { get; set; }

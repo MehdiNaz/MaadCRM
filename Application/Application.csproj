@@ -22,6 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Services\AttributeOptionsService\Commands\" />
+      <Folder Include="Services\AttributeOptionsService\QueryHandler\" />
+      <Folder Include="Services\AttributeOptionsService\Queries\" />
       <Folder Include="Services\ContactEmailAddressService\Commands\" />
       <Folder Include="Services\ContactEmailAddressService\QueryHandler\" />
       <Folder Include="Services\ContactEmailAddressService\Queries\" />
@@ -30,6 +33,9 @@
       <Folder Include="Services\ContactGroupService\Queries\" />
       <Folder Include="Services\ContactPhoneNumberService\QueryHandler\" />
       <Folder Include="Services\ContactPhoneNumberService\Queries\" />
+      <Folder Include="Services\ProductCustomerFavoritesListService\CommandHandler\" />
+      <Folder Include="Services\ProductCustomerFavoritesListService\Commands\" />
+      <Folder Include="Services\ProductCustomerFavoritesListService\QueryHandler\" />
       <Folder Include="Validator\Contacts\" />
     </ItemGroup>
 </Project>

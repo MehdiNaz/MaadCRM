@@ -15,7 +15,6 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(CategoryAttributeValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly);
-        collection.AddValidatorsFromAssembly(typeof(MoarefValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(SanAtValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
@@ -23,6 +22,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ContactValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactPhoneNumberValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactsEmailAddressValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ProductCustomerFavoritesListRepositoryValidation).Assembly);
 
     }
 }

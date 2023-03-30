@@ -17,8 +17,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICustomerRepository, CustomerRepository>();
         collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
         collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();
+        collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();
         collection.AddTransient<ILogService, LogService>();
-        collection.AddTransient<IMoarefRepository, MoarefRepository>();
         collection.AddTransient<IPlanRepository, PlanRepository>();
         collection.AddTransient<IPostRepository, PostRepository>();
         collection.AddTransient<ISanAtRepository, SanAtRepository>();
