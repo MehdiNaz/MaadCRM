@@ -13,7 +13,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<ITestService, TestService>();
 
         //Application ==> Interfaces :
-        collection.AddTransient<ICustCategoryRepository, CustCategoryRepository>();
+        collection.AddTransient<ICustomerCategoryRepository, CustomerCategoryRepository>();
         collection.AddTransient<ICustomerRepository, CustomerRepository>();
         collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
         collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();

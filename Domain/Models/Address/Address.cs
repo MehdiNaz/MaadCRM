@@ -8,12 +8,12 @@ public class Address : BaseEntity
     public string CompanyName { get; set; }
     public string ZipPostalCode { get; set; }
     public string Description { get; set; }
-    public int CustomerId { get; set; }
+    //public Ulid CustomerId { get; set; }
     public int CityId { get; set; }
 
 
     //[ForeignKey(nameof(CustomerId))]
-    public Customer Customer { get; set; }
+    //public Customer Customer { get; set; }
 
     //[ForeignKey(nameof(CityId))]
     public City City { get; set; }

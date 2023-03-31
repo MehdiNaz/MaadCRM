@@ -14,12 +14,14 @@ public class BusinessMapping : IEntityTypeConfiguration<Business>
 
 
         builder.HasOne(x => x.User).WithMany(x => x.Businesses).HasForeignKey(x => x.UserId);
-        builder.HasOne(x => x.Customer).WithMany(x => x.Businesses).HasForeignKey(x => x.CustomerId);
         builder.HasOne(x => x.Contact).WithMany(x => x.Businesses).HasForeignKey(x => x.ContactId);
         builder.HasOne(x => x.ContactGroup).WithMany(x => x.Businesses).HasForeignKey(x => x.ContactGroupId);
         builder.HasOne(x => x.AttributeOptions).WithMany(x => x.Businesses).HasForeignKey(x => x.AttributeOptionsId);
         builder.HasOne(x => x.AttributeOptionsValue).WithMany(x => x.Businesses).HasForeignKey(x => x.AttributeOptionsValueId);
         builder.HasOne(x => x.BusinessAttribute).WithMany(x => x.Businesses).HasForeignKey(x => x.BusinessAttributeId);
         builder.HasOne(x => x.CategoryAttribute).WithMany(x => x.Businesses).HasForeignKey(x => x.CategoryAttributeId);
+
+        //New Relations ==> OK
+        builder.HasMany(x => x.Customers).WithOne(x => x.Business).HasForeignKey(x => x.CustomerId);
     }
 }

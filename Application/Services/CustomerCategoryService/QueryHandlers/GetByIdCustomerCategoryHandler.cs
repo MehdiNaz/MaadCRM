@@ -1,14 +1,14 @@
 ﻿namespace Application.Services.CustomerCategoryService.QueryHandlers;
 
-public class GetByIdCustomerCategoryHandler : IRequestHandler<GetByIdCustomerCategoryQuery, CustCategory?>
+public class GetByIdCustomerCategoryHandler : IRequestHandler<GetByIdCustomerCategoryQuery, CustomerCategory?>
 {
-    private readonly ICustCategoryRepository _repository;
+    private readonly ICustomerCategoryRepository _repository;
 
-    public GetByIdCustomerCategoryHandler(ICustCategoryRepository repository)
+    public GetByIdCustomerCategoryHandler(ICustomerCategoryRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<CustCategory?> Handle(GetByIdCustomerCategoryQuery request, CancellationToken cancellationToken)
-        => await _repository.GetCustCategoryByIdAsync(request.CustCategoryId);
+    public async Task<CustomerCategory?> Handle(GetByIdCustomerCategoryQuery request, CancellationToken cancellationToken)
+        => await _repository.GetCustomerCategoryByIdAsync(request.CustomerCategoryId);
 }

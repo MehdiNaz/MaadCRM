@@ -1,14 +1,15 @@
 ﻿namespace Domain.Models.Customers;
 
-public class CustCategory : BaseEntity
+public class CustomerCategory : BaseEntity
 {
-    public CustCategory()
+    public CustomerCategory()
     {
         IsDeleted = Status.NotDeleted;
     }
 
-    public Ulid CustCategoryId { get; set; }
+    public Ulid CustomerCategoryId { get; set; }
     public string CustomerCategoryName { get; set; }
+    public Ulid CustomerId { get; set; }
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
 

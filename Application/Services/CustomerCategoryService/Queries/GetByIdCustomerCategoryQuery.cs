@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.Queries;
 
-public struct GetByIdCustomerCategoryQuery : IRequest<CustCategory>
+public struct GetByIdCustomerCategoryQuery : IRequest<CustomerCategory>
 {
-    public Ulid CustCategoryId { get; set; }
+    public Ulid CustomerCategoryId { get; set; }
 }

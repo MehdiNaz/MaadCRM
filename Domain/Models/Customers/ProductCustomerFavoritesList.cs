@@ -13,6 +13,6 @@ public class ProductCustomerFavoritesList
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
 
-    public ICollection<Product> Products { get; set; }
-    public ICollection<Customer> Customers { get; set; }
+    public Product Product { get; set; }
+    public Customer Customer { get; set; }
 }

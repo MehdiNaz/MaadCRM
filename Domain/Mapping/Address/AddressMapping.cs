@@ -14,7 +14,6 @@ public class AddressMapping : IEntityTypeConfiguration<Models.Address.Address>
 
 
 
-        builder.HasOne(x => x.Customer).WithMany(x => x.Addresses).HasForeignKey(x => x.AddressId);
         builder.HasOne(x => x.City).WithMany(x => x.Addresses).HasForeignKey(x => x.CityId);
     }
 }

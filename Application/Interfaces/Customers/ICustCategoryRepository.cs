@@ -1,10 +1,10 @@
 ﻿namespace Application.Interfaces.Customers;
 
-public interface ICustCategoryRepository
+public interface ICustomerCategoryRepository
 {
-    Task<ICollection<CustCategory?>> GetAllCustCategoryAsync();
-    ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId);
-    ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? entity);
-    ValueTask<CustCategory?> UpdateCustCategoryAsync(CustCategory entity, Ulid custCategoryId);
-    ValueTask<CustCategory?> DeleteCusCustomerAsync(Ulid custCategoryId);
+    Task<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync();
+    ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid CustomerCategoryId);
+    ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity);
+    ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity, Ulid CustomerCategoryId);
+    ValueTask<CustomerCategory?> DeleteCusCustomerAsync(Ulid CustomerCategoryId);
 }

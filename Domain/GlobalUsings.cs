@@ -3,6 +3,8 @@ global using Domain.Models;
 global using Domain.Models.Address;
 global using Domain.Models.Contacts;
 global using Domain.Models.Customers;
+global using Domain.Models.Customers.Notes;
+global using Domain.Models.Customers.PeyGiry;
 global using Domain.Models.General;
 global using Domain.Models.IdentityModels;
 global using Domain.Models.Notes;

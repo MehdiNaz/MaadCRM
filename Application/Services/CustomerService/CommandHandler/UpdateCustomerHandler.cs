@@ -16,17 +16,19 @@ public class UpdateCustomerHandler : IRequestHandler<UpdateCustomerCommand, Cust
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate,
-            EmailId = request.EmailId,
-            PhoneNumberId = request.PhoneNumberId,
-            AddressId = request.AddressId,
+            CustomerPic = request.CustomerPic,
+            UserId = request.UserId,
+            BusinessId = request.BusinessId,
+            CustomerCategoryId = request.CustomerCategoryId,
+            Gender = request.Gender,
+            IsShown = request.IsShown,
+            CustomerState = request.CustomerState,
+            CustomerStatus = request.CustomerStatus,
+            InsertedBy = request.InsertedBy,
+            UpdatedBy = request.UpdatedBy,
+            IsDeleted = request.IsDeleted,
             CityId = request.CityId,
-            NoteId = request.NoteId,
-            ProvinceId = request.ProvinceId,
-            CategoryId = request.CategoryId,
-            WishProductId = request.WishProductId,
-            ProfileImageId = request.ProfileImageId,
-            CustomerMoarefId = request.MoarefId,
-            Gender = request.Gender
+            CustomerMoarefId = request.CustomerMoarefId
         };
         await _repository.UpdateCustomerAsync(item, request.CustomerId);
         return item;

@@ -1,15 +1,15 @@
 ﻿namespace Application.Services.CustomerCategoryService.QueryHandlers;
 
-public class GetAllCustomerCategoryHandler : IRequestHandler<GetAllItemsCustomerCategoryQuery, ICollection<CustCategory?>>
+public class GetAllCustomerCategoryHandler : IRequestHandler<GetAllItemsCustomerCategoryQuery, ICollection<CustomerCategory?>>
 {
-    private readonly ICustCategoryRepository _repository;
+    private readonly ICustomerCategoryRepository _repository;
 
-    public GetAllCustomerCategoryHandler(ICustCategoryRepository repository)
+    public GetAllCustomerCategoryHandler(ICustomerCategoryRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<ICollection<CustCategory?>> Handle(GetAllItemsCustomerCategoryQuery request,
+    public async Task<ICollection<CustomerCategory?>> Handle(GetAllItemsCustomerCategoryQuery request,
         CancellationToken cancellationToken)
-        => await _repository.GetAllCustCategoryAsync();
+        => await _repository.GetAllCustomerCategoryAsync();
 }

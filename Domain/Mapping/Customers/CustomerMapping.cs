@@ -9,13 +9,23 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.Property(x => x.FirstName).HasMaxLength(255).IsRequired();
         builder.Property(x => x.LastName).HasMaxLength(255).IsRequired();
 
-        builder.HasOne(x => x.EmailAddress).WithMany(x => x.EmaCollection).HasForeignKey(x => x.EmailId);
-        builder.HasOne(x => x.PhoneNumber).WithMany(x => x.Customers).HasForeignKey(x => x.PhoneNumberId);
-        builder.HasOne(x => x.CustCategory).WithMany(x => x.Customers).HasForeignKey(x => x.CategoryId);
 
         builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.InsertedBy);
         builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);
-        builder.HasOne(x => x.ProductCustomerFavoritesList).WithMany(x => x.Customers).HasForeignKey(x => x.FavoritesListId);
+
+
+        //New Relations ==> OK
+        builder.HasMany(x => x.CustomersAddresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.EmailAddresses).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.PhoneNumbers).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.CustomerNotes).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.CustomerPeyGiries).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+
+        builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.UserId);
+        builder.HasOne(x => x.CustomerCategory).WithMany(x => x.Customers).HasForeignKey(x => x.CustomerCategoryId);
+
+
 
         //SelfRelation
         builder.HasOne(x => x.CustomerMoarf).WithMany(x => x.CustomersMoarf).HasForeignKey(x => x.CustomerMoarefId);

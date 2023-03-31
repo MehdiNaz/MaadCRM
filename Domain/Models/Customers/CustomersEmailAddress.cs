@@ -10,8 +10,9 @@ public class CustomersEmailAddress : BaseEntity
 
     public Ulid CustomersEmailAddressId { get; set; }
     public string CustomersEmailAddrs { get; set; }
+    public Ulid CustomerId { get; set; }
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
 
-    public ICollection<Customer> EmaCollection{ get; set; }
+    public Customer Customer{ get; set; }
 }

@@ -20,7 +20,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<Plan>? Plans { get; set; }
     public DbSet<SanAt>? SanAts { get; set; }
     public DbSet<Customer>? Customers { get; set; }
-    public DbSet<CustCategory>? CustCategories { get; set; }
+    public DbSet<CustomerCategory>? CustCategories { get; set; }
     public DbSet<Address>? Addresses { get; set; }
     public DbSet<City>? Cities { get; set; }
     public DbSet<Country>? Countries { get; set; }
@@ -33,12 +33,19 @@ public class MaadContext : IdentityDbContext
     public DbSet<AttributeOptions>? AttributeOptions { get; set; }
     public DbSet<CustomersPhoneNumber>? PhoneNumbers { get; set; }
     public DbSet<CustomersEmailAddress>? EmailAddresses { get; set; }
+    public DbSet<CustomersAddress>? CustomersAddresses { get; set; }
     public DbSet<ContactGroup>? ContactGroups { get; set; }
     public DbSet<Contact>? Contacts { get; set; }
     public DbSet<ContactPhoneNumber>? ContactPhoneNumbers { get; set; }
     public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
     public DbSet<Product>? Products { get; set; }
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
+    public DbSet<Note>? Notes{ get; set; }
+    public DbSet<CustomerPeyGiry>? CustomerPeyGiries{ get; set; }
+    public DbSet<CustomerNote>? CustomerNotes{ get; set; }
+    public DbSet<CustomerHashTag>? CustomerHashTags { get; set; }
+    public DbSet<NoteAttachment>? NoteAttachments { get; set; }
+    public DbSet<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -53,15 +60,24 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new UserMapping());
         builder.ApplyConfiguration(new UserTokenMapping());
 
+        //Customers
         builder.ApplyConfiguration(new CustomerActivityHistoryMapping());
         builder.ApplyConfiguration(new CustomerActivityMapping());
         builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());
         builder.ApplyConfiguration(new CustomerMapping());
-        builder.ApplyConfiguration(new CusCategoryMapping());
+        builder.ApplyConfiguration(new CustomersAddressMapping());
+        builder.ApplyConfiguration(new CustomerCategoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeHistoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeTypeMapping());
         builder.ApplyConfiguration(new CustomerSubmissionMapping());
         builder.ApplyConfiguration(new CustomersPhoneNumberMapping());
+        builder.ApplyConfiguration(new CustomerNoteMapping());
+        builder.ApplyConfiguration(new CustomerPeyGiryMapping());
+        builder.ApplyConfiguration(new CustomerHashTagMapping());
+        builder.ApplyConfiguration(new NoteAttachmentMapping());
+        builder.ApplyConfiguration(new PeyGiryAttachmentMapping());
+
+
         builder.ApplyConfiguration(new AddressMapping());
         builder.ApplyConfiguration(new CityMapping());
         builder.ApplyConfiguration(new CountryMapping());

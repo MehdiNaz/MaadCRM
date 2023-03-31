@@ -10,6 +10,6 @@ public class NoteMapping : IEntityTypeConfiguration<Note>
         builder.Property(x => x.Description).HasMaxLength(500).IsRequired();
 
 
-        builder.HasOne(x => x.Customer).WithMany(x => x.Notes).HasForeignKey(x => x.NoteId);
+        //builder.HasOne(x => x.Customer).WithMany(x => x.Notes).HasForeignKey(x => x.NoteId);
     }
 }

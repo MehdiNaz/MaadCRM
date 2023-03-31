@@ -18,10 +18,9 @@ public class Business : BaseEntity
     public Ulid AttributeOptionsValueId { get; set; }
     public Ulid BusinessAttributeId { get; set; }
     public Ulid CategoryAttributeId { get; set; }
-    //[ForeignKey(nameof(UserId))]
+
 
     public User User { get; set; }
-    public Customer Customer { get; set; }
     public Contact Contact { get; set; }
     public ContactGroup ContactGroup { get; set; }
     public AttributeOptions AttributeOptions { get; set; }
@@ -31,4 +30,9 @@ public class Business : BaseEntity
 
     public ICollection<Setting> Setting { get; set; }
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
+
+
+
+
+    public ICollection<Customer> Customers { get; set; }                       //Relation OK
 }

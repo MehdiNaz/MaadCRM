@@ -1,20 +1,20 @@
 ﻿namespace DataAccess.Repositories.Customers;
 
-public class CustCategoryRepository : ICustCategoryRepository
+public class CustomerCategoryRepository : ICustomerCategoryRepository
 {
     private readonly MaadContext _context;
 
-    public CustCategoryRepository(MaadContext context)
+    public CustomerCategoryRepository(MaadContext context)
     {
         _context = context;
     }
 
-    public async Task<ICollection<CustCategory?>> GetAllCustCategoryAsync()
+    public async Task<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
         => (await _context.CustCategories!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
-    public async ValueTask<CustCategory?> GetCustCategoryByIdAsync(Ulid custCategoryId) => await _context.CustCategories!.FindAsync(custCategoryId);
+    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid CustomerCategoryId) => await _context.CustCategories!.FindAsync(CustomerCategoryId);
 
-    public async ValueTask<CustCategory?> CreateCustCategoryAsync(CustCategory? entity)
+    public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
     {
         try
         {
@@ -28,7 +28,7 @@ public class CustCategoryRepository : ICustCategoryRepository
         }
     }
 
-    public async ValueTask<CustCategory?> UpdateCustCategoryAsync(CustCategory entity, Ulid custCategoryId)
+    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity, Ulid CustomerCategoryId)
     {
         try
         {
@@ -42,14 +42,14 @@ public class CustCategoryRepository : ICustCategoryRepository
         }
     }
 
-    public async ValueTask<CustCategory?> DeleteCusCustomerAsync(Ulid custCategoryId)
+    public async ValueTask<CustomerCategory?> DeleteCusCustomerAsync(Ulid CustomerCategoryId)
     {
         try
         {
-            var custCategory = await GetCustCategoryByIdAsync(custCategoryId);
-            custCategory.IsDeleted = Status.Deleted;
+            var CustomerCategory = await GetCustomerCategoryByIdAsync(CustomerCategoryId);
+            CustomerCategory.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
-            return custCategory;
+            return CustomerCategory;
         }
         catch
         {

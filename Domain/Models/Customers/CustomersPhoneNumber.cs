@@ -16,6 +16,5 @@ public class CustomersPhoneNumber : BaseEntity
     public ShowTypes IsShown { get; set; }
 
 
-    //[ForeignKey(nameof(CustomerId))]
-    public ICollection<Customer> Customers { get; set; }
+    public Customer Customer { get; set; }
 }

@@ -1,23 +1,23 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public class UpdateCustomerCategoryHandlers : IRequestHandler<UpdateCustomerCategoryCommand, CustCategory>
+public class UpdateCustomerCategoryHandlers : IRequestHandler<UpdateCustomerCategoryCommand, CustomerCategory>
 {
-    private readonly ICustCategoryRepository _repository;
+    private readonly ICustomerCategoryRepository _repository;
 
-    public UpdateCustomerCategoryHandlers(ICustCategoryRepository repository)
+    public UpdateCustomerCategoryHandlers(ICustomerCategoryRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<CustCategory> Handle(UpdateCustomerCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerCategory> Handle(UpdateCustomerCategoryCommand request, CancellationToken cancellationToken)
     {
-        CustCategory customerCategory = new()
+        CustomerCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
             IsShown = request.IsShown
         };
 
-        await _repository.UpdateCustCategoryAsync(customerCategory, request.CustCategoryId);
+        await _repository.UpdateCustomerCategoryAsync(customerCategory, request.CustomerCategoryId);
         return customerCategory;
     }
 }

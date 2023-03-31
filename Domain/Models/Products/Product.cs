@@ -28,7 +28,7 @@ public class Product : BaseEntity
 
 
 
-    public ProductCustomerFavoritesList ProductCustomerFavoritesList{ get; set; }
+    public ICollection<ProductCustomerFavoritesList> FavoritesLists { get; set; }                       //Relation OK
 
 
 

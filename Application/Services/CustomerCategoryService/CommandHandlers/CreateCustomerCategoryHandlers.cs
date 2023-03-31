@@ -1,23 +1,23 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public class CreateCustomerCategoryHandlers : IRequestHandler<CreateCustomerCategoryCommand, CustCategory>
+public class CreateCustomerCategoryHandlers : IRequestHandler<CreateCustomerCategoryCommand, CustomerCategory>
 {
-    private readonly ICustCategoryRepository _repository;
+    private readonly ICustomerCategoryRepository _repository;
 
-    public CreateCustomerCategoryHandlers(ICustCategoryRepository repository)
+    public CreateCustomerCategoryHandlers(ICustomerCategoryRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<CustCategory> Handle(CreateCustomerCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerCategory> Handle(CreateCustomerCategoryCommand request, CancellationToken cancellationToken)
     {
-        CustCategory customerCategory = new()
+        CustomerCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
             IsShown = request.IsShown,
         };
 
-        await _repository.CreateCustCategoryAsync(customerCategory);
+        await _repository.CreateCustomerCategoryAsync(customerCategory);
         return customerCategory;
     }
 }

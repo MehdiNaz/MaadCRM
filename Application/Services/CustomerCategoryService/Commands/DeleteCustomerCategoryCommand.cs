@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.Commands;
 
-public struct DeleteCustomerCategoryCommand : IRequest<CustCategory>
+public struct DeleteCustomerCategoryCommand : IRequest<CustomerCategory>
 {
-    public Ulid CustCategoryId { get; set; }
+    public Ulid CustomerCategoryId { get; set; }
 }

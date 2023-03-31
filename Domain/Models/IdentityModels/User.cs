@@ -18,6 +18,7 @@ public class User : IdentityUser<string>
     public DateTime? DateOfBirth { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid CityId { get; set; }
+    public Ulid CustomerId { get; set; }
     //public int? Points { get; set; }
     public int? LoginCount { get; set; }
     public DateTime? LastLogin { get; set; }
@@ -34,17 +35,17 @@ public class User : IdentityUser<string>
     public ShowTypes IsShown { get; set; }
 
     //Identity : 
-    public List<UserRole>? UsersRoles { get; set; }                              //OK
-    public List<UserClaim>? UserClaims { get; set; }                             //OK
-    public List<UserToken>? UserTokens { get; set; }                             //OK
-    public List<UserLogin>? UserLogins { get; set; }                             //OK
-                                                                                 
-    public City City { get; set; }                                               //OK
-    public ICollection<Business> Businesses { get; set; }                        //OK
-    public ICollection<CustomerSubmission> CustomerSubmissions { get; set; }     //OK
+    public List<UserRole>? UsersRoles { get; set; }
+    public List<UserClaim>? UserClaims { get; set; }
+    public List<UserToken>? UserTokens { get; set; }
+    public List<UserLogin>? UserLogins { get; set; }
+
+    public City City { get; set; }
+    public ICollection<Business> Businesses { get; set; }
+    public ICollection<CustomerSubmission> CustomerSubmissions { get; set; }
     public ICollection<ActivityLog> ActivityLogs { get; set; }
     public ICollection<Notification> Notifications { get; set; }
     public ICollection<Log> Logs { get; set; }
-    public ICollection<SanAt> SanAts { get; set; }                               //OK
-    public ICollection<Customer> Customers{ get; set; }                         //OK
+    public ICollection<SanAt> SanAts { get; set; }
+    public ICollection<Customer> Customers { get; set; }                                             //Relation OK
 }

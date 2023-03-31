@@ -9,7 +9,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
         builder.Property(x => x.ProductName).HasMaxLength(255).IsRequired();
 
 
-
-        builder.HasOne(x => x.ProductCustomerFavoritesList).WithMany(x => x.Products).HasForeignKey(x => x.FavoritesListId);
+        //New Relations ==> OK
+        builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
     }
 }
