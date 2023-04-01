@@ -1,7 +1,14 @@
-﻿namespace Domain.Models.Products;
+﻿using Domain.UnDifined;
+
+namespace Domain.Models.Products;
 
 public class Product : BaseEntity
 {
+    public Product()
+    {
+        ProductId = Ulid.NewUlid();
+    }
+
     public Ulid ProductId { get; set; }
     public string ProductName { get; set; }
     public bool Published { get; set; }
@@ -40,5 +47,5 @@ public class Product : BaseEntity
     // public virtual ICollection<Order> Orders { get; set; }
     public virtual ICollection<Visit> Visits { get; set; }
 
-    public ICollection<Note_Product_Mapping> Note_Product_Mapping { get; set; }
+    //public ICollection<Note_Product_Mapping> Note_Product_Mapping { get; set; }
 }

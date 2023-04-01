@@ -2,6 +2,11 @@
 
 public class CustomerFeedback : BaseEntity
 {
+    public CustomerFeedback()
+    {
+        CustomerFeedbackId = Ulid.NewUlid();
+    }
+
     public Ulid CustomerFeedbackId { get; set; }
     public string FeedbackName { get; set; }
     public int DisplayOrder { get; set; }

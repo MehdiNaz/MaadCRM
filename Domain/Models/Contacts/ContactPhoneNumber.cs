@@ -4,6 +4,7 @@ public class ContactPhoneNumber : BaseEntity
 {
     public ContactPhoneNumber()
     {
+        ContactPhoneNumberId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

@@ -1,4 +1,6 @@
-﻿namespace Domain.Mapping;
+﻿using Domain.UnDifined;
+
+namespace Domain.Mapping;
 
 public class LogMapping : IEntityTypeConfiguration<Log>
 {

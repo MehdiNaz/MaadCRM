@@ -4,6 +4,7 @@ public class ProductCustomerFavoritesList
 {
     public ProductCustomerFavoritesList()
     {
+        ProductId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

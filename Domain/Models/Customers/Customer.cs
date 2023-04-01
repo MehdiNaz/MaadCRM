@@ -4,6 +4,7 @@ public class Customer : BaseEntity
 {
     public Customer()
     {
+        CustomerId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
         CustomerState = CustomerStateTypes.Belghoveh;
@@ -15,7 +16,7 @@ public class Customer : BaseEntity
     public required string LastName { get; set; }
     public required DateOnly BirthDayDate { get; set; }
     public byte[] CustomerPic { get; set; }
-    public required Ulid UserId { get; set; }
+    public required string UserId { get; set; }
     public required Ulid CityId { get; set; }
     public required Ulid BusinessId { get; set; }
     public required Ulid CustomerCategoryId { get; set; }
@@ -33,9 +34,9 @@ public class Customer : BaseEntity
     public ICollection<Customer> CustomersMoarf { get; set; }
     #endregion
 
-   
-    public User User { get; set; }                                                                      //Relation OK
-    public Business Business{ get; set; }                                                               //Relation OK
+
+    public User user { get; set; }                                                                      //Relation OK
+    public Business Business { get; set; }                                                               //Relation OK
     public City City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
     public ICollection<ProductCustomerFavoritesList> FavoritesLists { get; set; }                       //Relation OK
@@ -49,7 +50,7 @@ public class Customer : BaseEntity
 
 
 
-    
+
     #region Old Relations
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     public ICollection<CustomerSubmission> CustomerSubmission { get; set; }

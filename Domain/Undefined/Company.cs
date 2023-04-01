@@ -1,6 +1,6 @@
-namespace Domain.Models;
+namespace Domain.UnDifined;
 
-public class Company:BaseEntity
+public class Company : BaseEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }

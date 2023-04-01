@@ -4,6 +4,7 @@ public class CustomerNote : BaseEntity
 {
     public CustomerNote()
     {
+        CustomerNoteId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

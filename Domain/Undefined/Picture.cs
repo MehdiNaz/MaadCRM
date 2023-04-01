@@ -1,6 +1,6 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.UnDifined;
 
-public class Picture:BaseEntity
+public class Picture : BaseEntity
 {
     public string MimeType { get; set; }
     public string SeoFilename { get; set; }

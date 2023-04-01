@@ -4,6 +4,7 @@ public class CustomerHashTag : BaseEntity
 {
     public CustomerHashTag()
     {
+        CustomerHashTagId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

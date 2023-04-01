@@ -1,3 +1,5 @@
+using Domain.UnDifined;
+
 namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
@@ -7,20 +9,13 @@ public class MaadContext : IdentityDbContext
     }
 
     //Identity : ==>
-    public DbSet<Role>? Roles { get; set; }
-    public DbSet<RoleClaim>? RoleClaims { get; set; }
-    public DbSet<UserClaim>? UserClaims { get; set; }
-    public DbSet<UserLogin>? UserLogins { get; set; }
-    public DbSet<UserRole>? UserRoles { get; set; }
     public DbSet<User>? Users { get; set; }
-    public DbSet<UserToken>? UserTokens { get; set; }
-
     public DbSet<Post>? Posts { get; set; }
     public DbSet<Log>? Logs { get; set; }
     public DbSet<Plan>? Plans { get; set; }
     public DbSet<SanAt>? SanAts { get; set; }
     public DbSet<Customer>? Customers { get; set; }
-    public DbSet<CustomerCategory>? CustCategories { get; set; }
+    public DbSet<CustomerCategory>? CustomerCategories { get; set; }
     public DbSet<Address>? Addresses { get; set; }
     public DbSet<City>? Cities { get; set; }
     public DbSet<Country>? Countries { get; set; }
@@ -40,30 +35,28 @@ public class MaadContext : IdentityDbContext
     public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
     public DbSet<Product>? Products { get; set; }
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
-    public DbSet<Note>? Notes{ get; set; }
-    public DbSet<CustomerPeyGiry>? CustomerPeyGiries{ get; set; }
-    public DbSet<CustomerNote>? CustomerNotes{ get; set; }
+    //public DbSet<Note>? Notes { get; set; }
+    public DbSet<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
+    public DbSet<CustomerNote>? CustomerNotes { get; set; }
     public DbSet<CustomerHashTag>? CustomerHashTags { get; set; }
     public DbSet<NoteAttachment>? NoteAttachments { get; set; }
     public DbSet<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
+    public DbSet<CustomerFeedback>? CustomerFeedbacks { get; set; }
+    public DbSet<CustomerRepresentativeHistory>? CustomerRepresentativeHistories { get; set; }
+    public DbSet<CustomerSubmission>? CustomerSubmissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //Identity : ==>
         builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
         builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
-        builder.ApplyConfiguration(new RoleMapping());
-        builder.ApplyConfiguration(new RoleClaimMapping());
-        builder.ApplyConfiguration(new UserClaimMapping());
-        builder.ApplyConfiguration(new UserLoginMapping());
-        builder.ApplyConfiguration(new UserRoleMapping());
         builder.ApplyConfiguration(new UserMapping());
-        builder.ApplyConfiguration(new UserTokenMapping());
 
         //Customers
         builder.ApplyConfiguration(new CustomerActivityHistoryMapping());
         builder.ApplyConfiguration(new CustomerActivityMapping());
         builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());
+        builder.ApplyConfiguration(new CustomerFeedbackMapping());
         builder.ApplyConfiguration(new CustomerMapping());
         builder.ApplyConfiguration(new CustomersAddressMapping());
         builder.ApplyConfiguration(new CustomerCategoryMapping());
@@ -84,7 +77,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ProvinceMapping());
         builder.ApplyConfiguration(new AttributeOptionsValueMapping());
         builder.ApplyConfiguration(new LogMapping());
-        builder.ApplyConfiguration(new NoteMapping());
+        //builder.ApplyConfiguration(new NoteMapping());
         builder.ApplyConfiguration(new PlanMapping());
         builder.ApplyConfiguration(new PostMapping());
         builder.ApplyConfiguration(new SanAtMapping());
@@ -99,6 +92,150 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ContactsEmailAddressMapping());
         builder.ApplyConfiguration(new ProductsMapping());
         builder.ApplyConfiguration(new ProductCustomerFavoritesListMapping());
+
+        builder.ApplyConfiguration(new BusinessMapping());
+
+
+        foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())
+        {
+            if (typeof(Customer).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Customer.CustomerId)).ValueGeneratedNever();
+            if (typeof(Customer).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Customer.BusinessId)).ValueGeneratedNever();
+
+
+            //if (typeof(User).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(User.CustomerId)).ValueGeneratedNever();
+
+
+            if (typeof(CustomerActivityHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerActivityHistory.CustomerActivityHistoryId)).ValueGeneratedNever();
+            if (typeof(CustomerActivityHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerActivityHistory.CustomerId)).ValueGeneratedNever();
+
+
+
+            if (typeof(CustomerRepresentativeHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerRepresentativeHistory.CustomerRepresentativeHistoryId)).ValueGeneratedNever();
+            if (typeof(CustomerRepresentativeHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerRepresentativeHistory.CustomerId)).ValueGeneratedNever();
+
+
+
+            if (typeof(Log).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Log)).ValueGeneratedNever();
+            if (typeof(Plan).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Plan)).ValueGeneratedNever();
+            if (typeof(SanAt).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(SanAt)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(CustomerCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerCategory.CustomerCategoryId)).ValueGeneratedNever();
+            if (typeof(CustomerCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerCategory.CustomerId)).ValueGeneratedNever();
+
+
+            if (typeof(CustomerSubmission).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerSubmission.CustomerSubmissionId)).ValueGeneratedNever();
+            if (typeof(CustomerSubmission).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerSubmission.CustomerId)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(Address).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Address.AddressId)).ValueGeneratedNever();
+            //if (typeof(Address).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Address.City)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(City).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(City.CityId)).ValueGeneratedNever();
+            if (typeof(City).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(City.CustomerId)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(Country).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Country)).ValueGeneratedNever();
+            if (typeof(Province).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Province)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.BusinessId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.BusinessAttributeId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.AttributeOptionsId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.AttributeOptionsValueId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.ContactGroupId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.ContactId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.CustomerId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.UserId)).ValueGeneratedNever();
+
+
+
+            if (typeof(Setting).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Setting)).ValueGeneratedNever();
+            if (typeof(CategoryAttribute).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CategoryAttribute)).ValueGeneratedNever();
+
+
+
+            if (typeof(BusinessAttribute).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(BusinessAttribute.BusinessAttributeId)).ValueGeneratedNever();
+
+
+
+            if (typeof(AttributeOptionsValue).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(AttributeOptionsValue.AttributeOptionsValueId)).ValueGeneratedNever();
+            if (typeof(AttributeOptionsValue).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(AttributeOptionsValue.AttributeOptionId)).ValueGeneratedNever();
+
+
+
+            if (typeof(AttributeOptions).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(AttributeOptions)).ValueGeneratedNever();
+            if (typeof(CustomersPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomersPhoneNumber)).ValueGeneratedNever();
+            if (typeof(CustomersEmailAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomersEmailAddress)).ValueGeneratedNever();
+            if (typeof(CustomersAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomersAddress)).ValueGeneratedNever();
+            if (typeof(ContactGroup).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactGroup)).ValueGeneratedNever();
+
+
+
+
+
+
+            if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.ContactId)).ValueGeneratedNever();
+            if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.BusinessId)).ValueGeneratedNever();
+
+
+
+            if (typeof(ContactPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactPhoneNumber.ContactPhoneNumberId)).ValueGeneratedNever();
+            if (typeof(ContactPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactPhoneNumber.CustomerId)).ValueGeneratedNever();
+
+
+
+
+            if (typeof(ContactsEmailAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactsEmailAddress)).ValueGeneratedNever();
+
+
+
+            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.ProductId)).ValueGeneratedNever();
+            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.FavoritesListId)).ValueGeneratedNever();
+
+
+
+            if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList)).ValueGeneratedNever();
+            //if (typeof(Note).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Note)).ValueGeneratedNever();
+            if (typeof(CustomerPeyGiry).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerPeyGiry)).ValueGeneratedNever();
+            if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerNote)).ValueGeneratedNever();
+            if (typeof(CustomerHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerHashTag)).ValueGeneratedNever();
+            if (typeof(NoteAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteAttachment)).ValueGeneratedNever();
+
+
+            if (typeof(PeyGiryAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(PeyGiryAttachment.PeyGiryAttachmentId)).ValueGeneratedNever();
+            if (typeof(PeyGiryAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(PeyGiryAttachment.PeyGiryNoteId)).ValueGeneratedNever();
+
+
+            foreach (IMutableProperty property in entityType.GetProperties())
+                if (property.ClrType == typeof(Ulid) || property.ClrType == typeof(Ulid?))
+                    property.SetValueConverter(new UlidToStringConverter());
+        }
+
         base.OnModelCreating(builder);
+    }
+}
+
+public class UlidToStringConverter : ValueConverter<Ulid, string>
+{
+    private static readonly ConverterMappingHints DefaultHints = new(size: 26);
+
+    public UlidToStringConverter(ConverterMappingHints mappingHints = null!)
+        : base(
+            convertToProviderExpression: x => x.ToString(),
+            convertFromProviderExpression: x => Ulid.Parse(x),
+            mappingHints: DefaultHints.With(mappingHints))
+    {
     }
 }

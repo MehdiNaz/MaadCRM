@@ -9,6 +9,11 @@
 
 public class Plan
 {
+    public Plan()
+    {
+        Id = Ulid.NewUlid();
+    }
+
     public Ulid Id { get; set; }
     public string PlanName { get; set; }
     public uint DayDurations { get; set; }

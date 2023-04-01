@@ -5,8 +5,6 @@ public class UserMapping : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).HasMaxLength(450);
         builder.Property(x => x.Name).HasMaxLength(50);
         builder.Property(x => x.Family).HasMaxLength(50);
         builder.Property(x => x.CodeMelli).HasMaxLength(256);
@@ -26,11 +24,6 @@ public class UserMapping : IEntityTypeConfiguration<User>
         builder.Property(x => x.ConcurrencyStamp).HasMaxLength(500);
         builder.Property(x => x.PhoneNumber).HasMaxLength(50);
         
-
-        builder.HasMany(x => x.UsersRoles).WithOne(x => x.User).HasForeignKey(x => x.UserId);
-        builder.HasMany(x => x.UserClaims).WithOne(x => x.User).HasForeignKey(x => x.UserId);
-        builder.HasMany(x => x.UserTokens).WithOne(x => x.User).HasForeignKey(x => x.UserId);
-        builder.HasMany(x => x.UserLogins).WithOne(x => x.User).HasForeignKey(x => x.UserId);
 
         builder.HasOne(x => x.City).WithMany(x => x.Users).HasForeignKey(x => x.CityId);
     }

@@ -4,6 +4,7 @@ public class CustomersPhoneNumber : BaseEntity
 {
     public CustomersPhoneNumber()
     {
+        PhoneNumberId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

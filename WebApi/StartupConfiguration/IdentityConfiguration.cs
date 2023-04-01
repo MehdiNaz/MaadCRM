@@ -22,11 +22,11 @@ public static class IdentityConfiguration
                 options.Lockout.MaxFailedAccessAttempts = 10;
 
 
-                // User settings
+                // user settings
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
-                // options.User.AllowedUserNameCharacters = "0123456789";
+                // options.user.AllowedUserNameCharacters = "0123456789";
             })
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<MaadContext>();

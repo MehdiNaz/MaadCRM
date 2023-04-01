@@ -1,3 +1,5 @@
+using Domain.UnDifined;
+
 namespace Application.Interfaces;
 
 public interface ILogRepository

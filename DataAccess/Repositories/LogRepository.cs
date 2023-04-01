@@ -1,3 +1,5 @@
+using Domain.UnDifined;
+
 namespace DataAccess.Repositories;
 
 public class LogRepository: ILogRepository

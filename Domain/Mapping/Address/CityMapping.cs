@@ -10,5 +10,6 @@ public class CityMapping : IEntityTypeConfiguration<City>
 
         builder.HasOne(x => x.Province).WithMany(x => x.Cities).HasForeignKey(x => x.ProvinceId);
         builder.HasMany(x => x.Customers).WithOne(x => x.City).HasForeignKey(x => x.CityId);
+        builder.HasMany(x => x.Addresses).WithOne(x => x.city).HasForeignKey(x => x.CityId);
     }
 }

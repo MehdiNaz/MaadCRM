@@ -4,6 +4,7 @@ public class SanAt : BaseEntity
 {
     public SanAt()
     {
+        SanAtId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

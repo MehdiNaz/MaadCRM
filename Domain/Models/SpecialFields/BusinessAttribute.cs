@@ -2,6 +2,11 @@
 
 public class BusinessAttribute : BaseEntity
 {
+    public BusinessAttribute()
+    {
+        BusinessAttributeId = Ulid.NewUlid();
+    }
+
     public Ulid BusinessAttributeId { get; set; }
     public string TextPrompt { get; set; }
     public bool IsRequired { get; set; }

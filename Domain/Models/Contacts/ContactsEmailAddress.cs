@@ -4,6 +4,7 @@ public class ContactsEmailAddress : BaseEntity
 {
     public ContactsEmailAddress()
     {
+        CustomersEmailAddressId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

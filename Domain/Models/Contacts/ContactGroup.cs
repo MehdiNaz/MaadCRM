@@ -4,6 +4,7 @@ public class ContactGroup : BaseEntity
 {
     public ContactGroup()
     {
+        ContactGroupId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

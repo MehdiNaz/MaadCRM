@@ -2,6 +2,11 @@
 
 public class Country : BaseEntity
 {
+    public Country()
+    {
+        CountryId = Ulid.NewUlid();
+    }
+
     public Ulid CountryId { get; set; }
     public string CountryName { get; set; }
     public bool IsDefault { get; set; }

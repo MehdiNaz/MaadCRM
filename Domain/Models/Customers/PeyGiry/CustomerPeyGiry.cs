@@ -4,6 +4,7 @@ public class CustomerPeyGiry : BaseEntity
 {
     public CustomerPeyGiry()
     {
+        CustomerPeyGiryId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

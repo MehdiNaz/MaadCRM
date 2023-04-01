@@ -1,6 +1,6 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.UnDifined;
 
-public class FileManagement:BaseEntity
+public class FileManagement : BaseEntity
 {
     public string MimeType { get; set; }
     public string SeoFilename { get; set; }

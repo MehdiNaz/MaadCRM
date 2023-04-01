@@ -4,6 +4,7 @@ public class AttributeOptions : BaseEntity
 {
     public AttributeOptions()
     {
+        AttributeOptionsId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }

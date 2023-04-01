@@ -10,15 +10,15 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
     }
 
     public async Task<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
-        => (await _context.CustCategories!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.CustomerCategories!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
-    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid CustomerCategoryId) => await _context.CustCategories!.FindAsync(CustomerCategoryId);
+    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid CustomerCategoryId) => await _context.CustomerCategories!.FindAsync(CustomerCategoryId);
 
     public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
     {
         try
         {
-            await _context.CustCategories!.AddAsync(entity);
+            await _context.CustomerCategories!.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

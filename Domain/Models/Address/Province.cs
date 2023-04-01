@@ -2,6 +2,11 @@
 
 public class Province : BaseEntity
 {
+    public Province()
+    {
+        ProvinceId = Ulid.NewUlid();
+    }
+
     public Ulid ProvinceId { get; set; }
     public string ProvinceName { get; set; }
     public bool IsDefault { get; set; }

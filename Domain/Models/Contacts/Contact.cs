@@ -4,6 +4,7 @@ public class Contact : BaseEntity
 {
     public Contact()
     {
+        ContactId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }
@@ -18,7 +19,6 @@ public class Contact : BaseEntity
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
     public Ulid BusinessId { get; set; }
-    //[ForeignKey(nameof(ContactGroupId))]
 
 
     public ICollection<Business> Businesses { get; set; }

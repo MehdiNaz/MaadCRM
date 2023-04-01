@@ -4,6 +4,7 @@ public class CustomersEmailAddress : BaseEntity
 {
     public CustomersEmailAddress()
     {
+        CustomersEmailAddressId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
         IsShown = ShowTypes.Show;
     }
@@ -14,5 +15,5 @@ public class CustomersEmailAddress : BaseEntity
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
 
-    public Customer Customer{ get; set; }
+    public Customer Customer { get; set; }
 }

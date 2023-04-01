@@ -4,6 +4,7 @@ public class PeyGiryAttachment : BaseEntity
 {
     public PeyGiryAttachment()
     {
+        PeyGiryAttachmentId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

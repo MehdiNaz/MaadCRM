@@ -4,6 +4,7 @@ public class CustomerCategory : BaseEntity
 {
     public CustomerCategory()
     {
+        CustomerCategoryId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

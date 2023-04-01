@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.UnDifined;
 
 public class Notification : BaseEntity
 {

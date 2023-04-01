@@ -2,6 +2,10 @@
 
 public class CustomerRepresentativeHistory : BaseEntity
 {
+    public CustomerRepresentativeHistory()
+    {
+        CustomerRepresentativeHistoryId = Ulid.NewUlid();
+    }
     public Ulid CustomerRepresentativeHistoryId { get; set; }
     public Ulid CustomerId { get; set; }
     public Ulid CustomerRepresentativeTypeId { get; set; }

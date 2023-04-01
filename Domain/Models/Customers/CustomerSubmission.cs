@@ -2,6 +2,11 @@
 
 public class CustomerSubmission : BaseEntity
 {
+    public CustomerSubmission()
+    {
+        CustomerSubmissionId = Ulid.NewUlid();
+    }
+
     public Ulid CustomerSubmissionId { get; set; }
     public Ulid CustomerId { get; set; }
     public Ulid UserId { get; set; }

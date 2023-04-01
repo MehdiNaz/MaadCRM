@@ -2,6 +2,11 @@
 
 public class AttributeOptionsValue : BaseEntity
 {
+    public AttributeOptionsValue()
+    {
+        AttributeOptionsValueId = Ulid.NewUlid();
+    }
+
     public Ulid AttributeOptionsValueId { get; set; }
     public int ForCustomerId { get; set; }
     public string AttributeDescriptionValue { get; set; }

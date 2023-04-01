@@ -4,6 +4,7 @@ public class CustomersAddress : BaseEntity
 {
     public CustomersAddress()
     {
+        CustomersAddressId = Ulid.NewUlid();
         IsDeleted = Status.NotDeleted;
     }
 

@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.UnDifined;
 
 public class ActivityLog : BaseEntity
 {
@@ -8,8 +8,8 @@ public class ActivityLog : BaseEntity
     public int ActivityLogTypeId { get; set; }
     public int UserId { get; set; }
     public int EntityId { get; set; }
-    [ForeignKey(nameof(UserId))]
-    public User User { get; set; }
-    [ForeignKey(nameof(ActivityLogTypeId))]
-    public ActivityLogType ActivityLogType { get; set; }
+    //[ForeignKey(nameof(UserId))]
+    //public user user { get; set; }
+    //[ForeignKey(nameof(ActivityLogTypeId))]
+    //public ActivityLogType ActivityLogType { get; set; }
 }
