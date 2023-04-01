@@ -66,4 +66,6 @@ global using Serilog;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using System.Text;
 global using System.Threading.RateLimiting;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
 global using WebApi.StartupConfiguration;

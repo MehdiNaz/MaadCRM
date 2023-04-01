@@ -1,3 +1,5 @@
+using WebApi.Routes;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -61,6 +63,10 @@ app.UseFileServer();
 
 app.UseSerilogRequestLogging();
 
+#endregion
+
+#region Routes
+app.MapAccountRoute();
 #endregion
 
 app.Run();
