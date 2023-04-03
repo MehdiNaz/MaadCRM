@@ -1,5 +1,3 @@
-using Domain.UnDifined;
-
 namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
@@ -133,7 +131,6 @@ public class MaadContext : IdentityDbContext
 
 
             if (typeof(Address).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Address.AddressId)).ValueGeneratedNever();
-            //if (typeof(Address).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Address.City)).ValueGeneratedNever();
 
 
 

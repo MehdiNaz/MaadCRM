@@ -1,4 +1,5 @@
 global using Application.Interfaces;
+global using Application.Interfaces.Addresses;
 global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
 global using Application.Interfaces.SpecialFields;
@@ -22,6 +23,7 @@ global using Domain.Models.IdentityModels;
 global using Domain.Models.Notes;
 global using Domain.Models.Products;
 global using Domain.Models.SpecialFields;
+global using Domain.UnDifined;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata;

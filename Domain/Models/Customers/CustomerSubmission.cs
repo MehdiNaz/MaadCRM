@@ -9,7 +9,7 @@ public class CustomerSubmission : BaseEntity
 
     public Ulid CustomerSubmissionId { get; set; }
     public Ulid CustomerId { get; set; }
-    public Ulid UserId { get; set; }
+    public string UserId { get; set; }
     public DateTime? FollowDateTime { get; set; }
 
 

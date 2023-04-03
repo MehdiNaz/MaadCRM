@@ -1,6 +1,4 @@
-﻿using Application.Validation;
-
-namespace WebApi.StartupConfiguration;
+﻿namespace WebApi.StartupConfiguration;
 
 public static class FluentValidationConfiguration
 {
@@ -20,6 +18,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(CustomerCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CustomerAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(SanAtValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactGroupValidation).Assembly);
@@ -27,6 +26,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ContactPhoneNumberValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactsEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ProductCustomerFavoritesListRepositoryValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CityValidation).Assembly);
 
 
 

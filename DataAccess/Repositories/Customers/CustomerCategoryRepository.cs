@@ -12,7 +12,7 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
     public async Task<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
         => (await _context.CustomerCategories!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
 
-    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid CustomerCategoryId) => await _context.CustomerCategories!.FindAsync(CustomerCategoryId);
+    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId) => await _context.CustomerCategories!.FindAsync(customerCategoryId);
 
     public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
     {
@@ -28,7 +28,7 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity, Ulid CustomerCategoryId)
+    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity, Ulid customerCategoryId)
     {
         try
         {
@@ -42,11 +42,11 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> DeleteCusCustomerAsync(Ulid CustomerCategoryId)
+    public async ValueTask<CustomerCategory?> DeleteCusCustomerAsync(Ulid customerCategoryId)
     {
         try
         {
-            var CustomerCategory = await GetCustomerCategoryByIdAsync(CustomerCategoryId);
+            var CustomerCategory = await GetCustomerCategoryByIdAsync(customerCategoryId);
             CustomerCategory.IsDeleted = Status.Deleted;
             await _context.SaveChangesAsync();
             return CustomerCategory;

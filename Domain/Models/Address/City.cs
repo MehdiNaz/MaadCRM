@@ -5,13 +5,16 @@ public class City : BaseEntity
     public City()
     {
         CityId = Ulid.NewUlid();
+        IsDeleted = Status.NotDeleted;
     }
+
     public Ulid CityId { get; set; }
     public string CityName { get; set; }
     public bool IsDefault { get; set; }
     public int DisplayOrder { get; set; }
     public Ulid ProvinceId { get; set; }
     public Ulid CustomerId { get; set; }
+    public Status IsDeleted { get; set; }
 
 
 

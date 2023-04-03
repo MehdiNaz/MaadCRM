@@ -11,7 +11,7 @@ public class SanAt : BaseEntity
 
     public Ulid SanAtId { get; set; }
     public string SanAtName { get; set; }
-    public Ulid UserId { get; set; }
+    public string UserId { get; set; }
     public Status IsDeleted { get; set; }
     public ShowTypes IsShown { get; set; }
 
