@@ -30,12 +30,11 @@ public class Customer : BaseEntity
 
     #region Moaref
     public Ulid CustomerMoarefId { get; set; }
-    public Customer CustomerMoarf { get; set; }
-    public ICollection<Customer> CustomersMoarf { get; set; }
+    public Customer CustomerMoaref { get; set; }
+    public ICollection<Customer> CustomersMoaref { get; set; }
     #endregion
-
-
-    public User user { get; set; }                                                                      //Relation OK
+    
+    public User UserEntity { get; set; }                                                                      //Relation OK
     public Business Business { get; set; }                                                               //Relation OK
     public City City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
@@ -45,11 +44,6 @@ public class Customer : BaseEntity
     public ICollection<CustomerNote> CustomerNotes { get; set; }                                        //Relation OK
     public ICollection<CustomerPeyGiry> CustomerPeyGiries { get; set; }                                 //Relation OK
     public ICollection<CustomersAddress> CustomersAddresses { get; set; }                               //Relation OK
-
-
-
-
-
 
     #region Old Relations
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }

@@ -10,8 +10,8 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.Property(x => x.LastName).HasMaxLength(255).IsRequired();
 
 
-        builder.HasOne(x => x.user).WithMany(x => x.Customers).HasForeignKey(x => x.InsertedBy);
-        builder.HasOne(x => x.user).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);
+        builder.HasOne(x => x.UserEntity).WithMany(x => x.Customers).HasForeignKey(x => x.InsertedBy);
+        builder.HasOne(x => x.UserEntity).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);
 
 
         // New Relations ==> OK
@@ -22,12 +22,12 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.HasMany(x => x.CustomerNotes).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
         builder.HasMany(x => x.CustomerPeyGiries).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
 
-        builder.HasOne(x => x.user).WithMany(x => x.Customers).HasForeignKey(x => x.UserId);
+        builder.HasOne(x => x.UserEntity).WithMany(x => x.Customers).HasForeignKey(x => x.UserId);
         builder.HasOne(x => x.CustomerCategory).WithMany(x => x.Customers).HasForeignKey(x => x.CustomerCategoryId);
 
 
 
         // SelfRelation
-        builder.HasOne(x => x.CustomerMoarf).WithMany(x => x.CustomersMoarf).HasForeignKey(x => x.CustomerMoarefId);
+        builder.HasOne(x => x.CustomerMoaref).WithMany(x => x.CustomersMoaref).HasForeignKey(x => x.CustomerMoarefId);
     }
 }
