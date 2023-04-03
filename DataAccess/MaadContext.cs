@@ -13,14 +13,11 @@ public class MaadContext : IdentityDbContext
     {
         // if (!optionsBuilder.IsConfigured)
         // {
-        optionsBuilder.UseNpgsql(
-            "Host=localhost;Port=5432;Database=MaadDb;Username=postgres;Password=mysecretpassword");
+        // optionsBuilder.UseNpgsql(
+        //     "Host=localhost;Port=5432;Database=MaadDb;Username=postgres;Password=mysecretpassword");
         // }
     }
     
-    //Identity : ==>
-    public DbSet<User>? Users { get; set; }
-    public DbSet<Post>? Posts { get; set; }
     public DbSet<Log>? Logs { get; set; }
     public DbSet<Plan>? Plans { get; set; }
     public DbSet<SanAt>? SanAts { get; set; }
@@ -89,7 +86,6 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new LogMapping());
         //builder.ApplyConfiguration(new NoteMapping());
         builder.ApplyConfiguration(new PlanMapping());
-        builder.ApplyConfiguration(new PostMapping());
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new SettingMapping());
         builder.ApplyConfiguration(new BusinessAttributeMapping());

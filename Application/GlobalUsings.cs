@@ -18,8 +18,6 @@ global using Application.Services.CustomerService.Commands;
 global using Application.Services.CustomerService.Query;
 global using Application.Services.PhoneNumberService.Commands;
 global using Application.Services.PhoneNumberService.Queries;
-global using Application.Services.Posts.Commands;
-global using Application.Services.Posts.Queries;
 global using Application.Services.SanAtService.Commands;
 global using Application.Services.SanAtService.Queries;
 global using Domain.Enum;
