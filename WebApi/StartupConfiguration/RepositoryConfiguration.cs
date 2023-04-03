@@ -18,6 +18,12 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
         collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();
         collection.AddTransient<ICustomersAddressRepository, CustomersAddressRepository>();
+        collection.AddTransient<ICustomerNoteRepository, CustomerNoteRepository>();
+        collection.AddTransient<INoteHashTagRepository, NoteHashTagRepository>();
+        collection.AddTransient<INoteAttachmentRepository, NoteAttachmentRepository>();
+        collection.AddTransient<ICustomerPeyGiryRepository, CustomerPeyGiryRepository>();
+
+
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();
         collection.AddTransient<ILogService, LogService>();
         collection.AddTransient<IPlanRepository, PlanRepository>();

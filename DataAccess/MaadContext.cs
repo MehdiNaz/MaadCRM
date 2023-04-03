@@ -36,7 +36,7 @@ public class MaadContext : IdentityDbContext
     //public DbSet<Note>? Notes { get; set; }
     public DbSet<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
     public DbSet<CustomerNote>? CustomerNotes { get; set; }
-    public DbSet<CustomerHashTag>? CustomerHashTags { get; set; }
+    public DbSet<NoteHashTag>? NoteHashTags { get; set; }
     public DbSet<NoteAttachment>? NoteAttachments { get; set; }
     public DbSet<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
     public DbSet<CustomerFeedback>? CustomerFeedbacks { get; set; }
@@ -64,7 +64,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CustomersPhoneNumberMapping());
         builder.ApplyConfiguration(new CustomerNoteMapping());
         builder.ApplyConfiguration(new CustomerPeyGiryMapping());
-        builder.ApplyConfiguration(new CustomerHashTagMapping());
+        builder.ApplyConfiguration(new NoteHashTagMapping());
         builder.ApplyConfiguration(new NoteAttachmentMapping());
         builder.ApplyConfiguration(new PeyGiryAttachmentMapping());
 
@@ -207,7 +207,7 @@ public class MaadContext : IdentityDbContext
             //if (typeof(Note).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Note)).ValueGeneratedNever();
             if (typeof(CustomerPeyGiry).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerPeyGiry)).ValueGeneratedNever();
             if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerNote)).ValueGeneratedNever();
-            if (typeof(CustomerHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerHashTag)).ValueGeneratedNever();
+            if (typeof(NoteHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTag)).ValueGeneratedNever();
             if (typeof(NoteAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteAttachment)).ValueGeneratedNever();
 
 

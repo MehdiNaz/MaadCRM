@@ -1,4 +1,4 @@
-﻿namespace Domain.Mapping.Customers;
+﻿namespace Domain.Mapping.Customers.PeyGiry;
 
 public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
 {

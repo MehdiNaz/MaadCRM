@@ -19,6 +19,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerAddressValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CustomerNoteValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(SanAtValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactGroupValidation).Assembly);
@@ -27,7 +28,9 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ContactsEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ProductCustomerFavoritesListRepositoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CityValidation).Assembly);
-
+        collection.AddValidatorsFromAssembly(typeof(NoteHashTagValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(NoteAttachmentValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CustomerPeyGiryValidation).Assembly);
 
 
         // Request DTO :

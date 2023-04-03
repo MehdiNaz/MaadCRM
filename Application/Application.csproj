@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\Addresses\" />
+      <Folder Include="Interfaces\Customers\PeyGiry\" />
       <Folder Include="Services\AttributeOptionsService\Commands\" />
       <Folder Include="Services\AttributeOptionsService\QueryHandler\" />
       <Folder Include="Services\AttributeOptionsService\Queries\" />
@@ -36,10 +37,25 @@
       <Folder Include="Services\ContactGroupService\Queries\" />
       <Folder Include="Services\ContactPhoneNumberService\QueryHandler\" />
       <Folder Include="Services\ContactPhoneNumberService\Queries\" />
-      <Folder Include="Services\ProductCustomerFavoritesListService\CommandHandler\" />
+      <Folder Include="Services\CustomerNoteService\CommandHandler\" />
+      <Folder Include="Services\CustomerNoteService\Commands\" />
+      <Folder Include="Services\CustomerPhoneNumberService\Commands\" />
+      <Folder Include="Services\CustomerPhoneNumberService\QueryHandler\" />
+      <Folder Include="Services\CustomerPhoneNumberService\Queries\" />
+      <Folder Include="Services\CustomersAddressService\Commands\" />
+      <Folder Include="Services\CustomersAddressService\QueryHandler\" />
+      <Folder Include="Services\CustomersAddressService\Queries\" />
+      <Folder Include="Services\NoteAttachmentService\CommandHandler\" />
+      <Folder Include="Services\NoteAttachmentService\Commands\" />
+      <Folder Include="Services\NoteAttachmentService\QueryHandler\" />
+      <Folder Include="Services\NoteAttachmentService\Queries\" />
+      <Folder Include="Services\NoteHashTagService\CommandHandler\" />
+      <Folder Include="Services\NoteHashTagService\QueryHandler\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\Commands\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\QueryHandler\" />
       <Folder Include="Validator\Contacts\" />
       <Folder Include="Validator\Addresses\" />
+      <Folder Include="Validator\Customers\PeyGiry\" />
+      <Folder Include="Validator\Customers\Note\" />
     </ItemGroup>
 </Project>

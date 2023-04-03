@@ -4,6 +4,7 @@ public class CustomersEmailAddressValidation : AbstractValidator<CustomersEmailA
 {
     public CustomersEmailAddressValidation()
     {
-        RuleFor(x => x.CustomersEmailAddrs).NotEmpty().WithMessage("لطفاً آدرس ایمیل را وارد نمائید");
+        RuleFor(x => x.CustomersEmailAddrs).EmailAddress().WithMessage("لطفاً آدرس ایمیل  را وارد نمائید"); ;
+        RuleFor(x => x.CustomerId).NotEmpty();
     }
 }

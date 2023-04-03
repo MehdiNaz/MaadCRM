@@ -1,4 +1,4 @@
-﻿namespace Domain.Mapping.Customers;
+﻿namespace Domain.Mapping.Customers.Note;
 
 public class NoteAttachmentMapping : IEntityTypeConfiguration<NoteAttachment>
 {

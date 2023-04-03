@@ -2,6 +2,8 @@ global using Application.Interfaces;
 global using Application.Interfaces.Addresses;
 global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
+global using Application.Interfaces.Customers.Notes;
+global using Application.Interfaces.Customers.PeyGiry;
 global using Application.Interfaces.SpecialFields;
 global using Domain.Enum;
 global using Domain.Mapping;
