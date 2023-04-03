@@ -22,6 +22,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<INoteHashTagRepository, NoteHashTagRepository>();
         collection.AddTransient<INoteAttachmentRepository, NoteAttachmentRepository>();
         collection.AddTransient<ICustomerPeyGiryRepository, CustomerPeyGiryRepository>();
+        collection.AddTransient<IPeyGiryAttachmentRepository, PeyGiryAttachmentRepository>();
 
 
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();

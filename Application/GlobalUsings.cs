@@ -45,6 +45,8 @@ global using Application.Services.NoteAttachmentService.Commands;
 global using Application.Services.NoteAttachmentService.Queries;
 global using Application.Services.NoteHashTagService.Commands;
 global using Application.Services.NoteHashTagService.Queries;
+global using Application.Services.PeyGiryAttachmentService.Commands;
+global using Application.Services.PeyGiryAttachmentService.Queries;
 global using Application.Services.PeyGiryService.Commands;
 global using Application.Services.PeyGiryService.Queries;
 global using Application.Services.ProductCustomerFavoritesListService.Commands;

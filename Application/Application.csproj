@@ -51,6 +51,7 @@
       <Folder Include="Services\NoteAttachmentService\Queries\" />
       <Folder Include="Services\NoteHashTagService\CommandHandler\" />
       <Folder Include="Services\NoteHashTagService\QueryHandler\" />
+      <Folder Include="Services\PeyGiryAttachmentService\Commands\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\Commands\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\QueryHandler\" />
       <Folder Include="Validator\Contacts\" />

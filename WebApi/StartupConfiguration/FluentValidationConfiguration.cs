@@ -31,6 +31,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(NoteHashTagValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(NoteAttachmentValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerPeyGiryValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(PeyGiryAttachmentValidation).Assembly);
 
 
         // Request DTO :
