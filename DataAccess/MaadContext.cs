@@ -2,10 +2,22 @@ namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
 {
+    protected MaadContext()
+    {
+    }
     public MaadContext(DbContextOptions<MaadContext> opt) : base(opt)
     {
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // if (!optionsBuilder.IsConfigured)
+        // {
+        optionsBuilder.UseNpgsql(
+            "Host=localhost;Port=5432;Database=MaadDb;Username=postgres;Password=mysecretpassword");
+        // }
+    }
+    
     //Identity : ==>
     public DbSet<User>? Users { get; set; }
     public DbSet<Post>? Posts { get; set; }

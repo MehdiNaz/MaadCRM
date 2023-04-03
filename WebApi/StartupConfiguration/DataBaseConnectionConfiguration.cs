@@ -6,7 +6,7 @@ public static class DataBaseConnectionConfiguration
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         collection.AddDbContext<MaadContext>(options =>
-            options.UseSqlite(connectionString));
+            options.UseNpgsql(connectionString));
         collection.AddDatabaseDeveloperPageExceptionFilter();
 
     }
