@@ -26,10 +26,6 @@ RepositoryConfiguration.Configure(builder.Services);
 RateLimiterConfiguration.Configure(builder.Services);
 
 builder.Services.AddApplication();
-// test service
-builder.Services.AddScoped<IPostRepository, PostRepository>();
-builder.Services.AddMediatR(typeof(PostRepository).Assembly);
-builder.Services.AddMediatR(typeof(PostRepository).Assembly);
 
 FluentValidationConfiguration.Configure(builder.Services);
 #endregion
