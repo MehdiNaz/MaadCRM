@@ -5,39 +5,27 @@ var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 #region Services
-// Log
 LogConfiguration.Configuration(builder);
 
-// Cors
 CorsConfiguration.Configure(builder.Services, myAllowSpecificOrigins);
-
-builder.Services.AddHealthChecks();
 
 DataBaseConnectionConfiguration.Configure(builder.Services, configuration);
 
-// Identity Authentication Authorization
 IdentityConfiguration.Configure(builder.Services, configuration);
 
 SwaggerConfiguration.Configure(builder.Services);
 
-// Register services
 RepositoryConfiguration.Configure(builder.Services);
 
 RateLimiterConfiguration.Configure(builder.Services);
 
-builder.Services.AddApplication();
+ServiceConfiguration.Configuration(builder.Services);
 
 FluentValidationConfiguration.Configure(builder.Services);
 #endregion
 
 #region App
 var app = builder.Build();
-// var provider = app.Services;
-// provider.UseScheduler(scheduler =>
-// {
-//     scheduler.Schedule<ScheduleDatabaseInvocable>()
-//     .DailyAtHour(4);
-// });
 
 app.UseCors();
 
