@@ -51,6 +51,7 @@ app.UseSerilogRequestLogging();
 
 #region Routes
 app.MapAccountRoute();
+app.MapPlanRoute();
 #endregion
 
 app.Run();
