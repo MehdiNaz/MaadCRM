@@ -1,13 +1,10 @@
-﻿using Domain.UnDifined;
-
-namespace Domain.Models.IdentityModels;
+﻿namespace Domain.Models.IdentityModels;
 
 public class User : IdentityUser
 {
     public User()
     {
-        IsDeleted = Status.NotDeleted;
-        IsShown = ShowTypes.Show;
+        UserStatus = Status.Show;
     }
 
     public string? Name { get; set; }
@@ -32,8 +29,7 @@ public class User : IdentityUser
     public string OtpPassword { get; set; }
     public DateTime OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
-    public Status IsDeleted { get; set; }
-    public ShowTypes IsShown { get; set; }
+    public Status UserStatus { get; set; }
 
 
     public City City { get; set; }

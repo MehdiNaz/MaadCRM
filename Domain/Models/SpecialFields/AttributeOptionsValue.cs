@@ -5,6 +5,7 @@ public class AttributeOptionsValue : BaseEntity
     public AttributeOptionsValue()
     {
         AttributeOptionsValueId = Ulid.NewUlid();
+        AttributeOptionsValueStatus = Status.Show;
     }
 
     public Ulid AttributeOptionsValueId { get; set; }
@@ -18,11 +19,10 @@ public class AttributeOptionsValue : BaseEntity
     public string ImagePath { get; set; }
     public Ulid CustomerId { get; set; }
     public Ulid AttributeOptionId { get; set; }
+    public Status AttributeOptionsValueStatus { get; set; }
 
 
-    //[ForeignKey(nameof(ForCustomerId))]
     public ICollection<Business> Businesses { get; set; }
     public Customer Customer { get; set; }
-    //[ForeignKey(nameof(AttributeOptionId))]
     public AttributeOptions AttributeOptions { get; set; }
 }

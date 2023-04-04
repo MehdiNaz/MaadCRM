@@ -10,7 +10,7 @@ public class ContactGroupRepository : IContactGroupRepository
     }
 
     public async ValueTask<ICollection<ContactGroup?>> GetAllContactGroupsAsync()
-    => (await _context.ContactGroups!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+    => (await _context.ContactGroups!.ToListAsync()).Where(x => x.ContactGroupStatus == Status.Show).ToList()!;
 
     public async ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId) => await _context.ContactGroups!.FindAsync(contactGroupId);
 
@@ -47,7 +47,7 @@ public class ContactGroupRepository : IContactGroupRepository
         try
         {
             var contactGroup = await GetContactGroupByIdAsync(contactGroupId);
-            contactGroup!.IsDeleted = Status.Deleted;
+            contactGroup!.ContactGroupStatus = Status.Show;
             await _context.SaveChangesAsync();
             return contactGroup;
         }

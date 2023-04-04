@@ -13,8 +13,7 @@ public class UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCusto
     {
         CustomerCategory customerCategory = new()
         {
-            CustomerCategoryName = request.CustomerCategoryName,
-            IsShown = request.IsShown
+            CustomerCategoryName = request.CustomerCategoryName
         };
 
         await _repository.UpdateCustomerCategoryAsync(customerCategory, request.CustomerCategoryId);

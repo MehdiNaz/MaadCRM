@@ -5,16 +5,14 @@ public class ContactPhoneNumber : BaseEntity
     public ContactPhoneNumber()
     {
         ContactPhoneNumberId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
-        IsShown = ShowTypes.Show;
+        ContactPhoneNumberStatus = Status.Show;
     }
 
     public Ulid ContactPhoneNumberId { get; set; }
     public string PhoneNo { get; set; }
     public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
-    public Status IsDeleted { get; set; }
-    public ShowTypes IsShown { get; set; }
+    public Status ContactPhoneNumberStatus { get; set; }
 
     public ICollection<Contact> Contacts { get; set; }
 }

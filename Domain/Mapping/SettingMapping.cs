@@ -1,6 +1,4 @@
-﻿using Domain.UnDifined;
-
-namespace Domain.Mapping;
+﻿namespace Domain.Mapping;
 
 public class SettingMapping : IEntityTypeConfiguration<Setting>
 {

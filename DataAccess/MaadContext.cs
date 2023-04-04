@@ -17,7 +17,7 @@ public class MaadContext : IdentityDbContext
         //     "Host=localhost;Port=5432;Database=MaadDb;Username=postgres;Password=mysecretpassword");
         // }
     }
-    
+
     public DbSet<Log>? Logs { get; set; }
     public DbSet<Plan>? Plans { get; set; }
     public DbSet<SanAt>? SanAts { get; set; }
@@ -41,6 +41,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<ContactPhoneNumber>? ContactPhoneNumbers { get; set; }
     public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
     public DbSet<Product>? Products { get; set; }
+    public DbSet<ProductCategory>? ProductCategories { get; set; }
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
     //public DbSet<Note>? Notes { get; set; }
     public DbSet<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
@@ -51,6 +52,8 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerFeedback>? CustomerFeedbacks { get; set; }
     public DbSet<CustomerRepresentativeHistory>? CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission>? CustomerSubmissions { get; set; }
+    public DbSet<ForoshOrder>? ForoshOrders { get; set; }
+    public DbSet<ForoshFactor>? ForoshFactors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -97,9 +100,14 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ContactPhoneNumberMapping());
         builder.ApplyConfiguration(new ContactsEmailAddressMapping());
         builder.ApplyConfiguration(new ProductsMapping());
+        builder.ApplyConfiguration(new ProductCategoryMapping());
         builder.ApplyConfiguration(new ProductCustomerFavoritesListMapping());
 
         builder.ApplyConfiguration(new BusinessMapping());
+
+
+        builder.ApplyConfiguration(new ForoshOrderMapping());
+        builder.ApplyConfiguration(new ForoshFactorMapping());
 
 
         foreach (IMutableEntityType entityType in builder.Model.GetEntityTypes())

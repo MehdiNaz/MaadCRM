@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Interfaces.Customers.Forosh;
+
+namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
@@ -24,6 +26,13 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICustomerPeyGiryRepository, CustomerPeyGiryRepository>();
         collection.AddTransient<IPeyGiryAttachmentRepository, PeyGiryAttachmentRepository>();
 
+        collection.AddTransient<IProductRepository, ProductRepository>();
+        collection.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
+
+        collection.AddTransient<IForoshOrderRepository, ForoshOrderRepository>();
+        collection.AddTransient<IForoshFactorRepository, ForoshFactorRepository>();
+
 
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();
         collection.AddTransient<ILogService, LogService>();
@@ -41,8 +50,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactRepository, ContactRepository>();
         collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
         collection.AddTransient<IContactsEmailAddressRepository, ContactsEmailAddressRepository>();
-        
-        
+
+
         collection.AddTransient<ICityRepository, CityRepository>();
     }
 }

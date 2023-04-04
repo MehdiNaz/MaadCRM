@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Validator.Customers.Forosh;
+
+namespace WebApi.StartupConfiguration;
 
 public static class FluentValidationConfiguration
 {
@@ -32,6 +34,10 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(NoteAttachmentValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerPeyGiryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(PeyGiryAttachmentValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ProductValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ProductCategoryValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ForoshOrderValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(ForoshFactorValidation).Assembly);
 
 
         // Request DTO :

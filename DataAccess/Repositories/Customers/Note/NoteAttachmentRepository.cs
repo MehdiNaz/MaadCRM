@@ -10,7 +10,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
     }
 
     public async ValueTask<ICollection<NoteAttachment?>> GetAllNoteAttachmentsAsync()
-        => (await _context.NoteAttachments!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.NoteAttachments!.ToListAsync()).Where(x => x.NoteAttachmentStatus == Status.Show).ToList()!;
 
     public async ValueTask<NoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
         => await _context.NoteAttachments!.FindAsync(noteAttachmentId);
@@ -49,7 +49,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         try
         {
             var noteAttachment = await GetNoteAttachmentByIdAsync(noteAttachmentId);
-            noteAttachment!.IsDeleted = Status.Deleted;
+            noteAttachment!.NoteAttachmentStatus = Status.Show;
             await _context.SaveChangesAsync();
             return noteAttachment;
         }

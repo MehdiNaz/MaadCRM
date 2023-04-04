@@ -35,4 +35,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Repositories\Forosh\" />
+      <Folder Include="Repositories\Products\" />
+    </ItemGroup>
+
 </Project>

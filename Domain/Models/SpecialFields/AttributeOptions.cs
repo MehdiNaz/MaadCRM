@@ -5,8 +5,7 @@ public class AttributeOptions : BaseEntity
     public AttributeOptions()
     {
         AttributeOptionsId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
-        IsShown = ShowTypes.Show;
+        AttributeOptionsStatus = Status.Show;
     }
 
     public Ulid AttributeOptionsId { get; set; }
@@ -14,8 +13,7 @@ public class AttributeOptions : BaseEntity
     public string ColorSquaresRgb { get; set; }
     public Ulid BusinessAttributeId { get; set; }
     public int DisplayOrder { get; set; } = 0;
-    public Status IsDeleted { get; set; }
-    public ShowTypes IsShown { get; set; }
+    public Status AttributeOptionsStatus { get; set; }
 
 
     //[ForeignKey(nameof(BusinessAttributeId))]

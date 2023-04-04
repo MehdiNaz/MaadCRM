@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <Folder Include="Mapping\Contacts\" />
-      <Folder Include="Mapping\Products\" />
+      <Folder Include="Mapping\Customers\Forosh\" />
+      <Folder Include="Models\Customers\Forosh\" />
     </ItemGroup>
 </Project>

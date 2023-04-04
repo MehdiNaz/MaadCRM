@@ -1,11 +1,13 @@
-﻿namespace Domain.Models.Customers;
+﻿using Domain.Models.Customers.Forosh;
+
+namespace Domain.Models.Customers;
 
 public class CustomersAddress : BaseEntity
 {
     public CustomersAddress()
     {
         CustomersAddressId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
+        CustomersAddressStatus = Status.Show;
     }
 
     public Ulid CustomersAddressId { get; set; }
@@ -14,7 +16,8 @@ public class CustomersAddress : BaseEntity
     public string PhoneNo { get; set; }
     public string Description { get; set; }
     public Ulid CustomerId { get; set; }
-    public Status IsDeleted { get; set; }
+    public Status CustomersAddressStatus { get; set; }
 
     public Customer Customer { get; set; }
+    public ICollection<ForoshFactor> ForoshFactors { get; set; }
 }

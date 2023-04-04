@@ -5,14 +5,13 @@ public class CustomerCategory : BaseEntity
     public CustomerCategory()
     {
         CustomerCategoryId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
+        CustomerCategoryStatus = Status.Show;
     }
 
     public Ulid CustomerCategoryId { get; set; }
     public string CustomerCategoryName { get; set; }
     public Ulid CustomerId { get; set; }
-    public Status IsDeleted { get; set; }
-    public ShowTypes IsShown { get; set; }
+    public Status CustomerCategoryStatus { get; set; }
 
     public ICollection<Customer> Customers { get; set; }
 }

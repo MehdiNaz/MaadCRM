@@ -21,6 +21,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.HasMany(x => x.PhoneNumbers).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
         builder.HasMany(x => x.CustomerNotes).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
         builder.HasMany(x => x.CustomerPeyGiries).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
+        builder.HasMany(x => x.ForoshFactors).WithOne(x => x.Customer).HasForeignKey(x => x.CustomerId);
 
         builder.HasOne(x => x.UserEntity).WithMany(x => x.Customers).HasForeignKey(x => x.UserId);
         builder.HasOne(x => x.CustomerCategory).WithMany(x => x.Customers).HasForeignKey(x => x.CustomerCategoryId);

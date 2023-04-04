@@ -10,7 +10,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
     }
 
     public async ValueTask<ICollection<PeyGiryAttachment?>> GetAllPeyGiryAttachmentsAsync()
-        => (await _context.PeyGiryAttachments!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.PeyGiryAttachments!.ToListAsync()).Where(x => x.StatusPeyGiryAttachment == Status.Show).ToList()!;
 
     public async ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId)
         => await _context.PeyGiryAttachments!.FindAsync(peyGiryAttachmentId);
@@ -48,7 +48,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         try
         {
             var peyGiryAttachment = await GetPeyGiryAttachmentByIdAsync(peyGiryAttachmentId);
-            peyGiryAttachment!.IsDeleted = Status.Deleted;
+            peyGiryAttachment!.StatusPeyGiryAttachment = Status.Show;
             await _context.SaveChangesAsync();
             return peyGiryAttachment;
         }

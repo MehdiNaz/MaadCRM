@@ -10,7 +10,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
     }
 
     public async ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriessAsync()
-        => (await _context.CustomerPeyGiries!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.CustomerPeyGiries!.ToListAsync()).Where(x => x.CustomerPeyGiryStatus == Status.Show).ToList()!;
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
         => await _context.CustomerPeyGiries!.FindAsync(customerPeyGiryId);
@@ -49,7 +49,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             var customerPeyGiry = await GetCustomerPeyGiryByIdAsync(customerPeyGiryId);
-            customerPeyGiry!.IsDeleted = Status.Deleted;
+            customerPeyGiry!.CustomerPeyGiryStatus = Status.Show;
             await _context.SaveChangesAsync();
             return customerPeyGiry;
         }

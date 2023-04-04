@@ -11,14 +11,16 @@ public class Plan
 {
     public Plan()
     {
-        Id = Ulid.NewUlid();
+        PlanId = Ulid.NewUlid();
+        PlanStatus = Status.Show;
     }
 
-    public Ulid Id { get; set; }
+    public Ulid PlanId { get; set; }
     public string PlanName { get; set; }
     public uint DayDurations { get; set; }
     public uint CountOfUsers { get; set; }
     public decimal Price { get; set; }
     public string Discount { get; set; }
     public decimal FinalPrice { get; set; }
+    public Status PlanStatus { get; set; }
 }

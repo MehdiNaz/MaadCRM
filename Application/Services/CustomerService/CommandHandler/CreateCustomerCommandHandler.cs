@@ -17,18 +17,14 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate,
             CustomerPic = request.CustomerPic,
+            InsertedBy = request.InsertedBy,
+            UpdatedBy = request.UpdatedBy,
+            CityId = request.CityId,
             UserId = request.UserId,
             BusinessId = request.BusinessId,
             CustomerCategoryId = request.CustomerCategoryId,
             Gender = request.Gender,
-            IsShown = request.IsShown,
-            CustomerState = request.CustomerState,
-            CustomerStatus = request.CustomerStatus,
-            InsertedBy = request.InsertedBy,
-            UpdatedBy = request.UpdatedBy,
-            IsDeleted = request.IsDeleted,
-            CityId = request.CityId,
-            CustomerMoarefId = request.CustomerMoarefId
+            CustomerMoarefId = request.CustomerMoarefId,
         };
         await _repository.CreateCustomerAsync(item);
         return item;

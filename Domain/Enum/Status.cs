@@ -1,11 +1,13 @@
-namespace Domain.Enum;
+﻿namespace Domain.Enum;
 
-public enum Status : byte
+/// <summary>
+/// .این ایـــنام برای کل موارد به کار می رود
+///  به غیر از محصولات
+/// </summary>
+
+public enum Status
 {
-    Draft = 1,
-    Reject = 2,
-    Published = 3,
-
-    Deleted = 4,
-    NotDeleted = 5
+    Show = 1,
+    Hidden = 2,
+    Deleted = 3
 }

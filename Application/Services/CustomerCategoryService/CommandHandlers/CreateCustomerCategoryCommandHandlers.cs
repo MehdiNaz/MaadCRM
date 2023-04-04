@@ -14,7 +14,6 @@ public class CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCusto
         CustomerCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
-            IsShown = request.IsShown,
         };
 
         await _repository.CreateCustomerCategoryAsync(customerCategory);

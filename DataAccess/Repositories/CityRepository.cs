@@ -10,7 +10,7 @@ public class CityRepository : ICityRepository
     }
 
     public async ValueTask<ICollection<City?>> GetAllCitiesAsync()
-        => (await _context.Cities!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.Cities!.ToListAsync()).Where(x => x.CityStatus == Status.Show).ToList()!;
 
     public async ValueTask<City?> GetCityByIdAsync(Ulid cityId) => await _context.Cities!.FindAsync(cityId);
 
@@ -47,7 +47,7 @@ public class CityRepository : ICityRepository
         try
         {
             var customer = await GetCityByIdAsync(cityId);
-            customer!.IsDeleted = Status.Deleted;
+            customer!.CityStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customer;
         }

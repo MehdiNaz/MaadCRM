@@ -1,12 +1,11 @@
-﻿using Domain.UnDifined;
-
-namespace Domain.Models;
+﻿namespace Domain.Models;
 
 public class Business : BaseEntity
 {
     public Business()
     {
         BusinessId = Ulid.NewUlid();
+        BusinessStatus = Status.Show;
     }
 
     public Ulid BusinessId { get; set; }
@@ -24,7 +23,7 @@ public class Business : BaseEntity
     public Ulid AttributeOptionsId { get; set; }
     public Ulid AttributeOptionsValueId { get; set; }
     public Ulid BusinessAttributeId { get; set; }
-    //public Ulid CategoryAttributeId { get; set; }
+    public Status BusinessStatus { get; set; }
 
 
     public User User { get; set; }

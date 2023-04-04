@@ -10,5 +10,7 @@ public class CustomersAddressMapping : IEntityTypeConfiguration<CustomersAddress
         builder.Property(x => x.CodePost).HasMaxLength(255).IsRequired();
         builder.Property(x => x.PhoneNo).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
+
+        builder.HasMany(x => x.ForoshFactors).WithOne(x => x.CustomersAddress).HasForeignKey(x => x.CustomersAddressId);
     }
 }

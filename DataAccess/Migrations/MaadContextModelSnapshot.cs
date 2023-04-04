@@ -265,11 +265,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -302,7 +302,7 @@ namespace DataAccess.Migrations
                     b.Property<byte>("Show")
                         .HasColumnType("smallint");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("IdParrentNavigationId");
 
@@ -497,7 +497,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("CustomerState")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CustomerStatus")
+                    b.Property<int>("CustomerActivationStatus")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
@@ -1123,7 +1123,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Plan", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("PlanId")
                         .HasColumnType("character varying(26)");
 
                     b.Property<long>("CountOfUsers")
@@ -1152,7 +1152,7 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.ToTable("Plans", (string)null);
                 });
@@ -1178,7 +1178,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .HasColumnType("integer");
 
                     b.Property<int>("IdCategory")
@@ -1499,11 +1499,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.UnDifined.Company", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -1589,14 +1589,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.ToTable("Company");
                 });
 
             modelBuilder.Entity("Domain.UnDifined.Log", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("PlanId")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -1613,7 +1613,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("UserId");
 
@@ -1661,11 +1661,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.UnDifined.Visit", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("PlanId"));
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -1685,7 +1685,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("ProductId");
 
@@ -1694,7 +1694,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("PlanId")
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -1709,7 +1709,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -1720,11 +1720,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -1736,7 +1736,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("RoleId");
 
@@ -1745,7 +1745,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("PlanId")
                         .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
@@ -1799,7 +1799,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -1815,11 +1815,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("PlanId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -1831,7 +1831,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("PlanId");
 
                     b.HasIndex("UserId");
 
@@ -2525,7 +2525,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithOne()
-                        .HasForeignKey("Domain.Models.IdentityModels.User", "Id")
+                        .HasForeignKey("Domain.Models.IdentityModels.User", "PlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

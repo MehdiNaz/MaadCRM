@@ -5,6 +5,7 @@ public class BusinessAttribute : BaseEntity
     public BusinessAttribute()
     {
         BusinessAttributeId = Ulid.NewUlid();
+        BusinessAttributeStatus = Status.Show;
     }
 
     public Ulid BusinessAttributeId { get; set; }
@@ -19,8 +20,9 @@ public class BusinessAttribute : BaseEntity
     public string DefaultValue { get; set; }
     public string ConditionValue { get; set; }
     public Ulid CategoryAttributeId { get; set; }
+    public Status BusinessAttributeStatus { get; set; }
 
-    //[ForeignKey(nameof(CategoryAttributeId))]
+
     public ICollection<Business> Businesses { get; set; }
     public CategoryAttribute CategoryAttribute { get; set; }
     public ICollection<AttributeOptions> AttributeOptions { get; set; }

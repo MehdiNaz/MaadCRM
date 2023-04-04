@@ -1,4 +1,4 @@
-﻿using Domain.UnDifined;
+﻿using Domain.Models.Customers.Forosh;
 
 namespace Domain.Models.Products;
 
@@ -7,45 +7,27 @@ public class Product : BaseEntity
     public Product()
     {
         ProductId = Ulid.NewUlid();
+        PublishStatus = Enum.ProductStatus.Draft;
+        ProductStatus = Status.Show;
     }
 
     public Ulid ProductId { get; set; }
     public string ProductName { get; set; }
-    public bool Published { get; set; }
-    public int Id { get; set; }
-    public int? IdParent { get; set; }
-    public int IdCompany { get; set; }
-    public int IdCategory { get; set; }
+    public Ulid ProductCategoryId { get; set; }
     public string Title { get; set; }
     public string Summery { get; set; }
-    public DateTime? DateStart { get; set; }
-    public DateTime? DateEnd { get; set; }
-    public decimal? Mablagh { get; set; }
-    public decimal? Takhfif { get; set; }
-    public byte? TakhfifPercent { get; set; }
-    public decimal? Pardakht { get; set; }
-    public byte? SpecialOffer { get; set; }
-    public byte? Status { get; set; }
-    public byte? TakhfifMePerent { get; set; }
-    public short? MinSell { get; set; }
-    public short? MinSellPerPerson { get; set; }
-    public short? MaxSellPerPerson { get; set; }
+    public decimal? Price { get; set; }
+    public decimal? SecondaryPrice { get; set; }
+    public decimal? Discount { get; set; }
+    public byte? DiscountPercent { get; set; }
     public Ulid FavoritesListId { get; set; }
-
-
+    public byte[] Picture { get; set; }
+    public ProductStatus PublishStatus { get; set; }
+    public Status ProductStatus { get; set; }
 
 
     public ICollection<ProductCustomerFavoritesList> FavoritesLists { get; set; }                       //Relation OK
-
-
-
-
-    public virtual Category IdCategoryNavigation { get; set; }
-    public virtual Company IdCompanyNavigation { get; set; }
-    public virtual Product IdParrentNavigation { get; set; }
-    public virtual ICollection<Product> InverseIdParrentNavigation { get; set; }
-    // public virtual ICollection<Order> Orders { get; set; }
+    public ICollection<ForoshOrder> ForoshOrders { get; set; }                                          //Relation OK
+    public ProductCategory ProductCategory{ get; set; }                                                 //Relation OK
     public virtual ICollection<Visit> Visits { get; set; }
-
-    //public ICollection<Note_Product_Mapping> Note_Product_Mapping { get; set; }
 }

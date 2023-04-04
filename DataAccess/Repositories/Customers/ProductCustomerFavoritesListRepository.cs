@@ -10,7 +10,7 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
     }
 
     public async Task<ICollection<ProductCustomerFavoritesList?>> GetAllProductCustomerFavoritesListsAsync()
-        => (await _context.ProductCustomerFavoritesLists!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.ProductCustomerFavoritesLists!.ToListAsync()).Where(x => x.ProductCustomerFavoritesListStatus == Status.Show).ToList()!;
 
 
     public async ValueTask<ProductCustomerFavoritesList?> GetProductCustomerFavoritesListByIdAsync(Ulid productId, Ulid customerId)
@@ -54,7 +54,7 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         try
         {
             var customer = await GetProductCustomerFavoritesListByIdAsync(productId, customerId);
-            customer!.IsDeleted = Status.Deleted;
+            customer!.ProductCustomerFavoritesListStatus = Status.Show;
             await _context.SaveChangesAsync();
             return customer;
         }

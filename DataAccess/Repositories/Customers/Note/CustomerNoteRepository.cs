@@ -10,7 +10,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
     }
 
     public async ValueTask<ICollection<CustomerNote?>> GetAllCustomerNotesAsync()
-        => (await _context.CustomerNotes!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.CustomerNotes!.ToListAsync()).Where(x => x.CustomerNoteStatus == Status.Show).ToList()!;
 
     public async ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId)
         => await _context.CustomerNotes!.FindAsync(customerNoteId);
@@ -48,7 +48,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             var customerNote = await GetCustomerNoteByIdAsync(customerNoteId);
-            customerNote!.IsDeleted = Status.Deleted;
+            customerNote!.CustomerNoteStatus = Status.Show;
             await _context.SaveChangesAsync();
             return customerNote;
         }

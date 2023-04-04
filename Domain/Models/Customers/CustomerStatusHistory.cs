@@ -8,5 +8,5 @@ public class CustomerStatusHistory : BaseEntity
     [ForeignKey(nameof(CustomerId))]
     public Customer Customers { get; set; }
     //[ForeignKey(nameof(CustomerStatusId))]
-    //public CustomerStatus CustomerStatus { get; set; }
+    //public CustomerActivationStatus CustomerActivationStatus { get; set; }
 }

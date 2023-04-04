@@ -74,7 +74,7 @@ namespace DataAccess.Migrations
                         name: "FK_Category_Category_IdParrentNavigationId",
                         column: x => x.IdParrentNavigationId,
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -283,7 +283,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -304,7 +304,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -324,7 +324,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -342,13 +342,13 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -368,7 +368,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -411,13 +411,13 @@ namespace DataAccess.Migrations
                         name: "FK_Products_Category_IdCategoryNavigationId",
                         column: x => x.IdCategoryNavigationId,
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Company_IdCompanyNavigationId",
                         column: x => x.IdCompanyNavigationId,
                         principalTable: "Company",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Products_IdParrentNavigationProductId",
@@ -599,7 +599,7 @@ namespace DataAccess.Migrations
                         name: "FK_Users_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Cities_CityId",
@@ -626,7 +626,7 @@ namespace DataAccess.Migrations
                         name: "FK_Logs_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -650,7 +650,7 @@ namespace DataAccess.Migrations
                         name: "FK_SanAts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -786,7 +786,7 @@ namespace DataAccess.Migrations
                         name: "FK_Businesses_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -868,7 +868,7 @@ namespace DataAccess.Migrations
                         name: "FK_Customers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1070,7 +1070,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerSubmissions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "PlanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 

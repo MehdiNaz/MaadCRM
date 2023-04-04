@@ -5,8 +5,7 @@ public class Contact : BaseEntity
     public Contact()
     {
         ContactId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
-        IsShown = ShowTypes.Show;
+        ContactStatus = Status.Show;
     }
 
     public Ulid ContactId { get; set; }
@@ -16,9 +15,8 @@ public class Contact : BaseEntity
     public Ulid EmailId { get; set; }
     public Ulid ContactGroupId { get; set; }
     public string Job { get; set; }
-    public Status IsDeleted { get; set; }
-    public ShowTypes IsShown { get; set; }
     public Ulid BusinessId { get; set; }
+    public Status ContactStatus { get; set; }
 
 
     public ICollection<Business> Businesses { get; set; }

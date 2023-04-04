@@ -10,7 +10,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
     }
 
     public async ValueTask<ICollection<CustomersAddress?>> GetAllAddressesAsync()
-        => (await _context.CustomersAddresses!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.CustomersAddresses!.ToListAsync()).Where(x => x.CustomersAddressStatus == Status.Show).ToList()!;
 
 
     public async ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId)
@@ -49,7 +49,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         try
         {
             var customersAddress = await GetAddressByIdAsync(customersAddressId);
-            customersAddress.IsDeleted = Status.Deleted;
+            customersAddress.CustomersAddressStatus = Status.Show;
             await _context.SaveChangesAsync();
             return customersAddress;
         }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
@@ -24,6 +24,7 @@
     <ItemGroup>
       <Folder Include="Interfaces\Addresses\" />
       <Folder Include="Interfaces\Customers\PeyGiry\" />
+      <Folder Include="Interfaces\Customers\Forosh\" />
       <Folder Include="Services\AttributeOptionsService\Commands\" />
       <Folder Include="Services\AttributeOptionsService\QueryHandler\" />
       <Folder Include="Services\AttributeOptionsService\Queries\" />
@@ -45,6 +46,11 @@
       <Folder Include="Services\CustomersAddressService\Commands\" />
       <Folder Include="Services\CustomersAddressService\QueryHandler\" />
       <Folder Include="Services\CustomersAddressService\Queries\" />
+      <Folder Include="Services\ForoshFactorService\QueryHandler\" />
+      <Folder Include="Services\ForoshFactorService\Queries\" />
+      <Folder Include="Services\ForoshOrderService\CommandHandler\" />
+      <Folder Include="Services\ForoshOrderService\Commands\" />
+      <Folder Include="Services\ForoshOrderService\QueryHandler\" />
       <Folder Include="Services\NoteAttachmentService\CommandHandler\" />
       <Folder Include="Services\NoteAttachmentService\Commands\" />
       <Folder Include="Services\NoteAttachmentService\QueryHandler\" />
@@ -52,11 +58,13 @@
       <Folder Include="Services\NoteHashTagService\CommandHandler\" />
       <Folder Include="Services\NoteHashTagService\QueryHandler\" />
       <Folder Include="Services\PeyGiryAttachmentService\Commands\" />
+      <Folder Include="Services\ProductCategoryService\CommandHandler\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\Commands\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\QueryHandler\" />
       <Folder Include="Validator\Contacts\" />
       <Folder Include="Validator\Addresses\" />
       <Folder Include="Validator\Customers\PeyGiry\" />
       <Folder Include="Validator\Customers\Note\" />
+      <Folder Include="Validator\Customers\Forosh\" />
     </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
     }
 
     public async ValueTask<ICollection<NoteHashTag?>> GetAllNoteHashTagsAsync()
-        => (await _context.NoteHashTags!.ToListAsync()).Where(x => x.IsDeleted == Status.NotDeleted).ToList()!;
+        => (await _context.NoteHashTags!.ToListAsync()).Where(x => x.NoteHashTagStatus == Status.Show).ToList()!;
 
     public async ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
         => await _context.NoteHashTags!.FindAsync(noteHashTagId);
@@ -49,7 +49,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
         try
         {
             var noteHashTag = await GetNoteHashTagByIdAsync(noteHashTagId);
-            noteHashTag!.IsDeleted = Status.Deleted;
+            noteHashTag!.NoteHashTagStatus = Status.Show;
             await _context.SaveChangesAsync();
             return noteHashTag;
         }

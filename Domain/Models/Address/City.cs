@@ -5,7 +5,7 @@ public class City : BaseEntity
     public City()
     {
         CityId = Ulid.NewUlid();
-        IsDeleted = Status.NotDeleted;
+        CityStatus = Status.Show;
     }
 
     public Ulid CityId { get; set; }
@@ -14,12 +14,11 @@ public class City : BaseEntity
     public int DisplayOrder { get; set; }
     public Ulid ProvinceId { get; set; }
     public Ulid CustomerId { get; set; }
-    public Status IsDeleted { get; set; }
+    public Status CityStatus { get; set; }
 
 
 
 
-    //[ForeignKey(nameof(ProvinceId))]
     public Province Province { get; set; }
 
     public ICollection<Address> Addresses { get; set; }
