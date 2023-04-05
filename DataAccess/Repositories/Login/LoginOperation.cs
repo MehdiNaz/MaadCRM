@@ -1,6 +1,4 @@
-﻿using Application.Services.Login.Queries;
-
-namespace DataAccess.Repositories.Login;
+﻿namespace DataAccess.Repositories.Login;
 
 public class LoginOperation : ILoginOperation
 {
