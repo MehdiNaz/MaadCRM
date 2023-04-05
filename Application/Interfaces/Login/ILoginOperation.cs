@@ -2,5 +2,7 @@
 
 public interface ILoginOperation
 {
-    ValueTask<IdentityUser?> CheckExistPhone(GetUserByPhoneNumberQuery request);
+    ValueTask<IdentityUser?> CheckExistByPhone(GetUserByPhoneNumberQuery request);
+    ValueTask<IdentityUser?> CheckExistByEmailAddress(GetUserByEmailAddressQuery request);
+    ValueTask<bool> CheckExistByPhoneAndPassword(GetUserByPhoneAndPasswordQuery request);
 }

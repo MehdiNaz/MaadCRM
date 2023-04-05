@@ -10,11 +10,5 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<GetUserByPhoneNumberQ
     }
 
     public async Task<IdentityUser?> Handle(GetUserByPhoneNumberQuery request, CancellationToken cancellationToken)
-    {
-        // RequestLoginByPhone item = new()
-        // {
-        //     Phone = request.Phone
-        // };
-        return await _repository.CheckExistPhone(request);
-    }
+        => await _repository.CheckExistByPhone(request);
 }

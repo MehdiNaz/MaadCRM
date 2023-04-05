@@ -1,6 +1,6 @@
 ﻿namespace Application.Requests;
 
-public struct RequestLoginByPhoneAndPassword
+public class RequestLoginByPhoneAndPassword
 {
     //[Required(ErrorMessage = "لطفاً نام کاربری را وارد نمائید")]
     //[StringLength(11 , ErrorMessage = "لطفاً نام کاربری را به صورت یازده کاراکتری وارد نمائید", MinimumLength = 8)]
