@@ -64,4 +64,7 @@ global using MediatR;
 global using Microsoft.AspNetCore.Identity;
 global using System.Globalization;
 global using Application.Interfaces.Customers.Forosh;
+global using Application.Interfaces.Login;
+global using Application.Services.Login.Queries;
 global using Domain.Models.Customers.Forosh;
+global using Domain.Models.IdentityModels;

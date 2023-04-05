@@ -3,5 +3,7 @@
 public enum ShippingMethodTypes
 {
     Post = 1,
-    TPax = 2
+    TiPax = 2,
+    Peyke = 3,
+    Location = 4
 }

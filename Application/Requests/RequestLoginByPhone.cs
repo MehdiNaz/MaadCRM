@@ -1,6 +1,6 @@
 ﻿namespace Application.Requests;
 
-public struct RequestLoginByPhone
+public class RequestLoginByPhone
 {
-    public string Phone { get; set; }
+    public required string Phone { get; set; }
 }

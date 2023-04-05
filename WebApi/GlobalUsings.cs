@@ -44,4 +44,7 @@ global using Serilog;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using System.Text;
 global using System.Threading.RateLimiting;
+global using Application.Interfaces.Customers.Forosh;
+global using Application.Interfaces.Login;
+global using DataAccess.Repositories.Login;
 global using WebApi.StartupConfiguration;

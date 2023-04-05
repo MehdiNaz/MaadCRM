@@ -6,7 +6,7 @@ public class ProductCategoryValidation : AbstractValidator<ProductCategory>
     {
         RuleFor(x => x.ParentId).NotEmpty();
         RuleFor(x => x.Order).NotEmpty();
-        RuleFor(x => x.ProductCategoryName).NotEmpty().WithMessage("لطفاً نام دشته بندی محصول را وارد نمائید");
+        RuleFor(x => x.ProductCategoryName).NotEmpty().WithMessage("لطفاً نام دسته بندی محصول را وارد نمائید");
         RuleFor(x => x.Description).NotEmpty().WithMessage("لطفاً توضیحات محصول را وارد نمائید");
     }
 }

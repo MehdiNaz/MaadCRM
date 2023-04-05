@@ -1,4 +1,6 @@
 using Application.Requests;
+using MediatR;
+using System.Net.NetworkInformation;
 
 namespace WebApi.Routes;
 
@@ -16,6 +18,8 @@ public static class AccountRoute
         {
             try
             {
+                //var response = await mediat (new Ping());
+                //return Results.Ok();
                 return Results.Ok("Login with phone " + request.Phone);
             }
             catch (ArgumentException e)

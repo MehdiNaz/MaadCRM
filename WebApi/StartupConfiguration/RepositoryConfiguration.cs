@@ -1,11 +1,13 @@
-﻿using Application.Interfaces.Customers.Forosh;
-
-namespace WebApi.StartupConfiguration;
+﻿namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
     public static void Configure(IServiceCollection collection)
     {
+        // Login :
+        collection.AddTransient<ILoginOperation, LoginOperation>();
+
+
         // builder.Services.AddTransient<ScheduleDatabaseInvocable>();
 
         // var serviceProvider = builder.Services.BuildServiceProvider();
