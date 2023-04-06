@@ -16,20 +16,7 @@ public class UsersPlansRepository : IUsersPlansRepository
 
     public async ValueTask<ICollection<ResponseUsersPlans?>> GetUsersPlansByIdAsync(string usersId)
     {
-        ////var A=_context.UsersPlans!.Join(_context.Plans!, up => up.UserId, p => p.PlanId,
-        ////    (up, p) => new ResponseUsersPlans
-        ////    {
-        ////        Days = up.Days
-        ////    }).ToList();
-
-        //_context.UsersPlans!.Join(_context.Plans!, up => up.UserId, p => p.PlanId,
-        //    (up, p) => new ResponseUsersPlans()
-        //    {
-        //        Days = up.Days
-        //    });
-
-
-        return (await from up in _context.UsersPlans
+        return (from up in _context.UsersPlans
                       join p in _context.Plans on up.UsersPlansId equals p.PlanId
                       where up.UserId == usersId
                       select new ResponseUsersPlans
@@ -41,7 +28,7 @@ public class UsersPlansRepository : IUsersPlansRepository
                           Price = p.Price,
                           StartDate = up.StartDate,
                           UsersPlansId = up.UsersPlansId
-                      }).ToListAsync();
+                      }).ToList();
     }
 
     public async ValueTask<UsersPlans?> GetUsersPlansByIdAsync(Ulid usersPlansId)

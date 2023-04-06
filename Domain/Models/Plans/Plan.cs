@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.Models.Plans;
 
 /// <summary>
 /// .این کلاس برای قسمت پلن ها ایجاده شده است

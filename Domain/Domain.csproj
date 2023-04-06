@@ -20,6 +20,5 @@
       <Folder Include="Mapping\Customers\Forosh\" />
       <Folder Include="Mapping\Plans\" />
       <Folder Include="Models\Customers\Forosh\" />
-      <Folder Include="Models\Plans\" />
     </ItemGroup>
 </Project>
