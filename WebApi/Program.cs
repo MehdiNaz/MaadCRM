@@ -1,3 +1,5 @@
+using System.Reflection;
+using MediatR;
 using WebApi.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +7,9 @@ var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 #region Services
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
 LogConfiguration.Configuration(builder);
 
 CorsConfiguration.Configure(builder.Services, myAllowSpecificOrigins);
@@ -52,6 +57,10 @@ app.UseSerilogRequestLogging();
 #region Routes
 app.MapAccountRoute();
 app.MapPlanRoute();
+
+// app.MapGet("/test123",  (IMediator _mediator) => Results.Ok("test 1234"));
+app.MapGet("/test123",  () => Results.Ok("test 1234"));
+
 #endregion
 
 app.Run();

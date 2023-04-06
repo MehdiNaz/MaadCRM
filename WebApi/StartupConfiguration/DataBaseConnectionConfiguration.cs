@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using DataAccess;
+
+namespace WebApi.StartupConfiguration;
 
 public static class DataBaseConnectionConfiguration
 {
