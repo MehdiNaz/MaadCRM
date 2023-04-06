@@ -54,6 +54,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerSubmission>? CustomerSubmissions { get; set; }
     public DbSet<ForoshOrder>? ForoshOrders { get; set; }
     public DbSet<ForoshFactor>? ForoshFactors { get; set; }
+    public DbSet<UsersPlans>? UsersPlans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -89,6 +90,8 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new LogMapping());
         //builder.ApplyConfiguration(new NoteMapping());
         builder.ApplyConfiguration(new PlanMapping());
+        builder.ApplyConfiguration(new UsersPlansMapping());
+
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new SettingMapping());
         builder.ApplyConfiguration(new BusinessAttributeMapping());

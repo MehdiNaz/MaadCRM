@@ -5,6 +5,7 @@ public class User : IdentityUser
     public User()
     {
         UserStatus = Status.Show;
+        UsersPlans = new List<UsersPlans>();
     }
 
     public string? Name { get; set; }
@@ -40,4 +41,5 @@ public class User : IdentityUser
     public ICollection<Log> Logs { get; set; }
     public ICollection<SanAt> SanAts { get; set; }
     public ICollection<Customer> Customers { get; set; }  //Relation OK
+    public IList<UsersPlans> UsersPlans { get; set; }
 }

@@ -23,4 +23,5 @@ public class Plan
     public string Discount { get; set; }
     public decimal FinalPrice { get; set; }
     public Status PlanStatus { get; set; }
+    public ICollection<UsersPlans> UsersPlans { get; set; }  //Relation OK
 }

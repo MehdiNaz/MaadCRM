@@ -38,6 +38,7 @@
     <ItemGroup>
       <Folder Include="Repositories\Forosh\" />
       <Folder Include="Repositories\Login\" />
+      <Folder Include="Repositories\Plans\" />
       <Folder Include="Repositories\Products\" />
     </ItemGroup>
 
