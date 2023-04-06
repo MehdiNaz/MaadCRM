@@ -47,6 +47,8 @@ global using System.Threading.RateLimiting;
 global using Application.Interfaces.Customers.Forosh;
 global using Application.Interfaces.Login;
 global using Application.Interfaces.Plans;
+global using Application.Validator.Customers.Forosh;
+global using Application.Validator.Plans;
 global using DataAccess.Repositories.Login;
 global using DataAccess.Repositories.Plans;
 global using WebApi.StartupConfiguration;

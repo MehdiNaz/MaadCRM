@@ -68,6 +68,8 @@ global using Application.Interfaces.Login;
 global using Application.Interfaces.Plans;
 global using Application.Responses;
 global using Application.Services.Login.Queries;
+global using Application.Services.PlanValidation.Commands;
+global using Application.Services.PlanValidation.Queries;
 global using Application.Services.UsersPlansService.Commands;
 global using Application.Services.UsersPlansService.Queries;
 global using Domain.Models.Customers.Forosh;

@@ -62,6 +62,9 @@
       <Folder Include="Services\NoteHashTagService\CommandHandler\" />
       <Folder Include="Services\NoteHashTagService\QueryHandler\" />
       <Folder Include="Services\PeyGiryAttachmentService\Commands\" />
+      <Folder Include="Services\PlanValidation\CommandHandler\" />
+      <Folder Include="Services\PlanValidation\Commands\" />
+      <Folder Include="Services\PlanValidation\Queries\" />
       <Folder Include="Services\ProductCategoryService\CommandHandler\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\Commands\" />
       <Folder Include="Services\ProductCustomerFavoritesListService\QueryHandler\" />
