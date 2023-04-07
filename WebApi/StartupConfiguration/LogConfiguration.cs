@@ -6,6 +6,8 @@ public static  class LogConfiguration
     {
         builder.Logging.ClearProviders();
         builder.Logging.AddConsole();
-        builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
+        
+        // TODO: Enable Loging
+        // builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration.ReadFrom.Configuration(context.Configuration));
     }
 }

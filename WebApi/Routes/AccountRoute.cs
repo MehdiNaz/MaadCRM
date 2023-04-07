@@ -1,5 +1,4 @@
 using Application.Requests;
-using MediatR;
 using System.Net.NetworkInformation;
 
 namespace WebApi.Routes;

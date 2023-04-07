@@ -9,11 +9,13 @@ public static  class ServiceConfiguration
         //     scheduler.Schedule<ScheduleDatabaseInvocable>()
         //     .DailyAtHour(4);
         // });
-        collection.AddApplication();
+        
+        // collection.AddScheduler();
+
+        // collection.AddApplication();
 
         collection.AddHealthChecks();
         
-        collection.AddScheduler();
 
     }
 }

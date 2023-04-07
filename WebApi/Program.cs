@@ -1,5 +1,5 @@
 using System.Reflection;
-using MediatR;
+using Application.Beach.Query;
 using WebApi.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +9,8 @@ const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 #region Services
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+builder.Services.ConfigureApplication(builder.Configuration);
 
 LogConfiguration.Configuration(builder);
 
@@ -50,7 +52,7 @@ app.UseCors(myAllowSpecificOrigins);
 
 app.UseFileServer();
 
-app.UseSerilogRequestLogging();
+// app.UseSerilogRequestLogging();
 
 #endregion
 
@@ -58,8 +60,12 @@ app.UseSerilogRequestLogging();
 app.MapAccountRoute();
 app.MapPlanRoute();
 
-// app.MapGet("/test123",  (IMediator _mediator) => Results.Ok("test 1234"));
-app.MapGet("/test123",  () => Results.Ok("test 1234"));
+app.MapGet("/test123", (IMediator _mediator) =>
+{
+    var result = _mediator.Send(new GetAllBeachesQuery());
+    return Results.Ok(result);
+});
+app.MapGet("/test1234",  () => Results.Ok("test 1234"));
 
 #endregion
 
