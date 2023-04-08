@@ -17,18 +17,19 @@ public class UsersPlansRepository : IUsersPlansRepository
     public async ValueTask<ICollection<ResponseUsersPlans?>> GetUsersPlansByIdAsync(string usersId)
     {
         return (from up in _context.UsersPlans
-                      join p in _context.Plans on up.UsersPlansId equals p.PlanId
-                      where up.UserId == usersId
-                      select new ResponseUsersPlans
-                      {
-                          Days = up.Days,
-                          FinishDate = up.FinishDate,
-                          KarbarCounts = up.KarbarCounts,
-                          PlanName = p.PlanName,
-                          Price = p.Price,
-                          StartDate = up.StartDate,
-                          UsersPlansId = up.UsersPlansId
-                      }).ToList();
+                join p in _context.Plans on up.UsersPlansId equals p.PlanId
+                where up.UserId == usersId
+                select new ResponseUsersPlans
+                {
+                    CountOfUsers = up.CountOfUsers,
+                    FinishDate = up.FinishDate,
+                    CountOfDay = up.CountOfDay,
+                    PlanName = p.PlanName,
+                    PriceOfDay = p.PriceOfDay,
+                    PriceOfUsers = p.PriceOfUsers,
+                    StartDate = up.StartDate,
+                    UsersPlansId = up.UsersPlansId
+                }).ToList();
     }
 
     public async ValueTask<UsersPlans?> GetUsersPlansByIdAsync(Ulid usersPlansId)

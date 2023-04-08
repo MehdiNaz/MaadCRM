@@ -2,8 +2,8 @@
 
 public class RequestCreateUsersPlans
 {
-    public required Ulid PlanId { get; set; }
-    public required string UserId { get; set; }
-    public required string Days { get; set; }
-    public required string KarbarCounts { get; set; }
+    public required Ulid PlanId { get; set; } 
+    public string UserId { get; set; }
+    public uint CountOfDay { get; set; }
+    public uint CountOfUsers { get; set; }
 }

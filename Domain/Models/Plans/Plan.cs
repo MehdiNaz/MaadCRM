@@ -17,10 +17,11 @@ public class Plan
 
     public Ulid PlanId { get; set; }
     public string PlanName { get; set; }
-    public uint DayDurations { get; set; }
     public uint CountOfUsers { get; set; }
-    public decimal Price { get; set; }
-    public string Discount { get; set; }
+    public decimal PriceOfUsers { get; set; }
+    public uint CountOfDay { get; set; }
+    public decimal PriceOfDay { get; set; }
+    public string Discount { get; set; } //ToDo Hanooz Kar Dare In
     public decimal FinalPrice { get; set; }
     public Status PlanStatus { get; set; }
     public ICollection<UsersPlans>? UsersPlans { get; set; }  //Relation OK

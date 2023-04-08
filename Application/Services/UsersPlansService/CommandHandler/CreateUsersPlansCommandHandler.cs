@@ -13,10 +13,10 @@ public class CreateUsersPlansCommandHandler : IRequestHandler<CreateUsersPlansCo
     {
         UsersPlans item = new()
         {
-            Days = request.Days,
             UserId = request.UserId,
             PlanId = request.PlanId,
-            KarbarCounts = request.KarbarCounts
+            CountOfDay = request.CountOfDay,
+            CountOfUsers = request.CountOfUsers
         };
         await _repository.CreateUsersPlansAsync(item);
         return item;

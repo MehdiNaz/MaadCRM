@@ -1,6 +1,10 @@
 ﻿namespace Application.Services.PlanService.Commands;
 
-public abstract class UpdatePlanCommand : RequestPlan, IRequest<Plan>
+public abstract class UpdatePlanCommand : IRequest<Plan>
 {
-    public Ulid PlanId { get; set; }
+    public required Ulid Id { get; set; }
+    public required uint CountOfUsers { get; set; }
+    public required decimal PriceOfUsers { get; set; }
+    public required uint CountOfDay { get; set; }
+    public required decimal PriceOfDay { get; set; }
 }

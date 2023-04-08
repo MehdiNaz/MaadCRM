@@ -1,5 +1,3 @@
-using Application.Requests;
-
 namespace WebApi.Routes;
 
 public static class PlanRoute
@@ -13,7 +11,20 @@ public static class PlanRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/addPlan", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestPlan request) =>
+        plan.MapGet("/InsertPlan", async ([FromBody] CreatePlanCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                //var result = mediator.Send(new CreatePlanCommand());
+                return Results.Ok(null);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+        plan.MapGet("/addPlan", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] CreatePlanCommand request) =>
         {
             try
             {
@@ -24,9 +35,9 @@ public static class PlanRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
+
         #endregion
     }
 }
 
-    
+

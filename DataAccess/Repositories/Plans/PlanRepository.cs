@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Repositories;
+﻿namespace DataAccess.Repositories.Plans;
 
 public class PlanRepository : IPlanRepository
 {
@@ -18,6 +18,7 @@ public class PlanRepository : IPlanRepository
     {
         try
         {
+            toCreate.FinalPrice = toCreate.CountOfUsers * toCreate.PriceOfUsers + toCreate.CountOfDay * toCreate.PriceOfDay;
             await _context.Plans!.AddAsync(toCreate);
             await _context.SaveChangesAsync();
             return toCreate;
