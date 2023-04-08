@@ -11,7 +11,7 @@ public class LoginOperation : ILoginOperation
         _signInManager = signInManager;
     }
 
-    public async ValueTask<IdentityUser?> CheckExistByPhone(GetUserByPhoneNumberQuery request)
+    public async ValueTask<IdentityUser?> CheckExistByPhone(UserByPhoneNumberQuery request)
     {
         try
         {
@@ -23,7 +23,7 @@ public class LoginOperation : ILoginOperation
         }
     }
 
-    public async ValueTask<IdentityUser?> CheckExistByEmailAddress(GetUserByEmailAddressQuery request)
+    public async ValueTask<IdentityUser?> CheckExistByEmailAddress(UserByEmailAddressQuery request)
     {
         try
         {
@@ -35,7 +35,7 @@ public class LoginOperation : ILoginOperation
         }
     }
 
-    public async ValueTask<bool> CheckExistByPhoneAndPassword(GetUserByPhoneAndPasswordQuery request)
+    public async ValueTask<bool> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request)
     {
         try
         {

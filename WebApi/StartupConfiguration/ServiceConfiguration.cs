@@ -1,8 +1,10 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using System.Reflection;
+
+namespace WebApi.StartupConfiguration;
 
 public static  class ServiceConfiguration
 {
-    public static void Configuration(IServiceCollection collection)
+    public static void Configuration(IServiceCollection collection, IConfiguration configuration)
     {
         // collection.UseScheduler(scheduler =>
         // {
@@ -12,8 +14,10 @@ public static  class ServiceConfiguration
         
         // collection.AddScheduler();
 
-        // collection.AddApplication();
+        collection.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
+        collection.ConfigureApplication(configuration);
+        
         collection.AddHealthChecks();
         
 

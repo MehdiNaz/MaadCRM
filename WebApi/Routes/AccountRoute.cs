@@ -1,5 +1,5 @@
 using Application.Requests;
-using System.Net.NetworkInformation;
+using Application.Services.Login.Queries;
 
 namespace WebApi.Routes;
 
@@ -13,13 +13,15 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestLoginByPhone request) =>
+        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator _mediator) =>
         {
             try
             {
-                //var response = await mediat (new Ping());
-                //return Results.Ok();
-                return Results.Ok("Login with phone " + request.Phone);
+                var result = _mediator.Send(new UserByPhoneNumberQuery
+                {
+                    Phone = request.Phone
+                });
+                return Results.Ok(result);
             }
             catch (ArgumentException e)
             {
@@ -28,7 +30,7 @@ public static class AccountRoute
         });
         
         
-        account.MapGet("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestLoginByMail request) =>
+        account.MapGet("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try
             {
@@ -40,7 +42,7 @@ public static class AccountRoute
             }
         });
         
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestLoginByPhoneAndPassword request) =>
+        account.MapGet("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
         {
             try
             {
@@ -52,7 +54,7 @@ public static class AccountRoute
             }
         });
 
-        account.MapGet("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] RequestVerifyPhone request) =>
+        account.MapGet("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request) =>
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿namespace Application.Validation;
 
-public class RequestLoginByPhoneAndPasswordValidation : AbstractValidator<RequestLoginByPhoneAndPassword>
+public class RequestLoginByPhoneAndPasswordValidation : AbstractValidator<UserByPhoneAndPasswordQuery>
 {
     public RequestLoginByPhoneAndPasswordValidation()
     {

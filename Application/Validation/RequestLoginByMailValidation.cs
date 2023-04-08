@@ -1,6 +1,6 @@
 ﻿namespace Application.Validation;
 
-public class RequestLoginByMailValidation : AbstractValidator<RequestLoginByMail>
+public class RequestLoginByMailValidation : AbstractValidator<UserByEmailAddressQuery>
 {
     public RequestLoginByMailValidation()
     {

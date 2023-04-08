@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Login.QueryHandler;
 
-public class GetUserByEmailAddressHandler : IRequestHandler<GetUserByEmailAddressQuery, IdentityUser?>
+public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, IdentityUser?>
 {
     private readonly ILoginOperation _repository;
 
@@ -10,6 +10,6 @@ public class GetUserByEmailAddressHandler : IRequestHandler<GetUserByEmailAddres
         _repository = repository;
     }
 
-    public async Task<IdentityUser?> Handle(GetUserByEmailAddressQuery request, CancellationToken cancellationToken)
+    public async Task<IdentityUser?> Handle(UserByEmailAddressQuery request, CancellationToken cancellationToken)
         => await _repository.CheckExistByEmailAddress(request);
 }
