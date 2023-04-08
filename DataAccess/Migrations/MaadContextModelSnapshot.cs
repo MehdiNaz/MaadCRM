@@ -1162,10 +1162,8 @@ namespace DataAccess.Migrations
                     b.Property<long>("CountOfUsers")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Discount")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("FinalPrice")
                         .HasColumnType("numeric");
@@ -1975,13 +1973,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Address.Address", b =>
                 {
-                    b.HasOne("Domain.Models.Address.City", "city")
+                    b.HasOne("Domain.Models.Address.City", "City")
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("city");
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.City", b =>

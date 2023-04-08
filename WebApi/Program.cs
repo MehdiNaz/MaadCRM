@@ -1,7 +1,3 @@
-using System.Reflection;
-using Application.Beach.Query;
-using WebApi.Routes;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -60,7 +56,7 @@ app.MapGet("/test123", (IMediator _mediator) =>
     var result = _mediator.Send(new GetAllBeachesQuery());
     return Results.Ok(result);
 });
-app.MapGet("/test1234",  () => Results.Ok("test 1234"));
+app.MapGet("/test1234", () => Results.Ok("test 1234"));
 
 #endregion
 

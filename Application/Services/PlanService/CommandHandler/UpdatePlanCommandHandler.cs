@@ -13,12 +13,14 @@ public class UpdatePlanCommandHandler : IRequestHandler<UpdatePlanCommand, Plan>
     {
         Plan item = new()
         {
+            PlanId = request.Id,
+            PlanName = request.PlanName,
             CountOfUsers = request.CountOfUsers,
             PriceOfUsers = request.PriceOfUsers,
             CountOfDay = request.CountOfDay,
             PriceOfDay = request.PriceOfDay
         };
-        await _repository.UpdatePlanAsync(item, request.Id);
+        await _repository.UpdatePlanAsync(item);
         return item;
     }
 }

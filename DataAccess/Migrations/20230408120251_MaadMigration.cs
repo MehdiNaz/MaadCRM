@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class TestMigrationNew : Migration
+    public partial class MaadMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -179,7 +179,7 @@ namespace DataAccess.Migrations
                     PriceOfUsers = table.Column<decimal>(type: "numeric", nullable: false),
                     CountOfDay = table.Column<long>(type: "bigint", nullable: false),
                     PriceOfDay = table.Column<decimal>(type: "numeric", nullable: false),
-                    Discount = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    Discount = table.Column<decimal>(type: "numeric", nullable: true),
                     FinalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     PlanStatus = table.Column<int>(type: "integer", nullable: false),
                     Plan = table.Column<string>(type: "character varying(26)", nullable: false)

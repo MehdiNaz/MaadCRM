@@ -29,7 +29,7 @@ public class PlanRepository : IPlanRepository
         }
     }
 
-    public async ValueTask<Plan?> UpdatePlanAsync(Plan entity, Ulid planId)
+    public async ValueTask<Plan?> UpdatePlanAsync(Plan entity)
     {
         try
         {

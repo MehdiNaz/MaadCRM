@@ -1,10 +1,10 @@
 ﻿namespace Application.Services.PlanService.QueryHandler;
 
-public class GetAllPlansHandler : IRequestHandler<AllPlansQuery, ICollection<Plan?>>
+public class AllPlansHandler : IRequestHandler<AllPlansQuery, ICollection<Plan?>>
 {
     private readonly IPlanRepository _repository;
 
-    public GetAllPlansHandler(IPlanRepository repository)
+    public AllPlansHandler(IPlanRepository repository)
     {
         _repository = repository;
     }

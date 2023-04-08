@@ -13,6 +13,7 @@ public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Plan>
     {
         Plan item = new()
         {
+            PlanName = request.PlanName,
             CountOfUsers = request.CountOfUsers,
             PriceOfUsers = request.PriceOfUsers,
             CountOfDay = request.CountOfDay,
