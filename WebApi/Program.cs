@@ -7,11 +7,6 @@ var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 #region Services
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-builder.Services.ConfigureApplication(builder.Configuration);
-
 LogConfiguration.Configuration(builder);
 
 CorsConfiguration.Configure(builder.Services, myAllowSpecificOrigins);
@@ -26,7 +21,7 @@ RepositoryConfiguration.Configure(builder.Services);
 
 RateLimiterConfiguration.Configure(builder.Services);
 
-ServiceConfiguration.Configuration(builder.Services);
+ServiceConfiguration.Configuration(builder.Services, configuration);
 
 FluentValidationConfiguration.Configure(builder.Services);
 #endregion
