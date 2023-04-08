@@ -14,5 +14,5 @@ public class CustomerPeyGiry : BaseEntity
     public Status CustomerPeyGiryStatus { get; set; }
 
     public Customer Customer { get; set; }
-    public ICollection<PeyGiryAttachment> PeyGiryAttachments { get; set; }
+    public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
 }

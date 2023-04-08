@@ -32,20 +32,20 @@ public class Customer : BaseEntity
     #region Moaref
     public Ulid CustomerMoarefId { get; set; }
     public Customer CustomerMoaref { get; set; }
-    public ICollection<Customer> CustomersMoaref { get; set; }
+    public ICollection<Customer>? CustomersMoaref { get; set; }
     #endregion
 
     public User UserEntity { get; set; }                                                                //Relation OK
     public Business Business { get; set; }                                                              //Relation OK
     public City City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
-    public ICollection<ProductCustomerFavoritesList> FavoritesLists { get; set; }                       //Relation OK
-    public ICollection<CustomersEmailAddress> EmailAddresses { get; set; }                              //Relation OK
-    public ICollection<CustomersPhoneNumber> PhoneNumbers { get; set; }                                 //Relation OK
-    public ICollection<CustomerNote> CustomerNotes { get; set; }                                        //Relation OK
-    public ICollection<CustomerPeyGiry> CustomerPeyGiries { get; set; }                                 //Relation OK
-    public ICollection<CustomersAddress> CustomersAddresses { get; set; }                               //Relation OK
-    public ICollection<ForoshFactor> ForoshFactors { get; set; }                                          //Relation OK
+    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK
+    public ICollection<CustomersEmailAddress>? EmailAddresses { get; set; }                              //Relation OK
+    public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; set; }                                 //Relation OK
+    public ICollection<CustomerNote>? CustomerNotes { get; set; }                                        //Relation OK
+    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }                                 //Relation OK
+    public ICollection<CustomersAddress>? CustomersAddresses { get; set; }                               //Relation OK
+    public ICollection<ForoshFactor>? ForoshFactors { get; set; }                                          //Relation OK
 
     #region Old Relations
     public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }

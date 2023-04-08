@@ -13,5 +13,5 @@ public class CustomerCategory : BaseEntity
     public Ulid CustomerId { get; set; }
     public Status CustomerCategoryStatus { get; set; }
 
-    public ICollection<Customer> Customers { get; set; }
+    public ICollection<Customer>? Customers { get; set; }
 }

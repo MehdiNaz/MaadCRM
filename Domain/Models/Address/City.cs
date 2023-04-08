@@ -21,8 +21,8 @@ public class City : BaseEntity
 
     public Province Province { get; set; }
 
-    public ICollection<Address> Addresses { get; set; }
-    public ICollection<User> Users { get; set; }
-    public ICollection<Customer> Customers { get; set; }
+    public ICollection<Address>? Addresses { get; set; }
+    public ICollection<User>? Users { get; set; }
+    public ICollection<Customer>? Customers { get; set; }
 
 }

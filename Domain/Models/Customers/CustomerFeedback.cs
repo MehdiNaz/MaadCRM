@@ -15,5 +15,5 @@ public class CustomerFeedback : BaseEntity
 
 
 
-    public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistories { get; set; }
+    public ICollection<CustomerFeedbackHistory>? CustomerFeedbackHistories { get; set; }
 }

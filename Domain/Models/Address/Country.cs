@@ -15,5 +15,5 @@ public class Country : BaseEntity
     public Status CountryStatus { get; set; }
 
 
-    public ICollection<Province> Provinces { get; set; }
+    public ICollection<Province>? Provinces { get; set; }
 }

@@ -34,12 +34,12 @@ public class User : IdentityUser
 
 
     public City City { get; set; }
-    public ICollection<Business> Businesses { get; set; }
-    public ICollection<CustomerSubmission> CustomerSubmissions { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
+    public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
-    public ICollection<Log> Logs { get; set; }
-    public ICollection<SanAt> SanAts { get; set; }
-    public ICollection<Customer> Customers { get; set; }  //Relation OK
-    public IList<UsersPlans> UsersPlans { get; set; }
+    public ICollection<Log>? Logs { get; set; }
+    public ICollection<SanAt>? SanAts { get; set; }
+    public ICollection<Customer>? Customers { get; set; }  //Relation OK
+    public ICollection<UsersPlans>? UsersPlans { get; set; }
 }

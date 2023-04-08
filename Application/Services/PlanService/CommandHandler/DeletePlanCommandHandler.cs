@@ -1,10 +1,10 @@
-﻿namespace Application.Services.PlanValidation.CommandHandler;
+﻿namespace Application.Services.PlanService.CommandHandler;
 
 public class DeletePlanCommandHandler : IRequestHandler<DeletePlanCommand, Plan>
 {
     private readonly IPlanRepository _repository;
 
-    protected DeletePlanCommandHandler(IPlanRepository repository)
+    public DeletePlanCommandHandler(IPlanRepository repository)
     {
         _repository = repository;
     }

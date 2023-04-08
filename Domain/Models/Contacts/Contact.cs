@@ -19,7 +19,7 @@ public class Contact : BaseEntity
     public Status ContactStatus { get; set; }
 
 
-    public ICollection<Business> Businesses { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
     public ContactsEmailAddress ContactsEmailAddress { get; set; }
     public ContactPhoneNumber ContactPhoneNumber { get; set; }
     public ContactGroup ContactGroup { get; set; }

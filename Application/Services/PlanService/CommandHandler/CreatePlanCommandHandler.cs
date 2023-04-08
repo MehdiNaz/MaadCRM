@@ -1,10 +1,10 @@
-﻿namespace Application.Services.PlanValidation.CommandHandler;
+﻿namespace Application.Services.PlanService.CommandHandler;
 
 public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Plan>
 {
     private readonly IPlanRepository _repository;
 
-    protected CreatePlanCommandHandler(IPlanRepository repository)
+    public CreatePlanCommandHandler(IPlanRepository repository)
     {
         _repository = repository;
     }

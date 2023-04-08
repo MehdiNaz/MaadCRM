@@ -8,5 +8,5 @@ public class FileManagement : BaseEntity
     public string TitleAttribute { get; set; }
     public bool IsNew { get; set; }
     public string VirtualPath { get; set; }
-    public ICollection<FileBinary> FileBinaries { get; set; }
+    public ICollection<FileBinary>? FileBinaries { get; set; }
 }

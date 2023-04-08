@@ -9,5 +9,5 @@ public class PaymentMethod
     public string Mid { get; set; }
     public string RedirectUrl { get; set; }
 
-    public virtual ICollection<Factor> Factors { get; set; }
+    public virtual ICollection<Factor>? Factors { get; set; }
 }

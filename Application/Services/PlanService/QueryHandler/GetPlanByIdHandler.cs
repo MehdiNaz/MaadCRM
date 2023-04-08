@@ -1,4 +1,4 @@
-﻿namespace Application.Services.PlanValidation.QueryHandler;
+﻿namespace Application.Services.PlanService.QueryHandler;
 
 public class GetPlanByIdHandler : IRequestHandler<GetPlanByIdQuery, Plan?>
 {

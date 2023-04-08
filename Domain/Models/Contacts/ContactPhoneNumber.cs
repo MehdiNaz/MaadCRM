@@ -14,5 +14,5 @@ public class ContactPhoneNumber : BaseEntity
     public Ulid CustomerId { get; set; }
     public Status ContactPhoneNumberStatus { get; set; }
 
-    public ICollection<Contact> Contacts { get; set; }
+    public ICollection<Contact>? Contacts { get; set; }
 }

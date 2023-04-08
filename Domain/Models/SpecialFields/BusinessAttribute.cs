@@ -23,7 +23,7 @@ public class BusinessAttribute : BaseEntity
     public Status BusinessAttributeStatus { get; set; }
 
 
-    public ICollection<Business> Businesses { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
     public CategoryAttribute CategoryAttribute { get; set; }
-    public ICollection<AttributeOptions> AttributeOptions { get; set; }
+    public ICollection<AttributeOptions>? AttributeOptions { get; set; }
 }
