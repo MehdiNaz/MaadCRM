@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class TestMigrationNew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,75 +52,13 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IdParrent = table.Column<int>(type: "integer", nullable: true),
-                    OrderC = table.Column<byte>(type: "smallint", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Icon = table.Column<string>(type: "text", nullable: false),
-                    SeoName = table.Column<string>(type: "text", nullable: false),
-                    Show = table.Column<byte>(type: "smallint", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", nullable: false),
-                    IdParrentNavigationId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Category", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Category_Category_IdParrentNavigationId",
-                        column: x => x.IdParrentNavigationId,
-                        principalTable: "Category",
-                        principalColumn: "PlanId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Company",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Tel1 = table.Column<string>(type: "text", nullable: false),
-                    Tel2 = table.Column<string>(type: "text", nullable: false),
-                    Mobile = table.Column<string>(type: "text", nullable: false),
-                    WebSite = table.Column<string>(type: "text", nullable: false),
-                    Ceo = table.Column<string>(type: "text", nullable: false),
-                    CeoMobile = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    BankName = table.Column<string>(type: "text", nullable: false),
-                    BankNo = table.Column<string>(type: "text", nullable: false),
-                    CardNo = table.Column<string>(type: "text", nullable: false),
-                    Makan = table.Column<string>(type: "text", nullable: false),
-                    IdCity = table.Column<short>(type: "smallint", nullable: true),
-                    Pass = table.Column<string>(type: "text", nullable: false),
-                    Lat = table.Column<string>(type: "text", nullable: false),
-                    Long = table.Column<string>(type: "text", nullable: false),
-                    UserName = table.Column<string>(type: "text", nullable: false),
-                    Rate = table.Column<decimal>(type: "numeric", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Company", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ContactGroups",
                 columns: table => new
                 {
                     ContactGroupId = table.Column<string>(type: "character varying(26)", nullable: false),
                     GroupName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    ContactGroupStatus = table.Column<int>(type: "integer", nullable: false),
                     ContactGroup = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -138,8 +76,7 @@ namespace DataAccess.Migrations
                     PhoneNo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     PhoneType = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    ContactPhoneNumberStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -154,8 +91,7 @@ namespace DataAccess.Migrations
                 {
                     CustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersEmailAddrs = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    ContactsEmailAddressStatus = table.Column<int>(type: "integer", nullable: false),
                     ContactsEmailAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -173,6 +109,7 @@ namespace DataAccess.Migrations
                     CountryName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+                    CountryStatus = table.Column<int>(type: "integer", nullable: false),
                     Country = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -189,8 +126,7 @@ namespace DataAccess.Migrations
                     CustomerCategoryId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerCategoryName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    CustomerCategoryStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -237,33 +173,45 @@ namespace DataAccess.Migrations
                 name: "Plans",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "character varying(26)", nullable: false),
-                    PlanName = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
-                    DayDurations = table.Column<long>(type: "bigint", nullable: false),
+                    PlanId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    PlanName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CountOfUsers = table.Column<long>(type: "bigint", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    PriceOfUsers = table.Column<decimal>(type: "numeric", nullable: false),
+                    CountOfDay = table.Column<long>(type: "bigint", nullable: false),
+                    PriceOfDay = table.Column<decimal>(type: "numeric", nullable: false),
                     Discount = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     FinalPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    PlanStatus = table.Column<int>(type: "integer", nullable: false),
                     Plan = table.Column<string>(type: "character varying(26)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plans", x => x.Id);
+                    table.PrimaryKey("PK_Plans", x => x.PlanId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "ProductCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Content = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
+                    ProductCategoryId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    ParentId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    Order = table.Column<byte>(type: "smallint", nullable: false),
+                    ProductCategoryName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Icon = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    ProductCategoryStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModfied = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategories", x => x.ProductCategoryId);
+                    table.ForeignKey(
+                        name: "FK_ProductCategories_ProductCategories_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "ProductCategories",
+                        principalColumn: "ProductCategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -283,7 +231,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -304,7 +252,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -324,7 +272,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -342,13 +290,13 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -368,62 +316,7 @@ namespace DataAccess.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "PlanId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    ProductName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Published = table.Column<bool>(type: "boolean", nullable: false),
-                    Id = table.Column<int>(type: "integer", nullable: false),
-                    IdParent = table.Column<int>(type: "integer", nullable: true),
-                    IdCompany = table.Column<int>(type: "integer", nullable: false),
-                    IdCategory = table.Column<int>(type: "integer", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Summery = table.Column<string>(type: "text", nullable: false),
-                    DateStart = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DateEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Mablagh = table.Column<decimal>(type: "numeric", nullable: true),
-                    Takhfif = table.Column<decimal>(type: "numeric", nullable: true),
-                    TakhfifPercent = table.Column<byte>(type: "smallint", nullable: true),
-                    Pardakht = table.Column<decimal>(type: "numeric", nullable: true),
-                    SpecialOffer = table.Column<byte>(type: "smallint", nullable: true),
-                    Status = table.Column<byte>(type: "smallint", nullable: true),
-                    TakhfifMePerent = table.Column<byte>(type: "smallint", nullable: true),
-                    MinSell = table.Column<short>(type: "smallint", nullable: true),
-                    MinSellPerPerson = table.Column<short>(type: "smallint", nullable: true),
-                    MaxSellPerPerson = table.Column<short>(type: "smallint", nullable: true),
-                    FavoritesListId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IdCategoryNavigationId = table.Column<int>(type: "integer", nullable: false),
-                    IdCompanyNavigationId = table.Column<int>(type: "integer", nullable: false),
-                    IdParrentNavigationProductId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
-                    table.ForeignKey(
-                        name: "FK_Products_Category_IdCategoryNavigationId",
-                        column: x => x.IdCategoryNavigationId,
-                        principalTable: "Category",
-                        principalColumn: "PlanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Company_IdCompanyNavigationId",
-                        column: x => x.IdCompanyNavigationId,
-                        principalTable: "Company",
-                        principalColumn: "PlanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_Products_IdParrentNavigationProductId",
-                        column: x => x.IdParrentNavigationProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -438,9 +331,8 @@ namespace DataAccess.Migrations
                     EmailId = table.Column<string>(type: "character varying(26)", nullable: false),
                     ContactGroupId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Job = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    ContactStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -476,6 +368,7 @@ namespace DataAccess.Migrations
                     IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CountryId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    ProvinceStatus = table.Column<int>(type: "integer", nullable: false),
                     Province = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -488,6 +381,91 @@ namespace DataAccess.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "CountryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    ProductName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    ProductCategoryId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Summery = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    SecondaryPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Discount = table.Column<decimal>(type: "numeric", nullable: false),
+                    DiscountPercent = table.Column<byte>(type: "smallint", nullable: false),
+                    FavoritesListId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    Picture = table.Column<byte[]>(type: "bytea", nullable: false),
+                    PublishStatus = table.Column<byte>(type: "smallint", nullable: false),
+                    ProductStatus = table.Column<int>(type: "integer", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductCategories_ProductCategoryId",
+                        column: x => x.ProductCategoryId,
+                        principalTable: "ProductCategories",
+                        principalColumn: "ProductCategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    CityId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CityName = table.Column<string>(type: "text", nullable: false),
+                    IsDefault = table.Column<bool>(type: "boolean", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+                    ProvinceId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CityStatus = table.Column<int>(type: "integer", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.CityId);
+                    table.ForeignKey(
+                        name: "FK_Cities_Provinces_ProvinceId",
+                        column: x => x.ProvinceId,
+                        principalTable: "Provinces",
+                        principalColumn: "ProvinceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForoshOrders",
+                columns: table => new
+                {
+                    ForoshOrderId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    PaymentDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    PriceTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    PaymentMethodType = table.Column<int>(type: "integer", nullable: false),
+                    ShippingMethodType = table.Column<int>(type: "integer", nullable: false),
+                    ForoshOrderStatus = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForoshOrders", x => x.ForoshOrderId);
+                    table.ForeignKey(
+                        name: "FK_ForoshOrders_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -514,31 +492,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cities",
-                columns: table => new
-                {
-                    CityId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    CityName = table.Column<string>(type: "text", nullable: false),
-                    IsDefault = table.Column<bool>(type: "boolean", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    ProvinceId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cities", x => x.CityId);
-                    table.ForeignKey(
-                        name: "FK_Cities_Provinces_ProvinceId",
-                        column: x => x.ProvinceId,
-                        principalTable: "Provinces",
-                        principalColumn: "ProvinceId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Addresses",
                 columns: table => new
                 {
@@ -549,6 +502,7 @@ namespace DataAccess.Migrations
                     ZipPostalCode = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CityId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    AddressStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -589,8 +543,7 @@ namespace DataAccess.Migrations
                     OtpPassword = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     OtpPasswordExpired = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastLoginDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false)
+                    UserStatus = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -599,7 +552,7 @@ namespace DataAccess.Migrations
                         name: "FK_Users_AspNetUsers_Id",
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Users_Cities_CityId",
@@ -626,7 +579,7 @@ namespace DataAccess.Migrations
                         name: "FK_Logs_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -637,8 +590,7 @@ namespace DataAccess.Migrations
                     SanAtId = table.Column<string>(type: "character varying(26)", nullable: false),
                     SanAtName = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    SanAtStatus = table.Column<int>(type: "integer", nullable: false),
                     SanAt = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -650,7 +602,37 @@ namespace DataAccess.Migrations
                         name: "FK_SanAts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsersPlans",
+                columns: table => new
+                {
+                    UsersPlansId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    PlanId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CountOfDay = table.Column<long>(type: "bigint", nullable: false),
+                    CountOfUsers = table.Column<long>(type: "bigint", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FinishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UsersPlansStatus = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersPlans", x => x.UsersPlansId);
+                    table.ForeignKey(
+                        name: "FK_UsersPlans_Plans_PlanId",
+                        column: x => x.PlanId,
+                        principalTable: "Plans",
                         principalColumn: "PlanId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsersPlans_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -663,8 +645,7 @@ namespace DataAccess.Migrations
                     ColorSquaresRgb = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     BusinessAttributeId = table.Column<string>(type: "character varying(26)", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    AttributeOptionsStatus = table.Column<int>(type: "integer", nullable: false),
                     AttributeOptions = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -689,6 +670,7 @@ namespace DataAccess.Migrations
                     ImagePath = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     AttributeOptionId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    AttributeOptionsValueStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -719,6 +701,7 @@ namespace DataAccess.Migrations
                     DefaultValue = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     ConditionValue = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CategoryAttributeId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    BusinessAttributeStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -746,6 +729,7 @@ namespace DataAccess.Migrations
                     AttributeOptionsId = table.Column<string>(type: "character varying(26)", nullable: false),
                     AttributeOptionsValueId = table.Column<string>(type: "character varying(26)", nullable: false),
                     BusinessAttributeId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    BusinessStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -786,7 +770,7 @@ namespace DataAccess.Migrations
                         name: "FK_Businesses_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -822,17 +806,16 @@ namespace DataAccess.Migrations
                     LastName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     BirthDayDate = table.Column<DateOnly>(type: "date", nullable: false),
                     CustomerPic = table.Column<byte[]>(type: "bytea", nullable: false),
+                    InsertedBy = table.Column<string>(type: "text", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CityId = table.Column<string>(type: "character varying(26)", nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerCategoryId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Gender = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
-                    CustomerState = table.Column<int>(type: "integer", nullable: false),
                     CustomerStatus = table.Column<int>(type: "integer", nullable: false),
-                    InsertedBy = table.Column<string>(type: "text", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
+                    CustomerState = table.Column<int>(type: "integer", nullable: false),
+                    CustomerActivationStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomerMoarefId = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -868,7 +851,7 @@ namespace DataAccess.Migrations
                         name: "FK_Customers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -953,8 +936,8 @@ namespace DataAccess.Migrations
                 {
                     CustomerNoteId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomerNote = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -976,8 +959,8 @@ namespace DataAccess.Migrations
                 {
                     CustomerPeyGiryId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomerPeyGiryStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomerPeyGiry = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1030,7 +1013,7 @@ namespace DataAccess.Migrations
                     PhoneNo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
+                    CustomersAddressStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomersAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1070,7 +1053,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerSubmissions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1081,8 +1064,7 @@ namespace DataAccess.Migrations
                     CustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersEmailAddrs = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    CustomersEmailAddressStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomersEmailAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1106,8 +1088,7 @@ namespace DataAccess.Migrations
                     PhoneNo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     PhoneType = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    CustomersPhoneNumberStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomersPhoneNumber = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1129,8 +1110,7 @@ namespace DataAccess.Migrations
                 {
                     ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
-                    IsShown = table.Column<int>(type: "integer", nullable: false),
+                    ProductCustomerFavoritesListStatus = table.Column<int>(type: "integer", nullable: false),
                     ProductCustomerFavoritesList = table.Column<string>(type: "character varying(26)", nullable: false)
                 },
                 constraints: table =>
@@ -1186,7 +1166,7 @@ namespace DataAccess.Migrations
                     NoteHashTagId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerNoteId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
+                    NoteHashTagStatus = table.Column<int>(type: "integer", nullable: false),
                     NoteHashTag = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1210,7 +1190,7 @@ namespace DataAccess.Migrations
                     CustomerNoteId = table.Column<string>(type: "character varying(26)", nullable: false),
                     FileName = table.Column<byte[]>(type: "bytea", nullable: false),
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
+                    NoteAttachmentStatus = table.Column<int>(type: "integer", nullable: false),
                     NoteAttachment = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -1234,7 +1214,7 @@ namespace DataAccess.Migrations
                     PeyGiryNoteId = table.Column<string>(type: "character varying(26)", nullable: false),
                     FileName = table.Column<byte[]>(type: "bytea", nullable: false),
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    IsDeleted = table.Column<byte>(type: "smallint", nullable: false),
+                    StatusPeyGiryAttachment = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1246,6 +1226,37 @@ namespace DataAccess.Migrations
                         column: x => x.PeyGiryAttachmentId,
                         principalTable: "CustomerPeyGiries",
                         principalColumn: "CustomerPeyGiryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForoshFactors",
+                columns: table => new
+                {
+                    ForoshFactorId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    FinalTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomersAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    ForoshFactorStatus = table.Column<int>(type: "integer", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForoshFactors", x => x.ForoshFactorId);
+                    table.ForeignKey(
+                        name: "FK_ForoshFactors_CustomersAddresses_CustomersAddressId",
+                        column: x => x.CustomersAddressId,
+                        principalTable: "CustomersAddresses",
+                        principalColumn: "CustomersAddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForoshFactors_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1335,11 +1346,6 @@ namespace DataAccess.Migrations
                 name: "IX_Businesses_UserId",
                 table: "Businesses",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Category_IdParrentNavigationId",
-                table: "Category",
-                column: "IdParrentNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategoryAttributes_BusinessId",
@@ -1452,6 +1458,21 @@ namespace DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ForoshFactors_CustomerId",
+                table: "ForoshFactors",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForoshFactors_CustomersAddressId",
+                table: "ForoshFactors",
+                column: "CustomersAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForoshOrders_ProductId",
+                table: "ForoshOrders",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Logs_UserId",
                 table: "Logs",
                 column: "UserId");
@@ -1467,24 +1488,19 @@ namespace DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductCategories_ParentId",
+                table: "ProductCategories",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductCustomerFavoritesLists_CustomerId",
                 table: "ProductCustomerFavoritesLists",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_IdCategoryNavigationId",
+                name: "IX_Products_ProductCategoryId",
                 table: "Products",
-                column: "IdCategoryNavigationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_IdCompanyNavigationId",
-                table: "Products",
-                column: "IdCompanyNavigationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_IdParrentNavigationProductId",
-                table: "Products",
-                column: "IdParrentNavigationProductId");
+                column: "ProductCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Provinces_CountryId",
@@ -1505,6 +1521,16 @@ namespace DataAccess.Migrations
                 name: "IX_Users_CityId",
                 table: "Users",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersPlans_PlanId",
+                table: "UsersPlans",
+                column: "PlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersPlans_UserId",
+                table: "UsersPlans",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visit_ProductId",
@@ -1602,13 +1628,16 @@ namespace DataAccess.Migrations
                 name: "CustomerRepresentativeHistories");
 
             migrationBuilder.DropTable(
-                name: "CustomersAddresses");
-
-            migrationBuilder.DropTable(
                 name: "CustomerSubmissions");
 
             migrationBuilder.DropTable(
                 name: "EmailAddresses");
+
+            migrationBuilder.DropTable(
+                name: "ForoshFactors");
+
+            migrationBuilder.DropTable(
+                name: "ForoshOrders");
 
             migrationBuilder.DropTable(
                 name: "Logs");
@@ -1623,12 +1652,6 @@ namespace DataAccess.Migrations
                 name: "PhoneNumbers");
 
             migrationBuilder.DropTable(
-                name: "Plans");
-
-            migrationBuilder.DropTable(
-                name: "Posts");
-
-            migrationBuilder.DropTable(
                 name: "ProductCustomerFavoritesLists");
 
             migrationBuilder.DropTable(
@@ -1636,6 +1659,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "UsersPlans");
 
             migrationBuilder.DropTable(
                 name: "Visit");
@@ -1653,19 +1679,22 @@ namespace DataAccess.Migrations
                 name: "CustomerRepresentativeTypes");
 
             migrationBuilder.DropTable(
+                name: "CustomersAddresses");
+
+            migrationBuilder.DropTable(
                 name: "CustomerNotes");
 
             migrationBuilder.DropTable(
                 name: "CustomerPeyGiries");
 
             migrationBuilder.DropTable(
+                name: "Plans");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "Company");
+                name: "ProductCategories");
 
             migrationBuilder.DropTable(
                 name: "Cities");
