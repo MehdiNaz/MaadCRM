@@ -8,5 +8,5 @@ public class Picture : BaseEntity
     public string TitleAttribute { get; set; }
     public bool IsNew { get; set; }
     public string VirtualPath { get; set; }
-    public ICollection<PictureBinary> PictureBinary { get; set; }
+    public ICollection<PictureBinary>? PictureBinary { get; set; }
 }

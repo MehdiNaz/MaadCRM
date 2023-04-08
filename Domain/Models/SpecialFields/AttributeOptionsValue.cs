@@ -22,7 +22,7 @@ public class AttributeOptionsValue : BaseEntity
     public Status AttributeOptionsValueStatus { get; set; }
 
 
-    public ICollection<Business> Businesses { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
     public Customer Customer { get; set; }
     public AttributeOptions AttributeOptions { get; set; }
 }

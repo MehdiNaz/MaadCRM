@@ -25,5 +25,5 @@ public class Factor:BaseEntity
 
 
     public virtual PaymentMethod IdPaymenthMethodNavigation { get; set; }
-    public virtual ICollection<Order> Orders { get; set; }
+    public virtual ICollection<Order>? Orders { get; set; }
 }

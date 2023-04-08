@@ -1,4 +1,4 @@
-﻿namespace Application.Services.PlanValidation.CommandHandler;
+﻿namespace Application.Services.PlanService.CommandHandler;
 
 public class UpdatePlanCommandHandler : IRequestHandler<UpdatePlanCommand, Plan>
 {

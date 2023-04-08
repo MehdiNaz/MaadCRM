@@ -20,5 +20,5 @@ public class CategoryAttribute : BaseEntity
 
     //[ForeignKey(nameof(BusinessId))]
     //public ICollection<Business> Businesses { get; set; }
-    public ICollection<BusinessAttribute> BusinessAttributes { get; set; }
+    public ICollection<BusinessAttribute>? BusinessAttributes { get; set; }
 }

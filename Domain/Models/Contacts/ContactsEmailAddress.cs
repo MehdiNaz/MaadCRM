@@ -12,5 +12,5 @@ public class ContactsEmailAddress : BaseEntity
     public string CustomersEmailAddrs { get; set; }
     public Status ContactsEmailAddressStatus { get; set; }
 
-    public ICollection<Contact> Contacts { get; set; }
+    public ICollection<Contact>? Contacts { get; set; }
 }

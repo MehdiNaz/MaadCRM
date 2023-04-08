@@ -19,5 +19,5 @@ public class CustomersAddress : BaseEntity
     public Status CustomersAddressStatus { get; set; }
 
     public Customer Customer { get; set; }
-    public ICollection<ForoshFactor> ForoshFactors { get; set; }
+    public ICollection<ForoshFactor>? ForoshFactors { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿namespace Application.Services.PlanValidation.Commands;
+﻿namespace Application.Services.PlanService.Commands;
 
 public abstract class UpdatePlanCommand : RequestPlan, IRequest<Plan>
 {

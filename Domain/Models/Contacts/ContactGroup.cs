@@ -13,6 +13,6 @@ public class ContactGroup : BaseEntity
     public int DisplayOrder { get; set; }
     public Status ContactGroupStatus { get; set; }
 
-    public ICollection<Contact> Contacts { get; set; }
-    public ICollection<Business> Businesses { get; set; }
+    public ICollection<Contact>? Contacts { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
 }

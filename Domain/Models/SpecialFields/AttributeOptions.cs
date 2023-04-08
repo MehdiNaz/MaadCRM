@@ -17,7 +17,7 @@ public class AttributeOptions : BaseEntity
 
 
     //[ForeignKey(nameof(BusinessAttributeId))]
-    public ICollection<Business> Businesses { get; set; }
+    public ICollection<Business>? Businesses { get; set; }
     public BusinessAttribute BusinessAttribute { get; set; }
-    public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
+    public ICollection<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
 }
