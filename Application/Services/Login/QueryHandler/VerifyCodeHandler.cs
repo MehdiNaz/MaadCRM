@@ -1,9 +1,15 @@
 namespace Application.Services.Login.QueryHandler;
 
-public class VerifyCodeHandler : IRequestHandler<UserByEmailAddressQuery, IdentityUser?>
+public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, IdentityUser?>
 {
-    public async Task<IdentityUser?> Handle(UserByEmailAddressQuery request, CancellationToken cancellationToken)
+    private readonly ILoginRerpository _repository;
+
+    public VerifyCodeHandler(ILoginRerpository repository)
     {
-        throw new NotImplementedException();
+        _repository = repository;
+    }
+    public async Task<IdentityUser?> Handle(VerifyCodeQuery request, CancellationToken cancellationToken)
+    {
+        return await _repository.VerifyCode(request);
     }
 }

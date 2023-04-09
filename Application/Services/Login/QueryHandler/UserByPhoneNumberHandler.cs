@@ -2,9 +2,9 @@
 
 public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuery, IdentityUser?>
 {
-    private readonly ILoginOperation _repository;
+    private readonly ILoginRerpository _repository;
 
-    public GetUserByPhoneNumberHandler(ILoginOperation repository)
+    public GetUserByPhoneNumberHandler(ILoginRerpository repository)
     {
         _repository = repository;
     }
