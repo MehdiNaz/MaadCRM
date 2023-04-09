@@ -12,7 +12,8 @@ public class ContactGroup : BaseEntity
     public string GroupName { get; set; }
     public int DisplayOrder { get; set; }
     public Status ContactGroupStatus { get; set; }
+    public Ulid BusinessId { get; set; }
 
+    public Business Business { get; set; }
     public ICollection<Contact>? Contacts { get; set; }
-    public ICollection<Business>? Businesses { get; set; }
 }

@@ -37,10 +37,10 @@ public static class RepositoryConfiguration
 
 
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();
-        collection.AddTransient<ILogService, LogService>();
-        
+        //collection.AddTransient<ILogService, LogService>();
+
         collection.AddTransient<IPlanRepository, PlanRepository>();
-        collection.AddTransient<IUsersPlansRepository, UsersPlansRepository>();
+        collection.AddTransient<IBusinessPlanRepository, BusinessPlanRepository>();
 
 
         collection.AddTransient<ISanAtRepository, SanAtRepository>();

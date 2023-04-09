@@ -29,10 +29,19 @@ public class BusinessAttributeRepository : IBusinessAttributeRepository
         return businessAttribute;
     }
 
-    public async ValueTask DeleteBusinessAttributeAsync(int businessAttributeId)
+    public async ValueTask<BusinessAttribute?> DeleteBusinessAttributeAsync(int businessAttributeId)
     {
-        var businessAttribute = await GetBusinessAttributeByIdAsync(businessAttributeId);
-        _context.BusinessAttributes!.Remove(businessAttribute);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var businessAttribute = await GetBusinessAttributeByIdAsync(businessAttributeId);
+            //_context.BusinessAttributes!.Remove(businessAttribute);
+            businessAttribute.BusinessAttributeStatus = Status.Deleted;
+            await _context.SaveChangesAsync();
+            return businessAttribute;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

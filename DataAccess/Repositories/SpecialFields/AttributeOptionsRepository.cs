@@ -28,10 +28,19 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
         return attributeOptions;
     }
 
-    public async ValueTask DeleteAttributeOptionsAsync(int attributeOptionsId)
+    public async ValueTask<AttributeOptions?> DeleteAttributeOptionsAsync(int attributeOptionsId)
     {
-        var attributeOptions = await GetAttributeOptionsByIdAsync(attributeOptionsId);
-        _context.AttributeOptions!.Remove(attributeOptions);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var attributeOptions = await GetAttributeOptionsByIdAsync(attributeOptionsId);
+            //_context.AttributeOptions!.Remove(attributeOptions);
+            attributeOptions.AttributeOptionsStatus = Status.Deleted;
+            await _context.SaveChangesAsync();
+            return attributeOptions;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

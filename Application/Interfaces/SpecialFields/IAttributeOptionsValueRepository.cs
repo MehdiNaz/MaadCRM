@@ -6,5 +6,5 @@ public interface IAttributeOptionsValueRepository
     ValueTask<AttributeOptionsValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId);
     ValueTask<AttributeOptionsValue?> CreateAttributeOptionsValueAsync(AttributeOptionsValue? toCreate);
     ValueTask<AttributeOptionsValue?> UpdateAttributeOptionsValueAsync(string updateContent, int attributeOptionsValueId);
-    ValueTask DeleteAttributeOptionsValueAsync(int attributeOptionsValueId);
+    ValueTask<AttributeOptionsValue?> DeleteAttributeOptionsValueAsync(int attributeOptionsValueId);
 }

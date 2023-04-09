@@ -8,7 +8,6 @@ public class CustomerValidation : AbstractValidator<Customer>
         RuleFor(x => x.LastName).NotEmpty().WithMessage("لطفاً نام خانوادگی مشتری را وارد نمائید");
         RuleFor(x => x.BirthDayDate).NotEmpty().WithMessage("لطفاً تاریخ تولد مشتری را وارد نمائید");
         RuleFor(x => x.CustomerPic).NotEmpty();
-        RuleFor(x => x.UserId).NotEmpty();
         RuleFor(x => x.CityId).NotEmpty();
         RuleFor(x => x.BusinessId).NotEmpty();
         RuleFor(x => x.CustomerCategoryId).NotEmpty();

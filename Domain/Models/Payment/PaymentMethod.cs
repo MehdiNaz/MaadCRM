@@ -1,6 +1,6 @@
 namespace Domain.Models.Payment;
 
-public class PaymentMethod
+public class PaymentMethod : BaseEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }

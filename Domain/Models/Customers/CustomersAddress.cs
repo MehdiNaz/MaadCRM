@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Forosh;
-
-namespace Domain.Models.Customers;
+﻿namespace Domain.Models.Customers;
 
 public class CustomersAddress : BaseEntity
 {

@@ -9,12 +9,14 @@ public class CategoryAttribute : BaseEntity
     public CategoryAttribute()
     {
         CategoryAttributeId = Ulid.NewUlid();
+        CategoryAttributeStatus = Status.Show;
     }
 
     public Ulid CategoryAttributeId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public int DisplayOrder { get; set; } = 0;
+    public Status CategoryAttributeStatus { get; set; }
     //public Ulid BusinessId { get; set; }
 
 

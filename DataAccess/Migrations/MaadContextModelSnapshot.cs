@@ -37,6 +37,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("AddressStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -78,6 +81,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("CityStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -93,9 +99,6 @@ namespace DataAccess.Migrations
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("boolean");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
 
                     b.Property<string>("ProvinceId")
                         .IsRequired()
@@ -121,6 +124,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<int>("CountryStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -169,6 +175,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("ProvinceStatus")
+                        .HasColumnType("integer");
+
                     b.HasKey("ProvinceId");
 
                     b.HasIndex("CountryId");
@@ -176,27 +185,21 @@ namespace DataAccess.Migrations
                     b.ToTable("Provinces", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
                     b.Property<string>("BusinessId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("AttributeOptionsId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("AttributeOptionsValueId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<string>("BusinessAttributeId")
-                        .IsRequired()
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("BusinessName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<int>("BusinessStatus")
+                        .HasColumnType("integer");
 
                     b.Property<string>("CompanyAddress")
                         .IsRequired()
@@ -207,18 +210,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<string>("ContactGroupId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("ContactId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -234,79 +225,59 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<bool>("SslEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("BusinessId");
 
-                    b.HasIndex("AttributeOptionsId");
-
-                    b.HasIndex("AttributeOptionsValueId");
-
                     b.HasIndex("BusinessAttributeId");
-
-                    b.HasIndex("ContactGroupId");
-
-                    b.HasIndex("ContactId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Businesses", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Category", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
                 {
-                    b.Property<int>("PlanId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("BusinessPlansId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("BusinessPlansStatus")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
+                    b.Property<long>("CountOfDay")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CountOfUsers")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Icon")
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PlanId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("character varying(26)");
 
-                    b.Property<int?>("IdParrent")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("IdParrentNavigationId")
-                        .HasColumnType("integer");
+                    b.HasKey("BusinessPlansId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.HasIndex("BusinessId");
 
-                    b.Property<byte?>("OrderC")
-                        .HasColumnType("smallint");
+                    b.HasIndex("PlanId");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsRequired()
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("SeoName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<byte>("Show")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("PlanId");
-
-                    b.HasIndex("IdParrentNavigationId");
-
-                    b.ToTable("Category");
+                    b.ToTable("UsersPlans", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
@@ -321,6 +292,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("ContactGroupId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("ContactStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -337,12 +311,6 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Job")
                         .IsRequired()
                         .HasColumnType("text");
@@ -358,6 +326,8 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ContactId");
 
+                    b.HasIndex("BusinessId");
+
                     b.HasIndex("ContactGroupId");
 
                     b.HasIndex("EmailId");
@@ -372,9 +342,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("ContactGroupId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("ContactGroup")
+                    b.Property<string>("BusinessId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("ContactGroupStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -390,13 +363,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
-
                     b.HasKey("ContactGroupId");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("ContactGroups", (string)null);
                 });
@@ -405,6 +374,9 @@ namespace DataAccess.Migrations
                 {
                     b.Property<string>("ContactPhoneNumberId")
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("ContactPhoneNumberStatus")
+                        .HasColumnType("integer");
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -415,12 +387,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
@@ -444,6 +410,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("ContactsEmailAddressStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CustomersEmailAddrs")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -454,12 +423,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.HasKey("CustomersEmailAddressId");
 
@@ -482,6 +445,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomerActivationStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CustomerCategoryId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -497,7 +463,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("CustomerState")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CustomerActivationStatus")
+                    b.Property<int>("CustomerStatus")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
@@ -517,12 +483,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("InsertedBy")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -628,6 +588,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<int>("CustomerCategoryStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -637,12 +600,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.HasKey("CustomerCategoryId");
 
@@ -822,6 +779,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomersAddressStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -832,9 +792,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
@@ -861,6 +818,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomersEmailAddressStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CustomersEmailAddrs")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -871,12 +831,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.HasKey("CustomersEmailAddressId");
 
@@ -898,17 +852,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomersPhoneNumberStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.Property<string>("PhoneNo")
                         .IsRequired()
@@ -925,6 +876,97 @@ namespace DataAccess.Migrations
                     b.ToTable("PhoneNumbers", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
+                {
+                    b.Property<string>("ForoshFactorId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("CustomersAddressId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("DiscountPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("FinalTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ForoshFactorStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ForoshFactorId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomersAddressId");
+
+                    b.ToTable("ForoshFactors", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshOrder", b =>
+                {
+                    b.Property<string>("ForoshOrderId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<decimal>("DiscountPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("ForoshOrderStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly>("PaymentDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("PaymentMethodType")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PriceTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("ShippingMethodType")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("ShippingPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ForoshOrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ForoshOrders", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.Customers.Notes.CustomerNote", b =>
                 {
                     b.Property<string>("CustomerNoteId")
@@ -938,6 +980,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomerNoteStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -947,9 +992,6 @@ namespace DataAccess.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
 
                     b.HasKey("CustomerNoteId");
 
@@ -982,12 +1024,12 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("NoteAttachment")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("NoteAttachmentStatus")
+                        .HasColumnType("integer");
 
                     b.HasKey("NoteAttachmentId");
 
@@ -1011,12 +1053,12 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("NoteHashTag")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("NoteHashTagStatus")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -1043,6 +1085,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("CustomerPeyGiryStatus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -1053,9 +1098,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
 
                     b.HasKey("CustomerPeyGiryId");
 
@@ -1084,12 +1126,12 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
                     b.Property<string>("PeyGiryNoteId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("StatusPeyGiryAttachment")
+                        .HasColumnType("integer");
 
                     b.HasKey("PeyGiryAttachmentId");
 
@@ -1104,15 +1146,18 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ProductCustomerFavoritesList")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("ProductCustomerFavoritesListStatus")
+                        .HasColumnType("integer");
 
                     b.HasKey("ProductId", "CustomerId");
 
@@ -1121,21 +1166,25 @@ namespace DataAccess.Migrations
                     b.ToTable("ProductCustomerFavoritesLists", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Plan", b =>
+            modelBuilder.Entity("Domain.Models.Plans.Plan", b =>
                 {
                     b.Property<string>("PlanId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<long>("CountOfDay")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("CountOfUsers")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("DayDurations")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Discount")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("FinalPrice")
                         .HasColumnType("numeric");
@@ -1146,10 +1195,16 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("PlanName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<int>("PlanStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("PriceOfDay")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PriceOfUsers")
                         .HasColumnType("numeric");
 
                     b.HasKey("PlanId");
@@ -1165,96 +1220,106 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("DateEnd")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("DateStart")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<decimal?>("Discount")
+                        .IsRequired()
+                        .HasColumnType("numeric");
+
+                    b.Property<byte?>("DiscountPercent")
+                        .IsRequired()
+                        .HasColumnType("smallint");
 
                     b.Property<string>("FavoritesListId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<int>("PlanId")
-                        .HasColumnType("integer");
+                    b.Property<byte[]>("Picture")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
-                    b.Property<int>("IdCategory")
-                        .HasColumnType("integer");
+                    b.Property<decimal?>("Price")
+                        .IsRequired()
+                        .HasColumnType("numeric");
 
-                    b.Property<int>("IdCategoryNavigationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdCompany")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdCompanyNavigationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("IdParent")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("IdParrentNavigationProductId")
+                    b.Property<string>("ProductCategoryId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
-
-                    b.Property<decimal?>("Mablagh")
-                        .HasColumnType("numeric");
-
-                    b.Property<short?>("MaxSellPerPerson")
-                        .HasColumnType("smallint");
-
-                    b.Property<short?>("MinSell")
-                        .HasColumnType("smallint");
-
-                    b.Property<short?>("MinSellPerPerson")
-                        .HasColumnType("smallint");
-
-                    b.Property<decimal?>("Pardakht")
-                        .HasColumnType("numeric");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<bool>("Published")
-                        .HasColumnType("boolean");
+                    b.Property<int>("ProductStatus")
+                        .HasColumnType("integer");
 
-                    b.Property<byte?>("SpecialOffer")
+                    b.Property<byte>("PublishStatus")
                         .HasColumnType("smallint");
 
-                    b.Property<byte?>("Status")
-                        .HasColumnType("smallint");
+                    b.Property<decimal?>("SecondaryPrice")
+                        .IsRequired()
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Summery")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Takhfif")
-                        .HasColumnType("numeric");
-
-                    b.Property<byte?>("TakhfifMePerent")
-                        .HasColumnType("smallint");
-
-                    b.Property<byte?>("TakhfifPercent")
-                        .HasColumnType("smallint");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("IdCategoryNavigationId");
-
-                    b.HasIndex("IdCompanyNavigationId");
-
-                    b.HasIndex("IdParrentNavigationProductId");
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
+                {
+                    b.Property<string>("ProductCategoryId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<byte?>("Order")
+                        .IsRequired()
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ParentId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("ProductCategoryName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("ProductCategoryStatus")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductCategoryId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("ProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.SanAt", b =>
@@ -1268,12 +1333,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
-
                     b.Property<string>("SanAt")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -1282,6 +1341,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
+
+                    b.Property<int>("SanAtStatus")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -1303,8 +1365,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<int>("AttributeOptionsStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("BusinessAttributeId")
                         .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("BusinessId")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("ColorSquaresRgb")
@@ -1321,12 +1389,6 @@ namespace DataAccess.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("integer");
 
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -1335,6 +1397,8 @@ namespace DataAccess.Migrations
                     b.HasKey("AttributeOptionsId");
 
                     b.HasIndex("BusinessAttributeId");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("AttributeOptions", (string)null);
                 });
@@ -1358,10 +1422,21 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("AttributeOptionsId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("AttributeOptionsValueStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("AttributeXMLValue")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -1394,6 +1469,10 @@ namespace DataAccess.Migrations
 
                     b.HasKey("AttributeOptionsValueId");
 
+                    b.HasIndex("AttributeOptionsId");
+
+                    b.HasIndex("BusinessId");
+
                     b.HasIndex("CustomerId");
 
                     b.ToTable("AttributeOptionsValues", (string)null);
@@ -1405,6 +1484,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("AttributeTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BusinessAttributeStatus")
                         .HasColumnType("integer");
 
                     b.Property<string>("CategoryAttributeId")
@@ -1497,109 +1579,15 @@ namespace DataAccess.Migrations
                     b.ToTable("CategoryAttributes", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.UnDifined.Company", b =>
+            modelBuilder.Entity("Domain.UnDifined.Log", b =>
                 {
-                    b.Property<int>("PlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("BankName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("BankNo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CardNo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Ceo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CeoMobile")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateLastUpdate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<short?>("IdCity")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("Lat")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Long")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Makan")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Pass")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Rate")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Tel1")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tel2")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("WebSite")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("PlanId");
-
-                    b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("Domain.UnDifined.Log", b =>
-                {
-                    b.Property<string>("PlanId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<byte>("Kind")
@@ -1613,7 +1601,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -1661,13 +1649,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.UnDifined.Visit", b =>
                 {
-                    b.Property<long>("PlanId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("PlanId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("IdUser")
@@ -1685,7 +1676,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -1694,7 +1685,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<string>("PlanId")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -1709,7 +1700,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -1720,11 +1711,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("PlanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -1736,7 +1727,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
@@ -1745,7 +1736,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.Property<string>("PlanId")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
@@ -1799,7 +1790,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -1815,11 +1806,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<int>("PlanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -1831,7 +1822,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -1902,6 +1893,10 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
                     b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -1929,12 +1924,6 @@ namespace DataAccess.Migrations
 
                     b.Property<byte?>("Gender")
                         .HasColumnType("smallint");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("IsShown")
-                        .HasColumnType("integer");
 
                     b.Property<string>("LastIp")
                         .HasMaxLength(256)
@@ -1974,10 +1963,15 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<int>("UserStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("WebSite")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.HasIndex("BusinessId");
 
                     b.HasIndex("CityId");
 
@@ -1992,13 +1986,13 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Address.Address", b =>
                 {
-                    b.HasOne("Domain.Models.Address.City", "city")
+                    b.HasOne("Domain.Models.Address.City", "City")
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("city");
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.City", b =>
@@ -2023,70 +2017,40 @@ namespace DataAccess.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOptions", "AttributeOptions")
+                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", null)
                         .WithMany("Businesses")
-                        .HasForeignKey("AttributeOptionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOptionsValue", "AttributeOptionsValue")
-                        .WithMany("Businesses")
-                        .HasForeignKey("AttributeOptionsValueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", "BusinessAttribute")
-                        .WithMany("Businesses")
-                        .HasForeignKey("BusinessAttributeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Contacts.ContactGroup", "ContactGroup")
-                        .WithMany("Businesses")
-                        .HasForeignKey("ContactGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Contacts.Contact", "Contact")
-                        .WithMany("Businesses")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
-                        .WithMany("Businesses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AttributeOptions");
-
-                    b.Navigation("AttributeOptionsValue");
-
-                    b.Navigation("BusinessAttribute");
-
-                    b.Navigation("Contact");
-
-                    b.Navigation("ContactGroup");
-
-                    b.Navigation("User");
+                        .HasForeignKey("BusinessAttributeId");
                 });
 
-            modelBuilder.Entity("Domain.Models.Category", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
                 {
-                    b.HasOne("Domain.Models.Category", "IdParrentNavigation")
-                        .WithMany("InverseIdParrentNavigation")
-                        .HasForeignKey("IdParrentNavigationId")
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("BusinessPlans")
+                        .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("IdParrentNavigation");
+                    b.HasOne("Domain.Models.Plans.Plan", "Plan")
+                        .WithMany("UsersPlans")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
                 {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("Contacts")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Contacts.ContactGroup", "ContactGroup")
                         .WithMany("Contacts")
                         .HasForeignKey("ContactGroupId")
@@ -2105,11 +2069,24 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Business");
+
                     b.Navigation("ContactGroup");
 
                     b.Navigation("ContactPhoneNumber");
 
                     b.Navigation("ContactsEmailAddress");
+                });
+
+            modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
+                {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("ContactGroups")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
@@ -2126,7 +2103,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
                         .WithMany("Customers")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2275,6 +2252,36 @@ namespace DataAccess.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
+                {
+                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                        .WithMany("ForoshFactors")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Customers.CustomersAddress", "CustomersAddress")
+                        .WithMany("ForoshFactors")
+                        .HasForeignKey("CustomersAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("CustomersAddress");
+                });
+
+            modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshOrder", b =>
+                {
+                    b.HasOne("Domain.Models.Products.Product", "Product")
+                        .WithMany("ForoshOrders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Domain.Models.Customers.Notes.CustomerNote", b =>
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
@@ -2351,27 +2358,22 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
-                    b.HasOne("Domain.Models.Category", "IdCategoryNavigation")
-                        .WithMany("Koupons")
-                        .HasForeignKey("IdCategoryNavigationId")
+                    b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.UnDifined.Company", "IdCompanyNavigation")
-                        .WithMany()
-                        .HasForeignKey("IdCompanyNavigationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ProductCategory");
+                });
 
-                    b.HasOne("Domain.Models.Products.Product", "IdParrentNavigation")
+            modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
+                {
+                    b.HasOne("Domain.Models.Products.ProductCategory", "IdParrentNavigation")
                         .WithMany("InverseIdParrentNavigation")
-                        .HasForeignKey("IdParrentNavigationProductId")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("IdCategoryNavigation");
-
-                    b.Navigation("IdCompanyNavigation");
 
                     b.Navigation("IdParrentNavigation");
                 });
@@ -2395,6 +2397,12 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("AttributeOptions")
+                        .HasForeignKey("BusinessId");
+
+                    b.Navigation("Business");
+
                     b.Navigation("BusinessAttribute");
                 });
 
@@ -2402,7 +2410,13 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.SpecialFields.AttributeOptions", "AttributeOptions")
                         .WithMany("AttributeOptionsValues")
-                        .HasForeignKey("AttributeOptionsValueId")
+                        .HasForeignKey("AttributeOptionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("AttributeOptionsValues")
+                        .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2413,6 +2427,8 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AttributeOptions");
+
+                    b.Navigation("Business");
 
                     b.Navigation("Customer");
                 });
@@ -2430,7 +2446,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.SpecialFields.CategoryAttribute", b =>
                 {
-                    b.HasOne("Domain.Models.Business", null)
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("CategoryAttributes")
                         .HasForeignKey("BusinessId");
                 });
@@ -2448,7 +2464,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.UnDifined.Setting", b =>
                 {
-                    b.HasOne("Domain.Models.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
                         .WithMany("Setting")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2517,6 +2533,12 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("Users")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Address.City", "City")
                         .WithMany("Users")
                         .HasForeignKey("CityId")
@@ -2525,9 +2547,11 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithOne()
-                        .HasForeignKey("Domain.Models.IdentityModels.User", "PlanId")
+                        .HasForeignKey("Domain.Models.IdentityModels.User", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Business");
 
                     b.Navigation("City");
                 });
@@ -2551,31 +2575,29 @@ namespace DataAccess.Migrations
                     b.Navigation("Cities");
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
+                    b.Navigation("AttributeOptions");
+
+                    b.Navigation("AttributeOptionsValues");
+
+                    b.Navigation("BusinessPlans");
+
                     b.Navigation("CategoryAttributes");
+
+                    b.Navigation("ContactGroups");
+
+                    b.Navigation("Contacts");
 
                     b.Navigation("Customers");
 
                     b.Navigation("Setting");
-                });
 
-            modelBuilder.Entity("Domain.Models.Category", b =>
-                {
-                    b.Navigation("InverseIdParrentNavigation");
-
-                    b.Navigation("Koupons");
-                });
-
-            modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
-                {
-                    b.Navigation("Businesses");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
                 {
-                    b.Navigation("Businesses");
-
                     b.Navigation("Contacts");
                 });
 
@@ -2611,6 +2633,8 @@ namespace DataAccess.Migrations
 
                     b.Navigation("FavoritesLists");
 
+                    b.Navigation("ForoshFactors");
+
                     b.Navigation("PhoneNumbers");
                 });
 
@@ -2634,6 +2658,11 @@ namespace DataAccess.Migrations
                     b.Navigation("CustomerRepresentativeHistory");
                 });
 
+            modelBuilder.Entity("Domain.Models.Customers.CustomersAddress", b =>
+                {
+                    b.Navigation("ForoshFactors");
+                });
+
             modelBuilder.Entity("Domain.Models.Customers.Notes.CustomerNote", b =>
                 {
                     b.Navigation("CustomerHashTags");
@@ -2646,25 +2675,30 @@ namespace DataAccess.Migrations
                     b.Navigation("PeyGiryAttachments");
                 });
 
+            modelBuilder.Entity("Domain.Models.Plans.Plan", b =>
+                {
+                    b.Navigation("UsersPlans");
+                });
+
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
                     b.Navigation("FavoritesLists");
 
-                    b.Navigation("InverseIdParrentNavigation");
+                    b.Navigation("ForoshOrders");
 
                     b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
+                {
+                    b.Navigation("InverseIdParrentNavigation");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptions", b =>
                 {
                     b.Navigation("AttributeOptionsValues");
-
-                    b.Navigation("Businesses");
-                });
-
-            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptionsValue", b =>
-                {
-                    b.Navigation("Businesses");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.BusinessAttribute", b =>
@@ -2681,8 +2715,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
-                    b.Navigation("Businesses");
-
                     b.Navigation("CustomerSubmissions");
 
                     b.Navigation("Customers");

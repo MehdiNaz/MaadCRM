@@ -3,7 +3,7 @@ namespace Domain.UnDifined;
 /// <summary>
 /// History of a user's actions
 /// </summary>
-public class Log
+public class Log : BaseEntity
 {
     public Log()
     {

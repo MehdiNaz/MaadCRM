@@ -1,8 +1,6 @@
-using MediatR;
-
 namespace Application.Beach.Query;
 
-public class GetAllBeachesQuery:IRequest<GetAllBeachesResponse>
+public class GetAllBeachesQuery : IRequest<GetAllBeachesResponse>
 {
-    
+
 }

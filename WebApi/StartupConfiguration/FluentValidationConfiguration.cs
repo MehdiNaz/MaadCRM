@@ -38,7 +38,8 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ForoshFactorValidation).Assembly);
         
         
-        collection.AddValidatorsFromAssembly(typeof(PlanValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CreateUsersPlanValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(UpdateUsersPlanValidation).Assembly);
         
 
         // Request DTO :

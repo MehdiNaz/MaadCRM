@@ -13,8 +13,11 @@ public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Plan>
     {
         Plan item = new()
         {
-            DayDurations = request.Days,
-            CountOfUsers = request.KarbarCount
+            PlanName = request.PlanName,
+            CountOfUsers = request.CountOfUsers,
+            PriceOfUsers = request.PriceOfUsers,
+            CountOfDay = request.CountOfDay,
+            PriceOfDay = request.PriceOfDay,
         };
         await _repository.CreatePlanAsync(item);
         return item;
