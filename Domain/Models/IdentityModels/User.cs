@@ -42,4 +42,8 @@ public class User : IdentityUser
     public ICollection<Log>? Logs { get; set; }
     public ICollection<SanAt>? SanAts { get; set; }
     public ICollection<Customer>? Customers { get; set; }  //Relation OK
+    public ICollection<CustomerCategory> CustomerCategories { get; set; }
+    public ICollection<Plan> Plans { get; set; }
+
+    
 }
