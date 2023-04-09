@@ -7,7 +7,7 @@
 /// .قیمت هم به صورت صفر در نظر گرفته می شود
 /// </summary>
 
-public class Plan : BaseEntity
+public class Plan : BaseEntityWithUpdateInfo
 {
     public Plan()
     {
@@ -21,7 +21,7 @@ public class Plan : BaseEntity
     public decimal PriceOfUsers { get; set; }
     public uint CountOfDay { get; set; }
     public decimal PriceOfDay { get; set; }
-    public decimal? Discount { get; set; } //ToDo Hanooz Kar Dare In
+    public decimal? Discount { get; set; } //TODO: Hanooz Kar Dare In
     public decimal FinalPrice { get; set; }
     public Status PlanStatus { get; set; }
     public ICollection<BusinessPlans>? UsersPlans { get; set; }  //Relation OK

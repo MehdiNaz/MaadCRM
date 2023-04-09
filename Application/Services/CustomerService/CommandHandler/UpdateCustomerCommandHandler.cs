@@ -13,11 +13,12 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
     {
         Customer item = new()
         {
+            CustomerId = request.CustomerId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate,
             CustomerPic = request.CustomerPic,
-            InsertedBy = request.InsertedBy,
+            CreatedBy = request.CreatedBy,
             UpdatedBy = request.UpdatedBy,
             CityId = request.CityId,
             UserId = request.UserId,
@@ -26,7 +27,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId
         };
-        await _repository.UpdateCustomerAsync(item, request.CustomerId);
+        await _repository.UpdateCustomerAsync(item);
         return item;
     }
 }

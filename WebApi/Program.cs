@@ -52,6 +52,7 @@ app.MapAccountRoute();
 app.MapPlanRoute();
 app.MapBusinessPlanRout();
 app.MapBusinessRoute();
+app.MapCustomerRoute();
 
 app.MapGet("/test123", (IMediator _mediator) =>
 {

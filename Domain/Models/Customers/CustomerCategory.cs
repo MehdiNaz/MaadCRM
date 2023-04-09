@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public class CustomerCategory : BaseEntity
+public class CustomerCategory : BaseEntityWithUpdateInfo
 {
     public CustomerCategory()
     {

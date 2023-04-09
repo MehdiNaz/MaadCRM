@@ -9,7 +9,7 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         _context = context;
     }
 
-    public async Task<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
+    public async ValueTask<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
         => (await _context.CustomerCategories!.ToListAsync()).Where(x => x.CustomerCategoryStatus == Status.Show).ToList()!;
 
     public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId) => await _context.CustomerCategories!.FindAsync(customerCategoryId);
@@ -28,7 +28,7 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity, Ulid customerCategoryId)
+    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity)
     {
         try
         {

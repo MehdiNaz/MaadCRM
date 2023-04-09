@@ -9,7 +9,7 @@ public class CustomerRepository : ICustomerRepository
         _context = aadContext;
     }
 
-    public async Task<ICollection<Customer?>> GetAllCustomersAsync()
+    public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync()
         => (await _context.Customers!.ToListAsync()).Where(x => x.CustomerStatus == Status.Show).ToList()!;
 
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
@@ -28,7 +28,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Customer?> UpdateCustomerAsync(Customer entity, Ulid customerId)
+    public async ValueTask<Customer?> UpdateCustomerAsync(Customer entity)
     {
         try
         {

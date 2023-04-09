@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Businesses;
 
-public class BusinessPlans : BaseEntity
+public class BusinessPlans : BaseEntityWithUpdateInfo
 {
     public BusinessPlans()
     {
