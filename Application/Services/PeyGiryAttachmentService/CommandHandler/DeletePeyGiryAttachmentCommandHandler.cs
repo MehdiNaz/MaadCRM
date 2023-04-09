@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PeyGiryAttachmentService.CommandHandler;
 
-public class DeletePeyGiryAttachmentCommandHandler : IRequestHandler<DeletePeyGiryAttachmentCommand, PeyGiryAttachment>
+public readonly struct DeletePeyGiryAttachmentCommandHandler : IRequestHandler<DeletePeyGiryAttachmentCommand, PeyGiryAttachment>
 {
     private readonly IPeyGiryAttachmentRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.Commands;
 
-public class CreateBusinessPlansCommand : IRequest<BusinessPlans>
+public struct CreateBusinessPlansCommand : IRequest<BusinessPlans>
 {
     public Ulid PlanId { get; set; }
     public Ulid BusinessId { get; set; }

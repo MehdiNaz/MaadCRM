@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.QueryHandler;
 
-public class ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusinessPlansQuery, bool>
+public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusinessPlansQuery, bool>
 {
     private readonly IBusinessPlanRepository _repository;
 

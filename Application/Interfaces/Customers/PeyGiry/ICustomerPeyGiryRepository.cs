@@ -2,9 +2,9 @@
 
 public interface ICustomerPeyGiryRepository
 {
-    ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriessAsync();
+    ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriesAsync();
     ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId);
     ValueTask<CustomerPeyGiry?> CreateCustomerPeyGiryAsync(CustomerPeyGiry? entity);
-    ValueTask<CustomerPeyGiry?> UpdateCustomerPeyGiryAsync(CustomerPeyGiry entity, Ulid customerPeyGiryId);
+    ValueTask<CustomerPeyGiry?> UpdateCustomerPeyGiryAsync(CustomerPeyGiry entity);
     ValueTask<CustomerPeyGiry?> DeleteCustomerPeyGiryAsync(Ulid customerPeyGiryId);
 }

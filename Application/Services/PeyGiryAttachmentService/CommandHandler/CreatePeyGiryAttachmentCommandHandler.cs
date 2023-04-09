@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PeyGiryAttachmentService.CommandHandler;
 
-public class CreatePeyGiryAttachmentCommandHandler : IRequestHandler<CreatePeyGiryAttachmentCommand, PeyGiryAttachment>
+public readonly struct CreatePeyGiryAttachmentCommandHandler : IRequestHandler<CreatePeyGiryAttachmentCommand, PeyGiryAttachment>
 {
     private readonly IPeyGiryAttachmentRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PeyGiryAttachmentService.CommandHandler;
 
-public class UpdatePeyGiryAttachmentCommandHandler : IRequestHandler<UpdatePeyGiryAttachmentCommand, PeyGiryAttachment>
+public readonly struct UpdatePeyGiryAttachmentCommandHandler : IRequestHandler<UpdatePeyGiryAttachmentCommand, PeyGiryAttachment>
 {
     private readonly IPeyGiryAttachmentRepository _repository;
 
@@ -13,11 +13,12 @@ public class UpdatePeyGiryAttachmentCommandHandler : IRequestHandler<UpdatePeyGi
     {
         PeyGiryAttachment item = new()
         {
+            PeyGiryAttachmentId = request.PeyGiryAttachmentId,
             PeyGiryNoteId = request.PeyGiryNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion
         };
-        await _repository.CreatePeyGiryAttachmentAsync(item);
+        await _repository.UpdatePeyGiryAttachmentAsync(item);
         return item;
     }
 }

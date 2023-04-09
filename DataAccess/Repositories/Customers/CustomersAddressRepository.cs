@@ -30,7 +30,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> UpdateAddressAsync(CustomersAddress entity, Ulid customersAddressId)
+    public async ValueTask<CustomersAddress?> UpdateAddressAsync(CustomersAddress entity)
     {
         try
         {

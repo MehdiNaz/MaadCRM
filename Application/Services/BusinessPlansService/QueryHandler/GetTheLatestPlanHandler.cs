@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.QueryHandler;
 
-public class GetTheLatestPlanHandler : IRequestHandler<TheLatestPlanQuery, BusinessPlans>
+public readonly struct GetTheLatestPlanHandler : IRequestHandler<TheLatestPlanQuery, BusinessPlans>
 {
     private readonly IBusinessPlanRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.CommandHandler;
 
-public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Customer>
+public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Customer>
 {
     private readonly ICustomerRepository _repository;
 

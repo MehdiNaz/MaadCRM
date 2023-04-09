@@ -4,7 +4,7 @@ public static class CustomerRoute
 {
     public static void MapCustomerRoute(this IEndpointRouteBuilder app)
     {
-        #region Account
+        #region Customer
 
         var plan = app.MapGroup("v1/Customer")
             //.RequireAuthorization()
@@ -62,19 +62,20 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateBusinessCommand request, IMediator mediator) =>
+        plan.MapPut("/Update", async ([FromBody] UpdateCustomerCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new UpdateBusinessCommand
+                var result = await mediator.Send(new UpdateCustomerCommand
                 {
                     BusinessId = request.BusinessId,
-                    BusinessName = request.BusinessName,
-                    Url = request.Url,
-                    Hosts = request.Hosts,
-                    CompanyName = request.CompanyName,
-                    CompanyAddress = request.CompanyAddress,
-                    DisplayOrder = request.DisplayOrder,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    BirthDayDate = request.BirthDayDate,
+                    CustomerPic = request.CustomerPic,
+                    CreatedBy = request.CreatedBy,
+                    UpdatedBy = request.UpdatedBy,
+                    UserId = request.UserId
                 });
                 return Results.Ok(result);
             }
@@ -84,13 +85,13 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteBusinessCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new DeleteBusinessCommand
+                var result = await mediator.Send(new DeleteCustomerCommand
                 {
-                    BusinessId = request.BusinessId,
+                    CustomerId = request.CustomerId,
                 });
                 return Results.Ok(result);
             }

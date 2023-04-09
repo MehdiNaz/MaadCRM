@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.Queries;
 
-public class BusinessPlansByIdQuery : IRequest<BusinessPlans?>
+public struct BusinessPlansByIdQuery : IRequest<BusinessPlans?>
 {
     public Ulid BusinessPlansId { get; set; }
     //public Ulid UsersPlansId { get; set; }

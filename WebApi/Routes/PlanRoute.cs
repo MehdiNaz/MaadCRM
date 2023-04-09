@@ -4,7 +4,7 @@ public static class PlanRoute
 {
     public static void MapPlanRoute(this IEndpointRouteBuilder app)
     {
-        #region Account
+        #region Plan
 
         var plan = app.MapGroup("v1/plan")
             //.RequireAuthorization()

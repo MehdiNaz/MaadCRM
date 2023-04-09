@@ -11,8 +11,8 @@ public class BusinessMapping : IEntityTypeConfiguration<Business>
         builder.Property(x => x.Hosts).HasMaxLength(255).IsRequired();
         builder.Property(x => x.CompanyName).HasMaxLength(255).IsRequired();
         builder.Property(x => x.CompanyAddress).HasMaxLength(255).IsRequired();
-        // builder.HasOne(x => x.User).WithMany(x => x.Business).HasForeignKey(x => x.CreatedBy);
-        // builder.HasOne(x => x.User).WithMany(x => x.Business).HasForeignKey(x => x.UpdatedBy);
 
+        builder.HasOne(x => x.User).WithMany(x => x.Businesses).HasForeignKey(x => x.CreatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.Businesses).HasForeignKey(x => x.UpdatedBy);
     }
 }

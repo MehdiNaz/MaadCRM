@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.QueryHandler;
 
-public class GetUsersPlansByIdHandler : IRequestHandler<BusinessPlansByIdQuery, BusinessPlans?>
+public readonly struct GetUsersPlansByIdHandler : IRequestHandler<BusinessPlansByIdQuery, BusinessPlans?>
 {
     private readonly IBusinessPlanRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.QueryHandler;
 
-public class GetAllActivePlansHandler : IRequestHandler<AllActivePlansQuery, ICollection<BusinessPlans>>
+public readonly struct GetAllActivePlansHandler : IRequestHandler<AllActivePlansQuery, ICollection<BusinessPlans>>
 {
     private readonly IBusinessPlanRepository _repository;
 

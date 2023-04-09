@@ -29,7 +29,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         }
     }
 
-    public async ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(PeyGiryAttachment entity, Ulid peyGiryAttachmentId)
+    public async ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(PeyGiryAttachment entity)
     {
         try
         {

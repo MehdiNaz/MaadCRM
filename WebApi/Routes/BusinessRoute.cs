@@ -4,7 +4,7 @@ public static class BusinessRoute
 {
     public static void MapBusinessRoute(this IEndpointRouteBuilder app)
     {
-        #region Account
+        #region Business
 
         var plan = app.MapGroup("v1/Business")
             //.RequireAuthorization()

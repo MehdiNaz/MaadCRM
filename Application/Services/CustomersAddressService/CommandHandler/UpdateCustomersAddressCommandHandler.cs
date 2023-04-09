@@ -13,13 +13,14 @@ public class UpdateCustomersAddressCommandHandler : IRequestHandler<UpdateCustom
     {
         CustomersAddress item = new()
         {
+            CustomersAddressId= request.CustomersAddressId,
             Address = request.Address,
             CodePost = request.CodePost,
             PhoneNo = request.PhoneNo,
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdateAddressAsync(item, request.CustomersAddressId);
+        await _repository.UpdateAddressAsync(item);
         return item;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.PeyGiry;
 
-public class PeyGiryAttachment : BaseEntity
+public class PeyGiryAttachment : BaseEntityWithUpdateInfo
 {
     public PeyGiryAttachment()
     {

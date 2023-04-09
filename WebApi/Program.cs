@@ -49,10 +49,13 @@ app.UseFileServer();
 
 #region Routes
 app.MapAccountRoute();
-app.MapPlanRoute();
 app.MapBusinessPlanRout();
 app.MapBusinessRoute();
+app.MapCustomerAddressRoute();
+app.MapCustomerCategoryRoute();
+app.MapCustomerPeyGiryRoute();
 app.MapCustomerRoute();
+app.MapPlanRoute();
 
 app.MapGet("/test123", (IMediator _mediator) =>
 {
