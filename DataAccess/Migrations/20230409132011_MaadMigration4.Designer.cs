@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230409072143_MaadMigration")]
-    partial class MaadMigration
+    [Migration("20230409132011_MaadMigration4")]
+    partial class MaadMigration4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,6 +214,10 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -228,10 +232,18 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("BusinessId");
 
@@ -258,6 +270,10 @@ namespace DataAccess.Migrations
                     b.Property<long>("CountOfUsers")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -274,11 +290,21 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("BusinessPlansId");
 
                     b.HasIndex("BusinessId");
 
                     b.HasIndex("PlanId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UsersPlans", (string)null);
                 });
@@ -448,6 +474,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("CustomerActivationStatus")
                         .HasColumnType("integer");
 
@@ -460,7 +490,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<byte[]>("CustomerPic")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<int>("CustomerState")
@@ -482,10 +511,6 @@ namespace DataAccess.Migrations
 
                     b.Property<byte>("Gender")
                         .HasColumnType("smallint");
-
-                    b.Property<string>("InsertedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -586,6 +611,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerCategoryId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CustomerCategoryName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -604,7 +633,13 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("CustomerCategoryId");
+
+                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("CustomerCategories", (string)null);
                 });
@@ -1180,6 +1215,10 @@ namespace DataAccess.Migrations
                     b.Property<long>("CountOfUsers")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -1210,7 +1249,13 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("PriceOfUsers")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("PlanId");
+
+                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("Plans", (string)null);
                 });
@@ -1555,6 +1600,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("CategoryAttribute")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
+
+                    b.Property<int>("CategoryAttributeStatus")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -2041,9 +2089,17 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Business");
 
                     b.Navigation("Plan");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
@@ -2118,7 +2174,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.IdentityModels.User", "UserEntity")
+                    b.HasOne("Domain.Models.IdentityModels.User", "User")
                         .WithMany("Customers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2132,7 +2188,7 @@ namespace DataAccess.Migrations
 
                     b.Navigation("CustomerMoaref");
 
-                    b.Navigation("UserEntity");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>
@@ -2163,6 +2219,17 @@ namespace DataAccess.Migrations
                     b.Navigation("CustomerActivity");
 
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("Domain.Models.Customers.CustomerCategory", b =>
+                {
+                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                        .WithMany("CustomerCategories")
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerFeedbackHistory", b =>
@@ -2357,6 +2424,17 @@ namespace DataAccess.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.Models.Plans.Plan", b =>
+                {
+                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                        .WithMany("Plans")
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
@@ -2718,11 +2796,15 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
+                    b.Navigation("CustomerCategories");
+
                     b.Navigation("CustomerSubmissions");
 
                     b.Navigation("Customers");
 
                     b.Navigation("Logs");
+
+                    b.Navigation("Plans");
 
                     b.Navigation("SanAts");
                 });

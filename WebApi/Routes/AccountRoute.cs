@@ -1,6 +1,3 @@
-using Application.Requests;
-using Application.Services.Login.Queries;
-
 namespace WebApi.Routes;
 
 public static class AccountRoute
@@ -13,7 +10,7 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator _mediator) =>
+        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request, IMediator _mediator) =>
         {
             try
             {
@@ -28,8 +25,8 @@ public static class AccountRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
-        
+
+
         account.MapGet("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try
@@ -41,7 +38,7 @@ public static class AccountRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
+
         account.MapGet("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
         {
             try
@@ -65,9 +62,7 @@ public static class AccountRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
+
         #endregion
     }
 }
-
-    

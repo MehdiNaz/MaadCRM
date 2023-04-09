@@ -33,7 +33,7 @@ public class User : IdentityUser
     public Status UserStatus { get; set; }
 
 
-    public Business Business{ get; set; }
+    public Business Business { get; set; }
     public City City { get; set; }
     //public ICollection<Business>? Businesses { get; set; }
     public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
@@ -42,4 +42,6 @@ public class User : IdentityUser
     public ICollection<Log>? Logs { get; set; }
     public ICollection<SanAt>? SanAts { get; set; }
     public ICollection<Customer>? Customers { get; set; }  //Relation OK
+    public ICollection<Plan>? Plans { get; set; }  //Relation OK
+    public ICollection<CustomerCategory>? CustomerCategories { get; set; }
 }

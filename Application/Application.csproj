@@ -28,6 +28,8 @@
       <Folder Include="Services\BusinessService\Response\" />
       <Folder Include="Services\BusinessService\Validation\" />
       <Folder Include="Services\BusinessService\QueryHandler\" />
+      <Folder Include="Services\CustomerCategoryService\Validation\" />
+      <Folder Include="Services\CustomerService\Validation\" />
       <Folder Include="Services\PlanService\Response\" />
       <Folder Include="Services\BusinessPlansService\Response\" />
     </ItemGroup>

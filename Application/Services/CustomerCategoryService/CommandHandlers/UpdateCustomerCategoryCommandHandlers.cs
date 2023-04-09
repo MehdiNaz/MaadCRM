@@ -13,10 +13,12 @@ public class UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCusto
     {
         CustomerCategory customerCategory = new()
         {
-            CustomerCategoryName = request.CustomerCategoryName
+            CustomerCategoryId = request.CustomerCategoryId,
+            CustomerCategoryName = request.CustomerCategoryName,
+            CustomerId = request.CustomerId
         };
 
-        await _repository.UpdateCustomerCategoryAsync(customerCategory, request.CustomerCategoryId);
+        await _repository.UpdateCustomerCategoryAsync(customerCategory);
         return customerCategory;
     }
 }

@@ -14,6 +14,7 @@ public class CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCusto
         CustomerCategory customerCategory = new()
         {
             CustomerCategoryName = request.CustomerCategoryName,
+            CustomerId = request.CustomerId
         };
 
         await _repository.CreateCustomerCategoryAsync(customerCategory);

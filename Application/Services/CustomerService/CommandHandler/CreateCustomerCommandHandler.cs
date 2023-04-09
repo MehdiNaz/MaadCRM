@@ -17,7 +17,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate,
             CustomerPic = request.CustomerPic,
-            InsertedBy = request.InsertedBy,
+            CreatedBy = request.CreatedBy,
             UpdatedBy = request.UpdatedBy,
             CityId = request.CityId,
             UserId = request.UserId!,

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public class Customer : BaseEntity
+public class Customer : BaseEntityWithUserId
 {
     public Customer()
     {
@@ -13,19 +13,16 @@ public class Customer : BaseEntity
     public Ulid CustomerId { get; set; }
     public string FirstName { get; set; }
     public required string LastName { get; set; }
-    public required DateOnly BirthDayDate { get; set; }
-    public byte[] CustomerPic { get; set; }
-    public required string InsertedBy { get; set; }
-    public string UpdatedBy { get; set; }
-    public string? UserId { get; set; }
-    public required Ulid CityId { get; set; }
-    public required Ulid BusinessId { get; set; }
-    public required Ulid CustomerCategoryId { get; set; }
-    public required GenderTypes Gender { get; set; }
+    public DateOnly BirthDayDate { get; set; }
+    public byte[]? CustomerPic { get; set; }
+    public  Ulid CityId { get; set; }
+    public  Ulid BusinessId { get; set; }
+    public  Ulid CustomerCategoryId { get; set; }
+    public  GenderTypes Gender { get; set; }
     public Status CustomerStatus { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
-    
+
 
     #region Moaref
     public Ulid CustomerMoarefId { get; set; }
@@ -33,7 +30,6 @@ public class Customer : BaseEntity
     public ICollection<Customer>? CustomersMoaref { get; set; }
     #endregion
 
-    public User UserEntity { get; set; }                                                                //Relation OK
     public Business Business { get; set; }                                                              //Relation OK
     public City City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK

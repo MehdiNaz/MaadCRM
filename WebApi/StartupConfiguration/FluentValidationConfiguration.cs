@@ -36,11 +36,11 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ProductCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshOrderValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshFactorValidation).Assembly);
-        
-        
+
+
         collection.AddValidatorsFromAssembly(typeof(CreateUsersPlanValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(UpdateUsersPlanValidation).Assembly);
-        
+
 
         // Request DTO :
         collection.AddValidatorsFromAssembly(typeof(RequestLoginByMailValidation).Assembly);

@@ -26,7 +26,6 @@ public class Business : BaseEntity
     public Status BusinessStatus { get; set; }
 
 
-    public ICollection<User> Users { get; set; }                                   //Relation OK
     public ICollection<Contact>? Contacts { get; set; }                            //Relation OK
     public ICollection<ContactGroup>? ContactGroups { get; set; }                  //Relation OK
     public ICollection<AttributeOptions>? AttributeOptions { get; set; }           //Relation OK
@@ -38,4 +37,12 @@ public class Business : BaseEntity
     public ICollection<CategoryAttribute> CategoryAttributes { get; set; }
     public ICollection<BusinessPlans>? BusinessPlans { get; set; }                 //Relation OK
     public ICollection<Customer> Customers { get; set; }                           //Relation OK
+    
+    
+    public string CreatedBy { get; set; }
+    public string UpdatedBy { get; set; }
+    public string UserId { get; set; }
+
+    // TODO: UpdatedBy and CreatedBy
+    public List<User>? Users { get; set; }
 }
