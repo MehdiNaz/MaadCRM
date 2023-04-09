@@ -7,8 +7,6 @@ public static class IdentityConfiguration
         collection.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = false;
 
                 // Password settings
                 options.Password.RequireDigit = true;
@@ -23,7 +21,7 @@ public static class IdentityConfiguration
 
 
                 // user settings
-                options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
                 // options.user.AllowedUserNameCharacters = "0123456789";

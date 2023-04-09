@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Login.QueryHandler;
+﻿using Domain.Models.IdentityModels;
+
+namespace Application.Services.Login.QueryHandler;
 
 public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuery, IdentityUser?>
 {
@@ -10,5 +12,9 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuer
     }
 
     public async Task<IdentityUser?> Handle(UserByPhoneNumberQuery request, CancellationToken cancellationToken)
-        => await _repository.CheckExistByPhone(request);
+    {
+        var result = await _repository.CheckExistByPhone(request);
+        return result;
+    }
+        
 }

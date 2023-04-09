@@ -17,14 +17,15 @@ public class LoginRepository : ILoginRerpository
 
     public async ValueTask<IdentityUser?> CheckExistByPhone(UserByPhoneNumberQuery request)
     {
-        try
-        {
-            return await _userManager.FindByNameAsync(request.Phone);
-        }
-        catch
-        {
-            return null;
-        }
+        // try
+        // {
+            var result =  await _userManager.FindByNameAsync(request.Phone);
+            return result;
+        // }
+        // catch
+        // {
+            // return null;
+        // }
     }
 
     public async ValueTask<IdentityUser?> CheckExistByEmailAddress(UserByEmailAddressQuery request)
@@ -82,7 +83,12 @@ public class LoginRepository : ILoginRerpository
 
     public async ValueTask<bool> RegisterUser(RegisterUserCommand request)
     {
-        // TODO: add business
+        var newBusiness = new Business()
+        {
+            BusinessName = " شرکت" + request.Phone
+        };
+        await _context.Businesses!.AddAsync(newBusiness);
+        var result = await _context.SaveChangesAsync();
         
         var user = new User()
         {
@@ -90,7 +96,7 @@ public class LoginRepository : ILoginRerpository
             PhoneNumber = request.Phone,
             UserName = request.Phone,
             UserStatus = Status.Show,
-            // Businesses = 
+            BusinessId = newBusiness.BusinessId,
             CreatedOn = DateTime.UtcNow
         };
         
