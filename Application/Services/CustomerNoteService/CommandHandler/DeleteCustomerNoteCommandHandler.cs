@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public class DeleteCustomerNoteCommandHandler : IRequestHandler<DeleteCustomerNoteCommand, CustomerNote>
+public readonly struct DeleteCustomerNoteCommandHandler : IRequestHandler<DeleteCustomerNoteCommand, CustomerNote>
 {
     private readonly ICustomerNoteRepository _repository;
 

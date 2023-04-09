@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public class UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, CustomerNote>
+public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, CustomerNote>
 {
     private readonly ICustomerNoteRepository _repository;
 
@@ -13,10 +13,11 @@ public class UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNo
     {
         CustomerNote item = new()
         {
+            CustomerNoteId = request.CustomerNoteId,
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdateCustomerNoteAsync(item, request.CustomerNoteId);
+        await _repository.UpdateCustomerNoteAsync(item);
         return item;
     }
 }

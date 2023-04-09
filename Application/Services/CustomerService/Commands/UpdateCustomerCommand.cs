@@ -11,7 +11,6 @@ public struct UpdateCustomerCommand : IRequest<Customer>
     public required string UpdatedBy { get; set; }
     public required string UserId { get; set; }
     public Ulid CityId { get; set; }
-    public Ulid BusinessId { get; set; }
     public Ulid CustomerCategoryId { get; set; }
     public GenderTypes Gender { get; set; }
     public Ulid CustomerMoarefId { get; set; }

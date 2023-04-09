@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public class CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, CustomerNote>
+public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, CustomerNote>
 {
     private readonly ICustomerNoteRepository _repository;
 

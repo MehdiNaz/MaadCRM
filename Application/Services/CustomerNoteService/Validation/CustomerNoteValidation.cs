@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Customers.Note;
+﻿namespace Application.Services.CustomerNoteService.Validation;
 
 public class CustomerNoteValidation : AbstractValidator<CustomerNote>
 {

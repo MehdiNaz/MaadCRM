@@ -12,7 +12,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
 
         // builder.HasOne(x => x.CreatorUser).WithMany(x => x.Customers).HasForeignKey(x => x.InsertedBy);
         builder.HasOne(x => x.CreatorUser).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);
-        builder.HasOne(x => x.Business).WithMany(x => x.Customers).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.Customers).HasForeignKey(x => x.BusinessId);
 
 
         // New Relations ==> OK

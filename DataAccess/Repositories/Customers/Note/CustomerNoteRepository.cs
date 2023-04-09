@@ -29,7 +29,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         }
     }
 
-    public async ValueTask<CustomerNote?> UpdateCustomerNoteAsync(CustomerNote entity, Ulid customerNoteId)
+    public async ValueTask<CustomerNote?> UpdateCustomerNoteAsync(CustomerNote entity)
     {
         try
         {

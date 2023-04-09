@@ -16,7 +16,7 @@ public class Customer : BaseEntityWithUserId
     public DateOnly BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
     public Ulid CityId { get; set; }
-    public Ulid BusinessId { get; set; }
+    // public Ulid BusinessId { get; set; }
     public Ulid CustomerCategoryId { get; set; }
     public GenderTypes Gender { get; set; }
     public Status CustomerStatus { get; set; }
@@ -30,7 +30,7 @@ public class Customer : BaseEntityWithUserId
     public ICollection<Customer>? CustomersMoaref { get; set; }
     #endregion
 
-    public Business Business { get; set; }                                                              //Relation OK
+    // public Business Business { get; set; }                                                              //Relation OK
     public City City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK

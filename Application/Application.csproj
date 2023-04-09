@@ -29,6 +29,7 @@
       <Folder Include="Services\BusinessService\Validation\" />
       <Folder Include="Services\BusinessService\QueryHandler\" />
       <Folder Include="Services\CustomerCategoryService\Validation\" />
+      <Folder Include="Services\CustomerNoteService\Validation\" />
       <Folder Include="Services\CustomerPeyGiryService\Validation\" />
       <Folder Include="Services\CustomerService\Validation\" />
       <Folder Include="Services\PeyGiryAttachmentService\Validation\" />

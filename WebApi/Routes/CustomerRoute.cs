@@ -68,7 +68,6 @@ public static class CustomerRoute
             {
                 var result = await mediator.Send(new UpdateCustomerCommand
                 {
-                    BusinessId = request.BusinessId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     BirthDayDate = request.BirthDayDate,

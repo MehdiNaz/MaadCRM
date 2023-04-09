@@ -52,6 +52,7 @@ app.MapAccountRoute();
 app.MapBusinessPlanRout();
 app.MapBusinessRoute();
 app.MapCustomerAddressRoute();
+app.MapCustomerNoteRoute();
 app.MapCustomerCategoryRoute();
 app.MapCustomerPeyGiryRoute();
 app.MapCustomerRoute();

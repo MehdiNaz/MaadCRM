@@ -22,7 +22,6 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
             UpdatedBy = request.UpdatedBy,
             CityId = request.CityId,
             UserId = request.UserId,
-            BusinessId = request.BusinessId,
             CustomerCategoryId = request.CustomerCategoryId,
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId

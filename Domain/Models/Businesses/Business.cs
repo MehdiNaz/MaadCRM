@@ -37,5 +37,5 @@ public class Business : BaseEntity
     public ICollection<Setting>? Setting { get; set; }
     public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
     public ICollection<BusinessPlans>? BusinessPlans { get; set; }                 //Relation OK
-    public ICollection<Customer>? Customers { get; set; }                           //Relation OK
+    // public ICollection<Customer>? Customers { get; set; }                           //Relation OK
 }
