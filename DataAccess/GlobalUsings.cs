@@ -1,5 +1,6 @@
 global using Application.Interfaces;
 global using Application.Interfaces.Addresses;
+global using Application.Interfaces.Businesses;
 global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
 global using Application.Interfaces.Customers.Notes;
@@ -25,6 +26,7 @@ global using Domain.Mapping.Products;
 global using Domain.Mapping.SpecialFields;
 global using Domain.Models;
 global using Domain.Models.Address;
+global using Domain.Models.Businesses;
 global using Domain.Models.Contacts;
 global using Domain.Models.Customers;
 global using Domain.Models.Customers.Forosh;

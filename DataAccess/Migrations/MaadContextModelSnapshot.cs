@@ -185,21 +185,12 @@ namespace DataAccess.Migrations
                     b.ToTable("Provinces", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
                     b.Property<string>("BusinessId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("AttributeOptionsId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("AttributeOptionsValueId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<string>("BusinessAttributeId")
-                        .IsRequired()
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("BusinessName")
@@ -220,18 +211,6 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("ContactGroupId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("ContactId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -246,33 +225,59 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<bool>("SslEnabled")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("BusinessId");
-
-                    b.HasIndex("AttributeOptionsId");
-
-                    b.HasIndex("AttributeOptionsValueId");
 
                     b.HasIndex("BusinessAttributeId");
 
-                    b.HasIndex("ContactGroupId");
-
-                    b.HasIndex("ContactId");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("Businesses", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
+                {
+                    b.Property<string>("BusinessPlansId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("BusinessPlansStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("CountOfDay")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CountOfUsers")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PlanId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("BusinessPlansId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("PlanId");
+
+                    b.ToTable("UsersPlans", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
@@ -321,6 +326,8 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ContactId");
 
+                    b.HasIndex("BusinessId");
+
                     b.HasIndex("ContactGroupId");
 
                     b.HasIndex("EmailId");
@@ -335,7 +342,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("ContactGroupId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("ContactGroup")
+                    b.Property<string>("BusinessId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -357,6 +364,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.HasKey("ContactGroupId");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("ContactGroups", (string)null);
                 });
@@ -1137,6 +1146,12 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ProductCustomerFavoritesList")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -1161,6 +1176,12 @@ namespace DataAccess.Migrations
 
                     b.Property<long>("CountOfUsers")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
@@ -1189,43 +1210,6 @@ namespace DataAccess.Migrations
                     b.HasKey("PlanId");
 
                     b.ToTable("Plans", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Models.Plans.UsersPlans", b =>
-                {
-                    b.Property<string>("UsersPlansId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<long>("CountOfDay")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CountOfUsers")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("FinishDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("PlanId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("UsersPlansStatus")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UsersPlansId");
-
-                    b.HasIndex("PlanId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UsersPlans", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
@@ -1388,6 +1372,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("BusinessId")
+                        .HasColumnType("character varying(26)");
+
                     b.Property<string>("ColorSquaresRgb")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -1411,6 +1398,8 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("BusinessAttributeId");
 
+                    b.HasIndex("BusinessId");
+
                     b.ToTable("AttributeOptions", (string)null);
                 });
 
@@ -1433,6 +1422,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("AttributeOptionsId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
                     b.Property<int>("AttributeOptionsValueStatus")
                         .HasColumnType("integer");
 
@@ -1440,6 +1433,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
@@ -1471,6 +1468,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("AttributeOptionsValueId");
+
+                    b.HasIndex("AttributeOptionsId");
+
+                    b.HasIndex("BusinessId");
 
                     b.HasIndex("CustomerId");
 
@@ -1586,6 +1587,9 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<byte>("Kind")
                         .HasColumnType("smallint");
 
@@ -1652,6 +1656,9 @@ namespace DataAccess.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("IdUser")
@@ -1886,6 +1893,10 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.Property<string>("BusinessId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
                     b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -1960,6 +1971,8 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
+                    b.HasIndex("BusinessId");
+
                     b.HasIndex("CityId");
 
                     b.HasIndex("Email")
@@ -2004,59 +2017,40 @@ namespace DataAccess.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOptions", "AttributeOptions")
+                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", null)
                         .WithMany("Businesses")
-                        .HasForeignKey("AttributeOptionsId")
+                        .HasForeignKey("BusinessAttributeId");
+                });
+
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
+                {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("BusinessPlans")
+                        .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOptionsValue", "AttributeOptionsValue")
-                        .WithMany("Businesses")
-                        .HasForeignKey("AttributeOptionsValueId")
+                    b.HasOne("Domain.Models.Plans.Plan", "Plan")
+                        .WithMany("UsersPlans")
+                        .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", "BusinessAttribute")
-                        .WithMany("Businesses")
-                        .HasForeignKey("BusinessAttributeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Business");
 
-                    b.HasOne("Domain.Models.Contacts.ContactGroup", "ContactGroup")
-                        .WithMany("Businesses")
-                        .HasForeignKey("ContactGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Contacts.Contact", "Contact")
-                        .WithMany("Businesses")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
-                        .WithMany("Businesses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AttributeOptions");
-
-                    b.Navigation("AttributeOptionsValue");
-
-                    b.Navigation("BusinessAttribute");
-
-                    b.Navigation("Contact");
-
-                    b.Navigation("ContactGroup");
-
-                    b.Navigation("User");
+                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
                 {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("Contacts")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Contacts.ContactGroup", "ContactGroup")
                         .WithMany("Contacts")
                         .HasForeignKey("ContactGroupId")
@@ -2075,11 +2069,24 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Business");
+
                     b.Navigation("ContactGroup");
 
                     b.Navigation("ContactPhoneNumber");
 
                     b.Navigation("ContactsEmailAddress");
+                });
+
+            modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
+                {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("ContactGroups")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
@@ -2096,7 +2103,7 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
                         .WithMany("Customers")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2349,25 +2356,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.Plans.UsersPlans", b =>
-                {
-                    b.HasOne("Domain.Models.Plans.Plan", "Plan")
-                        .WithMany("UsersPlans")
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
-                        .WithMany("UsersPlans")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Plan");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
                     b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
@@ -2409,6 +2397,12 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("AttributeOptions")
+                        .HasForeignKey("BusinessId");
+
+                    b.Navigation("Business");
+
                     b.Navigation("BusinessAttribute");
                 });
 
@@ -2416,7 +2410,13 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.SpecialFields.AttributeOptions", "AttributeOptions")
                         .WithMany("AttributeOptionsValues")
-                        .HasForeignKey("AttributeOptionsValueId")
+                        .HasForeignKey("AttributeOptionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("AttributeOptionsValues")
+                        .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2427,6 +2427,8 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("AttributeOptions");
+
+                    b.Navigation("Business");
 
                     b.Navigation("Customer");
                 });
@@ -2444,7 +2446,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.SpecialFields.CategoryAttribute", b =>
                 {
-                    b.HasOne("Domain.Models.Business", null)
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("CategoryAttributes")
                         .HasForeignKey("BusinessId");
                 });
@@ -2462,7 +2464,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.UnDifined.Setting", b =>
                 {
-                    b.HasOne("Domain.Models.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
                         .WithMany("Setting")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2531,6 +2533,12 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
+                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                        .WithMany("Users")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Address.City", "City")
                         .WithMany("Users")
                         .HasForeignKey("CityId")
@@ -2542,6 +2550,8 @@ namespace DataAccess.Migrations
                         .HasForeignKey("Domain.Models.IdentityModels.User", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Business");
 
                     b.Navigation("City");
                 });
@@ -2565,24 +2575,29 @@ namespace DataAccess.Migrations
                     b.Navigation("Cities");
                 });
 
-            modelBuilder.Entity("Domain.Models.Business", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
+                    b.Navigation("AttributeOptions");
+
+                    b.Navigation("AttributeOptionsValues");
+
+                    b.Navigation("BusinessPlans");
+
                     b.Navigation("CategoryAttributes");
+
+                    b.Navigation("ContactGroups");
+
+                    b.Navigation("Contacts");
 
                     b.Navigation("Customers");
 
                     b.Navigation("Setting");
-                });
 
-            modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
-                {
-                    b.Navigation("Businesses");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
                 {
-                    b.Navigation("Businesses");
-
                     b.Navigation("Contacts");
                 });
 
@@ -2684,13 +2699,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptions", b =>
                 {
                     b.Navigation("AttributeOptionsValues");
-
-                    b.Navigation("Businesses");
-                });
-
-            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptionsValue", b =>
-                {
-                    b.Navigation("Businesses");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.BusinessAttribute", b =>
@@ -2707,8 +2715,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
-                    b.Navigation("Businesses");
-
                     b.Navigation("CustomerSubmissions");
 
                     b.Navigation("Customers");
@@ -2716,8 +2722,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Logs");
 
                     b.Navigation("SanAts");
-
-                    b.Navigation("UsersPlans");
                 });
 #pragma warning restore 612, 618
         }

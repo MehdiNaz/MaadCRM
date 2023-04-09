@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Forosh;
-
-namespace Domain.Models.Products;
+﻿namespace Domain.Models.Products;
 
 public class Product : BaseEntity
 {

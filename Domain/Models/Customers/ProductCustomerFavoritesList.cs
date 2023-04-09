@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public class ProductCustomerFavoritesList
+public class ProductCustomerFavoritesList : BaseEntity
 {
     public ProductCustomerFavoritesList()
     {

@@ -1,6 +1,6 @@
 namespace Domain.UnDifined;
 
-public class Visit
+public class Visit : BaseEntity
 {
     public long Id { get; set; }
     public string IdUser { get; set; }

@@ -19,10 +19,12 @@ public class AttributeOptionsValue : BaseEntity
     public string ImagePath { get; set; }
     public Ulid CustomerId { get; set; }
     public Ulid AttributeOptionId { get; set; }
+    public Ulid AttributeOptionsId { get; set; }
+    public Ulid BusinessId { get; set; }
     public Status AttributeOptionsValueStatus { get; set; }
 
 
-    public ICollection<Business>? Businesses { get; set; }
+    public Business Business { get; set; }
     public Customer Customer { get; set; }
     public AttributeOptions AttributeOptions { get; set; }
 }

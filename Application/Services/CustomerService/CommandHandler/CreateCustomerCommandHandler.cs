@@ -20,7 +20,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
             InsertedBy = request.InsertedBy,
             UpdatedBy = request.UpdatedBy,
             CityId = request.CityId,
-            UserId = request.UserId,
+            UserId = request.UserId!,
             BusinessId = request.BusinessId,
             CustomerCategoryId = request.CustomerCategoryId,
             Gender = request.Gender,

@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Forosh;
-
-namespace Domain.Mapping.Customers.Forosh;
+﻿namespace Domain.Mapping.Customers.Forosh;
 
 public class ForoshOrderMapping : IEntityTypeConfiguration<ForoshOrder>
 {

@@ -1,8 +1,8 @@
 ﻿namespace Application.Services.PlanService.Validation;
 
-public class CreatePlanValidation : AbstractValidator<CreatePlanCommand>
+public class CreateUsersPlanValidation : AbstractValidator<CreatePlanCommand>
 {
-    public CreatePlanValidation()
+    public CreateUsersPlanValidation()
     {
         RuleFor(x => x.PlanName).NotEmpty().WithMessage("لطفاً نام پلن را وارد نمائید");
         RuleFor(x => x.CountOfUsers).NotEmpty().WithMessage("لطفاً تعداد کاربر را وارد نمائید");

@@ -5,7 +5,6 @@ public class User : IdentityUser
     public User()
     {
         UserStatus = Status.Show;
-        UsersPlans = new List<UsersPlans>();
     }
 
     public string? Name { get; set; }
@@ -30,16 +29,17 @@ public class User : IdentityUser
     public string OtpPassword { get; set; }
     public DateTime OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
+    public Ulid BusinessId { get; set; }
     public Status UserStatus { get; set; }
 
 
+    public Business Business{ get; set; }
     public City City { get; set; }
-    public ICollection<Business>? Businesses { get; set; }
+    //public ICollection<Business>? Businesses { get; set; }
     public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
     public ICollection<Log>? Logs { get; set; }
     public ICollection<SanAt>? SanAts { get; set; }
     public ICollection<Customer>? Customers { get; set; }  //Relation OK
-    public ICollection<UsersPlans>? UsersPlans { get; set; }
 }
