@@ -16,8 +16,7 @@ public class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, City>
             CityName = request.CityName,
             IsDefault = request.IsDefault,
             DisplayOrder = request.DisplayOrder,
-            ProvinceId = request.ProvinceId,
-            CustomerId = request.CustomerId
+            ProvinceId = request.ProvinceId
         };
         await _repository.CreateCityAsync(item);
         return item;

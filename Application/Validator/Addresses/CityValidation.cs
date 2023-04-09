@@ -8,6 +8,5 @@ public class CityValidation : AbstractValidator<City>
         RuleFor(x => x.IsDefault).NotEmpty();
         RuleFor(x => x.DisplayOrder).NotEmpty();
         RuleFor(x => x.ProvinceId).NotEmpty();
-        RuleFor(x => x.CustomerId).NotEmpty();
     }
 }

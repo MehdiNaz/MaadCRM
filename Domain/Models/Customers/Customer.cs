@@ -15,18 +15,18 @@ public class Customer : BaseEntityWithUserId
     public required string LastName { get; set; }
     public DateOnly BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    public  Ulid CityId { get; set; }
-    public  Ulid BusinessId { get; set; }
-    public  Ulid CustomerCategoryId { get; set; }
-    public  GenderTypes Gender { get; set; }
+    public Ulid CityId { get; set; }
+    public Ulid BusinessId { get; set; }
+    public Ulid CustomerCategoryId { get; set; }
+    public GenderTypes Gender { get; set; }
     public Status CustomerStatus { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 
 
     #region Moaref
-    public Ulid CustomerMoarefId { get; set; }
-    public Customer CustomerMoaref { get; set; }
+    public Ulid? CustomerMoarefId { get; set; }
+    public Customer? CustomerMoaref { get; set; }
     public ICollection<Customer>? CustomersMoaref { get; set; }
     #endregion
 

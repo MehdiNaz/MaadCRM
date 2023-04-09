@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Businesses;
 
-public class Business : BaseEntityWithUpdateInfo
+public class Business : BaseEntity
 {
     public Business()
     {
@@ -37,6 +37,5 @@ public class Business : BaseEntityWithUpdateInfo
     public ICollection<Setting>? Setting { get; set; }
     public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
     public ICollection<BusinessPlans>? BusinessPlans { get; set; }                 //Relation OK
-    public ICollection<Customer> Customers { get; set; }                           //Relation OK
-    public ICollection<User>? Users { get; set; }
+    public ICollection<Customer>? Customers { get; set; }                           //Relation OK
 }

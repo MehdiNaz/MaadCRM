@@ -16,8 +16,7 @@ public class UpdateCityCommandHandler : IRequestHandler<UpdateCityCommand, City>
             CityName = request.CityName,
             IsDefault = request.IsDefault,
             DisplayOrder = request.DisplayOrder,
-            ProvinceId = request.ProvinceId,
-            CustomerId = request.CustomerId
+            ProvinceId = request.ProvinceId
         };
         await _repository.UpdateCityAsync(item, request.CityId);
         return item;

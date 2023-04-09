@@ -8,5 +8,5 @@ public class CustomerActivity : BaseEntity
    
     public Ulid CustomerId { get; set; }
     public Customer Customer { get; set; }
-    public ICollection<CustomerActivityHistory>? CustomerActivityHistories { get; set; }
+    // public ICollection<CustomerActivityHistory>? CustomerActivityHistories { get; set; }
 }

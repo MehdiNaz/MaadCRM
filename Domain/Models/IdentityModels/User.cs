@@ -16,7 +16,6 @@ public class User : IdentityUser
     public DateTime? DateOfBirth { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CityId { get; set; }
-    public string CustomerId { get; set; }
     //public int? Points { get; set; }
     public int? LoginCount { get; set; }
     public DateTime? LastLogin { get; set; }

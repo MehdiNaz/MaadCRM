@@ -6,5 +6,4 @@ public struct CreateCityCommand : IRequest<City>
     public bool IsDefault { get; set; }
     public int DisplayOrder { get; set; }
     public Ulid ProvinceId { get; set; }
-    public Ulid CustomerId { get; set; }
 }

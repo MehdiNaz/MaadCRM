@@ -13,8 +13,7 @@ public class CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCusto
     {
         CustomerCategory customerCategory = new()
         {
-            CustomerCategoryName = request.CustomerCategoryName,
-            CustomerId = request.CustomerId
+            CustomerCategoryName = request.CustomerCategoryName
         };
 
         await _repository.CreateCustomerCategoryAsync(customerCategory);

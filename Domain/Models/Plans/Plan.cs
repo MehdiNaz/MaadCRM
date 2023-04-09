@@ -23,6 +23,7 @@ public class Plan : BaseEntityWithUpdateInfo
     public decimal PriceOfDay { get; set; }
     public decimal? Discount { get; set; } //TODO: Hanooz Kar Dare In
     public decimal FinalPrice { get; set; }
+    public string UserId { get; set; }
     public Status PlanStatus { get; set; }
     public ICollection<BusinessPlans>? UsersPlans { get; set; }  //Relation OK
 }

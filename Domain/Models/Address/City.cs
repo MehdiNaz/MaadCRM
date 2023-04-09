@@ -13,7 +13,7 @@ public class City : BaseEntity
     public bool IsDefault { get; set; }
     public int DisplayOrder { get; set; }
     public Ulid ProvinceId { get; set; }
-    public Ulid CustomerId { get; set; }
+    //public Ulid CustomerId { get; set; }
     public Status CityStatus { get; set; }
 
 
