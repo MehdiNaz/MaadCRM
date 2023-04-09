@@ -30,7 +30,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
         }
     }
 
-    public async ValueTask<NoteHashTag?> UpdateNoteHashTagAsync(NoteHashTag entity, Ulid noteHashTagId)
+    public async ValueTask<NoteHashTag?> UpdateNoteHashTagAsync(NoteHashTag entity)
     {
         try
         {

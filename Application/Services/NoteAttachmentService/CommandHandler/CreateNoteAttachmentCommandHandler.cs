@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.CommandHandler;
 
-public class CreateNoteAttachmentCommandHandler : IRequestHandler<CreateNoteAttachmentCommand, NoteAttachment>
+public readonly struct CreateNoteAttachmentCommandHandler : IRequestHandler<CreateNoteAttachmentCommand, NoteAttachment>
 {
     private readonly INoteAttachmentRepository _repository;
 

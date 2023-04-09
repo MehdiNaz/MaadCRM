@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.CommandHandler;
 
-public class DeleteNoteAttachmentCommandHandler : IRequestHandler<DeleteNoteAttachmentCommand, NoteAttachment>
+public readonly struct DeleteNoteAttachmentCommandHandler : IRequestHandler<DeleteNoteAttachmentCommand, NoteAttachment>
 {
     private readonly INoteAttachmentRepository _repository;
 

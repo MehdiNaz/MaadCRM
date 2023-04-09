@@ -7,5 +7,8 @@ public class NoteHashTagMapping : IEntityTypeConfiguration<NoteHashTag>
         builder.ToTable("CustomerHashTags");
         builder.HasKey(x => x.NoteHashTagId);
         builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
+
+        builder.HasOne(x => x.CreatorUser).WithMany(x => x.NoteHashTags).HasForeignKey(x => x.CreatedBy);
+        builder.HasOne(x => x.CreatorUser).WithMany(x => x.NoteHashTags).HasForeignKey(x => x.UpdatedBy);
     }
 }

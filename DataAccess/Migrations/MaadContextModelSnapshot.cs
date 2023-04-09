@@ -222,14 +222,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("BusinessId");
 
                     b.HasIndex("BusinessAttributeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Businesses", (string)null);
                 });
@@ -452,10 +447,6 @@ namespace DataAccess.Migrations
                     b.Property<DateOnly>("BirthDayDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -513,8 +504,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("CustomerId");
-
-                    b.HasIndex("BusinessId");
 
                     b.HasIndex("CityId");
 
@@ -956,6 +945,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerNoteId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -977,9 +970,19 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UpdaterUserId")
+                        .HasColumnType("text");
+
                     b.HasKey("CustomerNoteId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.HasIndex("UpdaterUserId");
 
                     b.ToTable("CustomerNotes", (string)null);
                 });
@@ -1027,6 +1030,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("NoteHashTagId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CustomerNoteId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
@@ -1049,9 +1056,19 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UpdaterUserId")
+                        .HasColumnType("text");
+
                     b.HasKey("NoteHashTagId");
 
                     b.HasIndex("CustomerNoteId");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.HasIndex("UpdaterUserId");
 
                     b.ToTable("CustomerHashTags", (string)null);
                 });
@@ -2047,10 +2064,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", null)
                         .WithMany("Businesses")
                         .HasForeignKey("BusinessAttributeId");
-
-                    b.HasOne("Domain.Models.IdentityModels.User", null)
-                        .WithMany("Businesses")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
@@ -2134,12 +2147,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
-                        .WithMany("Customers")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Models.Address.City", "City")
                         .WithMany("Customers")
                         .HasForeignKey("CityId")
@@ -2165,8 +2172,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Business");
 
                     b.Navigation("City");
 
@@ -2325,7 +2330,19 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.IdentityModels.User", "CreatorUser")
+                        .WithMany("CustomerNotes")
+                        .HasForeignKey("UpdatedBy");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "UpdaterUser")
+                        .WithMany()
+                        .HasForeignKey("UpdaterUserId");
+
+                    b.Navigation("CreatorUser");
+
                     b.Navigation("Customer");
+
+                    b.Navigation("UpdaterUser");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.NoteAttachment", b =>
@@ -2347,7 +2364,19 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Models.IdentityModels.User", "CreatorUser")
+                        .WithMany("NoteHashTags")
+                        .HasForeignKey("UpdatedBy");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "UpdaterUser")
+                        .WithMany()
+                        .HasForeignKey("UpdaterUserId");
+
+                    b.Navigation("CreatorUser");
+
                     b.Navigation("CustomerNote");
+
+                    b.Navigation("UpdaterUser");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", b =>
@@ -2657,8 +2686,6 @@ namespace DataAccess.Migrations
 
                     b.Navigation("Contacts");
 
-                    b.Navigation("Customers");
-
                     b.Navigation("Setting");
 
                     b.Navigation("Users");
@@ -2778,9 +2805,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
-                    b.Navigation("Businesses");
-
                     b.Navigation("CustomerCategories");
+
+                    b.Navigation("CustomerNotes");
 
                     b.Navigation("CustomerPeyGiries");
 
@@ -2789,6 +2816,8 @@ namespace DataAccess.Migrations
                     b.Navigation("Customers");
 
                     b.Navigation("Logs");
+
+                    b.Navigation("NoteHashTags");
 
                     b.Navigation("PeyGiryAttachments");
 

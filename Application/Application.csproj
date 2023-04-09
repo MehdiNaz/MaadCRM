@@ -32,6 +32,8 @@
       <Folder Include="Services\CustomerNoteService\Validation\" />
       <Folder Include="Services\CustomerPeyGiryService\Validation\" />
       <Folder Include="Services\CustomerService\Validation\" />
+      <Folder Include="Services\NoteAttachmentService\Validation\" />
+      <Folder Include="Services\NoteHashTagService\Validation\" />
       <Folder Include="Services\PeyGiryAttachmentService\Validation\" />
       <Folder Include="Services\PlanService\Response\" />
       <Folder Include="Services\BusinessPlansService\Response\" />

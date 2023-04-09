@@ -9,7 +9,6 @@ global using Application.Interfaces.Customers.PeyGiry;
 global using Application.Interfaces.Login;
 global using Application.Interfaces.Plans;
 global using Application.Interfaces.Products;
-global using Application.Requests;
 global using Application.Services.BusinessPlansService.Commands;
 global using Application.Services.BusinessPlansService.Queries;
 global using Application.Services.BusinessService.Commands;

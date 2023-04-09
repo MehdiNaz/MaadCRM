@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTagService.CommandHandler;
 
-public class DeleteNoteHashTagCommandHandler : IRequestHandler<DeleteNoteHashTagCommand, NoteHashTag>
+public readonly struct DeleteNoteHashTagCommandHandler : IRequestHandler<DeleteNoteHashTagCommand, NoteHashTag>
 {
     private readonly INoteHashTagRepository _repository;
 

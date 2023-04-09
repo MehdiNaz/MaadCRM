@@ -30,7 +30,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> UpdateNoteAttachmentAsync(NoteAttachment entity, Ulid noteAttachmentId)
+    public async ValueTask<NoteAttachment?> UpdateNoteAttachmentAsync(NoteAttachment entity)
     {
         try
         {

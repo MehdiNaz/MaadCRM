@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.CommandHandler;
 
-public class UpdateNoteAttachmentCommandHandler : IRequestHandler<UpdateNoteAttachmentCommand, NoteAttachment>
+public readonly struct UpdateNoteAttachmentCommandHandler : IRequestHandler<UpdateNoteAttachmentCommand, NoteAttachment>
 {
     private readonly INoteAttachmentRepository _repository;
 
@@ -13,11 +13,12 @@ public class UpdateNoteAttachmentCommandHandler : IRequestHandler<UpdateNoteAtta
     {
         NoteAttachment item = new()
         {
+            NoteAttachmentId = request.NoteAttachmentId,
             CustomerNoteId = request.CustomerNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion
         };
-        await _repository.UpdateNoteAttachmentAsync(item, request.NoteAttachmentId);
+        await _repository.UpdateNoteAttachmentAsync(item);
         return item;
     }
 }

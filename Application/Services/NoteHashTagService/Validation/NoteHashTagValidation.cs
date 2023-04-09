@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Customers.Note;
+﻿namespace Application.Services.NoteHashTagService.Validation;
 
 public class NoteHashTagValidation : AbstractValidator<NoteHashTag>
 {

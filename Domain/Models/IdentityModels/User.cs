@@ -47,4 +47,5 @@ public class User : IdentityUser
     public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
     public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
     public ICollection<CustomerNote>? CustomerNotes { get; set; }
+    public ICollection<NoteHashTag>? NoteHashTags{ get; set; }
 }

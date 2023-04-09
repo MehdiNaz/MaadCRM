@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Customers.Note;
+﻿namespace Application.Services.NoteAttachmentService.Validation;
 
 public class NoteAttachmentValidation : AbstractValidator<NoteAttachment>
 {

@@ -52,10 +52,13 @@ app.MapAccountRoute();
 app.MapBusinessPlanRout();
 app.MapBusinessRoute();
 app.MapCustomerAddressRoute();
-app.MapCustomerNoteRoute();
-app.MapCustomerCategoryRoute();
 app.MapCustomerPeyGiryRoute();
+app.MapCustomerCategoryRoute();
+app.MapCustomerNoteRoute();
 app.MapCustomerRoute();
+app.MapNoteAttachmentRoute();
+app.MapNoteHashTagRoute();
+app.MapPeyGiryAttachmentRoute();
 app.MapPlanRoute();
 
 app.MapGet("/test123", (IMediator _mediator) =>

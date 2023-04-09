@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTagService.CommandHandler;
 
-public class CreateNoteHashTagCommandHandler : IRequestHandler<CreateNoteHashTagCommand, NoteHashTag>
+public readonly struct CreateNoteHashTagCommandHandler : IRequestHandler<CreateNoteHashTagCommand, NoteHashTag>
 {
     private readonly INoteHashTagRepository _repository;
 
