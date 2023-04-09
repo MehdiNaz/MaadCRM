@@ -10,5 +10,5 @@ public class ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusi
     }
 
     public async Task<bool> Handle(ChangeStatusBusinessPlansQuery request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusAsync(request.Status, request.BusinessId);
+        => await _repository.ChangeStatusAsync(request.Status, request.BusinessPlansId);
 }

@@ -11,13 +11,13 @@ public static class BusinessPlansRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllBusinessansByBusinessIdAsync", async ([FromBody] AllBusinessPlansQuery request, IMediator mediator) =>
+        plan.MapGet("/AllBusinessByBusinessId", async ([FromBody] AllBusinessPlansQuery request, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllBusinessPlansQuery
                 {
-                    BusinessPlansId = request.BusinessPlansId
+                    BusinessId = request.BusinessId
                 });
                 return Results.Ok(result);
             }
@@ -33,7 +33,7 @@ public static class BusinessPlansRoute
             {
                 var result = await mediator.Send(new AllActivePlansQuery()
                 {
-                    BusinessPlansId = request.BusinessPlansId
+                    BusinessId = request.BusinessId
                 });
                 return Results.Ok(result);
             }
@@ -49,7 +49,7 @@ public static class BusinessPlansRoute
             {
                 var result = await mediator.Send(new TheLatestPlanQuery()
                 {
-                    BusinessPlansId = request.BusinessPlansId
+                    BusinessId = request.BusinessId
                 });
                 return Results.Ok(result);
             }
@@ -82,7 +82,7 @@ public static class BusinessPlansRoute
                 var result = await mediator.Send(new ChangeStatusBusinessPlansQuery
                 {
                     Status = request.Status,
-                    BusinessId = request.BusinessId
+                    BusinessPlansId = request.BusinessPlansId
                 });
                 return Results.Ok(result);
             }

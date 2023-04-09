@@ -16,18 +16,17 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         => await _context.BusinessPlans!.Where(x => x.BusinessId == businessId && x.BusinessPlansStatus == Status.Show).ToListAsync();
 
     public async ValueTask<BusinessPlans?> GetTheLatestPlanAsync(Ulid businessId)
-        => await _context.UsersPlans!.LastOrDefaultAsync(x => x.BusinessId == businessId);
+        => await _context.UsersPlans!.OrderByDescending(o => o.BusinessPlansId).LastAsync(x => x.BusinessId == businessId);
 
-    public async ValueTask<BusinessPlans?> GetBusinessPlansByIdAsync(Ulid businessId)
-        => (await _context.BusinessPlans!.ToListAsync()).First(x => x.BusinessId == businessId);
+    public async ValueTask<BusinessPlans?> GetBusinessPlansByIdAsync(Ulid businessPlansId)
+        => (await _context.BusinessPlans!.ToListAsync()).First(x => x.BusinessPlansId == businessPlansId);
 
     public async ValueTask<bool> ChangeStatusAsync(Status status, Ulid businessId)
     {
         try
         {
             Ulid currentBusiness = (await _context.BusinessPlans!.FirstAsync(x => x.BusinessPlansId == businessId))!.BusinessPlansId;
-            bool result = (await _context.BusinessPlans!.SingleOrDefaultAsync(x => x.BusinessPlansId == currentBusiness))!.BusinessPlansStatus == status;
-            if (!result) return false;
+            (await _context.BusinessPlans!.SingleOrDefaultAsync(x => x.BusinessPlansId == currentBusiness))!.BusinessPlansStatus = status;
             await _context.SaveChangesAsync();
             return true;
         }
@@ -57,8 +56,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            var businessPlan = await GetBusinessPlansByIdAsync(entity.BusinessPlansId);
-            _context.Update(businessPlan);
+            _context.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -73,7 +71,8 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         try
         {
             var businessPlan = await GetBusinessPlansByIdAsync(businessPlansId);
-            _context.BusinessPlans!.Remove(businessPlan);
+            // _context.BusinessPlans!.Remove(businessPlan);
+            businessPlan.BusinessPlansStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return businessPlan;
         }

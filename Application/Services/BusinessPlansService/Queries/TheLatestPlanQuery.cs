@@ -2,5 +2,5 @@
 
 public class TheLatestPlanQuery : IRequest<BusinessPlans>
 {
-    public Ulid BusinessPlansId { get; set; }
+    public Ulid BusinessId { get; set; }
 }

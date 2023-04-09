@@ -10,5 +10,5 @@ public class AllBusinessPlansHandler : IRequestHandler<AllBusinessPlansQuery, IC
     }
 
     public async Task<ICollection<BusinessPlans?>> Handle(AllBusinessPlansQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetAllBusinessPlansByBusinessIdAsync(request.BusinessPlansId)).ToList();
+        => (await _repository.GetAllBusinessPlansByBusinessIdAsync(request.BusinessId)).ToList();
 }

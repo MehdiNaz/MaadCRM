@@ -49,7 +49,8 @@ public class BusinessRepository : IBusinessRepository
         try
         {
             var business = await GetBusinessByIdAsync(businessId);
-            _context.Businesses!.Remove(business);
+            //_context.Businesses!.Remove(business);
+            business.BusinessStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return business;
         }

@@ -10,5 +10,5 @@ public class GetTheLatestPlanHandler : IRequestHandler<TheLatestPlanQuery, Busin
     }
 
     public async Task<BusinessPlans> Handle(TheLatestPlanQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetTheLatestPlanAsync(request.BusinessPlansId))!;
+        => (await _repository.GetTheLatestPlanAsync(request.BusinessId))!;
 }

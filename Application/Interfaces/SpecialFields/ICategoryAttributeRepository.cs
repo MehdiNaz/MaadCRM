@@ -6,5 +6,5 @@ public interface ICategoryAttributeRepository
     ValueTask<CategoryAttribute?> GetCategoryAttributeByIdAsync(int categoryAttributeId);
     ValueTask<CategoryAttribute?> CreateCategoryAttributeAsync(CategoryAttribute? toCreate);
     ValueTask<CategoryAttribute?> UpdateCategoryAttributeAsync(string updateContent, int categoryAttributeId);
-    ValueTask DeleteCategoryAttributeAsync(int categoryAttributeId);
+    ValueTask<CategoryAttribute?> DeleteCategoryAttributeAsync(int categoryAttributeId);
 }

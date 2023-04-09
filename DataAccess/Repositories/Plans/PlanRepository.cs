@@ -49,7 +49,8 @@ public class PlanRepository : IPlanRepository
         try
         {
             Plan? plan = await GetPlansByIdAsync(planId);
-            _context.Plans.Remove(plan);
+            //_context.Plans.Remove(plan);
+            plan.PlanStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return plan;
         }

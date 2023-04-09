@@ -28,10 +28,19 @@ public class CategoryAttributeRepository : ICategoryAttributeRepository
         return categoryAttribute;
     }
 
-    public async ValueTask DeleteCategoryAttributeAsync(int categoryAttributeId)
+    public async ValueTask<CategoryAttribute?> DeleteCategoryAttributeAsync(int categoryAttributeId)
     {
-        var categoryAttribute = await GetCategoryAttributeByIdAsync(categoryAttributeId);
-        _context.CategoryAttributes!.Remove(categoryAttribute);
-        await _context.SaveChangesAsync();
+        try
+        {
+            var categoryAttribute = await GetCategoryAttributeByIdAsync(categoryAttributeId);
+            //_context.CategoryAttributes!.Remove(categoryAttribute);
+            categoryAttribute.CategoryAttributeStatus = Status.Deleted;
+            await _context.SaveChangesAsync();
+            return categoryAttribute;
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
