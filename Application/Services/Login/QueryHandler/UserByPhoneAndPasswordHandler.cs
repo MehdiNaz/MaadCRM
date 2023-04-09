@@ -2,9 +2,9 @@
 
 public class UserByPhoneAndPasswordHandler : IRequestHandler<UserByPhoneAndPasswordQuery, bool>
 {
-    private readonly ILoginOperation _repository;
+    private readonly ILoginRerpository _repository;
 
-    public UserByPhoneAndPasswordHandler(ILoginOperation repository)
+    public UserByPhoneAndPasswordHandler(ILoginRerpository repository)
     {
         _repository = repository;
     }

@@ -1,5 +1,8 @@
-namespace WebApi.Routes;
+using Application.Requests;
+using Application.Services.Login.Commands;
+using Application.Services.Login.Queries;
 
+namespace WebApi.Routes;
 public static class AccountRoute
 {
     public static void MapAccountRoute(this IEndpointRouteBuilder app)
@@ -10,7 +13,7 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request, IMediator _mediator) =>
+        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator _mediator) =>
         {
             try
             {

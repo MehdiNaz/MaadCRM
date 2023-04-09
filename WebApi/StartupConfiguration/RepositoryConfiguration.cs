@@ -5,7 +5,7 @@ public static class RepositoryConfiguration
     public static void Configure(IServiceCollection collection)
     {
         // Login :
-        collection.AddTransient<ILoginOperation, LoginOperation>();
+        collection.AddTransient<ILoginRerpository, LoginRepository>();
 
 
         // builder.Services.AddTransient<ScheduleDatabaseInvocable>();

@@ -2,10 +2,10 @@
 
 public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, IdentityUser?>
 {
-    private readonly ILoginOperation _repository;
+    private readonly ILoginRerpository _repository;
 
 
-    public GetUserByEmailAddressHandler(ILoginOperation repository)
+    public GetUserByEmailAddressHandler(ILoginRerpository repository)
     {
         _repository = repository;
     }
