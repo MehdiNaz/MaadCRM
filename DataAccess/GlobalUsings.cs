@@ -15,6 +15,7 @@ global using Application.Services.Login.Queries;
 global using Domain.Enum;
 global using Domain.Mapping;
 global using Domain.Mapping.Address;
+global using Domain.Mapping.BusinessMapping;
 global using Domain.Mapping.Contacts;
 global using Domain.Mapping.Customers;
 global using Domain.Mapping.Customers.Forosh;

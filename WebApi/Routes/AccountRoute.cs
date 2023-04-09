@@ -1,6 +1,7 @@
 using Application.Requests;
 using Application.Services.Login.Commands;
 using Application.Services.Login.Queries;
+using Domain.Models.Businesses;
 
 namespace WebApi.Routes;
 public static class AccountRoute
@@ -13,33 +14,36 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
+        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator,ITest1Service testService) =>
         {
-            try
-            {
-                var result = mediator.Send(new UserByPhoneNumberQuery
-                {
-                    Phone = request.Phone
-                });
-                if (result.Result != null)
-                {
-                    var resultRegister = mediator.Send(new RegisterUserCommand
-                    {
-                        Phone = request.Phone
-                    });
-                }
-                
-                var resultSendVerifyCode = mediator.Send(new RegisterUserCommand
-                {
-                    Phone = request.Phone
-                });
-                
-                return Results.Ok(resultSendVerifyCode);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
+            var result = await testService.t1();
+            Console.WriteLine(result);
+            // try
+            // {
+            //     var result = mediator.Send(new UserByPhoneNumberQuery
+            //     {
+            //         Phone = request.Phone
+            //     });
+            // if (result.Result == null)
+            // {
+            //     var resultRegister = mediator.Send(new RegisterUserCommand
+            //     {
+            //         Phone = request.Phone
+            //     });
+            //     // TODO: Check if register is ok
+            // }
+            //     
+            //     var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
+            //     {
+            //         Phone = request.Phone
+            //     });
+            //     
+            //     return Results.Ok(resultSendVerifyCode);
+            // }
+            // catch (ArgumentException e)
+            // {
+            //     return Results.BadRequest(e.ParamName);
+            // }
         });
         
         

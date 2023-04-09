@@ -16,7 +16,6 @@ global using Application.Services;
 global using Application.Services.PlanService.Commands;
 global using Application.Services.PlanService.Queries;
 global using Application.Services.PlanService.Validation;
-global using Application.Validation;
 global using Application.Validator;
 global using Application.Validator.Addresses;
 global using Application.Validator.Contacts;

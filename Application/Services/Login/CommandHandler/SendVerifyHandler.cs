@@ -14,6 +14,7 @@ public class SendVerifyHandler : IRequestHandler<SendSMSCommand, bool>
 
     public async Task<bool> Handle(SendSMSCommand request, CancellationToken cancellationToken)
     {
-        return await _repository.SendVerifyCode(request);
+        var result = await _repository.SendVerifyCode(request);
+        return result;
     }
 }
