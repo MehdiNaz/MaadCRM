@@ -5,17 +5,17 @@ using Application.Services.Login.Queries;
 using Domain.Models.Businesses;
 
 namespace WebApi.Routes;
-public static class AccountRoute
+public static class LoginRoute
 {
     public static void MapAccountRoute(this IEndpointRouteBuilder app)
     {
         #region Account
 
-        var account = app.MapGroup("v1/account")
+        var login = app.MapGroup("v1/login")
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapPost("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
+        login.MapPost("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
         {
             try
             {
@@ -40,16 +40,25 @@ public static class AccountRoute
                     Phone = request.Phone
                 });
                 
-                return Results.Ok(resultSendVerifyCode.Result);
+                return Results.Ok(new
+                {
+                    Valid = resultSendVerifyCode.Result,
+                    Message = "Otp sent",
+                });
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    Message = e.Message,
+                    StackTrace = e.StackTrace
+                });
             }
         });
         
         
-        account.MapPost("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
+        login.MapPost("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try
             {
@@ -62,7 +71,7 @@ public static class AccountRoute
             }
         });
         
-        account.MapPost("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
+        login.MapPost("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
         {
             try
             {
@@ -76,7 +85,7 @@ public static class AccountRoute
             }
         });
 
-        account.MapPost("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
+        login.MapPost("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
         {
             try
             {
@@ -88,32 +97,24 @@ public static class AccountRoute
 
                 Console.WriteLine(resultVerifyCode.Result);
                 if (resultVerifyCode.Result == null)
-                    return Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = "Verify code failed",
-                        User = new IdentityUser(),
-                        Token = ""
-                    });
+                    return Results.Unauthorized();
 
                 return Results.Ok(new
                 {
                     Valid = true,
                     Message = "Verify code success",
-                    User123 = resultVerifyCode.Result
+                    User = resultVerifyCode.Result
                 });
                 
             }
             catch (ArgumentException e)
             {
-                var response = new
+                return Results.BadRequest(new
                 {
                     Valid = false,
-                    Message = e.ParamName,
-                    User = new User(),
-                    Token = ""
-                };
-                return Results.BadRequest(response);
+                    Message = e.Message,
+                    StackTrace = e.StackTrace
+                });
             }
         });
         
