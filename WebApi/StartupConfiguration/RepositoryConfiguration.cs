@@ -16,6 +16,7 @@ public static class RepositoryConfiguration
 
         collection.AddTransient<ITestService, TestService>();
 
+        // TODO: Remove test
         collection.AddTransient<ITest1Service, Test1Service>();
 
         //Application ==> Interfaces :
