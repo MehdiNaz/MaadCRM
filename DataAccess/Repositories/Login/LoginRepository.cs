@@ -62,7 +62,7 @@ public class LoginRepository : ILoginRerpository
         return result.OtpPassword != request.Code ? null : result;
     }
 
-    public async ValueTask<bool> SendVerifyCode(SendSMSCommand request)
+    public async ValueTask<bool> SendVerifyCode(SendVerifyCommand request)
     {
         var result = await _userManager.FindByNameAsync(request.Phone);
         if (result == null)
@@ -71,9 +71,10 @@ public class LoginRepository : ILoginRerpository
         
         
         var generator = new Random();
-        result.OtpPassword =  generator.Next(0, 10000).ToString("D6");
+        result.OtpPassword =  generator.Next(1000, 9999).ToString("D4");
         
-        _context.Users.Update(result);
+        await _userManager.UpdateAsync(result);
+
         // TODO: Send SMS
         
         Console.WriteLine("OTP: " + result.OtpPassword);
@@ -83,25 +84,24 @@ public class LoginRepository : ILoginRerpository
 
     public async ValueTask<bool> RegisterUser(RegisterUserCommand request)
     {
-        var newBusiness = new Business()
-        {
-            BusinessName = " شرکت" + request.Phone
-        };
-        await _context.Businesses!.AddAsync(newBusiness);
-        var result = await _context.SaveChangesAsync();
-        
-        var user = new User()
-        {
-            LoginCount = 1,
-            PhoneNumber = request.Phone,
-            UserName = request.Phone,
-            UserStatus = Status.Show,
-            BusinessId = newBusiness.BusinessId,
-            CreatedOn = DateTime.UtcNow
-        };
-        
-        var createUserResult = await _userManager.CreateAsync(user);
-        
-        return createUserResult.Succeeded;
-    }
+            var newBusiness = new Business()
+            {
+                BusinessName = " شرکت" + request.Phone
+            };
+            await _context.Businesses!.AddAsync(newBusiness);
+            var result = await _context.SaveChangesAsync();
+
+            var user = new User
+            {
+                LoginCount = 1,
+                PhoneNumber = request.Phone,
+                UserName = request.Phone,
+                UserStatus = Status.Show,
+                BusinessId = newBusiness.BusinessId,
+                CreatedOn = DateTime.UtcNow
+            };
+
+            var createUserResult = await _userManager.CreateAsync(user);
+            return createUserResult.Succeeded;
+        }
 }

@@ -9,6 +9,6 @@ public interface ILoginRerpository
     ValueTask<bool> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request);
     
     ValueTask<IdentityUser?> VerifyCode(VerifyCodeQuery request);
-    ValueTask<bool> SendVerifyCode(SendSMSCommand request);
+    ValueTask<bool> SendVerifyCode(SendVerifyCommand request);
     ValueTask<bool> RegisterUser(RegisterUserCommand request);
 }

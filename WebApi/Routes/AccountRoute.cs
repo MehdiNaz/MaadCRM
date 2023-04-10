@@ -1,4 +1,5 @@
 using Application.Requests;
+using Application.Services.Jwt.Query;
 using Application.Services.Login.Commands;
 using Application.Services.Login.Queries;
 using Domain.Models.Businesses;
@@ -14,36 +15,37 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator,ITest1Service testService) =>
+        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
         {
-            var result = await testService.t1();
-            Console.WriteLine(result);
-            // try
-            // {
-            //     var result = mediator.Send(new UserByPhoneNumberQuery
-            //     {
-            //         Phone = request.Phone
-            //     });
-            // if (result.Result == null)
-            // {
-            //     var resultRegister = mediator.Send(new RegisterUserCommand
-            //     {
-            //         Phone = request.Phone
-            //     });
-            //     // TODO: Check if register is ok
-            // }
-            //     
-            //     var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
-            //     {
-            //         Phone = request.Phone
-            //     });
-            //     
-            //     return Results.Ok(resultSendVerifyCode);
-            // }
-            // catch (ArgumentException e)
-            // {
-            //     return Results.BadRequest(e.ParamName);
-            // }
+            try
+            {
+                var result = mediator.Send(new UserByPhoneNumberQuery
+                {
+                    Phone = request.Phone
+                });
+                if (result.Result == null)
+                {
+                    var resultRegister = mediator.Send(new RegisterUserCommand
+                    {
+                        Phone = request.Phone
+                    });
+                    // TODO: Check if register is ok
+                    
+                    Console.WriteLine(resultRegister.Result);
+                }
+                
+            
+                var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
+                {
+                    Phone = request.Phone
+                });
+                
+                return Results.Ok(resultSendVerifyCode.Result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
         });
         
         
@@ -76,41 +78,51 @@ public static class AccountRoute
 
         account.MapGet("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
         {
-            try
-            {
-                var resultSendVerifyCode = mediator.Send(new VerifyCodeQuery
-                {
-                    Phone = request.Phone,
-                    Code = request.Code
-                });
-                
-                var token = mediator.Send(new VerifyCodeQuery
+            // try
+            // {
+                var resultVerifyCode = mediator.Send(new VerifyCodeQuery
                 {
                     Phone = request.Phone,
                     Code = request.Code
                 });
 
+                if (resultVerifyCode.Result == null)
+                    return Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = "Verify code failed",
+                        User = new IdentityUser(),
+                        Token = ""
+                    });
+                
+                
+                // var token = mediator.Send(new GenerateTokenQuery
+                // {
+                //     Phone = request.Phone,
+                //     Code = request.Code
+                // });
+
                 var response = new
                 {
                     Valid = true,
                     Message = "Verify code success",
-                    User = resultSendVerifyCode,
-                    Token = token
+                    User = resultVerifyCode,
+                    Token = "token"
                 };
                 
                 return Results.Ok(response);
-            }
-            catch (ArgumentException e)
-            {
-                var response = new
-                {
-                    Valid = false,
-                    Message = e.ParamName,
-                    User = new IdentityUser(),
-                    Token = ""
-                };
-                return Results.BadRequest(response);
-            }
+            // }
+            // catch (ArgumentException e)
+            // {
+            //     var response = new
+            //     {
+            //         Valid = false,
+            //         Message = e.ParamName,
+            //         User = new IdentityUser(),
+            //         Token = ""
+            //     };
+            //     return Results.BadRequest(response);
+            // }
         });
         
         #endregion
