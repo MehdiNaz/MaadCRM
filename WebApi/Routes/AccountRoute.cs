@@ -10,7 +10,7 @@ public static class AccountRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        account.MapGet("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request, IMediator mediator) =>
+        account.MapPost("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
         {
             try
             {
@@ -42,9 +42,9 @@ public static class AccountRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-
-        account.MapGet("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
+        
+        
+        account.MapPost("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try
             {
@@ -56,8 +56,8 @@ public static class AccountRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-        account.MapGet("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
+        
+        account.MapPost("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
         {
             try
             {
@@ -71,53 +71,45 @@ public static class AccountRoute
             }
         });
 
-        account.MapGet("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request, IMediator mediator) =>
+        account.MapPost("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
         {
-            // try
-            // {
-            var resultVerifyCode = mediator.Send(new VerifyCodeQuery
+            try
             {
-                Phone = request.Phone,
-                Code = request.Code
-            });
-
-            if (resultVerifyCode.Result == null)
-                return Results.BadRequest(new
+                var resultVerifyCode = mediator.Send(new VerifyCodeQuery
                 {
-                    Valid = false,
-                    Message = "Verify code failed",
-                    User = new IdentityUser(),
-                    Token = ""
+                    Phone = request.Phone,
+                    Code = request.Code
                 });
 
+                Console.WriteLine(resultVerifyCode.Result);
+                if (resultVerifyCode.Result == null)
+                    return Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = "Verify code failed",
+                        User = new IdentityUser(),
+                        Token = ""
+                    });
 
-            // var token = mediator.Send(new GenerateTokenQuery
-            // {
-            //     Phone = request.Phone,
-            //     Code = request.Code
-            // });
-
-            var response = new
+                return Results.Ok(new
+                {
+                    Valid = true,
+                    Message = "Verify code success",
+                    User123 = resultVerifyCode.Result
+                });
+                
+            }
+            catch (ArgumentException e)
             {
-                Valid = true,
-                Message = "Verify code success",
-                User = resultVerifyCode,
-                Token = "token"
-            };
-
-            return Results.Ok(response);
-            // }
-            // catch (ArgumentException e)
-            // {
-            //     var response = new
-            //     {
-            //         Valid = false,
-            //         Message = e.ParamName,
-            //         User = new IdentityUser(),
-            //         Token = ""
-            //     };
-            //     return Results.BadRequest(response);
-            // }
+                var response = new
+                {
+                    Valid = false,
+                    Message = e.ParamName,
+                    User = new User(),
+                    Token = ""
+                };
+                return Results.BadRequest(response);
+            }
         });
 
         #endregion

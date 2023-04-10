@@ -30,6 +30,7 @@ public class User : IdentityUser
     public DateTimeOffset? LastLoginDate { get; set; }
     public Ulid BusinessId { get; set; }
     public Status UserStatus { get; set; }
+    public string Token { get; set; }// JWT Token
 
 
     public Business Business { get; set; }
