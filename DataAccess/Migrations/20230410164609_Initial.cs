@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class MaadMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -536,7 +536,7 @@ namespace DataAccess.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    Id = table.Column<string>(type: "character varying(26)", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     LastName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     BirthDayDate = table.Column<DateOnly>(type: "date", nullable: true),
@@ -554,7 +554,7 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Customers_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -574,7 +574,7 @@ namespace DataAccess.Migrations
                         name: "FK_Customers_Customers_CustomerMoarefId",
                         column: x => x.CustomerMoarefId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -596,7 +596,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerActivities_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -625,7 +625,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerFeedbackHistories_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -637,7 +637,6 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
-                    CustomerNote = table.Column<string>(type: "character varying(26)", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -654,7 +653,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerNotes_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -666,8 +665,6 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerPeyGiryStatus = table.Column<int>(type: "integer", nullable: false),
-                    CustomerPeyGiry = table.Column<string>(type: "character varying(26)", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -675,15 +672,10 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_CustomerPeyGiries", x => x.CustomerPeyGiryId);
                     table.ForeignKey(
-                        name: "FK_CustomerPeyGiries_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_CustomerPeyGiries_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -710,7 +702,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerRepresentativeHistories_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -720,12 +712,11 @@ namespace DataAccess.Migrations
                 {
                     CustomersAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
                     Address = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    CodePost = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    PhoneNo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    CodePost = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    PhoneNo = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersAddressStatus = table.Column<int>(type: "integer", nullable: false),
-                    CustomersAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -736,7 +727,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomersAddresses_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -764,19 +755,18 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerSubmissions_Customers_CustomerSubmissionId",
                         column: x => x.CustomerSubmissionId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomersEmailAddresses",
+                name: "EmailAddresses",
                 columns: table => new
                 {
                     CustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersEmailAddrs = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersEmailAddressStatus = table.Column<int>(type: "integer", nullable: false),
-                    CustomersEmailAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -787,12 +777,12 @@ namespace DataAccess.Migrations
                         name: "FK_EmailAddresses_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomersPhoneNumbers",
+                name: "PhoneNumbers",
                 columns: table => new
                 {
                     PhoneNumberId = table.Column<string>(type: "character varying(26)", nullable: false),
@@ -800,7 +790,6 @@ namespace DataAccess.Migrations
                     PhoneType = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersPhoneNumberStatus = table.Column<int>(type: "integer", nullable: false),
-                    CustomersPhoneNumber = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -811,7 +800,7 @@ namespace DataAccess.Migrations
                         name: "FK_PhoneNumbers_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -833,7 +822,7 @@ namespace DataAccess.Migrations
                         name: "FK_ProductCustomerFavoritesLists_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductCustomerFavoritesLists_Products_ProductId",
@@ -905,18 +894,12 @@ namespace DataAccess.Migrations
                     FileName = table.Column<byte[]>(type: "bytea", nullable: false),
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusPeyGiryAttachment = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PeyGiryAttachments", x => x.PeyGiryAttachmentId);
-                    table.ForeignKey(
-                        name: "FK_PeyGiryAttachments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PeyGiryAttachments_CustomerPeyGiries_PeyGiryAttachmentId",
                         column: x => x.PeyGiryAttachmentId,
@@ -952,7 +935,7 @@ namespace DataAccess.Migrations
                         name: "FK_ForoshFactors_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1009,7 +992,7 @@ namespace DataAccess.Migrations
                         name: "FK_AttributeOptionsValues_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "CustomerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1392,11 +1375,6 @@ namespace DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerPeyGiries_UserId",
-                table: "CustomerPeyGiries",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerRepresentativeHistories_CustomerId",
                 table: "CustomerRepresentativeHistories",
                 column: "CustomerId");
@@ -1438,7 +1416,7 @@ namespace DataAccess.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailAddresses_CustomerId",
-                table: "CustomersEmailAddresses",
+                table: "EmailAddresses",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -1467,13 +1445,8 @@ namespace DataAccess.Migrations
                 column: "CustomerNoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeyGiryAttachments_UserId",
-                table: "PeyGiryAttachments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_CustomerId",
-                table: "CustomersPhoneNumbers",
+                table: "PhoneNumbers",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -1637,7 +1610,7 @@ namespace DataAccess.Migrations
                 name: "CustomerSubmissions");
 
             migrationBuilder.DropTable(
-                name: "CustomersEmailAddresses");
+                name: "EmailAddresses");
 
             migrationBuilder.DropTable(
                 name: "ForoshFactors");
@@ -1655,7 +1628,7 @@ namespace DataAccess.Migrations
                 name: "PeyGiryAttachments");
 
             migrationBuilder.DropTable(
-                name: "CustomersPhoneNumbers");
+                name: "PhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "ProductCustomerFavoritesLists");

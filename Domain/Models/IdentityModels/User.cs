@@ -45,8 +45,8 @@ public class User : IdentityUser
     public ICollection<Plan>? Plans { get; set; }  //Relation OK
     public ICollection<CustomerCategory>? CustomerCategories { get; set; }
     // public ICollection<Business>? Businesses { get; set; }
-    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
-    public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
+    // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
+    // public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
     public ICollection<CustomerNote>? CustomerNotes { get; set; }
     public ICollection<NoteHashTag>? NoteHashTags{ get; set; }
 }

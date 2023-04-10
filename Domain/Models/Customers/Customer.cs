@@ -4,13 +4,13 @@ public class Customer : BaseEntity
 {
     public Customer()
     {
-        CustomerId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomerState = CustomerStateTypes.Belghoveh;
         CustomerStatus = Status.Show;
         CustomerActivationStatus = CustomerActivationStatus.Active;
     }
 
-    public Ulid CustomerId { get; set; }
+    public Ulid Id { get; set; }
     public string FirstName { get; set; }
     public required string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }

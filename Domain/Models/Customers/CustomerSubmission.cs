@@ -13,7 +13,7 @@ public class CustomerSubmission : BaseEntity
     public DateTime? FollowDateTime { get; set; }
 
 
-    //[ForeignKey(nameof(CustomerId))]
+    //[ForeignKey(nameof(Id))]
     public Customer Customers { get; set; }
     //[ForeignKey(nameof(UserId))]
     public User Users { get; set; }

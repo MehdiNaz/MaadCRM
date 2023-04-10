@@ -423,7 +423,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateOnly?>("BirthDayDate")
@@ -472,7 +472,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
@@ -713,15 +713,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("CodePost")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomersAddress")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -735,12 +730,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("PhoneNo")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
@@ -757,10 +750,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomersEmailAddress")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -782,7 +771,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("CustomersEmailAddresses", (string)null);
+                    b.ToTable("EmailAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersPhoneNumber", b =>
@@ -791,10 +780,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomersPhoneNumber")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -819,7 +804,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("CustomersPhoneNumbers", (string)null);
+                    b.ToTable("PhoneNumbers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
@@ -919,10 +904,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("CustomerNote")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1037,10 +1018,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerPeyGiry")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<int>("CustomerPeyGiryStatus")
                         .HasColumnType("integer");
 
@@ -1055,14 +1032,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("CustomerPeyGiryId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CustomerPeyGiries", (string)null);
                 });
@@ -1094,12 +1066,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("StatusPeyGiryAttachment")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("PeyGiryAttachmentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PeyGiryAttachments", (string)null);
                 });
@@ -2165,35 +2132,29 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersAddress", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomersAddresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersEmailAddress", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
-                        .WithMany("CustomersEmailAddresses")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
+                        .WithMany("EmailAddresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersPhoneNumber", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
-                        .WithMany("CustomersPhoneNumbers")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
+                        .WithMany("PhoneNumbers")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
@@ -2228,7 +2189,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.CustomerNote", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerNotes")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2237,8 +2198,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("CustomerNotes")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.NoteAttachment", b =>
@@ -2269,17 +2228,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerPeyGiries")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.Models.IdentityModels.User", null)
-                        .WithMany("CustomerPeyGiries")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.PeyGiryAttachment", b =>
@@ -2290,16 +2243,12 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.IdentityModels.User", null)
-                        .WithMany("PeyGiryAttachments")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("CustomerPeyGiry");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.ProductCustomerFavoritesList", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("FavoritesLists")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2310,8 +2259,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("Product");
                 });
@@ -2588,13 +2535,13 @@ namespace DataAccess.Migrations
 
                     b.Navigation("CustomersMoaref");
 
-                    b.Navigation("CustomersEmailAddresses");
+                    b.Navigation("EmailAddresses");
 
                     b.Navigation("FavoritesLists");
 
                     b.Navigation("ForoshFactors");
 
-                    b.Navigation("CustomersPhoneNumbers");
+                    b.Navigation("PhoneNumbers");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerCategory", b =>
@@ -2673,8 +2620,6 @@ namespace DataAccess.Migrations
 
                     b.Navigation("CustomerNotes");
 
-                    b.Navigation("CustomerPeyGiries");
-
                     b.Navigation("CustomerSubmissions");
 
                     b.Navigation("Customers");
@@ -2682,8 +2627,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Logs");
 
                     b.Navigation("NoteHashTags");
-
-                    b.Navigation("PeyGiryAttachments");
 
                     b.Navigation("Plans");
 

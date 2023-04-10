@@ -16,5 +16,5 @@ public class CustomersPhoneNumber : BaseEntity
     public Status CustomersPhoneNumberStatus { get; set; }
 
 
-    public Customer Customer { get; set; }
+    // public Customer Customer { get; set; }
 }

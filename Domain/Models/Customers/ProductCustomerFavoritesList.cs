@@ -13,5 +13,5 @@ public class ProductCustomerFavoritesList : BaseEntity
     public Status ProductCustomerFavoritesListStatus { get; set; }
 
     public Product Product { get; set; }
-    public Customer Customer { get; set; }
+    // public Customer Customer { get; set; }
 }

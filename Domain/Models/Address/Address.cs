@@ -18,7 +18,7 @@ public class Address : BaseEntity
     public Status AddressStatus { get; set; }
 
 
-    //[ForeignKey(nameof(CustomerId))]
+    //[ForeignKey(nameof(Id))]
     //public Customer Customer { get; set; }
 
     //[ForeignKey(nameof(CityId))]

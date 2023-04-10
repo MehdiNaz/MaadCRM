@@ -13,7 +13,7 @@ public class CustomerNote : BaseEntity
     public Ulid CustomerId { get; set; }
     public Status CustomerNoteStatus { get; set; }
 
-    public Customer Customer { get; set; }
+    // public Customer Customer { get; set; }
     public ICollection<NoteHashTag>? CustomerHashTags { get; set; }
     public ICollection<NoteAttachment>? NoteAttachments { get; set; }
 }

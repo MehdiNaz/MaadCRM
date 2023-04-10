@@ -16,7 +16,7 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
     {
         Customer item = new()
         {
-            CustomerId = request.CustomerId,
+            Id = request.CustomerId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate!,

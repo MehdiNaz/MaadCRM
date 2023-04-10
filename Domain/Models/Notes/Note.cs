@@ -4,7 +4,7 @@ public class Note : BaseEntity
 {
     public string TitleNote { get; set; }
     public string Description { get; set; }
-    //public Ulid CustomerId { get; set; }
+    //public Ulid Id { get; set; }
 
 
 

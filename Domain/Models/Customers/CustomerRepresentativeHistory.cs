@@ -11,7 +11,7 @@ public class CustomerRepresentativeHistory : BaseEntity
     public Ulid CustomerRepresentativeTypeId { get; set; }
     //public int CustomerRepresentativeId { get; set; }
 
-    //[ForeignKey(nameof(CustomerId))]
+    //[ForeignKey(nameof(Id))]
     public Customer Customers { get; set; }
     //[ForeignKey(nameof(CustomerRepresentativeId))]
     //public Customer CustomerRepresentative { get; set; }

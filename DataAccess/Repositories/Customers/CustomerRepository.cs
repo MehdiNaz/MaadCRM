@@ -47,24 +47,24 @@ public class CustomerRepository : ICustomerRepository
             if (result == 0)
                 return null;
 
-            if (entity.PhoneNumbers != null)
-                foreach (string PhoneNumbers in entity.PhoneNumbers)
-                {
-                    CustomersPhoneNumber newPhone = new()
-                    {
-                        CustomerId = entityEntry.CustomerId,
-                        PhoneNo = PhoneNumbers
-                    };
-
-                    await _context.CustomersPhoneNumbers.AddAsync(newPhone);
-                }
+             if (entity.PhoneNumbers != null)
+                 foreach (string PhoneNumbers in entity.PhoneNumbers)
+                 {
+                     CustomersPhoneNumber newPhone = new()
+                     {
+                         CustomerId = entityEntry.Id,
+                         PhoneNo = PhoneNumbers
+                     };
+            
+                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
+                 }
 
             if (entity.CustomersAddresses != null)
                 foreach (string address in entity.CustomersAddresses)
                 {
                     CustomersAddress newAddress = new()
                     {
-                        CustomerId = entityEntry.CustomerId,
+                        CustomerId =  entityEntry.Id,
                         Address = address
                     };
 
@@ -76,7 +76,7 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
-                        CustomerId = entityEntry.CustomerId,
+                        CustomerId = entityEntry.Id,
                         Description = peyGiry
                     };
             
@@ -88,10 +88,10 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerNote newNote = new()
                     {
-                        CustomerId = entityEntry.CustomerId,
+                        CustomerId = entityEntry.Id,
                         Description = note
                     };
-
+            
                     await _context.CustomerNotes.AddAsync(newNote);
                 }
 
@@ -100,10 +100,10 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomersEmailAddress newEmailAddress = new()
                     {
-                        CustomerId = entityEntry.CustomerId,
+                        CustomerId = entityEntry.Id,
                         CustomersEmailAddrs = emailAddress
                     };
-
+            
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
                 }
 
@@ -112,10 +112,10 @@ public class CustomerRepository : ICustomerRepository
                 {
                     ProductCustomerFavoritesList newFavoritesList = new()
                     {
-                        CustomerId = entityEntry.CustomerId,
+                        CustomerId = entityEntry.Id,
                         ProductId = entityFavoritesList
                     };
-
+            
                     await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
                 }
 

@@ -72,5 +72,5 @@ app.MapGet("/test1234", () => Results.Ok("test 1234"));
 
 #endregion
 
-((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
+//((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
 app.Run();

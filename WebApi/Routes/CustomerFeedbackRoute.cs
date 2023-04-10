@@ -50,7 +50,7 @@ public static class CustomerFeedbackRoute
                     //CodePost = request.CodePost,
                     //PhoneNo = request.PhoneNo,
                     //Description = request.Description,
-                    //CustomerId = request.CustomerId
+                    //Id = request.Id
                 });
                 return Results.Ok(result);
             }
@@ -71,7 +71,7 @@ public static class CustomerFeedbackRoute
                     //CodePost = request.CodePost,
                     //PhoneNo = request.PhoneNo,
                     //Description = request.Description,
-                    //CustomerId = request.CustomerId
+                    //Id = request.Id
                 });
                 return Results.Ok(result);
             }

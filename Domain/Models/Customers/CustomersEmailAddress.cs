@@ -13,5 +13,5 @@ public class CustomersEmailAddress : BaseEntity
     public Ulid CustomerId { get; set; }
     public Status CustomersEmailAddressStatus { get; set; }
 
-    public Customer Customer { get; set; }
+    // public Customer Customer { get; set; }
 }

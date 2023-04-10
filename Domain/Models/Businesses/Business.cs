@@ -18,7 +18,7 @@ public class Business : BaseEntity
     public string? CompanyAddress { get; set; }
     //public bool SslEnabled { get; set; }
     public int? DisplayOrder { get; set; } = 0;
-    //public Ulid? CustomerId { get; set; }
+    //public Ulid? Id { get; set; }
     //public Ulid? ContactId { get; set; }
     //public Ulid? ContactGroupId { get; set; }
     //public Ulid? AttributeOptionsValueId { get; set; }
