@@ -8,7 +8,7 @@ public class PeyGiryAttachmentMapping : IEntityTypeConfiguration<PeyGiryAttachme
         builder.HasKey(x => x.PeyGiryAttachmentId);
         builder.Property(x => x.Extenstion).HasMaxLength(255).IsRequired();
 
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.PeyGiryAttachments).HasForeignKey(x => x.CreatedBy);
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.PeyGiryAttachments).HasForeignKey(x => x.UpdatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.PeyGiryAttachments).HasForeignKey(x => x.CreatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.PeyGiryAttachments).HasForeignKey(x => x.UpdatedBy);
     }
 }

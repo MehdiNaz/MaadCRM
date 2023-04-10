@@ -13,12 +13,12 @@ public class Customer : BaseEntityWithUserId
     public Ulid CustomerId { get; set; }
     public string FirstName { get; set; }
     public required string LastName { get; set; }
-    public DateOnly BirthDayDate { get; set; }
+    public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    public Ulid CityId { get; set; }
+    public Ulid? CityId { get; set; }
     // public Ulid BusinessId { get; set; }
-    public Ulid CustomerCategoryId { get; set; }
-    public GenderTypes Gender { get; set; }
+    public Ulid? CustomerCategoryId { get; set; }
+    public GenderTypes? Gender { get; set; }
     public Status CustomerStatus { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
@@ -31,7 +31,7 @@ public class Customer : BaseEntityWithUserId
     #endregion
 
     // public Business Business { get; set; }                                                              //Relation OK
-    public City City { get; set; }                                                                      //Relation OK
+    public City? City { get; set; }                                                                      //Relation OK
     public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK
     public ICollection<CustomersEmailAddress>? EmailAddresses { get; set; }                              //Relation OK

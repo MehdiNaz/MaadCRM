@@ -88,6 +88,7 @@ global using Application.Services.CustomerFeedbackService.Queries;
 global using Application.Services.CustomerPhoneNumberService.Validation;
 global using Application.Services.CustomersAddressService.Validation;
 global using Application.Services.CustomersEmailAddressService.Validation;
+global using Application.Services.Login.Commands;
 global using Application.Services.NoteHashTagService.Validation;
 global using Application.Services.SanAtService.Validation;
 global using WebApi.Routes;
