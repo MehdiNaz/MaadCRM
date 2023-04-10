@@ -15,12 +15,13 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(AttributeOptionsValueValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(BusinessAttributeValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CategoryAttributeValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CustomerActivityValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerNoteValidation).Assembly);
-        collection.AddValidatorsFromAssembly(typeof(SanAtValidator).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(SanAtValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactGroupValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactValidation).Assembly);
@@ -36,8 +37,8 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ProductCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshOrderValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshFactorValidation).Assembly);
-        
-        
+
+
         collection.AddValidatorsFromAssembly(typeof(CreateUsersPlanValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(UpdateUsersPlanValidation).Assembly);
 

@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Customers;
+﻿namespace Application.Services.CustomerPhoneNumberService.Validation;
 
 public class CustomersPhoneNumberValidator : AbstractValidator<CustomersPhoneNumber>
 {

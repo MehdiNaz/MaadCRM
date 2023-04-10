@@ -24,7 +24,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\CustomerActivityService\Validation\" />
+      <Folder Include="CustomerActivityService\CommandHandlers\" />
+      <Folder Include="CustomerActivityService\Commands\" />
+      <Folder Include="CustomerActivityService\NewFolder\" />
+      <Folder Include="CustomerActivityService\QueryHandlers\" />
+      <Folder Include="CustomerActivityService\Queries\" />
       <Folder Include="Services\BusinessService\CommandHandler\" />
       <Folder Include="Services\BusinessService\Response\" />
       <Folder Include="Services\BusinessService\Validation\" />
@@ -34,15 +38,11 @@
       <Folder Include="Services\CustomerFeedbackService\QueryHandlers\" />
       <Folder Include="Services\CustomerNoteService\Validation\" />
       <Folder Include="Services\CustomerPeyGiryService\Validation\" />
-      <Folder Include="Services\CustomerPhoneNumberService\Validation\" />
-      <Folder Include="Services\CustomersAddressService\Validation\" />
-      <Folder Include="Services\CustomersEmailAddressService\Validation\" />
       <Folder Include="Services\CustomerService\Validation\" />
       <Folder Include="Services\NoteAttachmentService\Validation\" />
       <Folder Include="Services\NoteHashTagService\Validation\" />
       <Folder Include="Services\PeyGiryAttachmentService\Validation\" />
       <Folder Include="Services\PlanService\Response\" />
       <Folder Include="Services\BusinessPlansService\Response\" />
-      <Folder Include="Services\SanAtService\Validation\" />
     </ItemGroup>
 </Project>

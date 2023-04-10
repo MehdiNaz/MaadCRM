@@ -5,6 +5,7 @@ public class CustomerFeedback : BaseEntity
     public CustomerFeedback()
     {
         CustomerFeedbackId = Ulid.NewUlid();
+        CustomerFeedbackStatus = Status.Show;
     }
 
     public Ulid CustomerFeedbackId { get; set; }
@@ -12,6 +13,7 @@ public class CustomerFeedback : BaseEntity
     public int DisplayOrder { get; set; }
     public decimal Point { get; set; }
     public int BalancePoint { get; set; }
+    public Status CustomerFeedbackStatus { get; set; }
 
 
 

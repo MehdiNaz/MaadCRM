@@ -76,3 +76,5 @@ global using FluentValidation;
 global using MediatR;
 global using Microsoft.AspNetCore.Identity;
 global using System.Globalization;
+global using Application.Services.CustomerActivityService.Commands;
+global using Application.Services.CustomerActivityService.Queries;
