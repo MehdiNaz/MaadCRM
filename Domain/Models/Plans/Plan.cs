@@ -7,7 +7,7 @@
 /// .قیمت هم به صورت صفر در نظر گرفته می شود
 /// </summary>
 
-public class Plan : BaseEntityWithUpdateInfo
+public class Plan : BaseEntity
 {
     public Plan()
     {

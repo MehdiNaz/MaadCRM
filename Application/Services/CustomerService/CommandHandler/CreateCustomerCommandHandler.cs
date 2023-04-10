@@ -1,4 +1,7 @@
-﻿namespace Application.Services.CustomerService.CommandHandler;
+﻿using Domain.Models.Customers;
+using Domain.Models.Customers.Notes;
+
+namespace Application.Services.CustomerService.CommandHandler;
 
 public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Customer>
 {
@@ -17,13 +20,19 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate!,
             CustomerPic = request.CustomerPic,
-            CreatedBy = request.CreatedBy,
-            UpdatedBy = request.UpdatedBy,
-            CityId = request.CityId,
-            UserId = request.UserId!,
+            // CreatedBy = request.CreatedBy!,
+            // UpdatedBy = request.UpdatedBy,
             CustomerCategoryId = request.CustomerCategoryId,
+            // UserId = request.UserId,
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId,
+            PhoneNumbers = request.PhoneNumbers,
+            EmailAddresses = request.EmailAddresses,
+            FavoritesLists = request.FavoritesLists,
+            CustomersAddresses = request.CustomersAddresses,
+            CustomerNotes = request.CustomerNotes,
+            CustomerPeyGiries = request.CustomerPeyGiries,
+            City = request.City
         };
         await _repository.CreateCustomerAsync(item);
         return item;

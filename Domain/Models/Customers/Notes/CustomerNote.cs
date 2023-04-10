@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.Notes;
 
-public class CustomerNote : BaseEntityWithUpdateInfo
+public class CustomerNote : BaseEntity
 {
     public CustomerNote()
     {

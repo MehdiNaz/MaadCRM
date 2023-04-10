@@ -10,7 +10,7 @@ public class CustomerRepository : ICustomerRepository
     }
 
     public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync()
-        => (await _context.Customers!.ToListAsync()).Where(x => x.CustomerStatus == Status.Show).ToList()!;
+        => await _context.Customers.Where(x => x.CustomerStatus == Status.Show).ToListAsync();
 
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
 
@@ -19,8 +19,7 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             await _context.Customers!.AddAsync(entity!);
-            await _context.SaveChangesAsync();
-            return entity;
+            return await _context.SaveChangesAsync() != 0 ? entity : null;
         }
         catch
         {

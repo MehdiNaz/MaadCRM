@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.Notes;
 
-public class NoteHashTag : BaseEntityWithUpdateInfo
+public class NoteHashTag : BaseEntity
 {
     public NoteHashTag()
     {
