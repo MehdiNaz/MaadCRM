@@ -9,7 +9,7 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
         builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
 
         builder.HasMany(x => x.PeyGiryAttachments).WithOne(x => x.CustomerPeyGiry).HasForeignKey(x => x.PeyGiryAttachmentId);
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.CreatedBy);
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.UpdatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.CreatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.UpdatedBy);
     }
 }

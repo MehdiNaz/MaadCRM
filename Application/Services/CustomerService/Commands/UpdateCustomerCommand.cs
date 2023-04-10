@@ -5,9 +5,9 @@ public struct UpdateCustomerCommand : IRequest<Customer>
     public Ulid CustomerId { get; set; }
     public string FirstName { get; set; }
     public required string LastName { get; set; }
-    public required DateOnly BirthDayDate { get; set; }
+    public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    public required string CreatedBy { get; set; }
+    public string? CreatedBy { get; set; }
     public required string UpdatedBy { get; set; }
     public required string UserId { get; set; }
     public Ulid CityId { get; set; }

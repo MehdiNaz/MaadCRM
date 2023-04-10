@@ -15,7 +15,7 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
-            BirthDayDate = request.BirthDayDate,
+            BirthDayDate = request.BirthDayDate!,
             CustomerPic = request.CustomerPic,
             CreatedBy = request.CreatedBy,
             UpdatedBy = request.UpdatedBy,

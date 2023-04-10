@@ -11,7 +11,7 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
         builder.HasMany(x => x.CustomerHashTags).WithOne(x => x.CustomerNote).HasForeignKey(x => x.CustomerNoteId);
         builder.HasMany(x => x.NoteAttachments).WithOne(x => x.CustomerNote).HasForeignKey(x => x.CustomerNoteId);
 
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.CreatedBy);
-        builder.HasOne(x => x.CreatorUser).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.UpdatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.CreatedBy);
+        builder.HasOne(x => x.User).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.UpdatedBy);
     }
 }
