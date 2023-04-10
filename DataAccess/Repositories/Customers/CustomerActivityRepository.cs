@@ -9,8 +9,8 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomerActivity?>> GetAllCustomerActivitiesAsync()
-        => (await _context.CustomerActivities!.ToListAsync()).Where(x => x.CustomerActivityStatus == Status.Show).ToList()!;
+    public async ValueTask<ICollection<CustomerActivity?>> GetAllCustomerActivitiesAsync(Ulid customerId)
+        => (await _context.CustomerActivities!.ToListAsync()).Where(x => x.CustomerActivityStatus == Status.Show && x.CustomerId == customerId).ToList()!;
 
     public async ValueTask<CustomerActivity?> GetCustomerActivityByIdAsync(Ulid customerActivityId)
         => await _context.CustomerActivities!.FindAsync(customerActivityId);

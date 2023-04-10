@@ -10,5 +10,5 @@ public readonly struct AllCustomerActivityHandler : IRequestHandler<AllItemsCust
     }
 
     public async Task<ICollection<CustomerActivity>> Handle(AllItemsCustomerActivitiesQuery request, CancellationToken cancellationToken)
-        => await _repository.GetAllCustomerActivitiesAsync();
+        => await _repository.GetAllCustomerActivitiesAsync(request.CustomerId);
 }

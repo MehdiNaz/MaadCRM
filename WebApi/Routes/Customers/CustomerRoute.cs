@@ -2,7 +2,7 @@
 using Domain.Models.Customers;
 using Domain.Models.Customers.Notes;
 
-namespace WebApi.Routes;
+namespace WebApi.Routes.Customers;
 
 public static class CustomerRoute
 {

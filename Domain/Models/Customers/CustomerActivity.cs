@@ -4,7 +4,7 @@ public class CustomerActivity : BaseEntity
 {
     public CustomerActivity()
     {
-        CustomerActivityId = new Ulid();
+        CustomerActivityId = Ulid.NewUlid();
         CustomerActivityStatus = Status.Show;
     }
 

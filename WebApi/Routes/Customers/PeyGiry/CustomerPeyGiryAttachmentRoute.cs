@@ -1,21 +1,21 @@
-﻿namespace WebApi.Routes;
+﻿namespace WebApi.Routes.Customers.PeyGiry;
 
-public static class NoteAttachmentRoute
+public static class CustomerPeyGiryAttachmentRoute
 {
-    public static void MapNoteAttachmentRoute(this IEndpointRouteBuilder app)
+    public static void MapCustomerPeyGiryAttachmentRoute(this IEndpointRouteBuilder app)
     {
-        #region BusinessPlans
+        #region CustomerPeyGiryAttachment
 
-        var plan = app.MapGroup("v1/NoteAttachment")
+        var plan = app.MapGroup("v1/PeyGiryAttachment")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllNoteAttachments", async (IMediator mediator) =>
+        plan.MapGet("/AllPeyGiryAttachments", async (IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllNoteAttachmentQuery());
+                var result = await mediator.Send(new AllPeyGiryAttachmentQuery());
                 return Results.Ok(result);
             }
             catch (ArgumentException e)
@@ -24,13 +24,13 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] NoteAttachmentByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById", async ([FromBody] PeyGiryAttachmentByIdQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new NoteAttachmentByIdQuery
+                var result = await mediator.Send(new PeyGiryAttachmentByIdQuery
                 {
-                    NoteAttachmentId = request.NoteAttachmentId
+                    PeyGiryAttachmentId = request.PeyGiryAttachmentId
                 });
                 return Results.Ok(result);
             }
@@ -40,13 +40,13 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateNoteAttachmentCommand request, IMediator mediator) =>
+        plan.MapPost("/Insert", async ([FromBody] CreatePeyGiryAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new CreateNoteAttachmentCommand
+                var result = await mediator.Send(new CreatePeyGiryAttachmentCommand
                 {
-                    CustomerNoteId = request.CustomerNoteId,
+                    PeyGiryNoteId = request.PeyGiryNoteId,
                     FileName = request.FileName,
                     Extenstion = request.Extenstion
                 });
@@ -58,14 +58,14 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateNoteAttachmentCommand request, IMediator mediator) =>
+        plan.MapPut("/Update", async ([FromBody] UpdatePeyGiryAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new UpdateNoteAttachmentCommand
+                var result = await mediator.Send(new UpdatePeyGiryAttachmentCommand
                 {
-                    NoteAttachmentId = request.CustomerNoteId,
-                    CustomerNoteId = request.CustomerNoteId,
+                    PeyGiryAttachmentId = request.PeyGiryAttachmentId,
+                    PeyGiryNoteId = request.PeyGiryNoteId,
                     FileName = request.FileName,
                     Extenstion = request.Extenstion
                 });
@@ -77,13 +77,13 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteNoteAttachmentCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete", async ([FromBody] DeletePeyGiryAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new DeleteNoteAttachmentCommand
+                var result = await mediator.Send(new DeletePeyGiryAttachmentCommand
                 {
-                    NoteAttachmentId = request.NoteAttachmentId,
+                    PeyGiryAttachmentId = request.PeyGiryAttachmentId
                 });
                 return Results.Ok(result);
             }
@@ -92,6 +92,7 @@ public static class NoteAttachmentRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
+
 
         #endregion
     }

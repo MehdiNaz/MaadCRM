@@ -2,7 +2,7 @@
 
 public interface ICustomerActivityRepository
 {
-    ValueTask<ICollection<CustomerActivity?>> GetAllCustomerActivitiesAsync();
+    ValueTask<ICollection<CustomerActivity?>> GetAllCustomerActivitiesAsync(Ulid customerId);
     ValueTask<CustomerActivity?> GetCustomerActivityByIdAsync(Ulid customerActivityId);
     ValueTask<CustomerActivity?> CreateCustomerActivityAsync(CustomerActivity? entity);
     ValueTask<CustomerActivity?> UpdateCustomerActivityAsync(CustomerActivity entity);

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Routes;
+﻿namespace WebApi.Routes.Customers.PeyGiry;
 
 public static class CustomerPeyGiryRoute
 {

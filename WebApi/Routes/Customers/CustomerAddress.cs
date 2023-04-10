@@ -1,4 +1,4 @@
-﻿namespace WebApi.Routes;
+﻿namespace WebApi.Routes.Customers;
 
 public static class CustomerAddressRoute
 {

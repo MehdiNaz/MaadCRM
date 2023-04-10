@@ -1,3 +1,7 @@
+using WebApi.Routes.Customers;
+using WebApi.Routes.Customers.Notes;
+using WebApi.Routes.Customers.PeyGiry;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -61,7 +65,7 @@ app.MapCustomerNoteRoute();
 app.MapCustomerRoute();
 app.MapNoteAttachmentRoute();
 app.MapNoteHashTagRoute();
-app.MapPeyGiryAttachmentRoute();
+app.MapCustomerPeyGiryAttachmentRoute();
 app.MapPlanRoute();
 
 app.MapGet("/test123", (IMediator _mediator) =>

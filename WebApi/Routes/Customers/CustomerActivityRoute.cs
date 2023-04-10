@@ -1,4 +1,6 @@
-﻿namespace WebApi.Routes;
+﻿using Domain.Models.Customers.PeyGiry;
+
+namespace WebApi.Routes.Customers;
 
 public static class CustomerActivityRoute
 {
@@ -11,11 +13,14 @@ public static class CustomerActivityRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerActivities", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomerActivities", async ([FromBody] AllItemsCustomerActivitiesQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllItemsCustomerActivitiesQuery());
+                var result = await mediator.Send(new AllItemsCustomerActivitiesQuery
+                {
+                    CustomerId = request.CustomerId
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)
