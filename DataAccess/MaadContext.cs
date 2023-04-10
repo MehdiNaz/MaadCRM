@@ -23,6 +23,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<SanAt>? SanAts { get; set; }
     public DbSet<Customer>? Customers { get; set; }
     public DbSet<CustomerCategory>? CustomerCategories { get; set; }
+    public DbSet<CustomerActivity>? CustomerActivities { get; set; }
     public DbSet<Address>? Addresses { get; set; }
     public DbSet<City>? Cities { get; set; }
     public DbSet<Country>? Countries { get; set; }

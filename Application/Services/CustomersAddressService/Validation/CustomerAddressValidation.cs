@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Customers;
+﻿namespace Application.Services.CustomersAddressService.Validation;
 
 public class CustomerAddressValidation : AbstractValidator<CustomersAddress>
 {

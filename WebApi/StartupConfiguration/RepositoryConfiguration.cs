@@ -25,6 +25,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
         collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();
         collection.AddTransient<ICustomersAddressRepository, CustomersAddressRepository>();
+        collection.AddTransient<ICustomerActivityRepository, CustomerActivityRepository>();
         collection.AddTransient<ICustomerNoteRepository, CustomerNoteRepository>();
         collection.AddTransient<INoteHashTagRepository, NoteHashTagRepository>();
         collection.AddTransient<INoteAttachmentRepository, NoteAttachmentRepository>();
@@ -59,6 +60,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactRepository, ContactRepository>();
         collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
         collection.AddTransient<IContactsEmailAddressRepository, ContactsEmailAddressRepository>();
+        collection.AddTransient<ICustomerFeedbackFeedback, CustomerFeedbackFeedback>();
 
 
         collection.AddTransient<ICityRepository, CityRepository>();
