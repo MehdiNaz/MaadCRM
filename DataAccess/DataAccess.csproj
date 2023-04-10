@@ -34,12 +34,4 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Migrations\" />
-      <Folder Include="Repositories\Forosh\" />
-      <Folder Include="Repositories\Login\" />
-      <Folder Include="Repositories\Products\" />
-    </ItemGroup>
-
 </Project>

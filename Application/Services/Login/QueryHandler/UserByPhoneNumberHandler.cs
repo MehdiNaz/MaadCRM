@@ -1,4 +1,5 @@
-﻿using Domain.Models.IdentityModels;
+﻿using Application.Interfaces.Account;
+using Domain.Models.IdentityModels;
 
 namespace Application.Services.Login.QueryHandler;
 

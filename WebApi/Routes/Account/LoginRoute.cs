@@ -1,16 +1,8 @@
-using Application.Requests;
-using Application.Services.Jwt.Query;
-using Application.Services.Login.Commands;
-using Application.Services.Login.Queries;
-using Domain.Models.Businesses;
-
-namespace WebApi.Routes;
+namespace WebApi.Routes.Account;
 public static class LoginRoute
 {
-    public static void MapAccountRoute(this IEndpointRouteBuilder app)
+    public static void MapLoginRoute(this IEndpointRouteBuilder app)
     {
-        #region Account
-
         var login = app.MapGroup("v1/login")
             .WithOpenApi()
             .AllowAnonymous();
@@ -117,8 +109,6 @@ public static class LoginRoute
                 });
             }
         });
-        
-        #endregion
     }
 }
 

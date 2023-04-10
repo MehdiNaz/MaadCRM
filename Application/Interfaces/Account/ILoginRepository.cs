@@ -1,7 +1,7 @@
 ﻿using Application.Services.Login.Commands;
 using Domain.Models.IdentityModels;
 
-namespace Application.Interfaces.Login;
+namespace Application.Interfaces.Account;
 
 public interface ILoginRerpository
 {

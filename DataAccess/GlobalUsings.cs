@@ -5,7 +5,6 @@ global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
 global using Application.Interfaces.Customers.Notes;
 global using Application.Interfaces.Customers.PeyGiry;
-global using Application.Interfaces.Login;
 global using Application.Interfaces.Plans;
 global using Application.Interfaces.Products;
 global using Application.Interfaces.SpecialFields;

@@ -1,11 +1,15 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Interfaces.Account;
+using DataAccess.Repositories.Account;
+
+namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
     public static void Configure(IServiceCollection collection)
     {
-        // Login :
+        // Repository :
         collection.AddTransient<ILoginRerpository, LoginRepository>();
+        collection.AddTransient<IProfileRepository, ProfileRepository>();
 
 
         // builder.Services.AddTransient<ScheduleDatabaseInvocable>();
