@@ -9,23 +9,29 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
         _repository = repository;
     }
 
-    public async Task<Customer> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Customer?> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        Customer item = new()
+        var item = new CreateCustomerCommand()
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate!,
             CustomerPic = request.CustomerPic,
-            CreatedBy = request.CreatedBy,
-            UpdatedBy = request.UpdatedBy,
-            CityId = request.CityId,
-            UserId = request.UserId!,
+            // CreatedBy = request.CreatedBy!,
+            // UpdatedBy = request.UpdatedBy,
             CustomerCategoryId = request.CustomerCategoryId,
+            // UserId = request.UserId,
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId,
+            PhoneNumbers = request.PhoneNumbers,
+            EmailAddresses = request.EmailAddresses,
+            FavoritesLists = request.FavoritesLists!,
+            CustomersAddresses = request.CustomersAddresses,
+            CustomerNotes = request.CustomerNotes,
+            CustomerPeyGiries = request.CustomerPeyGiries,
+            CityId = request.CityId
         };
-        await _repository.CreateCustomerAsync(item);
-        return item;
+        var result = await _repository.CreateCustomerAsync(item);
+        return result;
     }
 }

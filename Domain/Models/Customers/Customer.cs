@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public class Customer : BaseEntityWithUserId
+public class Customer : BaseEntity
 {
     public Customer()
     {
@@ -23,6 +23,10 @@ public class Customer : BaseEntityWithUserId
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 
+    // public string CreatedBy { get; set; }
+    // public string UpdatedBy { get; set; }
+    // public string UserId { get; set; }
+    // public User User { get; set; }
 
     #region Moaref
     public Ulid? CustomerMoarefId { get; set; }

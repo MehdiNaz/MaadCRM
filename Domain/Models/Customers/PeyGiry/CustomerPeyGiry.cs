@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.PeyGiry;
 
-public class CustomerPeyGiry : BaseEntityWithUpdateInfo
+public class CustomerPeyGiry : BaseEntity
 {
     public CustomerPeyGiry()
     {

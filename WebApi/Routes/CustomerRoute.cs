@@ -1,4 +1,8 @@
-﻿namespace WebApi.Routes;
+﻿using Domain.Models.Address;
+using Domain.Models.Customers;
+using Domain.Models.Customers.Notes;
+
+namespace WebApi.Routes;
 
 public static class CustomerRoute
 {
@@ -48,11 +52,18 @@ public static class CustomerRoute
                 {
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    BirthDayDate = request.BirthDayDate,
+                    BirthDayDate = request.BirthDayDate!,
                     CustomerPic = request.CustomerPic,
-                    CreatedBy = request.CreatedBy,
-                    UpdatedBy = request.UpdatedBy,
-                    UserId = request.UserId
+                    CustomerCategoryId = request.CustomerCategoryId,
+                    Gender = request.Gender,
+                    CustomerMoarefId = request.CustomerMoarefId,
+                    PhoneNumbers = request.PhoneNumbers,
+                    EmailAddresses = request.EmailAddresses,
+                    FavoritesLists = request.FavoritesLists,
+                    CustomersAddresses = request.CustomersAddresses,
+                    CustomerNotes = request.CustomerNotes,
+                    CustomerPeyGiries = request.CustomerPeyGiries,
+                    CityId = request.CityId
                 });
                 return Results.Ok(result);
             }
@@ -73,9 +84,16 @@ public static class CustomerRoute
                     LastName = request.LastName,
                     BirthDayDate = request.BirthDayDate,
                     CustomerPic = request.CustomerPic,
-                    CreatedBy = request.CreatedBy,
-                    UpdatedBy = request.UpdatedBy,
-                    UserId = request.UserId
+                    CustomerCategoryId = request.CustomerCategoryId,
+                    Gender = request.Gender,
+                    CustomerMoarefId = request.CustomerMoarefId,
+                    PhoneNumbers = request.PhoneNumbers,
+                    EmailAddresses = request.EmailAddresses,
+                    FavoritesLists = request.FavoritesLists,
+                    CustomersAddresses = request.CustomersAddresses,
+                    CustomerNotes = request.CustomerNotes,
+                    CustomerPeyGiries = request.CustomerPeyGiries,
+                    City = request.City
                 });
                 return Results.Ok(result);
             }

@@ -10,15 +10,15 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
     }
 
     public async ValueTask<ICollection<CustomersPhoneNumber?>> GetAllPhoneNumbersAsync()
-        => (await _context.PhoneNumbers!.ToListAsync()).Where(x => x.CustomersPhoneNumberStatus == Status.Show).ToList()!;
+        => (await _context.CustomersPhoneNumbers!.ToListAsync()).Where(x => x.CustomersPhoneNumberStatus == Status.Show).ToList()!;
 
-    public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId) => await _context.PhoneNumbers!.FindAsync(phoneNumberId);
+    public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId) => await _context.CustomersPhoneNumbers!.FindAsync(phoneNumberId);
 
     public async ValueTask<CustomersPhoneNumber?> CreatePhoneNumberAsync(CustomersPhoneNumber? entity)
     {
         try
         {
-            await _context.PhoneNumbers!.AddAsync(entity!);
+            await _context.CustomersPhoneNumbers!.AddAsync(entity!);
             await _context.SaveChangesAsync();
             return entity;
         }

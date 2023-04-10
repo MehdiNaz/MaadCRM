@@ -1,4 +1,7 @@
-﻿namespace Application.Services.CustomerService.CommandHandler;
+﻿using Domain.Models.Customers;
+using Domain.Models.Customers.Notes;
+
+namespace Application.Services.CustomerService.CommandHandler;
 
 public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Customer>
 {
@@ -18,13 +21,19 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate!,
             CustomerPic = request.CustomerPic,
-            CreatedBy = request.CreatedBy!,
-            UpdatedBy = request.UpdatedBy,
-            CityId = request.CityId,
-            UserId = request.UserId,
+            // CreatedBy = request.CreatedBy!,
+            // UpdatedBy = request.UpdatedBy,
             CustomerCategoryId = request.CustomerCategoryId,
+            // UserId = request.UserId,
             Gender = request.Gender,
-            CustomerMoarefId = request.CustomerMoarefId
+            CustomerMoarefId = request.CustomerMoarefId,
+            PhoneNumbers = request.PhoneNumbers,
+            EmailAddresses = request.EmailAddresses,
+            FavoritesLists = request.FavoritesLists,
+            CustomersAddresses = request.CustomersAddresses,
+            CustomerNotes = request.CustomerNotes,
+            CustomerPeyGiries = request.CustomerPeyGiries,
+            City = request.City
         };
         await _repository.UpdateCustomerAsync(item);
         return item;
