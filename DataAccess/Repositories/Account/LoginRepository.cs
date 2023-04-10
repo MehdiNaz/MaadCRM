@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Application.Interfaces.Account;
 using Application.Services.Login.Commands;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -148,8 +149,9 @@ public class LoginRepository : ILoginRerpository
 
             var createUserResult = await _userManager.CreateAsync(user);
             
-            //add role to user
-            await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
+            // TODO: add role to user
+            // await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
+            
             return createUserResult.Succeeded;
         }
     

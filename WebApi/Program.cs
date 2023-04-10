@@ -48,7 +48,8 @@ app.UseFileServer();
 #endregion
 
 #region Routes
-app.MapAccountRoute();
+app.MapProfileRoute();
+app.MapLoginRoute();
 app.MapBusinessPlanRout();
 app.MapBusinessRoute();
 app.MapCustomerActivityRoute();
