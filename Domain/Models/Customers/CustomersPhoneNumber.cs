@@ -6,6 +6,7 @@ public class CustomersPhoneNumber : BaseEntity
     {
         PhoneNumberId = Ulid.NewUlid();
         CustomersPhoneNumberStatus = Status.Show;
+        PhoneType = PhoneTypes.Mobile;
     }
 
     public Ulid PhoneNumberId { get; set; }

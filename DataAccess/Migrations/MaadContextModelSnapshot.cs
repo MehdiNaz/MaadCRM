@@ -782,7 +782,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("EmailAddresses", (string)null);
+                    b.ToTable("CustomersEmailAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersPhoneNumber", b =>
@@ -819,7 +819,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("PhoneNumbers", (string)null);
+                    b.ToTable("CustomersPhoneNumbers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
@@ -2177,7 +2177,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Customers.CustomersEmailAddress", b =>
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
-                        .WithMany("EmailAddresses")
+                        .WithMany("CustomersEmailAddresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2188,7 +2188,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Customers.CustomersPhoneNumber", b =>
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
-                        .WithMany("PhoneNumbers")
+                        .WithMany("CustomersPhoneNumbers")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2588,13 +2588,13 @@ namespace DataAccess.Migrations
 
                     b.Navigation("CustomersMoaref");
 
-                    b.Navigation("EmailAddresses");
+                    b.Navigation("CustomersEmailAddresses");
 
                     b.Navigation("FavoritesLists");
 
                     b.Navigation("ForoshFactors");
 
-                    b.Navigation("PhoneNumbers");
+                    b.Navigation("CustomersPhoneNumbers");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerCategory", b =>

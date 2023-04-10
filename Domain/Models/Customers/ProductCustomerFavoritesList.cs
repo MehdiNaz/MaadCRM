@@ -8,7 +8,7 @@ public class ProductCustomerFavoritesList : BaseEntity
         ProductCustomerFavoritesListStatus = Status.Show;
     }
 
-    public Ulid ProductId { get; set; }
+    public Ulid? ProductId { get; set; }
     public Ulid CustomerId { get; set; }
     public Status ProductCustomerFavoritesListStatus { get; set; }
 

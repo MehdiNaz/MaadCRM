@@ -769,7 +769,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmailAddresses",
+                name: "CustomersEmailAddresses",
                 columns: table => new
                 {
                     CustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
@@ -792,7 +792,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PhoneNumbers",
+                name: "CustomersPhoneNumbers",
                 columns: table => new
                 {
                     PhoneNumberId = table.Column<string>(type: "character varying(26)", nullable: false),
@@ -1438,7 +1438,7 @@ namespace DataAccess.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailAddresses_CustomerId",
-                table: "EmailAddresses",
+                table: "CustomersEmailAddresses",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -1473,7 +1473,7 @@ namespace DataAccess.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_CustomerId",
-                table: "PhoneNumbers",
+                table: "CustomersPhoneNumbers",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -1637,7 +1637,7 @@ namespace DataAccess.Migrations
                 name: "CustomerSubmissions");
 
             migrationBuilder.DropTable(
-                name: "EmailAddresses");
+                name: "CustomersEmailAddresses");
 
             migrationBuilder.DropTable(
                 name: "ForoshFactors");
@@ -1655,7 +1655,7 @@ namespace DataAccess.Migrations
                 name: "PeyGiryAttachments");
 
             migrationBuilder.DropTable(
-                name: "PhoneNumbers");
+                name: "CustomersPhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "ProductCustomerFavoritesLists");

@@ -1,7 +1,4 @@
-﻿using Domain.Models.Customers;
-using Domain.Models.Customers.Notes;
-
-namespace Application.Services.CustomerService.CommandHandler;
+﻿namespace Application.Services.CustomerService.CommandHandler;
 
 public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Customer>
 {
@@ -12,9 +9,9 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
         _repository = repository;
     }
 
-    public async Task<Customer> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Customer?> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        Customer item = new()
+        var item = new CreateCustomerCommand()
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -28,13 +25,13 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
             CustomerMoarefId = request.CustomerMoarefId,
             PhoneNumbers = request.PhoneNumbers,
             EmailAddresses = request.EmailAddresses,
-            FavoritesLists = request.FavoritesLists,
+            FavoritesLists = request.FavoritesLists!,
             CustomersAddresses = request.CustomersAddresses,
             CustomerNotes = request.CustomerNotes,
             CustomerPeyGiries = request.CustomerPeyGiries,
-            City = request.City
+            CityId = request.CityId
         };
-        await _repository.CreateCustomerAsync(item);
-        return item;
+        var result = await _repository.CreateCustomerAsync(item);
+        return result;
     }
 }

@@ -35,8 +35,8 @@ public class MaadContext : IdentityDbContext
     public DbSet<BusinessAttribute>? BusinessAttributes { get; set; }
     public DbSet<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
     public DbSet<AttributeOptions>? AttributeOptions { get; set; }
-    public DbSet<CustomersPhoneNumber>? PhoneNumbers { get; set; }
-    public DbSet<CustomersEmailAddress>? EmailAddresses { get; set; }
+    public DbSet<CustomersPhoneNumber>? CustomersPhoneNumbers { get; set; }
+    public DbSet<CustomersEmailAddress>? CustomersEmailAddresses { get; set; }
     public DbSet<CustomersAddress>? CustomersAddresses { get; set; }
     public DbSet<ContactGroup>? ContactGroups { get; set; }
     public DbSet<Contact>? Contacts { get; set; }

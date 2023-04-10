@@ -9,6 +9,7 @@ global using Application.Interfaces.Login;
 global using Application.Interfaces.Plans;
 global using Application.Interfaces.Products;
 global using Application.Interfaces.SpecialFields;
+global using Application.Services.CustomerService.Commands;
 global using Application.Services.Login.Queries;
 global using Domain.Enum;
 global using Domain.Mapping;

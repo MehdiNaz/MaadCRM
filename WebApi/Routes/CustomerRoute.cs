@@ -63,7 +63,7 @@ public static class CustomerRoute
                     CustomersAddresses = request.CustomersAddresses,
                     CustomerNotes = request.CustomerNotes,
                     CustomerPeyGiries = request.CustomerPeyGiries,
-                    City = request.City
+                    CityId = request.CityId
                 });
                 return Results.Ok(result);
             }
