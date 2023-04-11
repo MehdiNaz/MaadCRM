@@ -1,8 +1,4 @@
-﻿using Domain.Models.Address;
-using Domain.Models.Customers;
-using Domain.Models.Customers.Notes;
-
-namespace WebApi.Routes.Customers;
+﻿namespace WebApi.Routes.Customers;
 
 public static class CustomerRoute
 {
@@ -15,11 +11,14 @@ public static class CustomerRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomers", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomers", async ([FromBody] CustomerByIdQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomersQuery());
+                var result = await mediator.Send(new AllCustomersQuery
+                {
+                    CustomerId = request.CustomerId
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

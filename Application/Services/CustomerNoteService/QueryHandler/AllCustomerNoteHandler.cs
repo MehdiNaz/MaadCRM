@@ -10,5 +10,5 @@ public readonly struct AllCustomerNoteHandler : IRequestHandler<AllCustomerNotes
     }
 
     public async Task<ICollection<CustomerNote>> Handle(AllCustomerNotesQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetAllCustomerNotesAsync())!;
+        => (await _repository.GetAllCustomerNotesAsync(request.CustomerId))!;
 }

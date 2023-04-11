@@ -11,11 +11,14 @@ public static class CustomerPeyGiryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerPeyGiries", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomerPeyGiries", async ([FromBody] AllCustomerPeyGiriesQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomerPeyGiriesQuery());
+                var result = await mediator.Send(new AllCustomerPeyGiriesQuery
+                {
+                    CustomerId = request.CustomerId
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

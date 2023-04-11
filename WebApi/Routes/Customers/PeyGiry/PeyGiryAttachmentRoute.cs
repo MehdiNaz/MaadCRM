@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Routes.Customers.PeyGiry;
 
-public static class CustomerPeyGiryAttachmentRoute
+public static class PeyGiryAttachmentRoute
 {
     public static void MapCustomerPeyGiryAttachmentRoute(this IEndpointRouteBuilder app)
     {

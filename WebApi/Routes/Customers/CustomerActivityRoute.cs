@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.PeyGiry;
-
-namespace WebApi.Routes.Customers;
+﻿namespace WebApi.Routes.Customers;
 
 public static class CustomerActivityRoute
 {

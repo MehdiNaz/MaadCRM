@@ -370,7 +370,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("ContactPhoneNumberStatus")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -503,7 +503,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("CustomerActivityStatus")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -515,7 +515,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerActivityId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("CustomerActivities", (string)null);
                 });
@@ -590,7 +590,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -612,7 +612,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CustomerFeedbackId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("CustomerFeedbackHistories", (string)null);
                 });
@@ -622,7 +622,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerRepresentativeHistoryId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -638,7 +638,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerRepresentativeHistoryId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("CustomerRepresentativeTypeId");
 
@@ -678,7 +678,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerSubmissionId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -716,7 +716,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -739,7 +739,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomersAddressId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("CustomersAddresses", (string)null);
                 });
@@ -749,7 +749,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomersEmailAddressId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -769,7 +769,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomersEmailAddressId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("EmailAddresses", (string)null);
                 });
@@ -779,7 +779,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("PhoneNumberId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -802,7 +802,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("PhoneNumberId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("PhoneNumbers", (string)null);
                 });
@@ -812,7 +812,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("ForoshFactorId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -840,7 +840,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("ForoshFactorId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("CustomersAddressId");
 
@@ -903,7 +903,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerNoteId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -925,7 +925,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerNoteId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("UserId");
 
@@ -1014,7 +1014,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerPeyGiryId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1034,7 +1034,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerPeyGiryId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("CustomerPeyGiries", (string)null);
                 });
@@ -1076,7 +1076,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("ProductId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -1092,9 +1092,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("ProductCustomerFavoritesListStatus")
                         .HasColumnType("integer");
 
-                    b.HasKey("ProductId", "CustomerId");
+                    b.HasKey("ProductId", "Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("ProductCustomerFavoritesLists", (string)null);
                 });
@@ -1373,7 +1373,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1408,7 +1408,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Id");
 
                     b.ToTable("AttributeOptionsValues", (string)null);
                 });
@@ -2059,7 +2059,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
                         .WithMany("CustomerActivities")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2083,7 +2083,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.Customers.Customer", "Customers")
                         .WithMany("CustomerFeedbackHistory")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2096,7 +2096,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customers")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2134,7 +2134,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomersAddresses")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2143,7 +2143,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("EmailAddresses")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2152,7 +2152,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("PhoneNumbers")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2161,7 +2161,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
                         .WithMany("ForoshFactors")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2191,7 +2191,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerNotes")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2230,7 +2230,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerPeyGiries")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2250,7 +2250,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("FavoritesLists")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2338,7 +2338,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.Customers.Customer", "Customer")
                         .WithMany("AttributeOptionsValues")
-                        .HasForeignKey("CustomerId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

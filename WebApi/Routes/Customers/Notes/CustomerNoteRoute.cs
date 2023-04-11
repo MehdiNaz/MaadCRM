@@ -4,18 +4,21 @@ public static class CustomerNoteRoute
 {
     public static void MapCustomerNoteRoute(this IEndpointRouteBuilder app)
     {
-        #region Customer
+        #region CustomerNote
 
         var plan = app.MapGroup("v1/CustomerNote")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomersNote", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomersNote", async ([FromBody] AllCustomerNotesQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomerNotesQuery());
+                var result = await mediator.Send(new AllCustomerNotesQuery
+                {
+                    CustomerId = request.CustomerId
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

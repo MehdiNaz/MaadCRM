@@ -2,4 +2,5 @@
 
 public struct AllCustomerPeyGiriesQuery : IRequest<ICollection<CustomerPeyGiry>>
 {
+    public Ulid CustomerId { get; set; }
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230410165745_MaadMigration")]
-    partial class MaadMigration
+    [Migration("20230411055557_CustomerIdUpdated")]
+    partial class CustomerIdUpdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -426,7 +426,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("CustomerId")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateOnly?>("BirthDayDate")
@@ -475,7 +475,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.HasIndex("CityId");
 

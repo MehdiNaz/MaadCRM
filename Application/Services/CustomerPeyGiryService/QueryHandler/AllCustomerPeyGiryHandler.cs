@@ -10,5 +10,5 @@ public readonly struct AllCustomerPeyGiryHandler : IRequestHandler<AllCustomerPe
     }
 
     public async Task<ICollection<CustomerPeyGiry>> Handle(AllCustomerPeyGiriesQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetAllCustomerPeyGiriesAsync())!;
+        => (await _repository.GetAllCustomerPeyGiriesAsync(request.CustomerId))!;
 }

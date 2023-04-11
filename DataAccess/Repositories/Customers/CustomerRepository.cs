@@ -1,8 +1,4 @@
-﻿using Domain.Models.Customers;
-using Domain.Models.Products;
-using MediatR;
-
-namespace DataAccess.Repositories.Customers;
+﻿namespace DataAccess.Repositories.Customers;
 
 public class CustomerRepository : ICustomerRepository
 {
@@ -13,8 +9,8 @@ public class CustomerRepository : ICustomerRepository
         _context = aadContext;
     }
 
-    public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync()
-        => await _context.Customers.Where(x => x.CustomerStatus == Status.Show).ToListAsync();
+    public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync(Ulid customerId)
+        => await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.Id == customerId).ToListAsync();
 
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
 
@@ -47,24 +43,24 @@ public class CustomerRepository : ICustomerRepository
             if (result == 0)
                 return null;
 
-             if (entity.PhoneNumbers != null)
-                 foreach (string PhoneNumbers in entity.PhoneNumbers)
-                 {
-                     CustomersPhoneNumber newPhone = new()
-                     {
-                         CustomerId = entityEntry.Id,
-                         PhoneNo = PhoneNumbers
-                     };
-            
-                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
-                 }
+            if (entity.PhoneNumbers != null)
+                foreach (string PhoneNumbers in entity.PhoneNumbers)
+                {
+                    CustomersPhoneNumber newPhone = new()
+                    {
+                        CustomerId = entityEntry.Id,
+                        PhoneNo = PhoneNumbers
+                    };
+
+                    await _context.CustomersPhoneNumbers.AddAsync(newPhone);
+                }
 
             if (entity.CustomersAddresses != null)
                 foreach (string address in entity.CustomersAddresses)
                 {
                     CustomersAddress newAddress = new()
                     {
-                        CustomerId =  entityEntry.Id,
+                        CustomerId = entityEntry.Id,
                         Address = address
                     };
 
@@ -79,7 +75,7 @@ public class CustomerRepository : ICustomerRepository
                         CustomerId = entityEntry.Id,
                         Description = peyGiry
                     };
-            
+
                     await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
                 }
 
@@ -91,7 +87,7 @@ public class CustomerRepository : ICustomerRepository
                         CustomerId = entityEntry.Id,
                         Description = note
                     };
-            
+
                     await _context.CustomerNotes.AddAsync(newNote);
                 }
 
@@ -103,7 +99,7 @@ public class CustomerRepository : ICustomerRepository
                         CustomerId = entityEntry.Id,
                         CustomersEmailAddrs = emailAddress
                     };
-            
+
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
                 }
 
@@ -115,7 +111,7 @@ public class CustomerRepository : ICustomerRepository
                         CustomerId = entityEntry.Id,
                         ProductId = entityFavoritesList
                     };
-            
+
                     await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
                 }
 

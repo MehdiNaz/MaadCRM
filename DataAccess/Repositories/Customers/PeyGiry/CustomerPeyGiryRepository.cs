@@ -9,8 +9,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriesAsync()
-        => (await _context.CustomerPeyGiries!.ToListAsync()).Where(x => x.CustomerPeyGiryStatus == Status.Show).ToList()!;
+    public async ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriesAsync(Ulid customerId)
+        => (await _context.CustomerPeyGiries!.ToListAsync()).Where(x => x.CustomerPeyGiryStatus == Status.Show && x.CustomerId == customerId).ToList()!;
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
         => await _context.CustomerPeyGiries!.FindAsync(customerPeyGiryId);
