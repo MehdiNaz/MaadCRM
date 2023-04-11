@@ -1,7 +1,4 @@
-﻿using Domain.Models.Customers;
-using Domain.Models.Customers.Notes;
-
-namespace Application.Services.CustomerService.CommandHandler;
+﻿namespace Application.Services.CustomerService.CommandHandler;
 
 public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Customer>
 {

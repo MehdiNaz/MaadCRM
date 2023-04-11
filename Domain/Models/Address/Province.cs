@@ -16,6 +16,6 @@ public class Province : BaseEntity
     public Status ProvinceStatus { get; set; }
 
 
-    public Country Country { get; set; }
+    // public Country Country { get; set; }
     public ICollection<City>? Cities { get; set; }
 }

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class MaadMigration : Migration
+    public partial class NewRelationShips : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -168,7 +168,6 @@ namespace DataAccess.Migrations
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CountryId = table.Column<string>(type: "character varying(26)", nullable: false),
                     ProvinceStatus = table.Column<int>(type: "integer", nullable: false),
-                    Province = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -180,6 +179,27 @@ namespace DataAccess.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "CountryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerRepresentativeHistories",
+                columns: table => new
+                {
+                    CustomerRepresentativeHistoryId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    CustomerRepresentativeTypeId = table.Column<string>(type: "character varying(26)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerRepresentativeHistories", x => x.CustomerRepresentativeHistoryId);
+                    table.ForeignKey(
+                        name: "FK_CustomerRepresentativeHistories_CustomerRepresentativeTypes~",
+                        column: x => x.CustomerRepresentativeTypeId,
+                        principalTable: "CustomerRepresentativeTypes",
+                        principalColumn: "CustomerRepresentativeTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -681,33 +701,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerRepresentativeHistories",
-                columns: table => new
-                {
-                    CustomerRepresentativeHistoryId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    CustomerRepresentativeTypeId = table.Column<string>(type: "character varying(26)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerRepresentativeHistories", x => x.CustomerRepresentativeHistoryId);
-                    table.ForeignKey(
-                        name: "FK_CustomerRepresentativeHistories_CustomerRepresentativeTypes~",
-                        column: x => x.CustomerRepresentativeTypeId,
-                        principalTable: "CustomerRepresentativeTypes",
-                        principalColumn: "CustomerRepresentativeTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerRepresentativeHistories_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CustomersAddresses",
                 columns: table => new
                 {
@@ -753,8 +746,8 @@ namespace DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerSubmissions_Customers_CustomerSubmissionId",
-                        column: x => x.CustomerSubmissionId,
+                        name: "FK_CustomerSubmissions_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -841,7 +834,6 @@ namespace DataAccess.Migrations
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     CustomerNoteId = table.Column<string>(type: "character varying(26)", nullable: false),
                     NoteHashTagStatus = table.Column<int>(type: "integer", nullable: false),
-                    NoteHashTag = table.Column<string>(type: "character varying(26)", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -871,7 +863,6 @@ namespace DataAccess.Migrations
                     FileName = table.Column<byte[]>(type: "bytea", nullable: false),
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     NoteAttachmentStatus = table.Column<int>(type: "integer", nullable: false),
-                    NoteAttachment = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -895,6 +886,7 @@ namespace DataAccess.Migrations
                     FileName = table.Column<byte[]>(type: "bytea", nullable: false),
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusPeyGiryAttachment = table.Column<int>(type: "integer", nullable: false),
+                    CustomerPeyGiryId = table.Column<string>(type: "character varying(26)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -902,11 +894,10 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_PeyGiryAttachments", x => x.PeyGiryAttachmentId);
                     table.ForeignKey(
-                        name: "FK_PeyGiryAttachments_CustomerPeyGiries_PeyGiryAttachmentId",
-                        column: x => x.PeyGiryAttachmentId,
+                        name: "FK_PeyGiryAttachments_CustomerPeyGiries_CustomerPeyGiryId",
+                        column: x => x.CustomerPeyGiryId,
                         principalTable: "CustomerPeyGiries",
-                        principalColumn: "CustomerPeyGiryId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CustomerPeyGiryId");
                 });
 
             migrationBuilder.CreateTable(
@@ -951,7 +942,6 @@ namespace DataAccess.Migrations
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: true),
                     AttributeOptionsStatus = table.Column<int>(type: "integer", nullable: false),
-                    AttributeOptions = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1164,6 +1154,8 @@ namespace DataAccess.Migrations
                     Job = table.Column<string>(type: "text", nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: false),
                     ContactStatus = table.Column<int>(type: "integer", nullable: false),
+                    ContactPhoneNumberId = table.Column<string>(type: "character varying(26)", nullable: true),
+                    ContactsEmailAddressCustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1183,17 +1175,15 @@ namespace DataAccess.Migrations
                         principalColumn: "ContactGroupId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Contacts_ContactPhoneNumbers_MobileNumberId",
-                        column: x => x.MobileNumberId,
+                        name: "FK_Contacts_ContactPhoneNumbers_ContactPhoneNumberId",
+                        column: x => x.ContactPhoneNumberId,
                         principalTable: "ContactPhoneNumbers",
-                        principalColumn: "ContactPhoneNumberId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ContactPhoneNumberId");
                     table.ForeignKey(
-                        name: "FK_Contacts_ContactsEmailAddress_EmailId",
-                        column: x => x.EmailId,
+                        name: "FK_Contacts_ContactsEmailAddress_ContactsEmailAddressCustomers~",
+                        column: x => x.ContactsEmailAddressCustomersEmailAddressId,
                         principalTable: "ContactsEmailAddress",
-                        principalColumn: "CustomersEmailAddressId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CustomersEmailAddressId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -1321,14 +1311,14 @@ namespace DataAccess.Migrations
                 column: "ContactGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_EmailId",
+                name: "IX_Contacts_ContactPhoneNumberId",
                 table: "Contacts",
-                column: "EmailId");
+                column: "ContactPhoneNumberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_MobileNumberId",
+                name: "IX_Contacts_ContactsEmailAddressCustomersEmailAddressId",
                 table: "Contacts",
-                column: "MobileNumberId");
+                column: "ContactsEmailAddressCustomersEmailAddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerActivities_CustomerId",
@@ -1376,11 +1366,6 @@ namespace DataAccess.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerRepresentativeHistories_CustomerId",
-                table: "CustomerRepresentativeHistories",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerRepresentativeHistories_CustomerRepresentativeTypeId",
                 table: "CustomerRepresentativeHistories",
                 column: "CustomerRepresentativeTypeId");
@@ -1408,6 +1393,11 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CustomersAddresses_CustomerId",
                 table: "CustomersAddresses",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerSubmissions_CustomerId",
+                table: "CustomerSubmissions",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
@@ -1444,6 +1434,11 @@ namespace DataAccess.Migrations
                 name: "IX_NoteAttachments_CustomerNoteId",
                 table: "NoteAttachments",
                 column: "CustomerNoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PeyGiryAttachments_CustomerPeyGiryId",
+                table: "PeyGiryAttachments",
+                column: "CustomerPeyGiryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_CustomerId",

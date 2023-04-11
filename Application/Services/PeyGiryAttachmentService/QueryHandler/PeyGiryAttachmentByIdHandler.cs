@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PeyGiryAttachmentService.QueryHandler;
 
-public class PeyGiryAttachmentByIdHandler : IRequestHandler<PeyGiryAttachmentByIdQuery, PeyGiryAttachment>
+public readonly struct PeyGiryAttachmentByIdHandler : IRequestHandler<PeyGiryAttachmentByIdQuery, PeyGiryAttachment>
 {
     private readonly IPeyGiryAttachmentRepository _repository;
 

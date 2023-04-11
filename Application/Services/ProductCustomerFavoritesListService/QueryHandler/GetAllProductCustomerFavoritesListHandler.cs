@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCustomerFavoritesListService.QueryHandler;
 
-public class GetAllProductCustomerFavoritesListHandler : IRequestHandler<GetAllProductCustomerFavoritesListQuery, ICollection<ProductCustomerFavoritesList?>>
+public readonly struct GetAllProductCustomerFavoritesListHandler : IRequestHandler<GetAllProductCustomerFavoritesListQuery, ICollection<ProductCustomerFavoritesList?>>
 {
     private readonly IProductCustomerFavoritesListRepository _repository;
 

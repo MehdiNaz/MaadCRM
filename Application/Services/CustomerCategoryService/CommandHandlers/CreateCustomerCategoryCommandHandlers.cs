@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public class CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCustomerCategoryCommand, CustomerCategory>
+public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCustomerCategoryCommand, CustomerCategory>
 {
     private readonly ICustomerCategoryRepository _repository;
 

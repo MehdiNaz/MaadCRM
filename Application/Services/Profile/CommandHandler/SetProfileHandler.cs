@@ -1,10 +1,6 @@
-using Application.Interfaces.Account;
-using Application.Services.Profile.Command;
-using Domain.Models.IdentityModels;
-
 namespace Application.Services.Profile.CommandHandler;
 
-public class SetProfileHandler : IRequestHandler<SetProfileCommand, User?>
+public readonly struct SetProfileHandler : IRequestHandler<SetProfileCommand, User?>
 {
     private readonly IProfileRepository _repository;
     

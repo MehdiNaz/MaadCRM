@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.SanAtService.CommandHandlers;
 
-public class DeleteSanAtCommandHandler : IRequestHandler<DeleteSanAtCommand, SanAt>
+public readonly struct DeleteSanAtCommandHandler : IRequestHandler<DeleteSanAtCommand, SanAt>
 {
     private readonly ISanAtRepository _repository;
 

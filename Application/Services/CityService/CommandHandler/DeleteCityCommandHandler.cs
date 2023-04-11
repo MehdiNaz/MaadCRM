@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CityService.CommandHandler;
 
-public class DeleteCityCommandHandler : IRequestHandler<DeleteCityCommand, City>
+public readonly struct DeleteCityCommandHandler : IRequestHandler<DeleteCityCommand, City>
 {
     private readonly ICityRepository _repository;
 

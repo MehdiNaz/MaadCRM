@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.CommandHandler;
 
-public class DeletePlanCommandHandler : IRequestHandler<DeletePlanCommand, Plan>
+public readonly struct DeletePlanCommandHandler : IRequestHandler<DeletePlanCommand, Plan>
 {
     private readonly IPlanRepository _repository;
 

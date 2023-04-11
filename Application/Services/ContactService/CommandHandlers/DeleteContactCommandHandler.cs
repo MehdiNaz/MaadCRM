@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.CommandHandlers;
 
-public class DeleteContactCommandHandler : IRequestHandler<DeleteContactCommand, Contact>
+public readonly struct DeleteContactCommandHandler : IRequestHandler<DeleteContactCommand, Contact>
 {
     private readonly IContactRepository _repository;
 

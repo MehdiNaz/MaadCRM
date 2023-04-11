@@ -10,10 +10,10 @@ public class ProductRepository : IProductRepository
     }
 
     public async ValueTask<ICollection<Product?>> GetAllProductsAsync()
-        => (await _context.Products!.ToListAsync()).Where(x => x.ProductStatus == Status.Show).ToList()!;
+        => await _context.Products.Where(x => x.ProductStatus == Status.Show).ToListAsync();
 
     public async ValueTask<Product?> GetProductByIdAsync(Ulid productId)
-        => await _context.Products!.FindAsync(productId);
+        => await _context.Products.FindAsync(productId);
 
     public async ValueTask<Product?> ChangeStateProductAsync(ProductStatus status, Ulid productId)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshFactorService.QueryHandler;
 
-public class GetAllForoshFactorsHandler : IRequestHandler<GetAllForoshFactorsQuery, ICollection<ForoshFactor?>>
+public readonly struct GetAllForoshFactorsHandler : IRequestHandler<GetAllForoshFactorsQuery, ICollection<ForoshFactor?>>
 {
     private readonly IForoshFactorRepository _repository;
 

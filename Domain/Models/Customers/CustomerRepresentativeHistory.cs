@@ -12,9 +12,9 @@ public class CustomerRepresentativeHistory : BaseEntity
     //public int CustomerRepresentativeId { get; set; }
 
     //[ForeignKey(nameof(Id))]
-    public Customer Customers { get; set; }
+    // public Customer Customers { get; set; }
     //[ForeignKey(nameof(CustomerRepresentativeId))]
     //public Customer CustomerRepresentative { get; set; }
     //[ForeignKey(nameof(CustomerRepresentativeTypeId))]
-    public CustomerRepresentativeType CustomerRepresentativeType { get; set; }
+    // public CustomerRepresentativeType CustomerRepresentativeType { get; set; }
 }

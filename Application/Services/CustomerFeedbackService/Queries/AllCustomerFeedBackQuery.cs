@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerFeedbackService.Queries;
 
-public class AllCustomerFeedBackQuery
+public struct AllCustomerFeedBackQuery
 {
     
 }

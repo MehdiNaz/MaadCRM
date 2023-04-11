@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.CommandHandlers;
 
-public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand, Contact>
+public readonly struct CreateContactCommandHandler : IRequestHandler<CreateContactCommand, Contact>
 {
     private readonly IContactRepository _repository;
 

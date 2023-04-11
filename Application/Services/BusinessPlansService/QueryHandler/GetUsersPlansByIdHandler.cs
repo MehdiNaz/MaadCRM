@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.QueryHandler;
 
-public readonly struct GetUsersPlansByIdHandler : IRequestHandler<BusinessPlansByIdQuery, BusinessPlans?>
+public readonly struct GetUsersPlansByIdHandler : IRequestHandler<BusinessPlansByIdQuery, BusinessPlan?>
 {
     private readonly IBusinessPlanRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct GetUsersPlansByIdHandler : IRequestHandler<BusinessPlansB
         _repository = repository;
     }
 
-    public async Task<BusinessPlans?> Handle(BusinessPlansByIdQuery request, CancellationToken cancellationToken)
+    public async Task<BusinessPlan?> Handle(BusinessPlansByIdQuery request, CancellationToken cancellationToken)
         => (await _repository.GetBusinessPlansByIdAsync(request.BusinessPlansId));
 }

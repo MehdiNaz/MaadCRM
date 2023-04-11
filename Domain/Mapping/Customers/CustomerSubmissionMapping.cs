@@ -7,7 +7,7 @@ public class CustomerSubmissionMapping : IEntityTypeConfiguration<CustomerSubmis
         builder.ToTable("CustomerSubmissions");
         builder.HasKey(x => x.CustomerSubmissionId);
 
-        builder.HasOne(x => x.Customers).WithMany(x => x.CustomerSubmission).HasForeignKey(x => x.CustomerSubmissionId);
-        builder.HasOne(x => x.Users).WithMany(x => x.CustomerSubmissions).HasForeignKey(x => x.UserId);
+        // builder.HasOne(x => x.Customers).WithMany(x => x.CustomerSubmission).HasForeignKey(x => x.CustomerSubmissionId);
+        // builder.HasOne(x => x.Users).WithMany(x => x.CustomerSubmissions).HasForeignKey(x => x.UserId);
     }
 }

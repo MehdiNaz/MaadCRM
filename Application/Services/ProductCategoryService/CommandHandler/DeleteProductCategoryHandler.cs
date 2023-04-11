@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public class DeleteProductCategoryHandler : IRequestHandler<DeleteProductCategoryCommand, ProductCategory>
+public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProductCategoryCommand, ProductCategory>
 {
     private readonly IProductCategoryRepository _repository;
 

@@ -9,10 +9,11 @@ public class BusinessAttributeRepository : IBusinessAttributeRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<BusinessAttribute?>> GetAllBusinessAttributesAsync() => (await _context.BusinessAttributes!.ToListAsync())!;
+    public async ValueTask<ICollection<BusinessAttribute?>> GetAllBusinessAttributesAsync()
+        => await _context.BusinessAttributes.Where(x => x.BusinessAttributeStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<BusinessAttribute?> GetBusinessAttributeByIdAsync(int businessAttributeId) => await _context.BusinessAttributes!.FindAsync(businessAttributeId);
-
+    public async ValueTask<BusinessAttribute?> GetBusinessAttributeByIdAsync(int businessAttributeId) 
+        => await _context.BusinessAttributes.FindAsync(businessAttributeId);
 
     public async ValueTask<BusinessAttribute?> CreateBusinessAttributeAsync(BusinessAttribute? toCreate)
     {

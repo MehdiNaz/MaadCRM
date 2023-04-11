@@ -6,6 +6,7 @@ public class Business : BaseEntity
     {
         BusinessId = Ulid.NewUlid();
         BusinessStatus = Status.Show;
+        DisplayOrder = 0;
         //DateCreated = DateTime.UtcNow;
         //DateLastUpdate = DateTime.UtcNow;
     }
@@ -17,7 +18,7 @@ public class Business : BaseEntity
     public string? CompanyName { get; set; }
     public string? CompanyAddress { get; set; }
     //public bool SslEnabled { get; set; }
-    public int? DisplayOrder { get; set; } = 0;
+    public int? DisplayOrder { get; set; } 
     //public Ulid? Id { get; set; }
     //public Ulid? ContactId { get; set; }
     //public Ulid? ContactGroupId { get; set; }
@@ -29,13 +30,13 @@ public class Business : BaseEntity
     public ICollection<User>? Users { get; set; }                                   //Relation OK
     public ICollection<Contact>? Contacts { get; set; }                            //Relation OK
     public ICollection<ContactGroup>? ContactGroups { get; set; }                  //Relation OK
-    public ICollection<AttributeOptions>? AttributeOptions { get; set; }           //Relation OK
+    public ICollection<AttributeOption>? AttributeOptions { get; set; }           //Relation OK
     public ICollection<AttributeOptionsValue>? AttributeOptionsValues { get; set; }//Relation OK
     //public BusinessAttribute BusinessAttribute { get; set; }
     //public CategoryAttribute CategoryAttribute { get; set; }
 
     public ICollection<Setting>? Setting { get; set; }
     public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
-    public ICollection<BusinessPlans>? BusinessPlans { get; set; }                 //Relation OK
+    public ICollection<BusinessPlan>? BusinessPlans { get; set; }                 //Relation OK
     // public ICollection<Customer>? Customers { get; set; }                           //Relation OK
 }

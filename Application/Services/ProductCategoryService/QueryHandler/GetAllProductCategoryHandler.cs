@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.QueryHandler;
 
-public class GetAllProductCategoryHandler : IRequestHandler<GetAllProductCategoriesQuery, ICollection<ProductCategory?>>
+public readonly struct GetAllProductCategoryHandler : IRequestHandler<GetAllProductCategoriesQuery, ICollection<ProductCategory?>>
 {
     private readonly IProductCategoryRepository _repository;
 

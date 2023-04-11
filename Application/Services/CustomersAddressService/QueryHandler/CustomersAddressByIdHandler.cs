@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.QueryHandler;
 
-public class CustomersAddressByIdHandler : IRequestHandler<CustomerAddressByIdQuery, CustomersAddress?>
+public readonly struct CustomersAddressByIdHandler : IRequestHandler<CustomerAddressByIdQuery, CustomersAddress?>
 {
     private readonly ICustomersAddressRepository _repository;
 

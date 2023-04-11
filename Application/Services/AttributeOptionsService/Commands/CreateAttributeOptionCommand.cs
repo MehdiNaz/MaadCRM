@@ -1,6 +1,5 @@
 ﻿namespace Application.Services.AttributeOptionsService.Commands;
 
-public class CreateAttributeOptionCommand : IRequest<AttributeOptions>
+public struct CreateAttributeOptionCommand : IRequest<AttributeOption>
 {
-
 }

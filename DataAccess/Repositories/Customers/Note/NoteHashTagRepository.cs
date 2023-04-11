@@ -10,11 +10,10 @@ public class NoteHashTagRepository : INoteHashTagRepository
     }
 
     public async ValueTask<ICollection<NoteHashTag?>> GetAllNoteHashTagsAsync()
-        => (await _context.NoteHashTags!.ToListAsync()).Where(x => x.NoteHashTagStatus == Status.Show).ToList()!;
+        => await _context.NoteHashTags.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
 
     public async ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
-        => await _context.NoteHashTags!.FindAsync(noteHashTagId);
-
+        => await _context.NoteHashTags.FindAsync(noteHashTagId);
 
     public async ValueTask<NoteHashTag?> CreateNoteHashTagAsync(NoteHashTag? entity)
     {

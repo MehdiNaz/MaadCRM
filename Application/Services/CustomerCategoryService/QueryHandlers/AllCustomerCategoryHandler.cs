@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.QueryHandlers;
 
-public class AllCustomerCategoryHandler : IRequestHandler<AllItemsCustomerCategoryQuery, ICollection<CustomerCategory?>>
+public readonly struct AllCustomerCategoryHandler : IRequestHandler<AllItemsCustomerCategoryQuery, ICollection<CustomerCategory?>>
 {
     private readonly ICustomerCategoryRepository _repository;
 

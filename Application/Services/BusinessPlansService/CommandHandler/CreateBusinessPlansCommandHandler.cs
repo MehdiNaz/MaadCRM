@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.CommandHandler;
 
-public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<CreateBusinessPlansCommand, BusinessPlans>
+public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<CreateBusinessPlansCommand, BusinessPlan>
 {
     private readonly IBusinessPlanRepository _repository;
 
@@ -10,9 +10,9 @@ public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<Creat
         _repository = repository;
     }
 
-    public async Task<BusinessPlans> Handle(CreateBusinessPlansCommand request, CancellationToken cancellationToken)
+    public async Task<BusinessPlan> Handle(CreateBusinessPlansCommand request, CancellationToken cancellationToken)
     {
-        BusinessPlans item = new()
+        BusinessPlan item = new()
         {
             PlanId = request.PlanId,
             BusinessId = request.BusinessId,

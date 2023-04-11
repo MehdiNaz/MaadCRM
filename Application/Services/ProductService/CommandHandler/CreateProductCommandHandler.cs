@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Product>
+public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Product>
 {
     private readonly IProductRepository _repository;
 

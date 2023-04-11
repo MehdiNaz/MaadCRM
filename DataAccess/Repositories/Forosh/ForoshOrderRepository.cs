@@ -1,6 +1,4 @@
-﻿using Application.Interfaces.Customers.Forosh;
-
-namespace DataAccess.Repositories.Forosh;
+﻿namespace DataAccess.Repositories.Forosh;
 
 public class ForoshOrderRepository : IForoshOrderRepository
 {
@@ -12,10 +10,10 @@ public class ForoshOrderRepository : IForoshOrderRepository
     }
 
     public async ValueTask<ICollection<ForoshOrder?>> GetAllForoshOrdersAsync()
-        => (await _context.ForoshOrders!.ToListAsync()).Where(x => x.ForoshOrderStatus == Status.Show).ToList()!;
+        => await _context.ForoshOrders.Where(x => x.ForoshOrderStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ForoshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
-        => await _context.ForoshOrders!.FindAsync(foroshOrderId);
+        => await _context.ForoshOrders.FindAsync(foroshOrderId);
 
     public async ValueTask<ForoshOrder?> CreateForoshOrderAsync(ForoshOrder? entity)
     {

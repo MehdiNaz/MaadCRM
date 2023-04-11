@@ -26,6 +26,6 @@ public class Product : BaseEntity
 
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK
     public ICollection<ForoshOrder>? ForoshOrders { get; set; }                                          //Relation OK
-    public ProductCategory ProductCategory{ get; set; }                                                 //Relation OK
+    //public ProductCategory ProductCategory{ get; set; }                                                 //Relation OK
     public virtual ICollection<Visit>? Visits { get; set; }
 }

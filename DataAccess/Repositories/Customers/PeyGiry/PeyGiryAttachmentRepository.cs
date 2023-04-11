@@ -10,10 +10,10 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
     }
 
     public async ValueTask<ICollection<PeyGiryAttachment?>> GetAllPeyGiryAttachmentsAsync()
-        => (await _context.PeyGiryAttachments!.ToListAsync()).Where(x => x.StatusPeyGiryAttachment == Status.Show).ToList()!;
+        => await _context.PeyGiryAttachments.Where(x => x.StatusPeyGiryAttachment == Status.Show).ToListAsync();
 
     public async ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId)
-        => await _context.PeyGiryAttachments!.FindAsync(peyGiryAttachmentId);
+        => await _context.PeyGiryAttachments.FindAsync(peyGiryAttachmentId);
 
     public async ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(PeyGiryAttachment? entity)
     {

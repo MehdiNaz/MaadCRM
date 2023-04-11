@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.CommandHandler;
 
-public class DeleteBusinessCommandHandler : IRequestHandler<DeleteBusinessCommand, Business>
+public readonly struct DeleteBusinessCommandHandler : IRequestHandler<DeleteBusinessCommand, Business>
 {
     private readonly IBusinessRepository _repository;
 

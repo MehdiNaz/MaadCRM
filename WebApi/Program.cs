@@ -1,7 +1,3 @@
-using WebApi.Routes.Customers;
-using WebApi.Routes.Customers.Notes;
-using WebApi.Routes.Customers.PeyGiry;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -77,5 +73,5 @@ app.MapGet("/test1234", () => Results.Ok("test 1234"));
 
 #endregion
 
-//((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
+((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
 app.Run();

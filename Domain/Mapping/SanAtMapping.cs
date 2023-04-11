@@ -8,6 +8,6 @@ public class SanAtMapping : IEntityTypeConfiguration<SanAt>
         builder.HasKey(x => x.SanAtId);
         builder.Property(x => x.SanAtName).HasMaxLength(250).IsRequired();
 
-        builder.HasOne(x => x.User).WithMany(x => x.SanAts).HasForeignKey(x => x.UserId);
+        // builder.HasOne(x => x.User).WithMany(x => x.SanAts).HasForeignKey(x => x.UserId);
     }
 }

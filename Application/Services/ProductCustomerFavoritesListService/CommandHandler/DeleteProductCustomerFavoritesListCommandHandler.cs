@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCustomerFavoritesListService.CommandHandler;
 
-public class DeleteProductCustomerFavoritesListCommandHandler : IRequestHandler<DeleteProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
+public readonly struct DeleteProductCustomerFavoritesListCommandHandler : IRequestHandler<DeleteProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
 {
     private readonly IProductCustomerFavoritesListRepository _repository;
 

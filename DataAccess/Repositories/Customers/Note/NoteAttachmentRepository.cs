@@ -10,11 +10,10 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
     }
 
     public async ValueTask<ICollection<NoteAttachment?>> GetAllNoteAttachmentsAsync()
-        => (await _context.NoteAttachments!.ToListAsync()).Where(x => x.NoteAttachmentStatus == Status.Show).ToList()!;
+        => await _context.NoteAttachments.Where(x => x.NoteAttachmentStatus == Status.Show).ToListAsync();
 
     public async ValueTask<NoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
-        => await _context.NoteAttachments!.FindAsync(noteAttachmentId);
-
+        => await _context.NoteAttachments.FindAsync(noteAttachmentId);
 
     public async ValueTask<NoteAttachment?> CreateNoteAttachmentAsync(NoteAttachment? entity)
     {

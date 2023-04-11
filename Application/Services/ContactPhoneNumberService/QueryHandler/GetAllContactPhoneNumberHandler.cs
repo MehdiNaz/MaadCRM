@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactPhoneNumberService.QueryHandler;
 
-public class GetAllContactPhoneNumberHandler : IRequestHandler<GetAllContactPhoneNumberQuery, ICollection<ContactPhoneNumber>>
+public readonly struct GetAllContactPhoneNumberHandler : IRequestHandler<GetAllContactPhoneNumberQuery, ICollection<ContactPhoneNumber>>
 {
     private readonly IContactPhoneNumberRepository _repository;
 

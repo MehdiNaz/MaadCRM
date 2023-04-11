@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactGroupService.QueryHandler;
 
-public class GetAllContactGroupHandler : IRequestHandler<GetAllContactGroupQuery, ICollection<ContactGroup?>>
+public readonly struct GetAllContactGroupHandler : IRequestHandler<GetAllContactGroupQuery, ICollection<ContactGroup?>>
 {
     private readonly IContactGroupRepository _repository;
 

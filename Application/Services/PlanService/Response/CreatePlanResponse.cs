@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.Response;
 
-public class CreatePlanResponse
+public struct CreatePlanResponse
 {
     public required uint CountOfUsers { get; set; }
     public required uint CountOfDay { get; set; }

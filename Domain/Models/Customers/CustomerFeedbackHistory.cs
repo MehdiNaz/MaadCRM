@@ -9,7 +9,7 @@ public class CustomerFeedbackHistory : BaseEntity
     public bool IsActivePoint { get; set; }
 
     //[ForeignKey(nameof(Id))]
-    public Customer Customers { get; set; }
+    // public Customer Customers { get; set; }
     //[ForeignKey(nameof(CustomerFeedbackId))]
-    public CustomerFeedback CustomerFeedback { get; set; }
+    // public CustomerFeedback CustomerFeedback { get; set; }
 }

@@ -12,7 +12,7 @@ public class ProductCategoryMapping : IEntityTypeConfiguration<ProductCategory>
         builder.Property(x => x.Description).HasMaxLength(500).IsRequired();
         builder.Property(x => x.Icon).HasMaxLength(255);
 
-        builder.HasMany(x => x.Products).WithOne(x => x.ProductCategory).HasForeignKey(x => x.ProductCategoryId);
+        // builder.HasMany(x => x.Products).WithOne(x => x.ProductCategory).HasForeignKey(x => x.ProductCategoryId);
 
 
         // SelfRelation

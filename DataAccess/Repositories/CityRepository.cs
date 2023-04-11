@@ -10,9 +10,10 @@ public class CityRepository : ICityRepository
     }
 
     public async ValueTask<ICollection<City?>> GetAllCitiesAsync()
-        => (await _context.Cities!.ToListAsync()).Where(x => x.CityStatus == Status.Show).ToList()!;
+        => await _context.Cities!.Where(x => x.CityStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<City?> GetCityByIdAsync(Ulid cityId) => await _context.Cities!.FindAsync(cityId);
+    public async ValueTask<City?> GetCityByIdAsync(Ulid cityId)
+        => await _context.Cities.FindAsync(cityId);
 
     public async ValueTask<City?> CreateCityAsync(City? entity)
     {

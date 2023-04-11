@@ -12,6 +12,6 @@ public class BusinessAttributeMapping : IEntityTypeConfiguration<BusinessAttribu
         builder.Property(x => x.ConditionValue).HasMaxLength(255).IsRequired();
 
 
-        builder.HasOne(x => x.CategoryAttribute).WithMany(x => x.BusinessAttributes).HasForeignKey(x => x.CategoryAttributeId);
+        // builder.HasOne(x => x.CategoryAttribute).WithMany(x => x.BusinessAttributes).HasForeignKey(x => x.CategoryAttributeId);
     }
 }

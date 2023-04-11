@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersEmailAddressService.QueryHandler;
 
-public class GetAllCustomersEmailAddressesHandler : IRequestHandler<GetAllCustomersEmailAddressesQuery, ICollection<CustomersEmailAddress?>>
+public readonly struct GetAllCustomersEmailAddressesHandler : IRequestHandler<GetAllCustomersEmailAddressesQuery, ICollection<CustomersEmailAddress?>>
 {
     private readonly ICustomersEmailAddressRepository _repository;
 

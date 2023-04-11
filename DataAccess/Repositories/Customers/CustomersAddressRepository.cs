@@ -13,7 +13,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         => await _context.CustomersAddresses.Where(x => x.CustomersAddressStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId)
-        => await _context.CustomersAddresses!.FindAsync(customersAddressId);
+        => await _context.CustomersAddresses.FindAsync(customersAddressId);
 
     public async ValueTask<CustomersAddress?> CreateAddressAsync(CustomersAddress? entity)
     {

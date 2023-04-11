@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCustomerFavoritesListService.CommandHandler;
 
-public class CreateProductCustomerFavoritesListCommandHandler : IRequestHandler<CreateProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
+public readonly struct CreateProductCustomerFavoritesListCommandHandler : IRequestHandler<CreateProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
 {
     private readonly IProductCustomerFavoritesListRepository _repository;
 

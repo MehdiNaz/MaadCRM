@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.QueryHandler;
 
-public class PlanByIdHandler : IRequestHandler<PlanByIdQuery, Plan?>
+public readonly struct PlanByIdHandler : IRequestHandler<PlanByIdQuery, Plan?>
 {
     private readonly IPlanRepository _repository;
 

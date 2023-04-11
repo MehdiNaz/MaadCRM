@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public class UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCustomerCategoryCommand, CustomerCategory>
+public readonly struct UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCustomerCategoryCommand, CustomerCategory>
 {
     private readonly ICustomerCategoryRepository _repository;
 

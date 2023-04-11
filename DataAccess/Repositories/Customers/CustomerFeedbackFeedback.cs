@@ -10,11 +10,11 @@ public class CustomerFeedbackFeedback : ICustomerFeedbackFeedback
     }
 
     public async ValueTask<ICollection<CustomerFeedback?>> GetAllCustomerFeedbacksAsync()
-        => (await _context.CustomerFeedbacks!.ToListAsync()).Where(x => x.CustomerFeedbackStatus == Status.Show).ToList()!;
+        => await _context.CustomerFeedbacks.Where(x => x.CustomerFeedbackStatus == Status.Show).ToListAsync();
 
 
     public async ValueTask<CustomerFeedback?> GetCustomerFeedbackByIdAsync(Ulid customerFeedbackId)
-        => await _context.CustomerFeedbacks!.FindAsync(customerFeedbackId);
+        => await _context.CustomerFeedbacks.FindAsync(customerFeedbackId);
 
     public async ValueTask<CustomerFeedback?> CreateCustomerFeedbackAsync(CustomerFeedback? entity)
     {

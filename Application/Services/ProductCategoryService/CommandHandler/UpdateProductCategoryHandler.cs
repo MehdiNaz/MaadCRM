@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public class UpdateProductCategoryHandler : IRequestHandler<UpdateProductCategoryCommand, ProductCategory>
+public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProductCategoryCommand, ProductCategory>
 {
     private readonly IProductCategoryRepository _repository;
 

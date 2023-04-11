@@ -14,5 +14,5 @@ public class PeyGiryAttachment : BaseEntity
     public string Extenstion { get; set; }
     public Status StatusPeyGiryAttachment { get; set; }
 
-    public CustomerPeyGiry CustomerPeyGiry { get; set; }
+    // public CustomerPeyGiry CustomerPeyGiry { get; set; }
 }

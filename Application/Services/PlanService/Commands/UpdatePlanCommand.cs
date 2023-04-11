@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.Commands;
 
-public class UpdatePlanCommand : IRequest<Plan>
+public struct UpdatePlanCommand : IRequest<Plan>
 {
     public required Ulid Id { get; set; }
     public required string PlanName { get; set; }

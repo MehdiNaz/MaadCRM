@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
-public class DeleteForoshOrderCommandHandler : IRequestHandler<DeleteForoshOrderCommand, ForoshOrder>
+public readonly struct DeleteForoshOrderCommandHandler : IRequestHandler<DeleteForoshOrderCommand, ForoshOrder>
 {
     private readonly IForoshOrderRepository _repository;
 

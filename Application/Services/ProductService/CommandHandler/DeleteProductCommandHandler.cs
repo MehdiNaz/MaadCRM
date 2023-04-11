@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Product>
+public readonly struct DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Product>
 {
     private readonly IProductRepository _repository;
 

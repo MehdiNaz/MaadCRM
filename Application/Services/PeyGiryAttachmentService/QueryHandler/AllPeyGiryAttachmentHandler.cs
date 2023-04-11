@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PeyGiryAttachmentService.QueryHandler;
 
-public class AllPeyGiryAttachmentHandler : IRequestHandler<AllPeyGiryAttachmentQuery, ICollection<PeyGiryAttachment>>
+public readonly struct AllPeyGiryAttachmentHandler : IRequestHandler<AllPeyGiryAttachmentQuery, ICollection<PeyGiryAttachment>>
 {
     private readonly IPeyGiryAttachmentRepository _repository;
 

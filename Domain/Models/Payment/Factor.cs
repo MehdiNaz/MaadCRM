@@ -1,6 +1,6 @@
 namespace Domain.Models.Payment;
 
-public class Factor:BaseEntity
+public class Factor : BaseEntity
 {
     public int Id { get; set; }
     public string IdUser { get; set; }
@@ -24,6 +24,6 @@ public class Factor:BaseEntity
     public DateTime? DateReturned { get; set; }
 
 
-    public virtual PaymentMethod IdPaymenthMethodNavigation { get; set; }
+    //public virtual PaymentMethod IdPaymenthMethodNavigation { get; set; }
     public virtual ICollection<Order>? Orders { get; set; }
 }

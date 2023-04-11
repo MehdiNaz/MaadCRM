@@ -10,9 +10,10 @@ public class SanAtRepository : ISanAtRepository
     }
 
     public async Task<ICollection<SanAt?>> GetAllSanAtsAsync()
-        => (await _context.SanAts!.ToListAsync()).Where(x => x.SanAtStatus == Status.Show).ToList()!;
+        => await _context.SanAts!.Where(x => x.SanAtStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId) => await _context.SanAts!.FindAsync(sanAtId);
+    public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId)
+        => await _context.SanAts.FindAsync(sanAtId);
 
     public async ValueTask<SanAt?> CreateSanAtsAsync(SanAt? entity)
     {

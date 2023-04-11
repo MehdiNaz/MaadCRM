@@ -23,7 +23,7 @@ public class AttributeOptionsValue : BaseEntity
     public Status AttributeOptionsValueStatus { get; set; }
 
 
-    public Business Business { get; set; }
-    public Customer Customer { get; set; }
-    public AttributeOptions AttributeOptions { get; set; }
+    //public Business Business { get; set; }
+    //public Customer Customer { get; set; }
+    //public AttributeOptions AttributeOptions { get; set; }
 }

@@ -24,6 +24,6 @@ public class BusinessAttribute : BaseEntity
 
 
     public ICollection<Business>? Businesses { get; set; }
-    public CategoryAttribute CategoryAttribute { get; set; }
-    public ICollection<AttributeOptions>? AttributeOptions { get; set; }
+    //public CategoryAttribute CategoryAttribute { get; set; }
+    public ICollection<AttributeOption>? AttributeOptions { get; set; }
 }

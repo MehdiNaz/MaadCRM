@@ -162,10 +162,6 @@ namespace DataAccess.Migrations
                     b.Property<bool>("IsDefault")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Province")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<string>("ProvinceName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -229,7 +225,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Businesses", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlan", b =>
                 {
                     b.Property<string>("BusinessPlansId")
                         .HasColumnType("character varying(26)");
@@ -285,8 +281,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("ContactPhoneNumberId")
+                        .HasColumnType("character varying(26)");
+
                     b.Property<int>("ContactStatus")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ContactsEmailAddressCustomersEmailAddressId")
+                        .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
@@ -322,9 +324,9 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ContactGroupId");
 
-                    b.HasIndex("EmailId");
+                    b.HasIndex("ContactPhoneNumberId");
 
-                    b.HasIndex("MobileNumberId");
+                    b.HasIndex("ContactsEmailAddressCustomersEmailAddressId");
 
                     b.ToTable("Contacts", (string)null);
                 });
@@ -639,8 +641,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerRepresentativeHistoryId");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("CustomerRepresentativeTypeId");
 
                     b.ToTable("CustomerRepresentativeHistories", (string)null);
@@ -697,6 +697,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("CustomerSubmissionId");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -1037,6 +1039,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("PeyGiryAttachmentId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CustomerPeyGiryId")
+                        .HasColumnType("character varying(26)");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -1060,6 +1065,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("PeyGiryAttachmentId");
+
+                    b.HasIndex("CustomerPeyGiryId");
 
                     b.ToTable("PeyGiryAttachments", (string)null);
                 });
@@ -1288,13 +1295,9 @@ namespace DataAccess.Migrations
                     b.ToTable("SanAts", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptions", b =>
+            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>
                 {
                     b.Property<string>("AttributeOptionsId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("AttributeOptions")
-                        .IsRequired()
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("AttributeOptionsStatus")
@@ -1920,35 +1923,29 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Address.Address", b =>
                 {
-                    b.HasOne("Domain.Models.Address.City", "City")
+                    b.HasOne("Domain.Models.Address.City", null)
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.City", b =>
                 {
-                    b.HasOne("Domain.Models.Address.Province", "Province")
+                    b.HasOne("Domain.Models.Address.Province", null)
                         .WithMany("Cities")
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Province");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.Province", b =>
                 {
-                    b.HasOne("Domain.Models.Address.Country", "Country")
+                    b.HasOne("Domain.Models.Address.Country", null)
                         .WithMany("Provinces")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
@@ -1958,78 +1955,60 @@ namespace DataAccess.Migrations
                         .HasForeignKey("BusinessAttributeId");
                 });
 
-            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlans", b =>
+            modelBuilder.Entity("Domain.Models.Businesses.BusinessPlan", b =>
                 {
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("BusinessPlans")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Plans.Plan", "Plan")
+                    b.HasOne("Domain.Models.Plans.Plan", null)
                         .WithMany("UsersPlans")
                         .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
                 {
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("Contacts")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Contacts.ContactGroup", "ContactGroup")
+                    b.HasOne("Domain.Models.Contacts.ContactGroup", null)
                         .WithMany("Contacts")
                         .HasForeignKey("ContactGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Contacts.ContactsEmailAddress", "ContactsEmailAddress")
+                    b.HasOne("Domain.Models.Contacts.ContactPhoneNumber", null)
                         .WithMany("Contacts")
-                        .HasForeignKey("EmailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactPhoneNumberId");
 
-                    b.HasOne("Domain.Models.Contacts.ContactPhoneNumber", "ContactPhoneNumber")
+                    b.HasOne("Domain.Models.Contacts.ContactsEmailAddress", null)
                         .WithMany("Contacts")
-                        .HasForeignKey("MobileNumberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Business");
-
-                    b.Navigation("ContactGroup");
-
-                    b.Navigation("ContactPhoneNumber");
-
-                    b.Navigation("ContactsEmailAddress");
+                        .HasForeignKey("ContactsEmailAddressCustomersEmailAddressId");
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
                 {
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("ContactGroups")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.HasOne("Domain.Models.Address.City", "City")
+                    b.HasOne("Domain.Models.Address.City", null)
                         .WithMany("Customers")
                         .HasForeignKey("CityId");
 
-                    b.HasOne("Domain.Models.Customers.CustomerCategory", "CustomerCategory")
+                    b.HasOne("Domain.Models.Customers.CustomerCategory", null)
                         .WithMany("Customers")
                         .HasForeignKey("CustomerCategoryId");
 
@@ -2043,22 +2022,16 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
-
-                    b.Navigation("CustomerCategory");
-
                     b.Navigation("CustomerMoaref");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerActivities")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerCategory", b =>
@@ -2070,59 +2043,41 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerFeedbackHistory", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.CustomerFeedback", "CustomerFeedback")
+                    b.HasOne("Domain.Models.Customers.CustomerFeedback", null)
                         .WithMany("CustomerFeedbackHistories")
                         .HasForeignKey("CustomerFeedbackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Customers.Customer", "Customers")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerFeedbackHistory")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CustomerFeedback");
-
-                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerRepresentativeHistory", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customers")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Customers.CustomerRepresentativeType", "CustomerRepresentativeType")
+                    b.HasOne("Domain.Models.Customers.CustomerRepresentativeType", null)
                         .WithMany("CustomerRepresentativeHistory")
                         .HasForeignKey("CustomerRepresentativeTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CustomerRepresentativeType");
-
-                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerSubmission", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customers")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("CustomerSubmission")
-                        .HasForeignKey("CustomerSubmissionId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.IdentityModels.User", "Users")
+                    b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("CustomerSubmissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customers");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersAddress", b =>
@@ -2154,7 +2109,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("ForoshFactors")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2166,20 +2121,16 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-
                     b.Navigation("CustomersAddress");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshOrder", b =>
                 {
-                    b.HasOne("Domain.Models.Products.Product", "Product")
+                    b.HasOne("Domain.Models.Products.Product", null)
                         .WithMany("ForoshOrders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.CustomerNote", b =>
@@ -2197,18 +2148,16 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.NoteAttachment", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Notes.CustomerNote", "CustomerNote")
+                    b.HasOne("Domain.Models.Customers.Notes.CustomerNote", null)
                         .WithMany("NoteAttachments")
                         .HasForeignKey("CustomerNoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CustomerNote");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Notes.NoteHashTag", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.Notes.CustomerNote", "CustomerNote")
+                    b.HasOne("Domain.Models.Customers.Notes.CustomerNote", null)
                         .WithMany("CustomerHashTags")
                         .HasForeignKey("CustomerNoteId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2217,8 +2166,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("NoteHashTags")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("CustomerNote");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", b =>
@@ -2232,13 +2179,9 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.PeyGiryAttachment", b =>
                 {
-                    b.HasOne("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", "CustomerPeyGiry")
+                    b.HasOne("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", null)
                         .WithMany("PeyGiryAttachments")
-                        .HasForeignKey("PeyGiryAttachmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomerPeyGiry");
+                        .HasForeignKey("CustomerPeyGiryId");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.ProductCustomerFavoritesList", b =>
@@ -2249,13 +2192,11 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Products.Product", "Product")
+                    b.HasOne("Domain.Models.Products.Product", null)
                         .WithMany("FavoritesLists")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Domain.Models.Plans.Plan", b =>
@@ -2269,13 +2210,11 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
-                    b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
+                    b.HasOne("Domain.Models.Products.ProductCategory", null)
                         .WithMany("Products")
                         .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
@@ -2291,68 +2230,54 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.SanAt", b =>
                 {
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                    b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("SanAts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptions", b =>
+            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>
                 {
-                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", "BusinessAttribute")
+                    b.HasOne("Domain.Models.SpecialFields.BusinessAttribute", null)
                         .WithMany("AttributeOptions")
                         .HasForeignKey("BusinessAttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("AttributeOptions")
                         .HasForeignKey("BusinessId");
-
-                    b.Navigation("Business");
-
-                    b.Navigation("BusinessAttribute");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptionsValue", b =>
                 {
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOptions", "AttributeOptions")
+                    b.HasOne("Domain.Models.SpecialFields.AttributeOption", null)
                         .WithMany("AttributeOptionsValues")
                         .HasForeignKey("AttributeOptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("AttributeOptionsValues")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Customers.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customers.Customer", null)
                         .WithMany("AttributeOptionsValues")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("AttributeOptions");
-
-                    b.Navigation("Business");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.BusinessAttribute", b =>
                 {
-                    b.HasOne("Domain.Models.SpecialFields.CategoryAttribute", "CategoryAttribute")
+                    b.HasOne("Domain.Models.SpecialFields.CategoryAttribute", null)
                         .WithMany("BusinessAttributes")
                         .HasForeignKey("CategoryAttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CategoryAttribute");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.CategoryAttribute", b =>
@@ -2444,19 +2369,15 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.IdentityModels.User", b =>
                 {
-                    b.HasOne("Domain.Models.Businesses.Business", "Business")
+                    b.HasOne("Domain.Models.Businesses.Business", null)
                         .WithMany("Users")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Address.City", "City")
+                    b.HasOne("Domain.Models.Address.City", null)
                         .WithMany("Users")
                         .HasForeignKey("CityId");
-
-                    b.Navigation("Business");
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.City", b =>
@@ -2592,7 +2513,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOptions", b =>
+            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>
                 {
                     b.Navigation("AttributeOptionsValues");
                 });

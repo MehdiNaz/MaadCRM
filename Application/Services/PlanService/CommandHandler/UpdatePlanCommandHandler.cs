@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.CommandHandler;
 
-public class UpdatePlanCommandHandler : IRequestHandler<UpdatePlanCommand, Plan>
+public readonly struct UpdatePlanCommandHandler : IRequestHandler<UpdatePlanCommand, Plan>
 {
     private readonly IPlanRepository _repository;
 

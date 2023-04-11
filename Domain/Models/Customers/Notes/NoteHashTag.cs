@@ -13,6 +13,5 @@ public class NoteHashTag : BaseEntity
     public Ulid CustomerNoteId { get; set; }
     public Status NoteHashTagStatus { get; set; }
 
-
-    public CustomerNote CustomerNote { get; set; }
+    // public CustomerNote CustomerNote { get; set; }
 }

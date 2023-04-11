@@ -25,5 +25,5 @@ public class Plan : BaseEntity
     public decimal FinalPrice { get; set; }
     public string UserId { get; set; }
     public Status PlanStatus { get; set; }
-    public ICollection<BusinessPlans>? UsersPlans { get; set; }  //Relation OK
+    public ICollection<BusinessPlan>? UsersPlans { get; set; }  //Relation OK
 }

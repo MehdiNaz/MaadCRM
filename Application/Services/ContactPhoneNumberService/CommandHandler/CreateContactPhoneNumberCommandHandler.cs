@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactPhoneNumberService.CommandHandler;
 
-public class CreateContactPhoneNumberCommandHandler : IRequestHandler<CreateContactPhoneNumberCommand, ContactPhoneNumber>
+public readonly struct CreateContactPhoneNumberCommandHandler : IRequestHandler<CreateContactPhoneNumberCommand, ContactPhoneNumber>
 {
     private readonly IContactPhoneNumberRepository _repository;
 

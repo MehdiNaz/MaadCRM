@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers;
-
-namespace DataAccess.Repositories.Customers;
+﻿namespace DataAccess.Repositories.Customers;
 
 public class CustomerRepository : ICustomerRepository
 {
@@ -14,7 +12,8 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync(string userId)
         => await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.UserId == userId).ToListAsync();
 
-    public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId) => await _context.Customers!.FindAsync(customerId);
+    public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId)
+        => await _context.Customers.FindAsync(customerId);
 
     public async ValueTask<Customer?> CreateCustomerAsync(CreateCustomerCommand entity)
     {
@@ -145,81 +144,81 @@ public class CustomerRepository : ICustomerRepository
             customer.CityId = entity.CityId;
 
 
-            // TODO: Update customer
             await _context.SaveChangesAsync();
 
-            //if (entity.PhoneNumbers != null)
-            //    foreach (string PhoneNumbers in entity.PhoneNumbers)
+            if (entity.PhoneNumbers != null)
+                foreach (string PhoneNumbers in entity.PhoneNumbers)
+                {
+                    CustomersPhoneNumber newPhone = new()
+                    {
+                        CustomerId = entity.Id,
+                        PhoneNo = PhoneNumbers
+                    };
+
+                    await _context.CustomersPhoneNumbers.AddAsync(newPhone);
+                }
+
+            if (entity.CustomersAddresses != null)
+                foreach (string address in entity.CustomersAddresses)
+                {
+                    CustomersAddress newAddress = new()
+                    {
+                        CustomerId = entity.Id,
+                        Address = address
+                    };
+
+                    await _context.CustomersAddresses.AddAsync(newAddress);
+                }
+
+            if (entity.CustomerPeyGiries != null)
+                foreach (string peyGiry in entity.CustomerPeyGiries)
+                {
+                    CustomerPeyGiry newPeyGiry = new()
+                    {
+                        CustomerId = entity.Id,
+                        Description = peyGiry
+                    };
+
+                    await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
+                }
+
+            if (entity.CustomerNotes != null)
+                foreach (string note in entity.CustomerNotes)
+                {
+                    CustomerNote newNote = new()
+                    {
+                        CustomerId = entity.Id,
+                        Description = note
+                    };
+
+                    await _context.CustomerNotes.AddAsync(newNote);
+                }
+
+            if (entity.EmailAddresses != null)
+                foreach (string emailAddress in entity.EmailAddresses)
+                {
+                    CustomersEmailAddress newEmailAddress = new()
+                    {
+                        CustomerId = entity.Id,
+                        CustomersEmailAddrs = emailAddress
+                    };
+
+                    await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
+                }
+
+            //if (entity.FavoritesLists != null)
+            //    foreach (var entityFavoritesList in entity.FavoritesLists)
             //    {
-            //        CustomersPhoneNumber newPhone = new()
+            //        ProductCustomerFavoritesList newFavoritesList = new()
             //        {
-            //            CustomerId = entityEntry.Id,
-            //            PhoneNo = PhoneNumbers
+            //            CustomerId = entity.Id,
+            //            ProductId = Ulid.Parse(entityFavoritesList)
             //        };
 
-            //        await _context.CustomersPhoneNumbers.AddAsync(newPhone);
+            //        await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
             //    }
 
-            // if (entity.CustomersAddresses != null)
-            //     foreach (string address in entity.CustomersAddresses)
-            //     {
-            //         CustomersAddress newAddress = new()
-            //         {
-            //             CustomerId = entityEntry.Id,
-            //             Address = address
-            //         };
-            //
-            //         await _context.CustomersAddresses.AddAsync(newAddress);
-            //     }
-
-            //if (entity.CustomerPeyGiries != null)
-            //    foreach (string peyGiry in entity.CustomerPeyGiries)
-            //    {
-            //        CustomerPeyGiry newPeyGiry = new()
-            //        {
-            //            CustomerId = entityEntry.Id,
-            //            Description = peyGiry
-            //        };
-
-            //        await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
-            //    }
-
-            //if (entity.CustomerNotes != null)
-            //    foreach (string note in entity.CustomerNotes)
-            //    {
-            //        CustomerNote newNote = new()
-            //        {
-            //            CustomerId = entityEntry.Id,
-            //            Description = note
-            //        };
-
-            //        await _context.CustomerNotes.AddAsync(newNote);
-            //    }
-
-            //if (entity.EmailAddresses != null)
-            //    foreach (string emailAddress in entity.EmailAddresses)
-            //    {
-            //        CustomersEmailAddress newEmailAddress = new()
-            //        {
-            //            CustomerId = entityEntry.Id,
-            //            CustomersEmailAddrs = emailAddress
-            //        };
-
-            //        await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
-            //    }
-
-            // if (entity.FavoritesLists != null)
-            //     foreach (var entityFavoritesList in entity.FavoritesLists)
-            //     {
-            //         ProductCustomerFavoritesList newFavoritesList = new()
-            //         {
-            //             CustomerId = entityEntry.Id,
-            //             // ProductId =Ulid.Parse(entityFavoritesList)
-            //         };
-            //
-            //         await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
-            //     }
-
+            await _context.SaveChangesAsync();
 
             return customer;
         }

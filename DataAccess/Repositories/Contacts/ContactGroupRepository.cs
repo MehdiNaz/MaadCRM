@@ -10,9 +10,10 @@ public class ContactGroupRepository : IContactGroupRepository
     }
 
     public async ValueTask<ICollection<ContactGroup?>> GetAllContactGroupsAsync()
-    => (await _context.ContactGroups!.ToListAsync()).Where(x => x.ContactGroupStatus == Status.Show).ToList()!;
+    => await _context.ContactGroups.Where(x => x.ContactGroupStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId) => await _context.ContactGroups!.FindAsync(contactGroupId);
+    public async ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId)
+        => await _context.ContactGroups!.FindAsync(contactGroupId);
 
     public async ValueTask<ContactGroup?> CreateContactGroupAsync(ContactGroup? entity)
     {

@@ -1,7 +1,3 @@
-using Application.Interfaces.Account;
-using Application.Services.Login.Commands;
-using MediatR;
-
 namespace Application.Services.Login.CommandHandler;
 
 public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, bool>
@@ -15,7 +11,7 @@ public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, bool>
 
     public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var result =  await _repository.RegisterUser(request);
+        var result = await _repository.RegisterUser(request);
         return result;
     }
 }

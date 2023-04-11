@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersEmailAddressService.CommandHandler;
 
-public class DeleteCustomersEmailAddressCommandHandler : IRequestHandler<DeleteCustomersEmailAddressCommand, CustomersEmailAddress>
+public readonly struct DeleteCustomersEmailAddressCommandHandler : IRequestHandler<DeleteCustomersEmailAddressCommand, CustomersEmailAddress>
 {
     private readonly ICustomersEmailAddressRepository _repository;
 

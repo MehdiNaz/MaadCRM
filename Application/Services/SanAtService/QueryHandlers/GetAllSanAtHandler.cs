@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.SanAtService.QueryHandlers;
 
-public class GetAllContactHandler : IRequestHandler<GetAllSanAtQuery, ICollection<SanAt?>>
+public readonly struct GetAllContactHandler : IRequestHandler<GetAllSanAtQuery, ICollection<SanAt?>>
 {
     private readonly ISanAtRepository _repository;
 

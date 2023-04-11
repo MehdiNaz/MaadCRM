@@ -35,8 +35,8 @@ public class Customer : BaseEntity
     #endregion
 
     // public Business Business { get; set; }                                                              //Relation OK
-    public City? City { get; set; }                                                                      //Relation OK
-    public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
+    // public City? City { get; set; }                                                                      //Relation OK
+    // public CustomerCategory CustomerCategory { get; set; }                                              //Relation OK
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK
     public ICollection<CustomersEmailAddress>? EmailAddresses { get; set; }                              //Relation OK
     public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; set; }                                 //Relation OK

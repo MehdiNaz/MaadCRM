@@ -1,6 +1,3 @@
-using Application.Interfaces.Account;
-using Domain.Models.IdentityModels;
-
 namespace Application.Services.Login.QueryHandler;
 
 public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, User?>

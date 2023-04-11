@@ -3,6 +3,7 @@ global using Application.Interfaces.Addresses;
 global using Application.Interfaces.Businesses;
 global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
+global using Application.Interfaces.Customers.Forosh;
 global using Application.Interfaces.Customers.Notes;
 global using Application.Interfaces.Customers.PeyGiry;
 global using Application.Interfaces.Plans;

@@ -1,4 +1,3 @@
-
 namespace Application.Services.Login.Queries.Validation;
 
 public class UserByEmailAddressValidation : AbstractValidator<UserByEmailAddressQuery>

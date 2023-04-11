@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.QueryHandler;
 
-public class GetForoshOrderByIdHandler: IRequestHandler<GetForoshOrderByIdQuery, ForoshOrder?>
+public readonly struct GetForoshOrderByIdHandler : IRequestHandler<GetForoshOrderByIdQuery, ForoshOrder?>
 {
     private readonly IForoshOrderRepository _repository;
 

@@ -16,6 +16,6 @@ public class ForoshFactor : BaseEntity
     public Ulid CustomersAddressId { get; set; }
     public Status ForoshFactorStatus { get; set; }
 
-    public Customer Customer { get; set; }
+    // public Customer Customer { get; set; }
     public CustomersAddress CustomersAddress { get; set; }
 }

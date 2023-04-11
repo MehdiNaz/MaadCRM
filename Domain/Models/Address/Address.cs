@@ -22,5 +22,5 @@ public class Address : BaseEntity
     //public Customer Customer { get; set; }
 
     //[ForeignKey(nameof(CityId))]
-    public City City { get; set; }
+    //public City City { get; set; }
 }

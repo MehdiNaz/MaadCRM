@@ -10,9 +10,10 @@ public class PlanRepository : IPlanRepository
     }
 
     public async ValueTask<ICollection<Plan?>> GetAllPlansAsync()
-        => (await _context.Plans.Where(x => x.PlanStatus == Status.Show).ToListAsync())!;
+        => await _context.Plans.Where(x => x.PlanStatus == Status.Show).ToListAsync()!;
 
-    public async ValueTask<Plan?> GetPlansByIdAsync(Ulid postId) => await _context.Plans.FindAsync(postId);
+    public async ValueTask<Plan?> GetPlansByIdAsync(Ulid postId)
+        => await _context.Plans.FindAsync(postId);
 
     public async ValueTask<Plan?> CreatePlanAsync(Plan? toCreate)
     {

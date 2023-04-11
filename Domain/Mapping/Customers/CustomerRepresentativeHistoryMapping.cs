@@ -7,6 +7,6 @@ public class CustomerRepresentativeHistoryMapping : IEntityTypeConfiguration<Cus
         builder.ToTable("CustomerRepresentativeHistories");
         builder.HasKey(x => x.CustomerRepresentativeHistoryId);
 
-        builder.HasOne(x => x.CustomerRepresentativeType).WithMany(x => x.CustomerRepresentativeHistory).HasForeignKey(x => x.CustomerRepresentativeTypeId);
+        // builder.HasOne(x => x.CustomerRepresentativeType).WithMany(x => x.CustomerRepresentativeHistory).HasForeignKey(x => x.CustomerRepresentativeTypeId);
     }
 }

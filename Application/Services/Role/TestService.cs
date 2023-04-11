@@ -1,4 +1,5 @@
-namespace Application.Services;
+namespace Application.Services.Role;
+
 public interface ITestService
 {
     Task<bool> AddRole();

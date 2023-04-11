@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.ForoshFactorService.Queries;
 
-public class GetAllForoshFactorsQuery : IRequest<ICollection<ForoshFactor>>
+public struct GetAllForoshFactorsQuery : IRequest<ICollection<ForoshFactor>>
 {
 }

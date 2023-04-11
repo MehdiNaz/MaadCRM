@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
-public class CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForoshOrder>
+public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForoshOrder>
 {
     private readonly IForoshOrderRepository _repository;
 

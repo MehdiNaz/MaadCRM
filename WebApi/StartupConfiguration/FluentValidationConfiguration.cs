@@ -14,6 +14,8 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(AttributeOptionsValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(AttributeOptionsValueValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(BusinessAttributeValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(CreateBusinessPlanValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(UpdateBusinessPlanValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CategoryAttributeValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerActivityValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerCategoryValidation).Assembly);

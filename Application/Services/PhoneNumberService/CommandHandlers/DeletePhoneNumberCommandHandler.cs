@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PhoneNumberService.CommandHandlers;
 
-public class DeletePhoneNumberCommandHandler : IRequestHandler<DeletePhoneNumberCommand, CustomersPhoneNumber>
+public readonly struct DeletePhoneNumberCommandHandler : IRequestHandler<DeletePhoneNumberCommand, CustomersPhoneNumber>
 {
     private readonly ICustomersPhoneNumberRepository _repository;
 

@@ -9,10 +9,12 @@ public class AttributeOptionsValueRepository : IAttributeOptionsValueRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<AttributeOptionsValue?>> GetAllAttributeOptionsValueAsync() => (await _context.AttributeOptionsValues!.ToListAsync())!;
+    public async ValueTask<ICollection<AttributeOptionsValue?>> GetAllAttributeOptionsValueAsync()
+        => await _context.AttributeOptionsValues.Where(x => x.AttributeOptionsValueStatus == Status.Show).ToListAsync();
 
 
-    public async ValueTask<AttributeOptionsValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId) => await _context.AttributeOptionsValues!.FindAsync(attributeOptionsValueId);
+    public async ValueTask<AttributeOptionsValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId) 
+        => await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId);
 
     public async ValueTask<AttributeOptionsValue?> CreateAttributeOptionsValueAsync(AttributeOptionsValue? toCreate)
     {

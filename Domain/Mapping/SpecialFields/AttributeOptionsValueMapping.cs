@@ -12,8 +12,8 @@ public class AttributeOptionsValueMapping : IEntityTypeConfiguration<AttributeOp
         builder.Property(x => x.FilePath).HasMaxLength(500).IsRequired();
         builder.Property(x => x.ImagePath).HasMaxLength(500).IsRequired();
 
-        builder.HasOne(x => x.Customer).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.CustomerId);
-        builder.HasOne(x => x.AttributeOptions).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.AttributeOptionId);
-        builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Customer).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.CustomerId);
+        // builder.HasOne(x => x.AttributeOptions).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.AttributeOptionId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptionsValues).HasForeignKey(x => x.BusinessId);
     }
 }

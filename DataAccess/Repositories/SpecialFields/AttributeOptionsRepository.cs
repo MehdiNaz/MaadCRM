@@ -9,18 +9,20 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<AttributeOptions?>> GetAllAttributeOptionsAsync() => (await _context.AttributeOptions!.ToListAsync())!;
+    public async ValueTask<ICollection<AttributeOption?>> GetAllAttributeOptionsAsync()
+        => await _context.AttributeOptions.Where(x => x.AttributeOptionsStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<AttributeOptions?> GetAttributeOptionsByIdAsync(int attributeOptionsId) => await _context.AttributeOptions!.FindAsync(attributeOptionsId);
+    public async ValueTask<AttributeOption?> GetAttributeOptionsByIdAsync(int attributeOptionsId)
+        => await _context.AttributeOptions.FindAsync(attributeOptionsId);
 
-    public async ValueTask<AttributeOptions?> CreateAttributeOptionsAsync(AttributeOptions? toCreate)
+    public async ValueTask<AttributeOption?> CreateAttributeOptionsAsync(AttributeOption? toCreate)
     {
         await _context.AttributeOptions!.AddAsync(toCreate);
         await _context.SaveChangesAsync();
         return toCreate;
     }
 
-    public async ValueTask<AttributeOptions?> UpdateAttributeOptionsAsync(string updateContent, int attributeOptionsId)
+    public async ValueTask<AttributeOption?> UpdateAttributeOptionsAsync(string updateContent, int attributeOptionsId)
     {
         var attributeOptions = await GetAttributeOptionsByIdAsync(attributeOptionsId);
         _context.Update(attributeOptions);
@@ -28,7 +30,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
         return attributeOptions;
     }
 
-    public async ValueTask<AttributeOptions?> DeleteAttributeOptionsAsync(int attributeOptionsId)
+    public async ValueTask<AttributeOption?> DeleteAttributeOptionsAsync(int attributeOptionsId)
     {
         try
         {

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-public class UpdateForoshFactorCommandHandler : IRequestHandler<UpdateForoshFactorCommand, ForoshFactor>
+public readonly struct UpdateForoshFactorCommandHandler : IRequestHandler<UpdateForoshFactorCommand, ForoshFactor>
 {
     private readonly IForoshFactorRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public class ChangeStateProductCommandHandler : IRequestHandler<ChangeStateProductCommand, Product>
+public readonly struct ChangeStateProductCommandHandler : IRequestHandler<ChangeStateProductCommand, Product>
 {
     private readonly IProductRepository _repository;
 

@@ -9,6 +9,6 @@ public class CustomerActivityMapping : IEntityTypeConfiguration<CustomerActivity
         builder.Property(x => x.CustomerActivityName).HasMaxLength(250).IsRequired();
         builder.Property(x => x.CustomerActivityDescription).HasMaxLength(500).IsRequired();
 
-        builder.HasOne(x => x.Customer).WithMany(x => x.CustomerActivities).HasForeignKey(x => x.CustomerId);
+        // builder.HasOne(x => x.Customer).WithMany(x => x.CustomerActivities).HasForeignKey(x => x.CustomerId);
     }
 }

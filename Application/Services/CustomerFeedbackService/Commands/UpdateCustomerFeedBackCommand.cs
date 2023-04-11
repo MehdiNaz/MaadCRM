@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerFeedbackService.Commands;
 
-public class UpdateCustomerFeedBackCommand
+public struct UpdateCustomerFeedBackCommand
 {
     
 }

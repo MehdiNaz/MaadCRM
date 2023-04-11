@@ -1,8 +1,6 @@
-using Domain.Models.IdentityModels;
-
 namespace Application.Services.Profile.Command;
 
-public class SetProfileCommand : IRequest<User?>
+public struct SetProfileCommand : IRequest<User?>
 {
     public string Id { get; set; }
     public string Name { get; set; }

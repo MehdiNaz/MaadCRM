@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PhoneNumberService.CommandHandlers;
 
-public class UpdatePhoneNumberCommandHandler : IRequestHandler<UpdatePhoneNumberCommand, CustomersPhoneNumber>
+public readonly struct UpdatePhoneNumberCommandHandler : IRequestHandler<UpdatePhoneNumberCommand, CustomersPhoneNumber>
 {
     private readonly ICustomersPhoneNumberRepository _repository;
 

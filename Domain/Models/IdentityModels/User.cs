@@ -33,8 +33,8 @@ public class User : IdentityUser
     public string Token { get; set; }// JWT Token
 
 
-    public Business Business { get; set; }
-    public City? City { get; set; }
+    // public Business Business { get; set; }
+    // public City? City { get; set; }
     //public ICollection<Business>? Businesses { get; set; }
     public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }

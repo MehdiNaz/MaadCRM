@@ -1,8 +1,8 @@
 ﻿namespace Domain.Mapping.SpecialFields;
 
-public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOptions>
+public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOption>
 {
-    public void Configure(EntityTypeBuilder<AttributeOptions> builder)
+    public void Configure(EntityTypeBuilder<AttributeOption> builder)
     {
         builder.ToTable("AttributeOptions");
         builder.HasKey(x => x.AttributeOptionsId);
@@ -10,7 +10,7 @@ public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOptions
         builder.Property(x => x.ColorSquaresRgb).HasMaxLength(255).IsRequired();
 
 
-        builder.HasOne(x => x.BusinessAttribute).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessAttributeId);
-        builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.BusinessAttribute).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessAttributeId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessId);
     }
 }

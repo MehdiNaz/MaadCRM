@@ -10,12 +10,10 @@ public class ProductCategoryRepository : IProductCategoryRepository
     }
 
     public async ValueTask<ICollection<ProductCategory?>> GetAllProductCategoriesAsync()
-        => (await _context.ProductCategories!.ToListAsync()).Where(x => x.ProductCategoryStatus == Status.Show).ToList()!;
-
+        => await _context.ProductCategories.Where(x => x.ProductCategoryStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid productCategoryId)
-        => await _context.ProductCategories!.FindAsync(productCategoryId);
-
+        => await _context.ProductCategories.FindAsync(productCategoryId);
 
     public async ValueTask<ProductCategory?> CreateProductCategoryAsync(ProductCategory? entity)
     {

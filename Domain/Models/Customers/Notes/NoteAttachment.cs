@@ -14,5 +14,5 @@ public class NoteAttachment : BaseEntity
     public string Extenstion { get; set; }
     public Status NoteAttachmentStatus { get; set; }
 
-    public CustomerNote CustomerNote { get; set; }
+    // public CustomerNote CustomerNote { get; set; }
 }

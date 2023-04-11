@@ -1,7 +1,4 @@
-﻿using Application.Interfaces.Account;
-using Domain.Models.IdentityModels;
-
-namespace Application.Services.Login.QueryHandler;
+﻿namespace Application.Services.Login.QueryHandler;
 
 public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuery, IdentityUser?>
 {

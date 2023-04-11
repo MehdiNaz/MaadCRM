@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.Queries;
 
-public struct TheLatestPlanQuery : IRequest<BusinessPlans>
+public struct TheLatestPlanQuery : IRequest<BusinessPlan>
 {
     public Ulid BusinessId { get; set; }
 }

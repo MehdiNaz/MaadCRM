@@ -14,6 +14,6 @@ public class ContactGroup : BaseEntity
     public Status ContactGroupStatus { get; set; }
     public Ulid BusinessId { get; set; }
 
-    public Business Business { get; set; }
+    //public Business Business { get; set; }
     public ICollection<Contact>? Contacts { get; set; }
 }

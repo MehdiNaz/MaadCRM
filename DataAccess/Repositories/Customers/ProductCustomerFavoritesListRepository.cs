@@ -10,11 +10,11 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
     }
 
     public async Task<ICollection<ProductCustomerFavoritesList?>> GetAllProductCustomerFavoritesListsAsync()
-        => (await _context.ProductCustomerFavoritesLists!.ToListAsync()).Where(x => x.ProductCustomerFavoritesListStatus == Status.Show).ToList()!;
+        => await _context.ProductCustomerFavoritesLists.Where(x => x.ProductCustomerFavoritesListStatus == Status.Show).ToListAsync();
 
 
     public async ValueTask<ProductCustomerFavoritesList?> GetProductCustomerFavoritesListByIdAsync(Ulid productId, Ulid customerId)
-    => await _context.ProductCustomerFavoritesLists!.FindAsync(productId, customerId);
+    => await _context.ProductCustomerFavoritesLists.FindAsync(productId, customerId);
 
     public async ValueTask<ProductCustomerFavoritesList?> CreateProductCustomerFavoritesListAsync(ProductCustomerFavoritesList? entity)
     {

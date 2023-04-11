@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.CommandHandler;
 
-public readonly struct UpdateBusinessPlansCommandHandler : IRequestHandler<UpdateBusinessPlansCommand, BusinessPlans>
+public readonly struct UpdateBusinessPlansCommandHandler : IRequestHandler<UpdateBusinessPlansCommand, BusinessPlan>
 {
     private readonly IBusinessPlanRepository _repository;
 
@@ -9,9 +9,9 @@ public readonly struct UpdateBusinessPlansCommandHandler : IRequestHandler<Updat
         _repository = repository;
     }
 
-    public async Task<BusinessPlans> Handle(UpdateBusinessPlansCommand request, CancellationToken cancellationToken)
+    public async Task<BusinessPlan> Handle(UpdateBusinessPlansCommand request, CancellationToken cancellationToken)
     {
-        BusinessPlans item = new()
+        BusinessPlan item = new()
         {
             BusinessPlansId = request.BusinessPlansId,
             PlanId = request.PlanId,

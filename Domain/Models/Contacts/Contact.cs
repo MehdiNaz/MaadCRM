@@ -19,8 +19,8 @@ public class Contact : BaseEntity
     public Status ContactStatus { get; set; }
 
 
-    public Business Business { get; set; }
-    public ContactsEmailAddress ContactsEmailAddress { get; set; }
-    public ContactPhoneNumber ContactPhoneNumber { get; set; }
-    public ContactGroup ContactGroup { get; set; }
+    //public Business Business { get; set; }
+    //public ContactsEmailAddress ContactsEmailAddress { get; set; }
+    //public ContactPhoneNumber ContactPhoneNumber { get; set; }
+    //public ContactGroup ContactGroup { get; set; }
 }

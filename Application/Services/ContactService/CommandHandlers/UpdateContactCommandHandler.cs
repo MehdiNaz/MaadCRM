@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.CommandHandlers;
 
-public class UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, Contact>
+public readonly struct UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, Contact>
 {
     private readonly IContactRepository _repository;
 

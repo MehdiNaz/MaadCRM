@@ -10,10 +10,10 @@ public class ContactsEmailAddressRepository : IContactsEmailAddressRepository
     }
 
     public async ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync()
-        => (await _context.ContactsEmailAddresses!.ToListAsync()).Where(x => x.ContactsEmailAddressStatus == Status.Show).ToList()!;
+        => await _context.ContactsEmailAddresses.Where(x => x.ContactsEmailAddressStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId) => await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
-
+    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId) 
+        => await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
 
     public async ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(ContactsEmailAddress? entity)
     {

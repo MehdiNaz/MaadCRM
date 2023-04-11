@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CityService.CommandHandler;
 
-public class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, City>
+public readonly struct CreateCityCommandHandler : IRequestHandler<CreateCityCommand, City>
 {
     private readonly ICityRepository _repository;
 

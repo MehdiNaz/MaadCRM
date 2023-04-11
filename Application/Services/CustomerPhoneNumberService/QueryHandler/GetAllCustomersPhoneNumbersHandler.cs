@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerPhoneNumberService.QueryHandler;
 
-public class GetAllCustomersPhoneNumbersHandler : IRequestHandler<GetAllCustomersPhoneNumbersQuery, ICollection<CustomersPhoneNumber>>
+public readonly struct GetAllCustomersPhoneNumbersHandler : IRequestHandler<GetAllCustomersPhoneNumbersQuery, ICollection<CustomersPhoneNumber>>
 {
     private readonly ICustomersPhoneNumberRepository _repository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.SanAtService.CommandHandlers;
 
-public class CreateSanAtCommandHandler : IRequestHandler<CreateSanAtCommand, SanAt>
+public readonly struct CreateSanAtCommandHandler : IRequestHandler<CreateSanAtCommand, SanAt>
 {
     private readonly ISanAtRepository _repository;
 

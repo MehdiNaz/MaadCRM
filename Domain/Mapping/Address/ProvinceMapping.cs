@@ -8,6 +8,6 @@ public class ProvinceMapping : IEntityTypeConfiguration<Province>
         builder.HasKey(x => x.ProvinceId);
         builder.Property(x => x.ProvinceName).HasMaxLength(255).IsRequired();
 
-        builder.HasOne(x => x.Country).WithMany(x => x.Provinces).HasForeignKey(x => x.CountryId);
+        // builder.HasOne(x => x.Country).WithMany(x => x.Provinces).HasForeignKey(x => x.CountryId);
     }
 }

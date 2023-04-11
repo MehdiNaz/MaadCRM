@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.PlanService.CommandHandler;
 
-public class CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Plan>
+public readonly struct CreatePlanCommandHandler : IRequestHandler<CreatePlanCommand, Plan>
 {
     private readonly IPlanRepository _repository;
 

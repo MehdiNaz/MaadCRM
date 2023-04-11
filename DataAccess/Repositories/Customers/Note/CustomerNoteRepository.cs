@@ -10,10 +10,10 @@ public class CustomerNoteRepository : ICustomerNoteRepository
     }
 
     public async ValueTask<ICollection<CustomerNote?>> GetAllCustomerNotesAsync(Ulid customerId)
-        => (await _context.CustomerNotes!.ToListAsync()).Where(x => x.CustomerNoteStatus == Status.Show && x.CustomerId == customerId).ToList()!;
+        => await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId)
-        => await _context.CustomerNotes!.FindAsync(customerNoteId);
+        => await _context.CustomerNotes.FindAsync(customerNoteId);
 
     public async ValueTask<CustomerNote?> CreateCustomerNoteAsync(CustomerNote? entity)
     {

@@ -16,6 +16,5 @@ public class CustomerFeedback : BaseEntity
     public Status CustomerFeedbackStatus { get; set; }
 
 
-
     public ICollection<CustomerFeedbackHistory>? CustomerFeedbackHistories { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCustomerFavoritesListService.CommandHandler;
 
-public class UpdateProductCustomerFavoritesListCommandHandler : IRequestHandler<UpdateProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
+public readonly struct UpdateProductCustomerFavoritesListCommandHandler : IRequestHandler<UpdateProductCustomerFavoritesListCommand, ProductCustomerFavoritesList>
 {
     private readonly IProductCustomerFavoritesListRepository _repository;
 

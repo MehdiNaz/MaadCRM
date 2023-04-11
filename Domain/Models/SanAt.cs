@@ -14,5 +14,5 @@ public class SanAt : BaseEntity
     public Status SanAtStatus { get; set; }
 
 
-    public User User { get; set; }
+    //public User User { get; set; }
 }

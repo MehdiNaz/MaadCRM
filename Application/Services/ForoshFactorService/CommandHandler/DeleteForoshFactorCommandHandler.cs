@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-public class DeleteForoshFactorCommandHandler : IRequestHandler<DeleteForoshFactorCommand, ForoshFactor>
+public readonly struct DeleteForoshFactorCommandHandler : IRequestHandler<DeleteForoshFactorCommand, ForoshFactor>
 {
     private readonly IForoshFactorRepository _repository;
 

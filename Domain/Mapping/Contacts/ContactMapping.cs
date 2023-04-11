@@ -10,9 +10,9 @@ public class ContactMapping : IEntityTypeConfiguration<Contact>
         builder.Property(x => x.LastName).HasMaxLength(255).IsRequired();
 
 
-        builder.HasOne(x => x.ContactPhoneNumber).WithMany(x => x.Contacts).HasForeignKey(x => x.MobileNumberId);
-        builder.HasOne(x => x.ContactsEmailAddress).WithMany(x => x.Contacts).HasForeignKey(x => x.EmailId);
-        builder.HasOne(x => x.ContactGroup).WithMany(x => x.Contacts).HasForeignKey(x => x.ContactGroupId);
-        builder.HasOne(x => x.Business).WithMany(x => x.Contacts).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.ContactPhoneNumber).WithMany(x => x.Contacts).HasForeignKey(x => x.MobileNumberId);
+        // builder.HasOne(x => x.ContactsEmailAddress).WithMany(x => x.Contacts).HasForeignKey(x => x.EmailId);
+        // builder.HasOne(x => x.ContactGroup).WithMany(x => x.Contacts).HasForeignKey(x => x.ContactGroupId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.Contacts).HasForeignKey(x => x.BusinessId);
     }
 }

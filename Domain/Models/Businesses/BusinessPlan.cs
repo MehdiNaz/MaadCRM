@@ -1,8 +1,8 @@
 ﻿namespace Domain.Models.Businesses;
 
-public class BusinessPlans : BaseEntity
+public class BusinessPlan : BaseEntity
 {
-    public BusinessPlans()
+    public BusinessPlan()
     {
         BusinessPlansId = Ulid.NewUlid();
         BusinessPlansStatus = Status.Show;
@@ -17,6 +17,6 @@ public class BusinessPlans : BaseEntity
     public DateTime FinishDate { get; set; }
     public Status BusinessPlansStatus { get; set; }
 
-    public Business Business { get; set; }
-    public Plan Plan { get; set; }
+    // public Business Business { get; set; }
+    // public Plan Plan { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CityService.QueryHandler;
 
-public class GetCityByIdHandler : IRequestHandler<GetCityByIdQuery, City>
+public readonly struct GetCityByIdHandler : IRequestHandler<GetCityByIdQuery, City>
 {
     private readonly ICityRepository _repository;
 

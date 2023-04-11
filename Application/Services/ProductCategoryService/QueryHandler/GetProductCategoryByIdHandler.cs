@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.QueryHandler;
 
-public class GetProductCategoryByIdHandler : IRequestHandler<GetProductCategoryByIdQuery, ProductCategory>
+public readonly struct GetProductCategoryByIdHandler : IRequestHandler<GetProductCategoryByIdQuery, ProductCategory>
 {
     private readonly IProductCategoryRepository _repository;
 

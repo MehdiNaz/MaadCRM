@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-public class CreateForoshFactorCommandHandler : IRequestHandler<CreateForoshFactorCommand, ForoshFactor>
+public readonly struct CreateForoshFactorCommandHandler : IRequestHandler<CreateForoshFactorCommand, ForoshFactor>
 {
     private readonly IForoshFactorRepository _repository;
 

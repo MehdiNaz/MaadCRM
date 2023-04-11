@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.SanAtService.QueryHandlers;
 
-public class GetByIdSanAtHandler : IRequestHandler<GetByIdSanAtQuery, SanAt?>
+public readonly struct GetByIdSanAtHandler : IRequestHandler<GetByIdSanAtQuery, SanAt?>
 {
     private readonly ISanAtRepository _repository;
 

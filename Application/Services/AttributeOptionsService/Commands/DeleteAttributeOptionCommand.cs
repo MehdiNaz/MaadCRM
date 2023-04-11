@@ -1,6 +1,5 @@
 ﻿namespace Application.Services.AttributeOptionsService.Commands;
 
-public class DeleteAttributeOptionCommand : IRequest<AttributeOptions>
+public struct DeleteAttributeOptionCommand : IRequest<AttributeOption>
 {
-
 }

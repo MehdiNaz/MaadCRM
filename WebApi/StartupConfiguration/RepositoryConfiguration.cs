@@ -1,7 +1,4 @@
-﻿using Application.Interfaces.Account;
-using DataAccess.Repositories.Account;
-
-namespace WebApi.StartupConfiguration;
+﻿namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {

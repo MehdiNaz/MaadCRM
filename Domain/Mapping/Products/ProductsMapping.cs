@@ -19,7 +19,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
 
 
         //New Relations ==> OK
-        builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
-        builder.HasMany(x => x.ForoshOrders).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+        // builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+        // builder.HasMany(x => x.ForoshOrders).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
     }
 }

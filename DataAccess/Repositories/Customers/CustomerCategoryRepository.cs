@@ -10,9 +10,10 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
     }
 
     public async ValueTask<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
-        => (await _context.CustomerCategories!.ToListAsync()).Where(x => x.CustomerCategoryStatus == Status.Show).ToList()!;
+        => await _context.CustomerCategories.Where(x => x.CustomerCategoryStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId) => await _context.CustomerCategories!.FindAsync(customerCategoryId);
+    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId) 
+        => await _context.CustomerCategories!.FindAsync(customerCategoryId);
 
     public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
     {

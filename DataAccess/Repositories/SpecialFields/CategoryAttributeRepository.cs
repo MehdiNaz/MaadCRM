@@ -9,9 +9,11 @@ public class CategoryAttributeRepository : ICategoryAttributeRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CategoryAttribute?>> GetAllCategoryAttributeAsync() => (await _context.CategoryAttributes!.ToListAsync())!;
+    public async ValueTask<ICollection<CategoryAttribute?>> GetAllCategoryAttributeAsync()
+        => await _context.CategoryAttributes.Where(x => x.CategoryAttributeStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<CategoryAttribute?> GetCategoryAttributeByIdAsync(int categoryAttributeId) => await _context.CategoryAttributes!.FindAsync(categoryAttributeId);
+    public async ValueTask<CategoryAttribute?> GetCategoryAttributeByIdAsync(int categoryAttributeId)
+        => await _context.CategoryAttributes.FindAsync(categoryAttributeId);
 
     public async ValueTask<CategoryAttribute?> CreateCategoryAttributeAsync(CategoryAttribute? toCreate)
     {

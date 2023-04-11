@@ -1,6 +1,4 @@
-﻿using Application.Interfaces.Account;
-
-namespace Application.Services.Login.QueryHandler;
+﻿namespace Application.Services.Login.QueryHandler;
 
 public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, IdentityUser?>
 {

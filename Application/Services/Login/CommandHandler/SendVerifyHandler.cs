@@ -1,5 +1,3 @@
-using Application.Interfaces.Account;
-using Application.Services.Login.Commands;
 using MediatR;
 
 namespace Application.Services.Login.CommandHandler;
