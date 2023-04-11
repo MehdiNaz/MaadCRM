@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.QueryHandler;
 
-public class AllCustomersAddressHandler: IRequestHandler<AllCustomerAddressQuery, ICollection<CustomersAddress?>>
+public readonly struct AllCustomersAddressHandler: IRequestHandler<AllCustomerAddressQuery, ICollection<CustomersAddress?>>
 {
     private readonly ICustomersAddressRepository _repository;
 
@@ -10,5 +10,5 @@ public class AllCustomersAddressHandler: IRequestHandler<AllCustomerAddressQuery
     }
 
     public async Task<ICollection<CustomersAddress?>> Handle(AllCustomerAddressQuery request, CancellationToken cancellationToken)
-        => await _repository.GetAllAddressesAsync();
+        => await _repository.GetAllAddressesAsync(request.CustomerId);
 }

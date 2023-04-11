@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230411055557_CustomerIdUpdated")]
-    partial class CustomerIdUpdated
+    [Migration("20230411074243_MaadMigrationNew")]
+    partial class MaadMigrationNew
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -426,7 +426,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateOnly?>("BirthDayDate")
@@ -473,9 +473,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
@@ -959,10 +960,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
-                    b.Property<string>("NoteAttachment")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
                     b.Property<int>("NoteAttachmentStatus")
                         .HasColumnType("integer");
 
@@ -987,10 +984,6 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NoteHashTag")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
 
                     b.Property<int>("NoteHashTagStatus")
                         .HasColumnType("integer");
@@ -2049,7 +2042,9 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("Customers")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("City");
 

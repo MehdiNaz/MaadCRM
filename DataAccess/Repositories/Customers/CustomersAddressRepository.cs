@@ -9,9 +9,8 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomersAddress?>> GetAllAddressesAsync()
-        => (await _context.CustomersAddresses!.ToListAsync()).Where(x => x.CustomersAddressStatus == Status.Show).ToList()!;
-
+    public async ValueTask<ICollection<CustomersAddress?>> GetAllAddressesAsync(Ulid customerId)
+        => await _context.CustomersAddresses.Where(x => x.CustomersAddressStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId)
         => await _context.CustomersAddresses!.FindAsync(customersAddressId);

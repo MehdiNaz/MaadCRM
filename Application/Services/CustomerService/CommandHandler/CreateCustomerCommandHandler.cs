@@ -20,7 +20,7 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
             // CreatedBy = request.CreatedBy!,
             // UpdatedBy = request.UpdatedBy,
             CustomerCategoryId = request.CustomerCategoryId,
-            // UserId = request.UserId,
+            UserId = request.UserId,
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId,
             PhoneNumbers = request.PhoneNumbers,

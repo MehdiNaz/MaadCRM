@@ -2,5 +2,5 @@
 
 public struct AllCustomersQuery : IRequest<ICollection<Customer?>>
 {
-    public Ulid CustomerId { get; set; }
+    public string UserId { get; set; }
 }

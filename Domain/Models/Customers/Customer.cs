@@ -25,7 +25,7 @@ public class Customer : BaseEntity
 
     // public string CreatedBy { get; set; }
     // public string UpdatedBy { get; set; }
-    // public string UserId { get; set; }
+    public string UserId { get; set; }
     // public User User { get; set; }
 
     #region Moaref

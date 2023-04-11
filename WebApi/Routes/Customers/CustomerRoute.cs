@@ -11,13 +11,13 @@ public static class CustomerRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomers", async ([FromBody] CustomerByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/AllCustomers", async ([FromBody] AllCustomersQuery request, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllCustomersQuery
                 {
-                    CustomerId = request.CustomerId
+                    UserId = request.UserId
                 });
                 return Results.Ok(result);
             }
@@ -49,6 +49,7 @@ public static class CustomerRoute
             {
                 var result = await mediator.Send(new CreateCustomerCommand
                 {
+                    UserId = request.UserId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     BirthDayDate = request.BirthDayDate!,
@@ -78,7 +79,7 @@ public static class CustomerRoute
             {
                 var result = await mediator.Send(new UpdateCustomerCommand
                 {
-                    CustomerId = request.CustomerId,
+                    Id = request.Id,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     BirthDayDate = request.BirthDayDate,
@@ -92,7 +93,7 @@ public static class CustomerRoute
                     CustomersAddresses = request.CustomersAddresses,
                     CustomerNotes = request.CustomerNotes,
                     CustomerPeyGiries = request.CustomerPeyGiries,
-                    City = request.City
+                    CityId = request.CityId
                 });
                 return Results.Ok(result);
             }

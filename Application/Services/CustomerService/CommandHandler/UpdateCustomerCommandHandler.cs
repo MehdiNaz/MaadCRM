@@ -14,9 +14,8 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
 
     public async Task<Customer> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
-        Customer item = new()
+        var item = new UpdateCustomerCommand
         {
-            Id = request.CustomerId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             BirthDayDate = request.BirthDayDate!,
@@ -24,18 +23,17 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
             // CreatedBy = request.CreatedBy!,
             // UpdatedBy = request.UpdatedBy,
             CustomerCategoryId = request.CustomerCategoryId,
-            // UserId = request.UserId,
             Gender = request.Gender,
             CustomerMoarefId = request.CustomerMoarefId,
             PhoneNumbers = request.PhoneNumbers,
             EmailAddresses = request.EmailAddresses,
-            FavoritesLists = request.FavoritesLists,
+            FavoritesLists = request.FavoritesLists!,
             CustomersAddresses = request.CustomersAddresses,
             CustomerNotes = request.CustomerNotes,
             CustomerPeyGiries = request.CustomerPeyGiries,
-            City = request.City
+            CityId = request.CityId
         };
-        await _repository.UpdateCustomerAsync(item);
-        return item;
+        var result = await _repository.UpdateCustomerAsync(item);
+        return result;
     }
 }

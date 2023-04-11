@@ -11,11 +11,14 @@ public static class CustomerAddressRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerAddress", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomerAddress/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomerAddressQuery());
+                var result = await mediator.Send(new AllCustomerAddressQuery
+                {
+                    CustomerId = id
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230411070745_MaadMigration")]
+    partial class MaadMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -957,6 +960,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("bytea");
 
+                    b.Property<string>("NoteAttachment")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
                     b.Property<int>("NoteAttachmentStatus")
                         .HasColumnType("integer");
 
@@ -981,6 +988,10 @@ namespace DataAccess.Migrations
 
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NoteHashTag")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
 
                     b.Property<int>("NoteHashTagStatus")
                         .HasColumnType("integer");

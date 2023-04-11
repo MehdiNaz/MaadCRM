@@ -11,11 +11,14 @@ public static class CustomerCategoryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerCategories", async (IMediator mediator) =>
+        plan.MapGet("/AllCustomerCategories/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllItemsCustomerCategoryQuery());
+                var result = await mediator.Send(new AllItemsCustomerCategoryQuery
+                {
+                    
+                });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

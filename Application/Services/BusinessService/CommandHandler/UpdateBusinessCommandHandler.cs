@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.CommandHandler;
 
-public class UpdateBusinessCommandHandler : IRequestHandler<UpdateBusinessCommand, Business>
+public readonly struct UpdateBusinessCommandHandler : IRequestHandler<UpdateBusinessCommand, Business>
 {
     private readonly IBusinessRepository _repository;
 
