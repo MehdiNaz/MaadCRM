@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Customers;
+﻿using Domain.Models.Customers;
+
+namespace DataAccess.Repositories.Customers;
 
 public class CustomerRepository : ICustomerRepository
 {
@@ -132,22 +134,19 @@ public class CustomerRepository : ICustomerRepository
         {
             Customer customer = await GetCustomerByIdAsync(entity.Id);
 
-            var entityEntry = new Customer
-            {
-                Id = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                BirthDayDate = customer.BirthDayDate!,
-                CustomerPic = customer.CustomerPic,
-                CustomerCategoryId = customer.CustomerCategoryId,
-                Gender = customer.Gender,
-                CustomerMoarefId = customer.CustomerMoarefId,
-                CityId = customer.CityId
-            };
-
+            customer.Id = entity.Id;
+            customer.FirstName = entity.FirstName;
+            customer.LastName = entity.LastName;
+            customer.BirthDayDate = entity.BirthDayDate!;
+            customer.CustomerPic = entity.CustomerPic;
+            customer.CustomerCategoryId = entity.CustomerCategoryId;
+            customer.Gender = entity.Gender;
+            customer.CustomerMoarefId = entity.CustomerMoarefId;
+            customer.CityId = entity.CityId;
 
 
             // TODO: Update customer
+            await _context.SaveChangesAsync();
 
             //if (entity.PhoneNumbers != null)
             //    foreach (string PhoneNumbers in entity.PhoneNumbers)
@@ -222,9 +221,7 @@ public class CustomerRepository : ICustomerRepository
             //     }
 
 
-            _context.Update(entityEntry);
-            await _context.SaveChangesAsync();
-            return entityEntry;
+            return customer;
         }
         catch
         {
