@@ -13,7 +13,23 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         => await _context.CustomerPeyGiries.Where(x => x.CustomerPeyGiryStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
-        => await _context.CustomerPeyGiries.FindAsync(customerPeyGiryId);
+        => await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.CustomerPeyGiryId == customerPeyGiryId && x.CustomerPeyGiryStatus == Status.Show);
+
+    public async ValueTask<CustomerPeyGiry?> ChangeStatusCustomerPeyGiryByIdAsync(Status status, Ulid customerPeyGiryId)
+    {
+        try
+        {
+            var item = await _context.CustomerPeyGiries!.FindAsync(customerPeyGiryId);
+            if (item is null) return null;
+            item.CustomerPeyGiryStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
 
     public async ValueTask<CustomerPeyGiry?> CreateCustomerPeyGiryAsync(CustomerPeyGiry? entity)

@@ -13,7 +13,23 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         => await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId)
-        => await _context.CustomerNotes.FindAsync(customerNoteId);
+        => await _context.CustomerNotes.FirstOrDefaultAsync(x => x.CustomerNoteId == customerNoteId && x.CustomerNoteStatus == Status.Show);
+
+    public async ValueTask<CustomerNote?> ChangeStatusCustomerNoteByIdAsync(Status status, Ulid customerNoteId)
+    {
+        try
+        {
+            var item = await _context.CustomerNotes!.FindAsync(customerNoteId);
+            if (item is null) return null;
+            item.CustomerNoteStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomerNote?> CreateCustomerNoteAsync(CustomerNote? entity)
     {

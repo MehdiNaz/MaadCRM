@@ -80,6 +80,7 @@ global using System.Text;
 global using Application.Interfaces.Account;
 global using Application.Services.CustomerActivityService.Commands;
 global using Application.Services.CustomerActivityService.Queries;
+global using Application.Services.CustomerFeedbackService.Commands;
 global using Application.Services.Jwt.Query;
 global using Application.Services.Login.Commands;
 global using Application.Services.Profile.Command;

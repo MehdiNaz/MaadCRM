@@ -13,7 +13,23 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         => await _context.PeyGiryAttachments.Where(x => x.StatusPeyGiryAttachment == Status.Show).ToListAsync();
 
     public async ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId)
-        => await _context.PeyGiryAttachments.FindAsync(peyGiryAttachmentId);
+        => await _context.PeyGiryAttachments.FirstOrDefaultAsync(x => x.PeyGiryAttachmentId == peyGiryAttachmentId && x.StatusPeyGiryAttachment == Status.Show);
+
+    public async ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(Status status, Ulid peyGiryAttachmentId)
+    {
+        try
+        {
+            var item = await _context.PeyGiryAttachments!.FindAsync(peyGiryAttachmentId);
+            if (item is null) return null;
+            item.StatusPeyGiryAttachment = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(PeyGiryAttachment? entity)
     {

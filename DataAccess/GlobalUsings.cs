@@ -36,6 +36,7 @@ global using Domain.Models.Plans;
 global using Domain.Models.Products;
 global using Domain.Models.SpecialFields;
 global using Domain.UnDifined;
+global using MediatR;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;

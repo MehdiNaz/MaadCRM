@@ -12,8 +12,25 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
     public async ValueTask<ICollection<ContactPhoneNumber?>> GetAllContactPhoneNumberAsync()
         => await _context.ContactPhoneNumbers.Where(x => x.ContactPhoneNumberStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ContactPhoneNumber?> GetContactPhoneNumberByIdAsync(Ulid contactPhoneNumberId) 
-        => await _context.ContactPhoneNumbers.FindAsync(contactPhoneNumberId);
+    public async ValueTask<ContactPhoneNumber?> GetContactPhoneNumberByIdAsync(Ulid contactPhoneNumberId)
+        => await _context.ContactPhoneNumbers.FirstOrDefaultAsync(x =>
+            x.ContactPhoneNumberId == contactPhoneNumberId && x.ContactPhoneNumberStatus == Status.Show);
+
+    public async ValueTask<ContactPhoneNumber?> ChangeStatusContactPhoneNumberByIdAsync(Status status, Ulid contactPhoneNumberId)
+    {
+        try
+        {
+            var item = await _context.ContactPhoneNumbers!.FindAsync(contactPhoneNumberId);
+            if (item is null) return null;
+            item.ContactPhoneNumberStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<ContactPhoneNumber?> CreateContactPhoneNumberAsync(ContactPhoneNumber? entity)
     {

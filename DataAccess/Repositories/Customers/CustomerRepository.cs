@@ -13,7 +13,23 @@ public class CustomerRepository : ICustomerRepository
         => await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.UserId == userId).ToListAsync();
 
     public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId)
-        => await _context.Customers.FindAsync(customerId);
+        => await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show);
+
+    public async ValueTask<Customer?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
+    {
+        try
+        {
+            var item = await _context.Customers.FindAsync(customerId);
+            if (item is null) return null;
+            item.CustomerStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<Customer?> CreateCustomerAsync(CreateCustomerCommand entity)
     {

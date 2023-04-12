@@ -8,6 +8,8 @@ public class CustomerFeedback : BaseEntity
         CustomerFeedbackStatus = Status.Show;
     }
 
+    // TODO : Check CustomerFeedback Property 
+
     public Ulid CustomerFeedbackId { get; set; }
     public string FeedbackName { get; set; }
     public int DisplayOrder { get; set; }

@@ -1,10 +1,10 @@
 ﻿namespace DataAccess.Repositories.Contacts;
 
-public class ContactsEmailAddressRepository : IContactsEmailAddressRepository
+public class ContactEmailAddressRepository : IContactsEmailAddressRepository
 {
     private readonly MaadContext _context;
 
-    public ContactsEmailAddressRepository(MaadContext context)
+    public ContactEmailAddressRepository(MaadContext context)
     {
         _context = context;
     }
@@ -12,8 +12,26 @@ public class ContactsEmailAddressRepository : IContactsEmailAddressRepository
     public async ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync()
         => await _context.ContactsEmailAddresses.Where(x => x.ContactsEmailAddressStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId) 
-        => await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
+    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId)
+        => await _context.ContactsEmailAddresses!.SingleOrDefaultAsync(x =>
+            x.CustomersEmailAddressId == contactsEmailAddressId && x.ContactsEmailAddressStatus == Status.Show);
+
+    public async ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(Status status, Ulid contactsEmailAddressId)
+    {
+        try
+        {
+            var item = await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
+            if (item is null) return null;
+            item.ContactsEmailAddressStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+
+    }
 
     public async ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(ContactsEmailAddress? entity)
     {

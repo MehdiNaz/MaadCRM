@@ -13,7 +13,23 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         => await _context.CustomersEmailAddresses.Where(x => x.CustomersEmailAddressStatus == Status.Show).ToListAsync();
 
     public async ValueTask<CustomersEmailAddress?> GetEmailAddressByIdAsync(Ulid emailAddressId)
-        => await _context.CustomersEmailAddresses.FindAsync(emailAddressId);
+        => await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.CustomersEmailAddressId == emailAddressId && x.CustomersEmailAddressStatus == Status.Show);
+
+    public async ValueTask<CustomersEmailAddress?> ChangeStatusEmailAddressByIdAsync(Status status, Ulid emailAddressId)
+    {
+        try
+        {
+            var item = await _context.CustomersEmailAddresses.FindAsync(emailAddressId);
+            if (item is null) return null;
+            item.CustomersEmailAddressStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomersEmailAddress?> CreateEmailAddressAsync(CustomersEmailAddress? entity)
     {

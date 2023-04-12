@@ -13,7 +13,23 @@ public class NoteHashTagRepository : INoteHashTagRepository
         => await _context.NoteHashTags.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
 
     public async ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
-        => await _context.NoteHashTags.FindAsync(noteHashTagId);
+        => await _context.NoteHashTags.FirstOrDefaultAsync(x => x.CustomerNoteId == noteHashTagId && x.NoteHashTagStatus == Status.Show);
+
+    public async ValueTask<NoteHashTag?> ChangeStatusNoteHashTagByIdAsync(Status status, Ulid noteHashTagId)
+    {
+        try
+        {
+            var item = await _context.NoteHashTags!.FindAsync(noteHashTagId);
+            if (item is null) return null;
+            item.NoteHashTagStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<NoteHashTag?> CreateNoteHashTagAsync(NoteHashTag? entity)
     {

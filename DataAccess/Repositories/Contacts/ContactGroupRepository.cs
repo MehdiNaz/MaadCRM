@@ -13,7 +13,23 @@ public class ContactGroupRepository : IContactGroupRepository
     => await _context.ContactGroups.Where(x => x.ContactGroupStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId)
-        => await _context.ContactGroups!.FindAsync(contactGroupId);
+        => await _context.ContactGroups!.FirstOrDefaultAsync(x => x.ContactGroupId == contactGroupId && x.ContactGroupStatus == Status.Show);
+
+    public async ValueTask<ContactGroup?> ChangeStateContactGroupAsync(Status status, Ulid contactGroupId)
+    {
+        try
+        {
+            var item = await _context.ContactGroups!.FindAsync(contactGroupId);
+            if (item is null) return null;
+            item.ContactGroupStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<ContactGroup?> CreateContactGroupAsync(ContactGroup? entity)
     {

@@ -12,8 +12,24 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
     public async ValueTask<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync()
         => await _context.CustomerCategories.Where(x => x.CustomerCategoryStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId) 
-        => await _context.CustomerCategories!.FindAsync(customerCategoryId);
+    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId)
+        => await _context.CustomerCategories.FirstOrDefaultAsync(x => x.CustomerCategoryId == customerCategoryId && x.CustomerCategoryStatus == Status.Show);
+
+    public async ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(Status status, Ulid CustomerCategoryId)
+    {
+        try
+        {
+            var item = await _context.CustomerCategories.FindAsync(CustomerCategoryId);
+            if (item is null) return null;
+            item.CustomerCategoryStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
     {

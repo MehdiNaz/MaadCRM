@@ -13,7 +13,23 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         => await _context.NoteAttachments.Where(x => x.NoteAttachmentStatus == Status.Show).ToListAsync();
 
     public async ValueTask<NoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
-        => await _context.NoteAttachments.FindAsync(noteAttachmentId);
+        => await _context.NoteAttachments.FirstOrDefaultAsync(x => x.NoteAttachmentId == noteAttachmentId && x.NoteAttachmentStatus == Status.Show);
+
+    public async ValueTask<NoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(Status status, Ulid noteAttachmentId)
+    {
+        try
+        {
+            var item = await _context.NoteAttachments!.FindAsync(noteAttachmentId);
+            if (item is null) return null;
+            item.NoteAttachmentStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<NoteAttachment?> CreateNoteAttachmentAsync(NoteAttachment? entity)
     {

@@ -15,10 +15,7 @@ public static class CustomerCategoryRoute
         {
             try
             {
-                var result = await mediator.Send(new AllItemsCustomerCategoryQuery
-                {
-                    
-                });
+                var result = await mediator.Send(new AllItemsCustomerCategoryQuery());
                 return Results.Ok(result);
             }
             catch (ArgumentException e)

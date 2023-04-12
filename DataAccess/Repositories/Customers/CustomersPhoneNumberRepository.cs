@@ -13,7 +13,23 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
         => await _context.CustomersPhoneNumbers.Where(x => x.CustomersPhoneNumberStatus == Status.Show).ToListAsync();
 
     public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId)
-        => await _context.CustomersPhoneNumbers.FindAsync(phoneNumberId);
+        => await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.PhoneNumberId == phoneNumberId && x.CustomersPhoneNumberStatus == Status.Show);
+
+    public async ValueTask<CustomersPhoneNumber?> ChangeStatusPhoneNumberByIdAsync(Status status, Ulid phoneNumberId)
+    {
+        try
+        {
+            var item = await _context.CustomersPhoneNumbers.FindAsync(phoneNumberId);
+            if (item is null) return null;
+            item.CustomersPhoneNumberStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomersPhoneNumber?> CreatePhoneNumberAsync(CustomersPhoneNumber? entity)
     {

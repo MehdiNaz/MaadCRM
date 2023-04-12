@@ -13,7 +13,23 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         => await _context.CustomerActivities.Where(x => x.CustomerActivityStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerActivity?> GetCustomerActivityByIdAsync(Ulid customerActivityId)
-        => await _context.CustomerActivities.FindAsync(customerActivityId);
+        => await _context.CustomerActivities.FirstOrDefaultAsync(x => x.CustomerActivityId == customerActivityId && x.CustomerActivityStatus == Status.Show);
+
+    public async ValueTask<CustomerActivity?> ChangeStatusCustomerActivityByIdAsync(Status status, Ulid customerActivityId)
+    {
+        try
+        {
+            var item = await _context.CustomerActivities!.FindAsync(customerActivityId);
+            if (item is null) return null;
+            item.CustomerActivityStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomerActivity?> CreateCustomerActivityAsync(CustomerActivity? entity)
     {

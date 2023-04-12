@@ -27,15 +27,11 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] CustomerNoteByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{customerNoteId}", async (Ulid customerNoteId, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerNoteByIdQuery
-                {
-                    CustomerNoteId = request.CustomerNoteId
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new CustomerNoteByIdQuery { CustomerNoteId = customerNoteId }));
             }
             catch (ArgumentException e)
             {
@@ -82,11 +78,7 @@ public static class CustomerNoteRoute
         {
             try
             {
-                var result = await mediator.Send(new DeleteCustomerNoteCommand
-                {
-                    CustomerNoteId = request.CustomerNoteId,
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new DeleteCustomerNoteCommand { CustomerNoteId = request.CustomerNoteId }));
             }
             catch (ArgumentException e)
             {

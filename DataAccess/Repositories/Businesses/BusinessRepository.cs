@@ -13,7 +13,23 @@ public class BusinessRepository : IBusinessRepository
         => await _context.Businesses!.Where(x => x.BusinessStatus == Status.Show).ToListAsync()!;
 
     public async ValueTask<Business?> GetBusinessByIdAsync(Ulid businessId)
-        => await _context.Businesses!.FindAsync(businessId);
+        => await _context.Businesses!.FirstOrDefaultAsync(x => x.BusinessId == businessId && x.BusinessStatus == Status.Show);
+
+    public async ValueTask<Business?> ChangeStatsAsync(Status status, Ulid businessId)
+    {
+        try
+        {
+            var item = await _context.Businesses!.FindAsync(businessId);
+            if (item is null) return null;
+            item.BusinessStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<Business?> CreateBusinessAsync(Business? entity)
     {
@@ -45,12 +61,11 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Business> DeleteBusinessAsync(Ulid businessId)
+    public async ValueTask<Business?> DeleteBusinessAsync(Ulid businessId)
     {
         try
         {
             var business = await GetBusinessByIdAsync(businessId);
-            //_context.Businesses!.Remove(business);
             business.BusinessStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return business;

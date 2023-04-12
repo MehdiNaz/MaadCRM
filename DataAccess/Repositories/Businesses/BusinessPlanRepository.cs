@@ -19,20 +19,21 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         => await _context.BusinessPlans!.OrderByDescending(o => o.BusinessPlansId).LastAsync(x => x.BusinessId == businessId);
 
     public async ValueTask<BusinessPlan?> GetBusinessPlansByIdAsync(Ulid businessPlansId)
-        => (await _context.BusinessPlans!.ToListAsync()).First(x => x.BusinessPlansId == businessPlansId);
+        => await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.BusinessPlansId == businessPlansId && x.BusinessPlansStatus == Status.Show);
 
-    public async ValueTask<bool> ChangeStatusAsync(Status status, Ulid businessId)
+    public async ValueTask<BusinessPlan?> ChangeStatusAsync(Status status, Ulid businessPlansId)
     {
         try
         {
-            Ulid currentBusiness = (await _context.BusinessPlans!.FirstAsync(x => x.BusinessPlansId == businessId))!.BusinessPlansId;
-            (await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.BusinessPlansId == currentBusiness))!.BusinessPlansStatus = status;
+            var item = await _context.BusinessPlans!.FindAsync(businessPlansId);
+            if (item is null) return null;
+            item.BusinessPlansStatus = status;
             await _context.SaveChangesAsync();
-            return true;
+            return item;
         }
         catch
         {
-            return false;
+            return null;
         }
     }
 

@@ -6,7 +6,7 @@ public interface IBusinessPlanRepository
     ValueTask<IReadOnlyList<BusinessPlan?>> GetAllActivePlansAsync(Ulid businessId);
     ValueTask<BusinessPlan?> GetTheLatestPlanAsync(Ulid businessId);
     ValueTask<BusinessPlan?> GetBusinessPlansByIdAsync(Ulid businessPlansId);
-    ValueTask<bool> ChangeStatusAsync(Status status, Ulid businessPlansId);
+    ValueTask<BusinessPlan?> ChangeStatusAsync(Status status, Ulid businessPlansId);
     ValueTask<BusinessPlan?> CreateBusinessPlansAsync(BusinessPlan entity);
     ValueTask<BusinessPlan?> UpdateBusinessPlansAsync(BusinessPlan entity);
     ValueTask<BusinessPlan?> DeleteBusinessPlansAsync(Ulid businessPlansId);

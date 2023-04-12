@@ -9,7 +9,7 @@ public static class CustomerRoute
         var plan = app.MapGroup("v1/Customer")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
+        .WithOpenApi();
 
         plan.MapGet("/AllCustomers", async ([FromBody] AllCustomersQuery request, IMediator mediator) =>
         {
@@ -27,15 +27,11 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] CustomerByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{customerId}", async (Ulid customerId, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerByIdQuery
-                {
-                    CustomerId = request.CustomerId
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new CustomerByIdQuery { CustomerId = customerId }));
             }
             catch (ArgumentException e)
             {
@@ -103,13 +99,13 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{customerId}", async (Ulid customerId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerCommand
                 {
-                    CustomerId = request.CustomerId,
+                    CustomerId = customerId
                 });
                 return Results.Ok(result);
             }

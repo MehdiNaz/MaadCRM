@@ -9,6 +9,6 @@ public readonly struct DeleteBusinessCommandHandler : IRequestHandler<DeleteBusi
         _repository = repository;
     }
 
-    public async Task<Business> Handle(DeleteBusinessCommand request, CancellationToken cancellationToken)
+    public async Task<Business?> Handle(DeleteBusinessCommand request, CancellationToken cancellationToken)
         => (await _repository.DeleteBusinessAsync(request.BusinessId))!;
 }

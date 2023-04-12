@@ -27,15 +27,11 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] CustomerAddressByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerAddressByIdQuery
-                {
-                    CustomersAddressId = request.CustomersAddressId
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new CustomerAddressByIdQuery { CustomersAddressId = customersAddressId }));
             }
             catch (ArgumentException e)
             {
@@ -84,15 +80,11 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomersAddressCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new DeleteCustomersAddressCommand
-                {
-                    CustomersAddressId = request.CustomersAddressId,
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new DeleteCustomersAddressCommand { CustomersAddressId = customersAddressId }));
             }
             catch (ArgumentException e)
             {

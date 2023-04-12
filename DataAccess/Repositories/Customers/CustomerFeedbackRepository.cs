@@ -1,10 +1,10 @@
 ﻿namespace DataAccess.Repositories.Customers;
 
-public class CustomerFeedbackFeedback : ICustomerFeedbackFeedback
+public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 {
     private readonly MaadContext _context;
 
-    public CustomerFeedbackFeedback(MaadContext context)
+    public CustomerFeedbackRepository(MaadContext context)
     {
         _context = context;
     }
@@ -14,7 +14,23 @@ public class CustomerFeedbackFeedback : ICustomerFeedbackFeedback
 
 
     public async ValueTask<CustomerFeedback?> GetCustomerFeedbackByIdAsync(Ulid customerFeedbackId)
-        => await _context.CustomerFeedbacks.FindAsync(customerFeedbackId);
+        => await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.CustomerFeedbackId == customerFeedbackId && x.CustomerFeedbackStatus == Status.Show);
+
+    public async ValueTask<CustomerFeedback?> ChangeStatusCustomerFeedbackByIdAsync(Status status, Ulid customerFeedbackId)
+    {
+        try
+        {
+            var item = await _context.CustomerFeedbacks.FindAsync(customerFeedbackId);
+            if (item is null) return null;
+            item.CustomerFeedbackStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<CustomerFeedback?> CreateCustomerFeedbackAsync(CustomerFeedback? entity)
     {

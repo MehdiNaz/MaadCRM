@@ -60,8 +60,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactGroupRepository, ContactGroupRepository>();
         collection.AddTransient<IContactRepository, ContactRepository>();
         collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
-        collection.AddTransient<IContactsEmailAddressRepository, ContactsEmailAddressRepository>();
-        collection.AddTransient<ICustomerFeedbackFeedback, CustomerFeedbackFeedback>();
+        collection.AddTransient<IContactsEmailAddressRepository, ContactEmailAddressRepository>();
+        collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
 
 
         collection.AddTransient<ICityRepository, CityRepository>();
