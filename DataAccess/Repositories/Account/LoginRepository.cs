@@ -1,15 +1,18 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Application.Interfaces.Account;
 using Application.Services.Login.Commands;
+using LanguageExt;
+using LanguageExt.SomeHelp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace DataAccess.Repositories.Login;
+namespace DataAccess.Repositories.Account;
 
-public class LoginRepository : ILoginRerpository
+public class LoginRepository : ILoginRepository
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
@@ -24,28 +27,31 @@ public class LoginRepository : ILoginRerpository
         _configuration = configuration;
     }
 
-    public async ValueTask<IdentityUser?> CheckExistByPhone(UserByPhoneNumberQuery request)
-    {
-        // try
-        // {
-            var result =  await _userManager.FindByNameAsync(request.Phone);
-            return result;
-        // }
-        // catch
-        // {
-            // return null;
-        // }
-    }
-
-    public async ValueTask<IdentityUser?> CheckExistByEmailAddress(UserByEmailAddressQuery request)
+    public async ValueTask<Option<bool>> CheckExistByPhone(UserByPhoneNumberQuery request)
     {
         try
         {
-            return await _userManager.FindByEmailAsync(request.Email);
+            var result =  await _userManager.FindByNameAsync(request.Phone);
+            return result == null ? Option<bool>.Some(true) : Option<bool>.None;
         }
-        catch
+        catch(Exception e)
         {
-            return null;
+            Console.WriteLine(e.Message);
+            throw;
+        }
+    }
+
+    public async ValueTask<Option<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request)
+    {
+        try
+        {
+            var result =  await _userManager.FindByEmailAsync(request.Email);
+            return result == null ? result.ToSome()! : Option<User>.None;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
         }
     }
 
@@ -53,40 +59,48 @@ public class LoginRepository : ILoginRerpository
     {
         try
         {
-            var result = await _signInManager.PasswordSignInAsync(request.Phone, request.Password, true, false);
+            var result =  await _signInManager.PasswordSignInAsync(request.Phone, request.Password, true, false);
             return result.Succeeded;
         }
-        catch
+        catch(Exception e)
         {
-            return false;
+            Console.WriteLine(e.Message);
+            throw;
         }
     }
 
     
-    public async ValueTask<bool> SendVerifyCode(SendVerifyCommand request)
+    public async ValueTask<Option<bool>> SendVerifyCode(SendVerifyCommand request)
     {
-        var result = await _userManager.FindByNameAsync(request.Phone);
-        if (result == null)
-            return false;
+        try
+        {
+            var result = await _userManager.FindByNameAsync(request.Phone);
+            if (result == null)
+                return Option<bool>.None;
+            
+            var generator = new Random();
+            result.OtpPassword =  generator.Next(1000, 9999).ToString("D4");
         
+            result.LoginCount++;
+            result.LastLogin = DateTime.UtcNow;
         
-        
-        var generator = new Random();
-        result.OtpPassword =  generator.Next(1000, 9999).ToString("D4");
-        
-        result.LoginCount++;
-        result.LastLogin = DateTime.UtcNow;
-        
-        await _userManager.UpdateAsync(result);
+            await _userManager.UpdateAsync(result);
 
-        // TODO: Send SMS
+            // TODO: Send SMS
         
-        Console.WriteLine("OTP: " + result.OtpPassword);
+            // TODO: add log
+            Console.WriteLine("OTP: " + result.OtpPassword);
         
-        return true;
+            return Option<bool>.Some(true);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async ValueTask<User?> VerifyCode(VerifyCodeQuery request)
+    public async ValueTask<Option<User>> VerifyCode(VerifyCodeQuery request)
     {
         try
         {
@@ -127,14 +141,19 @@ public class LoginRepository : ILoginRerpository
         
     }
 
-    public async ValueTask<bool> RegisterUser(RegisterUserCommand request)
+    public async ValueTask<Option<bool>> RegisterUser(RegisterUserCommand request)
     {
+        try
+        {
             var newBusiness = new Business()
             {
                 BusinessName = " شرکت" + request.Phone
             };
-            await _context.Businesses!.AddAsync(newBusiness);
+            await _context.Businesses.AddAsync(newBusiness);
             var result = await _context.SaveChangesAsync();
+
+            if (result == 0)
+                return Option<bool>.None;
 
             var user = new User
             {
@@ -148,11 +167,16 @@ public class LoginRepository : ILoginRerpository
             };
 
             var createUserResult = await _userManager.CreateAsync(user);
-            
+
             // TODO: add role to user
             // await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
-            
-            return createUserResult.Succeeded;
+
+            return Option<bool>.Some(createUserResult.Succeeded);
         }
-    
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

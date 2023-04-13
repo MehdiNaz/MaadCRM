@@ -1,6 +1,9 @@
-﻿namespace Application.Services.Login.Queries;
+﻿using LanguageExt;
+using LanguageExt.Common;
 
-public class UserByPhoneNumberQuery : IRequest<IdentityUser?>
+namespace Application.Services.Login.Queries;
+
+public class UserByPhoneNumberQuery : IRequest<Result<bool>>
 {
-    public required string Phone { get; set; }
+    public required string Phone { get; init; }
 }

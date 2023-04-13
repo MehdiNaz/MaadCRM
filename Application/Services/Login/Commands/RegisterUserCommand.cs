@@ -1,6 +1,8 @@
+using LanguageExt;
+
 namespace Application.Services.Login.Commands;
 
-public class RegisterUserCommand : IRequest<bool>
+public class RegisterUserCommand : IRequest<Option<bool>>
 {
     public required string Phone { get; set; }
 }

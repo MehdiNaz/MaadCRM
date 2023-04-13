@@ -11,38 +11,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+      <PackageReference Include="LanguageExt.Core" Version="4.4.2" />
       <PackageReference Include="MediatR" Version="12.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.4" />
-      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.5" />
+      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.5" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.28.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services\CustomerActivityService\Validation\" />
-      <Folder Include="Services\BusinessService\CommandHandler\" />
-      <Folder Include="Services\BusinessService\Response\" />
-      <Folder Include="Services\BusinessService\Validation\" />
-      <Folder Include="Services\BusinessService\QueryHandler\" />
-      <Folder Include="Services\CustomerCategoryService\Validation\" />
-      <Folder Include="Services\CustomerFeedbackService\Validation\" />
-      <Folder Include="Services\CustomerFeedbackService\QueryHandlers\" />
-      <Folder Include="Services\CustomerNoteService\Validation\" />
-      <Folder Include="Services\CustomerPeyGiryService\Validation\" />
-      <Folder Include="Services\CustomerPhoneNumberService\Validation\" />
-      <Folder Include="Services\CustomersAddressService\Validation\" />
-      <Folder Include="Services\CustomersEmailAddressService\Validation\" />
-      <Folder Include="Services\CustomerService\Validation\" />
-      <Folder Include="Services\NoteAttachmentService\Validation\" />
-      <Folder Include="Services\NoteHashTagService\Validation\" />
-      <Folder Include="Services\PeyGiryAttachmentService\Validation\" />
-      <Folder Include="Services\PlanService\Response\" />
-      <Folder Include="Services\BusinessPlansService\Response\" />
-      <Folder Include="Services\SanAtService\Validation\" />
     </ItemGroup>
 </Project>
