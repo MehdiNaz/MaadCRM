@@ -13,7 +13,23 @@ public class ForoshFactorRepository : IForoshFactorRepository
         => await _context.ForoshFactors.Where(x => x.ForoshFactorStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ForoshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId)
-        => await _context.ForoshFactors.FindAsync(foroshFactorId);
+        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.ForoshFactorId == foroshFactorId && x.ForoshFactorStatus == Status.Show);
+
+    public async ValueTask<ForoshFactor?> ChangeStatusForoshFactorByIdAsync(Status status, Ulid foroshFactorId)
+    {
+        try
+        {
+            var item = await _context.ForoshFactors!.FindAsync(foroshFactorId);
+            if (item is null) return null;
+            item.ForoshFactorStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<ForoshFactor?> CreateForoshFactorAsync(ForoshFactor? entity)
     {

@@ -11,11 +11,11 @@ public static class CustomerCategoryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerCategories/{id}", async (Ulid id, IMediator mediator) =>
+        plan.MapGet("/AllCustomerCategories/{id}", async (string id, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new AllItemsCustomerCategoryQuery());
+                var result = await mediator.Send(new AllItemsCustomerCategoryQuery { UserId = id });
                 return Results.Ok(result);
             }
             catch (ArgumentException e)
@@ -46,7 +46,25 @@ public static class CustomerCategoryRoute
             {
                 var result = await mediator.Send(new CreateCustomerCategoryCommand
                 {
+                    UserId = request.UserId,
                     CustomerCategoryName = request.CustomerCategoryName
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerCategoryCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusCustomerCategoryCommand
+                {
+                    CustomerCategoryId = request.CustomerCategoryId,
+                    CustomerCategoryStatus = request.CustomerCategoryStatus
                 });
                 return Results.Ok(result);
             }
@@ -62,6 +80,7 @@ public static class CustomerCategoryRoute
             {
                 var result = await mediator.Send(new UpdateCustomerCategoryCommand
                 {
+                    UserId = request.UserId,
                     CustomerCategoryId = request.CustomerCategoryId,
                     CustomerCategoryName = request.CustomerCategoryName,
                 });
@@ -77,11 +96,7 @@ public static class CustomerCategoryRoute
         {
             try
             {
-                var result = await mediator.Send(new DeleteCustomerCategoryCommand
-                {
-                    CustomerCategoryId = request.CustomerCategoryId,
-                });
-                return Results.Ok(result);
+                return Results.Ok(await mediator.Send(new DeleteCustomerCategoryCommand { CustomerCategoryId = request.CustomerCategoryId }));
             }
             catch (ArgumentException e)
             {

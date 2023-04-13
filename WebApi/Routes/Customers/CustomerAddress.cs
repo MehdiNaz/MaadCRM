@@ -59,6 +59,23 @@ public static class CustomerAddressRoute
             }
         });
 
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomersAddressCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusCustomersAddressCommand
+                {
+                    CustomersAddressId = request.CustomersAddressId,
+                    CustomersAddressStatus = request.CustomersAddressStatus
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
         plan.MapPut("/Update", async ([FromBody] UpdateCustomersAddressCommand request, IMediator mediator) =>
         {
             try

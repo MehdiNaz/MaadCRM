@@ -13,7 +13,23 @@ public class ForoshOrderRepository : IForoshOrderRepository
         => await _context.ForoshOrders.Where(x => x.ForoshOrderStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ForoshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
-        => await _context.ForoshOrders.FindAsync(foroshOrderId);
+        => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.ForoshOrderId == foroshOrderId && x.ForoshOrderStatus == Status.Show);
+
+    public async ValueTask<ForoshOrder?> ChangeStatusForoshOrderByIdAsync(Status status, Ulid foroshOrderId)
+    {
+        try
+        {
+            var item = await _context.ForoshOrders!.FindAsync(foroshOrderId);
+            if (item is null) return null;
+            item.ForoshOrderStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<ForoshOrder?> CreateForoshOrderAsync(ForoshOrder? entity)
     {

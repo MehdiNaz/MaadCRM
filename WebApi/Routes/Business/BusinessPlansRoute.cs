@@ -1,4 +1,4 @@
-﻿namespace WebApi.Routes;
+﻿namespace WebApi.Routes.Business;
 
 public static class BusinessPlansRoute
 {

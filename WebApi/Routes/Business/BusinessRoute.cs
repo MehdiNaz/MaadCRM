@@ -1,4 +1,4 @@
-﻿namespace WebApi.Routes;
+﻿namespace WebApi.Routes.Business;
 
 public static class BusinessRoute
 {
@@ -53,6 +53,23 @@ public static class BusinessRoute
                     CompanyAddress = request.CompanyAddress,
                     DisplayOrder = request.DisplayOrder,
                     //UserId = request.UserId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusBusinessCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusBusinessCommand
+                {
+                    BusinessStatus = request.BusinessStatus,
+                    BusinessId = request.BusinessId
                 });
                 return Results.Ok(result);
             }

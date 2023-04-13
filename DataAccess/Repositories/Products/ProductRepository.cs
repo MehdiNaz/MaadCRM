@@ -13,7 +13,23 @@ public class ProductRepository : IProductRepository
         => await _context.Products.Where(x => x.ProductStatus == Status.Show).ToListAsync();
 
     public async ValueTask<Product?> GetProductByIdAsync(Ulid productId)
-        => await _context.Products.FindAsync(productId);
+        => await _context.Products.FirstOrDefaultAsync(x => x.ProductId == productId && x.ProductStatus == Status.Show);
+
+    public async ValueTask<Product?> ChangeStatusProductByIdAsync(Status status, Ulid productId)
+    {
+        try
+        {
+            var item = await _context.Products!.FindAsync(productId);
+            if (item is null) return null;
+            item.ProductStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<Product?> ChangeStateProductAsync(ProductStatus status, Ulid productId)
     {

@@ -58,6 +58,23 @@ public static class NoteAttachmentRoute
             }
         });
 
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteAttachmentCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusNoteAttachmentCommand
+                {
+                    NoteAttachmentStatus = request.NoteAttachmentStatus,
+                    NoteAttachmentId = request.NoteAttachmentId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
         plan.MapPut("/Update", async ([FromBody] UpdateNoteAttachmentCommand request, IMediator mediator) =>
         {
             try

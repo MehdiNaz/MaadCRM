@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230411133222_NewRelationShips")]
-    partial class NewRelationShips
+    [Migration("20230413121131_MaadMigration")]
+    partial class MaadMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

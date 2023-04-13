@@ -13,7 +13,23 @@ public class PlanRepository : IPlanRepository
         => await _context.Plans.Where(x => x.PlanStatus == Status.Show).ToListAsync()!;
 
     public async ValueTask<Plan?> GetPlansByIdAsync(Ulid postId)
-        => await _context.Plans.FindAsync(postId);
+        => await _context.Plans.FirstOrDefaultAsync(x => x.PlanId == postId && x.PlanStatus == Status.Show);
+
+    public async ValueTask<Plan?> ChangeStatusPlansByIdAsync(Status status, Ulid planId)
+    {
+        try
+        {
+            var item = await _context.Plans!.FindAsync(planId);
+            if (item is null) return null;
+            item.PlanStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<Plan?> CreatePlanAsync(Plan? toCreate)
     {

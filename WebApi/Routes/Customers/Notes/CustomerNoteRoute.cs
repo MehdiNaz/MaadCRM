@@ -56,6 +56,23 @@ public static class CustomerNoteRoute
             }
         });
 
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusCustomerNoteCommand
+                {
+                    CustomerNoteStatus = request.CustomerNoteStatus,
+                    CustomerNoteId = request.CustomerNoteId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
         plan.MapPut("/Update", async ([FromBody] UpdateCustomerNoteCommand request, IMediator mediator) =>
         {
             try

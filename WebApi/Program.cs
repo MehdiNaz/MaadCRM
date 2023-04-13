@@ -1,3 +1,5 @@
+using WebApi.Routes.Business;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
