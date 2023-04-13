@@ -1,10 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Application.Interfaces.Account;
 using Application.Services.Login.Commands;
 using LanguageExt;
+using LanguageExt.Common;
 using LanguageExt.SomeHelp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -32,7 +34,7 @@ public class LoginRepository : ILoginRepository
         try
         {
             var result =  await _userManager.FindByNameAsync(request.Phone);
-            return result == null ? Option<bool>.Some(true) : Option<bool>.None;
+            return result != null ? Option<bool>.Some(true) : Option<bool>.None;
         }
         catch(Exception e)
         {
@@ -83,6 +85,7 @@ public class LoginRepository : ILoginRepository
         
             result.LoginCount++;
             result.LastLogin = DateTime.UtcNow;
+            result.OtpPasswordExpired = DateTime.UtcNow.AddMinutes(3);
         
             await _userManager.UpdateAsync(result);
 
@@ -100,19 +103,18 @@ public class LoginRepository : ILoginRepository
         }
     }
 
-    public async ValueTask<Option<User>> VerifyCode(VerifyCodeQuery request)
+    public async ValueTask<Result<User>> VerifyCode(VerifyCodeQuery request)
     {
         try
         {
             var result = await _userManager.FindByNameAsync(request.Phone);
-            if (result == null)
-                return null;
+            if (result == null || result.OtpPasswordExpired < DateTime.UtcNow)
+                return new Result<User>(new ValidationException("کد وارد شده منقضی شده است"));
         
             var userRoles = await _userManager.GetRolesAsync(result);
-
             var authClaims = new List<Claim>
             {
-                new(ClaimTypes.Name, result.UserName),
+                new(ClaimTypes.Name, result.UserName!),
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new(ClaimTypes.NameIdentifier, result.Id),
             };
@@ -131,7 +133,7 @@ public class LoginRepository : ILoginRepository
             result.Token = new JwtSecurityTokenHandler().WriteToken(token);
         
         
-            return result;
+            return new Result<User>(result);
         }
         catch (Exception e)
         {

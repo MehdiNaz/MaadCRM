@@ -1,8 +1,9 @@
 using LanguageExt;
+using LanguageExt.Common;
 
 namespace Application.Services.Login.QueryHandler;
 
-public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Option<User>>
+public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Result<User>>
 {
     private readonly ILoginRepository _repository;
 
@@ -10,8 +11,19 @@ public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Option<User>>
     {
         _repository = repository;
     }
-    public async Task<Option<User>> Handle(VerifyCodeQuery request, CancellationToken cancellationToken)
+    public async Task<Result<User>> Handle(VerifyCodeQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.VerifyCode(request);
+        try
+        {
+            var resultVerifyCode = await _repository.VerifyCode(request);
+
+            return resultVerifyCode.Match( result => new Result<User>(result), exception =>  new Result<User>(exception) );
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
     }
 }

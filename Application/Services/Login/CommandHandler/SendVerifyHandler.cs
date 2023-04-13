@@ -18,7 +18,7 @@ public class SendVerifyHandler : IRequestHandler<SendVerifyCommand, Option<bool>
         try
         {
             var result = await _repository.SendVerifyCode(request);
-            return result.Match(resultCode => Option<bool>.Some(resultCode), () => Option<bool>.None);
+            return result.Match(Option<bool>.Some, () => Option<bool>.None);
         }
         catch (Exception e)
         {

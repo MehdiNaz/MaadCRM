@@ -29,44 +29,14 @@ public static class LoginRoute
                     Valid = false,
                     Message = exception,
                 }));
-
-
-
-
-
-
-                // if (result.IsCompleted)
-                // {
-                //     
-                //     
-                //     // var resultRegister = mediator.Send(new RegisterUserCommand
-                //     // {
-                //     //     Phone = request.Phone
-                //     // });
-                //     // // TODO: Check if register is ok
-                //     //
-                //     // Console.WriteLine(resultRegister.Result);
-                // }
-
-
-                // var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
-                // {
-                //     Phone = request.Phone
-                // });
-                //
-                // return Results.Ok(new
-                // {
-                //     Valid = resultSendVerifyCode.Result,
-                //     Message = "Otp sent",
-                // });
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 return Results.BadRequest(new
                 {
                     Valid = false,
-                    Message = e.Message,
-                    StackTrace = e.StackTrace
+                    e.Message,
+                    e.StackTrace
                 });
             }
         });
@@ -108,26 +78,28 @@ public static class LoginRoute
                     Phone = request.Phone,
                     Code = request.Code
                 });
-
-                Console.WriteLine(resultVerifyCode.Result);
-                if (resultVerifyCode.Result == null)
-                    return Results.Unauthorized();
-
-                return Results.Ok(new
-                {
-                    Valid = true,
-                    Message = "Verify code success",
-                    User = resultVerifyCode.Result
-                });
                 
+                return resultVerifyCode.Result.Match<IResult>(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Verify code success",
+                        User = u
+                    }), 
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
+
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 return Results.BadRequest(new
                 {
                     Valid = false,
-                    Message = e.Message,
-                    StackTrace = e.StackTrace
+                    e.Message,
+                    e.StackTrace
                 });
             }
         });
