@@ -1,17 +1,27 @@
+using LanguageExt;
+
 namespace Application.Services.Login.CommandHandler;
 
-public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, bool>
+public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Option<bool>>
 {
-    private readonly ILoginRerpository _repository;
+    private readonly ILoginRepository _repository;
 
-    public RegisterUserHandler(ILoginRerpository repository)
+    public RegisterUserHandler(ILoginRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<bool> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Option<bool>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.RegisterUser(request);
-        return result;
+        try
+        {
+            var result = await _repository.RegisterUser(request);
+            return result.Match(resultCode => Option<bool>.Some(resultCode), () => Option<bool>.None);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

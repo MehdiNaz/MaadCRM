@@ -1,4 +1,4 @@
-using Domain.Models.SpecialFields;
+#pragma warning disable CS8618
 
 namespace DataAccess;
 
@@ -11,44 +11,44 @@ public class MaadContext : IdentityDbContext
     {
     }
 
-    public DbSet<Log>? Logs { get; set; }
-    public DbSet<Plan>? Plans { get; set; }
-    public DbSet<SanAt>? SanAts { get; set; }
-    public DbSet<Customer>? Customers { get; set; }
-    public DbSet<CustomerCategory>? CustomerCategories { get; set; }
-    public DbSet<CustomerActivity>? CustomerActivities { get; set; }
-    public DbSet<Address>? Addresses { get; set; }
-    public DbSet<City>? Cities { get; set; }
-    public DbSet<Country>? Countries { get; set; }
-    public DbSet<Province>? Provinces { get; set; }
-    public DbSet<Business>? Businesses { get; set; }
-    public DbSet<BusinessPlan>? BusinessPlans { get; set; }
-    public DbSet<Setting>? Settings { get; set; }
-    public DbSet<CategoryAttribute>? CategoryAttributes { get; set; }
-    public DbSet<BusinessAttribute>? BusinessAttributes { get; set; }
-    public DbSet<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
-    public DbSet<AttributeOption>? AttributeOptions { get; set; }
-    public DbSet<CustomersPhoneNumber>? CustomersPhoneNumbers { get; set; }
-    public DbSet<CustomersEmailAddress>? CustomersEmailAddresses { get; set; }
-    public DbSet<CustomersAddress>? CustomersAddresses { get; set; }
-    public DbSet<ContactGroup>? ContactGroups { get; set; }
-    public DbSet<Contact>? Contacts { get; set; }
-    public DbSet<ContactPhoneNumber>? ContactPhoneNumbers { get; set; }
-    public DbSet<ContactsEmailAddress>? ContactsEmailAddresses { get; set; }
-    public DbSet<Product>? Products { get; set; }
-    public DbSet<ProductCategory>? ProductCategories { get; set; }
+    public DbSet<Log> Logs { get; set; }
+    public DbSet<Plan> Plans { get; set; }
+    public DbSet<SanAt> SanAts { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<CustomerCategory> CustomerCategories { get; set; }
+    public DbSet<CustomerActivity> CustomerActivities { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+    public DbSet<City> Cities { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<Province> Provinces { get; set; }
+    public DbSet<Business> Businesses { get; set; }
+    public DbSet<BusinessPlan> BusinessPlans { get; set; }
+    public DbSet<Setting> Settings { get; set; }
+    public DbSet<CategoryAttribute> CategoryAttributes { get; set; }
+    public DbSet<BusinessAttribute> BusinessAttributes { get; set; }
+    public DbSet<AttributeOptionsValue> AttributeOptionsValues { get; set; }
+    public DbSet<AttributeOption> AttributeOptions { get; set; }
+    public DbSet<CustomersPhoneNumber> CustomersPhoneNumbers { get; set; }
+    public DbSet<CustomersEmailAddress> CustomersEmailAddresses { get; set; }
+    public DbSet<CustomersAddress> CustomersAddresses { get; set; }
+    public DbSet<ContactGroup> ContactGroups { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+    public DbSet<ContactPhoneNumber> ContactPhoneNumbers { get; set; }
+    public DbSet<ContactsEmailAddress> ContactsEmailAddresses { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
     //public DbSet<Note>? Notes { get; set; }
-    public DbSet<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
-    public DbSet<CustomerNote>? CustomerNotes { get; set; }
-    public DbSet<NoteHashTag>? NoteHashTags { get; set; }
-    public DbSet<NoteAttachment>? NoteAttachments { get; set; }
-    public DbSet<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
-    public DbSet<CustomerFeedback>? CustomerFeedbacks { get; set; }
-    public DbSet<CustomerRepresentativeHistory>? CustomerRepresentativeHistories { get; set; }
-    public DbSet<CustomerSubmission>? CustomerSubmissions { get; set; }
-    public DbSet<ForoshOrder>? ForoshOrders { get; set; }
-    public DbSet<ForoshFactor>? ForoshFactors { get; set; }
+    public DbSet<CustomerPeyGiry> CustomerPeyGiries { get; set; }
+    public DbSet<CustomerNote> CustomerNotes { get; set; }
+    public DbSet<NoteHashTag> NoteHashTags { get; set; }
+    public DbSet<NoteAttachment> NoteAttachments { get; set; }
+    public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
+    public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
+    public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
+    public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
+    public DbSet<ForoshOrder> ForoshOrders { get; set; }
+    public DbSet<ForoshFactor> ForoshFactors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -263,3 +263,4 @@ public class UlidToStringConverter : ValueConverter<Ulid, string>
     {
     }
 }
+#pragma warning restore CS8618

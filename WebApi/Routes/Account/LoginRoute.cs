@@ -1,3 +1,5 @@
+using LanguageExt;
+
 namespace WebApi.Routes.Account;
 public static class LoginRoute
 {
@@ -11,32 +13,52 @@ public static class LoginRoute
         {
             try
             {
-                var result = mediator.Send(new UserByPhoneNumberQuery
+                var resultUserByPhoneNumberQuery = mediator.Send(new UserByPhoneNumberQuery
                 {
                     Phone = request.Phone
                 });
-                if (result.Result == null)
+
+                return resultUserByPhoneNumberQuery.Result.Match<IResult>(
+                    r => Results.Ok(new
                 {
-                    var resultRegister = mediator.Send(new RegisterUserCommand
-                    {
-                        Phone = request.Phone
-                    });
-                    // TODO: Check if register is ok
-                    
-                    Console.WriteLine(resultRegister.Result);
-                }
-                
-            
-                var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
-                {
-                    Phone = request.Phone
-                });
-                
-                return Results.Ok(new
-                {
-                    Valid = resultSendVerifyCode.Result,
+                    Valid = r,
                     Message = "Otp sent",
-                });
+                }), 
+                    exception => Results.BadRequest(new
+                {
+                    Valid = false,
+                    Message = exception,
+                }));
+
+
+
+
+
+
+                // if (result.IsCompleted)
+                // {
+                //     
+                //     
+                //     // var resultRegister = mediator.Send(new RegisterUserCommand
+                //     // {
+                //     //     Phone = request.Phone
+                //     // });
+                //     // // TODO: Check if register is ok
+                //     //
+                //     // Console.WriteLine(resultRegister.Result);
+                // }
+
+
+                // var resultSendVerifyCode = mediator.Send(new SendVerifyCommand
+                // {
+                //     Phone = request.Phone
+                // });
+                //
+                // return Results.Ok(new
+                // {
+                //     Valid = resultSendVerifyCode.Result,
+                //     Message = "Otp sent",
+                // });
             }
             catch (ArgumentException e)
             {

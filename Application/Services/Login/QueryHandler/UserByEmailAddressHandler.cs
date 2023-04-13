@@ -1,15 +1,17 @@
-﻿namespace Application.Services.Login.QueryHandler;
+﻿using LanguageExt;
 
-public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, IdentityUser?>
+namespace Application.Services.Login.QueryHandler;
+
+public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, Option<User>>
 {
-    private readonly ILoginRerpository _repository;
+    private readonly ILoginRepository _repository;
 
 
-    public GetUserByEmailAddressHandler(ILoginRerpository repository)
+    public GetUserByEmailAddressHandler(ILoginRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<IdentityUser?> Handle(UserByEmailAddressQuery request, CancellationToken cancellationToken)
+    public async Task<Option<User>> Handle(UserByEmailAddressQuery request, CancellationToken cancellationToken)
         => await _repository.CheckExistByEmailAddress(request);
 }

@@ -72,7 +72,6 @@ global using DataAccess.Repositories.Customers;
 global using DataAccess.Repositories.Customers.Note;
 global using DataAccess.Repositories.Customers.PeyGiry;
 global using DataAccess.Repositories.Forosh;
-global using DataAccess.Repositories.Login;
 global using DataAccess.Repositories.Plans;
 global using DataAccess.Repositories.Products;
 global using DataAccess.Repositories.SpecialFields;

@@ -1,12 +1,14 @@
-﻿namespace Application.Interfaces.Account;
+﻿using LanguageExt;
 
-public interface ILoginRerpository
+namespace Application.Interfaces.Account;
+
+public interface ILoginRepository
 {
-    ValueTask<IdentityUser?> CheckExistByPhone(UserByPhoneNumberQuery request);
-    ValueTask<IdentityUser?> CheckExistByEmailAddress(UserByEmailAddressQuery request);
+    ValueTask<Option<bool>> CheckExistByPhone(UserByPhoneNumberQuery request);
+    ValueTask<Option<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request);
     ValueTask<bool> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request);
     
-    ValueTask<User?> VerifyCode(VerifyCodeQuery request);
-    ValueTask<bool> SendVerifyCode(SendVerifyCommand request);
-    ValueTask<bool> RegisterUser(RegisterUserCommand request);
+    ValueTask<Option<User>> VerifyCode(VerifyCodeQuery request);
+    ValueTask<Option<bool>> SendVerifyCode(SendVerifyCommand request);
+    ValueTask<Option<bool>> RegisterUser(RegisterUserCommand request);
 }
