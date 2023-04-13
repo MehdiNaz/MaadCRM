@@ -13,6 +13,7 @@ public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<C
     {
         CustomerCategory customerCategory = new()
         {
+            UserId = request.UserId,
             CustomerCategoryName = request.CustomerCategoryName
         };
 

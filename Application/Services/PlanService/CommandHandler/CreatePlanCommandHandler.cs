@@ -13,6 +13,7 @@ public readonly struct CreatePlanCommandHandler : IRequestHandler<CreatePlanComm
     {
         Plan item = new()
         {
+            UserId = request.UserId,
             PlanName = request.PlanName,
             CountOfUsers = request.CountOfUsers,
             PriceOfUsers = request.PriceOfUsers,

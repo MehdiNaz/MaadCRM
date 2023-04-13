@@ -13,7 +13,23 @@ public class SanAtRepository : ISanAtRepository
         => await _context.SanAts!.Where(x => x.SanAtStatus == Status.Show).ToListAsync();
 
     public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId)
-        => await _context.SanAts.FindAsync(sanAtId);
+        => await _context.SanAts.FirstOrDefaultAsync(x => x.SanAtId == sanAtId && x.SanAtStatus == Status.Show);
+
+    public async ValueTask<SanAt?> ChangeStatusSanAtsByIdAsync(Status status, Ulid sanAtId)
+    {
+        try
+        {
+            var item = await _context.SanAts!.FindAsync(sanAtId);
+            if (item is null) return null;
+            item.SanAtStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<SanAt?> CreateSanAtsAsync(SanAt? entity)
     {

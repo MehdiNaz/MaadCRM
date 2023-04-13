@@ -2,6 +2,7 @@
 
 public struct CreatePlanCommand : IRequest<Plan>
 {
+    public string UserId { get; set; }
     public string PlanName { get; set; }
     public uint CountOfUsers { get; set; }
     public decimal PriceOfUsers { get; set; }

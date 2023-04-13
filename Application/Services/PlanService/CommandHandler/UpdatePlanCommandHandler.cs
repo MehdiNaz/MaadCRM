@@ -13,8 +13,9 @@ public readonly struct UpdatePlanCommandHandler : IRequestHandler<UpdatePlanComm
     {
         Plan item = new()
         {
-            PlanId = request.Id,
+            PlanId = request.PlanId,
             PlanName = request.PlanName,
+            UserId = request.UserId,
             CountOfUsers = request.CountOfUsers,
             PriceOfUsers = request.PriceOfUsers,
             CountOfDay = request.CountOfDay,

@@ -10,5 +10,5 @@ public readonly struct CustomerCategoryByIdHandler : IRequestHandler<CustomerCat
     }
 
     public async Task<CustomerCategory?> Handle(CustomerCategoryByIdQuery request, CancellationToken cancellationToken)
-        => await _repository.GetCustomerCategoryByIdAsync(request.CustomerCategoryId);
+        => await _repository.GetCustomerCategoryByIdAsync(request.CustomerCategoryId, request.UserId);
 }

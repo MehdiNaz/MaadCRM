@@ -60,6 +60,26 @@ public static class CustomerFeedbackRoute
             }
         });
 
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerFeedBackCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusCustomerFeedBackCommand
+                {
+                    //Address = request.Address,
+                    //CodePost = request.CodePost,
+                    //PhoneNo = request.PhoneNo,
+                    //Description = request.Description,
+                    //Id = request.Id
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
         plan.MapPut("/Update", async ([FromBody] UpdateCustomerFeedBackCommand request, IMediator mediator) =>
         {
             try

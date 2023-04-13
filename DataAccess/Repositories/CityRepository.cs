@@ -13,7 +13,23 @@ public class CityRepository : ICityRepository
         => await _context.Cities!.Where(x => x.CityStatus == Status.Show).ToListAsync();
 
     public async ValueTask<City?> GetCityByIdAsync(Ulid cityId)
-        => await _context.Cities.FindAsync(cityId);
+        => await _context.Cities.FirstOrDefaultAsync(x => x.CityId == cityId && x.CityStatus == Status.Show);
+
+    public async ValueTask<City?> ChangeStatusCityByIdAsync(Status status, Ulid cityId)
+    {
+        try
+        {
+            var item = await _context.Cities!.FindAsync(cityId);
+            if (item is null) return null;
+            item.CityStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<City?> CreateCityAsync(City? entity)
     {

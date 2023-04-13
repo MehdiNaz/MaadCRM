@@ -44,14 +44,12 @@ public class BusinessPlanRepository : IBusinessPlanRepository
             await _context.BusinessPlans!.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
-
         }
         catch
         {
             return null;
         }
     }
-
 
     public async ValueTask<BusinessPlan?> UpdateBusinessPlansAsync(BusinessPlan entity)
     {

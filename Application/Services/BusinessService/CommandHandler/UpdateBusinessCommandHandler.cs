@@ -19,6 +19,7 @@ public readonly struct UpdateBusinessCommandHandler : IRequestHandler<UpdateBusi
             CompanyName = request.CompanyName,
             CompanyAddress = request.CompanyAddress,
             DisplayOrder = request.DisplayOrder,
+            BusinessName = request.BusinessName
             //UserId = request.UserId!
         };
         await _repository.UpdateBusinessAsync(item);

@@ -13,7 +13,23 @@ public class ProductCategoryRepository : IProductCategoryRepository
         => await _context.ProductCategories.Where(x => x.ProductCategoryStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid productCategoryId)
-        => await _context.ProductCategories.FindAsync(productCategoryId);
+        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.ProductCategoryId == productCategoryId && x.ProductCategoryStatus == Status.Show);
+
+    public async ValueTask<ProductCategory?> ChangeStatusProductCategoryByIdAsync(Status status, Ulid productCategoryId)
+    {
+        try
+        {
+            var item = await _context.ProductCategories!.FindAsync(productCategoryId);
+            if (item is null) return null;
+            item.ProductCategoryStatus = status;
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async ValueTask<ProductCategory?> CreateProductCategoryAsync(ProductCategory? entity)
     {

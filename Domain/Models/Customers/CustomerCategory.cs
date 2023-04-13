@@ -11,6 +11,7 @@ public class CustomerCategory : BaseEntity
     public Ulid CustomerCategoryId { get; set; }
     public string CustomerCategoryName { get; set; }
     public Status CustomerCategoryStatus { get; set; }
+    public string UserId { get; set; }
 
     public ICollection<Customer>? Customers { get; set; }
 }

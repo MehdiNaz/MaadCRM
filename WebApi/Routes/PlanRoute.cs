@@ -24,7 +24,7 @@ public static class PlanRoute
             }
         });
 
-        plan.MapGet("/PlanById", async ([FromBody] PlanByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById", async ([FromBody] PlanByIdQuery request, IMediator mediator) =>
         {
             try
             {
@@ -40,12 +40,13 @@ public static class PlanRoute
             }
         });
 
-        plan.MapPost("/InsertPlan", async ([FromBody] CreatePlanCommand request, IMediator mediator) =>
+        plan.MapPost("/Insert", async ([FromBody] CreatePlanCommand request, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new CreatePlanCommand
                 {
+                    UserId = request.UserId,
                     PriceOfDay = request.PriceOfDay,
                     CountOfDay = request.CountOfDay,
                     CountOfUsers = request.CountOfUsers,
@@ -60,13 +61,31 @@ public static class PlanRoute
             }
         });
 
-        plan.MapPut("/UpdatePlan", async ([FromBody] UpdatePlanCommand request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusPlanCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusPlanCommand
+                {
+                    PlanId = request.PlanId,
+                    PlanStatus = request.PlanStatus
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+        plan.MapPut("/Update", async ([FromBody] UpdatePlanCommand request, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new UpdatePlanCommand
                 {
-                    Id = request.Id,
+                    PlanId = request.PlanId,
+                    UserId = request.UserId,
                     PriceOfDay = request.PriceOfDay,
                     CountOfDay = request.CountOfDay,
                     CountOfUsers = request.CountOfUsers,
@@ -80,8 +99,8 @@ public static class PlanRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
-        plan.MapDelete("/DeletePlan", async ([FromBody] DeletePlanCommand request, IMediator mediator) =>
+
+        plan.MapDelete("/Delete", async ([FromBody] DeletePlanCommand request, IMediator mediator) =>
         {
             try
             {
