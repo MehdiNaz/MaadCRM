@@ -1,6 +1,6 @@
 using Domain.Models.Businesses;
 
-namespace MaadApi;
+namespace WebApi.Test;
 public interface ITest1Service
 {
     public Task<bool> t1();

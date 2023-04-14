@@ -85,5 +85,6 @@ global using Application.Services.Jwt.Query;
 global using Application.Services.Login.Commands;
 global using Application.Services.Profile.Command;
 global using Domain.Models.IdentityModels;
+global using LanguageExt.Common;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.IdentityModel.Tokens;

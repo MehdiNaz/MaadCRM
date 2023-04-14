@@ -1,6 +1,6 @@
 namespace Application.Services.Profile.CommandHandler;
 
-public readonly struct SetProfileHandler : IRequestHandler<SetProfileCommand, User?>
+public readonly struct SetProfileHandler : IRequestHandler<SetProfileCommand, Result<User>>
 {
     private readonly IProfileRepository _repository;
     
@@ -9,9 +9,17 @@ public readonly struct SetProfileHandler : IRequestHandler<SetProfileCommand, Us
         _repository = repository;
     }
 
-    public async Task<User?> Handle(SetProfileCommand request, CancellationToken cancellationToken)
+    public async Task<Result<User>> Handle(SetProfileCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.SetProfile(request);
-        return result;
+        try
+        {
+            var result = await _repository.SetProfile(request);
+            return result.Match(resultCode => new Result<User>(resultCode), exception => new Result<User>(exception));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

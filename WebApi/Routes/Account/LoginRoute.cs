@@ -41,7 +41,6 @@ public static class LoginRoute
             }
         });
         
-        
         login.MapPost("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try

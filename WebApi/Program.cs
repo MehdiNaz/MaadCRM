@@ -1,4 +1,4 @@
-using WebApi.Routes.Business;
+using WebApi.Test;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -50,6 +50,10 @@ app.UseFileServer();
 #endregion
 
 #region Routes
+
+app.MapTestRoute();
+
+
 app.MapProfileRoute();
 app.MapLoginRoute();
 app.MapBusinessPlanRout();
@@ -65,14 +69,6 @@ app.MapNoteAttachmentRoute();
 app.MapNoteHashTagRoute();
 app.MapCustomerPeyGiryAttachmentRoute();
 app.MapPlanRoute();
-
-app.MapGet("/test123", (IMediator _mediator) =>
-{
-    var result = _mediator.Send(new GetAllBeachesQuery());
-    return Results.Ok(result);
-});
-app.MapGet("/test1234", () => Results.Ok("test 1234"));
-
 #endregion
 
 ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();

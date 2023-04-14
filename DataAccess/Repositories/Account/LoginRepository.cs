@@ -1,18 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Application.Interfaces.Account;
-using Application.Services.Login.Commands;
-using LanguageExt;
-using LanguageExt.Common;
-using LanguageExt.SomeHelp;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
-
-namespace DataAccess.Repositories.Account;
+﻿namespace DataAccess.Repositories.Account;
 
 public class LoginRepository : ILoginRepository
 {
@@ -70,7 +56,6 @@ public class LoginRepository : ILoginRepository
             throw;
         }
     }
-
     
     public async ValueTask<Option<bool>> SendVerifyCode(SendVerifyCommand request)
     {

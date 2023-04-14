@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using WebApi.Test;
+
+namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
@@ -15,10 +17,10 @@ public static class RepositoryConfiguration
         // var logger = serviceProvider.GetService<ILogger<ScheduleDatabaseInvocable>>();
         // builder.Services.AddSingleton(typeof(ILogger), logger!);
 
-        collection.AddTransient<ITestService, TestService>();
 
         // TODO: Remove test
         collection.AddTransient<ITest1Service, Test1Service>();
+        collection.AddTransient<ITestService, TestService>();
 
         //Application ==> Interfaces :
         collection.AddTransient<ICustomerCategoryRepository, CustomerCategoryRepository>();

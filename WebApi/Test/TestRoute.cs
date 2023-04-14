@@ -1,16 +1,14 @@
-using LanguageExt;
+namespace WebApi.Test;
 
-namespace WebApi.Routes.Account;
-
-public static class ProfileRoute
+public static class TestRoute
 {
-    public static void MapProfileRoute(this IEndpointRouteBuilder app)
+    public static void MapTestRoute(this IEndpointRouteBuilder app)
     {
-        var profile = app.MapGroup("v1/profile")
+        var test = app.MapGroup("v1/test")
             .WithOpenApi()
             .AllowAnonymous();
 
-        profile.MapPost("/SetProfile",
+        test.MapPost("/addrole",
              ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SetProfileCommand request,
                 IMediator mediator, HttpContext httpContext) =>
             {
@@ -56,5 +54,12 @@ public static class ProfileRoute
                     });
                 }
             });
+        
+        test.MapGet("/test123", (IMediator _mediator) =>
+        {
+            var result = _mediator.Send(new GetAllBeachesQuery());
+            return Results.Ok(result);
+        });
+        test.MapGet("/test1234", () => Results.Ok("test 1234"));
     }
 }

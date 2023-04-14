@@ -1,6 +1,6 @@
 namespace Application.Services.Profile.Command;
 
-public struct SetProfileCommand : IRequest<User?>
+public struct SetProfileCommand : IRequest<Result<User>>
 {
     public string Id { get; set; }
     public string Name { get; set; }

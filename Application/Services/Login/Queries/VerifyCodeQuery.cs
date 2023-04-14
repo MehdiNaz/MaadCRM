@@ -1,5 +1,4 @@
 using LanguageExt;
-using LanguageExt.Common;
 
 namespace Application.Services.Login.Queries;
 
