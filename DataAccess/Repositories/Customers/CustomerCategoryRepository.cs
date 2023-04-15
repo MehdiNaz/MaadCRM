@@ -67,7 +67,7 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         try
         {
             var CustomerCategory = await GetCustomerCategoryByIdAsync(customerCategoryId,userId);
-            CustomerCategory.CustomerCategoryStatus = Status.Show;
+            CustomerCategory.CustomerCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return CustomerCategory;
         }

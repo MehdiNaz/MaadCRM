@@ -64,7 +64,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             var customerNote = await GetCustomerNoteByIdAsync(customerNoteId);
-            customerNote!.CustomerNoteStatus = Status.Show;
+            customerNote!.CustomerNoteStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerNote;
         }

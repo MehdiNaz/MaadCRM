@@ -4,20 +4,20 @@ public static class CustomerPeyGiryRoute
 {
     public static void MapCustomerPeyGiryRoute(this IEndpointRouteBuilder app)
     {
-        #region Customer
+        #region Customer Pey Giry
 
         var plan = app.MapGroup("v1/CustomerPeyGiry")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerPeyGiries", async ([FromBody] AllCustomerPeyGiriesQuery request, IMediator mediator) =>
+        plan.MapGet("/AllCustomerPeyGiries/{customerId}", async (Ulid customerId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllCustomerPeyGiriesQuery
                 {
-                    CustomerId = request.CustomerId
+                    CustomerId = customerId
                 });
                 return Results.Ok(result);
             }
@@ -51,6 +51,23 @@ public static class CustomerPeyGiryRoute
                 {
                     Description = request.Description,
                     CustomerId = request.CustomerId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+        
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusCustomerPeyGiryCommand
+                {
+                    CustomerPeyGiryId = request.CustomerPeyGiryId,
+                    CustomerPeyGiryStatus = request.CustomerPeyGiryStatus
                 });
                 return Results.Ok(result);
             }
