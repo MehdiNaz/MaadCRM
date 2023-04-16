@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Commands;
 
-public struct CreateCustomerCommand : IRequest<Customer?>
+public struct CreateCustomerCommand : IRequest<CustomerResponse?>
 {
     public string FirstName { get; set; }
     public required string LastName { get; set; }

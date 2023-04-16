@@ -11,13 +11,39 @@ public static class CustomerRoute
             .EnableOpenApiWithAuthentication()
         .WithOpenApi();
 
-        plan.MapGet("/AllCustomers", async ([FromBody] AllCustomersQuery request, IMediator mediator) =>
+        plan.MapPost("/AllCustomers", async ([FromBody] AllCustomersQuery request, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllCustomersQuery
                 {
                     UserId = request.UserId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+
+        plan.MapPost("/CustomerBySearchItems", async ([FromBody] CustomerBySearchItemsQuery request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new CustomerBySearchItemsQuery
+                {
+                    CustomerId = request.CustomerId,
+                    BirthDayDate = request.BirthDayDate,
+                    Gender = request.Gender,
+                    CityId = request.CityId,
+                    CustomerState = request.CustomerState,
+                    From = request.From,
+                    UpTo = request.UpTo,
+                    ProvinceId = request.ProvinceId,
+                    MoshtaryMoAref = request.MoshtaryMoAref,
+                    ProductCustomerFavorite = request.ProductCustomerFavorite
                 });
                 return Results.Ok(result);
             }
@@ -48,7 +74,7 @@ public static class CustomerRoute
                     UserId = request.UserId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    BirthDayDate = request.BirthDayDate!,
+                    BirthDayDate = request.BirthDayDate,
                     CustomerPic = request.CustomerPic,
                     CustomerCategoryId = request.CustomerCategoryId,
                     Gender = request.Gender,
@@ -61,14 +87,14 @@ public static class CustomerRoute
                     CustomerPeyGiries = request.CustomerPeyGiries,
                     CityId = request.CityId
                 });
-                return Results.Ok(result);
+                return result == null ? Results.BadRequest(result) : Results.Ok(result);
             }
             catch (ArgumentException e)
             {
                 return Results.BadRequest(e.ParamName);
             }
         });
-        
+
         plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator) =>
         {
             try

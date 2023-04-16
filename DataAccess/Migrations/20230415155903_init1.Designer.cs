@@ -12,15 +12,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230413121131_MaadMigration")]
-    partial class MaadMigration
+    [Migration("20230415155903_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -69,8 +69,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.HasKey("AddressId");
-
-                    b.HasIndex("CityId");
 
                     b.ToTable("Addresses", (string)null);
                 });
@@ -546,6 +544,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("CustomerCategoryId");
@@ -1913,8 +1912,6 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("BusinessId");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("Email")
                         .IsUnique();
 
@@ -1922,15 +1919,6 @@ namespace DataAccess.Migrations
                         .IsUnique();
 
                     b.HasDiscriminator().HasValue("User");
-                });
-
-            modelBuilder.Entity("Domain.Models.Address.Address", b =>
-                {
-                    b.HasOne("Domain.Models.Address.City", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Models.Address.City", b =>
@@ -2007,8 +1995,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
-                    b.HasOne("Domain.Models.Address.City", null)
-                        .WithMany("Customers")
+                    b.HasOne("Domain.Models.Address.City", "City")
+                        .WithMany()
                         .HasForeignKey("CityId");
 
                     b.HasOne("Domain.Models.Customers.CustomerCategory", null)
@@ -2024,6 +2012,8 @@ namespace DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("City");
 
                     b.Navigation("CustomerMoaref");
                 });
@@ -2041,7 +2031,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("CustomerCategories")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerFeedbackHistory", b =>
@@ -2377,19 +2369,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.Models.Address.City", null)
-                        .WithMany("Users")
-                        .HasForeignKey("CityId");
-                });
-
-            modelBuilder.Entity("Domain.Models.Address.City", b =>
-                {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("Customers");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Models.Address.Country", b =>

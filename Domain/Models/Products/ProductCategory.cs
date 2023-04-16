@@ -20,9 +20,8 @@ public class ProductCategory : BaseEntity
 
     public ICollection<Product> Products { get; set; }
 
-
     #region Parent Relation
-    public ProductCategory IdParrentNavigation { get; set; }
-    public ICollection<ProductCategory> InverseIdParrentNavigation { get; set; }
+    public ProductCategory IdParentNavigation { get; set; }
+    public ICollection<ProductCategory>? InverseIdParentNavigation { get; set; }
     #endregion
 }

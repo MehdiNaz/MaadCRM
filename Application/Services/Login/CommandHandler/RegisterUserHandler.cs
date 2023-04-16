@@ -1,5 +1,3 @@
-using LanguageExt;
-
 namespace Application.Services.Login.CommandHandler;
 
 public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Option<bool>>

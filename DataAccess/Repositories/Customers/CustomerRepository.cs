@@ -9,13 +9,108 @@ public class CustomerRepository : ICustomerRepository
         _context = aadContext;
     }
 
-    public async ValueTask<ICollection<Customer?>> GetAllCustomersAsync(string userId)
-        => await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.UserId == userId).ToListAsync();
+    public async ValueTask<ICollection<CustomerResponse>> GetAllCustomersAsync(string userId)
+    {
+        return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.UserId == userId).Select(x => new CustomerResponse
+        {
+            BirthDayDate = x.BirthDayDate,
+            CustomerId = x.Id,
+            From = x.DateCreated,
+            CustomerState = x.CustomerState,
+            CustomerCategoryId = x.CustomerCategoryId,
+            EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+            PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            MoshtaryMoAref = x.CustomerMoarefId,
+            Address = x.CustomersAddresses.FirstOrDefault().Address,
+            CityId = x.CityId,
+            Gender = x.Gender
+        }).ToListAsync();
+    }
 
-    public async ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId)
-        => await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show);
+    public async ValueTask<CustomerResponse> GetCustomerByIdAsync(Ulid customerId)
+    {
+        return await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show)
+            .Select(x => new CustomerResponse
+            {
+                BirthDayDate = x.BirthDayDate,
+                CustomerId = x.Id,
+                From = x.DateCreated,
+                CustomerState = x.CustomerState,
+                CustomerCategoryId = x.CustomerCategoryId,
+                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                MoshtaryMoAref = x.CustomerMoarefId,
+                Address = x.CustomersAddresses.FirstOrDefault().Address,
+                CityId = x.CityId,
+                Gender = x.Gender
+            });
+    }
 
-    public async ValueTask<Customer?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
+    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerBySearchItemsQuery search)
+    {
+        var results = _context.Customers
+            .Include(x => x.FavoritesLists)
+            .Include(x => x.City)
+            .ThenInclude(x => x.Province)
+            .Select(customers => new CustomerResponse
+            {
+                CustomerId = customers.Id,
+                FirstName = customers.FirstName,
+                LastName = customers.LastName,
+                PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
+                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                Address = customers.CustomersAddresses.FirstOrDefault().Address,
+                CustomerState = customers.CustomerState,
+                MoshtaryMoAref = customers.CustomerMoarefId,
+                CustomerCategoryId = customers.CustomerCategoryId,
+                From = customers.DateCreated,
+                UpTo = DateTime.UtcNow,
+                BirthDayDate = customers.BirthDayDate,
+                CityId = customers.CityId,
+                Gender = customers.Gender
+            }).AsQueryable();
+
+        if (search is { From: { } })
+            results = results.Where(x => x.From > search.From);
+
+        if (search is { UpTo: { } })
+            results = results.Where(x => x.UpTo < DateTime.UtcNow);
+
+        if (!search.CustomerId.ToString().IsNullOrEmpty())
+            results = results.Where(x => x.CustomerId == search.CustomerId);
+
+        if (search is { From: { }, UpTo: { } })
+            results = results.Where(x => x.From < DateTime.UtcNow && x.UpTo > DateTime.UtcNow);
+
+        if (search is { CustomerState: { } })
+            results = results.Where(x => x.CustomerState == search.CustomerState);
+
+        if (search is { MoshtaryMoAref: { } })
+            results = results.Where(x => x.MoshtaryMoAref == search.MoshtaryMoAref);
+
+        if (search is { BirthDayDate: { } })
+            results = results.Where(x => x.BirthDayDate == search.BirthDayDate);
+
+        if (search is { Gender: { } })
+            results = results.Where(x => x.Gender == search.Gender);
+
+        if (search is { ProvinceId: { } })
+            results = results.Where(x => x.ProvinceId == search.ProvinceId);
+
+        if (search is { CityId: { } })
+            results = results.Where(x => x.CityId == search.CityId);
+
+        if (search is { ProductId: { } })
+            results = results.Where(x => x.ProductId == search.ProductId);
+
+        return await results.ToListAsync();
+    }
+
+    public async Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
     {
         try
         {
@@ -23,7 +118,23 @@ public class CustomerRepository : ICustomerRepository
             if (item is null) return null;
             item.CustomerStatus = status;
             await _context.SaveChangesAsync();
-            return item;
+            return await _context.Customers.FindAsync(customerId)
+                .Select(x => new CustomerResponse
+                {
+                    BirthDayDate = x.BirthDayDate,
+                    CustomerId = x.Id,
+                    From = x.DateCreated,
+                    CustomerState = x.CustomerState,
+                    CustomerCategoryId = x.CustomerCategoryId,
+                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    MoshtaryMoAref = x.CustomerMoarefId,
+                    Address = x.CustomersAddresses.FirstOrDefault().Address,
+                    CityId = x.CityId,
+                    Gender = x.Gender
+                });
         }
         catch
         {
@@ -31,7 +142,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Customer?> CreateCustomerAsync(CreateCustomerCommand entity)
+    public async Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand entity)
     {
         try
         {
@@ -134,8 +245,23 @@ public class CustomerRepository : ICustomerRepository
 
             await _context.SaveChangesAsync();
 
-            return entityEntry;
-
+            CustomerResponse returnItem = new()
+            {
+                BirthDayDate = entityEntry.BirthDayDate,
+                CustomerId = entityEntry.Id,
+                From = entityEntry.DateCreated,
+                CustomerState = entityEntry.CustomerState,
+                CustomerCategoryId = entityEntry.CustomerCategoryId,
+                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault().PhoneNo,
+                FirstName = entityEntry.FirstName,
+                LastName = entityEntry.LastName,
+                MoshtaryMoAref = entityEntry.CustomerMoarefId,
+                Address = entityEntry.CustomersAddresses.FirstOrDefault().Address,
+                CityId = entityEntry.CityId,
+                Gender = entityEntry.Gender
+            };
+            return returnItem;
         }
         catch
         {
@@ -143,21 +269,25 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Customer?> UpdateCustomerAsync(UpdateCustomerCommand entity)
+    public async Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand entity)
     {
         try
         {
-            Customer customer = await GetCustomerByIdAsync(entity.Id);
+            CustomerResponse customer = await GetCustomerByIdAsync(entity.Id);
 
-            customer.Id = entity.Id;
+            customer.CustomerId = entity.Id;
             customer.FirstName = entity.FirstName;
             customer.LastName = entity.LastName;
             customer.BirthDayDate = entity.BirthDayDate!;
-            customer.CustomerPic = entity.CustomerPic;
             customer.CustomerCategoryId = entity.CustomerCategoryId;
-            customer.Gender = entity.Gender;
-            customer.CustomerMoarefId = entity.CustomerMoarefId;
+            customer.BirthDayDate = entity.BirthDayDate;
+            customer.CustomerCategoryId = entity.CustomerCategoryId;
+            customer.EmailAddress = entity.EmailAddresses.FirstOrDefault();
+            customer.PhoneNumber = entity.PhoneNumbers.FirstOrDefault();
+            customer.MoshtaryMoAref = entity.CustomerMoarefId;
+            customer.Address = entity.CustomersAddresses.FirstOrDefault();
             customer.CityId = entity.CityId;
+            customer.Gender= entity.Gender;
 
 
             await _context.SaveChangesAsync();
@@ -236,6 +366,20 @@ public class CustomerRepository : ICustomerRepository
 
             await _context.SaveChangesAsync();
 
+            //CustomerResponse returnItem = new()
+            //{
+            //    BirthDayDate = customer.BirthDayDate,
+            //    CustomerId = customer.Id,
+            //    From = customer.DateCreated,
+            //    CustomerState = customer.CustomerState,
+            //    CustomerCategoryId = customer.CustomerCategoryId,
+            //    EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+            //    PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
+            //    FirstName = customer.FirstName,
+            //    LastName = customer.LastName,
+            //    MoshtaryMoAref = customer.CustomerMoarefId,
+            //    Address = customer.CustomersAddresses.FirstOrDefault().Address
+            //};
             return customer;
         }
         catch
@@ -244,14 +388,30 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Customer?> DeleteCustomerAsync(Ulid customerId)
+    public async Task<CustomerResponse?> DeleteCustomerAsync(Ulid customerId)
     {
         try
         {
-            var customer = await GetCustomerByIdAsync(customerId);
+            var customer = await _context.Customers.FindAsync(customerId);
             customer!.CustomerStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            return customer;
+            CustomerResponse returnItem = new()
+            {
+                BirthDayDate = customer.BirthDayDate,
+                CustomerId = customer.Id,
+                From = customer.DateCreated,
+                CustomerState = customer.CustomerState,
+                CustomerCategoryId = customer.CustomerCategoryId,
+                EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                MoshtaryMoAref = customer.CustomerMoarefId,
+                Address = customer.CustomersAddresses.FirstOrDefault().Address,
+                CityId = customer.CityId,
+                Gender = customer.Gender
+            };
+            return returnItem;
         }
         catch
         {

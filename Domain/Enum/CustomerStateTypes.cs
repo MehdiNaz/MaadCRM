@@ -8,8 +8,10 @@ public enum CustomerStateTypes
     BelFel = 2,
     [Display(Name = "مشتری راضی")]
     Razy = 3,
+    [Display(Name = "مشتری ناراضی")]
+    NaRazy = 4,
     [Display(Name = "مشتری در حال پیگیری")]
-    DarHalePeyGiry = 4,
+    DarHalePeyGiry = 5,
     [Display(Name = "مشتری وفادار")]
-    Vafadar = 5
+    Vafadar = 6
 }

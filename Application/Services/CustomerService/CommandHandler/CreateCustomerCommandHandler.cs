@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.CommandHandler;
 
-public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Customer>
+public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CustomerResponse?>
 {
     private readonly ICustomerRepository _repository;
 
@@ -9,9 +9,9 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
         _repository = repository;
     }
 
-    public async Task<Customer?> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse?> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var item = new CreateCustomerCommand()
+        var item = new CreateCustomerCommand
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -32,6 +32,22 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
             CityId = request.CityId
         };
         var result = await _repository.CreateCustomerAsync(item);
-        return result;
+        return result.Select(x => new CustomerResponse
+        {
+            Address = x.Address,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            BirthDayDate = x.BirthDayDate,
+            CustomerCategoryId = x.CustomerCategoryId,
+            CustomerId = x.CustomerId,
+            From = x.From,
+            CustomerState = x.CustomerState,
+            UpTo = x.UpTo,
+            EmailAddress = x.EmailAddress,
+            MoshtaryMoAref = x.MoshtaryMoAref,
+            PhoneNumber = x.PhoneNumber,
+            CityId = x.CityId,
+            Gender = x.Gender,
+        });
     }
 }
