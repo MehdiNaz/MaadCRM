@@ -50,9 +50,9 @@ public class CustomerRepository : ICustomerRepository
             });
     }
 
-    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerBySearchItemsQuery search)
+    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerBySearchItemsQuery request)
     {
-        var results = _context.Customers
+        var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
             .Include(x => x.City)
             .ThenInclude(x => x.Province)
@@ -71,43 +71,52 @@ public class CustomerRepository : ICustomerRepository
                 UpTo = DateTime.UtcNow,
                 BirthDayDate = customers.BirthDayDate,
                 CityId = customers.CityId,
-                Gender = customers.Gender
+                Gender = customers.Gender,
+                DateCreated = customers.DateCreated,
             }).AsQueryable();
 
-        if (search is { From: { } })
-            results = results.Where(x => x.From > search.From);
+        var test = resultsListCustomer.ToList();
 
-        if (search is { UpTo: { } })
-            results = results.Where(x => x.UpTo < DateTime.UtcNow);
+        if (request.From != null && request.UpTo != null)
+        {
+            resultsListCustomer =
+                resultsListCustomer.Where(x => x.DateCreated < request.UpTo && x.DateCreated > request.From);
+        }
+        else if (request is { From: { } })
+        {
+            resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated > request.From);
+        }else if (request is { UpTo: { } })
+        {
+            resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated < request.UpTo);
+        }
 
-        if (!search.CustomerId.ToString().IsNullOrEmpty())
-            results = results.Where(x => x.CustomerId == search.CustomerId);
+        if (!request.CustomerId.ToString().IsNullOrEmpty())
+            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
 
-        if (search is { From: { }, UpTo: { } })
-            results = results.Where(x => x.From < DateTime.UtcNow && x.UpTo > DateTime.UtcNow);
+        
 
-        if (search is { CustomerState: { } })
-            results = results.Where(x => x.CustomerState == search.CustomerState);
+        if (request is { CustomerState: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerState == request.CustomerState);
 
-        if (search is { MoshtaryMoAref: { } })
-            results = results.Where(x => x.MoshtaryMoAref == search.MoshtaryMoAref);
+        if (request is { MoshtaryMoAref: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.MoshtaryMoAref == request.MoshtaryMoAref);
 
-        if (search is { BirthDayDate: { } })
-            results = results.Where(x => x.BirthDayDate == search.BirthDayDate);
+        if (request is { BirthDayDate: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.BirthDayDate == request.BirthDayDate);
 
-        if (search is { Gender: { } })
-            results = results.Where(x => x.Gender == search.Gender);
+        if (request is { Gender: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
 
-        if (search is { ProvinceId: { } })
-            results = results.Where(x => x.ProvinceId == search.ProvinceId);
+        if (request is { ProvinceId: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
 
-        if (search is { CityId: { } })
-            results = results.Where(x => x.CityId == search.CityId);
+        if (request is { CityId: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
 
-        if (search is { ProductId: { } })
-            results = results.Where(x => x.ProductId == search.ProductId);
+        if (request is { ProductId: { } })
+            resultsListCustomer = resultsListCustomer.Where(x => x.ProductId == request.ProductId);
 
-        return await results.ToListAsync();
+        return await resultsListCustomer.ToListAsync();
     }
 
     public async Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)

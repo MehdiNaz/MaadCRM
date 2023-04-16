@@ -18,6 +18,8 @@ public struct CustomerResponse
     public DateTime? From { get; set; }
     public DateTime? UpTo { get; set; }
     public Ulid? MoshtaryMoAref { get; set; }
+
+    public DateTime? DateCreated { get; set; }
     // public Ulid? ProductCustomerFavorite { get; set; }
     //public GenderTypes? Gender { get; set; }
     //public Ulid? CityId { get; set; }
