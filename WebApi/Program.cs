@@ -71,5 +71,5 @@ app.MapCustomerPeyGiryAttachmentRoute();
 app.MapPlanRoute();
 #endregion
 
-((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
+// ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope().ServiceProvider.GetService<MaadContext>()?.Database.MigrateAsync();
 app.Run();

@@ -30,7 +30,8 @@ public static class CustomerCategoryRoute
             {
                 var result = await mediator.Send(new CustomerCategoryByIdQuery
                 {
-                    CustomerCategoryId = request.CustomerCategoryId
+                    CustomerCategoryId = request.CustomerCategoryId,
+                    UserId = request.UserId
                 });
                 return Results.Ok(result);
             }
@@ -96,7 +97,11 @@ public static class CustomerCategoryRoute
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteCustomerCategoryCommand { CustomerCategoryId = request.CustomerCategoryId }));
+                return Results.Ok(await mediator.Send(new DeleteCustomerCategoryCommand
+                {
+                    CustomerCategoryId = request.CustomerCategoryId,
+                    UserId = request.UserId
+                }));
             }
             catch (ArgumentException e)
             {

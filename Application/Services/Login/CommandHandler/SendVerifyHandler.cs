@@ -1,4 +1,3 @@
-using LanguageExt;
 using MediatR;
 
 namespace Application.Services.Login.CommandHandler;

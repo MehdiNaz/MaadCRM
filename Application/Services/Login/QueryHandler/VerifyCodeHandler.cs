@@ -1,5 +1,3 @@
-using LanguageExt;
-
 namespace Application.Services.Login.QueryHandler;
 
 public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Result<User>>

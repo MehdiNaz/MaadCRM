@@ -57,6 +57,23 @@ public static class NoteHashTagRoute
             }
         });
 
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteHashTagCommand request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new ChangeStatusNoteHashTagCommand
+                {
+                    NoteHashTagStatus = request.NoteHashTagStatus,
+                    NoteHashTagId = request.NoteHashTagId
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
         plan.MapPut("/Update", async ([FromBody] UpdateNoteHashTagCommand request, IMediator mediator) =>
         {
             try
@@ -65,7 +82,7 @@ public static class NoteHashTagRoute
                 {
                     NoteHashTagId = request.NoteHashTagId,
                     Title = request.Title,
-                    CustomerNoteId = request.NoteHashTagId
+                    CustomerNoteId = request.CustomerNoteId
                 });
                 return Results.Ok(result);
             }

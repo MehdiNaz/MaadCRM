@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.QueryHandler;
 
-public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, Customer?>
+public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, CustomerResponse>
 {
     private readonly ICustomerRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, 
         _repository = repository;
     }
 
-    public async Task<Customer?> Handle(CustomerByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse> Handle(CustomerByIdQuery request, CancellationToken cancellationToken)
         => await _repository.GetCustomerByIdAsync(request.CustomerId);
 }

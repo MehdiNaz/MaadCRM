@@ -1,6 +1,4 @@
-﻿using LanguageExt;
-
-namespace Application.Interfaces.Account;
+﻿namespace Application.Interfaces.Account;
 
 public interface ILoginRepository
 {

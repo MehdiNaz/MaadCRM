@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.CommandHandler;
 
-public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Customer>
+public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, CustomerResponse?>
 {
     private readonly ICustomerRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
         _repository = repository;
     }
 
-    public async Task<Customer> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerResponse?> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         var item = new UpdateCustomerCommand
         {
@@ -32,6 +32,22 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
             CityId = request.CityId
         };
         var result = await _repository.UpdateCustomerAsync(item);
-        return result;
+        return result.Select(x => new CustomerResponse
+        {
+            Address = x.Address,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            BirthDayDate = x.BirthDayDate,
+            CustomerCategoryId = x.CustomerCategoryId,
+            CustomerId = x.CustomerId,
+            From = x.From,
+            CustomerState = x.CustomerState,
+            UpTo = x.UpTo,
+            EmailAddress = x.EmailAddress,
+            MoshtaryMoAref = x.MoshtaryMoAref,
+            PhoneNumber = x.PhoneNumber,
+            CityId = x.CityId,
+            Gender = x.Gender
+        });
     }
 }

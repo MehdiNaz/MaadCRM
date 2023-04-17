@@ -1,6 +1,4 @@
-﻿using LanguageExt;
-
-namespace Application.Services.Login.Queries;
+﻿namespace Application.Services.Login.Queries;
 
 public class UserByEmailAddressQuery : IRequest<Option<User>>
 {

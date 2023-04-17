@@ -2,10 +2,11 @@
 
 public interface ICustomerRepository
 {
-    ValueTask<ICollection<Customer?>> GetAllCustomersAsync(string userId);
-    ValueTask<Customer?> GetCustomerByIdAsync(Ulid customerId);
-    ValueTask<Customer?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId);
-    ValueTask<Customer?> CreateCustomerAsync(CreateCustomerCommand entity);
-    ValueTask<Customer?> UpdateCustomerAsync(UpdateCustomerCommand entity);
-    ValueTask<Customer?> DeleteCustomerAsync(Ulid customerId);
+    ValueTask<ICollection<CustomerResponse>> GetAllCustomersAsync(string userId);
+    ValueTask<CustomerResponse> GetCustomerByIdAsync(Ulid customerId);
+    ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerBySearchItemsQuery request);
+    Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId);
+    Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand entity);
+    Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand entity);
+    Task<CustomerResponse?> DeleteCustomerAsync(Ulid customerId);
 }

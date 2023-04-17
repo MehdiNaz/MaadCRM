@@ -16,6 +16,6 @@ public class ProductCategoryMapping : IEntityTypeConfiguration<ProductCategory>
 
 
         // SelfRelation
-        builder.HasOne(x => x.IdParrentNavigation).WithMany(x => x.InverseIdParrentNavigation).HasForeignKey(x => x.ParentId);
+        builder.HasOne(x => x.IdParentNavigation).WithMany(x => x.InverseIdParentNavigation).HasForeignKey(x => x.ParentId);
     }
 }

@@ -1,6 +1,4 @@
-﻿using LanguageExt;
-
-namespace Application.Services.Login.QueryHandler;
+﻿namespace Application.Services.Login.QueryHandler;
 
 public class GetUserByEmailAddressHandler : IRequestHandler<UserByEmailAddressQuery, Option<User>>
 {
