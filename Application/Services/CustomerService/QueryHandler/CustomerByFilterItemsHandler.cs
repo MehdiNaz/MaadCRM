@@ -10,5 +10,5 @@ public readonly struct CustomerByFilterItemsHandler : IRequestHandler<CustomerBy
     }
 
     public async Task<ICollection<CustomerResponse>> Handle(CustomerByFilterItemsQuery request, CancellationToken cancellationToken)
-        => await _repository.SearchByItemsAsync(request);
+        => await _repository.FilterByItemsAsync(request);
 }

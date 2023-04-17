@@ -28,7 +28,7 @@ public static class CustomerRoute
         });
 
 
-        plan.MapPost("/CustomerBySearchItems", async ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator) =>
+        plan.MapPost("/CustomerByFilterItems", async ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator) =>
         {
             try
             {
@@ -44,6 +44,22 @@ public static class CustomerRoute
                     ProvinceId = request.ProvinceId,
                     MoshtaryMoAref = request.MoshtaryMoAref,
                     ProductCustomerFavorite = request.ProductCustomerFavorite
+                });
+                return Results.Ok(result);
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(e.ParamName);
+            }
+        });
+
+        plan.MapPost("/CustomerBySearchItem", async ([FromBody] CustomerBySearchItemQuery request, IMediator mediator) =>
+        {
+            try
+            {
+                var result = await mediator.Send(new CustomerBySearchItemQuery
+                {
+                    Parameter = request.Parameter
                 });
                 return Results.Ok(result);
             }

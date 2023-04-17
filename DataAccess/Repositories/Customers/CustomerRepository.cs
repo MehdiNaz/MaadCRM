@@ -50,7 +50,7 @@ public class CustomerRepository : ICustomerRepository
             });
     }
 
-    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerByFilterItemsQuery request)
+    public async ValueTask<ICollection<CustomerResponse>?> FilterByItemsAsync(CustomerByFilterItemsQuery request)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
@@ -117,6 +117,58 @@ public class CustomerRepository : ICustomerRepository
             resultsListCustomer = resultsListCustomer.Where(x => x.ProductId == request.ProductId);
 
         return await resultsListCustomer.ToListAsync();
+    }
+
+    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(string parameter)
+    {
+        var resultsListCustomer = _context.Customers
+            .Include(x => x.FavoritesLists)
+            .Include(x => x.City)
+            .ThenInclude(x => x.Province)
+            .Select(customers => new CustomerResponse
+            {
+                CustomerId = customers.Id,
+                FirstName = customers.FirstName,
+                LastName = customers.LastName,
+                PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
+                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                Address = customers.CustomersAddresses.FirstOrDefault().Address,
+                CustomerState = customers.CustomerState,
+                MoshtaryMoAref = customers.CustomerMoarefId,
+                CustomerCategoryId = customers.CustomerCategoryId,
+                From = customers.DateCreated,
+                UpTo = DateTime.UtcNow,
+                BirthDayDate = customers.BirthDayDate,
+                CityId = customers.CityId,
+                Gender = customers.Gender,
+                DateCreated = customers.DateCreated
+            }).AsQueryable();
+
+
+        return await resultsListCustomer.Where(
+            x => x.FirstName.Contains(parameter)
+                 || x.LastName.Contains(parameter)
+                 || x.PhoneNumber.Contains(parameter)
+                 || x.EmailAddress.Contains(parameter)
+                 || x.Address.Contains(parameter)
+        ).Select(customers => new CustomerResponse
+        {
+            CustomerId = customers.CustomerId,
+            FirstName = customers.FirstName,
+            LastName = customers.LastName,
+            PhoneNumber = customers.PhoneNumber,
+            EmailAddress = customers.EmailAddress,
+            Address = customers.Address,
+            CustomerState = customers.CustomerState,
+            MoshtaryMoAref = customers.MoshtaryMoAref,
+            CustomerCategoryId = customers.CustomerCategoryId,
+            From = customers.DateCreated,
+            UpTo = DateTime.UtcNow,
+            BirthDayDate = customers.BirthDayDate,
+            CityId = customers.CityId,
+            Gender = customers.Gender,
+            DateCreated = customers.DateCreated,
+        }).ToListAsync();
     }
 
     public async Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
