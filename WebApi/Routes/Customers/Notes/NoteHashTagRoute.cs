@@ -11,7 +11,7 @@ public static class NoteHashTagRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllNoteHashTags", async (IMediator mediator) =>
+        plan.MapPost("/AllNoteHashTags", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +24,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] NoteHashTagByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] NoteHashTagByIdQuery request, IMediator mediator) =>
         {
             try
             {

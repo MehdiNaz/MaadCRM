@@ -11,7 +11,7 @@ public static class CustomerPeyGiryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerPeyGiries/{customerId}", async (Ulid customerId, IMediator mediator) =>
+        plan.MapPost("/AllCustomerPeyGiries/{customerId}", async (Ulid customerId, IMediator mediator) =>
         {
             try
             {
@@ -27,7 +27,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] CustomerPeyGiryByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] CustomerPeyGiryByIdQuery request, IMediator mediator) =>
         {
             try
             {

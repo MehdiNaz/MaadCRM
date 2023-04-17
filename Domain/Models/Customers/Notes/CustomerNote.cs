@@ -12,6 +12,7 @@ public class CustomerNote : BaseEntity
     public string Description { get; set; }
     public Ulid CustomerId { get; set; }
     public Status CustomerNoteStatus { get; set; }
+    public Ulid ProductId { get; set; }
 
     // public Customer Customer { get; set; }
     public ICollection<NoteHashTag>? CustomerHashTags { get; set; }

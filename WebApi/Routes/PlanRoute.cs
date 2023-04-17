@@ -11,7 +11,7 @@ public static class PlanRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllPlans", async (IMediator mediator) =>
+        plan.MapPost("/AllPlans", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +24,7 @@ public static class PlanRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] PlanByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] PlanByIdQuery request, IMediator mediator) =>
         {
             try
             {

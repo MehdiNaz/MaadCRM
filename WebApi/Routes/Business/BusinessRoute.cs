@@ -11,7 +11,7 @@ public static class BusinessRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllBusinesses", async (IMediator mediator) =>
+        plan.MapPost("/AllBusinesses", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +24,7 @@ public static class BusinessRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] BusinessByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] BusinessByIdQuery request, IMediator mediator) =>
         {
             try
             {

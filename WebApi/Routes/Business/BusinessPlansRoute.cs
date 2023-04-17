@@ -11,7 +11,7 @@ public static class BusinessPlansRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllBusinessByBusinessId", async ([FromBody] AllBusinessPlansQuery request, IMediator mediator) =>
+        plan.MapPost("/AllBusinessByBusinessId", async ([FromBody] AllBusinessPlansQuery request, IMediator mediator) =>
         {
             try
             {
@@ -27,7 +27,7 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapGet("/AllActives", async ([FromBody] AllActivePlansQuery request, IMediator mediator) =>
+        plan.MapPost("/AllActives", async ([FromBody] AllActivePlansQuery request, IMediator mediator) =>
         {
             try
             {
@@ -43,7 +43,7 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapGet("/TheLatest", async ([FromBody] TheLatestPlanQuery request, IMediator mediator) =>
+        plan.MapPost("/TheLatest", async ([FromBody] TheLatestPlanQuery request, IMediator mediator) =>
         {
             try
             {
@@ -59,7 +59,7 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] BusinessPlansByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] BusinessPlansByIdQuery request, IMediator mediator) =>
         {
             try
             {
@@ -75,7 +75,7 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapGet("/ChangeStatus", async ([FromBody] ChangeStatusBusinessPlansQuery request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusBusinessPlansQuery request, IMediator mediator) =>
         {
             try
             {

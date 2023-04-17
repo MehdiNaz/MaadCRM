@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, CustomerNote>
+public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, CustomerNoteResponse?>
 {
     private readonly ICustomerNoteRepository _repository;
 
@@ -9,14 +9,21 @@ public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<Create
         _repository = repository;
     }
 
-    public async Task<CustomerNote> Handle(CreateCustomerNoteCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteResponse?> Handle(CreateCustomerNoteCommand request, CancellationToken cancellationToken)
     {
-        CustomerNote item = new()
+        CreateCustomerNoteCommand item = new()
         {
             Description = request.Description,
-            CustomerId = request.CustomerId
+            CustomerId = request.CustomerId,
+            ProductId = request.ProductId
         };
-        await _repository.CreateCustomerNoteAsync(item);
-        return item;
+        var result = await _repository.CreateCustomerNoteAsync(item);
+        return result.Select(x => new CustomerNoteResponse()
+        {
+            CustomerId = item.CustomerId,
+            ProductId = item.ProductId,
+            CustomerNoteStatus = item.CustomerNoteStatus,
+            Description = item.Description
+        });
     }
 }

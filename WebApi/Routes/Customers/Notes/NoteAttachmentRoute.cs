@@ -11,7 +11,7 @@ public static class NoteAttachmentRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllNoteAttachments", async (IMediator mediator) =>
+        plan.MapPost("/AllNoteAttachments", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +24,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] NoteAttachmentByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] NoteAttachmentByIdQuery request, IMediator mediator) =>
         {
             try
             {

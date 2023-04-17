@@ -53,13 +53,13 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/CustomerBySearchItem", async ([FromBody] CustomerBySearchItemQuery request, IMediator mediator) =>
+        plan.MapGet("/CustomerBySearchItem/{q}", async (string q, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new CustomerBySearchItemQuery
                 {
-                    Parameter = request.Parameter
+                    Q = q.ToLower()
                 });
                 return Results.Ok(result);
             }

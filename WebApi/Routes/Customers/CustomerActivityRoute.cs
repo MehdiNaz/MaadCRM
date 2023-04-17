@@ -11,7 +11,7 @@ public static class CustomerActivityRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomerActivities", async ([FromBody] AllItemsCustomerActivitiesQuery request, IMediator mediator) =>
+        plan.MapPost("/AllCustomerActivities", async ([FromBody] AllItemsCustomerActivitiesQuery request, IMediator mediator) =>
         {
             try
             {
@@ -27,7 +27,7 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] CustomerActivityByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] CustomerActivityByIdQuery request, IMediator mediator) =>
         {
             try
             {

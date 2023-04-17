@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerPeyGiryService.QueryHandler;
 
-public readonly struct AllCustomerPeyGiryHandler : IRequestHandler<AllCustomerPeyGiriesQuery, ICollection<CustomerPeyGiry>>
+public readonly struct AllCustomerPeyGiryHandler : IRequestHandler<AllCustomerPeyGiriesQuery, ICollection<CustomerPeyGiryResponse>>
 {
     private readonly ICustomerPeyGiryRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct AllCustomerPeyGiryHandler : IRequestHandler<AllCustomerPe
         _repository = repository;
     }
 
-    public async Task<ICollection<CustomerPeyGiry>> Handle(AllCustomerPeyGiriesQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<CustomerPeyGiryResponse>> Handle(AllCustomerPeyGiriesQuery request, CancellationToken cancellationToken)
         => (await _repository.GetAllCustomerPeyGiriesAsync(request.CustomerId))!;
 }

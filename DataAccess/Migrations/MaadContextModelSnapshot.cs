@@ -914,6 +914,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
@@ -1974,7 +1978,7 @@ namespace DataAccess.Migrations
                         .WithMany("CustomersMoaref")
                         .HasForeignKey("CustomerMoarefId");
 
-                    b.HasOne("Domain.Models.IdentityModels.User", null)
+                    b.HasOne("Domain.Models.IdentityModels.User", "User")
                         .WithMany("Customers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1983,6 +1987,8 @@ namespace DataAccess.Migrations
                     b.Navigation("City");
 
                     b.Navigation("CustomerMoaref");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class QQ : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,7 +70,6 @@ namespace DataAccess.Migrations
                     CustomersEmailAddressId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomersEmailAddrs = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     ContactsEmailAddressStatus = table.Column<int>(type: "integer", nullable: false),
-                    ContactsEmailAddress = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -88,7 +87,6 @@ namespace DataAccess.Migrations
                     IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CountryStatus = table.Column<int>(type: "integer", nullable: false),
-                    Country = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -476,7 +474,6 @@ namespace DataAccess.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Kind = table.Column<byte>(type: "smallint", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Log = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -504,7 +501,6 @@ namespace DataAccess.Migrations
                     FinalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     PlanStatus = table.Column<int>(type: "integer", nullable: false),
-                    Plan = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -527,7 +523,6 @@ namespace DataAccess.Migrations
                     SanAtName = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     SanAtStatus = table.Column<int>(type: "integer", nullable: false),
-                    SanAt = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -648,6 +643,7 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -795,7 +791,6 @@ namespace DataAccess.Migrations
                     ProductId = table.Column<string>(type: "character varying(26)", nullable: false),
                     CustomerId = table.Column<string>(type: "character varying(26)", nullable: false),
                     ProductCustomerFavoritesListStatus = table.Column<int>(type: "integer", nullable: false),
-                    ProductCustomerFavoritesList = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1038,7 +1033,6 @@ namespace DataAccess.Migrations
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CategoryAttributeStatus = table.Column<int>(type: "integer", nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: true),
-                    CategoryAttribute = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1084,7 +1078,6 @@ namespace DataAccess.Migrations
                     Value = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     BusinessId = table.Column<string>(type: "character varying(26)", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
-                    Setting = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

@@ -9,8 +9,17 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomerPeyGiry?>> GetAllCustomerPeyGiriesAsync(Ulid customerId)
-        => await _context.CustomerPeyGiries.Where(x => x.CustomerPeyGiryStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
+    public async ValueTask<ICollection<CustomerPeyGiryResponse>> GetAllCustomerPeyGiriesAsync(Ulid customerId)
+    {
+        IQueryable<Customer> joinList = _context.Customers.Include(x => x.User).Include(x => x.CustomerPeyGiries).AsQueryable();
+
+        return await joinList.Select(x => new CustomerPeyGiryResponse
+        {
+            Description = x.CustomerPeyGiries.FirstOrDefault().Description,
+            Username = x.FirstName,
+            UserFamily = x.LastName
+        }).ToListAsync();
+    }
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
         => await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.CustomerPeyGiryId == customerPeyGiryId && x.CustomerPeyGiryStatus == Status.Show);

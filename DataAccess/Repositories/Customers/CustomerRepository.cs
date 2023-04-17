@@ -54,8 +54,8 @@ public class CustomerRepository : ICustomerRepository
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
-            .Include(x => x.City)
-            .ThenInclude(x => x.Province)
+            // .Include(x => x.City)
+            // .ThenInclude(x => x.Province)
             .Select(customers => new CustomerResponse
             {
                 CustomerId = customers.Id,
@@ -85,7 +85,8 @@ public class CustomerRepository : ICustomerRepository
         else if (request is { From: { } })
         {
             resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated > request.From);
-        }else if (request is { UpTo: { } })
+        }
+        else if (request is { UpTo: { } })
         {
             resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated < request.UpTo);
         }
@@ -93,7 +94,7 @@ public class CustomerRepository : ICustomerRepository
         if (!request.CustomerId.ToString().IsNullOrEmpty())
             resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
 
-        
+
 
         if (request is { CustomerState: { } })
             resultsListCustomer = resultsListCustomer.Where(x => x.CustomerState == request.CustomerState);
@@ -119,7 +120,7 @@ public class CustomerRepository : ICustomerRepository
         return await resultsListCustomer.ToListAsync();
     }
 
-    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(string parameter)
+    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(string request)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
@@ -144,31 +145,15 @@ public class CustomerRepository : ICustomerRepository
                 DateCreated = customers.DateCreated
             }).AsQueryable();
 
+        var result = await resultsListCustomer.Where(
+            x => x.FirstName.ToLower().Contains(request.ToLower())
+                 || x.LastName.ToLower().Contains(request.ToLower())
+                 || x.PhoneNumber.ToLower().Contains(request.ToLower())
+                 || x.EmailAddress.ToLower().Contains(request.ToLower())
+            // || x.Address.Contains(request)
+        ).ToListAsync();
 
-        return await resultsListCustomer.Where(
-            x => x.FirstName.Contains(parameter)
-                 || x.LastName.Contains(parameter)
-                 || x.PhoneNumber.Contains(parameter)
-                 || x.EmailAddress.Contains(parameter)
-                 || x.Address.Contains(parameter)
-        ).Select(customers => new CustomerResponse
-        {
-            CustomerId = customers.CustomerId,
-            FirstName = customers.FirstName,
-            LastName = customers.LastName,
-            PhoneNumber = customers.PhoneNumber,
-            EmailAddress = customers.EmailAddress,
-            Address = customers.Address,
-            CustomerState = customers.CustomerState,
-            MoshtaryMoAref = customers.MoshtaryMoAref,
-            CustomerCategoryId = customers.CustomerCategoryId,
-            From = customers.DateCreated,
-            UpTo = DateTime.UtcNow,
-            BirthDayDate = customers.BirthDayDate,
-            CityId = customers.CityId,
-            Gender = customers.Gender,
-            DateCreated = customers.DateCreated,
-        }).ToListAsync();
+        return result;
     }
 
     public async Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
@@ -203,37 +188,37 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand entity)
+    public async Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request)
     {
         try
         {
             var entityEntry = new Customer
             {
-                FirstName = entity.FirstName,
-                LastName = entity.LastName,
-                BirthDayDate = entity.BirthDayDate!,
-                CustomerPic = entity.CustomerPic,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                BirthDayDate = request.BirthDayDate!,
+                CustomerPic = request.CustomerPic,
                 // CreatedBy = request.CreatedBy!,
                 // UpdatedBy = request.UpdatedBy,
-                CustomerCategoryId = entity.CustomerCategoryId,
-                UserId = entity.UserId,
-                Gender = entity.Gender,
-                CustomerMoarefId = entity.CustomerMoarefId,
-                // PhoneNumbers = entity.PhoneNumbers,
-                // EmailAddresses = entity.EmailAddresses,
-                // FavoritesLists = entity.FavoritesLists,
-                // CustomersAddresses = entity.CustomersAddresses,
-                // CustomerNotes = entity.CustomerNotes,
-                // CustomerPeyGiries = entity.CustomerPeyGiries,
-                CityId = entity.CityId
+                CustomerCategoryId = request.CustomerCategoryId,
+                UserId = request.UserId,
+                Gender = request.Gender,
+                CustomerMoarefId = request.CustomerMoarefId,
+                // PhoneNumbers = request.PhoneNumbers,
+                // EmailAddresses = request.EmailAddresses,
+                // FavoritesLists = request.FavoritesLists,
+                // CustomersAddresses = request.CustomersAddresses,
+                // CustomerNotes = request.CustomerNotes,
+                // CustomerPeyGiries = request.CustomerPeyGiries,
+                CityId = request.CityId
             };
             await _context.Customers!.AddAsync(entityEntry);
             var result = await _context.SaveChangesAsync();
             if (result == 0)
                 return null;
 
-            if (entity.PhoneNumbers != null)
-                foreach (string PhoneNumbers in entity.PhoneNumbers)
+            if (request.PhoneNumbers != null)
+                foreach (string PhoneNumbers in request.PhoneNumbers)
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
@@ -244,8 +229,8 @@ public class CustomerRepository : ICustomerRepository
                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
                 }
 
-            if (entity.CustomersAddresses != null)
-                foreach (string address in entity.CustomersAddresses)
+            if (request.CustomersAddresses != null)
+                foreach (string address in request.CustomersAddresses)
                 {
                     CustomersAddress newAddress = new()
                     {
@@ -256,8 +241,8 @@ public class CustomerRepository : ICustomerRepository
                     await _context.CustomersAddresses.AddAsync(newAddress);
                 }
 
-            if (entity.CustomerPeyGiries != null)
-                foreach (string peyGiry in entity.CustomerPeyGiries)
+            if (request.CustomerPeyGiries != null)
+                foreach (string peyGiry in request.CustomerPeyGiries)
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
@@ -268,8 +253,8 @@ public class CustomerRepository : ICustomerRepository
                     await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
                 }
 
-            if (entity.CustomerNotes != null)
-                foreach (string note in entity.CustomerNotes)
+            if (request.CustomerNotes != null)
+                foreach (string note in request.CustomerNotes)
                 {
                     CustomerNote newNote = new()
                     {
@@ -280,20 +265,20 @@ public class CustomerRepository : ICustomerRepository
                     await _context.CustomerNotes.AddAsync(newNote);
                 }
 
-            if (entity.EmailAddresses != null)
-                foreach (string emailAddress in entity.EmailAddresses)
+            if (request.EmailAddresses != null)
+                foreach (string emailAddress in request.EmailAddresses)
                 {
                     CustomersEmailAddress newEmailAddress = new()
                     {
                         CustomerId = entityEntry.Id,
-                        CustomersEmailAddrs = emailAddress
+                        CustomersEmailAddrs = emailAddress  
                     };
 
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
                 }
 
-            if (entity.FavoritesLists != null)
-                foreach (var entityFavoritesList in entity.FavoritesLists)
+            if (request.FavoritesLists != null)
+                foreach (var entityFavoritesList in request.FavoritesLists)
                 {
                     ProductCustomerFavoritesList newFavoritesList = new()
                     {
@@ -330,95 +315,95 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand entity)
+    public async Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request)
     {
         try
         {
-            CustomerResponse customer = await GetCustomerByIdAsync(entity.Id);
+            CustomerResponse customer = await GetCustomerByIdAsync(request.Id);
 
-            customer.CustomerId = entity.Id;
-            customer.FirstName = entity.FirstName;
-            customer.LastName = entity.LastName;
-            customer.BirthDayDate = entity.BirthDayDate!;
-            customer.CustomerCategoryId = entity.CustomerCategoryId;
-            customer.BirthDayDate = entity.BirthDayDate;
-            customer.CustomerCategoryId = entity.CustomerCategoryId;
-            customer.EmailAddress = entity.EmailAddresses.FirstOrDefault();
-            customer.PhoneNumber = entity.PhoneNumbers.FirstOrDefault();
-            customer.MoshtaryMoAref = entity.CustomerMoarefId;
-            customer.Address = entity.CustomersAddresses.FirstOrDefault();
-            customer.CityId = entity.CityId;
-            customer.Gender= entity.Gender;
+            customer.CustomerId = request.Id;
+            customer.FirstName = request.FirstName;
+            customer.LastName = request.LastName;
+            customer.BirthDayDate = request.BirthDayDate!;
+            customer.CustomerCategoryId = request.CustomerCategoryId;
+            customer.BirthDayDate = request.BirthDayDate;
+            customer.CustomerCategoryId = request.CustomerCategoryId;
+            customer.EmailAddress = request.EmailAddresses.FirstOrDefault();
+            customer.PhoneNumber = request.PhoneNumbers.FirstOrDefault();
+            customer.MoshtaryMoAref = request.CustomerMoarefId;
+            customer.Address = request.CustomersAddresses.FirstOrDefault();
+            customer.CityId = request.CityId;
+            customer.Gender = request.Gender;
 
 
             await _context.SaveChangesAsync();
 
-            if (entity.PhoneNumbers != null)
-                foreach (string PhoneNumbers in entity.PhoneNumbers)
+            if (request.PhoneNumbers != null)
+                foreach (string PhoneNumbers in request.PhoneNumbers)
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
-                        CustomerId = entity.Id,
+                        CustomerId = request.Id,
                         PhoneNo = PhoneNumbers
                     };
 
                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
                 }
 
-            if (entity.CustomersAddresses != null)
-                foreach (string address in entity.CustomersAddresses)
+            if (request.CustomersAddresses != null)
+                foreach (string address in request.CustomersAddresses)
                 {
                     CustomersAddress newAddress = new()
                     {
-                        CustomerId = entity.Id,
+                        CustomerId = request.Id,
                         Address = address
                     };
 
                     await _context.CustomersAddresses.AddAsync(newAddress);
                 }
 
-            if (entity.CustomerPeyGiries != null)
-                foreach (string peyGiry in entity.CustomerPeyGiries)
+            if (request.CustomerPeyGiries != null)
+                foreach (string peyGiry in request.CustomerPeyGiries)
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
-                        CustomerId = entity.Id,
+                        CustomerId = request.Id,
                         Description = peyGiry
                     };
 
                     await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
                 }
 
-            if (entity.CustomerNotes != null)
-                foreach (string note in entity.CustomerNotes)
+            if (request.CustomerNotes != null)
+                foreach (string note in request.CustomerNotes)
                 {
                     CustomerNote newNote = new()
                     {
-                        CustomerId = entity.Id,
+                        CustomerId = request.Id,
                         Description = note
                     };
 
                     await _context.CustomerNotes.AddAsync(newNote);
                 }
 
-            if (entity.EmailAddresses != null)
-                foreach (string emailAddress in entity.EmailAddresses)
+            if (request.EmailAddresses != null)
+                foreach (string emailAddress in request.EmailAddresses)
                 {
                     CustomersEmailAddress newEmailAddress = new()
                     {
-                        CustomerId = entity.Id,
+                        CustomerId = request.Id,
                         CustomersEmailAddrs = emailAddress
                     };
 
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
                 }
 
-            //if (entity.FavoritesLists != null)
-            //    foreach (var entityFavoritesList in entity.FavoritesLists)
+            //if (request.FavoritesLists != null)
+            //    foreach (var entityFavoritesList in request.FavoritesLists)
             //    {
             //        ProductCustomerFavoritesList newFavoritesList = new()
             //        {
-            //            CustomerId = entity.Id,
+            //            CustomerId = request.Id,
             //            ProductId = Ulid.Parse(entityFavoritesList)
             //        };
 

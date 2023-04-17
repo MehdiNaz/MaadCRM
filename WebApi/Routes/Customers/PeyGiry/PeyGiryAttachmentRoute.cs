@@ -24,7 +24,7 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById", async ([FromBody] PeyGiryAttachmentByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", async ([FromBody] PeyGiryAttachmentByIdQuery request, IMediator mediator) =>
         {
             try
             {

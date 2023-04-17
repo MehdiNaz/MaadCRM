@@ -31,13 +31,47 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         }
     }
 
-    public async ValueTask<CustomerNote?> CreateCustomerNoteAsync(CustomerNote? entity)
+    public async Task<CustomerNoteResponse?> CreateCustomerNoteAsync(CreateCustomerNoteCommand entity)
     {
         try
         {
-            await _context.CustomerNotes!.AddAsync(entity!);
+            CustomerNote newEntity = new()
+            {
+                CustomerNoteStatus = entity.CustomerNoteStatus,
+                CustomerId = entity.CustomerId,
+                ProductId = entity.ProductId,
+                Description = entity.Description,
+            };
+
+            await _context.CustomerNotes!.AddAsync(newEntity!);
+            int result = await _context.SaveChangesAsync();
+
+            if (result == 0)
+                return null;
+
+            if (entity.HashTagIds is not null)
+            {
+                foreach (string entityHashTagId in entity.HashTagIds)
+                {
+                    NoteHashTag newHashTag = new()
+                    {
+                        Title = entityHashTagId
+                    };
+                }
+
+                await _context.SaveChangesAsync();
+            }
             await _context.SaveChangesAsync();
-            return entity;
+
+            CustomerNoteResponse returnItem = new()
+            {
+                CustomerId = newEntity.CustomerId,
+                ProductId = newEntity.ProductId,
+                Description = newEntity.Description,
+                CustomerNoteStatus = newEntity.CustomerNoteStatus
+            };
+
+            return returnItem;
         }
         catch
         {

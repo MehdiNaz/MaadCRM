@@ -2,5 +2,5 @@
 
 public struct CustomerBySearchItemQuery : IRequest<ICollection<CustomerResponse>?>
 {
-    public string Parameter { get; set; }
+    public string Q { get; set; }
 }

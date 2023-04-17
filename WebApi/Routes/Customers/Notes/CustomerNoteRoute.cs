@@ -11,7 +11,7 @@ public static class CustomerNoteRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllCustomersNote", async ([FromBody] AllCustomerNotesQuery request, IMediator mediator) =>
+        plan.MapPost("/AllCustomersNote", async ([FromBody] AllCustomerNotesQuery request, IMediator mediator) =>
         {
             try
             {
@@ -46,7 +46,9 @@ public static class CustomerNoteRoute
                 var result = await mediator.Send(new CreateCustomerNoteCommand
                 {
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+                    ProductId = request.ProductId,
+                    HashTagIds = request.HashTagIds
                 });
                 return Results.Ok(result);
             }

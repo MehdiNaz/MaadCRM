@@ -15,6 +15,7 @@ global using Application.Interfaces.Plans;
 global using Application.Interfaces.Products;
 global using Application.Interfaces.SpecialFields;
 global using Application.Responses;
+global using Application.Services.CustomerNoteService.Commands;
 global using Application.Services.CustomerService.Commands;
 global using Application.Services.CustomerService.Query;
 global using Application.Services.Login.Commands;
