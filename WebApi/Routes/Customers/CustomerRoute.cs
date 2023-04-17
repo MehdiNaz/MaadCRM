@@ -61,7 +61,7 @@ public static class CustomerRoute
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(e.Message);
             }
         });
 
