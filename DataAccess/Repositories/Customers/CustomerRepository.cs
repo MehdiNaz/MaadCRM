@@ -34,23 +34,23 @@ public class CustomerRepository : ICustomerRepository
         return await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show)
             .Select(x => new CustomerResponse
             {
-                BirthDayDate = x.BirthDayDate,
                 CustomerId = x.Id,
-                From = x.DateCreated,
-                CustomerState = x.CustomerState,
-                CustomerCategoryId = x.CustomerCategoryId,
-                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
-                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                // From = x.DateCreated,
+                // CustomerState = x.CustomerState,
+                // CustomerCategoryId = x.CustomerCategoryId,
+                // EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                // PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                MoshtaryMoAref = x.CustomerMoarefId,
-                Address = x.CustomersAddresses.FirstOrDefault().Address,
-                CityId = x.CityId,
-                Gender = x.Gender
+                // MoshtaryMoAref = x.CustomerMoarefId,
+                // Address = x.CustomersAddresses.FirstOrDefault().Address,
+                // CityId = x.CityId,
+                // Gender = x.Gender,
+                // BirthDayDate = x.BirthDayDate
             });
     }
 
-    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerBySearchItemsQuery request)
+    public async ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(CustomerByFilterItemsQuery request)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)

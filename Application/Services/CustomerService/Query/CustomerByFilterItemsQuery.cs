@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Query;
 
-public struct CustomerBySearchItemsQuery : IRequest<ICollection<CustomerResponse>?>
+public struct CustomerByFilterItemsQuery : IRequest<ICollection<CustomerResponse>?>
 {
     public Ulid? CustomerId { get; set; }
     public DateOnly? BirthDayDate { get; set; }

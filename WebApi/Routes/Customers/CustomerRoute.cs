@@ -28,11 +28,11 @@ public static class CustomerRoute
         });
 
 
-        plan.MapPost("/CustomerBySearchItems", async ([FromBody] CustomerBySearchItemsQuery request, IMediator mediator) =>
+        plan.MapPost("/CustomerBySearchItems", async ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerBySearchItemsQuery
+                var result = await mediator.Send(new CustomerByFilterItemsQuery
                 {
                     CustomerId = request.CustomerId,
                     BirthDayDate = request.BirthDayDate,
