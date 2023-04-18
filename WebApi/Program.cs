@@ -1,5 +1,3 @@
-using WebApi.Test;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -69,6 +67,8 @@ app.MapNoteAttachmentRoute();
 app.MapNoteHashTagRoute();
 app.MapCustomerPeyGiryAttachmentRoute();
 app.MapPlanRoute();
+app.MapProductRoute();
+app.MapProductCategoryRoute();
 #endregion
 
 app.Run();

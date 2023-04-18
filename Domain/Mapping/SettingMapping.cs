@@ -10,6 +10,6 @@ public class SettingMapping : IEntityTypeConfiguration<Setting>
         builder.Property(x => x.Value).HasMaxLength(255).IsRequired();
 
         
-        builder.HasOne(x => x.Business).WithMany(x => x.Setting).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.Setting).HasForeignKey(x => x.BusinessId);
     }
 }

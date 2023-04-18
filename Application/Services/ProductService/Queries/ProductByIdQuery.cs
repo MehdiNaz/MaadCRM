@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.Queries;
 
-public struct GetProductByIdQuery : IRequest<Product>
+public struct ProductByIdQuery : IRequest<Product>
 {
     public Ulid ProductId { get; set; }
 }

@@ -13,13 +13,15 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
     {
         ProductCategory item = new()
         {
-            ParentId = request.ParentId,
+            ProductCategoryId = request.ProductCategoryId,
             Order = request.Order,
             ProductCategoryName = request.ProductCategoryName,
             Description = request.Description,
-            Icon = request.Icon
+            Icon = request.Icon,
+            ProductCategoryStatus = request.ProductCategoryStatus,
+            BusinessId = request.BusinessId
         };
-        await _repository.UpdateProductCategoryAsync(item, request.ProductCategoryId);
+        await _repository.UpdateProductCategoryAsync(item);
         return item;
     }
 }

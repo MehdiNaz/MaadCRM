@@ -19,13 +19,13 @@ public class Product : BaseEntity
     public decimal? Discount { get; set; }
     public byte? DiscountPercent { get; set; }
     public Ulid FavoritesListId { get; set; }
-    public byte[] Picture { get; set; }
+    public byte[]? Picture { get; set; }
     public ProductStatus PublishStatus { get; set; }
     public Status ProductStatus { get; set; }
+    public ProductCategory ProductCategory { get; set; }
 
-
-    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                       //Relation OK
-    public ICollection<ForoshOrder>? ForoshOrders { get; set; }                                          //Relation OK
-    //public ProductCategory ProductCategory{ get; set; }                                                 //Relation OK
-    public virtual ICollection<Visit>? Visits { get; set; }
+    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
+    public ICollection<ForoshOrder>? ForoshOrders { get; set; }
+    //public ProductCategory ProductCategory{ get; set; }                                           
+    // public virtual ICollection<Visit>? Visits { get; set; }
 }

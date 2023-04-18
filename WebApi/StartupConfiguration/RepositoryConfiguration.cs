@@ -1,6 +1,4 @@
-﻿using WebApi.Test;
-
-namespace WebApi.StartupConfiguration;
+﻿namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {

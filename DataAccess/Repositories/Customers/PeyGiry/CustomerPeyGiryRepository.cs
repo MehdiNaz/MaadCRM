@@ -11,14 +11,19 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
     public async ValueTask<ICollection<CustomerPeyGiryResponse>> GetAllCustomerPeyGiriesAsync(Ulid customerId)
     {
-        IQueryable<Customer> joinList = _context.Customers.Include(x => x.User).Include(x => x.CustomerPeyGiries).AsQueryable();
-
-        return await joinList.Select(x => new CustomerPeyGiryResponse
-        {
-            Description = x.CustomerPeyGiries.FirstOrDefault().Description,
-            Username = x.FirstName,
-            UserFamily = x.LastName
-        }).ToListAsync();
+        //IQueryable<Customer> joinList = _context.Customers
+        //    .Include(x => x.User)
+        //    .Include(x => x.CustomerPeyGiries)
+        //    .AsQueryable();
+        return await _context.Customers
+            .Include(x => x.User)
+            .Include(x => x.CustomerPeyGiries)
+            .Select(x => new CustomerPeyGiryResponse
+            {
+                Description = x.CustomerPeyGiries.FirstOrDefault().Description,
+                Username = x.FirstName,
+                UserFamily = x.LastName
+            }).ToListAsync();
     }
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)

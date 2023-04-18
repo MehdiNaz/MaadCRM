@@ -9,11 +9,26 @@ public class ProductCategoryRepository : IProductCategoryRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ProductCategory?>> GetAllProductCategoriesAsync()
-        => await _context.ProductCategories.Where(x => x.ProductCategoryStatus == Status.Show).ToListAsync();
+    public async ValueTask<ICollection<ProductCategory>> GetAllProductCategoriesAsync(Ulid businessId)
+    {
+        try
+        {
+            return await _context.ProductCategories
+                .Where(x => x.ProductCategoryStatus == Status.Show)
+                .Include(x => x.Business).Where(x => x.BusinessId == businessId)
+                .ToListAsync();
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
-    public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid productCategoryId)
-        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.ProductCategoryId == productCategoryId && x.ProductCategoryStatus == Status.Show);
+    public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid businessId)
+        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.ProductCategoryId == businessId && x.ProductCategoryStatus == Status.Show);
+
+    public async ValueTask<ICollection<ProductCategory>> SearchByItemsAsync(string request)
+        => await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ProductCategory?> ChangeStatusProductCategoryByIdAsync(Status status, Ulid productCategoryId)
     {
@@ -45,7 +60,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         }
     }
 
-    public async ValueTask<ProductCategory?> UpdateProductCategoryAsync(ProductCategory entity, Ulid productCategoryId)
+    public async ValueTask<ProductCategory?> UpdateProductCategoryAsync(ProductCategory entity)
     {
         try
         {

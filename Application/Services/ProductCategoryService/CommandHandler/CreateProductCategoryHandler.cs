@@ -13,11 +13,11 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
     {
         ProductCategory item = new()
         {
-            ParentId = request.ParentId,
             Order = request.Order,
             ProductCategoryName = request.ProductCategoryName,
             Description = request.Description,
-            Icon = request.Icon
+            Icon = request.Icon,
+            BusinessId = request.BusinessId
         };
         await _repository.CreateProductCategoryAsync(item);
         return item;

@@ -9,12 +9,22 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<Product?>> GetAllProductsAsync()
-        => await _context.Products.Where(x => x.ProductStatus == Status.Show).ToListAsync();
+    // Ok
+    public async ValueTask<ICollection<Product>> GetAllProductsAsync(Ulid businessId)
+    {
+        var result= await _context.Products.Where(x => x.ProductStatus == Status.Show)
+            .Include(x => x.ProductCategory)
+            .ThenInclude(x => x.Business)
+            .Where(x => x.ProductCategory.BusinessId == businessId)
+            .ToListAsync();
+        return result;
+    }
 
+    // Ok
     public async ValueTask<Product?> GetProductByIdAsync(Ulid productId)
         => await _context.Products.FirstOrDefaultAsync(x => x.ProductId == productId && x.ProductStatus == Status.Show);
 
+    // Ok
     public async ValueTask<Product?> ChangeStatusProductByIdAsync(Status status, Ulid productId)
     {
         try
@@ -31,6 +41,11 @@ public class ProductRepository : IProductRepository
         }
     }
 
+    // Ok
+    public async ValueTask<ICollection<Product>?> SearchByItemsAsync(string request)
+        => await _context.Products.Where(x => x.Title.Contains(request)).ToListAsync();
+
+    // Ok
     public async ValueTask<Product?> ChangeStateProductAsync(ProductStatus status, Ulid productId)
     {
         try
@@ -46,6 +61,7 @@ public class ProductRepository : IProductRepository
         }
     }
 
+    // Ok
     public async ValueTask<Product?> CreateProductAsync(Product? entity)
     {
         try
@@ -60,6 +76,7 @@ public class ProductRepository : IProductRepository
         }
     }
 
+    // Ok
     public async ValueTask<Product?> UpdateProductAsync(Product entity, Ulid productId)
     {
         try

@@ -1,4 +1,4 @@
-﻿namespace Application.Validator.Products;
+﻿namespace Application.Services.ProductService.Validation;
 
 public class ProductValidation : AbstractValidator<Product>
 {
@@ -10,6 +10,5 @@ public class ProductValidation : AbstractValidator<Product>
         RuleFor(x => x.Summery).NotEmpty().WithMessage("لطفاً توضیحات محصول را وارد نمائید");
         RuleFor(x => x.Price).NotEmpty().WithMessage("لطفاً قیمت اولیه محصول را وارد نمائید");
         RuleFor(x => x.SecondaryPrice).NotEmpty().WithMessage("لطفاً قیمت نهایی محصول را وارد نمائید");
-        RuleFor(x => x.Picture).NotEmpty().WithMessage("لطفاً تصویر محصول را وارد نمائید");
     }
 }

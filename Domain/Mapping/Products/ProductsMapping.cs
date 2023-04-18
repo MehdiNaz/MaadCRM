@@ -14,8 +14,6 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
         builder.Property(x => x.SecondaryPrice).IsRequired();
         builder.Property(x => x.Discount).IsRequired();
         builder.Property(x => x.DiscountPercent).IsRequired();
-        builder.Property(x => x.FavoritesListId).IsRequired();
-        builder.Property(x => x.Picture).IsRequired();
 
 
         //New Relations ==> OK

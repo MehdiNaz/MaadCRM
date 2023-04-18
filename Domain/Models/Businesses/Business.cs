@@ -18,7 +18,7 @@ public class Business : BaseEntity
     public string? CompanyName { get; set; }
     public string? CompanyAddress { get; set; }
     //public bool SslEnabled { get; set; }
-    public int? DisplayOrder { get; set; } 
+    public int? DisplayOrder { get; set; }
     //public Ulid? Id { get; set; }
     //public Ulid? ContactId { get; set; }
     //public Ulid? ContactGroupId { get; set; }
@@ -27,16 +27,17 @@ public class Business : BaseEntity
     public Status BusinessStatus { get; set; }
 
 
-    public ICollection<User>? Users { get; set; }                                   //Relation OK
-    public ICollection<Contact>? Contacts { get; set; }                            //Relation OK
-    public ICollection<ContactGroup>? ContactGroups { get; set; }                  //Relation OK
-    public ICollection<AttributeOption>? AttributeOptions { get; set; }           //Relation OK
-    public ICollection<AttributeOptionsValue>? AttributeOptionsValues { get; set; }//Relation OK
+    // public ICollection<User>? Users { get; set; }
+    // public ICollection<Contact>? Contacts { get; set; }
+    // public ICollection<ContactGroup>? ContactGroups { get; set; }
+    // public ICollection<AttributeOption>? AttributeOptions { get; set; }
+    // public ICollection<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
     //public BusinessAttribute BusinessAttribute { get; set; }
     //public CategoryAttribute CategoryAttribute { get; set; }
 
-    public ICollection<Setting>? Setting { get; set; }
-    public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
-    public ICollection<BusinessPlan>? BusinessPlans { get; set; }                 //Relation OK
-    // public ICollection<Customer>? Customers { get; set; }                           //Relation OK
+    // public ICollection<Setting>? Setting { get; set; }
+    // public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
+    // public ICollection<BusinessPlan>? BusinessPlans { get; set; }
+    // public ICollection<ProductCategory>? ProductCategories { get; set; }
+    // public ICollection<Customer>? Customers { get; set; }                        
 }
