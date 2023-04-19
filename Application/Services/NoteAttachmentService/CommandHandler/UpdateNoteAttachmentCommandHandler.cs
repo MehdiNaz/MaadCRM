@@ -13,7 +13,7 @@ public readonly struct UpdateNoteAttachmentCommandHandler : IRequestHandler<Upda
     {
         NoteAttachment item = new()
         {
-            NoteAttachmentId = request.NoteAttachmentId,
+            Id = request.NoteAttachmentId,
             CustomerNoteId = request.CustomerNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion

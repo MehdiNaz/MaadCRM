@@ -18,7 +18,6 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
             ProductCategoryName = request.ProductCategoryName,
             Description = request.Description,
             Icon = request.Icon,
-            ProductCategoryStatus = request.ProductCategoryStatus,
             BusinessId = request.BusinessId
         };
         await _repository.UpdateProductCategoryAsync(item);

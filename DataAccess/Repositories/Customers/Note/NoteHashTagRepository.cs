@@ -13,7 +13,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
         => await _context.NoteHashTags.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
 
     public async ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
-        => await _context.NoteHashTags.FirstOrDefaultAsync(x => x.NoteHashTagId == noteHashTagId && x.NoteHashTagStatus == Status.Show);
+        => await _context.NoteHashTags.FirstOrDefaultAsync(x => x.Id == noteHashTagId && x.NoteHashTagStatus == Status.Show);
 
     public async ValueTask<NoteHashTag?> ChangeStatusNoteHashTagByIdAsync(Status status, Ulid noteHashTagId)
     {

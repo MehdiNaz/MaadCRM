@@ -4,11 +4,11 @@ public class NoteAttachment : BaseEntity
 {
     public NoteAttachment()
     {
-        NoteAttachmentId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         NoteAttachmentStatus = Status.Show;
     }
 
-    public Ulid NoteAttachmentId { get; set; }
+    public Ulid Id { get; set; }
     public Ulid CustomerNoteId { get; set; }
     public byte[] FileName { get; set; }
     public string Extenstion { get; set; }

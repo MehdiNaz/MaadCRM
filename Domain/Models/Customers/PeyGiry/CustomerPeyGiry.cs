@@ -11,8 +11,10 @@ public class CustomerPeyGiry : BaseEntity
     public Ulid CustomerPeyGiryId { get; set; }
     public string Description { get; set; }
     public Ulid CustomerId { get; set; }
+    // public string UserId { get; set; }
     public Status CustomerPeyGiryStatus { get; set; }
 
-    // public Customer Customer { get; set; }
+    public Customer Customer { get; set; }
+    public User User { get; set; }
     public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
 }

@@ -39,6 +39,7 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(ProductCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshOrderValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ForoshFactorValidation).Assembly);
+        collection.AddValidatorsFromAssembly(typeof(NoteHashTableValidation).Assembly);
 
 
         collection.AddValidatorsFromAssembly(typeof(CreateUsersPlanValidation).Assembly);

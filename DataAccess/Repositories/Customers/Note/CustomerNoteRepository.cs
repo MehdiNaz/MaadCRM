@@ -13,7 +13,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         => await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId)
-        => await _context.CustomerNotes.FirstOrDefaultAsync(x => x.CustomerNoteId == customerNoteId && x.CustomerNoteStatus == Status.Show);
+        => await _context.CustomerNotes.FirstOrDefaultAsync(x => x.Id == customerNoteId && x.CustomerNoteStatus == Status.Show);
 
     public async ValueTask<CustomerNote?> ChangeStatusCustomerNoteByIdAsync(Status status, Ulid customerNoteId)
     {
@@ -31,47 +31,45 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         }
     }
 
-    public async Task<CustomerNoteResponse?> CreateCustomerNoteAsync(CreateCustomerNoteCommand entity)
+    public async ValueTask<CustomerNote?> CreateCustomerNoteAsync(CreateCustomerNoteCommand entity)
     {
         try
         {
             CustomerNote newEntity = new()
             {
-                CustomerNoteStatus = entity.CustomerNoteStatus,
                 CustomerId = entity.CustomerId,
                 ProductId = entity.ProductId,
                 Description = entity.Description,
+                
             };
 
-            await _context.CustomerNotes!.AddAsync(newEntity!);
-            int result = await _context.SaveChangesAsync();
+            await _context.CustomerNotes.AddAsync(newEntity);
+            var result = await _context.SaveChangesAsync();
 
-            if (result == 0)
-                return null;
+            // if (result == 0)
+            //     return null;
 
-            if (entity.HashTagIds is not null)
-            {
-                foreach (string entityHashTagId in entity.HashTagIds)
-                {
-                    NoteHashTag newHashTag = new()
-                    {
-                        Title = entityHashTagId
-                    };
-                }
+            // foreach (var entityHashTagId in entity.HashTagIds)
+            // {
+            //     NoteHashTag newHashTag = new()
+            //     {
+            //         Title = entityHashTagId
+            //     };
+            //     await _context.NoteHashTags.AddAsync(newHashTag);
+            // }
+            // await _context.SaveChangesAsync();
 
-                await _context.SaveChangesAsync();
-            }
-            await _context.SaveChangesAsync();
+            //  CustomerNoteResponse returnItem = new()
+            //  {
+            //      CustomerId = newEntity.CustomerId,
+            //      ProductId = newEntity.ProductId,
+            //      Description = newEntity.Description,
+            //      CustomerNoteStatus = newEntity.CustomerNoteStatus,
+            //// List String   List HashTag              
+            //      HashTags = newEntity.CustomerHashTags.FirstOrDefault().Title
+            //  };
 
-            CustomerNoteResponse returnItem = new()
-            {
-                CustomerId = newEntity.CustomerId,
-                ProductId = newEntity.ProductId,
-                Description = newEntity.Description,
-                CustomerNoteStatus = newEntity.CustomerNoteStatus
-            };
-
-            return returnItem;
+            return newEntity;
         }
         catch
         {

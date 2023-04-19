@@ -41,9 +41,10 @@ public class User : IdentityUser
     //public ICollection<Notification> Notifications { get; set; }
     public ICollection<Log>? Logs { get; set; }
     public ICollection<SanAt>? SanAts { get; set; }
-    public ICollection<Customer>? Customers { get; set; }  //Relation OK
-    public ICollection<Plan>? Plans { get; set; }  //Relation OK
-    public ICollection<CustomerCategory>? CustomerCategories { get; set; }
+    public ICollection<Customer>? Customers { get; set; }  
+    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
+    public ICollection<Plan>? Plans { get; set; }  
+    // public ICollection<CustomerCategory>? CustomerCategories { get; set; }
     // public ICollection<Business>? Businesses { get; set; }
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
     // public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }

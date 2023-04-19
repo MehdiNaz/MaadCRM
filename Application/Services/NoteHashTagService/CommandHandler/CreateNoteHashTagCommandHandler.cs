@@ -13,7 +13,6 @@ public readonly struct CreateNoteHashTagCommandHandler : IRequestHandler<CreateN
     {
         NoteHashTag item = new()
         {
-            Title = request.Title,
             CustomerNoteId = request.CustomerNoteId
         };
         await _repository.CreateNoteHashTagAsync(item);

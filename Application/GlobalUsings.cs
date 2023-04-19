@@ -84,6 +84,8 @@ global using Application.Services.CustomerActivityService.Queries;
 global using Application.Services.CustomerFeedbackService.Commands;
 global using Application.Services.Jwt.Query;
 global using Application.Services.Login.Commands;
+global using Application.Services.NoteHashTableService.Commands;
+global using Application.Services.NoteHashTableService.Queries;
 global using Application.Services.Profile.Command;
 global using Domain.Models.IdentityModels;
 global using LanguageExt;

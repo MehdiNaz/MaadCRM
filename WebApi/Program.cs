@@ -62,6 +62,7 @@ app.MapCustomerPeyGiryRoute();
 app.MapCustomerFeedbackRoute();
 app.MapCustomerCategoryRoute();
 app.MapCustomerNoteRoute();
+app.MapNoteHashTableRoute();
 app.MapCustomerRoute();
 app.MapNoteAttachmentRoute();
 app.MapNoteHashTagRoute();

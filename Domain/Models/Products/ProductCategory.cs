@@ -17,5 +17,5 @@ public class ProductCategory : BaseEntity
     public Status ProductCategoryStatus { get; set; }
     public Ulid BusinessId { get; set; }
     public Business Business { get; set; }
-    public ICollection<Product> Products { get; set; }
+    // public ICollection<Product> Products { get; set; }
 }

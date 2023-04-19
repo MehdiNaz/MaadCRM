@@ -25,6 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Services\NoteHashTableService\Commands\" />
+      <Folder Include="Services\NoteHashTableService\Validation\" />
+      <Folder Include="Services\NoteHashTableService\Queries\" />
       <Folder Include="Services\ProductService\Validation\" />
     </ItemGroup>
 </Project>

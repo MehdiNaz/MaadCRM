@@ -77,7 +77,7 @@ public class CustomerRepository : ICustomerRepository
 
         var test = resultsListCustomer.ToList();
 
-        if (request.From != null && request.UpTo != null)
+        if (request is { From: { }, UpTo: { } })
         {
             resultsListCustomer =
                 resultsListCustomer.Where(x => x.DateCreated < request.UpTo && x.DateCreated > request.From);
@@ -108,15 +108,15 @@ public class CustomerRepository : ICustomerRepository
         if (request is { Gender: { } })
             resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
 
-        if (request is { ProvinceId: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
+        // if (request is { ProvinceId: { } })
+        //     resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
 
         if (request is { CityId: { } })
             resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
 
-        if (request is { ProductId: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.ProductId == request.ProductId);
-
+        // if (request is { ProductId: { } })
+        //     resultsListCustomer = resultsListCustomer.Where(x => x.ProductId == request.ProductId);
+        //
         return await resultsListCustomer.ToListAsync();
     }
 

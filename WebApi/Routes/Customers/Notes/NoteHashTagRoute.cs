@@ -46,7 +46,7 @@ public static class NoteHashTagRoute
             {
                 var result = await mediator.Send(new CreateNoteHashTagCommand
                 {
-                    Title = request.Title,
+                    // Title = request.Title,
                     CustomerNoteId = request.CustomerNoteId
                 });
                 return Results.Ok(result);
@@ -81,7 +81,7 @@ public static class NoteHashTagRoute
                 var result = await mediator.Send(new UpdateNoteHashTagCommand
                 {
                     NoteHashTagId = request.NoteHashTagId,
-                    Title = request.Title,
+                    // Title = request.Title,
                     CustomerNoteId = request.CustomerNoteId
                 });
                 return Results.Ok(result);

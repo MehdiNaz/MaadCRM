@@ -15,15 +15,17 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         //    .Include(x => x.User)
         //    .Include(x => x.CustomerPeyGiries)
         //    .AsQueryable();
-        return await _context.Customers
+        var A = await _context.CustomerPeyGiries
+            .Include(x => x.Customer)
             .Include(x => x.User)
-            .Include(x => x.CustomerPeyGiries)
             .Select(x => new CustomerPeyGiryResponse
             {
-                Description = x.CustomerPeyGiries.FirstOrDefault().Description,
-                Username = x.FirstName,
-                UserFamily = x.LastName
+                Description = x.Description,
+                DateCreated = x.DateCreated,
+                CustomerPeyGiryId = x.CustomerPeyGiryId,
+                Name = x.User.Name + " " + x.User.Family
             }).ToListAsync();
+        return A;
     }
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)

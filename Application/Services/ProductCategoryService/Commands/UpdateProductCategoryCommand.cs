@@ -7,6 +7,5 @@ public struct UpdateProductCategoryCommand : IRequest<ProductCategory>
     public required string ProductCategoryName { get; set; }
     public string Description { get; set; }
     public string? Icon { get; set; }
-    public Status ProductCategoryStatus { get; set; }
     public Ulid BusinessId { get; set; }
 }

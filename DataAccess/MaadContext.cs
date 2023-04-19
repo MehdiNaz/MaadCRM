@@ -42,6 +42,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerPeyGiry> CustomerPeyGiries { get; set; }
     public DbSet<CustomerNote> CustomerNotes { get; set; }
     public DbSet<NoteHashTag> NoteHashTags { get; set; }
+    public DbSet<NoteHashTable> NoteHashTables { get; set; }
     public DbSet<NoteAttachment> NoteAttachments { get; set; }
     public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
@@ -69,6 +70,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CustomerSubmissionMapping());
         builder.ApplyConfiguration(new CustomersPhoneNumberMapping());
         builder.ApplyConfiguration(new CustomerNoteMapping());
+        builder.ApplyConfiguration(new NoteHashTableMapping());
         builder.ApplyConfiguration(new CustomerPeyGiryMapping());
         builder.ApplyConfiguration(new NoteHashTagMapping());
         builder.ApplyConfiguration(new NoteAttachmentMapping());
@@ -220,10 +222,10 @@ public class MaadContext : IdentityDbContext
             if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.FavoritesListId)).ValueGeneratedNever();
 
 
-
             //if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList.CustomerId)).ValueGeneratedNever();
             //if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList.ProductId)).ValueGeneratedNever();
             //if (typeof(Note).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Note)).ValueGeneratedNever();
+            
             if (typeof(CustomerPeyGiry).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerPeyGiry.CustomerId)).ValueGeneratedNever();
             if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerNote.CustomerId)).ValueGeneratedNever();
             if (typeof(NoteHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTag.CustomerNoteId)).ValueGeneratedNever();
@@ -242,12 +244,17 @@ public class MaadContext : IdentityDbContext
             if (typeof(BusinessAttribute).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(BusinessAttribute.CategoryAttributeId)).ValueGeneratedNever();
 
 
-            if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerNote.ProductId)).ValueGeneratedNever();
+            if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid?>(nameof(CustomerNote.ProductId)).ValueGeneratedNever();
 
 
             if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.ProductId)).ValueGeneratedNever();
             if (typeof(ProductCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCategory.ProductCategoryId)).ValueGeneratedNever();
             if (typeof(ProductCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCategory.BusinessId)).ValueGeneratedNever();
+
+            if (typeof(NoteHashTable).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTable.Id)).ValueGeneratedNever();
+            if (typeof(NoteHashTable).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTable.BusinessId)).ValueGeneratedNever();
+            if (typeof(NoteHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTag.NoteHashTableId)).ValueGeneratedNever();
+
 
 
             foreach (IMutableProperty property in entityType.GetProperties())

@@ -9,15 +9,15 @@ public static class ProductRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllProducts/{businessId}", async (Ulid businessId, IMediator mediator) =>
+        plan.MapGet("/AllProducts/{businessId}", async (Ulid businessId, IMediator mediator) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new AllProductsQuery(){BusinessId = businessId}));
+                return Results.Ok(await mediator.Send(new AllProductsQuery { BusinessId = businessId }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(e.Message);
             }
         });
 

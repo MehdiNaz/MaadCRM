@@ -20,6 +20,7 @@ global using Application.Services.CustomerService.Commands;
 global using Application.Services.CustomerService.Query;
 global using Application.Services.Login.Commands;
 global using Application.Services.Login.Queries;
+global using Application.Services.NoteHashTableService.Commands;
 global using Domain.Enum;
 global using Domain.Mapping;
 global using Domain.Mapping.Address;

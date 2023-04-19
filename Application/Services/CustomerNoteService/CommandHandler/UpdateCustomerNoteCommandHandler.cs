@@ -13,7 +13,7 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
     {
         CustomerNote item = new()
         {
-            CustomerNoteId = request.CustomerNoteId,
+            Id = request.CustomerNoteId,
             Description = request.Description,
             CustomerId = request.CustomerId
         };

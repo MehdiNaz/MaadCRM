@@ -11,7 +11,7 @@ public static class BusinessRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllBusinesses", async (IMediator mediator) =>
+        plan.MapGet("/AllBusinesses", async (IMediator mediator) =>
         {
             try
             {

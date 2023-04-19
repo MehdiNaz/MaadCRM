@@ -4,14 +4,13 @@ public class NoteHashTag : BaseEntity
 {
     public NoteHashTag()
     {
-        NoteHashTagId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         NoteHashTagStatus = Status.Show;
     }
 
-    public Ulid NoteHashTagId { get; set; }
-    public string Title { get; set; }
+    public Ulid Id { get; set; }
     public Ulid CustomerNoteId { get; set; }
+    public Ulid NoteHashTableId { get; set; }
     public Status NoteHashTagStatus { get; set; }
-
-    // public CustomerNote CustomerNote { get; set; }
+    public NoteHashTable NoteHashTable { get; set; }
 }

@@ -13,8 +13,8 @@ public readonly struct UpdateNoteHashTagCommandHandler : IRequestHandler<UpdateN
     {
         NoteHashTag item = new()
         {
-            NoteHashTagId= request.NoteHashTagId,
-            Title = request.Title,
+            Id= request.NoteHashTagId,
+            // Title = request.Title,
             CustomerNoteId = request.CustomerNoteId
         };
         await _repository.UpdateNoteHashTagAsync(item);
