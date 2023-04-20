@@ -10,5 +10,5 @@ public readonly struct ChangeStatusCustomerPhoneNumberCommandHandler : IRequestH
     }
 
     public async Task<CustomersPhoneNumber?> Handle(ChangeStatusCustomerPhoneNumberCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusPhoneNumberByIdAsync(request.ContactPhoneNumberStatus, request.ContactPhoneNumberId);
+        => await _repository.ChangeStatusPhoneNumberByIdAsync(request);
 }

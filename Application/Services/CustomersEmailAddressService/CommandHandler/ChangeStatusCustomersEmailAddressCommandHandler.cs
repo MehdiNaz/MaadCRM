@@ -10,5 +10,5 @@ public readonly struct ChangeStatusCustomersEmailAddressCommandHandler : IReques
     }
 
     public async Task<CustomersEmailAddress?> Handle(ChangeStatusCustomersEmailAddressCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusEmailAddressByIdAsync(request.ContactsEmailAddressStatus, request.CustomersEmailAddressId);
+        => await _repository.ChangeStatusEmailAddressByIdAsync(request);
 }

@@ -2,5 +2,5 @@
 
 public struct DeleteNoteHashTagCommand : IRequest<NoteHashTag>
 {
-    public Ulid NoteHashTagId { get; set; }
+    public Ulid Id { get; set; }
 }

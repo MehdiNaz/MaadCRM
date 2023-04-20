@@ -11,11 +11,11 @@ public class Plan : BaseEntity
 {
     public Plan()
     {
-        PlanId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         PlanStatus = Status.Show;
     }
 
-    public Ulid PlanId { get; set; }
+    public Ulid Id { get; set; }
     public string PlanName { get; set; }
     public uint CountOfUsers { get; set; }
     public decimal PriceOfUsers { get; set; }

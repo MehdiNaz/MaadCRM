@@ -4,11 +4,11 @@ public class ContactPhoneNumber : BaseEntity
 {
     public ContactPhoneNumber()
     {
-        ContactPhoneNumberId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         ContactPhoneNumberStatus = Status.Show;
     }
 
-    public Ulid ContactPhoneNumberId { get; set; }
+    public Ulid Id { get; set; }
     public string PhoneNo { get; set; }
     public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }

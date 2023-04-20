@@ -11,7 +11,7 @@ public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProdu
 
     public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        Product item = new()
+        CreateProductCommand item = new()
         {
             ProductName = request.ProductName,
             ProductCategoryId = request.ProductCategoryId,
@@ -24,7 +24,6 @@ public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProdu
             FavoritesListId = request.FavoritesListId,
             Picture = request.Picture
         };
-        await _repository.CreateProductAsync(item);
-        return item;
+        return await _repository.CreateProductAsync(item);
     }
 }

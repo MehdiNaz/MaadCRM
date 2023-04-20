@@ -11,12 +11,11 @@ public readonly struct CreateSanAtCommandHandler : IRequestHandler<CreateSanAtCo
 
     public async Task<SanAt> Handle(CreateSanAtCommand request, CancellationToken cancellationToken)
     {
-        SanAt item = new()
+        CreateSanAtCommand item = new()
         {
             SanAtName = request.SanAtName,
             UserId = request.UserId,
         };
-        await _repository.CreateSanAtsAsync(item);
-        return item;
+        return await _repository.CreateSanAtsAsync(item);
     }
 }

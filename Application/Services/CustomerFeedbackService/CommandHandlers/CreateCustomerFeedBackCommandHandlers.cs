@@ -11,11 +11,13 @@ public readonly struct CreateCustomerFeedBackCommandHandlers : IRequestHandler<C
 
     public async Task<CustomerFeedback> Handle(CreateCustomerFeedBackCommand request, CancellationToken cancellationToken)
     {
-        CustomerFeedback item = new()
+        CreateCustomerFeedBackCommand item = new()
         {
-
+            FeedbackName = request.FeedbackName,
+            DisplayOrder = request.DisplayOrder,
+            Point = request.Point,
+            BalancePoint = request.BalancePoint
         };
-        await _repository.CreateCustomerFeedbackAsync(item);
-        return item;
+        return await _repository.CreateCustomerFeedbackAsync(item);
     }
 }

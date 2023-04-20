@@ -2,5 +2,5 @@
 
 public struct DeleteForoshFactorCommand : IRequest<ForoshFactor>
 {
-    public Ulid ForoshFactorId { get; set; }
+    public Ulid Id { get; set; }
 }

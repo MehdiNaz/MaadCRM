@@ -11,13 +11,12 @@ public readonly struct CreateContactGroupCommandHandler : IRequestHandler<Create
 
     public async Task<ContactGroup> Handle(CreateContactGroupCommand request, CancellationToken cancellationToken)
     {
-        ContactGroup item = new()
+        CreateContactGroupCommand item = new()
         {
             GroupName = request.GroupName,
             DisplayOrder = request.DisplayOrder
         };
 
-        await _repository.CreateContactGroupAsync(item);
-        return item;
+        return await _repository.CreateContactGroupAsync(item);
     }
 }

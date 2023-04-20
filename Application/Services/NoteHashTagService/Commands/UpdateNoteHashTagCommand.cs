@@ -2,7 +2,7 @@
 
 public struct UpdateNoteHashTagCommand : IRequest<NoteHashTag>
 {
-    public Ulid NoteHashTagId { get; set; }
-    // public string Title { get; set; }
+    public Ulid Id { get; set; }
     public Ulid CustomerNoteId { get; set; }
+    public Ulid NoteHashTableId { get; set; }
 }

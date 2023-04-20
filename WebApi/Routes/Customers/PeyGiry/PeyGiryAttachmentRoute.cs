@@ -64,7 +64,7 @@ public static class PeyGiryAttachmentRoute
             {
                 var result = await mediator.Send(new UpdatePeyGiryAttachmentCommand
                 {
-                    PeyGiryAttachmentId = request.PeyGiryAttachmentId,
+                    Id = request.Id,
                     PeyGiryNoteId = request.PeyGiryNoteId,
                     FileName = request.FileName,
                     Extenstion = request.Extenstion
@@ -83,7 +83,7 @@ public static class PeyGiryAttachmentRoute
             {
                 var result = await mediator.Send(new DeletePeyGiryAttachmentCommand
                 {
-                    PeyGiryAttachmentId = request.PeyGiryAttachmentId
+                    Id = request.Id
                 });
                 return Results.Ok(result);
             }

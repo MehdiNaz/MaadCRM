@@ -2,8 +2,7 @@
 
 public struct UpdateCustomerPhoneNumberCommand : IRequest<CustomersPhoneNumber>
 {
-    public Ulid PhoneNumberId { get; set; }
+    public Ulid Id { get; set; }
     public string PhoneNo { get; set; }
-    public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
 }

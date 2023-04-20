@@ -2,5 +2,5 @@
 
 public struct DeleteCustomerActivityCommand : IRequest<CustomerActivity>
 {
-    public Ulid CustomerActivityId { get; set; }
+    public Ulid Id { get; set; }
 }

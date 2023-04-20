@@ -2,7 +2,7 @@
 
 public struct UpdateContactGroupCommand : IRequest<ContactGroup>
 {
-    public Ulid ContactGroupId { get; set; }
-    public string ContactGroupName { get; set;}
+    public Ulid Id { get; set; }
+    public string GroupName { get; set;}
     public int DisplayOrder { get; set; }
 }

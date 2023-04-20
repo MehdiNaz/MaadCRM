@@ -10,5 +10,5 @@ public readonly struct DeleteCustomersAddressCommandHandler : IRequestHandler<De
     }
 
     public async Task<CustomersAddress> Handle(DeleteCustomersAddressCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteAddressAsync(request.CustomersAddressId))!;
+        => (await _repository.DeleteAddressAsync(request))!;
 }

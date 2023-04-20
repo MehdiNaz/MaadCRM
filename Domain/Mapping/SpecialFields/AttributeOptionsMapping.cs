@@ -11,6 +11,6 @@ public class AttributeOptionsMapping : IEntityTypeConfiguration<AttributeOption>
 
 
         // builder.HasOne(x => x.BusinessAttribute).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessAttributeId);
-        // builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.AttributeOptions).HasForeignKey(x => x.Id);
     }
 }

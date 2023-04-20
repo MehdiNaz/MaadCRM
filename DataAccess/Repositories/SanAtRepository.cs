@@ -13,15 +13,15 @@ public class SanAtRepository : ISanAtRepository
         => await _context.SanAts!.Where(x => x.SanAtStatus == Status.Show).ToListAsync();
 
     public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId)
-        => await _context.SanAts.FirstOrDefaultAsync(x => x.SanAtId == sanAtId && x.SanAtStatus == Status.Show);
+        => await _context.SanAts.FirstOrDefaultAsync(x => x.Id == sanAtId && x.SanAtStatus == Status.Show);
 
-    public async ValueTask<SanAt?> ChangeStatusSanAtsByIdAsync(Status status, Ulid sanAtId)
+    public async ValueTask<SanAt?> ChangeStatusSanAtsByIdAsync(ChangeStatusSanAtCommand request)
     {
         try
         {
-            var item = await _context.SanAts!.FindAsync(sanAtId);
+            var item = await _context.SanAts!.FindAsync(request.Id);
             if (item is null) return null;
-            item.SanAtStatus = status;
+            item.SanAtStatus = request.SanAtStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,18 @@ public class SanAtRepository : ISanAtRepository
         }
     }
 
-    public async ValueTask<SanAt?> CreateSanAtsAsync(SanAt? entity)
+    public async ValueTask<SanAt?> CreateSanAtsAsync(CreateSanAtCommand request)
     {
         try
         {
-            await _context.SanAts!.AddAsync(entity!);
+            SanAt item = new()
+            {
+                SanAtName = request.SanAtName,
+                UserId = request.UserId
+            };
+            await _context.SanAts!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +50,19 @@ public class SanAtRepository : ISanAtRepository
         }
     }
 
-    public async ValueTask<SanAt?> UpdateSanAtsAsync(SanAt? entity, Ulid sanAtId)
+    public async ValueTask<SanAt?> UpdateSanAtsAsync(UpdateSanAtCommand request)
     {
         try
         {
-            _context.Update(entity);
+            SanAt item = new()
+            {
+                SanAtName = request.SanAtName,
+                UserId = request.UserId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +70,11 @@ public class SanAtRepository : ISanAtRepository
         }
     }
 
-    public async ValueTask<SanAt?> DeleteSanAtsAsync(Ulid sanAtId)
+    public async ValueTask<SanAt?> DeleteSanAtsAsync(DeleteSanAtCommand request)
     {
         try
         {
-            var sanAt = await GetSanAtsByIdAsync(sanAtId);
+            var sanAt = await GetSanAtsByIdAsync(request.Id);
             sanAt.SanAtStatus = Status.Show;
             await _context.SaveChangesAsync();
             return sanAt;

@@ -16,7 +16,7 @@ public class Customer : BaseEntity
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
     public Ulid? CityId { get; set; }
-    // public Ulid BusinessId { get; set; }
+    // public Ulid Id { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public GenderTypes? Gender { get; set; }
     public Status CustomerStatus { get; set; }
@@ -26,7 +26,7 @@ public class Customer : BaseEntity
     // public string CreatedBy { get; set; }
     // public string UpdatedBy { get; set; }
     public string UserId { get; set; }
-    public User User { get; set; }
+    //public User User { get; set; }
 
     #region Moaref
     public Ulid? CustomerMoarefId { get; set; }

@@ -13,15 +13,15 @@ public class ContactRepository : IContactRepository
         => await _context.Contacts.Where(x => x.ContactStatus == Status.Show).ToListAsync();
 
     public async ValueTask<Contact?> GetContactByIdAsync(Ulid contactId)
-        => await _context.Contacts!.FirstOrDefaultAsync(x => x.ContactId == contactId && x.ContactStatus == Status.Show);
+        => await _context.Contacts!.FirstOrDefaultAsync(x => x.Id == contactId && x.ContactStatus == Status.Show);
 
-    public async ValueTask<Contact?> ChangeStateContactByIdAsync(Status status, Ulid contactId)
+    public async ValueTask<Contact?> ChangeStatusContactByIdAsync(ChangeStatusContactCommand request)
     {
         try
         {
-            var item = await _context.Contacts!.FindAsync(contactId);
+            var item = await _context.Contacts!.FindAsync(request.Id);
             if (item is null) return null;
-            item.ContactStatus = status;
+            item.ContactStatus = request.ContactStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,22 @@ public class ContactRepository : IContactRepository
         }
     }
 
-    public async ValueTask<Contact?> CreateContactAsync(Contact? entity)
+    public async ValueTask<Contact?> CreateContactAsync(CreateContactCommand request)
     {
         try
         {
-            await _context.Contacts!.AddAsync(entity!);
+            Contact item = new()
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                EmailId = request.EmailId,
+                ContactGroupId = request.ContactGroupId,
+                Job = request.Job,
+                BusinessId = request.BusinessId
+            };
+            await _context.Contacts!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +54,24 @@ public class ContactRepository : IContactRepository
         }
     }
 
-    public async ValueTask<Contact?> UpdateContactAsync(Contact entity, Ulid contactId)
+    public async ValueTask<Contact?> UpdateContactAsync(UpdateContactCommand request)
     {
         try
         {
-            _context.Update(entity);
+            Contact item = new()
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                EmailId = request.EmailId,
+                ContactGroupId = request.ContactGroupId,
+                Job = request.Job,
+                BusinessId = request.BusinessId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +79,11 @@ public class ContactRepository : IContactRepository
         }
     }
 
-    public async ValueTask<Contact?> DeleteContactAsync(Ulid contactId)
+    public async ValueTask<Contact?> DeleteContactAsync(DeleteContactCommand request)
     {
         try
         {
-            var contact = await GetContactByIdAsync(contactId);
+            var contact = await GetContactByIdAsync(request.ContactId);
             contact!.ContactStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contact;

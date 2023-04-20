@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230419144711_MaadMigration")]
+    [Migration("20230420063633_MaadMigration")]
     partial class MaadMigration
     {
         /// <inheritdoc />
@@ -1932,7 +1932,7 @@ namespace DataAccess.Migrations
                         .WithMany("CustomersMoaref")
                         .HasForeignKey("CustomerMoarefId");
 
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                    b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("Customers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1941,8 +1941,6 @@ namespace DataAccess.Migrations
                     b.Navigation("City");
 
                     b.Navigation("CustomerMoaref");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>

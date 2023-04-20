@@ -11,7 +11,7 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
 
     public async Task<Contact> Handle(CreateContactCommand request, CancellationToken cancellationToken)
     {
-        Contact item = new()
+        CreateContactCommand item = new()
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -20,7 +20,6 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
             Job = request.Job,
             BusinessId = request.BusinessId
         };
-        await _repository.CreateContactAsync(item);
-        return item;
+        return await _repository.CreateContactAsync(item);
     }
 }

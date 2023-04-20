@@ -4,12 +4,12 @@ public class CustomersPhoneNumber : BaseEntity
 {
     public CustomersPhoneNumber()
     {
-        PhoneNumberId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomersPhoneNumberStatus = Status.Show;
         PhoneType = PhoneTypes.Mobile;
     }
 
-    public Ulid PhoneNumberId { get; set; }
+    public Ulid Id { get; set; }
     public string PhoneNo { get; set; }
     public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }

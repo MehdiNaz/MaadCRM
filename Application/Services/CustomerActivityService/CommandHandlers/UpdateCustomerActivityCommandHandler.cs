@@ -11,14 +11,13 @@ public readonly struct UpdateCustomerActivityCommandHandler : IRequestHandler<Up
 
     public async Task<CustomerActivity> Handle(UpdateCustomerActivityCommand request, CancellationToken cancellationToken)
     {
-        CustomerActivity item = new()
+        UpdateCustomerActivityCommand item = new()
         {
-            CustomerActivityId = request.CustomerActivityId,
+            Id = request.Id,
             CustomerActivityName = request.CustomerActivityName,
             CustomerActivityDescription = request.CustomerActivityDescription,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdateCustomerActivityAsync(item);
-        return item;
+        return await _repository.UpdateCustomerActivityAsync(item);
     }
 }

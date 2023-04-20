@@ -13,15 +13,15 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         => await _context.CustomerActivities.Where(x => x.CustomerActivityStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerActivity?> GetCustomerActivityByIdAsync(Ulid customerActivityId)
-        => await _context.CustomerActivities.FirstOrDefaultAsync(x => x.CustomerActivityId == customerActivityId && x.CustomerActivityStatus == Status.Show);
+        => await _context.CustomerActivities.FirstOrDefaultAsync(x => x.Id == customerActivityId && x.CustomerActivityStatus == Status.Show);
 
-    public async ValueTask<CustomerActivity?> ChangeStatusCustomerActivityByIdAsync(Status status, Ulid customerActivityId)
+    public async ValueTask<CustomerActivity?> ChangeStatusCustomerActivityByIdAsync(ChangeStatusCustomerActivityCommand request)
     {
         try
         {
-            var item = await _context.CustomerActivities!.FindAsync(customerActivityId);
+            var item = await _context.CustomerActivities!.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerActivityStatus = status;
+            item.CustomerActivityStatus = request.CustomerActivityStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,19 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         }
     }
 
-    public async ValueTask<CustomerActivity?> CreateCustomerActivityAsync(CustomerActivity? entity)
+    public async ValueTask<CustomerActivity?> CreateCustomerActivityAsync(CreateCustomerActivityCommand request)
     {
         try
         {
-            await _context.CustomerActivities!.AddAsync(entity!);
+            CustomerActivity item = new()
+            {
+                CustomerActivityName = request.CustomerActivityName,
+                CustomerActivityDescription = request.CustomerActivityDescription,
+                CustomerId = request.CustomerId
+            };
+            await _context.CustomerActivities!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +51,21 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         }
     }
 
-    public async ValueTask<CustomerActivity?> UpdateCustomerActivityAsync(CustomerActivity entity)
+    public async ValueTask<CustomerActivity?> UpdateCustomerActivityAsync(UpdateCustomerActivityCommand request)
     {
         try
         {
-            _context.Update(entity);
+            CustomerActivity item = new()
+            {
+                Id = request.Id,
+                CustomerActivityName = request.CustomerActivityName,
+                CustomerActivityDescription = request.CustomerActivityDescription,
+                CustomerId = request.CustomerId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +73,11 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         }
     }
 
-    public async ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(Ulid customerActivityId)
+    public async ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(DeleteCustomerActivityCommand request)
     {
         try
         {
-            var customerActivity = await GetCustomerActivityByIdAsync(customerActivityId);
+            var customerActivity = await GetCustomerActivityByIdAsync(request.Id);
             customerActivity!.CustomerActivityStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerActivity;

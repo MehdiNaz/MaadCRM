@@ -2,11 +2,12 @@
 
 public struct UpdatePlanCommand : IRequest<Plan>
 {
-    public required Ulid PlanId { get; set; }
-    public required string UserId { get; set; }
-    public required string PlanName { get; set; }
-    public required uint CountOfUsers { get; set; }
-    public required decimal PriceOfUsers { get; set; }
-    public required uint CountOfDay { get; set; }
-    public required decimal PriceOfDay { get; set; }
+    public Ulid Id { get; set; }
+    public string PlanName { get; set; }
+    public uint CountOfUsers { get; set; }
+    public decimal PriceOfUsers { get; set; }
+    public uint CountOfDay { get; set; }
+    public decimal PriceOfDay { get; set; }
+    public decimal FinalPrice { get; set; }
+    public string UserId { get; set; }
 }

@@ -11,7 +11,7 @@ public class Setting : BaseEntity
     public Ulid SettingId { get; set; }
     public string Name { get; set; }
     public string Value { get; set; }
-    // public Ulid BusinessId { get; set; }
+    // public Ulid Id { get; set; }
     public int DisplayOrder { get; set; } 
 
 

@@ -65,7 +65,7 @@ public static class NoteAttachmentRoute
                 var result = await mediator.Send(new ChangeStatusNoteAttachmentCommand
                 {
                     NoteAttachmentStatus = request.NoteAttachmentStatus,
-                    NoteAttachmentId = request.NoteAttachmentId
+                    Id = request.Id
                 });
                 return Results.Ok(result);
             }
@@ -81,7 +81,7 @@ public static class NoteAttachmentRoute
             {
                 var result = await mediator.Send(new UpdateNoteAttachmentCommand
                 {
-                    NoteAttachmentId = request.CustomerNoteId,
+                    Id = request.CustomerNoteId,
                     CustomerNoteId = request.CustomerNoteId,
                     FileName = request.FileName,
                     Extenstion = request.Extenstion
@@ -100,7 +100,7 @@ public static class NoteAttachmentRoute
             {
                 var result = await mediator.Send(new DeleteNoteAttachmentCommand
                 {
-                    NoteAttachmentId = request.NoteAttachmentId,
+                    Id = request.Id,
                 });
                 return Results.Ok(result);
             }

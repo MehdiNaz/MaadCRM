@@ -16,32 +16,18 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
     public async ValueTask<ProductCustomerFavoritesList?> GetProductCustomerFavoritesListByIdAsync(Ulid productId, Ulid customerId)
     => await _context.ProductCustomerFavoritesLists.FindAsync(productId, customerId);
 
-    public async ValueTask<ProductCustomerFavoritesList?> CreateProductCustomerFavoritesListAsync(ProductCustomerFavoritesList? entity)
+    public async ValueTask<ProductCustomerFavoritesList?> CreateProductCustomerFavoritesListAsync(CreateProductCustomerFavoritesListCommand request)
     {
         try
         {
-            await _context.ProductCustomerFavoritesLists!.AddAsync(entity!);
-            await _context.SaveChangesAsync();
-            return entity;
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    public async ValueTask<ProductCustomerFavoritesList?> UpdateProductCustomerFavoritesListAsync(Ulid productId, Ulid customerId)
-    {
-        try
-        {
-            ProductCustomerFavoritesList? entity = new()
+            ProductCustomerFavoritesList item = new()
             {
-                CustomerId = customerId,
-                ProductId = productId
+                ProductId = request.ProductId,
+                CustomerId = request.CustomerId
             };
-            _context.Update(entity);
+            await _context.ProductCustomerFavoritesLists!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -49,11 +35,30 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         }
     }
 
-    public async ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(Ulid productId, Ulid customerId)
+    public async ValueTask<ProductCustomerFavoritesList> UpdateProductCustomerFavoritesListAsync(UpdateProductCustomerFavoritesListCommand request)
     {
         try
         {
-            var customer = await GetProductCustomerFavoritesListByIdAsync(productId, customerId);
+            ProductCustomerFavoritesList item = new()
+            {
+                ProductId = request.ProductId,
+                CustomerId = request.CustomerId
+            };
+            _context.Update(item);
+            await _context.SaveChangesAsync();
+            return item;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public async ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(DeleteProductCustomerFavoritesListCommand request)
+    {
+        try
+        {
+            var customer = await GetProductCustomerFavoritesListByIdAsync(request.ProductId, request.CustomerId);
             customer!.ProductCustomerFavoritesListStatus = Status.Show;
             await _context.SaveChangesAsync();
             return customer;

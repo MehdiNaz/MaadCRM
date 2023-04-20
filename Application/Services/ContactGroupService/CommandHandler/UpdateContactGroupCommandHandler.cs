@@ -11,12 +11,12 @@ public readonly struct UpdateContactGroupCommandHandler : IRequestHandler<Update
 
     public async Task<ContactGroup> Handle(UpdateContactGroupCommand request, CancellationToken cancellationToken)
     {
-        ContactGroup item = new()
+        UpdateContactGroupCommand item = new()
         {
-            GroupName = request.ContactGroupName,
+            Id = request.Id,
+            GroupName = request.GroupName,
             DisplayOrder = request.DisplayOrder
         };
-        await _repository.UpdateContactGroupAsync(item, request.ContactGroupId);
-        return item;
+        return await _repository.UpdateContactGroupAsync(item);
     }
 }

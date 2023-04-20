@@ -14,15 +14,15 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
 
     public async ValueTask<ContactPhoneNumber?> GetContactPhoneNumberByIdAsync(Ulid contactPhoneNumberId)
         => await _context.ContactPhoneNumbers.FirstOrDefaultAsync(x =>
-            x.ContactPhoneNumberId == contactPhoneNumberId && x.ContactPhoneNumberStatus == Status.Show);
+            x.Id == contactPhoneNumberId && x.ContactPhoneNumberStatus == Status.Show);
 
-    public async ValueTask<ContactPhoneNumber?> ChangeStatusContactPhoneNumberByIdAsync(Status status, Ulid contactPhoneNumberId)
+    public async ValueTask<ContactPhoneNumber?> ChangeStatusContactPhoneNumberByIdAsync(ChangeStatusContactPhoneNumberCommand request)
     {
         try
         {
-            var item = await _context.ContactPhoneNumbers!.FindAsync(contactPhoneNumberId);
+            var item = await _context.ContactPhoneNumbers!.FindAsync(request.ContactPhoneNumberId);
             if (item is null) return null;
-            item.ContactPhoneNumberStatus = status;
+            item.ContactPhoneNumberStatus = request.ContactPhoneNumberStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -32,13 +32,18 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         }
     }
 
-    public async ValueTask<ContactPhoneNumber?> CreateContactPhoneNumberAsync(ContactPhoneNumber? entity)
+    public async ValueTask<ContactPhoneNumber?> CreateContactPhoneNumberAsync(CreateContactPhoneNumberCommand request)
     {
         try
         {
-            await _context.ContactPhoneNumbers!.AddAsync(entity!);
+            ContactPhoneNumber item = new()
+            {
+                PhoneNo = request.PhoneNo,
+                CustomerId = request.CustomerId
+            };
+            await _context.ContactPhoneNumbers!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -46,13 +51,20 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         }
     }
 
-    public async ValueTask<ContactPhoneNumber?> UpdateContactPhoneNumberAsync(ContactPhoneNumber entity, Ulid contactPhoneNumberId)
+    public async ValueTask<ContactPhoneNumber?> UpdateContactPhoneNumberAsync(UpdateContactPhoneNumberCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ContactPhoneNumber item = new()
+            {
+                Id = request.Id,
+                PhoneNo = request.PhoneNo,
+                CustomerId = request.CustomerId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -60,11 +72,11 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         }
     }
 
-    public async ValueTask<ContactPhoneNumber?> DeleteContactPhoneNumberAsync(Ulid contactPhoneNumberId)
+    public async ValueTask<ContactPhoneNumber?> DeleteContactPhoneNumberAsync(DeleteContactPhoneNumberCommand request)
     {
         try
         {
-            var contactPhoneNumber = await GetContactPhoneNumberByIdAsync(contactPhoneNumberId);
+            var contactPhoneNumber = await GetContactPhoneNumberByIdAsync(request.Id);
             contactPhoneNumber!.ContactPhoneNumberStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactPhoneNumber;

@@ -2,7 +2,7 @@
 
 public struct UpdateContactCommand : IRequest<Contact>
 {
-    public Ulid ContactId { get; set; }
+    public Ulid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Ulid EmailId { get; set; }

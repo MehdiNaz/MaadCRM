@@ -13,15 +13,15 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         => await _context.PeyGiryAttachments.Where(x => x.StatusPeyGiryAttachment == Status.Show).ToListAsync();
 
     public async ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId)
-        => await _context.PeyGiryAttachments.FirstOrDefaultAsync(x => x.PeyGiryAttachmentId == peyGiryAttachmentId && x.StatusPeyGiryAttachment == Status.Show);
+        => await _context.PeyGiryAttachments.FirstOrDefaultAsync(x => x.Id == peyGiryAttachmentId && x.StatusPeyGiryAttachment == Status.Show);
 
-    public async ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(Status status, Ulid peyGiryAttachmentId)
+    public async ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(ChangeStatusPeyGiryAttachmentCommand request)
     {
         try
         {
-            var item = await _context.PeyGiryAttachments!.FindAsync(peyGiryAttachmentId);
+            var item = await _context.PeyGiryAttachments!.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusPeyGiryAttachment = status;
+            item.StatusPeyGiryAttachment = request.StatusPeyGiryAttachment;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,19 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         }
     }
 
-    public async ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(PeyGiryAttachment? entity)
+    public async ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(CreatePeyGiryAttachmentCommand request)
     {
         try
         {
-            await _context.PeyGiryAttachments!.AddAsync(entity!);
+            PeyGiryAttachment item = new()
+            {
+                PeyGiryNoteId = request.PeyGiryNoteId,
+                FileName = request.FileName,
+                Extenstion = request.Extenstion
+            };
+            await _context.PeyGiryAttachments!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +51,21 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         }
     }
 
-    public async ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(PeyGiryAttachment entity)
+    public async ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(UpdatePeyGiryAttachmentCommand request)
     {
         try
         {
-            _context.Update(entity);
+            PeyGiryAttachment item = new()
+            {
+                Id = request.Id,
+                PeyGiryNoteId = request.PeyGiryNoteId,
+                FileName = request.FileName,
+                Extenstion = request.Extenstion
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +73,11 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         }
     }
 
-    public async ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(Ulid peyGiryAttachmentId)
+    public async ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(DeletePeyGiryAttachmentCommand request)
     {
         try
         {
-            var peyGiryAttachment = await GetPeyGiryAttachmentByIdAsync(peyGiryAttachmentId);
+            var peyGiryAttachment = await GetPeyGiryAttachmentByIdAsync(request.Id);
             peyGiryAttachment!.StatusPeyGiryAttachment = Status.Show;
             await _context.SaveChangesAsync();
             return peyGiryAttachment;

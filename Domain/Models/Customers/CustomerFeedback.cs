@@ -4,13 +4,13 @@ public class CustomerFeedback : BaseEntity
 {
     public CustomerFeedback()
     {
-        CustomerFeedbackId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomerFeedbackStatus = Status.Show;
     }
 
     // TODO : Check CustomerFeedback Property 
 
-    public Ulid CustomerFeedbackId { get; set; }
+    public Ulid Id { get; set; }
     public string FeedbackName { get; set; }
     public int DisplayOrder { get; set; }
     public decimal Point { get; set; }

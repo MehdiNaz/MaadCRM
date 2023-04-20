@@ -13,15 +13,15 @@ public class ForoshOrderRepository : IForoshOrderRepository
         => await _context.ForoshOrders.Where(x => x.ForoshOrderStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ForoshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
-        => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.ForoshOrderId == foroshOrderId && x.ForoshOrderStatus == Status.Show);
+        => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.Id == foroshOrderId && x.ForoshOrderStatus == Status.Show);
 
-    public async ValueTask<ForoshOrder?> ChangeStatusForoshOrderByIdAsync(Status status, Ulid foroshOrderId)
+    public async ValueTask<ForoshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request)
     {
         try
         {
-            var item = await _context.ForoshOrders!.FindAsync(foroshOrderId);
+            var item = await _context.ForoshOrders!.FindAsync(request.ForoshOrderId);
             if (item is null) return null;
-            item.ForoshOrderStatus = status;
+            item.ForoshOrderStatus = request.ForoshOrderStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,25 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> CreateForoshOrderAsync(ForoshOrder? entity)
+    public async ValueTask<ForoshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request)
     {
         try
         {
-            await _context.ForoshOrders!.AddAsync(entity!);
+            ForoshOrder item = new()
+            {
+                PaymentDate = request.PaymentDate,
+                Price = request.Price,
+                ShippingPrice = request.ShippingPrice,
+                PriceTotal = request.PriceTotal,
+                DiscountPrice = request.DiscountPrice,
+                Description = request.Description,
+                PaymentMethodType = request.PaymentMethodType,
+                ShippingMethodType = request.ShippingMethodType,
+                ProductId = request.ProductId
+            };
+            await _context.ForoshOrders!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +57,26 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> UpdateForoshOrderAsync(ForoshOrder entity, Ulid foroshOrderId)
+    public async ValueTask<ForoshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ForoshOrder item = new()
+            {
+                Id = request.Id,
+                PaymentDate = request.PaymentDate,
+                Price = request.Price,
+                ShippingPrice = request.ShippingPrice,
+                PriceTotal = request.PriceTotal,
+                DiscountPrice = request.DiscountPrice,
+                Description = request.Description,
+                PaymentMethodType = request.PaymentMethodType,
+                ShippingMethodType = request.ShippingMethodType,
+                ProductId = request.ProductId
+            };
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +84,11 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> DeleteForoshOrderAsync(Ulid foroshOrderId)
+    public async ValueTask<ForoshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request)
     {
         try
         {
-            var foroshOrder = await GetForoshOrderByIdAsync(foroshOrderId);
+            var foroshOrder = await GetForoshOrderByIdAsync(request.Id);
             foroshOrder!.ForoshOrderStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshOrder;

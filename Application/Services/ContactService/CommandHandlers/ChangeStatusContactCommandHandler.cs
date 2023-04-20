@@ -10,5 +10,5 @@ public readonly struct ChangeStatusContactCommandHandler : IRequestHandler<Chang
     }
 
     public async Task<Contact?> Handle(ChangeStatusContactCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStateContactByIdAsync(request.ContactStatus, request.ContactId);
+        => await _repository.ChangeStatusContactByIdAsync(request);
 }

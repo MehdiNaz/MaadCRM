@@ -4,11 +4,11 @@ public class Contact : BaseEntity
 {
     public Contact()
     {
-        ContactId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         ContactStatus = Status.Show;
     }
 
-    public Ulid ContactId { get; set; }
+    public Ulid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public Ulid MobileNumberId { get; set; }

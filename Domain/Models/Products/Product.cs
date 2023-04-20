@@ -4,12 +4,12 @@ public class Product : BaseEntity
 {
     public Product()
     {
-        ProductId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         PublishStatus = Enum.ProductStatus.Draft;
         ProductStatus = Status.Show;
     }
 
-    public Ulid ProductId { get; set; }
+    public Ulid Id { get; set; }
     public string ProductName { get; set; }
     public Ulid ProductCategoryId { get; set; }
     public string Title { get; set; }

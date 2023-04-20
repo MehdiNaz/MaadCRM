@@ -9,10 +9,9 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    // Ok
     public async ValueTask<ICollection<Product>> GetAllProductsAsync(Ulid businessId)
     {
-        var result= await _context.Products.Where(x => x.ProductStatus == Status.Show)
+        var result = await _context.Products.Where(x => x.ProductStatus == Status.Show)
             .Include(x => x.ProductCategory)
             .ThenInclude(x => x.Business)
             .Where(x => x.ProductCategory.BusinessId == businessId)
@@ -20,11 +19,9 @@ public class ProductRepository : IProductRepository
         return result;
     }
 
-    // Ok
     public async ValueTask<Product?> GetProductByIdAsync(Ulid productId)
-        => await _context.Products.FirstOrDefaultAsync(x => x.ProductId == productId && x.ProductStatus == Status.Show);
+        => await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.ProductStatus == Status.Show);
 
-    // Ok
     public async ValueTask<Product?> ChangeStatusProductByIdAsync(Status status, Ulid productId)
     {
         try
@@ -41,17 +38,15 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    // Ok
     public async ValueTask<ICollection<Product>?> SearchByItemsAsync(string request)
         => await _context.Products.Where(x => x.Title.Contains(request)).ToListAsync();
 
-    // Ok
-    public async ValueTask<Product?> ChangeStateProductAsync(ProductStatus status, Ulid productId)
+    public async ValueTask<Product?> ChangeStateProductAsync(ChangeStateProductCommand request)
     {
         try
         {
-            var product = await GetProductByIdAsync(productId);
-            product!.PublishStatus = status;
+            var product = await GetProductByIdAsync(request.Id);
+            product!.PublishStatus = request.Status;
             await _context.SaveChangesAsync();
             return product;
         }
@@ -61,14 +56,26 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    // Ok
-    public async ValueTask<Product?> CreateProductAsync(Product? entity)
+    public async ValueTask<Product?> CreateProductAsync(CreateProductCommand request)
     {
         try
         {
-            await _context.Products!.AddAsync(entity!);
+            Product item = new()
+            {
+                ProductName = request.ProductName,
+                ProductCategoryId = request.ProductCategoryId,
+                Title = request.Title,
+                Summery = request.Summery,
+                Price = request.Price,
+                SecondaryPrice = request.SecondaryPrice,
+                Discount = request.Discount,
+                DiscountPercent = request.DiscountPercent,
+                FavoritesListId = request.FavoritesListId,
+                Picture = request.Picture
+            };
+            await _context.Products!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -76,14 +83,27 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    // Ok
-    public async ValueTask<Product?> UpdateProductAsync(Product entity, Ulid productId)
+    public async ValueTask<Product?> UpdateProductAsync(UpdateProductCommand request)
     {
         try
         {
-            _context.Update(entity);
+            Product item = new()
+            {
+                ProductName = request.ProductName,
+                ProductCategoryId = request.ProductCategoryId,
+                Title = request.Title,
+                Summery = request.Summery,
+                Price = request.Price,
+                SecondaryPrice = request.SecondaryPrice,
+                Discount = request.Discount,
+                DiscountPercent = request.DiscountPercent,
+                FavoritesListId = request.FavoritesListId,
+                Picture = request.Picture
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -91,11 +111,11 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public async ValueTask<Product?> DeleteProductAsync(Ulid productId)
+    public async ValueTask<Product?> DeleteProductAsync(DeleteProductCommand request)
     {
         try
         {
-            var product = await GetProductByIdAsync(productId);
+            var product = await GetProductByIdAsync(request.Id);
             product!.ProductStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return product;

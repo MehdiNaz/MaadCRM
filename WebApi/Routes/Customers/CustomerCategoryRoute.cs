@@ -64,7 +64,7 @@ public static class CustomerCategoryRoute
             {
                 var result = await mediator.Send(new ChangeStatusCustomerCategoryCommand
                 {
-                    CustomerCategoryId = request.CustomerCategoryId,
+                    Id = request.Id,
                     CustomerCategoryStatus = request.CustomerCategoryStatus
                 });
                 return Results.Ok(result);
@@ -82,7 +82,7 @@ public static class CustomerCategoryRoute
                 var result = await mediator.Send(new UpdateCustomerCategoryCommand
                 {
                     UserId = request.UserId,
-                    CustomerCategoryId = request.CustomerCategoryId,
+                    Id = request.Id,
                     CustomerCategoryName = request.CustomerCategoryName,
                 });
                 return Results.Ok(result);
@@ -99,7 +99,7 @@ public static class CustomerCategoryRoute
             {
                 return Results.Ok(await mediator.Send(new DeleteCustomerCategoryCommand
                 {
-                    CustomerCategoryId = request.CustomerCategoryId,
+                    Id = request.Id,
                     UserId = request.UserId
                 }));
             }

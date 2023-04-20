@@ -11,7 +11,7 @@ public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateF
 
     public async Task<ForoshOrder> Handle(CreateForoshOrderCommand request, CancellationToken cancellationToken)
     {
-        ForoshOrder item = new()
+        CreateForoshOrderCommand item = new()
         {
             PaymentDate = request.PaymentDate,
             Price = request.Price,
@@ -23,7 +23,6 @@ public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateF
             ShippingMethodType = request.ShippingMethodType,
             ProductId = request.ProductId
         };
-        await _repository.CreateForoshOrderAsync(item);
-        return item;
+        return await _repository.CreateForoshOrderAsync(item);
     }
 }

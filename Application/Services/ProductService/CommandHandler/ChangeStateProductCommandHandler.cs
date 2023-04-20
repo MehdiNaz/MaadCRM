@@ -10,5 +10,5 @@ public readonly struct ChangeStateProductCommandHandler : IRequestHandler<Change
     }
 
     public async Task<Product> Handle(ChangeStateProductCommand request, CancellationToken cancellationToken)
-        => (await _repository.ChangeStateProductAsync(request.Status, request.ProductId))!;
+        => (await _repository.ChangeStateProductAsync(request))!;
 }

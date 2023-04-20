@@ -11,7 +11,7 @@ public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<Cr
 
     public async Task<CustomersAddress> Handle(CreateCustomersAddressCommand request, CancellationToken cancellationToken)
     {
-        CustomersAddress item = new()
+        CreateCustomersAddressCommand item = new()
         {
             Address = request.Address,
             CodePost = request.CodePost,
@@ -19,7 +19,6 @@ public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<Cr
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.CreateAddressAsync(item);
-        return item;
+        return await _repository.CreateAddressAsync(item);
     }
 }

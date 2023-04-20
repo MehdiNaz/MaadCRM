@@ -4,11 +4,11 @@ public class ForoshFactor : BaseEntity
 {
     public ForoshFactor()
     {
-        ForoshFactorId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         ForoshFactorStatus = Status.Show;
     }
 
-    public Ulid ForoshFactorId { get; set; }
+    public Ulid Id { get; set; }
     public decimal Price { get; set; }
     public decimal DiscountPrice { get; set; }
     public decimal FinalTotal { get; set; }

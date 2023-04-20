@@ -11,13 +11,11 @@ public readonly struct UpdateCustomerPhoneNumberCommandHandler : IRequestHandler
 
     public async Task<CustomersPhoneNumber> Handle(UpdateCustomerPhoneNumberCommand request, CancellationToken cancellationToken)
     {
-        CustomersPhoneNumber item = new()
+        UpdateCustomerPhoneNumberCommand item = new()
         {
             PhoneNo = request.PhoneNo,
-            PhoneType = request.PhoneType,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdatePhoneNumberAsync(item, request.PhoneNumberId);
-        return item;
+        return await _repository.UpdatePhoneNumberAsync(item);
     }
 }

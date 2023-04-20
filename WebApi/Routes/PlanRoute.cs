@@ -84,13 +84,14 @@ public static class PlanRoute
             {
                 var result = await mediator.Send(new UpdatePlanCommand
                 {
-                    PlanId = request.PlanId,
+                    Id = request.Id,
                     UserId = request.UserId,
                     PriceOfDay = request.PriceOfDay,
                     CountOfDay = request.CountOfDay,
                     CountOfUsers = request.CountOfUsers,
                     PlanName = request.PlanName,
-                    PriceOfUsers = request.PriceOfUsers
+                    PriceOfUsers = request.PriceOfUsers,
+                    FinalPrice = request.FinalPrice
                 });
                 return Results.Ok(result);
             }
@@ -106,7 +107,7 @@ public static class PlanRoute
             {
                 var result = await mediator.Send(new DeletePlanCommand
                 {
-                    PlanId = request.PlanId,
+                    Id = request.Id,
                 });
                 return Results.Ok(result);
             }

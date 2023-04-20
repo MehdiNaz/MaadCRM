@@ -10,5 +10,5 @@ public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<Del
     }
 
     public async Task<CustomerPeyGiry?> Handle(DeleteCustomerPeyGiryCommand request, CancellationToken cancellationToken)
-        => await _repository.DeleteCustomerPeyGiryAsync(request.CustomerPeyGiryId);
+        => await _repository.DeleteCustomerPeyGiryAsync(request);
 }

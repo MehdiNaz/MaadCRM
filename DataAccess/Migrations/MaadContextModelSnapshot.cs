@@ -173,7 +173,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("BusinessAttributeId")
@@ -212,7 +212,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.HasKey("BusinessId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BusinessAttributeId");
 
@@ -221,10 +221,10 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Businesses.BusinessPlan", b =>
                 {
-                    b.Property<string>("BusinessPlansId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -246,34 +246,34 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("PlanId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("BusinessPlansId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("PlanId");
+                    b.HasIndex("Id");
 
                     b.ToTable("UsersPlans", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.Contact", b =>
                 {
-                    b.Property<string>("ContactId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("ContactGroupId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("ContactPhoneNumberId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("ContactStatus")
@@ -310,11 +310,11 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.HasKey("ContactId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ContactGroupId");
+                    b.HasIndex("Id");
 
-                    b.HasIndex("ContactPhoneNumberId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("ContactsEmailAddressCustomersEmailAddressId");
 
@@ -323,10 +323,10 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactGroup", b =>
                 {
-                    b.Property<string>("ContactGroupId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -347,14 +347,14 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.HasKey("ContactGroupId");
+                    b.HasKey("Id");
 
                     b.ToTable("ContactGroups", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactPhoneNumber", b =>
                 {
-                    b.Property<string>("ContactPhoneNumberId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("ContactPhoneNumberStatus")
@@ -378,20 +378,20 @@ namespace DataAccess.Migrations
                     b.Property<int>("PhoneType")
                         .HasColumnType("integer");
 
-                    b.HasKey("ContactPhoneNumberId");
+                    b.HasKey("Id");
 
                     b.ToTable("ContactPhoneNumbers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Contacts.ContactsEmailAddress", b =>
                 {
-                    b.Property<string>("CustomersEmailAddressId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("ContactsEmailAddressStatus")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CustomersEmailAddrs")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
@@ -402,7 +402,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("CustomersEmailAddressId");
+                    b.HasKey("Id");
 
                     b.ToTable("ContactsEmailAddress", (string)null);
                 });
@@ -421,7 +421,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("CustomerActivationStatus")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CustomerCategoryId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerMoarefId")
@@ -463,7 +463,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("CustomerCategoryId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("CustomerMoarefId");
 
@@ -474,7 +474,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>
                 {
-                    b.Property<string>("CustomerActivityId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerActivityDescription")
@@ -500,7 +500,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("CustomerActivityId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -509,7 +509,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerCategory", b =>
                 {
-                    b.Property<string>("CustomerCategoryId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerCategoryName")
@@ -530,14 +530,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerCategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("CustomerCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerFeedback", b =>
                 {
-                    b.Property<string>("CustomerFeedbackId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<int>("BalancePoint")
@@ -562,7 +562,7 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Point")
                         .HasColumnType("numeric");
 
-                    b.HasKey("CustomerFeedbackId");
+                    b.HasKey("Id");
 
                     b.ToTable("CustomerFeedbacks", (string)null);
                 });
@@ -572,7 +572,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerFeedbackHistoryId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerFeedbackId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -596,7 +596,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("CustomerFeedbackHistoryId");
 
-                    b.HasIndex("CustomerFeedbackId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -690,7 +690,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersAddress", b =>
                 {
-                    b.Property<string>("CustomersAddressId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("Address")
@@ -723,7 +723,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.HasKey("CustomersAddressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -732,7 +732,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersEmailAddress", b =>
                 {
-                    b.Property<string>("CustomersEmailAddressId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
@@ -742,7 +742,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("CustomersEmailAddressStatus")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CustomersEmailAddrs")
+                    b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
@@ -753,7 +753,7 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("CustomersEmailAddressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -762,7 +762,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.CustomersPhoneNumber", b =>
                 {
-                    b.Property<string>("PhoneNumberId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
@@ -786,7 +786,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("PhoneType")
                         .HasColumnType("integer");
 
-                    b.HasKey("PhoneNumberId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -795,14 +795,14 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshFactor", b =>
                 {
-                    b.Property<string>("ForoshFactorId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomersAddressId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -824,18 +824,18 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.HasKey("ForoshFactorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("CustomersAddressId");
+                    b.HasIndex("Id");
 
                     b.ToTable("ForoshFactors", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.Forosh.ForoshOrder", b =>
                 {
-                    b.Property<string>("ForoshOrderId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -867,7 +867,7 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("PriceTotal")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -877,9 +877,9 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("ShippingPrice")
                         .HasColumnType("numeric");
 
-                    b.HasKey("ForoshOrderId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Id");
 
                     b.ToTable("ForoshOrders", (string)null);
                 });
@@ -906,7 +906,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("UserId")
@@ -926,7 +926,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerNoteId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -950,7 +950,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerNoteId");
+                    b.HasIndex("Id");
 
                     b.ToTable("NoteAttachments", (string)null);
                 });
@@ -960,7 +960,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -988,7 +988,7 @@ namespace DataAccess.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerNoteId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1010,7 +1010,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerNoteId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("NoteHashTableId");
 
@@ -1021,7 +1021,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", b =>
                 {
-                    b.Property<string>("CustomerPeyGiryId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
@@ -1046,7 +1046,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("CustomerPeyGiryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -1057,10 +1057,10 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Customers.PeyGiry.PeyGiryAttachment", b =>
                 {
-                    b.Property<string>("PeyGiryAttachmentId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("CustomerPeyGiryId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -1085,16 +1085,16 @@ namespace DataAccess.Migrations
                     b.Property<int>("StatusPeyGiryAttachment")
                         .HasColumnType("integer");
 
-                    b.HasKey("PeyGiryAttachmentId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CustomerPeyGiryId");
+                    b.HasIndex("Id");
 
                     b.ToTable("PeyGiryAttachments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.ProductCustomerFavoritesList", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("CustomerId")
@@ -1109,7 +1109,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("ProductCustomerFavoritesListStatus")
                         .HasColumnType("integer");
 
-                    b.HasKey("ProductId", "CustomerId");
+                    b.HasKey("Id", "CustomerId");
 
                     b.HasIndex("CustomerId");
 
@@ -1118,7 +1118,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Plans.Plan", b =>
                 {
-                    b.Property<string>("PlanId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<long>("CountOfDay")
@@ -1157,7 +1157,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -1166,7 +1166,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -1194,7 +1194,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("numeric");
 
-                    b.Property<string>("ProductCategoryId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1223,19 +1223,19 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ProductCategoryId");
+                    b.HasIndex("Id");
 
                     b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
                 {
-                    b.Property<string>("ProductCategoryId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1266,16 +1266,16 @@ namespace DataAccess.Migrations
                     b.Property<int>("ProductCategoryStatus")
                         .HasColumnType("integer");
 
-                    b.HasKey("ProductCategoryId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
+                    b.HasIndex("Id");
 
                     b.ToTable("ProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.SanAt", b =>
                 {
-                    b.Property<string>("SanAtId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime>("DateCreated")
@@ -1296,7 +1296,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("SanAtId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -1315,7 +1315,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("ColorSquaresRgb")
@@ -1371,7 +1371,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1778,7 +1778,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<string>("BusinessId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
@@ -1893,7 +1893,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Plans.Plan", null)
                         .WithMany("UsersPlans")
-                        .HasForeignKey("PlanId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1902,13 +1902,13 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Contacts.ContactGroup", null)
                         .WithMany("Contacts")
-                        .HasForeignKey("ContactGroupId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Models.Contacts.ContactPhoneNumber", null)
                         .WithMany("Contacts")
-                        .HasForeignKey("ContactPhoneNumberId");
+                        .HasForeignKey("Id");
 
                     b.HasOne("Domain.Models.Contacts.ContactsEmailAddress", null)
                         .WithMany("Contacts")
@@ -1923,13 +1923,13 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.Customers.CustomerCategory", null)
                         .WithMany("Customers")
-                        .HasForeignKey("CustomerCategoryId");
+                        .HasForeignKey("Id");
 
                     b.HasOne("Domain.Models.Customers.Customer", "CustomerMoaref")
                         .WithMany("CustomersMoaref")
                         .HasForeignKey("CustomerMoarefId");
 
-                    b.HasOne("Domain.Models.IdentityModels.User", "User")
+                    b.HasOne("Domain.Models.IdentityModels.User", null)
                         .WithMany("Customers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1938,8 +1938,6 @@ namespace DataAccess.Migrations
                     b.Navigation("City");
 
                     b.Navigation("CustomerMoaref");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.CustomerActivity", b =>
@@ -1955,7 +1953,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.CustomerFeedback", null)
                         .WithMany("CustomerFeedbackHistories")
-                        .HasForeignKey("CustomerFeedbackId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2027,7 +2025,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.Customers.CustomersAddress", "CustomersAddress")
                         .WithMany("ForoshFactors")
-                        .HasForeignKey("CustomersAddressId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2038,7 +2036,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Products.Product", null)
                         .WithMany("ForoshOrders")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2060,7 +2058,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Notes.CustomerNote", null)
                         .WithMany("NoteAttachments")
-                        .HasForeignKey("CustomerNoteId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2069,7 +2067,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.Notes.CustomerNote", null)
                         .WithMany("NoteHashTags")
-                        .HasForeignKey("CustomerNoteId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2109,7 +2107,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", null)
                         .WithMany("PeyGiryAttachments")
-                        .HasForeignKey("CustomerPeyGiryId");
+                        .HasForeignKey("Id");
                 });
 
             modelBuilder.Entity("Domain.Models.Customers.ProductCustomerFavoritesList", b =>
@@ -2122,7 +2120,7 @@ namespace DataAccess.Migrations
 
                     b.HasOne("Domain.Models.Products.Product", null)
                         .WithMany("FavoritesLists")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2140,7 +2138,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
                         .WithMany()
-                        .HasForeignKey("ProductCategoryId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2151,7 +2149,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Domain.Models.Businesses.Business", "Business")
                         .WithMany()
-                        .HasForeignKey("BusinessId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

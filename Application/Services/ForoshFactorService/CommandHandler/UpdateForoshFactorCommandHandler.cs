@@ -11,13 +11,15 @@ public readonly struct UpdateForoshFactorCommandHandler : IRequestHandler<Update
 
     public async Task<ForoshFactor> Handle(UpdateForoshFactorCommand request, CancellationToken cancellationToken)
     {
-        ForoshFactor item = new()
+        UpdateForoshFactorCommand item = new()
         {
+            Id = request.Id,
             Price = request.Price,
             DiscountPrice = request.DiscountPrice,
-            FinalTotal = request.FinalTotal
+            FinalTotal = request.FinalTotal,
+            CustomerId = request.CustomerId,
+            CustomersAddressId = request.CustomersAddressId
         };
-        await _repository.UpdateForoshFactorAsync(item, request.ForoshFactorId);
-        return item;
+        return await _repository.UpdateForoshFactorAsync(item);
     }
 }

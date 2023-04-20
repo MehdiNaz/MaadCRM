@@ -2,6 +2,6 @@
 
 public struct ChangeStatusPeyGiryAttachmentCommand : IRequest<PeyGiryAttachment?>
 {
-    public Ulid PeyGiryAttachmentId { get; set; }
+    public Ulid Id { get; set; }
     public Status StatusPeyGiryAttachment { get; set; }
 }

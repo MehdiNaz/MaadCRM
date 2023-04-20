@@ -11,7 +11,7 @@ public readonly struct CreatePlanCommandHandler : IRequestHandler<CreatePlanComm
 
     public async Task<Plan> Handle(CreatePlanCommand request, CancellationToken cancellationToken)
     {
-        Plan item = new()
+        CreatePlanCommand item = new()
         {
             UserId = request.UserId,
             PlanName = request.PlanName,
@@ -19,8 +19,8 @@ public readonly struct CreatePlanCommandHandler : IRequestHandler<CreatePlanComm
             PriceOfUsers = request.PriceOfUsers,
             CountOfDay = request.CountOfDay,
             PriceOfDay = request.PriceOfDay,
+            FinalPrice = request.FinalPrice
         };
-        await _repository.CreatePlanAsync(item);
-        return item;
+        return await _repository.CreatePlanAsync(item);
     }
 }

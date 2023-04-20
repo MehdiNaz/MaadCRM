@@ -2,6 +2,6 @@
 
 public struct ChangeStatusSanAtCommand : IRequest<SanAt?>
 {
-    public Ulid SanAtId { get; set; }
+    public Ulid Id { get; set; }
     public Status SanAtStatus { get; set; }
 }

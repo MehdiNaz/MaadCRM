@@ -10,5 +10,5 @@ public readonly struct DeleteNoteHashTagCommandHandler : IRequestHandler<DeleteN
     }
 
     public async Task<NoteHashTag> Handle(DeleteNoteHashTagCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteNoteHashTagAsync(request.NoteHashTagId))!;
+        => (await _repository.DeleteNoteHashTagAsync(request))!;
 }

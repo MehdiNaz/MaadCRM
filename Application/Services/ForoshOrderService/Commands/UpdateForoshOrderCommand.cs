@@ -2,7 +2,7 @@
 
 public struct UpdateForoshOrderCommand : IRequest<ForoshOrder>
 {
-    public Ulid ForoshOrderId { get; set; }
+    public Ulid Id { get; set; }
     public DateOnly PaymentDate { get; set; }
     public decimal Price { get; set; }
     public decimal ShippingPrice { get; set; }

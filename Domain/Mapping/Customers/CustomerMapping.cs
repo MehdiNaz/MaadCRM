@@ -11,7 +11,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
 
 
         // builder.HasOne(x => x.CreatorUser).WithMany(x => x.Customers).HasForeignKey(x => x.InsertedBy);
-        // builder.HasOne(x => x.Business).WithMany(x => x.Customers).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.Customers).HasForeignKey(x => x.Id);
 
 
         // New Relations ==> OK
@@ -22,7 +22,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         // builder.HasMany(x => x.CustomerNotes).WithOne(x => x.Customer).HasForeignKey(x => x.Id);
         //builder.HasMany(x => x.CustomerPeyGiries).WithOne().HasForeignKey(x => x.Id);
         // builder.HasMany(x => x.ForoshFactors).WithOne(x => x.Customer).HasForeignKey(x => x.Id);
-        //builder.HasOne(x => x.CustomerCategory).WithMany(x => x.Customers).HasForeignKey(x => x.CustomerCategoryId);
+        //builder.HasOne(x => x.CustomerCategory).WithMany(x => x.Customers).HasForeignKey(x => x.Id);
 
         // builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.CreatedBy);
         // builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);

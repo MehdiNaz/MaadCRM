@@ -11,5 +11,5 @@ public readonly struct ChangeStatusNoteAttachmentCommandHandler : IRequestHandle
 
     public async Task<NoteAttachment?> Handle(ChangeStatusNoteAttachmentCommand request,
         CancellationToken cancellationToken)
-        => await _repository.ChangeStatusNoteAttachmentByIdAsync(request.NoteAttachmentStatus, request.NoteAttachmentId);
+        => await _repository.ChangeStatusNoteAttachmentByIdAsync(request);
 }

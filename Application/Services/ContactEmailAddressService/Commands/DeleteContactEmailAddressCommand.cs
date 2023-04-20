@@ -2,5 +2,5 @@
 
 public struct DeleteContactEmailAddressCommand : IRequest<ContactsEmailAddress>
 {
-    public Ulid CustomersEmailAddressId { get; set; }
+    public Ulid Id { get; set; }
 }

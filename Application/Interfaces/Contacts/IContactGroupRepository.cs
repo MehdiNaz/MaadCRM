@@ -3,9 +3,9 @@
 public interface IContactGroupRepository
 {
     ValueTask<ICollection<ContactGroup?>> GetAllContactGroupsAsync();
-    ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId);
-    ValueTask<ContactGroup?> ChangeStateContactGroupAsync(Status status, Ulid contactGroupId);
-    ValueTask<ContactGroup?> CreateContactGroupAsync(ContactGroup? entity);
-    ValueTask<ContactGroup?> UpdateContactGroupAsync(ContactGroup entity, Ulid contactGroupId);
-    ValueTask<ContactGroup?> DeleteContactGroupAsync(Ulid contactGroupId);
+    ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid requestId);
+    ValueTask<ContactGroup?> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request);
+    ValueTask<ContactGroup?> CreateContactGroupAsync(CreateContactGroupCommand request);
+    ValueTask<ContactGroup?> UpdateContactGroupAsync(UpdateContactGroupCommand request);
+    ValueTask<ContactGroup?> DeleteContactGroupAsync(DeleteContactGroupCommand request);
 }

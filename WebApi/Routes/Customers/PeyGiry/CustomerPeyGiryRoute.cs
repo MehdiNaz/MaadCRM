@@ -83,7 +83,7 @@ public static class CustomerPeyGiryRoute
             {
                 var result = await mediator.Send(new UpdateCustomerPeyGiryCommand
                 {
-                    CustomerPeyGiryId = request.CustomerPeyGiryId,
+                    Id = request.Id,
                     Description = request.Description,
                     CustomerId = request.CustomerId
                 });
@@ -101,7 +101,7 @@ public static class CustomerPeyGiryRoute
             {
                 var result = await mediator.Send(new DeleteCustomerPeyGiryCommand
                 {
-                    CustomerPeyGiryId = request.CustomerPeyGiryId
+                    Id = request.Id
                 });
                 return Results.Ok(result);
             }

@@ -25,6 +25,6 @@ public class UserMapping : IEntityTypeConfiguration<User>
 
 
         // builder.HasOne(x => x.City).WithMany(x => x.Users).HasForeignKey(x => x.CityId);
-        // builder.HasOne(x => x.Business).WithMany(x => x.Users).HasForeignKey(x => x.BusinessId);
+        // builder.HasOne(x => x.Business).WithMany(x => x.Users).HasForeignKey(x => x.Id);
     }
 }

@@ -10,5 +10,5 @@ public readonly struct ChangeStatusNoteHashTagCommandHandler : IRequestHandler<C
     }
 
     public async Task<NoteHashTag?> Handle(ChangeStatusNoteHashTagCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusNoteHashTagByIdAsync(request.NoteHashTagStatus, request.NoteHashTagId);
+        => await _repository.ChangeStatusNoteHashTagByIdAsync(request);
 }

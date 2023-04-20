@@ -65,7 +65,7 @@ public static class CustomerAddressRoute
             {
                 var result = await mediator.Send(new ChangeStatusCustomersAddressCommand
                 {
-                    CustomersAddressId = request.CustomersAddressId,
+                    Id = request.Id,
                     CustomersAddressStatus = request.CustomersAddressStatus
                 });
                 return Results.Ok(result);
@@ -82,7 +82,7 @@ public static class CustomerAddressRoute
             {
                 var result = await mediator.Send(new UpdateCustomersAddressCommand
                 {
-                    CustomersAddressId = request.CustomersAddressId,
+                    Id = request.Id,
                     Address = request.Address,
                     CodePost = request.CodePost,
                     PhoneNo = request.PhoneNo,
@@ -101,7 +101,7 @@ public static class CustomerAddressRoute
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteCustomersAddressCommand { CustomersAddressId = customersAddressId }));
+                return Results.Ok(await mediator.Send(new DeleteCustomersAddressCommand { Id = customersAddressId }));
             }
             catch (ArgumentException e)
             {

@@ -2,6 +2,6 @@
 
 public struct ChangeStateProductCommand : IRequest<Product>
 {
-    public Ulid ProductId { get; set; }
+    public Ulid Id { get; set; }
     public ProductStatus Status { get; set; }
 }

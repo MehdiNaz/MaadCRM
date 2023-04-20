@@ -4,8 +4,8 @@ public interface IPeyGiryAttachmentRepository
 {
     ValueTask<ICollection<PeyGiryAttachment?>> GetAllPeyGiryAttachmentsAsync();
     ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId);
-    ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(Status status, Ulid peyGiryAttachmentId);
-    ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(PeyGiryAttachment? entity);
-    ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(PeyGiryAttachment entity);
-    ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(Ulid peyGiryAttachmentId);
+    ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(ChangeStatusPeyGiryAttachmentCommand request);
+    ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(CreatePeyGiryAttachmentCommand request);
+    ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(UpdatePeyGiryAttachmentCommand request);
+    ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(DeletePeyGiryAttachmentCommand request);
 }

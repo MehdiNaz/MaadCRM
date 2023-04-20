@@ -12,7 +12,7 @@ public class Note_Product_Mapping : BaseEntity
     //{
     //    public void Configure(EntityTypeBuilder<Note_Product_Mapping> builder)
     //    {
-    //        builder.HasOne(p => p.Product).WithMany(c => c.Note_Product_Mapping).HasForeignKey(p => p.ProductId);
+    //        builder.HasOne(p => p.Product).WithMany(c => c.Note_Product_Mapping).HasForeignKey(p => p.Id);
     //        builder.HasOne(p => p.Note).WithMany(c => c.Note_Product_Mapping).HasForeignKey(p => p.NoteId);
     //    }
     //}

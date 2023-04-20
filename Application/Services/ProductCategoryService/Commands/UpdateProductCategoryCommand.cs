@@ -2,7 +2,7 @@
 
 public struct UpdateProductCategoryCommand : IRequest<ProductCategory>
 {
-    public Ulid ProductCategoryId { get; set; }
+    public Ulid Id { get; set; }
     public byte? Order { get; set; }
     public required string ProductCategoryName { get; set; }
     public string Description { get; set; }

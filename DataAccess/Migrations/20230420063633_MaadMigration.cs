@@ -494,18 +494,18 @@ namespace DataAccess.Migrations
                         name: "FK_Contacts_ContactGroups_ContactGroupId",
                         column: x => x.ContactGroupId,
                         principalTable: "ContactGroups",
-                        principalColumn: "ContactGroupId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Contacts_ContactPhoneNumbers_ContactPhoneNumberId",
                         column: x => x.ContactPhoneNumberId,
                         principalTable: "ContactPhoneNumbers",
-                        principalColumn: "ContactPhoneNumberId");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Contacts_ContactsEmailAddress_ContactsEmailAddressCustomers~",
                         column: x => x.ContactsEmailAddressCustomersEmailAddressId,
                         principalTable: "ContactsEmailAddress",
-                        principalColumn: "CustomersEmailAddressId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -575,7 +575,7 @@ namespace DataAccess.Migrations
                         name: "FK_UsersPlans_Plans_PlanId",
                         column: x => x.PlanId,
                         principalTable: "Plans",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -675,7 +675,7 @@ namespace DataAccess.Migrations
                         name: "FK_ProductCategories_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
-                        principalColumn: "BusinessId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -717,7 +717,7 @@ namespace DataAccess.Migrations
                         name: "FK_Customers_CustomerCategories_CustomerCategoryId",
                         column: x => x.CustomerCategoryId,
                         principalTable: "CustomerCategories",
-                        principalColumn: "CustomerCategoryId");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Customers_Customers_CustomerMoarefId",
                         column: x => x.CustomerMoarefId,
@@ -752,7 +752,7 @@ namespace DataAccess.Migrations
                         name: "FK_Products_ProductCategories_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalTable: "ProductCategories",
-                        principalColumn: "ProductCategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -835,7 +835,7 @@ namespace DataAccess.Migrations
                         name: "FK_CustomerFeedbackHistories_CustomerFeedbacks_CustomerFeedbac~",
                         column: x => x.CustomerFeedbackId,
                         principalTable: "CustomerFeedbacks",
-                        principalColumn: "CustomerFeedbackId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CustomerFeedbackHistories_Customers_CustomerId",
@@ -1026,7 +1026,7 @@ namespace DataAccess.Migrations
                         name: "FK_ForoshOrders_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1053,7 +1053,7 @@ namespace DataAccess.Migrations
                         name: "FK_ProductCustomerFavoritesLists_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1134,7 +1134,7 @@ namespace DataAccess.Migrations
                         name: "FK_PeyGiryAttachments_CustomerPeyGiries_CustomerPeyGiryId",
                         column: x => x.CustomerPeyGiryId,
                         principalTable: "CustomerPeyGiries",
-                        principalColumn: "CustomerPeyGiryId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1158,7 +1158,7 @@ namespace DataAccess.Migrations
                         name: "FK_ForoshFactors_CustomersAddresses_CustomersAddressId",
                         column: x => x.CustomersAddressId,
                         principalTable: "CustomersAddresses",
-                        principalColumn: "CustomersAddressId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ForoshFactors_Customers_CustomerId",
@@ -1250,12 +1250,12 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_ContactGroupId",
                 table: "Contacts",
-                column: "ContactGroupId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_ContactPhoneNumberId",
                 table: "Contacts",
-                column: "ContactPhoneNumberId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_ContactsEmailAddressCustomersEmailAddressId",
@@ -1270,7 +1270,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerFeedbackHistories_CustomerFeedbackId",
                 table: "CustomerFeedbackHistories",
-                column: "CustomerFeedbackId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerFeedbackHistories_CustomerId",
@@ -1310,7 +1310,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CustomerCategoryId",
                 table: "Customers",
-                column: "CustomerCategoryId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_CustomerMoarefId",
@@ -1350,12 +1350,12 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ForoshFactors_CustomersAddressId",
                 table: "ForoshFactors",
-                column: "CustomersAddressId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ForoshOrders_ProductId",
                 table: "ForoshOrders",
-                column: "ProductId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Logs_UserId",
@@ -1365,12 +1365,12 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_NoteAttachments_CustomerNoteId",
                 table: "NoteAttachments",
-                column: "CustomerNoteId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NoteHashTags_CustomerNoteId",
                 table: "NoteHashTags",
-                column: "CustomerNoteId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NoteHashTags_NoteHashTableId",
@@ -1385,7 +1385,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_PeyGiryAttachments_CustomerPeyGiryId",
                 table: "PeyGiryAttachments",
-                column: "CustomerPeyGiryId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumbers_CustomerId",
@@ -1400,7 +1400,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_BusinessId",
                 table: "ProductCategories",
-                column: "BusinessId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCustomerFavoritesLists_CustomerId",
@@ -1410,7 +1410,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProductCategoryId",
                 table: "Products",
-                column: "ProductCategoryId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Provinces_CountryId",
@@ -1425,7 +1425,7 @@ namespace DataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UsersPlans_PlanId",
                 table: "UsersPlans",
-                column: "PlanId");
+                column: "Id");
         }
 
         /// <inheritdoc />

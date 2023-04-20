@@ -10,5 +10,5 @@ public readonly struct GetContactsEmailAddressHandler : IRequestHandler<GetConta
     }
 
     public async Task<ContactsEmailAddress> Handle(GetContactsEmailAddressByIdQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetContactsEmailAddressByIdAsync(request.ContactsEmailAddressId))!;
+        => (await _repository.GetContactsEmailAddressByIdAsync(request.Id))!;
 }

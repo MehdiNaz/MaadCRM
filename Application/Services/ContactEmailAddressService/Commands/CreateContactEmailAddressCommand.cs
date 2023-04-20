@@ -2,5 +2,5 @@
 
 public struct CreateContactEmailAddressCommand : IRequest<ContactsEmailAddress>
 { 
-    public string CustomersEmailAddrs { get; set; }
+    public string EmailAddress { get; set; }
 }

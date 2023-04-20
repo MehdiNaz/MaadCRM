@@ -11,7 +11,7 @@ public readonly struct UpdateBusinessCommandHandler : IRequestHandler<UpdateBusi
 
     public async Task<Business> Handle(UpdateBusinessCommand request, CancellationToken cancellationToken)
     {
-        Business item = new()
+        UpdateBusinessCommand item = new()
         {
             BusinessId = request.BusinessId,
             Url = request.Url,
@@ -22,7 +22,6 @@ public readonly struct UpdateBusinessCommandHandler : IRequestHandler<UpdateBusi
             BusinessName = request.BusinessName
             //UserId = request.UserId!
         };
-        await _repository.UpdateBusinessAsync(item);
-        return item;
+        return await _repository.UpdateBusinessAsync(item);
     }
 }

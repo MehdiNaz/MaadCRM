@@ -11,13 +11,12 @@ public readonly struct CreateNoteAttachmentCommandHandler : IRequestHandler<Crea
 
     public async Task<NoteAttachment> Handle(CreateNoteAttachmentCommand request, CancellationToken cancellationToken)
     {
-        NoteAttachment item = new()
+        CreateNoteAttachmentCommand item = new()
         {
             CustomerNoteId = request.CustomerNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion
         };
-        await _repository.CreateNoteAttachmentAsync(item);
-        return item;
+        return await _repository.CreateNoteAttachmentAsync(item);
     }
 }

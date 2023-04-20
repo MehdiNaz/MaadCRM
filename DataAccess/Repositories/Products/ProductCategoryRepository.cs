@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Products;
+﻿using Application.Services.ProductCategoryService.Commands;
+
+namespace DataAccess.Repositories.Products;
 
 public class ProductCategoryRepository : IProductCategoryRepository
 {
@@ -25,18 +27,18 @@ public class ProductCategoryRepository : IProductCategoryRepository
     }
 
     public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid businessId)
-        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.ProductCategoryId == businessId && x.ProductCategoryStatus == Status.Show);
+        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id == businessId && x.ProductCategoryStatus == Status.Show);
 
     public async ValueTask<ICollection<ProductCategory>> SearchByItemsAsync(string request)
         => await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ProductCategory?> ChangeStatusProductCategoryByIdAsync(Status status, Ulid productCategoryId)
+    public async ValueTask<ProductCategory?> ChangeStatusProductCategoryByIdAsync(ChangeStatusProductCategoryCommand request)
     {
         try
         {
-            var item = await _context.ProductCategories!.FindAsync(productCategoryId);
+            var item = await _context.ProductCategories!.FindAsync(request.Id);
             if (item is null) return null;
-            item.ProductCategoryStatus = status;
+            item.ProductCategoryStatus = request.ProductCategoryStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -46,13 +48,21 @@ public class ProductCategoryRepository : IProductCategoryRepository
         }
     }
 
-    public async ValueTask<ProductCategory?> CreateProductCategoryAsync(ProductCategory? entity)
+    public async ValueTask<ProductCategory?> CreateProductCategoryAsync(CreateProductCategoryCommand request)
     {
         try
         {
-            await _context.ProductCategories!.AddAsync(entity!);
+            ProductCategory item = new()
+            {
+                Order = request.Order,
+                ProductCategoryName = request.ProductCategoryName,
+                Description = request.Description,
+                Icon = request.Icon,
+                BusinessId = request.BusinessId
+            };
+            await _context.ProductCategories!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -60,13 +70,23 @@ public class ProductCategoryRepository : IProductCategoryRepository
         }
     }
 
-    public async ValueTask<ProductCategory?> UpdateProductCategoryAsync(ProductCategory entity)
+    public async ValueTask<ProductCategory?> UpdateProductCategoryAsync(UpdateProductCategoryCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ProductCategory item = new()
+            {
+                Id = request.Id,
+                Order = request.Order,
+                ProductCategoryName = request.ProductCategoryName,
+                Description = request.Description,
+                Icon = request.Icon,
+                BusinessId = request.BusinessId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -74,11 +94,11 @@ public class ProductCategoryRepository : IProductCategoryRepository
         }
     }
 
-    public async ValueTask<ProductCategory?> DeleteProductCategoryAsync(Ulid productCategoryId)
+    public async ValueTask<ProductCategory?> DeleteProductCategoryAsync(DeleteProductCategoryCommand request)
     {
         try
         {
-            var productCategory = await GetProductCategoryByIdAsync(productCategoryId);
+            var productCategory = await GetProductCategoryByIdAsync(request.Id);
             productCategory!.ProductCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return productCategory;

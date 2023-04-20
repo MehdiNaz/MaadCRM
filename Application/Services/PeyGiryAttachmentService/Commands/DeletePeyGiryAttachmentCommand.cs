@@ -2,5 +2,5 @@
 
 public struct DeletePeyGiryAttachmentCommand : IRequest<PeyGiryAttachment>
 {
-    public Ulid PeyGiryAttachmentId { get; set; }
+    public Ulid Id { get; set; }
 }

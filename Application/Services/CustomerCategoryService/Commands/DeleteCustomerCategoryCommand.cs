@@ -2,6 +2,6 @@
 
 public struct DeleteCustomerCategoryCommand : IRequest<CustomerCategory>
 {
-    public Ulid CustomerCategoryId { get; set; }
+    public Ulid Id { get; set; }
     public string UserId { get; set; }
 }

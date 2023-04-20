@@ -2,5 +2,5 @@
 
 public struct DeleteForoshOrderCommand : IRequest<ForoshOrder>
 {
-    public Ulid ForoshOrderId { get; set; }
+    public Ulid Id { get; set; }
 }

@@ -4,11 +4,11 @@ public class ProductCategory : BaseEntity
 {
     public ProductCategory()
     {
-        ProductCategoryId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         ProductCategoryStatus = Status.Show;
     }
 
-    public Ulid ProductCategoryId { get; set; }
+    public Ulid Id { get; set; }
     // public Ulid ParentId { get; set; }
     public byte? Order { get; set; }
     public required string ProductCategoryName { get; set; }

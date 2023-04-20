@@ -4,11 +4,11 @@ public class CustomersEmailAddress : BaseEntity
 {
     public CustomersEmailAddress()
     {
-        CustomersEmailAddressId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomersEmailAddressStatus = Status.Show;
     }
 
-    public Ulid CustomersEmailAddressId { get; set; }
+    public Ulid Id { get; set; }
     public string CustomersEmailAddrs { get; set; }
     public Ulid CustomerId { get; set; }
     public Status CustomersEmailAddressStatus { get; set; }

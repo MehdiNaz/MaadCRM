@@ -11,5 +11,5 @@ public readonly struct ChangeStatusPeyGiryAttachmentCommandHandler : IRequestHan
 
     public async Task<PeyGiryAttachment?> Handle(ChangeStatusPeyGiryAttachmentCommand request,
         CancellationToken cancellationToken)
-        => await _repository.ChangeStatusPeyGiryAttachmentByIdAsync(request.StatusPeyGiryAttachment, request.PeyGiryAttachmentId);
+        => await _repository.ChangeStatusPeyGiryAttachmentByIdAsync(request);
 }

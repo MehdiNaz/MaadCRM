@@ -5,7 +5,7 @@ public class ContactsEmailAddressMapping : IEntityTypeConfiguration<ContactsEmai
     public void Configure(EntityTypeBuilder<ContactsEmailAddress> builder)
     {
         builder.ToTable("ContactsEmailAddress");
-        builder.HasKey(x => x.CustomersEmailAddressId);
+        builder.HasKey(x => x.Id);
         builder.Property(x => x.CustomersEmailAddrs).HasMaxLength(255).IsRequired();
     }
 }

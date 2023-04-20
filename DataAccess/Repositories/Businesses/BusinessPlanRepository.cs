@@ -16,18 +16,23 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         => await _context.BusinessPlans!.Where(x => x.BusinessId == businessId && x.BusinessPlansStatus == Status.Show).ToListAsync();
 
     public async ValueTask<BusinessPlan?> GetTheLatestPlanAsync(Ulid businessId)
-        => await _context.BusinessPlans!.OrderByDescending(o => o.BusinessPlansId).LastAsync(x => x.BusinessId == businessId);
+        => await _context.BusinessPlans!.OrderByDescending(o => o.Id).LastAsync(x => x.BusinessId == businessId);
 
     public async ValueTask<BusinessPlan?> GetBusinessPlansByIdAsync(Ulid businessPlansId)
-        => await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.BusinessPlansId == businessPlansId && x.BusinessPlansStatus == Status.Show);
+        => await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
 
-    public async ValueTask<BusinessPlan?> ChangeStatusAsync(Status status, Ulid businessPlansId)
+    public async ValueTask<BusinessPlan?> ChangeStatusAsync(ChangeStatusBusinessPlansQuery request)
     {
         try
         {
-            var item = await _context.BusinessPlans!.FindAsync(businessPlansId);
+            BusinessPlan businessPlan = new()
+            {
+                BusinessId = request.BusinessPlansId
+            };
+
+            var item = await _context.BusinessPlans!.FindAsync(businessPlan);
             if (item is null) return null;
-            item.BusinessPlansStatus = status;
+            item.BusinessPlansStatus = request.Status;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -37,13 +42,20 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<BusinessPlan?> CreateBusinessPlansAsync(BusinessPlan entity)
+    public async ValueTask<BusinessPlan?> CreateBusinessPlansAsync(CreateBusinessPlansCommand entity)
     {
         try
         {
-            await _context.BusinessPlans!.AddAsync(entity);
+            BusinessPlan item = new()
+            {
+                PlanId = entity.PlanId,
+                BusinessId = entity.BusinessId,
+                CountOfDay = entity.CountOfDay,
+                CountOfUsers = entity.CountOfUsers
+            };
+            await _context.BusinessPlans!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -51,13 +63,22 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<BusinessPlan?> UpdateBusinessPlansAsync(BusinessPlan entity)
+    public async ValueTask<BusinessPlan?> UpdateBusinessPlansAsync(UpdateBusinessPlansCommand request)
     {
         try
         {
-            _context.Update(entity);
+            BusinessPlan businessPlan = new()
+            {
+                Id = request.BusinessPlansId,
+                PlanId = request.PlanId,
+                BusinessId = request.BusinessId,
+                CountOfDay = request.CountOfDay,
+                CountOfUsers = request.CountOfUsers
+            };
+
+            _context.Update(businessPlan);
             await _context.SaveChangesAsync();
-            return entity;
+            return businessPlan;
         }
         catch
         {
@@ -65,11 +86,11 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<BusinessPlan?> DeleteBusinessPlansAsync(Ulid businessPlansId)
+    public async ValueTask<BusinessPlan?> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
     {
         try
         {
-            var businessPlan = await GetBusinessPlansByIdAsync(businessPlansId);
+            var businessPlan = await GetBusinessPlansByIdAsync(request.BusinessPlansId);
             // _context.BusinessPlans!.Remove(businessPlan);
             businessPlan.BusinessPlansStatus = Status.Deleted;
             await _context.SaveChangesAsync();

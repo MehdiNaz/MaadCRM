@@ -11,17 +11,17 @@ public readonly struct UpdatePlanCommandHandler : IRequestHandler<UpdatePlanComm
 
     public async Task<Plan> Handle(UpdatePlanCommand request, CancellationToken cancellationToken)
     {
-        Plan item = new()
+        UpdatePlanCommand item = new()
         {
-            PlanId = request.PlanId,
+            Id = request.Id,
             PlanName = request.PlanName,
             UserId = request.UserId,
             CountOfUsers = request.CountOfUsers,
             PriceOfUsers = request.PriceOfUsers,
             CountOfDay = request.CountOfDay,
-            PriceOfDay = request.PriceOfDay
+            PriceOfDay = request.PriceOfDay,
+            FinalPrice = request.FinalPrice
         };
-        await _repository.UpdatePlanAsync(item);
-        return item;
+        return await _repository.UpdatePlanAsync(item);
     }
 }

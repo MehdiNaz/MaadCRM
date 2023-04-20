@@ -4,11 +4,11 @@ public class ContactGroup : BaseEntity
 {
     public ContactGroup()
     {
-        ContactGroupId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         ContactGroupStatus = Status.Show;
     }
 
-    public Ulid ContactGroupId { get; set; }
+    public Ulid Id { get; set; }
     public string GroupName { get; set; }
     public int DisplayOrder { get; set; }
     public Status ContactGroupStatus { get; set; }

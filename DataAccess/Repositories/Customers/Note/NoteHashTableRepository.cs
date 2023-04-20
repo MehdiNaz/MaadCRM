@@ -15,13 +15,13 @@ public class NoteHashTableRepository : INoteHashTableRepository
     public async ValueTask<NoteHashTable?> GetNoteHashTableByIdAsync(Ulid noteHashTableId)
         => await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatus == Status.Show);
 
-    public async ValueTask<NoteHashTable?> ChangeStatusNoteHashTableByIdAsync(Status status, Ulid noteHashTableId)
+    public async ValueTask<NoteHashTable?> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request)
     {
         try
         {
-            var item = await _context.NoteHashTables!.FindAsync(noteHashTableId);
+            var item = await _context.NoteHashTables!.FindAsync(request.Id);
             if (item is null) return null;
-            item.NoteHashTagStatus = status;
+            item.NoteHashTagStatus = request.NoteHashTagStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -70,11 +70,11 @@ public class NoteHashTableRepository : INoteHashTableRepository
         }
     }
 
-    public async ValueTask<NoteHashTable?> DeleteNoteHashTableAsync(Ulid noteHashTableId)
+    public async ValueTask<NoteHashTable?> DeleteNoteHashTableAsync(DeleteNoteHashTableCommand request)
     {
         try
         {
-            var noteHashTable = await GetNoteHashTableByIdAsync(noteHashTableId);
+            var noteHashTable = await GetNoteHashTableByIdAsync(request.Id);
             noteHashTable!.NoteHashTagStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return noteHashTable;

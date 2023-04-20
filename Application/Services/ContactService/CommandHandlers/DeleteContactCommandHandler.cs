@@ -10,5 +10,5 @@ public readonly struct DeleteContactCommandHandler : IRequestHandler<DeleteConta
     }
 
     public async Task<Contact> Handle(DeleteContactCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteContactAsync(request.ContactId))!;
+        => (await _repository.DeleteContactAsync(request))!;
 }

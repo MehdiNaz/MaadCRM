@@ -11,12 +11,11 @@ public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<Cre
 
     public async Task<CustomerPeyGiry> Handle(CreateCustomerPeyGiryCommand request, CancellationToken cancellationToken)
     {
-        CustomerPeyGiry item = new()
+        CreateCustomerPeyGiryCommand item = new()
         {
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.CreateCustomerPeyGiryAsync(item);
-        return item;
+        return await _repository.CreateCustomerPeyGiryAsync(item);
     }
 }

@@ -2,6 +2,6 @@
 
 public struct ChangeStatusNoteAttachmentCommand : IRequest<NoteAttachment?>
 {
-    public Ulid NoteAttachmentId { get; set; }
+    public Ulid Id { get; set; }
     public Status NoteAttachmentStatus { get; set; }
 }

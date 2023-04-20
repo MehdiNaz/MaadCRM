@@ -2,5 +2,5 @@
 
 public struct DeleteContactGroupCommand : IRequest<ContactGroup>
 {
-    public Ulid ContactGroupId { get; set; }
+    public Ulid Id { get; set; }
 }

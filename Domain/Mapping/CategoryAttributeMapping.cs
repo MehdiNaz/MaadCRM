@@ -10,6 +10,6 @@ public class CategoryAttributeMapping : IEntityTypeConfiguration<CategoryAttribu
         builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
 
 
-        //builder.HasOne(x => x.Business).WithMany(x => x.CategoryAttributes).HasForeignKey(x => x.BusinessId);
+        //builder.HasOne(x => x.Business).WithMany(x => x.CategoryAttributes).HasForeignKey(x => x.Id);
     }
 }

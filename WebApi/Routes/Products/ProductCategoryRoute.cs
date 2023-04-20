@@ -25,7 +25,7 @@ public static class ProductCategoryRoute
             }
         });
 
-        plan.MapGet("/ById/{ProductCategoryId}", async (Ulid productCategoryId, IMediator mediator) =>
+        plan.MapGet("/ById/{Id}", async (Ulid productCategoryId, IMediator mediator) =>
         {
             try
             {
@@ -43,7 +43,7 @@ public static class ProductCategoryRoute
             {
                 var result = await mediator.Send(new ChangeStatusProductCategoryCommand
                 {
-                    ProductCategoryId = request.ProductCategoryId,
+                    Id = request.Id,
                     ProductCategoryStatus = request.ProductCategoryStatus
                 });
                 return Results.Ok(result);
@@ -73,7 +73,7 @@ public static class ProductCategoryRoute
             {
                 var result = await mediator.Send(new ChangeStateProductCommand
                 {
-                    ProductId = request.ProductId,
+                    Id = request.Id,
                     Status = request.Status
                 });
                 return Results.Ok(result);
@@ -110,7 +110,7 @@ public static class ProductCategoryRoute
             {
                 var result = await mediator.Send(new UpdateProductCategoryCommand
                 {
-                    ProductCategoryId = request.ProductCategoryId,
+                    Id = request.Id,
                     Order = request.Order,
                     ProductCategoryName = request.ProductCategoryName,
                     Description = request.Description,
@@ -125,11 +125,11 @@ public static class ProductCategoryRoute
             }
         });
 
-        plan.MapDelete("/Delete/{ProductCategoryId}", async (Ulid productCategoryId, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid productCategoryId, IMediator mediator) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteProductCategoryCommand { ProductCategoryId = productCategoryId }));
+                return Results.Ok(await mediator.Send(new DeleteProductCategoryCommand { Id = productCategoryId }));
             }
             catch (ArgumentException e)
             {

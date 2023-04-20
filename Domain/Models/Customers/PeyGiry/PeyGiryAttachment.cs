@@ -4,11 +4,11 @@ public class PeyGiryAttachment : BaseEntity
 {
     public PeyGiryAttachment()
     {
-        PeyGiryAttachmentId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         StatusPeyGiryAttachment = Status.Show;
     }
 
-    public Ulid PeyGiryAttachmentId { get; set; }
+    public Ulid Id { get; set; }
     public Ulid PeyGiryNoteId { get; set; }
     public byte[] FileName { get; set; }
     public string Extenstion { get; set; }

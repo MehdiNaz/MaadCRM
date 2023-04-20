@@ -2,6 +2,6 @@
 
 public struct ChangeStatusForoshFactorCommand : IRequest<ForoshFactor?>
 {
-    public Ulid ForoshFactorId { get; set; }
+    public Ulid Id { get; set; }
     public Status ForoshFactorStatus { get; set; }
 }

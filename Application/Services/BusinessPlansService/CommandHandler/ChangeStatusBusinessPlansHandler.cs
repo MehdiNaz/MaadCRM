@@ -1,4 +1,4 @@
-﻿namespace Application.Services.BusinessPlansService.QueryHandler;
+﻿namespace Application.Services.BusinessPlansService.CommandHandler;
 
 public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusinessPlansQuery, BusinessPlan?>
 {
@@ -10,5 +10,5 @@ public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<Change
     }
 
     public async Task<BusinessPlan?> Handle(ChangeStatusBusinessPlansQuery request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusAsync(request.Status, request.BusinessPlansId);
+        => await _repository.ChangeStatusAsync(request);
 }

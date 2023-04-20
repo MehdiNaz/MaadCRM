@@ -2,5 +2,5 @@
 
 public struct GetContactsEmailAddressByIdQuery : IRequest<ContactsEmailAddress>
 {
-    public Ulid ContactsEmailAddressId { get; set; }
+    public Ulid Id { get; set; }
 }

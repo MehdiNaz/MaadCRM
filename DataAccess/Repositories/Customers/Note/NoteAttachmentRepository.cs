@@ -15,13 +15,13 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
     public async ValueTask<NoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
         => await _context.NoteAttachments.FirstOrDefaultAsync(x => x.Id == noteAttachmentId && x.NoteAttachmentStatus == Status.Show);
 
-    public async ValueTask<NoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(Status status, Ulid noteAttachmentId)
+    public async ValueTask<NoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(ChangeStatusNoteAttachmentCommand request)
     {
         try
         {
-            var item = await _context.NoteAttachments!.FindAsync(noteAttachmentId);
+            var item = await _context.NoteAttachments!.FindAsync(request.Id);
             if (item is null) return null;
-            item.NoteAttachmentStatus = status;
+            item.NoteAttachmentStatus = request.NoteAttachmentStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,19 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> CreateNoteAttachmentAsync(NoteAttachment? entity)
+    public async ValueTask<NoteAttachment?> CreateNoteAttachmentAsync(CreateNoteAttachmentCommand request)
     {
         try
         {
-            await _context.NoteAttachments!.AddAsync(entity!);
+            NoteAttachment item = new()
+            {
+                CustomerNoteId = request.CustomerNoteId,
+                FileName = request.FileName,
+                Extenstion = request.Extenstion
+            };
+            await _context.NoteAttachments!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +51,20 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> UpdateNoteAttachmentAsync(NoteAttachment entity)
+    public async ValueTask<NoteAttachment?> UpdateNoteAttachmentAsync(UpdateNoteAttachmentCommand request)
     {
         try
         {
-            _context.Update(entity);
+            NoteAttachment item = new()
+            {
+                Id = request.Id,
+                CustomerNoteId = request.CustomerNoteId,
+                FileName = request.FileName,
+                Extenstion = request.Extenstion
+            };
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +72,11 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> DeleteNoteAttachmentAsync(Ulid noteAttachmentId)
+    public async ValueTask<NoteAttachment?> DeleteNoteAttachmentAsync(DeleteNoteAttachmentCommand request)
     {
         try
         {
-            var noteAttachment = await GetNoteAttachmentByIdAsync(noteAttachmentId);
+            var noteAttachment = await GetNoteAttachmentByIdAsync(request.Id);
             noteAttachment!.NoteAttachmentStatus = Status.Show;
             await _context.SaveChangesAsync();
             return noteAttachment;

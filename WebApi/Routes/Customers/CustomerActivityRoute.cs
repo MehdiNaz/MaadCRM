@@ -67,7 +67,7 @@ public static class CustomerActivityRoute
             {
                 var result = await mediator.Send(new UpdateCustomerActivityCommand
                 {
-                    CustomerActivityId = request.CustomerActivityId,
+                    Id = request.Id,
                     CustomerActivityName = request.CustomerActivityName,
                     CustomerActivityDescription = request.CustomerActivityDescription,
                     CustomerId = request.CustomerId
@@ -86,7 +86,7 @@ public static class CustomerActivityRoute
             {
                 var result = await mediator.Send(new DeleteCustomerActivityCommand
                 {
-                    CustomerActivityId = request.CustomerActivityId,
+                    Id = request.Id,
                 });
                 return Results.Ok(result);
             }

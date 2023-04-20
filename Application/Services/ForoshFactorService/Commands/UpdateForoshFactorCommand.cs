@@ -2,8 +2,10 @@
 
 public struct UpdateForoshFactorCommand : IRequest<ForoshFactor>
 {
-    public Ulid ForoshFactorId { get; set; }
+    public Ulid Id { get; set; }
     public decimal Price { get; set; }
     public decimal DiscountPrice { get; set; }
     public decimal FinalTotal { get; set; }
+    public Ulid CustomerId { get; set; }
+    public Ulid CustomersAddressId { get; set; }
 }

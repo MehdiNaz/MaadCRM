@@ -10,5 +10,5 @@ public readonly struct ChangeStatusBusinessCommandHandler : IRequestHandler<Chan
     }
 
     public async Task<Business?> Handle(ChangeStatusBusinessCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatsAsync(request.BusinessStatus, request.BusinessId);
+        => await _repository.ChangeStatsAsync(request);
 }

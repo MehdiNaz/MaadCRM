@@ -13,15 +13,15 @@ public class ForoshFactorRepository : IForoshFactorRepository
         => await _context.ForoshFactors.Where(x => x.ForoshFactorStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ForoshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId)
-        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.ForoshFactorId == foroshFactorId && x.ForoshFactorStatus == Status.Show);
+        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.Id == foroshFactorId && x.ForoshFactorStatus == Status.Show);
 
-    public async ValueTask<ForoshFactor?> ChangeStatusForoshFactorByIdAsync(Status status, Ulid foroshFactorId)
+    public async ValueTask<ForoshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request)
     {
         try
         {
-            var item = await _context.ForoshFactors!.FindAsync(foroshFactorId);
+            var item = await _context.ForoshFactors!.FindAsync(request.Id);
             if (item is null) return null;
-            item.ForoshFactorStatus = status;
+            item.ForoshFactorStatus = request.ForoshFactorStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,21 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> CreateForoshFactorAsync(ForoshFactor? entity)
+    public async ValueTask<ForoshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request)
     {
         try
         {
-            await _context.ForoshFactors!.AddAsync(entity!);
+            ForoshFactor item = new()
+            {
+                Price = request.Price,
+                DiscountPrice = request.DiscountPrice,
+                FinalTotal = request.FinalTotal,
+                CustomerId = request.CustomerId,
+                CustomersAddressId = request.CustomersAddressId
+            };
+            await _context.ForoshFactors!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +53,23 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> UpdateForoshFactorAsync(ForoshFactor entity, Ulid foroshFactorId)
+    public async ValueTask<ForoshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ForoshFactor item = new()
+            {
+                Id = request.Id,
+                Price = request.Price,
+                DiscountPrice = request.DiscountPrice,
+                FinalTotal = request.FinalTotal,
+                CustomerId = request.CustomerId,
+                CustomersAddressId = request.CustomersAddressId
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +77,11 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> DeleteForoshFactorAsync(Ulid foroshFactorId)
+    public async ValueTask<ForoshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request)
     {
         try
         {
-            var foroshFactor = await GetForoshFactorByIdAsync(foroshFactorId);
+            var foroshFactor = await GetForoshFactorByIdAsync(request.Id);
             foroshFactor!.ForoshFactorStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshFactor;

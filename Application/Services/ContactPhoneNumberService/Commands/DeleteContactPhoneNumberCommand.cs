@@ -2,5 +2,5 @@
 
 public struct DeleteContactPhoneNumberCommand : IRequest<ContactPhoneNumber>
 {
-    public Ulid ContactPhoneNumberId { get; set; }
+    public Ulid Id { get; set; }
 }

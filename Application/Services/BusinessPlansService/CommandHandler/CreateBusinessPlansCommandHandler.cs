@@ -12,14 +12,13 @@ public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<Creat
 
     public async Task<BusinessPlan> Handle(CreateBusinessPlansCommand request, CancellationToken cancellationToken)
     {
-        BusinessPlan item = new()
+        CreateBusinessPlansCommand item = new()
         {
             PlanId = request.PlanId,
             BusinessId = request.BusinessId,
             CountOfDay = request.CountOfDay,
             CountOfUsers = request.CountOfUsers
         };
-        await _repository.CreateBusinessPlansAsync(item);
-        return item;
+        return await _repository.CreateBusinessPlansAsync(item);
     }
 }

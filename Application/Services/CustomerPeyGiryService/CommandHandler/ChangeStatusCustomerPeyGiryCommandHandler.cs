@@ -11,5 +11,5 @@ public readonly struct ChangeStatusCustomerPeyGiryCommandHandler : IRequestHandl
 
     public async Task<CustomerPeyGiry?> Handle(ChangeStatusCustomerPeyGiryCommand request,
         CancellationToken cancellationToken)
-        => await _repository.ChangeStatusCustomerPeyGiryByIdAsync(request.CustomerPeyGiryStatus, request.CustomerPeyGiryId);
+        => await _repository.ChangeStatusCustomerPeyGiryByIdAsync(request);
 }

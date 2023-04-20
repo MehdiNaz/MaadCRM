@@ -3,9 +3,9 @@
 public interface IContactsEmailAddressRepository
 {
     ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync();
-    ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId);
-    ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(Status status, Ulid contactsEmailAddressId);
-    ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(ContactsEmailAddress? entity);
-    ValueTask<ContactsEmailAddress?> UpdateContactsEmailAddressAsync(ContactsEmailAddress entity, Ulid contactsEmailAddressId);
-    ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(Ulid contactsEmailAddressId);
+    ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid requestId);
+    ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(ChangeStatusContactEmailAddressCommand request);
+    ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(CreateContactEmailAddressCommand request);
+    ValueTask<ContactsEmailAddress?> UpdateContactsEmailAddressAsync(UpdateContactEmailAddressCommand request);
+    ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(DeleteContactEmailAddressCommand request);
 }

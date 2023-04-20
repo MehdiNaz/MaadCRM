@@ -11,17 +11,15 @@ public readonly struct CreateBusinessCommandHandler : IRequestHandler<CreateBusi
 
     public async Task<Business> Handle(CreateBusinessCommand request, CancellationToken cancellationToken)
     {
-        Business item = new()
+        CreateBusinessCommand item = new()
         {
             BusinessName = request.BusinessName,
             Url = request.Url,
             Hosts = request.Hosts,
             CompanyName = request.CompanyName,
             CompanyAddress = request.CompanyAddress,
-            DisplayOrder = request.DisplayOrder,
-            //UserId = request.UserId!,
+            DisplayOrder = request.DisplayOrder
         };
-        await _repository.CreateBusinessAsync(item);
-        return item;
+        return await _repository.CreateBusinessAsync(item);
     }
 }

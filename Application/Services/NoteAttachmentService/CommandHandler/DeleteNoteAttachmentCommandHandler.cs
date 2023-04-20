@@ -10,5 +10,5 @@ public readonly struct DeleteNoteAttachmentCommandHandler : IRequestHandler<Dele
     }
 
     public async Task<NoteAttachment> Handle(DeleteNoteAttachmentCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteNoteAttachmentAsync(request.NoteAttachmentId))!;
+        => (await _repository.DeleteNoteAttachmentAsync(request))!;
 }

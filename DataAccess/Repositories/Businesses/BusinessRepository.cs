@@ -13,15 +13,15 @@ public class BusinessRepository : IBusinessRepository
         => await _context.Businesses!.Where(x => x.BusinessStatus == Status.Show).ToListAsync()!;
 
     public async ValueTask<Business?> GetBusinessByIdAsync(Ulid businessId)
-        => await _context.Businesses!.FirstOrDefaultAsync(x => x.BusinessId == businessId && x.BusinessStatus == Status.Show);
+        => await _context.Businesses!.FirstOrDefaultAsync(x => x.Id == businessId && x.BusinessStatus == Status.Show);
 
-    public async ValueTask<Business?> ChangeStatsAsync(Status status, Ulid businessId)
+    public async ValueTask<Business?> ChangeStatsAsync(ChangeStatusBusinessCommand request)
     {
         try
         {
-            var item = await _context.Businesses!.FindAsync(businessId);
+            var item = await _context.Businesses!.FindAsync(request.BusinessId);
             if (item is null) return null;
-            item.BusinessStatus = status;
+            item.BusinessStatus = request.BusinessStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,14 +31,22 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Business?> CreateBusinessAsync(Business? entity)
+    public async ValueTask<Business?> CreateBusinessAsync(CreateBusinessCommand request)
     {
         try
         {
-            await _context.Businesses!.AddAsync(entity);
+            Business business = new()
+            {
+                BusinessName = request.BusinessName,
+                Url = request.Url,
+                Hosts = request.Hosts,
+                CompanyName = request.CompanyName,
+                CompanyAddress = request.CompanyAddress,
+                DisplayOrder = request.DisplayOrder
+            };
+            await _context.Businesses!.AddAsync(business);
             await _context.SaveChangesAsync();
-            return entity;
-
+            return business;
         }
         catch
         {
@@ -46,14 +54,24 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Business?> UpdateBusinessAsync(Business entity)
+    public async ValueTask<Business?> UpdateBusinessAsync(UpdateBusinessCommand request)
     {
         try
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            Business business = new()
+            {
+                Id = request.BusinessId,
+                BusinessName = request.BusinessName,
+                Url = request.Url,
+                Hosts = request.Hosts,
+                CompanyName = request.CompanyName,
+                CompanyAddress = request.CompanyAddress,
+                DisplayOrder = request.DisplayOrder
+            };
 
+            _context.Update(business);
+            await _context.SaveChangesAsync();
+            return business;
         }
         catch
         {
@@ -61,11 +79,11 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Business?> DeleteBusinessAsync(Ulid businessId)
+    public async ValueTask<Business?> DeleteBusinessAsync(DeleteBusinessCommand request)
     {
         try
         {
-            var business = await GetBusinessByIdAsync(businessId);
+            var business = await GetBusinessByIdAsync(request.BusinessId);
             business.BusinessStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return business;

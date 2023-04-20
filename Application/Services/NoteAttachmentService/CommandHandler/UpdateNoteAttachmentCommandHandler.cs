@@ -11,14 +11,13 @@ public readonly struct UpdateNoteAttachmentCommandHandler : IRequestHandler<Upda
 
     public async Task<NoteAttachment> Handle(UpdateNoteAttachmentCommand request, CancellationToken cancellationToken)
     {
-        NoteAttachment item = new()
+        UpdateNoteAttachmentCommand item = new()
         {
-            Id = request.NoteAttachmentId,
+            Id = request.Id,
             CustomerNoteId = request.CustomerNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion
         };
-        await _repository.UpdateNoteAttachmentAsync(item);
-        return item;
+        return await _repository.UpdateNoteAttachmentAsync(item);
     }
 }

@@ -11,16 +11,15 @@ public readonly struct UpdateCustomersAddressCommandHandler : IRequestHandler<Up
 
     public async Task<CustomersAddress> Handle(UpdateCustomersAddressCommand request, CancellationToken cancellationToken)
     {
-        CustomersAddress item = new()
+        UpdateCustomersAddressCommand item = new()
         {
-            CustomersAddressId= request.CustomersAddressId,
+            Id = request.Id,
             Address = request.Address,
             CodePost = request.CodePost,
             PhoneNo = request.PhoneNo,
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdateAddressAsync(item);
-        return item;
+        return await _repository.UpdateAddressAsync(item);
     }
 }

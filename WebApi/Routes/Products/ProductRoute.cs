@@ -69,7 +69,7 @@ public static class ProductRoute
             {
                 var result = await mediator.Send(new ChangeStateProductCommand
                 {
-                    ProductId = request.ProductId,
+                    Id = request.Id,
                     Status = request.Status
                 });
                 return Results.Ok(result);
@@ -111,7 +111,7 @@ public static class ProductRoute
             {
                 var result = await mediator.Send(new UpdateProductCommand
                 {
-                    ProductId = request.ProductId,
+                    Id = request.Id,
                     ProductName = request.ProductName,
                     ProductCategoryId = request.ProductCategoryId,
                     Title = request.Title,
@@ -135,7 +135,7 @@ public static class ProductRoute
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteProductCommand { ProductId = customerId }));
+                return Results.Ok(await mediator.Send(new DeleteProductCommand { Id = customerId }));
             }
             catch (ArgumentException e)
             {

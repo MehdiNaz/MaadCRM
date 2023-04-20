@@ -11,12 +11,11 @@ public readonly struct CreateCustomersEmailAddressCommandHandler : IRequestHandl
 
     public async Task<CustomersEmailAddress> Handle(CreateCustomersEmailAddressCommand request, CancellationToken cancellationToken)
     {
-        CustomersEmailAddress item = new()
+        CreateCustomersEmailAddressCommand item = new()
         {
-            CustomersEmailAddrs = request.EmailAddrs,
+            EmailAddress = request.EmailAddress,
+            CustomerId = request.CustomerId
         };
-        await _repository.CreateEmailAddressAsync(item);
-
-        return item;
+        return await _repository.CreateEmailAddressAsync(item);
     }
 }

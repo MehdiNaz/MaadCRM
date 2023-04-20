@@ -4,11 +4,11 @@ public class CustomerPeyGiry : BaseEntity
 {
     public CustomerPeyGiry()
     {
-        CustomerPeyGiryId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomerPeyGiryStatus = Status.Show;
     }
 
-    public Ulid CustomerPeyGiryId { get; set; }
+    public Ulid Id { get; set; }
     public string Description { get; set; }
     public Ulid CustomerId { get; set; }
     // public string UserId { get; set; }

@@ -56,11 +56,11 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeNoteHashTableCommand request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteHashTableCommand request, IMediator mediator) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeNoteHashTableCommand
+                var result = await mediator.Send(new ChangeStatusNoteHashTableCommand
                 {
                     Id = request.Id,
                     NoteHashTagStatus = request.NoteHashTagStatus

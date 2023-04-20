@@ -18,10 +18,10 @@ public class CategoryAttribute : BaseEntity
     public string Description { get; set; }
     public int DisplayOrder { get; set; } 
     public Status CategoryAttributeStatus { get; set; }
-    //public Ulid BusinessId { get; set; }
+    //public Ulid Id { get; set; }
 
 
-    //[ForeignKey(nameof(BusinessId))]
+    //[ForeignKey(nameof(Id))]
     //public ICollection<Business> Businesses { get; set; }
     public ICollection<BusinessAttribute>? BusinessAttributes { get; set; }
 }

@@ -1,5 +1,3 @@
-#pragma warning disable CS8618
-
 namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
@@ -126,11 +124,11 @@ public class MaadContext : IdentityDbContext
 
 
             if (typeof(Log).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Log.Id)).ValueGeneratedNever();
-            if (typeof(Plan).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Plan.PlanId)).ValueGeneratedNever();
-            if (typeof(SanAt).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(SanAt.SanAtId)).ValueGeneratedNever();
+            if (typeof(Plan).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Plan.Id)).ValueGeneratedNever();
+            if (typeof(SanAt).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(SanAt.Id)).ValueGeneratedNever();
 
 
-            if (typeof(CustomerCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerCategory.CustomerCategoryId)).ValueGeneratedNever();
+            if (typeof(CustomerCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerCategory.Id)).ValueGeneratedNever();
             //if (typeof(CustomerCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerCategory.Id)).ValueGeneratedNever();
 
 
@@ -156,7 +154,7 @@ public class MaadContext : IdentityDbContext
 
 
 
-            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.BusinessId)).ValueGeneratedNever();
+            if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.Id)).ValueGeneratedNever();
 
             if (typeof(ForoshOrder).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ForoshOrder.ProductId)).ValueGeneratedNever();
             //if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.AttributeOptionsId)).ValueGeneratedNever();
@@ -165,7 +163,7 @@ public class MaadContext : IdentityDbContext
             if (typeof(CustomerFeedbackHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerFeedbackHistory.CustomerFeedbackHistoryId)).ValueGeneratedNever();
             if (typeof(CustomerFeedbackHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerFeedbackHistory.CustomerId)).ValueGeneratedNever();
             if (typeof(CustomerFeedbackHistory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerFeedbackHistory.CustomerFeedbackId)).ValueGeneratedNever();
-            //if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.ContactId)).ValueGeneratedNever();
+            //if (typeof(Business).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Business.Id)).ValueGeneratedNever();
             if (typeof(BusinessPlan).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(BusinessPlan.BusinessId)).ValueGeneratedNever();
             if (typeof(BusinessPlan).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(BusinessPlan.PlanId)).ValueGeneratedNever();
 
@@ -195,12 +193,12 @@ public class MaadContext : IdentityDbContext
             if (typeof(CustomersEmailAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomersEmailAddress.CustomerId)).ValueGeneratedNever();
             if (typeof(CustomersAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomersAddress.CustomerId)).ValueGeneratedNever();
 
-            if (typeof(ContactGroup).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactGroup.ContactGroupId)).ValueGeneratedNever();
+            if (typeof(ContactGroup).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactGroup.Id)).ValueGeneratedNever();
             if (typeof(ContactGroup).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactGroup.BusinessId)).ValueGeneratedNever();
 
 
 
-            if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.ContactId)).ValueGeneratedNever();
+            if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.Id)).ValueGeneratedNever();
             if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.BusinessId)).ValueGeneratedNever();
             if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.ContactGroupId)).ValueGeneratedNever();
             if (typeof(Contact).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Contact.EmailId)).ValueGeneratedNever();
@@ -208,31 +206,31 @@ public class MaadContext : IdentityDbContext
 
 
 
-            if (typeof(ContactPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactPhoneNumber.ContactPhoneNumberId)).ValueGeneratedNever();
+            if (typeof(ContactPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactPhoneNumber.Id)).ValueGeneratedNever();
             if (typeof(ContactPhoneNumber).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactPhoneNumber.CustomerId)).ValueGeneratedNever();
 
 
 
 
-            if (typeof(ContactsEmailAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactsEmailAddress.CustomersEmailAddressId)).ValueGeneratedNever();
+            if (typeof(ContactsEmailAddress).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ContactsEmailAddress.Id)).ValueGeneratedNever();
 
 
 
-            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.ProductId)).ValueGeneratedNever();
+            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.Id)).ValueGeneratedNever();
             if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.FavoritesListId)).ValueGeneratedNever();
 
 
             //if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList.CustomerId)).ValueGeneratedNever();
-            //if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList.ProductId)).ValueGeneratedNever();
+            //if (typeof(ProductCustomerFavoritesList).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCustomerFavoritesList.Id)).ValueGeneratedNever();
             //if (typeof(Note).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Note)).ValueGeneratedNever();
-            
+
             if (typeof(CustomerPeyGiry).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerPeyGiry.CustomerId)).ValueGeneratedNever();
             if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(CustomerNote.CustomerId)).ValueGeneratedNever();
             if (typeof(NoteHashTag).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTag.CustomerNoteId)).ValueGeneratedNever();
             if (typeof(NoteAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteAttachment.CustomerNoteId)).ValueGeneratedNever();
 
 
-            if (typeof(PeyGiryAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(PeyGiryAttachment.PeyGiryAttachmentId)).ValueGeneratedNever();
+            if (typeof(PeyGiryAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(PeyGiryAttachment.Id)).ValueGeneratedNever();
             if (typeof(PeyGiryAttachment).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(PeyGiryAttachment.PeyGiryNoteId)).ValueGeneratedNever();
 
 
@@ -247,8 +245,8 @@ public class MaadContext : IdentityDbContext
             if (typeof(CustomerNote).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid?>(nameof(CustomerNote.ProductId)).ValueGeneratedNever();
 
 
-            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.ProductId)).ValueGeneratedNever();
-            if (typeof(ProductCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCategory.ProductCategoryId)).ValueGeneratedNever();
+            if (typeof(Product).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(Product.Id)).ValueGeneratedNever();
+            if (typeof(ProductCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCategory.Id)).ValueGeneratedNever();
             if (typeof(ProductCategory).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(ProductCategory.BusinessId)).ValueGeneratedNever();
 
             if (typeof(NoteHashTable).IsAssignableFrom(entityType.ClrType)) builder.Entity(entityType.ClrType).Property<Ulid>(nameof(NoteHashTable.Id)).ValueGeneratedNever();
@@ -278,4 +276,3 @@ public class UlidToStringConverter : ValueConverter<Ulid, string>
     {
     }
 }
-#pragma warning restore CS8618

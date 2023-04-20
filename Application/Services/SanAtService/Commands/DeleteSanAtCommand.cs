@@ -2,5 +2,5 @@
 
 public struct DeleteSanAtCommand : IRequest<SanAt>
 {
-    public Ulid SanAtId { get; set; }
+    public Ulid Id { get; set; }
 }

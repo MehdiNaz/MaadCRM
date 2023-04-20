@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactPhoneNumberService.CommandHandler;
 
-public readonly struct ChangeStateContactPhoneNumberCommandHandler : IRequestHandler<ChangeStateContactPhoneNumberCommand, ContactPhoneNumber?>
+public readonly struct ChangeStateContactPhoneNumberCommandHandler : IRequestHandler<ChangeStatusContactPhoneNumberCommand, ContactPhoneNumber?>
 {
     private readonly IContactPhoneNumberRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct ChangeStateContactPhoneNumberCommandHandler : IRequestHan
         _repository = repository;
     }
 
-    public async Task<ContactPhoneNumber?> Handle(ChangeStateContactPhoneNumberCommand request,
+    public async Task<ContactPhoneNumber?> Handle(ChangeStatusContactPhoneNumberCommand request,
         CancellationToken cancellationToken)
-        => await _repository.ChangeStatusContactPhoneNumberByIdAsync(request.ContactPhoneNumberStatus, request.ContactPhoneNumberId);
+        => await _repository.ChangeStatusContactPhoneNumberByIdAsync(request);
 }

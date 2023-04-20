@@ -6,8 +6,8 @@ public interface IProductRepository
     ValueTask<Product?> GetProductByIdAsync(Ulid productId);
     ValueTask<Product?> ChangeStatusProductByIdAsync(Status status, Ulid productId);
     ValueTask<ICollection<Product>?> SearchByItemsAsync(string request);
-    ValueTask<Product?> ChangeStateProductAsync(ProductStatus status, Ulid productId);
-    ValueTask<Product?> CreateProductAsync(Product? entity);
-    ValueTask<Product?> UpdateProductAsync(Product entity, Ulid productId);
-    ValueTask<Product?> DeleteProductAsync(Ulid productId);
+    ValueTask<Product?> ChangeStateProductAsync(ChangeStateProductCommand request);
+    ValueTask<Product?> CreateProductAsync(CreateProductCommand request);
+    ValueTask<Product?> UpdateProductAsync(UpdateProductCommand request);
+    ValueTask<Product?> DeleteProductAsync(DeleteProductCommand request);
 }

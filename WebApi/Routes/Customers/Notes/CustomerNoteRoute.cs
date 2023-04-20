@@ -48,7 +48,8 @@ public static class CustomerNoteRoute
                     Description = request.Description,
                     CustomerId = request.CustomerId,
                     ProductId = request.ProductId,
-                    HashTagIds = request.HashTagIds
+                    HashTagIds = request.HashTagIds,
+                    CustomerNoteId = request.CustomerNoteId
                 });
                 return Results.Ok(result);
             }
@@ -81,9 +82,12 @@ public static class CustomerNoteRoute
             {
                 var result = await mediator.Send(new UpdateCustomerNoteCommand
                 {
+                    Id = request.Id,
                     CustomerNoteId = request.CustomerNoteId,
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+                    ProductId = request.ProductId,
+                    HashTagIds = request.HashTagIds
                 });
                 return Results.Ok(result);
             }
@@ -97,7 +101,7 @@ public static class CustomerNoteRoute
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteCustomerNoteCommand { CustomerNoteId = request.CustomerNoteId }));
+                return Results.Ok(await mediator.Send(new DeleteCustomerNoteCommand { Id = request.Id }));
             }
             catch (ArgumentException e)
             {

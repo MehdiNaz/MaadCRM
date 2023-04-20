@@ -4,11 +4,11 @@ public class SanAt : BaseEntity
 {
     public SanAt()
     {
-        SanAtId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         SanAtStatus = Status.Show;
     }
 
-    public Ulid SanAtId { get; set; }
+    public Ulid Id { get; set; }
     public string SanAtName { get; set; }
     public string UserId { get; set; }
     public Status SanAtStatus { get; set; }

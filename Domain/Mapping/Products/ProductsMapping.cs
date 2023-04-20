@@ -5,7 +5,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ToTable("Products");
-        builder.HasKey(x => x.ProductId);
+        builder.HasKey(x => x.Id);
         builder.Property(x => x.ProductName).HasMaxLength(255).IsRequired();
         builder.Property(x => x.ProductCategoryId).IsRequired();
         builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
@@ -17,7 +17,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
 
 
         //New Relations ==> OK
-        // builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
-        // builder.HasMany(x => x.ForoshOrders).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+        // builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.Id);
+        // builder.HasMany(x => x.ForoshOrders).WithOne(x => x.Product).HasForeignKey(x => x.Id);
     }
 }

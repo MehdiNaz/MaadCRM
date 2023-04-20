@@ -4,14 +4,14 @@ public class Business : BaseEntity
 {
     public Business()
     {
-        BusinessId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         BusinessStatus = Status.Show;
         DisplayOrder = 0;
         //DateCreated = DateTime.UtcNow;
         //DateLastUpdate = DateTime.UtcNow;
     }
 
-    public Ulid BusinessId { get; set; }
+    public Ulid Id { get; set; }
     public string BusinessName { get; set; }
     public string? Url { get; set; }
     public string? Hosts { get; set; }
@@ -20,8 +20,8 @@ public class Business : BaseEntity
     //public bool SslEnabled { get; set; }
     public int? DisplayOrder { get; set; }
     //public Ulid? Id { get; set; }
-    //public Ulid? ContactId { get; set; }
-    //public Ulid? ContactGroupId { get; set; }
+    //public Ulid? Id { get; set; }
+    //public Ulid? Id { get; set; }
     //public Ulid? AttributeOptionsValueId { get; set; }
     //public Ulid? BusinessAttributeId { get; set; }
     public Status BusinessStatus { get; set; }

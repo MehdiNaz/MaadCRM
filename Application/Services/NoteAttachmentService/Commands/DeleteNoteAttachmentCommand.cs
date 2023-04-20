@@ -2,5 +2,5 @@
 
 public struct DeleteNoteAttachmentCommand : IRequest<NoteAttachment>
 {
-    public Ulid NoteAttachmentId { get; set; }
+    public Ulid Id { get; set; }
 }

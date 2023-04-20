@@ -4,11 +4,11 @@ public class CustomerCategory : BaseEntity
 {
     public CustomerCategory()
     {
-        CustomerCategoryId = Ulid.NewUlid();
+        Id = Ulid.NewUlid();
         CustomerCategoryStatus = Status.Show;
     }
 
-    public Ulid CustomerCategoryId { get; set; }
+    public Ulid Id { get; set; }
     public string CustomerCategoryName { get; set; }
     public Status CustomerCategoryStatus { get; set; }
     public string UserId { get; set; }

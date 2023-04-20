@@ -37,8 +37,8 @@ public class CustomerRepository : ICustomerRepository
                 CustomerId = x.Id,
                 // From = x.DateCreated,
                 // CustomerState = x.CustomerState,
-                // CustomerCategoryId = x.CustomerCategoryId,
-                // EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                // Id = x.Id,
+                // EmailAddress = x.EmailAddresses.FirstOrDefault().EmailAddress,
                 // PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
@@ -114,8 +114,8 @@ public class CustomerRepository : ICustomerRepository
         if (request is { CityId: { } })
             resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
 
-        // if (request is { ProductId: { } })
-        //     resultsListCustomer = resultsListCustomer.Where(x => x.ProductId == request.ProductId);
+        // if (request is { Id: { } })
+        //     resultsListCustomer = resultsListCustomer.Where(x => x.Id == request.Id);
         //
         return await resultsListCustomer.ToListAsync();
     }
@@ -156,15 +156,15 @@ public class CustomerRepository : ICustomerRepository
         return result;
     }
 
-    public async Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId)
+    public async ValueTask<CustomerResponse?> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request)
     {
         try
         {
-            var item = await _context.Customers.FindAsync(customerId);
+            var item = await _context.Customers.FindAsync(request.CustomerId);
             if (item is null) return null;
-            item.CustomerStatus = status;
+            item.CustomerStatus = request.CustomerStatus;
             await _context.SaveChangesAsync();
-            return await _context.Customers.FindAsync(customerId)
+            return await _context.Customers.FindAsync(request.CustomerId)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -188,7 +188,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request)
+    public async ValueTask<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request)
     {
         try
         {
@@ -271,7 +271,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomersEmailAddress newEmailAddress = new()
                     {
                         CustomerId = entityEntry.Id,
-                        CustomersEmailAddrs = emailAddress  
+                        CustomersEmailAddrs = emailAddress
                     };
 
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
@@ -315,7 +315,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request)
+    public async ValueTask<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request)
     {
         try
         {
@@ -404,7 +404,7 @@ public class CustomerRepository : ICustomerRepository
             //        ProductCustomerFavoritesList newFavoritesList = new()
             //        {
             //            CustomerId = request.Id,
-            //            ProductId = Ulid.Parse(entityFavoritesList)
+            //            Id = Ulid.Parse(entityFavoritesList)
             //        };
 
             //        await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
@@ -418,8 +418,8 @@ public class CustomerRepository : ICustomerRepository
             //    CustomerId = customer.Id,
             //    From = customer.DateCreated,
             //    CustomerState = customer.CustomerState,
-            //    CustomerCategoryId = customer.CustomerCategoryId,
-            //    EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+            //    Id = customer.Id,
+            //    EmailAddress = customer.EmailAddresses.FirstOrDefault().EmailAddress,
             //    PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
             //    FirstName = customer.FirstName,
             //    LastName = customer.LastName,
@@ -434,7 +434,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async Task<CustomerResponse?> DeleteCustomerAsync(Ulid customerId)
+    public async ValueTask<CustomerResponse?> DeleteCustomerAsync(Ulid customerId)
     {
         try
         {

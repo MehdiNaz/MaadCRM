@@ -10,5 +10,5 @@ public readonly struct ChangeStatusSanAtCommandHandler : IRequestHandler<ChangeS
     }
 
     public async Task<SanAt?> Handle(ChangeStatusSanAtCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusSanAtsByIdAsync(request.SanAtStatus, request.SanAtId);
+        => await _repository.ChangeStatusSanAtsByIdAsync(request);
 }

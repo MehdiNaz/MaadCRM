@@ -13,15 +13,15 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         => await _context.CustomersAddresses.Where(x => x.CustomersAddressStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId)
-        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.CustomersAddressId == customersAddressId && x.CustomersAddressStatus == Status.Show);
+        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.CustomersAddressStatus == Status.Show);
 
-    public async ValueTask<CustomersAddress?> ChangeStatusAddressByIdAsync(Status status, Ulid customersAddressId)
+    public async ValueTask<CustomersAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request)
     {
         try
         {
-            var item = await _context.CustomersAddresses.FindAsync(customersAddressId);
+            var item = await _context.CustomersAddresses.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomersAddressStatus = status;
+            item.CustomersAddressStatus = request.CustomersAddressStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,21 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> CreateAddressAsync(CustomersAddress? entity)
+    public async ValueTask<CustomersAddress?> CreateAddressAsync(CreateCustomersAddressCommand request)
     {
         try
         {
-            await _context.CustomersAddresses!.AddAsync(entity);
+            CustomersAddress item = new()
+            {
+                Address = request.Address,
+                CodePost = request.CodePost,
+                PhoneNo = request.PhoneNo,
+                Description = request.Description,
+                CustomerId = request.CustomerId
+            };
+            await _context.CustomersAddresses!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +53,22 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> UpdateAddressAsync(CustomersAddress entity)
+    public async ValueTask<CustomersAddress?> UpdateAddressAsync(UpdateCustomersAddressCommand request)
     {
         try
         {
-            _context.Update(entity);
+            CustomersAddress item = new()
+            {
+                Id = request.Id,
+                Address = request.Address,
+                CodePost = request.CodePost,
+                PhoneNo = request.PhoneNo,
+                Description = request.Description,
+                CustomerId = request.CustomerId
+            };
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +76,11 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> DeleteAddressAsync(Ulid customersAddressId)
+    public async ValueTask<CustomersAddress?> DeleteAddressAsync(DeleteCustomersAddressCommand request)
     {
         try
         {
-            var customersAddress = await GetAddressByIdAsync(customersAddressId);
+            var customersAddress = await GetAddressByIdAsync(request.Id);
             customersAddress.CustomersAddressStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customersAddress;

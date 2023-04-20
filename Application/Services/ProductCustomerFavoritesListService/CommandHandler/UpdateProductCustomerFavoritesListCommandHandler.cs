@@ -11,12 +11,11 @@ public readonly struct UpdateProductCustomerFavoritesListCommandHandler : IReque
 
     public async Task<ProductCustomerFavoritesList> Handle(UpdateProductCustomerFavoritesListCommand request, CancellationToken cancellationToken)
     {
-        ProductCustomerFavoritesList item = new()
+        UpdateProductCustomerFavoritesListCommand item = new()
         {
             CustomerId = request.CustomerId,
             ProductId = request.ProductId,
         };
-        await _repository.UpdateProductCustomerFavoritesListAsync(request.ProductId, request.CustomerId);
-        return item;
+        return await _repository.UpdateProductCustomerFavoritesListAsync(item);
     }
 }

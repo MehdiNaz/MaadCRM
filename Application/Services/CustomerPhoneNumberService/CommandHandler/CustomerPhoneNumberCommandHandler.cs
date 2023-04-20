@@ -11,13 +11,11 @@ public readonly struct CustomerPhoneNumberCommandHandler : IRequestHandler<Creat
 
     public async Task<CustomersPhoneNumber> Handle(CreateCustomerPhoneNumberCommand request, CancellationToken cancellationToken)
     {
-        CustomersPhoneNumber item = new()
+        CreateCustomerPhoneNumberCommand item = new()
         {
             PhoneNo = request.PhoneNo,
-            PhoneType = request.PhoneType,
             CustomerId = request.CustomerId
         };
-        await _repository.CreatePhoneNumberAsync(item);
-        return item;
+        return await _repository.CreatePhoneNumberAsync(item);
     }
 }

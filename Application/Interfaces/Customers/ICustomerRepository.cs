@@ -6,8 +6,8 @@ public interface ICustomerRepository
     ValueTask<CustomerResponse> GetCustomerByIdAsync(Ulid customerId);
     ValueTask<ICollection<CustomerResponse>?> FilterByItemsAsync(CustomerByFilterItemsQuery request);
     ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(string request);
-    Task<CustomerResponse?> ChangeStatusCustomerByIdAsync(Status status, Ulid customerId);
-    Task<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request);
-    Task<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request);
-    Task<CustomerResponse?> DeleteCustomerAsync(Ulid customerId);
+    ValueTask<CustomerResponse?> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
+    ValueTask<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request);
+    ValueTask<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request);
+    ValueTask<CustomerResponse?> DeleteCustomerAsync(Ulid customerId);
 }

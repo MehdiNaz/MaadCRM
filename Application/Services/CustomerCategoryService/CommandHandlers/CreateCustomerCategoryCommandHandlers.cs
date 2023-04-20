@@ -11,13 +11,12 @@ public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<C
 
     public async Task<CustomerCategory> Handle(CreateCustomerCategoryCommand request, CancellationToken cancellationToken)
     {
-        CustomerCategory customerCategory = new()
+        CreateCustomerCategoryCommand customerCategory = new()
         {
             UserId = request.UserId,
             CustomerCategoryName = request.CustomerCategoryName
         };
 
-        await _repository.CreateCustomerCategoryAsync(customerCategory);
-        return customerCategory;
+        return await _repository.CreateCustomerCategoryAsync(customerCategory);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Customers;
+﻿using Application.Services.CustomerFeedbackService.Commands;
+
+namespace DataAccess.Repositories.Customers;
 
 public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 {
@@ -14,15 +16,15 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
 
     public async ValueTask<CustomerFeedback?> GetCustomerFeedbackByIdAsync(Ulid customerFeedbackId)
-        => await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.CustomerFeedbackId == customerFeedbackId && x.CustomerFeedbackStatus == Status.Show);
+        => await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == customerFeedbackId && x.CustomerFeedbackStatus == Status.Show);
 
-    public async ValueTask<CustomerFeedback?> ChangeStatusCustomerFeedbackByIdAsync(Status status, Ulid customerFeedbackId)
+    public async ValueTask<CustomerFeedback?> ChangeStatusCustomerFeedbackByIdAsync(ChangeStatusCustomerFeedBackCommand request)
     {
         try
         {
-            var item = await _context.CustomerFeedbacks.FindAsync(customerFeedbackId);
+            var item = await _context.CustomerFeedbacks.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerFeedbackStatus = status;
+            item.CustomerFeedbackStatus = request.CustomerFeedbackStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -32,13 +34,20 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<CustomerFeedback?> CreateCustomerFeedbackAsync(CustomerFeedback? entity)
+    public async ValueTask<CustomerFeedback?> CreateCustomerFeedbackAsync(CreateCustomerFeedBackCommand request)
     {
         try
         {
-            await _context.CustomerFeedbacks!.AddAsync(entity!);
+            CustomerFeedback item = new()
+            {
+                FeedbackName = request.FeedbackName,
+                DisplayOrder = request.DisplayOrder,
+                Point = request.Point,
+                BalancePoint = request.BalancePoint
+            };
+            await _context.CustomerFeedbacks!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -46,13 +55,22 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<CustomerFeedback?> UpdateCustomerFeedbackAsync(CustomerFeedback entity)
+    public async ValueTask<CustomerFeedback?> UpdateCustomerFeedbackAsync(UpdateCustomerFeedBackCommand request)
     {
         try
         {
-            _context.Update(entity);
+            CustomerFeedback item = new()
+            {
+                Id = request.Id,
+                FeedbackName = request.FeedbackName,
+                DisplayOrder = request.DisplayOrder,
+                Point = request.Point,
+                BalancePoint = request.BalancePoint
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -60,11 +78,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(Ulid customerFeedbackId)
+    public async ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(DeleteCustomerFeedBackCommand request)
     {
         try
         {
-            var customerFeedback = await GetCustomerFeedbackByIdAsync(customerFeedbackId);
+            var customerFeedback = await GetCustomerFeedbackByIdAsync(request.Id);
             customerFeedback!.CustomerFeedbackStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerFeedback;

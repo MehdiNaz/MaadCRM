@@ -11,14 +11,13 @@ public readonly struct UpdatePeyGiryAttachmentCommandHandler : IRequestHandler<U
 
     public async Task<PeyGiryAttachment> Handle(UpdatePeyGiryAttachmentCommand request, CancellationToken cancellationToken)
     {
-        PeyGiryAttachment item = new()
+        UpdatePeyGiryAttachmentCommand item = new()
         {
-            PeyGiryAttachmentId = request.PeyGiryAttachmentId,
+            Id = request.Id,
             PeyGiryNoteId = request.PeyGiryNoteId,
             FileName = request.FileName,
             Extenstion = request.Extenstion
         };
-        await _repository.UpdatePeyGiryAttachmentAsync(item);
-        return item;
+        return await _repository.UpdatePeyGiryAttachmentAsync(item);
     }
 }

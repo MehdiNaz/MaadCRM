@@ -2,6 +2,6 @@
 
 public struct UpdateContactEmailAddressCommand : IRequest<ContactsEmailAddress>
 {
-    public Ulid CustomersEmailAddressId { get; set; }
-    public string CustomersEmailAddrs { get; set; }
+    public Ulid Id { get; set; }
+    public string EmailAddress { get; set; }
 }

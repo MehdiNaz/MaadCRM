@@ -12,17 +12,17 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
     public async ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync()
         => await _context.ContactsEmailAddresses.Where(x => x.ContactsEmailAddressStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid contactsEmailAddressId)
+    public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid requestId)
         => await _context.ContactsEmailAddresses!.SingleOrDefaultAsync(x =>
-            x.CustomersEmailAddressId == contactsEmailAddressId && x.ContactsEmailAddressStatus == Status.Show);
+            x.Id == requestId && x.ContactsEmailAddressStatus == Status.Show);
 
-    public async ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(Status status, Ulid contactsEmailAddressId)
+    public async ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(ChangeStatusContactEmailAddressCommand request)
     {
         try
         {
-            var item = await _context.ContactsEmailAddresses!.FindAsync(contactsEmailAddressId);
+            var item = await _context.ContactsEmailAddresses!.FindAsync(request.CustomersEmailAddressId);
             if (item is null) return null;
-            item.ContactsEmailAddressStatus = status;
+            item.ContactsEmailAddressStatus = request.ContactsEmailAddressStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -33,13 +33,17 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
 
     }
 
-    public async ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(ContactsEmailAddress? entity)
+    public async ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(CreateContactEmailAddressCommand request)
     {
         try
         {
-            await _context.ContactsEmailAddresses!.AddAsync(entity!);
+            ContactsEmailAddress item = new()
+            {
+                CustomersEmailAddrs = request.EmailAddress
+            };
+            await _context.ContactsEmailAddresses!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -47,13 +51,19 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         }
     }
 
-    public async ValueTask<ContactsEmailAddress?> UpdateContactsEmailAddressAsync(ContactsEmailAddress entity, Ulid contactsEmailAddressId)
+    public async ValueTask<ContactsEmailAddress?> UpdateContactsEmailAddressAsync(UpdateContactEmailAddressCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ContactsEmailAddress item = new()
+            {
+                Id = request.Id,
+                CustomersEmailAddrs = request.EmailAddress
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -61,11 +71,11 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         }
     }
 
-    public async ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(Ulid contactsEmailAddressId)
+    public async ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(DeleteContactEmailAddressCommand request)
     {
         try
         {
-            var contactsEmailAddress = await GetContactsEmailAddressByIdAsync(contactsEmailAddressId);
+            var contactsEmailAddress = await GetContactsEmailAddressByIdAsync(request.Id);
             contactsEmailAddress!.ContactsEmailAddressStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactsEmailAddress;

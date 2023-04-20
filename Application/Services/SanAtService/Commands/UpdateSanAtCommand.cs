@@ -2,7 +2,7 @@
 
 public struct UpdateSanAtCommand : IRequest<SanAt>
 {
-    public Ulid SanAtId { get; set; }
+    public Ulid Id { get; set; }
     public string SanAtName { get; set; }
     public string UserId { get; set; }
 }

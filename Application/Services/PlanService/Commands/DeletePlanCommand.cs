@@ -2,5 +2,5 @@
 
 public struct DeletePlanCommand : IRequest<Plan>
 {
-    public Ulid PlanId { get; set; }
+    public Ulid Id { get; set; }
 }

@@ -10,5 +10,5 @@ public readonly struct DeleteCustomerActivityCommandHandler : IRequestHandler<De
     }
 
     public async Task<CustomerActivity> Handle(DeleteCustomerActivityCommand request, CancellationToken cancellationToken)
-        => await _repository.DeleteCustomerActivityAsync(request.CustomerActivityId);
+        => await _repository.DeleteCustomerActivityAsync(request);
 }

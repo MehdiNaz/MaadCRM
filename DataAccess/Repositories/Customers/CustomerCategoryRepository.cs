@@ -14,17 +14,17 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
 
     public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId)
         => await _context.CustomerCategories.FirstOrDefaultAsync(x =>
-            x.CustomerCategoryId == customerCategoryId
+            x.Id == customerCategoryId
             && x.CustomerCategoryStatus == Status.Show
             && x.UserId == userId);
 
-    public async ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(Status status, Ulid customerCategoryId)
+    public async ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request)
     {
         try
         {
-            var item = await _context.CustomerCategories.FindAsync(customerCategoryId);
+            var item = await _context.CustomerCategories.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerCategoryStatus = status;
+            item.CustomerCategoryStatus = request.CustomerCategoryStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -34,13 +34,18 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CustomerCategory? entity)
+    public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request)
     {
         try
         {
-            await _context.CustomerCategories!.AddAsync(entity);
+            CustomerCategory item = new()
+            {
+                UserId = request.UserId,
+                CustomerCategoryName = request.CustomerCategoryName
+            };
+            await _context.CustomerCategories!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -48,13 +53,20 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(CustomerCategory entity)
+    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request)
     {
         try
         {
-            _context.Update(entity);
+            CustomerCategory item = new()
+            {
+                Id = request.Id,
+                UserId = request.UserId,
+                CustomerCategoryName = request.CustomerCategoryName
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -62,11 +74,11 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> DeleteCusCustomerAsync(Ulid customerCategoryId, string userId)
+    public async ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(DeleteCustomerCategoryCommand request)
     {
         try
         {
-            var CustomerCategory = await GetCustomerCategoryByIdAsync(customerCategoryId,userId);
+            var CustomerCategory = await GetCustomerCategoryByIdAsync(request.Id, request.UserId);
             CustomerCategory.CustomerCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return CustomerCategory;

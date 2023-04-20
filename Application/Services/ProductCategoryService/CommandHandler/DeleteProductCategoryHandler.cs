@@ -10,5 +10,5 @@ public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProd
     }
 
     public async Task<ProductCategory> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteProductCategoryAsync(request.ProductCategoryId))!;
+        => (await _repository.DeleteProductCategoryAsync(request))!;
 }

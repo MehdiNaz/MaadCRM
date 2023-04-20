@@ -10,6 +10,6 @@ public class CustomerFeedbackHistory : BaseEntity
 
     //[ForeignKey(nameof(Id))]
     // public Customer Customers { get; set; }
-    //[ForeignKey(nameof(CustomerFeedbackId))]
+    //[ForeignKey(nameof(Id))]
     // public CustomerFeedback CustomerFeedback { get; set; }
 }

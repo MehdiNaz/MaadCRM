@@ -10,6 +10,6 @@ public class CustomerFeedbackHistoryMapping : IEntityTypeConfiguration<CustomerF
 
         //
         // builder.HasOne(x => x.Customers).WithMany(x => x.CustomerFeedbackHistory).HasForeignKey(x => x.CustomerId);
-        // builder.HasOne(x => x.CustomerFeedback).WithMany(x => x.CustomerFeedbackHistories).HasForeignKey(x => x.CustomerFeedbackId);
+        // builder.HasOne(x => x.CustomerFeedback).WithMany(x => x.CustomerFeedbackHistories).HasForeignKey(x => x.Id);
     }
 }

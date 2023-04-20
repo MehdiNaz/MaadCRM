@@ -2,7 +2,7 @@
 
 public struct UpdateCustomersAddressCommand: IRequest<CustomersAddress>
 {
-    public Ulid CustomersAddressId { get; set; }
+    public Ulid Id { get; set; }
     public string Address { get; set; }
     public string? CodePost { get; set; }
     public string? PhoneNo { get; set; }

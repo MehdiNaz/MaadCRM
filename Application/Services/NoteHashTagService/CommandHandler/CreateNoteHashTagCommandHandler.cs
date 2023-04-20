@@ -11,11 +11,11 @@ public readonly struct CreateNoteHashTagCommandHandler : IRequestHandler<CreateN
 
     public async Task<NoteHashTag> Handle(CreateNoteHashTagCommand request, CancellationToken cancellationToken)
     {
-        NoteHashTag item = new()
+        CreateNoteHashTagCommand item = new()
         {
-            CustomerNoteId = request.CustomerNoteId
+            CustomerNoteId = request.CustomerNoteId,
+            NoteHashTableId = request.NoteHashTableId
         };
-        await _repository.CreateNoteHashTagAsync(item);
-        return item;
+        return await _repository.CreateNoteHashTagAsync(item);
     }
 }

@@ -10,5 +10,5 @@ public readonly struct ChangeStatusPlanCommandHandler : IRequestHandler<ChangeSt
     }
 
     public async Task<Plan?> Handle(ChangeStatusPlanCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusPlansByIdAsync(request.PlanStatus, request.PlanId);
+        => await _repository.ChangeStatusPlansByIdAsync(request);
 }

@@ -2,5 +2,5 @@
 
 public struct DeleteCustomerPeyGiryCommand : IRequest<CustomerPeyGiry>
 {
-    public Ulid CustomerPeyGiryId { get; set; }
+    public Ulid Id { get; set; }
 }

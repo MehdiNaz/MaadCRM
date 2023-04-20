@@ -30,7 +30,7 @@ public static class CustomerFeedbackRoute
             {
                 var result = await mediator.Send(new CustomerFeedBackByIdQuery
                 {
-                    //CustomersAddressId = request.CustomersAddressId
+                    //Id = request.Id
                 });
                 return Results.Ok(result);
             }
@@ -86,7 +86,7 @@ public static class CustomerFeedbackRoute
             {
                 var result = await mediator.Send(new UpdateCustomerFeedBackCommand
                 {
-                    //CustomersAddressId = request.CustomersAddressId,
+                    //Id = request.Id,
                     //Address = request.Address,
                     //CodePost = request.CodePost,
                     //PhoneNo = request.PhoneNo,
@@ -107,7 +107,7 @@ public static class CustomerFeedbackRoute
             {
                 var result = await mediator.Send(new DeleteCustomerFeedBackCommand
                 {
-                    // CustomersAddressId = request.CustomersAddressId,
+                    // Id = request.Id,
                 });
                 return Results.Ok(result);
             }

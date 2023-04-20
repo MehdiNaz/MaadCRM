@@ -11,7 +11,7 @@ public readonly struct UpdateBusinessPlansCommandHandler : IRequestHandler<Updat
 
     public async Task<BusinessPlan> Handle(UpdateBusinessPlansCommand request, CancellationToken cancellationToken)
     {
-        BusinessPlan item = new()
+        UpdateBusinessPlansCommand item = new()
         {
             BusinessPlansId = request.BusinessPlansId,
             PlanId = request.PlanId,
@@ -19,7 +19,6 @@ public readonly struct UpdateBusinessPlansCommandHandler : IRequestHandler<Updat
             CountOfDay = request.CountOfDay,
             CountOfUsers = request.CountOfUsers
         };
-        await _repository.UpdateBusinessPlansAsync(item);
-        return item;
+        return await _repository.UpdateBusinessPlansAsync(item);
     }
 }

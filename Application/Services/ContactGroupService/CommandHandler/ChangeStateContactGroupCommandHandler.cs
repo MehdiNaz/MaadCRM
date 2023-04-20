@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactGroupService.CommandHandler;
 
-public readonly struct ChangeStateContactGroupCommandHandler : IRequestHandler<ChangeStateContactGroupCommand, ContactGroup?>
+public readonly struct ChangeStateContactGroupCommandHandler : IRequestHandler<ChangeStatusContactGroupCommand, ContactGroup?>
 {
     private readonly IContactGroupRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct ChangeStateContactGroupCommandHandler : IRequestHandler<C
         _repository = repository;
     }
 
-    public async Task<ContactGroup?> Handle(ChangeStateContactGroupCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStateContactGroupAsync(request.ContactGroupStatus, request.ContactGroupId);
+    public async Task<ContactGroup?> Handle(ChangeStatusContactGroupCommand request, CancellationToken cancellationToken)
+        => await _repository.ChangeStatusContactGroupAsync(request);
 }

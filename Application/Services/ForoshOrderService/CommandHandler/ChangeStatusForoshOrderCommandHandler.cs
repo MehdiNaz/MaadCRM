@@ -10,5 +10,5 @@ public readonly struct ChangeStatusForoshOrderCommandHandler : IRequestHandler<C
     }
 
     public async Task<ForoshOrder?> Handle(ChangeStatusForoshOrderCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusForoshOrderByIdAsync(request.ForoshOrderStatus, request.ForoshOrderId);
+        => await _repository.ChangeStatusForoshOrderByIdAsync(request);
 }

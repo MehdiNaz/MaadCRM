@@ -4,8 +4,8 @@ public interface INoteHashTagRepository
 {
     ValueTask<ICollection<NoteHashTag?>> GetAllNoteHashTagsAsync();
     ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId);
-    ValueTask<NoteHashTag?> ChangeStatusNoteHashTagByIdAsync(Status status, Ulid noteHashTagId);
-    ValueTask<NoteHashTag?> CreateNoteHashTagAsync(NoteHashTag? entity);
-    ValueTask<NoteHashTag?> UpdateNoteHashTagAsync(NoteHashTag entity);
-    ValueTask<NoteHashTag?> DeleteNoteHashTagAsync(Ulid noteHashTagId);
+    ValueTask<NoteHashTag?> ChangeStatusNoteHashTagByIdAsync(ChangeStatusNoteHashTagCommand request);
+    ValueTask<NoteHashTag?> CreateNoteHashTagAsync(CreateNoteHashTagCommand request);
+    ValueTask<NoteHashTag?> UpdateNoteHashTagAsync(UpdateNoteHashTagCommand request);
+    ValueTask<NoteHashTag?> DeleteNoteHashTagAsync(DeleteNoteHashTagCommand request);
 }

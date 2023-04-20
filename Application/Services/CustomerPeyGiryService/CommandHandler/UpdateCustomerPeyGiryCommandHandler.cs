@@ -11,13 +11,12 @@ public readonly struct UpdateCustomerPeyGiryCommandHandler : IRequestHandler<Upd
 
     public async Task<CustomerPeyGiry> Handle(UpdateCustomerPeyGiryCommand request, CancellationToken cancellationToken)
     {
-        CustomerPeyGiry item = new()
+        UpdateCustomerPeyGiryCommand item = new()
         {
-            CustomerPeyGiryId = request.CustomerPeyGiryId,
+            Id = request.Id,
             Description = request.Description,
             CustomerId = request.CustomerId
         };
-        await _repository.UpdateCustomerPeyGiryAsync(item);
-        return item;
+        return await _repository.UpdateCustomerPeyGiryAsync(item);
     }
 }

@@ -11,16 +11,15 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
 
     public async Task<ProductCategory> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
     {
-        ProductCategory item = new()
+        UpdateProductCategoryCommand item = new()
         {
-            ProductCategoryId = request.ProductCategoryId,
+            Id = request.Id,
             Order = request.Order,
             ProductCategoryName = request.ProductCategoryName,
             Description = request.Description,
             Icon = request.Icon,
             BusinessId = request.BusinessId
         };
-        await _repository.UpdateProductCategoryAsync(item);
-        return item;
+        return await _repository.UpdateProductCategoryAsync(item);
     }
 }

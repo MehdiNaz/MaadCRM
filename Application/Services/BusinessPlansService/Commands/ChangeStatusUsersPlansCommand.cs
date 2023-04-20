@@ -1,4 +1,4 @@
-﻿namespace Application.Services.BusinessPlansService.Queries;
+﻿namespace Application.Services.BusinessPlansService.Commands;
 
 public struct ChangeStatusBusinessPlansQuery : IRequest<BusinessPlan?>
 {

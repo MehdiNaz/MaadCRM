@@ -13,15 +13,15 @@ public class ContactGroupRepository : IContactGroupRepository
     => await _context.ContactGroups.Where(x => x.ContactGroupStatus == Status.Show).ToListAsync();
 
     public async ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid contactGroupId)
-        => await _context.ContactGroups!.FirstOrDefaultAsync(x => x.ContactGroupId == contactGroupId && x.ContactGroupStatus == Status.Show);
+        => await _context.ContactGroups!.FirstOrDefaultAsync(x => x.Id == contactGroupId && x.ContactGroupStatus == Status.Show);
 
-    public async ValueTask<ContactGroup?> ChangeStateContactGroupAsync(Status status, Ulid contactGroupId)
+    public async ValueTask<ContactGroup?> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request)
     {
         try
         {
-            var item = await _context.ContactGroups!.FindAsync(contactGroupId);
+            var item = await _context.ContactGroups!.FindAsync(request.ContactGroupId);
             if (item is null) return null;
-            item.ContactGroupStatus = status;
+            item.ContactGroupStatus = request.ContactGroupStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,13 +31,18 @@ public class ContactGroupRepository : IContactGroupRepository
         }
     }
 
-    public async ValueTask<ContactGroup?> CreateContactGroupAsync(ContactGroup? entity)
+    public async ValueTask<ContactGroup?> CreateContactGroupAsync(CreateContactGroupCommand request)
     {
         try
         {
-            await _context.ContactGroups!.AddAsync(entity!);
+            ContactGroup item = new()
+            {
+                GroupName = request.GroupName,
+                DisplayOrder = request.DisplayOrder
+            };
+            await _context.ContactGroups!.AddAsync(item!);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -45,13 +50,20 @@ public class ContactGroupRepository : IContactGroupRepository
         }
     }
 
-    public async ValueTask<ContactGroup?> UpdateContactGroupAsync(ContactGroup entity, Ulid contactGroupId)
+    public async ValueTask<ContactGroup?> UpdateContactGroupAsync(UpdateContactGroupCommand request)
     {
         try
         {
-            _context.Update(entity);
+            ContactGroup item = new()
+            {
+                Id = request.Id,
+                GroupName = request.GroupName,
+                DisplayOrder = request.DisplayOrder
+            };
+
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return entity;
+            return item;
         }
         catch
         {
@@ -59,11 +71,11 @@ public class ContactGroupRepository : IContactGroupRepository
         }
     }
 
-    public async ValueTask<ContactGroup?> DeleteContactGroupAsync(Ulid contactGroupId)
+    public async ValueTask<ContactGroup?> DeleteContactGroupAsync(DeleteContactGroupCommand request)
     {
         try
         {
-            var contactGroup = await GetContactGroupByIdAsync(contactGroupId);
+            var contactGroup = await GetContactGroupByIdAsync(request.Id);
             contactGroup!.ContactGroupStatus = Status.Show;
             await _context.SaveChangesAsync();
             return contactGroup;
