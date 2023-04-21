@@ -1,8 +1,8 @@
 ﻿namespace Domain.Mapping.Customers.Forosh;
 
-public class ForoshOrderMapping : IEntityTypeConfiguration<ForoshOrder>
+public class ForoshOrderMapping : IEntityTypeConfiguration<ForooshOrder>
 {
-    public void Configure(EntityTypeBuilder<ForoshOrder> builder)
+    public void Configure(EntityTypeBuilder<ForooshOrder> builder)
     {
         builder.ToTable("ForoshOrders");
         builder.HasKey(x => x.Id);

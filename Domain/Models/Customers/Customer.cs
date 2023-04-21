@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public class Customer : BaseEntity
+public partial class Customer : BaseEntity
 {
     public Customer()
     {
@@ -8,6 +8,12 @@ public class Customer : BaseEntity
         CustomerState = CustomerStateTypes.Belghoveh;
         CustomerStatus = Status.Show;
         CustomerActivationStatus = CustomerActivationStatus.Active;
+        EmailAddresses = new HashSet<CustomersEmailAddress>();
+        PhoneNumbers = new HashSet<CustomersPhoneNumber>();
+        CustomerNotes = new HashSet<CustomerNote>();
+        CustomerPeyGiries = new HashSet<CustomerPeyGiry>();
+        FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
+        CustomerAddresses = new HashSet<CustomerAddress>();
     }
 
     public Ulid Id { get; set; }
@@ -15,40 +21,44 @@ public class Customer : BaseEntity
     public required string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    public Ulid? CityId { get; set; }
     // public Ulid Id { get; set; }
-    public Ulid? CustomerCategoryId { get; set; }
     public GenderTypes? Gender { get; set; }
     public Status CustomerStatus { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 
-    // public string CreatedBy { get; set; }
-    // public string UpdatedBy { get; set; }
-    public string UserId { get; set; }
-    //public User User { get; set; }
-
-    #region Moaref
+    public Ulid? IdCity { get; set; }
+    public Ulid? CustomerCategoryId { get; set; }
     public Ulid? CustomerMoarefId { get; set; }
-    public Customer? CustomerMoaref { get; set; }
-    public ICollection<Customer>? CustomersMoaref { get; set; }
-    #endregion
+    public string IdUser { get; set; }
 
-    // public Business Business { get; set; }                                                             
-    public City? City { get; set; }                                                                    
-    // public CustomerCategory CustomerCategory { get; set; }                                             
-    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }                  
-    public ICollection<CustomersEmailAddress>? EmailAddresses { get; set; }                         
-    public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; set; }                            
-    public ICollection<CustomerNote>? CustomerNotes { get; set; }                                   
-    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }                            
-    public ICollection<CustomersAddress>? CustomersAddresses { get; set; }                          
-    public ICollection<ForoshFactor>? ForoshFactors { get; set; }                                   
+    // public virtual string CreatedBy { get; set; }
+    // public virtual string UpdatedBy { get; set; }
+    //public virtual User User { get; set; }
+    // public virtual Customer? CustomerMoaref { get; set; }
+    // public virtual Business Business { get; set; }     
+    // public virtual CustomerCategory CustomerCategory { get; set; }  
+    
+    public virtual User? IdUserNavigation { get; set; }
+    public virtual City? IdCityNavigation { get; set; }          
+
+    public virtual ICollection<CustomersEmailAddress>? EmailAddresses { get; set; }                         
+    public virtual ICollection<CustomersPhoneNumber>? PhoneNumbers { get; set; }                            
+    public virtual ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }   
+    public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
+    public virtual ICollection<CustomerAddress>? CustomerAddresses { get; set; }                          
+    public virtual ICollection<CustomerNote>? CustomerNotes { get; set; }
 
     #region Old Relations
-    public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
-    public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
-    public ICollection<CustomerActivity> CustomerActivities { get; set; }
-    public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistory { get; set; }
+    // public virtual ICollection<ForoshFactor>? ForooshFactors { get; set; }
+    // public virtual ICollection<Customer>? CustomersMoaref { get; set; }
+    // public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
+    // public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
+    // public ICollection<CustomerActivity> CustomerActivities { get; set; }
+    // public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistory { get; set; }
     #endregion
+    
+    
+    
+    public byte[] RowVersion { get; set; }
 }

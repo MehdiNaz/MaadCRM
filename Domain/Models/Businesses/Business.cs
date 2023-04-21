@@ -5,10 +5,9 @@ public class Business : BaseEntity
     public Business()
     {
         Id = Ulid.NewUlid();
-        BusinessStatus = Status.Show;
+        StatusBusiness = Status.Show;
         DisplayOrder = 0;
-        //DateCreated = DateTime.UtcNow;
-        //DateLastUpdate = DateTime.UtcNow;
+        CustomerNoteHashTables = new HashSet<CustomerNoteHashTable>();
     }
 
     public Ulid Id { get; set; }
@@ -17,16 +16,14 @@ public class Business : BaseEntity
     public string? Hosts { get; set; }
     public string? CompanyName { get; set; }
     public string? CompanyAddress { get; set; }
-    //public bool SslEnabled { get; set; }
     public int? DisplayOrder { get; set; }
-    //public Ulid? Id { get; set; }
-    //public Ulid? Id { get; set; }
-    //public Ulid? Id { get; set; }
+
+    public Status StatusBusiness { get; set; }
+
+    public virtual ICollection<CustomerNoteHashTable>? CustomerNoteHashTables { get; set; }
+
     //public Ulid? AttributeOptionsValueId { get; set; }
     //public Ulid? BusinessAttributeId { get; set; }
-    public Status BusinessStatus { get; set; }
-
-
     // public ICollection<User>? Users { get; set; }
     // public ICollection<Contact>? Contacts { get; set; }
     // public ICollection<ContactGroup>? ContactGroups { get; set; }

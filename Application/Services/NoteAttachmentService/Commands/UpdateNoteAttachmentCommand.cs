@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.Commands;
 
-public struct UpdateNoteAttachmentCommand : IRequest<NoteAttachment>
+public struct UpdateNoteAttachmentCommand : IRequest<CustomerNoteAttachment>
 {
     public Ulid Id { get; set; }
     public Ulid CustomerNoteId { get; set; }

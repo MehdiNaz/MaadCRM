@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.Commands;
 
-public struct CreateForoshOrderCommand : IRequest<ForoshOrder>
+public struct CreateForoshOrderCommand : IRequest<ForooshOrder>
 {
     public DateOnly PaymentDate { get; set; }
     public decimal Price { get; set; }

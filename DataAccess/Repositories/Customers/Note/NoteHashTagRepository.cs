@@ -9,19 +9,24 @@ public class NoteHashTagRepository : INoteHashTagRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<NoteHashTag?>> GetAllNoteHashTagsAsync()
-        => await _context.NoteHashTags.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
+    public async ValueTask<ICollection<CustomerNoteHashTag?>> GetAllNoteHashTagsAsync()
+        => await _context.NoteHashTags.Where(x => x.StatusNoteHashTag == Status.Show).ToListAsync();
 
-    public async ValueTask<NoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
-        => await _context.NoteHashTags.FirstOrDefaultAsync(x => x.Id == noteHashTagId && x.NoteHashTagStatus == Status.Show);
+    public async ValueTask<CustomerNoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
+    {
+        // TODO: Fix x.IdCustomerNote == noteHashTagId
+        return await _context.NoteHashTags.FirstOrDefaultAsync(x =>
+            x.IdNoteHashTable == noteHashTagId && x.IdCustomerNote == noteHashTagId &&
+            x.StatusNoteHashTag == Status.Show);
+    }
 
-    public async ValueTask<NoteHashTag?> ChangeStatusNoteHashTagByIdAsync(ChangeStatusNoteHashTagCommand request)
+    public async ValueTask<CustomerNoteHashTag?> ChangeStatusNoteHashTagByIdAsync(ChangeStatusNoteHashTagCommand request)
     {
         try
         {
             var item = await _context.NoteHashTags!.FindAsync(request.Id);
             if (item is null) return null;
-            item.NoteHashTagStatus = request.NoteHashTagStatus;
+            item.StatusNoteHashTag = request.NoteHashTagStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,14 +36,14 @@ public class NoteHashTagRepository : INoteHashTagRepository
         }
     }
 
-    public async ValueTask<NoteHashTag?> CreateNoteHashTagAsync(CreateNoteHashTagCommand request)
+    public async ValueTask<CustomerNoteHashTag?> CreateNoteHashTagAsync(CreateNoteHashTagCommand request)
     {
         try
         {
-            NoteHashTag item = new()
+            CustomerNoteHashTag item = new()
             {
-                CustomerNoteId = request.CustomerNoteId,
-                NoteHashTableId = request.NoteHashTableId
+                IdCustomerNote = request.CustomerNoteId,
+                IdNoteHashTable = request.NoteHashTableId
             };
             await _context.NoteHashTags!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -50,15 +55,14 @@ public class NoteHashTagRepository : INoteHashTagRepository
         }
     }
 
-    public async ValueTask<NoteHashTag?> UpdateNoteHashTagAsync(UpdateNoteHashTagCommand request)
+    public async ValueTask<CustomerNoteHashTag?> UpdateNoteHashTagAsync(UpdateNoteHashTagCommand request)
     {
         try
         {
-            NoteHashTag item = new()
+            CustomerNoteHashTag item = new()
             {
-                Id = request.Id,
-                CustomerNoteId = request.CustomerNoteId,
-                NoteHashTableId = request.NoteHashTableId
+                IdCustomerNote = request.CustomerNoteId,
+                IdNoteHashTable = request.NoteHashTableId
             };
 
             _context.Update(item);
@@ -71,12 +75,12 @@ public class NoteHashTagRepository : INoteHashTagRepository
         }
     }
 
-    public async ValueTask<NoteHashTag?> DeleteNoteHashTagAsync(DeleteNoteHashTagCommand request)
+    public async ValueTask<CustomerNoteHashTag?> DeleteNoteHashTagAsync(DeleteNoteHashTagCommand request)
     {
         try
         {
             var noteHashTag = await GetNoteHashTagByIdAsync(request.Id);
-            noteHashTag!.NoteHashTagStatus = Status.Deleted;
+            noteHashTag!.StatusNoteHashTag = Status.Deleted;
             await _context.SaveChangesAsync();
             return noteHashTag;
         }

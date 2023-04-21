@@ -6,15 +6,24 @@ public class CustomerNote : BaseEntity
     {
         Id = Ulid.NewUlid();
         CustomerNoteStatus = Status.Show;
+        NoteHashTags = new HashSet<CustomerNoteHashTag>();
+        NoteAttachments = new HashSet<CustomerNoteAttachment>();
     }
 
     public Ulid Id { get; set; }
     public string Description { get; set; }
-    public Ulid CustomerId { get; set; }
     public Status CustomerNoteStatus { get; set; }
-    public Ulid? ProductId { get; set; }
+    
+    public Ulid? IdProduct { get; set; }
+    public virtual Product? IdProductNavigation { get; set; }
 
-    // public Customer Customer { get; set; }
-    public ICollection<NoteHashTag>? NoteHashTags { get; set; }
-    public ICollection<NoteAttachment>? NoteAttachments { get; set; }
+    public required Ulid IdCustomer { get; set; }
+    public virtual Customer? IdCustomerNavigation { get; set; }
+    
+    
+    public virtual ICollection<CustomerNoteHashTag>? NoteHashTags { get; set; }
+    public virtual ICollection<CustomerNoteAttachment>? NoteAttachments { get; set; }
+    
+    
+    public byte[] RowVersion { get; set; }
 }

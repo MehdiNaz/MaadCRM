@@ -17,5 +17,5 @@ public class ForoshFactor : BaseEntity
     public Status ForoshFactorStatus { get; set; }
 
     // public Customer Customer { get; set; }
-    public CustomersAddress CustomersAddress { get; set; }
+    public CustomerAddress CustomersAddress { get; set; }
 }

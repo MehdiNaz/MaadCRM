@@ -10,10 +10,10 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
     }
 
     public async ValueTask<ICollection<CustomersPhoneNumber?>> GetAllPhoneNumbersAsync()
-        => await _context.CustomersPhoneNumbers.Where(x => x.CustomersPhoneNumberStatus == Status.Show).ToListAsync();
+        => await _context.CustomersPhoneNumbers.Where(x => x.StatusCustomersPhoneNumber == Status.Show).ToListAsync();
 
     public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId)
-        => await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.Id == phoneNumberId && x.CustomersPhoneNumberStatus == Status.Show);
+        => await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.Id == phoneNumberId && x.StatusCustomersPhoneNumber == Status.Show);
 
     public async ValueTask<CustomersPhoneNumber?> ChangeStatusPhoneNumberByIdAsync(ChangeStatusCustomerPhoneNumberCommand request)
     {
@@ -21,7 +21,7 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
         {
             var item = await _context.CustomersPhoneNumbers.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomersPhoneNumberStatus = request.ContactPhoneNumberStatus;
+            item.StatusCustomersPhoneNumber = request.ContactPhoneNumberStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -38,7 +38,8 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
             CustomersPhoneNumber item = new()
             {
                 PhoneNo = request.PhoneNo,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId,
+                PhoneType = PhoneTypes.Phone
             };
             await _context.CustomersPhoneNumbers!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -58,7 +59,8 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
             {
                 Id = request.Id,
                 PhoneNo = request.PhoneNo,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId,
+                PhoneType = PhoneTypes.Phone
             };
 
             _context.Update(item);
@@ -76,7 +78,7 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
         try
         {
             var phoneNumber = await GetPhoneNumberByIdAsync(request.Id);
-            phoneNumber!.CustomersPhoneNumberStatus = Status.Show;
+            phoneNumber!.StatusCustomersPhoneNumber = Status.Show;
             await _context.SaveChangesAsync();
             return phoneNumber;
         }

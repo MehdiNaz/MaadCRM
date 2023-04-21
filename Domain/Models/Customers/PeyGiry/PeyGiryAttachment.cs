@@ -9,10 +9,15 @@ public class PeyGiryAttachment : BaseEntity
     }
 
     public Ulid Id { get; set; }
-    public Ulid PeyGiryNoteId { get; set; }
-    public byte[] FileName { get; set; }
+    public required byte[] FileName { get; set; }
     public string Extenstion { get; set; }
     public Status StatusPeyGiryAttachment { get; set; }
+    
+    
+    public Ulid IdPeyGiry { get; set; }
+    public virtual CustomerPeyGiry? IdCustomerPeyGiryNavigation { get; set; }
+    
+    
+    public byte[] RowVersion { get; set; }
 
-    // public CustomerPeyGiry CustomerPeyGiry { get; set; }
 }

@@ -4,14 +4,22 @@ public class ProductCustomerFavoritesList : BaseEntity
 {
     public ProductCustomerFavoritesList()
     {
-        ProductId = Ulid.NewUlid();
-        ProductCustomerFavoritesListStatus = Status.Show;
+        // Id = Ulid.NewUlid();
+        StatusProductCustomerFavoritesList = Status.Show;
     }
 
-    public Ulid? ProductId { get; set; }
-    public Ulid CustomerId { get; set; }
-    public Status ProductCustomerFavoritesListStatus { get; set; }
+    // public Ulid Id { get; set; }
+    public Status StatusProductCustomerFavoritesList { get; set; }
 
+    
+    public Ulid IdProduct { get; set; }
+    public virtual Product? IdProductNavigation { get; set; }
+    
+    public Ulid IdCustomer { get; set; }
+    public virtual Customer? IdCustomerNavigation { get; set; }
+    
+    public byte[] RowVersion { get; set; }
+    
     // public Product Product { get; set; }
     // public Customer Customer { get; set; }
 }

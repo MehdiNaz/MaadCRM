@@ -1,6 +1,6 @@
 ﻿namespace Application.Validator.Customers.Forosh;
 
-public class ForoshOrderValidation : AbstractValidator<ForoshOrder>
+public class ForoshOrderValidation : AbstractValidator<ForooshOrder>
 {
     public ForoshOrderValidation()
     {

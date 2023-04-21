@@ -5,6 +5,7 @@ public class User : IdentityUser
     public User()
     {
         UserStatus = Status.Show;
+        Customers = new HashSet<Customer>();
     }
 
     public string? Name { get; set; }
@@ -36,18 +37,18 @@ public class User : IdentityUser
     // public Business Business { get; set; }
     // public City? City { get; set; }
     //public ICollection<Business>? Businesses { get; set; }
-    public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
+    // public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
     public ICollection<Log>? Logs { get; set; }
-    public ICollection<SanAt>? SanAts { get; set; }
+    // public ICollection<SanAt>? SanAts { get; set; }
     public ICollection<Customer>? Customers { get; set; }  
-    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
-    public ICollection<Plan>? Plans { get; set; }  
+    // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
+    // public ICollection<Plan>? Plans { get; set; }  
     // public ICollection<CustomerCategory>? CustomerCategories { get; set; }
     // public ICollection<Business>? Businesses { get; set; }
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
     // public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
-    public ICollection<CustomerNote>? CustomerNotes { get; set; }
-    public ICollection<NoteHashTag>? NoteHashTags{ get; set; }
+    // public ICollection<CustomerNote>? CustomerNotes { get; set; }
+    // public ICollection<CustomerNoteHashTag>? NoteHashTags{ get; set; }
 }

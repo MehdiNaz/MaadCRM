@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.CommandHandler;
 
-public readonly struct DeleteCustomersAddressCommandHandler : IRequestHandler<DeleteCustomersAddressCommand, CustomersAddress>
+public readonly struct DeleteCustomersAddressCommandHandler : IRequestHandler<DeleteCustomersAddressCommand, CustomerAddress>
 {
     private readonly ICustomersAddressRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct DeleteCustomersAddressCommandHandler : IRequestHandler<De
         _repository = repository;
     }
 
-    public async Task<CustomersAddress> Handle(DeleteCustomersAddressCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerAddress> Handle(DeleteCustomersAddressCommand request, CancellationToken cancellationToken)
         => (await _repository.DeleteAddressAsync(request))!;
 }

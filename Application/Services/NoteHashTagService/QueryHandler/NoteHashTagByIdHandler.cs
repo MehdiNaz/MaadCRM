@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTagService.QueryHandler;
 
-public readonly struct NoteHashTagByIdHandler : IRequestHandler<NoteHashTagByIdQuery, NoteHashTag>
+public readonly struct NoteHashTagByIdHandler : IRequestHandler<NoteHashTagByIdQuery, CustomerNoteHashTag>
 {
     private readonly INoteHashTagRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct NoteHashTagByIdHandler : IRequestHandler<NoteHashTagByIdQ
         _repository = repository;
     }
 
-    public async Task<NoteHashTag> Handle(NoteHashTagByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteHashTag> Handle(NoteHashTagByIdQuery request, CancellationToken cancellationToken)
         => (await _repository.GetNoteHashTagByIdAsync(request.NoteHashTagId))!;
 }

@@ -9,13 +9,13 @@ public class NoteHashTableRepository : INoteHashTableRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<NoteHashTable?>> GetAllNoteHashTablesAsync(Ulid customerId)
+    public async ValueTask<ICollection<CustomerNoteHashTable?>> GetAllNoteHashTablesAsync(Ulid customerId)
         => await _context.NoteHashTables.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<NoteHashTable?> GetNoteHashTableByIdAsync(Ulid noteHashTableId)
+    public async ValueTask<CustomerNoteHashTable?> GetNoteHashTableByIdAsync(Ulid noteHashTableId)
         => await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatus == Status.Show);
 
-    public async ValueTask<NoteHashTable?> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request)
+    public async ValueTask<CustomerNoteHashTable?> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request)
     {
         try
         {
@@ -31,14 +31,14 @@ public class NoteHashTableRepository : INoteHashTableRepository
         }
     }
 
-    public async ValueTask<NoteHashTable?> CreateNoteHashTableAsync(CreateNoteHashTableCommand entity)
+    public async ValueTask<CustomerNoteHashTable?> CreateNoteHashTableAsync(CreateNoteHashTableCommand entity)
     {
         try
         {
-            NoteHashTable noteHashTable = new()
+            CustomerNoteHashTable noteHashTable = new()
             {
                 Title = entity.Title,
-                BusinessId = entity.BusinessId
+                IdBusiness = entity.BusinessId
             };
             await _context.NoteHashTables!.AddAsync(noteHashTable);
             await _context.SaveChangesAsync();
@@ -50,15 +50,15 @@ public class NoteHashTableRepository : INoteHashTableRepository
         }
     }
 
-    public async ValueTask<NoteHashTable?> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand entity)
+    public async ValueTask<CustomerNoteHashTable?> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand entity)
     {
         try
         {
-            NoteHashTable noteHashTable = new()
+            CustomerNoteHashTable noteHashTable = new()
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                BusinessId = entity.BusinessId
+                IdBusiness = entity.BusinessId
             };
             _context.Update(noteHashTable);
             await _context.SaveChangesAsync();
@@ -70,7 +70,7 @@ public class NoteHashTableRepository : INoteHashTableRepository
         }
     }
 
-    public async ValueTask<NoteHashTable?> DeleteNoteHashTableAsync(DeleteNoteHashTableCommand request)
+    public async ValueTask<CustomerNoteHashTable?> DeleteNoteHashTableAsync(DeleteNoteHashTableCommand request)
     {
         try
         {

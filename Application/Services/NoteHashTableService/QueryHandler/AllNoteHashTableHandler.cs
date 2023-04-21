@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTableService.QueryHandler;
 
-public readonly struct AllNoteHashTableHandler : IRequestHandler<AllNoteHashTableQuery, ICollection<NoteHashTable>>
+public readonly struct AllNoteHashTableHandler : IRequestHandler<AllNoteHashTableQuery, ICollection<CustomerNoteHashTable>>
 {
     private readonly INoteHashTableRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct AllNoteHashTableHandler : IRequestHandler<AllNoteHashTabl
         _repository = repository;
     }
 
-    public async Task<ICollection<NoteHashTable>> Handle(AllNoteHashTableQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<CustomerNoteHashTable>> Handle(AllNoteHashTableQuery request, CancellationToken cancellationToken)
         => await _repository.GetAllNoteHashTablesAsync(request.BusinessId);
 }

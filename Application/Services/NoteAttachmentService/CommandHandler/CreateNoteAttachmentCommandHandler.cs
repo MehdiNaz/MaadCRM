@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.CommandHandler;
 
-public readonly struct CreateNoteAttachmentCommandHandler : IRequestHandler<CreateNoteAttachmentCommand, NoteAttachment>
+public readonly struct CreateNoteAttachmentCommandHandler : IRequestHandler<CreateNoteAttachmentCommand, CustomerNoteAttachment>
 {
     private readonly INoteAttachmentRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateNoteAttachmentCommandHandler : IRequestHandler<Crea
         _repository = repository;
     }
 
-    public async Task<NoteAttachment> Handle(CreateNoteAttachmentCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteAttachment> Handle(CreateNoteAttachmentCommand request, CancellationToken cancellationToken)
     {
         CreateNoteAttachmentCommand item = new()
         {

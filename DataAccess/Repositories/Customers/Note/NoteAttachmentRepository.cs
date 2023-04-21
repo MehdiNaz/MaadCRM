@@ -9,13 +9,13 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<NoteAttachment?>> GetAllNoteAttachmentsAsync()
+    public async ValueTask<ICollection<CustomerNoteAttachment?>> GetAllNoteAttachmentsAsync()
         => await _context.NoteAttachments.Where(x => x.NoteAttachmentStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<NoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
+    public async ValueTask<CustomerNoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
         => await _context.NoteAttachments.FirstOrDefaultAsync(x => x.Id == noteAttachmentId && x.NoteAttachmentStatus == Status.Show);
 
-    public async ValueTask<NoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(ChangeStatusNoteAttachmentCommand request)
+    public async ValueTask<CustomerNoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(ChangeStatusNoteAttachmentCommand request)
     {
         try
         {
@@ -31,13 +31,13 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> CreateNoteAttachmentAsync(CreateNoteAttachmentCommand request)
+    public async ValueTask<CustomerNoteAttachment?> CreateNoteAttachmentAsync(CreateNoteAttachmentCommand request)
     {
         try
         {
-            NoteAttachment item = new()
+            CustomerNoteAttachment item = new()
             {
-                CustomerNoteId = request.CustomerNoteId,
+                IdCustomerNote = request.CustomerNoteId,
                 FileName = request.FileName,
                 Extenstion = request.Extenstion
             };
@@ -51,14 +51,14 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> UpdateNoteAttachmentAsync(UpdateNoteAttachmentCommand request)
+    public async ValueTask<CustomerNoteAttachment?> UpdateNoteAttachmentAsync(UpdateNoteAttachmentCommand request)
     {
         try
         {
-            NoteAttachment item = new()
+            CustomerNoteAttachment item = new()
             {
                 Id = request.Id,
-                CustomerNoteId = request.CustomerNoteId,
+                IdCustomerNote = request.CustomerNoteId,
                 FileName = request.FileName,
                 Extenstion = request.Extenstion
             };
@@ -72,7 +72,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<NoteAttachment?> DeleteNoteAttachmentAsync(DeleteNoteAttachmentCommand request)
+    public async ValueTask<CustomerNoteAttachment?> DeleteNoteAttachmentAsync(DeleteNoteAttachmentCommand request)
     {
         try
         {

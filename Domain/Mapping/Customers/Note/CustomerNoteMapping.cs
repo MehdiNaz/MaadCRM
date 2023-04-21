@@ -8,10 +8,22 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Description);
 
-        //builder.HasMany(x => x.CustomerHashTags).WithOne(x => x.CustomerNote).HasForeignKey(x => x.Id);
-        //builder.HasMany(x => x.NoteAttachments).WithOne(x => x.CustomerNote).HasForeignKey(x => x.Id);
+        builder.Property(e => e.RowVersion)
+            .IsRequired()
+            .HasColumnName("rowversion")
+            .IsRowVersion()
+            .IsConcurrencyToken();
 
-        // builder.HasOne(x => x.User).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.CreatedBy);
-        // builder.HasOne(x => x.User).WithMany(x => x.CustomerNotes).HasForeignKey(x => x.UpdatedBy);
+        builder.HasOne(x => x.IdCustomerNavigation)
+            .WithMany(x => x.CustomerNotes)
+            .HasForeignKey(x => x.IdCustomer)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_CustomerNote_Customers");
+
+        builder.HasOne(x => x.IdProductNavigation)
+            .WithMany(x => x.CustomerNotes)
+            .HasForeignKey(x => x.IdProduct)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_CustomerNote_Product");
     }
 }

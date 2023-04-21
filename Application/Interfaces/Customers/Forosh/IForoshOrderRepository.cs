@@ -2,10 +2,10 @@
 
 public interface IForoshOrderRepository
 {
-    ValueTask<ICollection<ForoshOrder?>> GetAllForoshOrdersAsync();
-    ValueTask<ForoshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId);
-    ValueTask<ForoshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request);
-    ValueTask<ForoshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request);
-    ValueTask<ForoshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request);
-    ValueTask<ForoshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request);
+    ValueTask<ICollection<ForooshOrder?>> GetAllForoshOrdersAsync();
+    ValueTask<ForooshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId);
+    ValueTask<ForooshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request);
+    ValueTask<ForooshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request);
+    ValueTask<ForooshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request);
+    ValueTask<ForooshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request);
 }

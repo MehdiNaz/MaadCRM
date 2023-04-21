@@ -7,7 +7,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
         builder.ToTable("Products");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ProductName).HasMaxLength(255).IsRequired();
-        builder.Property(x => x.ProductCategoryId).IsRequired();
+        builder.Property(x => x.IdProductCategory).IsRequired();
         builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Summery).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Price).IsRequired();

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.CommandHandler;
 
-public readonly struct ChangeStatusNoteAttachmentCommandHandler : IRequestHandler<ChangeStatusNoteAttachmentCommand, NoteAttachment?>
+public readonly struct ChangeStatusNoteAttachmentCommandHandler : IRequestHandler<ChangeStatusNoteAttachmentCommand, CustomerNoteAttachment?>
 {
     private readonly INoteAttachmentRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct ChangeStatusNoteAttachmentCommandHandler : IRequestHandle
         _repository = repository;
     }
 
-    public async Task<NoteAttachment?> Handle(ChangeStatusNoteAttachmentCommand request,
+    public async Task<CustomerNoteAttachment?> Handle(ChangeStatusNoteAttachmentCommand request,
         CancellationToken cancellationToken)
         => await _repository.ChangeStatusNoteAttachmentByIdAsync(request);
 }

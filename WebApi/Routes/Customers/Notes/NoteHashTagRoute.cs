@@ -80,15 +80,14 @@ public static class NoteHashTagRoute
             {
                 var result = await mediator.Send(new UpdateNoteHashTagCommand
                 {
-                    Id = request.Id,
-                    // Title = request.Title,
-                    CustomerNoteId = request.CustomerNoteId
+                    CustomerNoteId = request.CustomerNoteId,
+                    NoteHashTableId = request.NoteHashTableId
                 });
                 return Results.Ok(result);
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(e.Message);
             }
         });
 

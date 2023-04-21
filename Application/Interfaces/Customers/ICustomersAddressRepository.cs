@@ -2,10 +2,10 @@
 
 public interface ICustomersAddressRepository
 {
-    ValueTask<ICollection<CustomersAddress?>> GetAllAddressesAsync(Ulid customerId);
-    ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId);
-    ValueTask<CustomersAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request);
-    ValueTask<CustomersAddress?> CreateAddressAsync(CreateCustomersAddressCommand request);
-    ValueTask<CustomersAddress?> UpdateAddressAsync(UpdateCustomersAddressCommand request);
-    ValueTask<CustomersAddress?> DeleteAddressAsync(DeleteCustomersAddressCommand request);
+    ValueTask<ICollection<CustomerAddress?>> GetAllAddressesAsync(Ulid customerId);
+    ValueTask<CustomerAddress?> GetAddressByIdAsync(Ulid customersAddressId);
+    ValueTask<CustomerAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request);
+    ValueTask<CustomerAddress?> CreateAddressAsync(CreateCustomersAddressCommand request);
+    ValueTask<CustomerAddress?> UpdateAddressAsync(UpdateCustomersAddressCommand request);
+    ValueTask<CustomerAddress?> DeleteAddressAsync(DeleteCustomersAddressCommand request);
 }

@@ -5,16 +5,19 @@ public class CustomersPhoneNumber : BaseEntity
     public CustomersPhoneNumber()
     {
         Id = Ulid.NewUlid();
-        CustomersPhoneNumberStatus = Status.Show;
+        StatusCustomersPhoneNumber = Status.Show;
         PhoneType = PhoneTypes.Mobile;
     }
 
     public Ulid Id { get; set; }
-    public string PhoneNo { get; set; }
-    public PhoneTypes PhoneType { get; set; }
-    public Ulid CustomerId { get; set; }
-    public Status CustomersPhoneNumberStatus { get; set; }
+    public required string PhoneNo { get; set; }
+    public required PhoneTypes PhoneType { get; set; }
+    public Status StatusCustomersPhoneNumber { get; set; }
 
+    
+    public Ulid IdCustomer { get; set; }
 
-    // public Customer Customer { get; set; }
+    public virtual Customer? IdCustomerNavigation { get; set; }
+    
+    public byte[] RowVersion { get; set; }
 }

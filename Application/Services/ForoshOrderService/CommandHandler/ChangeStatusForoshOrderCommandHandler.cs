@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
-public readonly struct ChangeStatusForoshOrderCommandHandler : IRequestHandler<ChangeStatusForoshOrderCommand, ForoshOrder?>
+public readonly struct ChangeStatusForoshOrderCommandHandler : IRequestHandler<ChangeStatusForoshOrderCommand, ForooshOrder?>
 {
     private readonly IForoshOrderRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct ChangeStatusForoshOrderCommandHandler : IRequestHandler<C
         _repository = repository;
     }
 
-    public async Task<ForoshOrder?> Handle(ChangeStatusForoshOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ForooshOrder?> Handle(ChangeStatusForoshOrderCommand request, CancellationToken cancellationToken)
         => await _repository.ChangeStatusForoshOrderByIdAsync(request);
 }

@@ -1,16 +1,20 @@
 ﻿namespace Domain.Models.Customers.Notes;
 
-public class NoteHashTag : BaseEntity
+public class CustomerNoteHashTag : BaseEntity
 {
-    public NoteHashTag()
+    public CustomerNoteHashTag()
     {
-        Id = Ulid.NewUlid();
-        NoteHashTagStatus = Status.Show;
+        StatusNoteHashTag = Status.Show;
     }
 
-    public Ulid Id { get; set; }
-    public Ulid CustomerNoteId { get; set; }
-    public Ulid NoteHashTableId { get; set; }
-    public Status NoteHashTagStatus { get; set; }
-    public NoteHashTable NoteHashTable { get; set; }
+    public Status StatusNoteHashTag { get; set; }
+    
+    public required Ulid IdCustomerNote { get; set; }
+    public virtual CustomerNote? IdCustomerNoteNavigation { get; set; }
+    
+    public required Ulid IdNoteHashTable { get; set; }
+    public virtual CustomerNoteHashTable? IdNoteHashTableNavigation { get; set; }
+    
+    
+    public byte[] RowVersion { get; set; }
 }

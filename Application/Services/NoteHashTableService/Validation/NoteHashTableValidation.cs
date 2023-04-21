@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTableService.Validation;
 
-public class NoteHashTableValidation : AbstractValidator<NoteHashTable>
+public class NoteHashTableValidation : AbstractValidator<CustomerNoteHashTable>
 {
     public NoteHashTableValidation()
     {

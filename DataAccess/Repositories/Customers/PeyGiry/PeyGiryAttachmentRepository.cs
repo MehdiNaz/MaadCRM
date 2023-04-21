@@ -37,7 +37,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         {
             PeyGiryAttachment item = new()
             {
-                PeyGiryNoteId = request.PeyGiryNoteId,
+                IdPeyGiry = request.PeyGiryNoteId,
                 FileName = request.FileName,
                 Extenstion = request.Extenstion
             };
@@ -58,7 +58,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
             PeyGiryAttachment item = new()
             {
                 Id = request.Id,
-                PeyGiryNoteId = request.PeyGiryNoteId,
+                IdPeyGiry = request.PeyGiryNoteId,
                 FileName = request.FileName,
                 Extenstion = request.Extenstion
             };

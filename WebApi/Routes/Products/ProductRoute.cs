@@ -94,7 +94,6 @@ public static class ProductRoute
                     SecondaryPrice = request.SecondaryPrice,
                     Discount = request.Discount,
                     DiscountPercent = request.DiscountPercent,
-                    FavoritesListId = request.FavoritesListId,
                     Picture = request.Picture
                 });
                 return result == null ? Results.BadRequest(result) : Results.Ok(result);

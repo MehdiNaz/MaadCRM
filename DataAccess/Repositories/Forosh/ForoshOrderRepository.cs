@@ -9,13 +9,13 @@ public class ForoshOrderRepository : IForoshOrderRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ForoshOrder?>> GetAllForoshOrdersAsync()
+    public async ValueTask<ICollection<ForooshOrder?>> GetAllForoshOrdersAsync()
         => await _context.ForoshOrders.Where(x => x.ForoshOrderStatus == Status.Show).ToListAsync();
 
-    public async ValueTask<ForoshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
+    public async ValueTask<ForooshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
         => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.Id == foroshOrderId && x.ForoshOrderStatus == Status.Show);
 
-    public async ValueTask<ForoshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request)
+    public async ValueTask<ForooshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request)
     {
         try
         {
@@ -31,11 +31,11 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request)
+    public async ValueTask<ForooshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request)
     {
         try
         {
-            ForoshOrder item = new()
+            ForooshOrder item = new()
             {
                 PaymentDate = request.PaymentDate,
                 Price = request.Price,
@@ -57,11 +57,11 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request)
+    public async ValueTask<ForooshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request)
     {
         try
         {
-            ForoshOrder item = new()
+            ForooshOrder item = new()
             {
                 Id = request.Id,
                 PaymentDate = request.PaymentDate,
@@ -84,7 +84,7 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForoshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request)
+    public async ValueTask<ForooshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request)
     {
         try
         {

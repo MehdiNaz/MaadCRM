@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTableService.CommandHandler;
 
-public readonly struct UpdateNoteHashTableCommandHandler : IRequestHandler<UpdateNoteHashTableCommand, NoteHashTable>
+public readonly struct UpdateNoteHashTableCommandHandler : IRequestHandler<UpdateNoteHashTableCommand, CustomerNoteHashTable>
 {
     private readonly INoteHashTableRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct UpdateNoteHashTableCommandHandler : IRequestHandler<Updat
         _repository = repository;
     }
 
-    public async Task<NoteHashTable> Handle(UpdateNoteHashTableCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteHashTable> Handle(UpdateNoteHashTableCommand request, CancellationToken cancellationToken)
     {
         UpdateNoteHashTableCommand item = new()
         {

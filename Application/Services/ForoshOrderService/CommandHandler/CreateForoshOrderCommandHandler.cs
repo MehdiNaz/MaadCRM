@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
-public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForoshOrder>
+public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForooshOrder>
 {
     private readonly IForoshOrderRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateF
         _repository = repository;
     }
 
-    public async Task<ForoshOrder> Handle(CreateForoshOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ForooshOrder> Handle(CreateForoshOrderCommand request, CancellationToken cancellationToken)
     {
         CreateForoshOrderCommand item = new()
         {

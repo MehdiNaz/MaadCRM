@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.CommandHandler;
 
-public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<CreateCustomersAddressCommand, CustomersAddress>
+public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<CreateCustomersAddressCommand, CustomerAddress>
 {
     private readonly ICustomersAddressRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<Cr
         _repository = repository;
     }
 
-    public async Task<CustomersAddress> Handle(CreateCustomersAddressCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerAddress> Handle(CreateCustomersAddressCommand request, CancellationToken cancellationToken)
     {
         CreateCustomersAddressCommand item = new()
         {

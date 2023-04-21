@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.NoteAttachmentService.Queries;
 
-public struct AllNoteAttachmentQuery : IRequest<ICollection<NoteAttachment>>
+public struct AllNoteAttachmentQuery : IRequest<ICollection<CustomerNoteAttachment>>
 {
 }

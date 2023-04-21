@@ -10,7 +10,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
     }
 
     public async ValueTask<ICollection<CustomerNote?>> GetAllCustomerNotesAsync(Ulid customerId)
-        => await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
+        => await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.IdCustomer == customerId).ToListAsync();
 
     public async ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId)
         => await _context.CustomerNotes.FirstOrDefaultAsync(x => x.Id == customerNoteId && x.CustomerNoteStatus == Status.Show);
@@ -37,8 +37,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         {
             CustomerNote newEntity = new()
             {
-                CustomerId = entity.CustomerId,
-                ProductId = entity.ProductId,
+                IdCustomer = entity.CustomerId,
+                IdProduct = entity.ProductId,
                 Description = entity.Description
 
             };
@@ -49,23 +49,23 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             if (result == 0)
                 return null;
 
-            foreach (var entityHashTagId in entity.HashTagIds)
-            {
-                NoteHashTag newHashTable = new()
-                {
-                    NoteHashTableId = entityHashTagId
-                };
-                await _context.NoteHashTags.AddAsync(newHashTable);
-            }
+            // foreach (var entityHashTagId in entity.HashTagIds)
+            // {
+            //     CustomerNoteHashTag newHashTable = new()
+            //     {
+            //         IdNoteHashTable = entityHashTagId
+            //     };
+            //     await _context.NoteHashTags.AddAsync(newHashTable);
+            // }
 
-            foreach (var customerNoteId in entity.CustomerNoteId)
-            {
-                NoteHashTag newHashTable = new()
-                {
-                    CustomerNoteId = customerNoteId
-                };
-                await _context.NoteHashTags.AddAsync(newHashTable);
-            }
+            // foreach (var customerNoteId in entity.CustomerNoteId)
+            // {
+            //     CustomerNoteHashTag newHashTable = new()
+            //     {
+            //         IdCustomerNote = customerNoteId,
+            //     };
+            //     await _context.NoteHashTags.AddAsync(newHashTable);
+            // }
 
             await _context.SaveChangesAsync();
 
@@ -93,8 +93,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         {
             CustomerNote newEntity = new()
             {
-                CustomerId = entity.CustomerId,
-                ProductId = entity.ProductId,
+                IdCustomer = entity.CustomerId,
+                IdProduct = entity.ProductId,
                 Description = entity.Description
 
             };
@@ -105,23 +105,23 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             if (result == 0)
                 return null;
 
-            foreach (var entityHashTagId in entity.HashTagIds)
-            {
-                NoteHashTag newHashTable = new()
-                {
-                    NoteHashTableId = entityHashTagId
-                };
-                await _context.NoteHashTags.AddAsync(newHashTable);
-            }
+            // foreach (var entityHashTagId in entity.HashTagIds)
+            // {
+            //     CustomerNoteHashTag newHashTable = new()
+            //     {
+            //         IdNoteHashTable = entityHashTagId
+            //     };
+            //     await _context.NoteHashTags.AddAsync(newHashTable);
+            // }
 
-            foreach (var customerNoteId in entity.CustomerNoteId)
-            {
-                NoteHashTag newHashTable = new()
-                {
-                    CustomerNoteId = customerNoteId
-                };
-                await _context.NoteHashTags.AddAsync(newHashTable);
-            }
+            // foreach (var customerNoteId in entity.CustomerNoteId)
+            // {
+            //     CustomerNoteHashTag newHashTable = new()
+            //     {
+            //         IdCustomerNote = customerNoteId
+            //     };
+            //     await _context.NoteHashTags.AddAsync(newHashTable);
+            // }
 
             await _context.SaveChangesAsync();
 

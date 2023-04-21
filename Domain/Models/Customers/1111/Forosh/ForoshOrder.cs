@@ -1,8 +1,8 @@
 ﻿namespace Domain.Models.Customers.Forosh;
 
-public class ForoshOrder : BaseEntity
+public class ForooshOrder : BaseEntity
 {
-    public ForoshOrder()
+    public ForooshOrder()
     {
         Id = Ulid.NewUlid();
         ForoshOrderStatus = Status.Show;

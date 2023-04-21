@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ForoshOrderService.Commands;
 
-public struct UpdateForoshOrderCommand : IRequest<ForoshOrder>
+public struct UpdateForoshOrderCommand : IRequest<ForooshOrder>
 {
     public Ulid Id { get; set; }
     public DateOnly PaymentDate { get; set; }

@@ -6,6 +6,6 @@ public class CustomersPhoneNumberValidator : AbstractValidator<CustomersPhoneNum
     {
         RuleFor(x => x.PhoneNo).NotEmpty().WithMessage("لطفاً شماره را وارد نمائید");
         RuleFor(x => x.PhoneType).NotEmpty().WithMessage("لطفاً مقدار ورودی را وارد نمائید");
-        RuleFor(x => x.CustomerId).NotEmpty().WithMessage("لطفاً مقدار ورودی را وارد نمائید");
+        RuleFor(x => x.IdCustomer).NotEmpty().WithMessage("لطفاً مقدار ورودی را وارد نمائید");
     }
 }

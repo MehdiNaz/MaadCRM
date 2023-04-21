@@ -10,6 +10,5 @@ public struct CreateProductCommand : IRequest<Product>
     public decimal? SecondaryPrice { get; set; }
     public decimal? Discount { get; set; }
     public byte? DiscountPercent { get; set; }
-    public Ulid FavoritesListId { get; set; }
     public byte[]? Picture { get; set; }
 }

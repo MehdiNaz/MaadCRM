@@ -21,7 +21,6 @@ public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProdu
             SecondaryPrice = request.SecondaryPrice,
             Discount = request.Discount,
             DiscountPercent = request.DiscountPercent,
-            FavoritesListId = request.FavoritesListId,
             Picture = request.Picture
         };
         return await _repository.CreateProductAsync(item);

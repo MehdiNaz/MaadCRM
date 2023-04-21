@@ -13,7 +13,7 @@ public class CityRepository : ICityRepository
         => await _context.Cities!.Where(x => x.CityStatus == Status.Show).ToListAsync();
 
     public async ValueTask<City?> GetCityByIdAsync(Ulid cityId)
-        => await _context.Cities.FirstOrDefaultAsync(x => x.CityId == cityId && x.CityStatus == Status.Show);
+        => await _context.Cities.FirstOrDefaultAsync(x => x.Id == cityId && x.CityStatus == Status.Show);
 
     public async ValueTask<City?> ChangeStatusCityByIdAsync(Status status, Ulid cityId)
     {

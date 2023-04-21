@@ -8,8 +8,16 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
 
-        // builder.HasMany(x => x.PeyGiryAttachments).WithOne(x => x.CustomerPeyGiry).HasForeignKey(x => x.Id);
-        // builder.HasOne(x => x.User).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.CreatedBy);
-        // builder.HasOne(x => x.User).WithMany(x => x.CustomerPeyGiries).HasForeignKey(x => x.UpdatedBy);
+        builder.Property(e => e.RowVersion)
+            .IsRequired()
+            .HasColumnName("rowversion")
+            .IsRowVersion()
+            .IsConcurrencyToken();
+        
+        builder.HasOne(x => x.IdCustomerNavigation)
+            .WithMany(x => x.CustomerPeyGiries)
+            .HasForeignKey(x => x.IdCustomer)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_CustomerPeyGiry_Customers");
     }
 }

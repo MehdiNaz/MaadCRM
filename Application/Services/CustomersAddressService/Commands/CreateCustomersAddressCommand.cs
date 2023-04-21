@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.Commands;
 
-public struct CreateCustomersAddressCommand : IRequest<CustomersAddress>
+public struct CreateCustomersAddressCommand : IRequest<CustomerAddress>
 {
     public string Address { get; set; }
     public string? CodePost { get; set; }

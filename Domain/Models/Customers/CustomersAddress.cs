@@ -1,11 +1,11 @@
 ﻿namespace Domain.Models.Customers;
 
-public class CustomersAddress : BaseEntity
+public class CustomerAddress : BaseEntity
 {
-    public CustomersAddress()
+    public CustomerAddress()
     {
         Id = Ulid.NewUlid();
-        CustomersAddressStatus = Status.Show;
+        StatusCustomersAddress = Status.Show;
     }
 
     public Ulid Id { get; set; }
@@ -13,9 +13,12 @@ public class CustomersAddress : BaseEntity
     public string? CodePost { get; set; }
     public string? PhoneNo { get; set; }
     public string? Description { get; set; }
-    public Ulid CustomerId { get; set; }
-    public Status CustomersAddressStatus { get; set; }
+    public Status StatusCustomersAddress { get; set; }
 
-    // public Customer Customer { get; set; }
-    public ICollection<ForoshFactor>? ForoshFactors { get; set; }
+    
+    public required Ulid IdCustomer { get; set; }
+    public virtual Customer? IdCustomerNavigation { get; set; }
+    
+    
+    public byte[] RowVersion { get; set; }
 }

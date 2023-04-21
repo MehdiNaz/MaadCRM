@@ -1,14 +1,22 @@
 ﻿namespace Domain.Mapping.Customers.Note;
 
-public class NoteHashTagMapping : IEntityTypeConfiguration<NoteHashTag>
+public class NoteHashTagMapping : IEntityTypeConfiguration<CustomerNoteHashTag>
 {
-    public void Configure(EntityTypeBuilder<NoteHashTag> builder)
+    public void Configure(EntityTypeBuilder<CustomerNoteHashTag> builder)
     {
         builder.ToTable("NoteHashTags");
-        builder.HasKey(x => x.Id);
-        // builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
-
-        // builder.HasOne(x => x.User).WithMany(x => x.NoteHashTags).HasForeignKey(x => x.CreatedBy);
-        // builder.HasOne(x => x.User).WithMany(x => x.NoteHashTags).HasForeignKey(x => x.UpdatedBy);
+        builder.HasKey(x => new {x.IdCustomerNote, x.IdNoteHashTable});
+        
+        builder.Property(e => e.RowVersion)
+            .IsRequired()
+            .HasColumnName("rowversion")
+            .IsRowVersion()
+            .IsConcurrencyToken();
+        
+        builder.HasOne(x => x.IdNoteHashTableNavigation)
+            .WithMany(x => x.CustomerNoteHashTags)
+            .HasForeignKey(x => x.IdNoteHashTable)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_CustomerNoteHashTag_CustomerNoteHashTable");
     }
 }

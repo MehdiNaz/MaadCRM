@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTagService.CommandHandler;
 
-public readonly struct ChangeStatusNoteHashTagCommandHandler : IRequestHandler<ChangeStatusNoteHashTagCommand, NoteHashTag?>
+public readonly struct ChangeStatusNoteHashTagCommandHandler : IRequestHandler<ChangeStatusNoteHashTagCommand, CustomerNoteHashTag?>
 {
     private readonly INoteHashTagRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct ChangeStatusNoteHashTagCommandHandler : IRequestHandler<C
         _repository = repository;
     }
 
-    public async Task<NoteHashTag?> Handle(ChangeStatusNoteHashTagCommand request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteHashTag?> Handle(ChangeStatusNoteHashTagCommand request, CancellationToken cancellationToken)
         => await _repository.ChangeStatusNoteHashTagByIdAsync(request);
 }

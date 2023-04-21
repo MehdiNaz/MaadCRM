@@ -9,19 +9,19 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomersAddress?>> GetAllAddressesAsync(Ulid customerId)
-        => await _context.CustomersAddresses.Where(x => x.CustomersAddressStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
+    public async ValueTask<ICollection<CustomerAddress?>> GetAllAddressesAsync(Ulid customerId)
+        => await _context.CustomersAddresses.Where(x => x.StatusCustomersAddress == Status.Show && x.IdCustomer == customerId).ToListAsync();
 
-    public async ValueTask<CustomersAddress?> GetAddressByIdAsync(Ulid customersAddressId)
-        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.CustomersAddressStatus == Status.Show);
+    public async ValueTask<CustomerAddress?> GetAddressByIdAsync(Ulid customersAddressId)
+        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.StatusCustomersAddress == Status.Show);
 
-    public async ValueTask<CustomersAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request)
+    public async ValueTask<CustomerAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request)
     {
         try
         {
             var item = await _context.CustomersAddresses.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomersAddressStatus = request.CustomersAddressStatus;
+            item.StatusCustomersAddress = request.CustomersAddressStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,17 +31,17 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> CreateAddressAsync(CreateCustomersAddressCommand request)
+    public async ValueTask<CustomerAddress?> CreateAddressAsync(CreateCustomersAddressCommand request)
     {
         try
         {
-            CustomersAddress item = new()
+            CustomerAddress item = new()
             {
                 Address = request.Address,
                 CodePost = request.CodePost,
                 PhoneNo = request.PhoneNo,
                 Description = request.Description,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId
             };
             await _context.CustomersAddresses!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -53,18 +53,18 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> UpdateAddressAsync(UpdateCustomersAddressCommand request)
+    public async ValueTask<CustomerAddress?> UpdateAddressAsync(UpdateCustomersAddressCommand request)
     {
         try
         {
-            CustomersAddress item = new()
+            CustomerAddress item = new()
             {
                 Id = request.Id,
                 Address = request.Address,
                 CodePost = request.CodePost,
                 PhoneNo = request.PhoneNo,
                 Description = request.Description,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId
             };
             _context.Update(item);
             await _context.SaveChangesAsync();
@@ -76,12 +76,12 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         }
     }
 
-    public async ValueTask<CustomersAddress?> DeleteAddressAsync(DeleteCustomersAddressCommand request)
+    public async ValueTask<CustomerAddress?> DeleteAddressAsync(DeleteCustomersAddressCommand request)
     {
         try
         {
             var customersAddress = await GetAddressByIdAsync(request.Id);
-            customersAddress.CustomersAddressStatus = Status.Deleted;
+            customersAddress.StatusCustomersAddress = Status.Deleted;
             await _context.SaveChangesAsync();
             return customersAddress;
         }

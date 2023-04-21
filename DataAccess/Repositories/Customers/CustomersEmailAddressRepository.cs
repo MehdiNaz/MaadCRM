@@ -10,10 +10,10 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
     }
 
     public async ValueTask<ICollection<CustomersEmailAddress?>> GetAllEmailAddressesAsync()
-        => await _context.CustomersEmailAddresses.Where(x => x.CustomersEmailAddressStatus == Status.Show).ToListAsync();
+        => await _context.CustomersEmailAddresses.Where(x => x.StatusCustomerEmailAddress == Status.Show).ToListAsync();
 
     public async ValueTask<CustomersEmailAddress?> GetEmailAddressByIdAsync(Ulid emailAddressId)
-        => await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.Id == emailAddressId && x.CustomersEmailAddressStatus == Status.Show);
+        => await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.Id == emailAddressId && x.StatusCustomerEmailAddress == Status.Show);
 
     public async ValueTask<CustomersEmailAddress?> ChangeStatusEmailAddressByIdAsync(ChangeStatusCustomersEmailAddressCommand request)
     {
@@ -21,7 +21,7 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         {
             var item = await _context.CustomersEmailAddresses.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomersEmailAddressStatus = request.ContactsEmailAddressStatus;
+            item.StatusCustomerEmailAddress = request.ContactsEmailAddressStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -37,8 +37,8 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         {
             CustomersEmailAddress item = new()
             {
-                CustomersEmailAddrs = request.EmailAddress,
-                CustomerId = request.CustomerId
+                CustomerEmailAddress = request.EmailAddress,
+                IdCustomer = request.CustomerId
             };
 
             await _context.CustomersEmailAddresses!.AddAsync(item);
@@ -58,8 +58,8 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
             CustomersEmailAddress item = new()
             {
                 Id = request.Id,
-                CustomersEmailAddrs = request.EmailAddress,
-                CustomerId = request.CustomerId
+                CustomerEmailAddress = request.EmailAddress,
+                IdCustomer = request.CustomerId
             };
 
             _context.Update(item);
@@ -77,7 +77,7 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         try
         {
             var customer = await GetEmailAddressByIdAsync(request.Id);
-            customer!.CustomersEmailAddressStatus = Status.Show;
+            customer!.StatusCustomerEmailAddress = Status.Show;
             await _context.SaveChangesAsync();
             return customer;
         }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.Commands;
 
-public struct UpdateCustomersAddressCommand: IRequest<CustomersAddress>
+public struct UpdateCustomersAddressCommand: IRequest<CustomerAddress>
 {
     public Ulid Id { get; set; }
     public string Address { get; set; }

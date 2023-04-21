@@ -15,21 +15,21 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         //    .Include(x => x.User)
         //    .Include(x => x.CustomerPeyGiries)
         //    .AsQueryable();
-        var A = await _context.CustomerPeyGiries
-            .Include(x => x.Customer)
-            .Include(x => x.User)
-            .Select(x => new CustomerPeyGiryResponse
-            {
-                Description = x.Description,
-                DateCreated = x.DateCreated,
-                CustomerPeyGiryId = x.Id,
-                Name = x.User.Name + " " + x.User.Family
-            }).ToListAsync();
-        return A;
+        // var result = await _context.CustomerPeyGiries
+        //     .Include(x => x.Customer)
+        //     .Include(x => x.User)
+        //     .Select(x => new CustomerPeyGiryResponse
+        //     {
+        //         Description = x.Description,
+        //         DateCreated = x.DateCreated,
+        //         CustomerPeyGiryId = x.Id,
+        //         Name = x.User.Name + " " + x.User.Family
+        //     }).ToListAsync();
+        return null;
     }
 
     public async ValueTask<CustomerPeyGiry?> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
-        => await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.CustomerPeyGiryStatus == Status.Show);
+        => await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.StatusCustomerPeyGiry == Status.Show);
 
     public async ValueTask<CustomerPeyGiry?> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request)
     {
@@ -37,7 +37,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             var item = await _context.CustomerPeyGiries!.FindAsync(request.CustomerPeyGiryId);
             if (item is null) return null;
-            item.CustomerPeyGiryStatus = request.CustomerPeyGiryStatus;
+            item.StatusCustomerPeyGiry = request.CustomerPeyGiryStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -55,7 +55,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             CustomerPeyGiry item = new()
             {
                 Description = request.Description,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId
             };
             await _context.CustomerPeyGiries!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -75,7 +75,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             {
                 Id = request.Id,
                 Description = request.Description,
-                CustomerId = request.CustomerId
+                IdCustomer = request.CustomerId
             };
 
             _context.Update(item);
@@ -93,7 +93,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             var customerPeyGiry = await GetCustomerPeyGiryByIdAsync(request.Id);
-            customerPeyGiry!.CustomerPeyGiryStatus = Status.Show;
+            customerPeyGiry!.StatusCustomerPeyGiry = Status.Show;
             await _context.SaveChangesAsync();
             return customerPeyGiry;
         }

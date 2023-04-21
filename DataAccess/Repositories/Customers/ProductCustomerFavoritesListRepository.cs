@@ -10,7 +10,7 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
     }
 
     public async Task<ICollection<ProductCustomerFavoritesList?>> GetAllProductCustomerFavoritesListsAsync()
-        => await _context.ProductCustomerFavoritesLists.Where(x => x.ProductCustomerFavoritesListStatus == Status.Show).ToListAsync();
+        => await _context.ProductCustomerFavoritesLists.Where(x => x.StatusProductCustomerFavoritesList == Status.Show).ToListAsync();
 
 
     public async ValueTask<ProductCustomerFavoritesList?> GetProductCustomerFavoritesListByIdAsync(Ulid productId, Ulid customerId)
@@ -22,8 +22,8 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         {
             ProductCustomerFavoritesList item = new()
             {
-                ProductId = request.ProductId,
-                CustomerId = request.CustomerId
+                IdProduct = request.ProductId,
+                IdCustomer = request.CustomerId
             };
             await _context.ProductCustomerFavoritesLists!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -41,8 +41,8 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         {
             ProductCustomerFavoritesList item = new()
             {
-                ProductId = request.ProductId,
-                CustomerId = request.CustomerId
+                IdProduct = request.ProductId,
+                IdCustomer = request.CustomerId
             };
             _context.Update(item);
             await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         try
         {
             var customer = await GetProductCustomerFavoritesListByIdAsync(request.ProductId, request.CustomerId);
-            customer!.ProductCustomerFavoritesListStatus = Status.Show;
+            customer!.StatusProductCustomerFavoritesList = Status.Show;
             await _context.SaveChangesAsync();
             return customer;
         }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.QueryHandler;
 
-public readonly struct CustomersAddressByIdHandler : IRequestHandler<CustomerAddressByIdQuery, CustomersAddress?>
+public readonly struct CustomersAddressByIdHandler : IRequestHandler<CustomerAddressByIdQuery, CustomerAddress?>
 {
     private readonly ICustomersAddressRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct CustomersAddressByIdHandler : IRequestHandler<CustomerAdd
         _repository = repository;
     }
 
-    public async Task<CustomersAddress?> Handle(CustomerAddressByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CustomerAddress?> Handle(CustomerAddressByIdQuery request, CancellationToken cancellationToken)
         => await _repository.GetAddressByIdAsync(request.CustomersAddressId);
 }

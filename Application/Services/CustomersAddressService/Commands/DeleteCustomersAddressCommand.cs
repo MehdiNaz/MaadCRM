@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomersAddressService.Commands;
 
-public struct DeleteCustomersAddressCommand: IRequest<CustomersAddress>
+public struct DeleteCustomersAddressCommand: IRequest<CustomerAddress>
 {
     public Ulid Id { get; set; }
 }

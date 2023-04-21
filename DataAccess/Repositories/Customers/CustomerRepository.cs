@@ -11,20 +11,20 @@ public class CustomerRepository : ICustomerRepository
 
     public async ValueTask<ICollection<CustomerResponse>> GetAllCustomersAsync(string userId)
     {
-        return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.UserId == userId).Select(x => new CustomerResponse
+        return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId).Select(x => new CustomerResponse
         {
             BirthDayDate = x.BirthDayDate,
             CustomerId = x.Id,
             From = x.DateCreated,
             CustomerState = x.CustomerState,
             CustomerCategoryId = x.CustomerCategoryId,
-            EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+            EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
             PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
             FirstName = x.FirstName,
             LastName = x.LastName,
             MoshtaryMoAref = x.CustomerMoarefId,
-            Address = x.CustomersAddresses.FirstOrDefault().Address,
-            CityId = x.CityId,
+            Address = x.CustomerAddresses.FirstOrDefault().Address,
+            CityId = x.IdCity,
             Gender = x.Gender
         }).ToListAsync();
     }
@@ -62,15 +62,15 @@ public class CustomerRepository : ICustomerRepository
                 FirstName = customers.FirstName,
                 LastName = customers.LastName,
                 PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
-                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
-                Address = customers.CustomersAddresses.FirstOrDefault().Address,
+                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                Address = customers.CustomerAddresses.FirstOrDefault().Address,
                 CustomerState = customers.CustomerState,
                 MoshtaryMoAref = customers.CustomerMoarefId,
                 CustomerCategoryId = customers.CustomerCategoryId,
                 From = customers.DateCreated,
                 UpTo = DateTime.UtcNow,
                 BirthDayDate = customers.BirthDayDate,
-                CityId = customers.CityId,
+                CityId = customers.IdCity,
                 Gender = customers.Gender,
                 DateCreated = customers.DateCreated,
             }).AsQueryable();
@@ -124,23 +124,23 @@ public class CustomerRepository : ICustomerRepository
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
-            .Include(x => x.City)
-            .ThenInclude(x => x.Province)
+            // .Include(x => x.City)
+            // .ThenInclude(x => x.Province)
             .Select(customers => new CustomerResponse
             {
                 CustomerId = customers.Id,
                 FirstName = customers.FirstName,
                 LastName = customers.LastName,
                 PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
-                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
-                Address = customers.CustomersAddresses.FirstOrDefault().Address,
+                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                Address = customers.CustomerAddresses.FirstOrDefault().Address,
                 CustomerState = customers.CustomerState,
                 MoshtaryMoAref = customers.CustomerMoarefId,
                 CustomerCategoryId = customers.CustomerCategoryId,
                 From = customers.DateCreated,
                 UpTo = DateTime.UtcNow,
                 BirthDayDate = customers.BirthDayDate,
-                CityId = customers.CityId,
+                CityId = customers.IdCity,
                 Gender = customers.Gender,
                 DateCreated = customers.DateCreated
             }).AsQueryable();
@@ -172,13 +172,13 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     CustomerState = x.CustomerState,
                     CustomerCategoryId = x.CustomerCategoryId,
-                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     MoshtaryMoAref = x.CustomerMoarefId,
-                    Address = x.CustomersAddresses.FirstOrDefault().Address,
-                    CityId = x.CityId,
+                    Address = x.CustomerAddresses.FirstOrDefault().Address,
+                    CityId = x.IdCity,
                     Gender = x.Gender
                 });
         }
@@ -201,7 +201,7 @@ public class CustomerRepository : ICustomerRepository
                 // CreatedBy = request.CreatedBy!,
                 // UpdatedBy = request.UpdatedBy,
                 CustomerCategoryId = request.CustomerCategoryId,
-                UserId = request.UserId,
+                IdUser = request.UserId,
                 Gender = request.Gender,
                 CustomerMoarefId = request.CustomerMoarefId,
                 // PhoneNumbers = request.PhoneNumbers,
@@ -210,7 +210,7 @@ public class CustomerRepository : ICustomerRepository
                 // CustomersAddresses = request.CustomersAddresses,
                 // CustomerNotes = request.CustomerNotes,
                 // CustomerPeyGiries = request.CustomerPeyGiries,
-                CityId = request.CityId
+                IdCity = request.CityId
             };
             await _context.Customers!.AddAsync(entityEntry);
             var result = await _context.SaveChangesAsync();
@@ -222,8 +222,9 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
-                        CustomerId = entityEntry.Id,
-                        PhoneNo = PhoneNumbers
+                        IdCustomer = entityEntry.Id,
+                        PhoneNo = PhoneNumbers,
+                        PhoneType = PhoneTypes.Phone
                     };
 
                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
@@ -232,9 +233,9 @@ public class CustomerRepository : ICustomerRepository
             if (request.CustomersAddresses != null)
                 foreach (string address in request.CustomersAddresses)
                 {
-                    CustomersAddress newAddress = new()
+                    CustomerAddress newAddress = new()
                     {
-                        CustomerId = entityEntry.Id,
+                        IdCustomer = entityEntry.Id,
                         Address = address
                     };
 
@@ -246,7 +247,7 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
-                        CustomerId = entityEntry.Id,
+                        IdCustomer = entityEntry.Id,
                         Description = peyGiry
                     };
 
@@ -258,7 +259,7 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerNote newNote = new()
                     {
-                        CustomerId = entityEntry.Id,
+                        IdCustomer = entityEntry.Id,
                         Description = note
                     };
 
@@ -266,12 +267,12 @@ public class CustomerRepository : ICustomerRepository
                 }
 
             if (request.EmailAddresses != null)
-                foreach (string emailAddress in request.EmailAddresses)
+                foreach (var emailAddress in request.EmailAddresses)
                 {
                     CustomersEmailAddress newEmailAddress = new()
                     {
-                        CustomerId = entityEntry.Id,
-                        CustomersEmailAddrs = emailAddress
+                        IdCustomer = entityEntry.Id,
+                        CustomerEmailAddress = emailAddress
                     };
 
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
@@ -282,8 +283,8 @@ public class CustomerRepository : ICustomerRepository
                 {
                     ProductCustomerFavoritesList newFavoritesList = new()
                     {
-                        CustomerId = entityEntry.Id,
-                        ProductId = entityFavoritesList
+                        IdCustomer = entityEntry.Id,
+                        IdProduct = entityFavoritesList
                     };
 
                     await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
@@ -298,13 +299,13 @@ public class CustomerRepository : ICustomerRepository
                 From = entityEntry.DateCreated,
                 CustomerState = entityEntry.CustomerState,
                 CustomerCategoryId = entityEntry.CustomerCategoryId,
-                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                 PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault().PhoneNo,
                 FirstName = entityEntry.FirstName,
                 LastName = entityEntry.LastName,
                 MoshtaryMoAref = entityEntry.CustomerMoarefId,
-                Address = entityEntry.CustomersAddresses.FirstOrDefault().Address,
-                CityId = entityEntry.CityId,
+                Address = entityEntry.CustomerAddresses.FirstOrDefault().Address,
+                CityId = entityEntry.IdCity,
                 Gender = entityEntry.Gender
             };
             return returnItem;
@@ -343,8 +344,9 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
-                        CustomerId = request.Id,
-                        PhoneNo = PhoneNumbers
+                        IdCustomer = request.Id,
+                        PhoneNo = PhoneNumbers,
+                        PhoneType = PhoneTypes.Phone
                     };
 
                     await _context.CustomersPhoneNumbers.AddAsync(newPhone);
@@ -353,9 +355,9 @@ public class CustomerRepository : ICustomerRepository
             if (request.CustomersAddresses != null)
                 foreach (string address in request.CustomersAddresses)
                 {
-                    CustomersAddress newAddress = new()
+                    CustomerAddress newAddress = new()
                     {
-                        CustomerId = request.Id,
+                        IdCustomer = request.Id,
                         Address = address
                     };
 
@@ -367,7 +369,7 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
-                        CustomerId = request.Id,
+                        IdCustomer = request.Id,
                         Description = peyGiry
                     };
 
@@ -379,7 +381,7 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomerNote newNote = new()
                     {
-                        CustomerId = request.Id,
+                        IdCustomer = request.Id,
                         Description = note
                     };
 
@@ -391,8 +393,9 @@ public class CustomerRepository : ICustomerRepository
                 {
                     CustomersEmailAddress newEmailAddress = new()
                     {
-                        CustomerId = request.Id,
-                        CustomersEmailAddrs = emailAddress
+                        IdCustomer = request.Id,
+                        CustomerEmailAddress = emailAddress,
+                        StatusCustomerEmailAddress = (Status)0
                     };
 
                     await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
@@ -448,13 +451,13 @@ public class CustomerRepository : ICustomerRepository
                 From = customer.DateCreated,
                 CustomerState = customer.CustomerState,
                 CustomerCategoryId = customer.CustomerCategoryId,
-                EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomersEmailAddrs,
+                EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                 PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 MoshtaryMoAref = customer.CustomerMoarefId,
-                Address = customer.CustomersAddresses.FirstOrDefault().Address,
-                CityId = customer.CityId,
+                Address = customer.CustomerAddresses.FirstOrDefault().Address,
+                CityId = customer.IdCity,
                 Gender = customer.Gender
             };
             return returnItem;

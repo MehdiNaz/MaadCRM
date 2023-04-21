@@ -10,10 +10,10 @@ public class BusinessRepository : IBusinessRepository
     }
 
     public async ValueTask<IReadOnlyList<Business?>> GetAllBusinessesAsync()
-        => await _context.Businesses!.Where(x => x.BusinessStatus == Status.Show).ToListAsync()!;
+        => await _context.Businesses!.Where(x => x.StatusBusiness == Status.Show).ToListAsync()!;
 
     public async ValueTask<Business?> GetBusinessByIdAsync(Ulid businessId)
-        => await _context.Businesses!.FirstOrDefaultAsync(x => x.Id == businessId && x.BusinessStatus == Status.Show);
+        => await _context.Businesses!.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
 
     public async ValueTask<Business?> ChangeStatsAsync(ChangeStatusBusinessCommand request)
     {
@@ -21,7 +21,7 @@ public class BusinessRepository : IBusinessRepository
         {
             var item = await _context.Businesses!.FindAsync(request.BusinessId);
             if (item is null) return null;
-            item.BusinessStatus = request.BusinessStatus;
+            item.StatusBusiness = request.BusinessStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -84,7 +84,7 @@ public class BusinessRepository : IBusinessRepository
         try
         {
             var business = await GetBusinessByIdAsync(request.BusinessId);
-            business.BusinessStatus = Status.Deleted;
+            business.StatusBusiness = Status.Deleted;
             await _context.SaveChangesAsync();
             return business;
         }

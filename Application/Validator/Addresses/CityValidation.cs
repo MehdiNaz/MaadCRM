@@ -7,6 +7,6 @@ public class CityValidation : AbstractValidator<City>
         RuleFor(x => x.CityName).NotEmpty().WithMessage("لطفاً نام شهر را وارد نمائید");
         RuleFor(x => x.IsDefault).NotEmpty();
         RuleFor(x => x.DisplayOrder).NotEmpty();
-        RuleFor(x => x.ProvinceId).NotEmpty();
+        RuleFor(x => x.IdProvince).NotEmpty();
     }
 }

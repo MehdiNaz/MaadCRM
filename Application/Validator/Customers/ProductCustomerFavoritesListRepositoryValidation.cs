@@ -4,7 +4,7 @@ public class ProductCustomerFavoritesListRepositoryValidation : AbstractValidato
 {
     public ProductCustomerFavoritesListRepositoryValidation()
     {
-        RuleFor(x => x.CustomerId).NotEmpty();
-        RuleFor(x => x.ProductId).NotEmpty();
+        RuleFor(x => x.IdCustomer).NotEmpty();
+        RuleFor(x => x.IdProduct).NotEmpty();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteAttachmentService.QueryHandler;
 
-public readonly struct NoteAttachmentByIdHandler : IRequestHandler<NoteAttachmentByIdQuery, NoteAttachment>
+public readonly struct NoteAttachmentByIdHandler : IRequestHandler<NoteAttachmentByIdQuery, CustomerNoteAttachment>
 {
     private readonly INoteAttachmentRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct NoteAttachmentByIdHandler : IRequestHandler<NoteAttachmen
         _repository = repository;
     }
 
-    public async Task<NoteAttachment> Handle(NoteAttachmentByIdQuery request, CancellationToken cancellationToken)
+    public async Task<CustomerNoteAttachment> Handle(NoteAttachmentByIdQuery request, CancellationToken cancellationToken)
         => (await _repository.GetNoteAttachmentByIdAsync(request.NoteAttachmentId))!;
 }

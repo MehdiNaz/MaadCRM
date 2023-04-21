@@ -11,7 +11,7 @@ public class ProductRepository : IProductRepository
 
     public async ValueTask<ICollection<Product>> GetAllProductsAsync(Ulid businessId)
     {
-        var result = await _context.Products.Where(x => x.ProductStatus == Status.Show)
+        var result = await _context.Products.Where(x => x.StatusProduct == Status.Show)
             .Include(x => x.ProductCategory)
             .ThenInclude(x => x.Business)
             .Where(x => x.ProductCategory.BusinessId == businessId)
@@ -20,7 +20,7 @@ public class ProductRepository : IProductRepository
     }
 
     public async ValueTask<Product?> GetProductByIdAsync(Ulid productId)
-        => await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.ProductStatus == Status.Show);
+        => await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusProduct == Status.Show);
 
     public async ValueTask<Product?> ChangeStatusProductByIdAsync(Status status, Ulid productId)
     {
@@ -28,7 +28,7 @@ public class ProductRepository : IProductRepository
         {
             var item = await _context.Products!.FindAsync(productId);
             if (item is null) return null;
-            item.ProductStatus = status;
+            item.StatusProduct = status;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -46,7 +46,7 @@ public class ProductRepository : IProductRepository
         try
         {
             var product = await GetProductByIdAsync(request.Id);
-            product!.PublishStatus = request.Status;
+            product!.StatusPublish = request.Status;
             await _context.SaveChangesAsync();
             return product;
         }
@@ -63,14 +63,13 @@ public class ProductRepository : IProductRepository
             Product item = new()
             {
                 ProductName = request.ProductName,
-                ProductCategoryId = request.ProductCategoryId,
+                IdProductCategory = request.ProductCategoryId,
                 Title = request.Title,
                 Summery = request.Summery,
                 Price = request.Price,
                 SecondaryPrice = request.SecondaryPrice,
                 Discount = request.Discount,
                 DiscountPercent = request.DiscountPercent,
-                FavoritesListId = request.FavoritesListId,
                 Picture = request.Picture
             };
             await _context.Products!.AddAsync(item);
@@ -90,14 +89,13 @@ public class ProductRepository : IProductRepository
             Product item = new()
             {
                 ProductName = request.ProductName,
-                ProductCategoryId = request.ProductCategoryId,
+                IdProductCategory = request.ProductCategoryId,
                 Title = request.Title,
                 Summery = request.Summery,
                 Price = request.Price,
                 SecondaryPrice = request.SecondaryPrice,
                 Discount = request.Discount,
                 DiscountPercent = request.DiscountPercent,
-                FavoritesListId = request.FavoritesListId,
                 Picture = request.Picture
             };
 
@@ -116,7 +114,7 @@ public class ProductRepository : IProductRepository
         try
         {
             var product = await GetProductByIdAsync(request.Id);
-            product!.ProductStatus = Status.Deleted;
+            product!.StatusProduct = Status.Deleted;
             await _context.SaveChangesAsync();
             return product;
         }
