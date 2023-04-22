@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Login.QueryHandler;
 
-public class UserByPhoneAndPasswordHandler : IRequestHandler<UserByPhoneAndPasswordQuery, bool>
+public class UserByPhoneAndPasswordHandler : IRequestHandler<UserByPhoneAndPasswordQuery, Result<bool>>
 {
     private readonly ILoginRepository _repository;
 
@@ -9,6 +9,6 @@ public class UserByPhoneAndPasswordHandler : IRequestHandler<UserByPhoneAndPassw
         _repository = repository;
     }
 
-    public async Task<bool> Handle(UserByPhoneAndPasswordQuery request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(UserByPhoneAndPasswordQuery request, CancellationToken cancellationToken)
         => await _repository.CheckExistByPhoneAndPassword(request);
 }

@@ -1,6 +1,6 @@
 namespace Application.Services.Login.CommandHandler;
 
-public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Option<bool>>
+public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Result<bool>>
 {
     private readonly ILoginRepository _repository;
 
@@ -9,17 +9,18 @@ public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Option<b
         _repository = repository;
     }
 
-    public async Task<Option<bool>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var result = await _repository.RegisterUser(request);
-            return result.Match(resultCode => Option<bool>.Some(resultCode), () => Option<bool>.None);
+            return result.Match(
+                resultCode => new Result<bool>(resultCode), 
+                error => new Result<bool>(error));
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<bool>(new Exception(e.Message));
         }
     }
 }

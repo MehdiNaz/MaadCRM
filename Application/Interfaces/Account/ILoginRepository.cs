@@ -2,11 +2,11 @@
 
 public interface ILoginRepository
 {
-    ValueTask<Option<bool>> CheckExistByPhone(UserByPhoneNumberQuery request);
-    ValueTask<Option<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request);
-    ValueTask<bool> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request);
+    ValueTask<Result<bool>> CheckExistByPhone(UserByPhoneNumberQuery request);
+    ValueTask<Result<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request);
+    ValueTask<Result<bool>> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request);
     
     ValueTask<Result<User>> VerifyCode(VerifyCodeQuery request);
-    ValueTask<Option<bool>> SendVerifyCode(SendVerifyCommand request);
-    ValueTask<Option<bool>> RegisterUser(RegisterUserCommand request);
+    ValueTask<Result<bool>> SendVerifyCode(SendVerifyCommand request);
+    ValueTask<Result<bool>> RegisterUser(RegisterUserCommand request);
 }

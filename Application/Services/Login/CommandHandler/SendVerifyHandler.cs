@@ -2,7 +2,7 @@ using MediatR;
 
 namespace Application.Services.Login.CommandHandler;
 
-public class SendVerifyHandler : IRequestHandler<SendVerifyCommand, Option<bool>>
+public class SendVerifyHandler : IRequestHandler<SendVerifyCommand, Result<bool>>
 {
     private readonly ILoginRepository _repository;
 
@@ -11,17 +11,16 @@ public class SendVerifyHandler : IRequestHandler<SendVerifyCommand, Option<bool>
         _repository = repository;
     }
 
-    public async Task<Option<bool>> Handle(SendVerifyCommand request, CancellationToken cancellationToken)
+    public async Task<Result<bool>> Handle(SendVerifyCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var result = await _repository.SendVerifyCode(request);
-            return result.Match(Option<bool>.Some, () => Option<bool>.None);
+            return result.Match(succ => new Result<bool>(succ), error => new Result<bool>(error));
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<bool>(new Exception(e.Message));
         }
         
     }

@@ -17,7 +17,7 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuer
         {
             var resultCheckExistByPhone = await _repository.CheckExistByPhone(request);
 
-            if (resultCheckExistByPhone.IsNone)
+            if (resultCheckExistByPhone.IsFaulted)
             {
                 var resultRegisterUserCommand = _mediator.Send(new RegisterUserCommand
                 {
@@ -25,10 +25,10 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuer
                 }, cancellationToken);
 
                 // TODO: add log
-                Console.WriteLine(resultRegisterUserCommand.Result);
+                // Console.WriteLine(resultRegisterUserCommand.Result);
 
-                if (resultRegisterUserCommand.Result.IsNone)
-                    return new Result<bool>(false);
+                if (resultRegisterUserCommand.Result.IsFaulted)
+                    return new Result<bool>(resultRegisterUserCommand.Exception);
             }
 
             var resultSendVerifyCommand = _mediator.Send(new SendVerifyCommand
@@ -36,12 +36,13 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuer
                 Phone = request.Phone
             }, cancellationToken);
 
-            return resultSendVerifyCommand.Result.IsNone ? new Result<bool>(false) : new Result<bool>(true);
+            return resultSendVerifyCommand.Result.IsFaulted ? 
+                new Result<bool>(resultSendVerifyCommand.Exception) 
+                : new Result<bool>(resultSendVerifyCommand.Result.IsSuccess);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<bool>(new Exception(e.Message));
         }
     }
 }

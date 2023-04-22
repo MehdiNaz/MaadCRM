@@ -15,55 +15,52 @@ public class LoginRepository : ILoginRepository
         _configuration = configuration;
     }
 
-    public async ValueTask<Option<bool>> CheckExistByPhone(UserByPhoneNumberQuery request)
+    public async ValueTask<Result<bool>> CheckExistByPhone(UserByPhoneNumberQuery request)
     {
         try
         {
             var result =  await _userManager.FindByNameAsync(request.Phone);
-            return result != null ? Option<bool>.Some(true) : Option<bool>.None;
+            return result != null ? new Result<bool>(true) : new Result<bool>(new ValidationException("کاربری با این شماره موبایل یافت نشد"));
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.Message);
-            throw;
+            return new Result<bool>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Option<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request)
+    public async ValueTask<Result<User>> CheckExistByEmailAddress(UserByEmailAddressQuery request)
     {
         try
         {
             var result =  await _userManager.FindByEmailAsync(request.Email);
-            return result == null ? result.ToSome()! : Option<User>.None;
+            return result != null ? new Result<User>(result) : new Result<User>(new ValidationException("کاربری با این ایمیل یافت نشد"));
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.Message);
-            throw;
+            return new Result<User>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<bool> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request)
+    public async ValueTask<Result<bool>> CheckExistByPhoneAndPassword(UserByPhoneAndPasswordQuery request)
     {
         try
         {
             var result =  await _signInManager.PasswordSignInAsync(request.Phone, request.Password, true, false);
-            return result.Succeeded;
+            return new Result<bool>(result.Succeeded);
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.Message);
-            throw;
+            return new Result<bool>(new ValidationException(e.Message));
         }
     }
     
-    public async ValueTask<Option<bool>> SendVerifyCode(SendVerifyCommand request)
+    public async ValueTask<Result<bool>> SendVerifyCode(SendVerifyCommand request)
     {
         try
         {
             var result = await _userManager.FindByNameAsync(request.Phone);
             if (result == null)
-                return Option<bool>.None;
+                return new Result<bool>(new ValidationException("کاربری با این شماره موبایل یافت نشد"));
             
             var generator = new Random();
             result.OtpPassword =  generator.Next(1000, 9999).ToString("D4");
@@ -75,16 +72,14 @@ public class LoginRepository : ILoginRepository
             await _userManager.UpdateAsync(result);
 
             // TODO: Send SMS
-        
-            // TODO: add log
+            
             Console.WriteLine("OTP: " + result.OtpPassword);
         
-            return Option<bool>.Some(true);
+            return new Result<bool>(true);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<bool>(new ValidationException(e.Message));
         }
     }
 
@@ -127,7 +122,7 @@ public class LoginRepository : ILoginRepository
         
     }
 
-    public async ValueTask<Option<bool>> RegisterUser(RegisterUserCommand request)
+    public async ValueTask<Result<bool>> RegisterUser(RegisterUserCommand request)
     {
         try
         {
@@ -139,7 +134,7 @@ public class LoginRepository : ILoginRepository
             var result = await _context.SaveChangesAsync();
 
             if (result == 0)
-                return Option<bool>.None;
+                return new Result<bool>(new ValidationException("خطا در ثبت اطلاعات شرکت"));
 
             var user = new User
             {
@@ -157,12 +152,11 @@ public class LoginRepository : ILoginRepository
             // TODO: add role to user
             // await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
 
-            return Option<bool>.Some(createUserResult.Succeeded);
+            return new Result<bool>(createUserResult.Succeeded);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<bool>(new ValidationException(e.Message));
         }
     }
 }
