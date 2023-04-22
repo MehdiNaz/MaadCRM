@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.CommandHandler;
 
-public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusinessPlansQuery, BusinessPlan?>
+public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<ChangeStatusBusinessPlansQuery, Result<BusinessPlan>>
 {
     private readonly IBusinessPlanRepository _repository;
 
@@ -9,6 +9,16 @@ public readonly struct ChangeStatusBusinessPlansHandler : IRequestHandler<Change
         _repository = repository;
     }
 
-    public async Task<BusinessPlan?> Handle(ChangeStatusBusinessPlansQuery request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusAsync(request);
+    public async Task<Result<BusinessPlan>> Handle(ChangeStatusBusinessPlansQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var resultVerifyCode = await _repository.ChangeStatusAsync(request);
+            return resultVerifyCode.Match(result => new Result<BusinessPlan>(result), exception => new Result<BusinessPlan>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<BusinessPlan>(new Exception(e.Message));
+        }
+    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.CommandHandler;
 
-public readonly struct CreateBusinessCommandHandler : IRequestHandler<CreateBusinessCommand, Business>
+public readonly struct CreateBusinessCommandHandler : IRequestHandler<CreateBusinessCommand, Result<Business>>
 {
     private readonly IBusinessRepository _repository;
 
@@ -9,17 +9,24 @@ public readonly struct CreateBusinessCommandHandler : IRequestHandler<CreateBusi
         _repository = repository;
     }
 
-    public async Task<Business> Handle(CreateBusinessCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Business>> Handle(CreateBusinessCommand request, CancellationToken cancellationToken)
     {
-        CreateBusinessCommand item = new()
+        try
         {
-            BusinessName = request.BusinessName,
-            Url = request.Url,
-            Hosts = request.Hosts,
-            CompanyName = request.CompanyName,
-            CompanyAddress = request.CompanyAddress,
-            DisplayOrder = request.DisplayOrder
-        };
-        return await _repository.CreateBusinessAsync(item);
+            CreateBusinessCommand item = new()
+            {
+                BusinessName = request.BusinessName,
+                Url = request.Url,
+                Hosts = request.Hosts,
+                CompanyName = request.CompanyName,
+                CompanyAddress = request.CompanyAddress,
+                DisplayOrder = request.DisplayOrder
+            };
+            return (await _repository.CreateBusinessAsync(item)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<Business>(new Exception(e.Message));
+        }
     }
 }

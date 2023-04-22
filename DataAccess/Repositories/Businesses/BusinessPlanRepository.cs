@@ -9,19 +9,56 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         _context = context;
     }
 
-    public async ValueTask<IReadOnlyList<BusinessPlan?>> GetAllBusinessPlansByBusinessIdAsync(Ulid businessId)
-        => await _context.BusinessPlans!.Where(x => x.BusinessId == businessId).ToListAsync();
+    public async ValueTask<Result<ICollection<BusinessPlan>>> GetAllBusinessPlansByBusinessIdAsync(Ulid businessId)
+    {
+        try
+        {
+            return new Result<ICollection<BusinessPlan>>(await _context.BusinessPlans.Where(x => x.BusinessId == businessId).ToListAsync());
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<BusinessPlan>>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<IReadOnlyList<BusinessPlan?>> GetAllActivePlansAsync(Ulid businessId)
-        => await _context.BusinessPlans!.Where(x => x.BusinessId == businessId && x.BusinessPlansStatus == Status.Show).ToListAsync();
+    public async ValueTask<Result<ICollection<BusinessPlan>>> GetAllActivePlansAsync(Ulid businessId)
+    {
 
-    public async ValueTask<BusinessPlan?> GetTheLatestPlanAsync(Ulid businessId)
-        => await _context.BusinessPlans!.OrderByDescending(o => o.Id).LastAsync(x => x.BusinessId == businessId);
+        try
+        {
+            return await _context.BusinessPlans.Where(x => x.BusinessId == businessId && x.BusinessPlansStatus == Status.Show).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<BusinessPlan>>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<BusinessPlan?> GetBusinessPlansByIdAsync(Ulid businessPlansId)
-        => await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
+    public async ValueTask<Result<BusinessPlan>> GetTheLatestPlanAsync(Ulid businessId)
+    {
+        try
+        {
+            return await _context.BusinessPlans.OrderByDescending(o => o.Id).LastAsync(x => x.BusinessId == businessId);
+        }
+        catch (Exception e)
+        {
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<BusinessPlan?> ChangeStatusAsync(ChangeStatusBusinessPlansQuery request)
+    public async ValueTask<Result<BusinessPlan>> GetBusinessPlansByIdAsync(Ulid businessPlansId)
+    {
+        try
+        {
+            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
+        }
+        catch (Exception e)
+        {
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<BusinessPlan>> ChangeStatusAsync(ChangeStatusBusinessPlansQuery request)
     {
         try
         {
@@ -31,18 +68,18 @@ public class BusinessPlanRepository : IBusinessPlanRepository
             };
 
             var item = await _context.BusinessPlans!.FindAsync(businessPlan);
-            if (item is null) return null;
+            if (item is null) return new Result<BusinessPlan>(new ValidationException(ResultErrorMessage.NotFound));
             item.BusinessPlansStatus = request.Status;
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<BusinessPlan>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<BusinessPlan?> CreateBusinessPlansAsync(CreateBusinessPlansCommand entity)
+    public async ValueTask<Result<BusinessPlan>> CreateBusinessPlansAsync(CreateBusinessPlansCommand entity)
     {
         try
         {
@@ -55,19 +92,19 @@ public class BusinessPlanRepository : IBusinessPlanRepository
             };
             await _context.BusinessPlans!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<BusinessPlan>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<BusinessPlan?> UpdateBusinessPlansAsync(UpdateBusinessPlansCommand request)
+    public async ValueTask<Result<BusinessPlan>> UpdateBusinessPlansAsync(UpdateBusinessPlansCommand request)
     {
         try
         {
-            BusinessPlan businessPlan = new()
+            BusinessPlan item = new()
             {
                 Id = request.BusinessPlansId,
                 PlanId = request.PlanId,
@@ -76,29 +113,28 @@ public class BusinessPlanRepository : IBusinessPlanRepository
                 CountOfUsers = request.CountOfUsers
             };
 
-            _context.Update(businessPlan);
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return businessPlan;
+            return new Result<BusinessPlan>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<BusinessPlan?> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
+    public async ValueTask<Result<BusinessPlan>> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
     {
         try
         {
-            var businessPlan = await GetBusinessPlansByIdAsync(request.BusinessPlansId);
-            // _context.BusinessPlans!.Remove(businessPlan);
+            var businessPlan = (await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.Id == request.BusinessPlansId && x.BusinessPlansStatus == Status.Show));
             businessPlan.BusinessPlansStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            return businessPlan;
+            return new Result<BusinessPlan>(businessPlan);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<BusinessPlan>(new ValidationException(e.Message));
         }
     }
 }

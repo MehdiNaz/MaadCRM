@@ -2,10 +2,10 @@
 
 public interface IBusinessRepository
 {
-    ValueTask<IReadOnlyList<Business?>> GetAllBusinessesAsync();
-    ValueTask<Business?> GetBusinessByIdAsync(Ulid businessId);
-    ValueTask<Business?> ChangeStatsAsync(ChangeStatusBusinessCommand request);
-    ValueTask<Business?> CreateBusinessAsync(CreateBusinessCommand request);
-    ValueTask<Business?> UpdateBusinessAsync(UpdateBusinessCommand request);
-    ValueTask<Business?> DeleteBusinessAsync(DeleteBusinessCommand request);
+    ValueTask<Result<ICollection<Business>>> GetAllBusinessesAsync();
+    ValueTask<Result<Business>> GetBusinessByIdAsync(Ulid businessId);
+    ValueTask<Result<Business>> ChangeStatsAsync(ChangeStatusBusinessCommand request);
+    ValueTask<Result<Business>> CreateBusinessAsync(CreateBusinessCommand request);
+    ValueTask<Result<Business>> UpdateBusinessAsync(UpdateBusinessCommand request);
+    ValueTask<Result<Business>> DeleteBusinessAsync(DeleteBusinessCommand request);
 }

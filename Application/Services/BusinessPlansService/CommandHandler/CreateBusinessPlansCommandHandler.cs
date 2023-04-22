@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessPlansService.CommandHandler;
 
-public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<CreateBusinessPlansCommand, BusinessPlan>
+public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<CreateBusinessPlansCommand, Result<BusinessPlan>>
 {
     private readonly IBusinessPlanRepository _repository;
 
@@ -10,15 +10,23 @@ public readonly struct CreateBusinessPlansCommandHandler : IRequestHandler<Creat
         _repository = repository;
     }
 
-    public async Task<BusinessPlan> Handle(CreateBusinessPlansCommand request, CancellationToken cancellationToken)
+    public async Task<Result<BusinessPlan>> Handle(CreateBusinessPlansCommand request, CancellationToken cancellationToken)
     {
-        CreateBusinessPlansCommand item = new()
+        try
         {
-            PlanId = request.PlanId,
-            BusinessId = request.BusinessId,
-            CountOfDay = request.CountOfDay,
-            CountOfUsers = request.CountOfUsers
-        };
-        return await _repository.CreateBusinessPlansAsync(item);
+            CreateBusinessPlansCommand item = new()
+            {
+                PlanId = request.PlanId,
+                BusinessId = request.BusinessId,
+                CountOfDay = request.CountOfDay,
+                CountOfUsers = request.CountOfUsers
+            };
+            var resultVerifyCode = await _repository.CreateBusinessPlansAsync(item);
+            return resultVerifyCode.Match(result => new Result<BusinessPlan>(result), exception => new Result<BusinessPlan>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<BusinessPlan>(new Exception(e.Message));
+        }
     }
 }

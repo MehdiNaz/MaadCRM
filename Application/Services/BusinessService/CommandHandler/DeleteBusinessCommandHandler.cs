@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.CommandHandler;
 
-public readonly struct DeleteBusinessCommandHandler : IRequestHandler<DeleteBusinessCommand, Business>
+public readonly struct DeleteBusinessCommandHandler : IRequestHandler<DeleteBusinessCommand, Result<Business>>
 {
     private readonly IBusinessRepository _repository;
 
@@ -9,6 +9,16 @@ public readonly struct DeleteBusinessCommandHandler : IRequestHandler<DeleteBusi
         _repository = repository;
     }
 
-    public async Task<Business?> Handle(DeleteBusinessCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteBusinessAsync(request))!;
+    public async Task<Result<Business>> Handle(DeleteBusinessCommand request, CancellationToken cancellationToken)
+    {
+
+        try
+        {
+            return (await _repository.DeleteBusinessAsync(request)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<Business>(new Exception(e.Message));
+        }
+    }
 }
