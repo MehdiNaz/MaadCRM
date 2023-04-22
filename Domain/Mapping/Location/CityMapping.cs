@@ -8,9 +8,7 @@ public class CityMapping : IEntityTypeConfiguration<City>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.CityName);
 
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(d => d.IdProvinceNavigation)

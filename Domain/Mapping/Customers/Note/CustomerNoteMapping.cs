@@ -8,9 +8,7 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Description);
 
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
 
         builder.HasOne(x => x.IdCustomerNavigation)

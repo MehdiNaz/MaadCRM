@@ -9,9 +9,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.Property(x => x.FirstName).HasMaxLength(255).IsRequired();
         builder.Property(x => x.LastName).HasMaxLength(255).IsRequired();
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         

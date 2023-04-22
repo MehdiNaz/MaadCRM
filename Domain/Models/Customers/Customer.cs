@@ -63,5 +63,5 @@ public partial class Customer : BaseEntity
     
     
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 }

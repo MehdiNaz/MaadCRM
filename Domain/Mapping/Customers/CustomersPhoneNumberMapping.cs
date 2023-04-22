@@ -8,9 +8,7 @@ public class CustomersPhoneNumberMapping : IEntityTypeConfiguration<CustomersPho
         builder.HasKey(x => x.Id);
         builder.Property(x => x.PhoneNo).HasMaxLength(255).IsRequired();
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)

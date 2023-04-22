@@ -8,9 +8,7 @@ public class PeyGiryAttachmentMapping : IEntityTypeConfiguration<PeyGiryAttachme
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Extenstion).HasMaxLength(255).IsRequired();
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerPeyGiryNavigation)

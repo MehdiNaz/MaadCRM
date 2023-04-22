@@ -18,7 +18,7 @@ public class ProductCustomerFavoritesList : BaseEntity
     public Ulid IdCustomer { get; set; }
     public virtual Customer? IdCustomerNavigation { get; set; }
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
     
     // public Product Product { get; set; }
     // public Customer Customer { get; set; }
