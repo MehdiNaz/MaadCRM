@@ -1,3 +1,5 @@
+using System;
+
 namespace Application.Services.Login.QueryHandler;
 
 public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Result<User>>
@@ -13,14 +15,11 @@ public class VerifyCodeHandler : IRequestHandler<VerifyCodeQuery, Result<User>>
         try
         {
             var resultVerifyCode = await _repository.VerifyCode(request);
-
-            return resultVerifyCode.Match( result => new Result<User>(result), exception =>  new Result<User>(exception) );
+            return resultVerifyCode.Match(result => new Result<User>(result), exception => new Result<User>(exception));
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<User>(new Exception(e.Message));
         }
-        
     }
 }

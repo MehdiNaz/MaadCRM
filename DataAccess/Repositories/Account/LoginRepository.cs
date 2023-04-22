@@ -122,8 +122,7 @@ public class LoginRepository : ILoginRepository
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return new Result<User>(new ValidationException(e.Message));
         }
         
     }
