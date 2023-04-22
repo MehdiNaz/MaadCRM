@@ -1,5 +1,7 @@
-﻿namespace Application.Services.ForoshFactorService.Queries;
+﻿using Domain.Models.Customers.Foroosh;
 
-public struct GetAllForoshFactorsQuery : IRequest<ICollection<ForoshFactor>>
+namespace Application.Services.ForoshFactorService.Queries;
+
+public struct GetAllForoshFactorsQuery : IRequest<ICollection<ForooshFactor>>
 {
 }

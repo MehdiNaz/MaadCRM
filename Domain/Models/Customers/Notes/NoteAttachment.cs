@@ -17,5 +17,5 @@ public class CustomerNoteAttachment : BaseEntity
     public virtual CustomerNote? IdCustomerNoteNavigation { get; set; }
     
     
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 }

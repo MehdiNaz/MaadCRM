@@ -17,5 +17,5 @@ public class CustomerNoteHashTable : BaseEntity
     
     public virtual ICollection<CustomerNoteHashTag>? CustomerNoteHashTags { get; set; }
 
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 }

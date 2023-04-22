@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.Queries;
+﻿using Domain.Models.Customers.Foroosh;
 
-public struct GetForoshFactorByIdQuery : IRequest<ForoshFactor>
+namespace Application.Services.ForoshFactorService.Queries;
+
+public struct GetForoshFactorByIdQuery : IRequest<ForooshFactor>
 {
     public Ulid ForoshFactorId { get; set; }
 }

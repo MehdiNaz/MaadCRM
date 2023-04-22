@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ForoshOrderService.CommandHandler;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace Application.Services.ForoshOrderService.CommandHandler;
 
 public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForooshOrder>
 {

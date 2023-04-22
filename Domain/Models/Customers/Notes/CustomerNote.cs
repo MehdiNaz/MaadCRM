@@ -25,5 +25,5 @@ public class CustomerNote : BaseEntity
     public virtual ICollection<CustomerNoteAttachment>? NoteAttachments { get; set; }
     
     
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 }

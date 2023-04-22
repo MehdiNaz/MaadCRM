@@ -73,7 +73,6 @@ global using Domain.Models.Address;
 global using Domain.Models.Businesses;
 global using Domain.Models.Contacts;
 global using Domain.Models.Customers;
-global using Domain.Models.Customers.Forosh;
 global using Domain.Models.Customers.Notes;
 global using Domain.Models.Customers.PeyGiry;
 global using Domain.Models.IdentityModels;

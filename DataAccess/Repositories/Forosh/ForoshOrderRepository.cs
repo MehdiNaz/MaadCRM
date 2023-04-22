@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Forosh;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace DataAccess.Repositories.Forosh;
 
 public class ForoshOrderRepository : IForoshOrderRepository
 {
@@ -10,10 +12,10 @@ public class ForoshOrderRepository : IForoshOrderRepository
     }
 
     public async ValueTask<ICollection<ForooshOrder?>> GetAllForoshOrdersAsync()
-        => await _context.ForoshOrders.Where(x => x.ForoshOrderStatus == Status.Show).ToListAsync();
+        => await _context.ForoshOrders.Where(x => x.StatusForooshOrder == Status.Show).ToListAsync();
 
     public async ValueTask<ForooshOrder?> GetForoshOrderByIdAsync(Ulid foroshOrderId)
-        => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.Id == foroshOrderId && x.ForoshOrderStatus == Status.Show);
+        => await _context.ForoshOrders.SingleOrDefaultAsync(x => x.Id == foroshOrderId && x.StatusForooshOrder == Status.Show);
 
     public async ValueTask<ForooshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request)
     {
@@ -21,7 +23,7 @@ public class ForoshOrderRepository : IForoshOrderRepository
         {
             var item = await _context.ForoshOrders!.FindAsync(request.ForoshOrderId);
             if (item is null) return null;
-            item.ForoshOrderStatus = request.ForoshOrderStatus;
+            item.StatusForooshOrder = request.ForoshOrderStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -35,17 +37,19 @@ public class ForoshOrderRepository : IForoshOrderRepository
     {
         try
         {
+            // TODO: add Id Factor
             ForooshOrder item = new()
             {
-                PaymentDate = request.PaymentDate,
+                DatePayment = request.PaymentDate,
                 Price = request.Price,
-                ShippingPrice = request.ShippingPrice,
+                PriceShipping = request.ShippingPrice,
                 PriceTotal = request.PriceTotal,
-                DiscountPrice = request.DiscountPrice,
+                PriceDiscount = request.DiscountPrice,
                 Description = request.Description,
                 PaymentMethodType = request.PaymentMethodType,
                 ShippingMethodType = request.ShippingMethodType,
-                ProductId = request.ProductId
+                IdProduct = request.ProductId,
+                IdForooshFactor = default
             };
             await _context.ForoshOrders!.AddAsync(item!);
             await _context.SaveChangesAsync();
@@ -61,18 +65,20 @@ public class ForoshOrderRepository : IForoshOrderRepository
     {
         try
         {
+            // TODO: add Id Factor
             ForooshOrder item = new()
             {
                 Id = request.Id,
-                PaymentDate = request.PaymentDate,
+                DatePayment = request.PaymentDate,
                 Price = request.Price,
-                ShippingPrice = request.ShippingPrice,
+                PriceShipping = request.ShippingPrice,
                 PriceTotal = request.PriceTotal,
-                DiscountPrice = request.DiscountPrice,
+                PriceDiscount = request.DiscountPrice,
                 Description = request.Description,
                 PaymentMethodType = request.PaymentMethodType,
                 ShippingMethodType = request.ShippingMethodType,
-                ProductId = request.ProductId
+                IdProduct = request.ProductId,
+                IdForooshFactor = default
             };
             _context.Update(item);
             await _context.SaveChangesAsync();
@@ -89,7 +95,7 @@ public class ForoshOrderRepository : IForoshOrderRepository
         try
         {
             var foroshOrder = await GetForoshOrderByIdAsync(request.Id);
-            foroshOrder!.ForoshOrderStatus = Status.Deleted;
+            foroshOrder!.StatusForooshOrder = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshOrder;
         }

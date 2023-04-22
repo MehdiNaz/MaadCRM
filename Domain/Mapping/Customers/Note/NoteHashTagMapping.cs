@@ -10,8 +10,7 @@ public class NoteHashTagMapping : IEntityTypeConfiguration<CustomerNoteHashTag>
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
         
         builder.HasOne(x => x.IdNoteHashTableNavigation)
             .WithMany(x => x.CustomerNoteHashTags)

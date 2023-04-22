@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.QueryHandler;
+﻿using Domain.Models.Customers.Foroosh;
 
-public readonly struct GetForoshFactorByIdHandler : IRequestHandler<GetForoshFactorByIdQuery, ForoshFactor?>
+namespace Application.Services.ForoshFactorService.QueryHandler;
+
+public readonly struct GetForoshFactorByIdHandler : IRequestHandler<GetForoshFactorByIdQuery, ForooshFactor?>
 {
     private readonly IForoshFactorRepository _repository;
 
@@ -9,6 +11,6 @@ public readonly struct GetForoshFactorByIdHandler : IRequestHandler<GetForoshFac
         _repository = repository;
     }
 
-    public async Task<ForoshFactor?> Handle(GetForoshFactorByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ForooshFactor?> Handle(GetForoshFactorByIdQuery request, CancellationToken cancellationToken)
         => await _repository.GetForoshFactorByIdAsync(request.ForoshFactorId);
 }

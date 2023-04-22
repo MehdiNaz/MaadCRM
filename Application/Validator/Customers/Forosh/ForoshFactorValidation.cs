@@ -1,11 +1,13 @@
-﻿namespace Application.Validator.Customers.Forosh;
+﻿using Domain.Models.Customers.Foroosh;
 
-public class ForoshFactorValidation : AbstractValidator<ForoshFactor>
+namespace Application.Validator.Customers.Forosh;
+
+public class ForoshFactorValidation : AbstractValidator<ForooshFactor>
 {
     public ForoshFactorValidation()
     {
         RuleFor(x => x.Price).NotEmpty();
         RuleFor(x => x.DiscountPrice).NotEmpty();
-        RuleFor(x => x.FinalTotal).NotEmpty();
+        RuleFor(x => x.PriceTotal).NotEmpty();
     }
 }

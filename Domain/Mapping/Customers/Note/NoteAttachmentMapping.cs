@@ -11,8 +11,7 @@ public class NoteAttachmentMapping : IEntityTypeConfiguration<CustomerNoteAttach
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNoteNavigation)
             .WithMany(x => x.NoteAttachments)

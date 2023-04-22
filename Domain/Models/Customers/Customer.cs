@@ -14,6 +14,7 @@ public partial class Customer : BaseEntity
         CustomerPeyGiries = new HashSet<CustomerPeyGiry>();
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
         CustomerAddresses = new HashSet<CustomerAddress>();
+        ForooshFactors = new HashSet<ForooshFactor>();
     }
 
     public Ulid Id { get; set; }
@@ -48,9 +49,11 @@ public partial class Customer : BaseEntity
     public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
     public virtual ICollection<CustomerAddress>? CustomerAddresses { get; set; }                          
     public virtual ICollection<CustomerNote>? CustomerNotes { get; set; }
+    
+    public virtual ICollection<ForooshFactor>? ForooshFactors { get; set; }
+
 
     #region Old Relations
-    // public virtual ICollection<ForoshFactor>? ForooshFactors { get; set; }
     // public virtual ICollection<Customer>? CustomersMoaref { get; set; }
     // public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     // public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
@@ -60,5 +63,5 @@ public partial class Customer : BaseEntity
     
     
     
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 }

@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.CommandHandler;
+﻿using Domain.Models.Customers.Foroosh;
 
-public readonly struct CreateForoshFactorCommandHandler : IRequestHandler<CreateForoshFactorCommand, ForoshFactor>
+namespace Application.Services.ForoshFactorService.CommandHandler;
+
+public readonly struct CreateForoshFactorCommandHandler : IRequestHandler<CreateForoshFactorCommand, ForooshFactor>
 {
     private readonly IForoshFactorRepository _repository;
 
@@ -9,7 +11,7 @@ public readonly struct CreateForoshFactorCommandHandler : IRequestHandler<Create
         _repository = repository;
     }
 
-    public async Task<ForoshFactor> Handle(CreateForoshFactorCommand request, CancellationToken cancellationToken)
+    public async Task<ForooshFactor> Handle(CreateForoshFactorCommand request, CancellationToken cancellationToken)
     {
         CreateForoshFactorCommand item = new()
         {

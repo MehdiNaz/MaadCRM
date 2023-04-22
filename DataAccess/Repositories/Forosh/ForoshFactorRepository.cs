@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Forosh;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace DataAccess.Repositories.Forosh;
 
 public class ForoshFactorRepository : IForoshFactorRepository
 {
@@ -9,19 +11,19 @@ public class ForoshFactorRepository : IForoshFactorRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ForoshFactor?>> GetAllForoshFactorsAsync()
-        => await _context.ForoshFactors.Where(x => x.ForoshFactorStatus == Status.Show).ToListAsync();
+    public async ValueTask<ICollection<ForooshFactor?>> GetAllForoshFactorsAsync()
+        => await _context.ForoshFactors.Where(x => x.StatusForooshFactor == Status.Show).ToListAsync();
 
-    public async ValueTask<ForoshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId)
-        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.Id == foroshFactorId && x.ForoshFactorStatus == Status.Show);
+    public async ValueTask<ForooshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId)
+        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.Id == foroshFactorId && x.StatusForooshFactor == Status.Show);
 
-    public async ValueTask<ForoshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request)
+    public async ValueTask<ForooshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request)
     {
         try
         {
             var item = await _context.ForoshFactors!.FindAsync(request.Id);
             if (item is null) return null;
-            item.ForoshFactorStatus = request.ForoshFactorStatus;
+            item.StatusForooshFactor = request.ForoshFactorStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -31,17 +33,17 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request)
+    public async ValueTask<ForooshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request)
     {
         try
         {
-            ForoshFactor item = new()
+            ForooshFactor item = new()
             {
                 Price = request.Price,
                 DiscountPrice = request.DiscountPrice,
-                FinalTotal = request.FinalTotal,
-                CustomerId = request.CustomerId,
-                CustomersAddressId = request.CustomersAddressId
+                PriceTotal = request.FinalTotal,
+                IdCustomer = request.CustomerId,
+                IdCustomerAddress = request.CustomersAddressId
             };
             await _context.ForoshFactors!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -53,18 +55,18 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request)
+    public async ValueTask<ForooshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request)
     {
         try
         {
-            ForoshFactor item = new()
+            ForooshFactor item = new()
             {
                 Id = request.Id,
                 Price = request.Price,
                 DiscountPrice = request.DiscountPrice,
-                FinalTotal = request.FinalTotal,
-                CustomerId = request.CustomerId,
-                CustomersAddressId = request.CustomersAddressId
+                PriceTotal = request.FinalTotal,
+                IdCustomer = request.CustomerId,
+                IdCustomerAddress = request.CustomersAddressId
             };
 
             _context.Update(item);
@@ -77,12 +79,12 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForoshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request)
+    public async ValueTask<ForooshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request)
     {
         try
         {
             var foroshFactor = await GetForoshFactorByIdAsync(request.Id);
-            foroshFactor!.ForoshFactorStatus = Status.Deleted;
+            foroshFactor!.StatusForooshFactor = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshFactor;
         }

@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ForoshOrderService.Queries;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace Application.Services.ForoshOrderService.Queries;
 
 public struct GetForoshOrderByIdQuery : IRequest<ForooshOrder>
 {

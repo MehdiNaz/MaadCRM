@@ -19,5 +19,5 @@ public class CustomersPhoneNumber : BaseEntity
 
     public virtual Customer? IdCustomerNavigation { get; set; }
     
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 }

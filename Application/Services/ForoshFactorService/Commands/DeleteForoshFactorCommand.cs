@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.Commands;
+﻿using Domain.Models.Customers.Foroosh;
 
-public struct DeleteForoshFactorCommand : IRequest<ForoshFactor>
+namespace Application.Services.ForoshFactorService.Commands;
+
+public struct DeleteForoshFactorCommand : IRequest<ForooshFactor>
 {
     public Ulid Id { get; set; }
 }

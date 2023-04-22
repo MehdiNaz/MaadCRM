@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ForoshOrderService.Commands;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace Application.Services.ForoshOrderService.Commands;
 
 public struct UpdateForoshOrderCommand : IRequest<ForooshOrder>
 {

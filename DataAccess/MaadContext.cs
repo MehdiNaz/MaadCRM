@@ -1,4 +1,6 @@
 using Domain.Mapping.BusinessMapping;
+using Domain.Mapping.Customers.Foroosh;
+using Domain.Models.Customers.Foroosh;
 
 namespace DataAccess;
 
@@ -49,7 +51,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
     public DbSet<ForooshOrder> ForoshOrders { get; set; }
-    public DbSet<ForoshFactor> ForoshFactors { get; set; }
+    public DbSet<ForooshFactor> ForoshFactors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -104,8 +106,8 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new BusinessMapping());
 
 
-        builder.ApplyConfiguration(new ForoshOrderMapping());
-        builder.ApplyConfiguration(new ForoshFactorMapping());
+        builder.ApplyConfiguration(new ForooshOrderMapping());
+        builder.ApplyConfiguration(new ForooshFactorMapping());
         
         foreach (var entityType in builder.Model.GetEntityTypes())
         {

@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.Commands;
+﻿using Domain.Models.Customers.Foroosh;
 
-public struct CreateForoshFactorCommand : IRequest<ForoshFactor>
+namespace Application.Services.ForoshFactorService.Commands;
+
+public struct CreateForoshFactorCommand : IRequest<ForooshFactor>
 {
     public decimal Price { get; set; }
     public decimal DiscountPrice { get; set; }

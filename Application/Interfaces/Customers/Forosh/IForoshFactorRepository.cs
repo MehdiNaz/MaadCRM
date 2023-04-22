@@ -1,11 +1,13 @@
-﻿namespace Application.Interfaces.Customers.Forosh;
+﻿using Domain.Models.Customers.Foroosh;
+
+namespace Application.Interfaces.Customers.Forosh;
 
 public interface IForoshFactorRepository
 {
-    ValueTask<ICollection<ForoshFactor?>> GetAllForoshFactorsAsync();
-    ValueTask<ForoshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId);
-    ValueTask<ForoshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request);
-    ValueTask<ForoshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request);
-    ValueTask<ForoshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request);
-    ValueTask<ForoshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request);
+    ValueTask<ICollection<ForooshFactor?>> GetAllForoshFactorsAsync();
+    ValueTask<ForooshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId);
+    ValueTask<ForooshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request);
+    ValueTask<ForooshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request);
+    ValueTask<ForooshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request);
+    ValueTask<ForooshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request);
 }

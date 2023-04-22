@@ -14,8 +14,7 @@ public class CustomersAddressMapping : IEntityTypeConfiguration<CustomerAddress>
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)
             .WithMany(x => x.CustomerAddresses)

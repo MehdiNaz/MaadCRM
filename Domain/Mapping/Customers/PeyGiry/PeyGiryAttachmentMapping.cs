@@ -11,8 +11,7 @@ public class PeyGiryAttachmentMapping : IEntityTypeConfiguration<PeyGiryAttachme
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerPeyGiryNavigation)
             .WithMany(x => x.PeyGiryAttachments)

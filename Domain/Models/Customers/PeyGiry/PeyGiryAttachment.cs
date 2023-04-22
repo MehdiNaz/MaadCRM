@@ -18,6 +18,6 @@ public class PeyGiryAttachment : BaseEntity
     public virtual CustomerPeyGiry? IdCustomerPeyGiryNavigation { get; set; }
     
     
-    public byte[] RowVersion { get; set; }
+    public uint RowVersion { get; set; }
 
 }

@@ -6,6 +6,7 @@ public class CustomerAddress : BaseEntity
     {
         Id = Ulid.NewUlid();
         StatusCustomersAddress = Status.Show;
+        ForooshFactors = new HashSet<ForooshFactor>();
     }
 
     public Ulid Id { get; set; }
@@ -17,8 +18,9 @@ public class CustomerAddress : BaseEntity
 
     
     public required Ulid IdCustomer { get; set; }
-    public virtual Customer? IdCustomerNavigation { get; set; }
+    public Customer? IdCustomerNavigation { get; set; }
     
-    
-    public byte[] RowVersion { get; set; }
+    public virtual ICollection<ForooshFactor>? ForooshFactors { get; set; }  
+
+    public uint RowVersion { get; set; }
 }

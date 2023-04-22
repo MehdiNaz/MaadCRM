@@ -11,8 +11,7 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
 
         builder.HasOne(x => x.IdCustomerNavigation)
             .WithMany(x => x.CustomerNotes)

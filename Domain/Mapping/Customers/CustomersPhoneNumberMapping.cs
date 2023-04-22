@@ -11,8 +11,7 @@ public class CustomersPhoneNumberMapping : IEntityTypeConfiguration<CustomersPho
         builder.Property(e => e.RowVersion)
             .IsRequired()
             .HasColumnName("rowversion")
-            .IsRowVersion()
-            .IsConcurrencyToken();
+            .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)
             .WithMany(x => x.PhoneNumbers)

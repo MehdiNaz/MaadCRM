@@ -1,6 +1,8 @@
-﻿namespace Application.Services.ForoshFactorService.Commands;
+﻿using Domain.Models.Customers.Foroosh;
 
-public struct UpdateForoshFactorCommand : IRequest<ForoshFactor>
+namespace Application.Services.ForoshFactorService.Commands;
+
+public struct UpdateForoshFactorCommand : IRequest<ForooshFactor>
 {
     public Ulid Id { get; set; }
     public decimal Price { get; set; }
