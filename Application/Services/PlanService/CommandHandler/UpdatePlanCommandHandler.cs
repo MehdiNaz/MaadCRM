@@ -1,4 +1,6 @@
-﻿namespace Application.Services.PlanService.CommandHandler;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Services.PlanService.CommandHandler;
 
 public readonly struct UpdatePlanCommandHandler : IRequestHandler<UpdatePlanCommand, Plan>
 {

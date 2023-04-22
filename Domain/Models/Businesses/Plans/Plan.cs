@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Plans;
+﻿namespace Domain.Models.Businesses.Plans;
 
 /// <summary>
 /// .این کلاس برای قسمت پلن ها ایجاده شده است
@@ -12,7 +12,7 @@ public class Plan : BaseEntity
     public Plan()
     {
         Id = Ulid.NewUlid();
-        PlanStatus = Status.Show;
+        StatusPlan = Status.Show;
     }
 
     public Ulid Id { get; set; }
@@ -21,9 +21,11 @@ public class Plan : BaseEntity
     public decimal PriceOfUsers { get; set; }
     public uint CountOfDay { get; set; }
     public decimal PriceOfDay { get; set; }
-    public decimal? Discount { get; set; } //TODO: Hanooz Kar Dare In
-    public decimal FinalPrice { get; set; }
+    public decimal? Discount { get; set; } 
+    public decimal PriceFinal { get; set; }
+    public Status StatusPlan { get; set; }
+    
     public string UserId { get; set; }
-    public Status PlanStatus { get; set; }
+    
     public ICollection<BusinessPlan>? UsersPlans { get; set; }  //Relation OK
 }

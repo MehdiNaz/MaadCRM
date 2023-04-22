@@ -1,4 +1,6 @@
-﻿namespace Domain.Mapping.Plans;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Domain.Mapping.Plans;
 
 public class PlanMapping : IEntityTypeConfiguration<Plan>
 {

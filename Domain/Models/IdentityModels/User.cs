@@ -6,6 +6,8 @@ public class User : IdentityUser
     {
         UserStatus = Status.Show;
         Customers = new HashSet<Customer>();
+        CustomersAdded = new HashSet<Customer>();
+        CustomersUpdated = new HashSet<Customer>();
     }
 
     public string? Name { get; set; }
@@ -40,9 +42,12 @@ public class User : IdentityUser
     // public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
-    public ICollection<Log>? Logs { get; set; }
+    public ICollection<Log>? Logs { get;}
     // public ICollection<SanAt>? SanAts { get; set; }
-    public ICollection<Customer>? Customers { get; set; }  
+    public virtual ICollection<Customer> Customers { get; }  
+    public virtual ICollection<Customer> CustomersAdded { get;}
+    public virtual ICollection<Customer> CustomersUpdated { get;}  
+
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
     // public ICollection<Plan>? Plans { get; set; }  
     // public ICollection<CustomerCategory>? CustomerCategories { get; set; }

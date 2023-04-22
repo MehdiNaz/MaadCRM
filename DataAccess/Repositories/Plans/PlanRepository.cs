@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Plans;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace DataAccess.Repositories.Plans;
 
 public class PlanRepository : IPlanRepository
 {
@@ -10,10 +12,10 @@ public class PlanRepository : IPlanRepository
     }
 
     public async ValueTask<ICollection<Plan?>> GetAllPlansAsync()
-        => await _context.Plans.Where(x => x.PlanStatus == Status.Show).ToListAsync()!;
+        => await _context.Plans.Where(x => x.StatusPlan == Status.Show).ToListAsync()!;
 
     public async ValueTask<Plan?> GetPlansByIdAsync(Ulid postId)
-        => await _context.Plans.FirstOrDefaultAsync(x => x.Id == postId && x.PlanStatus == Status.Show);
+        => await _context.Plans.FirstOrDefaultAsync(x => x.Id == postId && x.StatusPlan == Status.Show);
 
     public async ValueTask<Plan?> ChangeStatusPlansByIdAsync(ChangeStatusPlanCommand request)
     {
@@ -21,7 +23,7 @@ public class PlanRepository : IPlanRepository
         {
             var item = await _context.Plans!.FindAsync(request.PlanId);
             if (item is null) return null;
-            item.PlanStatus = request.PlanStatus;
+            item.StatusPlan = request.PlanStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -43,7 +45,7 @@ public class PlanRepository : IPlanRepository
                 CountOfDay = request.CountOfDay,
                 PriceOfDay = request.PriceOfDay,
                 UserId = request.UserId,
-                FinalPrice = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay
+                PriceFinal = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay
             };
 
             await _context.Plans!.AddAsync(plan);
@@ -68,7 +70,7 @@ public class PlanRepository : IPlanRepository
                 CountOfDay = request.CountOfDay,
                 PriceOfDay = request.PriceOfDay,
                 UserId = request.UserId,
-                FinalPrice = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay
+                PriceFinal = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay
             };
             _context.Update(plan);
             await _context.SaveChangesAsync();
@@ -86,7 +88,7 @@ public class PlanRepository : IPlanRepository
         {
             Plan? plan = await GetPlansByIdAsync(request.Id);
             //_context.Plans.Remove(plan);
-            plan.PlanStatus = Status.Deleted;
+            plan.StatusPlan = Status.Deleted;
             await _context.SaveChangesAsync();
             return plan;
         }

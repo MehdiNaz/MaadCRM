@@ -7,7 +7,6 @@ global using Domain.Models.Customers;
 global using Domain.Models.Customers.Notes;
 global using Domain.Models.Customers.PeyGiry;
 global using Domain.Models.IdentityModels;
-global using Domain.Models.Plans;
 global using Domain.Models.Products;
 global using Domain.Models.SpecialFields;
 global using Domain.UnDifined;

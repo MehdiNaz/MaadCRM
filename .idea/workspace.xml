@@ -5,9 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f97bfc3-d2d6-4031-9d6b-f98e538af4a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/WebApi/Requests.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3223defd-8047-4208-a9e8-a0ccc3b6a266.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3223defd-8047-4208-a9e8-a0ccc3b6a266.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/GlobalUsings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/GlobalUsings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Interfaces/Plans/IPlanRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/Plans/IPlanRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/ChangeStatusPlanCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/ChangeStatusPlanCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/CreatePlanCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/CreatePlanCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/DeletePlanCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/DeletePlanCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/UpdatePlanCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/CommandHandler/UpdatePlanCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Commands/ChangeStatusPlanCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Commands/ChangeStatusPlanCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Commands/CreatePlanCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Commands/CreatePlanCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Commands/DeletePlanCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Commands/DeletePlanCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Commands/UpdatePlanCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Commands/UpdatePlanCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Queries/AllPlansQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Queries/AllPlansQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/Queries/PlanByIdQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/Queries/PlanByIdQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/QueryHandler/AllPlansHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/QueryHandler/AllPlansHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Services/PlanService/QueryHandler/PlanByIdHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/PlanService/QueryHandler/PlanByIdHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/GlobalUsings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/GlobalUsings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/MaadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/MaadContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230420063633_MaadMigration.Designer.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230420063633_MaadMigration.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Customers/CustomerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Customers/CustomerRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Plans/PlanRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Plans/PlanRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/GlobalUsings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/GlobalUsings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Mapping/Customers/CustomerMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Mapping/Customers/CustomerMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Mapping/Plans/PlanMapping.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Mapping/Plans/PlanMapping.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/Businesses/BusinessPlan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/Businesses/Plans/BusinessPlan.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/Customers/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/Customers/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/IdentityModels/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/IdentityModels/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/Plans/Plan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/Businesses/Plans/Plan.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,17 +50,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/arashfarahmandi"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/arashfarahmandi&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
 </project>
