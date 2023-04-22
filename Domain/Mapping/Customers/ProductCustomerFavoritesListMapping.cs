@@ -7,9 +7,7 @@ public class ProductCustomerFavoritesListMapping : IEntityTypeConfiguration<Prod
         builder.ToTable("ProductCustomerFavoritesLists");
         builder.HasKey(x => new { ProductId = x.IdProduct, CustomerId = x.IdCustomer });
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)

@@ -25,5 +25,5 @@ public class ForooshOrder : BaseEntity
     public required Ulid IdForooshFactor { get; set; }
     public virtual ForooshFactor? IdForooshFactorNavigation { get; set; }
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 }

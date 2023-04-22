@@ -27,5 +27,5 @@ public class ForooshFactor : BaseEntity
     public virtual ICollection<ForooshOrder> ForooshOrders { get; set; }
 
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 }

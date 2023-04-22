@@ -22,5 +22,5 @@ public class CustomerAddress : BaseEntity
     
     public virtual ICollection<ForooshFactor>? ForooshFactors { get; set; }  
 
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 }

@@ -11,9 +11,7 @@ public class CustomersAddressMapping : IEntityTypeConfiguration<CustomerAddress>
         builder.Property(x => x.PhoneNo).HasMaxLength(255);
         builder.Property(x => x.Description).HasMaxLength(255);
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)

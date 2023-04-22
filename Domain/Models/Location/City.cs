@@ -16,7 +16,7 @@ public class City : BaseEntity
     public Ulid IdProvince { get; set; }
     public Status CityStatus { get; set; }
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 
 
 

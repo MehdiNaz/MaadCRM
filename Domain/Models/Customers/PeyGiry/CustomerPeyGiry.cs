@@ -19,5 +19,5 @@ public class CustomerPeyGiry : BaseEntity
     
     public virtual ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; } 
     
-    public uint RowVersion { get; set; }
+    public uint Version { get; set; }
 }

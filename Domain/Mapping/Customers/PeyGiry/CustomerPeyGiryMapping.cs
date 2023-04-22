@@ -8,9 +8,7 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
 
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdCustomerNavigation)

@@ -7,9 +7,7 @@ public class NoteHashTagMapping : IEntityTypeConfiguration<CustomerNoteHashTag>
         builder.ToTable("NoteHashTags");
         builder.HasKey(x => new {x.IdCustomerNote, x.IdNoteHashTable});
         
-        builder.Property(e => e.RowVersion)
-            .IsRequired()
-            .HasColumnName("rowversion")
+        builder.Property(e => e.Version)
             .IsRowVersion();
         
         builder.HasOne(x => x.IdNoteHashTableNavigation)
