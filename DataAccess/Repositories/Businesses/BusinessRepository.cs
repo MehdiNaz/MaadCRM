@@ -9,33 +9,50 @@ public class BusinessRepository : IBusinessRepository
         _context = context;
     }
 
-    public async ValueTask<IReadOnlyList<Business?>> GetAllBusinessesAsync()
-        => await _context.Businesses!.Where(x => x.StatusBusiness == Status.Show).ToListAsync()!;
-
-    public async ValueTask<Business?> GetBusinessByIdAsync(Ulid businessId)
-        => await _context.Businesses!.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
-
-    public async ValueTask<Business?> ChangeStatsAsync(ChangeStatusBusinessCommand request)
+    public async ValueTask<Result<ICollection<Business>>> GetAllBusinessesAsync()
     {
         try
         {
-            var item = await _context.Businesses!.FindAsync(request.BusinessId);
-            if (item is null) return null;
-            item.StatusBusiness = request.BusinessStatus;
-            await _context.SaveChangesAsync();
-            return item;
+            return await _context.Businesses.Where(x => x.StatusBusiness == Status.Show).ToListAsync();
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ICollection<Business>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Business?> CreateBusinessAsync(CreateBusinessCommand request)
+    public async ValueTask<Result<Business>> GetBusinessByIdAsync(Ulid businessId)
     {
         try
         {
-            Business business = new()
+            return await _context.Businesses.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
+        }
+        catch (Exception e)
+        {
+            return new Result<Business>(new ValidationException(e.Message));
+        }
+    }
+    public async ValueTask<Result<Business>> ChangeStatsAsync(ChangeStatusBusinessCommand request)
+    {
+        try
+        {
+            var item = await _context.Businesses.FindAsync(request.BusinessId);
+            if (item is null) return new Result<Business>(new ValidationException(ResultErrorMessage.NotFound));
+            item.StatusBusiness = request.BusinessStatus;
+            await _context.SaveChangesAsync();
+            return new Result<Business>(item);
+        }
+        catch (Exception e)
+        {
+            return new Result<Business>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<Business>> CreateBusinessAsync(CreateBusinessCommand request)
+    {
+        try
+        {
+            Business item = new()
             {
                 BusinessName = request.BusinessName,
                 Url = request.Url,
@@ -44,21 +61,21 @@ public class BusinessRepository : IBusinessRepository
                 CompanyAddress = request.CompanyAddress,
                 DisplayOrder = request.DisplayOrder
             };
-            await _context.Businesses!.AddAsync(business);
+            await _context.Businesses.AddAsync(item);
             await _context.SaveChangesAsync();
-            return business;
+            return new Result<Business>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<Business>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Business?> UpdateBusinessAsync(UpdateBusinessCommand request)
+    public async ValueTask<Result<Business>> UpdateBusinessAsync(UpdateBusinessCommand request)
     {
         try
         {
-            Business business = new()
+            Business item = new()
             {
                 Id = request.BusinessId,
                 BusinessName = request.BusinessName,
@@ -69,28 +86,28 @@ public class BusinessRepository : IBusinessRepository
                 DisplayOrder = request.DisplayOrder
             };
 
-            _context.Update(business);
+            _context.Update(item);
             await _context.SaveChangesAsync();
-            return business;
+            return new Result<Business>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<Business>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Business?> DeleteBusinessAsync(DeleteBusinessCommand request)
+    public async ValueTask<Result<Business>> DeleteBusinessAsync(DeleteBusinessCommand request)
     {
         try
         {
-            var business = await GetBusinessByIdAsync(request.BusinessId);
+            var business = await _context.Businesses.FirstOrDefaultAsync(x => x.Id == request.BusinessId && x.StatusBusiness == Status.Show);
             business.StatusBusiness = Status.Deleted;
             await _context.SaveChangesAsync();
-            return business;
+            return new Result<Business>(business);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<Business>(new ValidationException(e.Message));
         }
     }
 }

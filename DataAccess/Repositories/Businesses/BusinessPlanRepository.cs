@@ -9,19 +9,19 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<BusinessPlan?>>> GetAllBusinessPlansByBusinessIdAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<BusinessPlan>>> GetAllBusinessPlansByBusinessIdAsync(Ulid businessId)
     {
         try
         {
-            return new Result<ICollection<BusinessPlan?>>(await _context.BusinessPlans.Where(x => x.BusinessId == businessId).ToListAsync());
+            return new Result<ICollection<BusinessPlan>>(await _context.BusinessPlans.Where(x => x.BusinessId == businessId).ToListAsync());
         }
         catch (Exception e)
         {
-            return new Result<ICollection<BusinessPlan?>>(new ValidationException(e.Message));
+            return new Result<ICollection<BusinessPlan>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<ICollection<BusinessPlan?>>> GetAllActivePlansAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<BusinessPlan>>> GetAllActivePlansAsync(Ulid businessId)
     {
 
         try
@@ -30,11 +30,11 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
         catch (Exception e)
         {
-            return new Result<ICollection<BusinessPlan?>>(new ValidationException(e.Message));
+            return new Result<ICollection<BusinessPlan>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> GetTheLatestPlanAsync(Ulid businessId)
+    public async ValueTask<Result<BusinessPlan>> GetTheLatestPlanAsync(Ulid businessId)
     {
         try
         {
@@ -46,11 +46,11 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> GetBusinessPlansByIdAsync(Ulid businessPlansId)
+    public async ValueTask<Result<BusinessPlan>> GetBusinessPlansByIdAsync(Ulid businessPlansId)
     {
         try
         {
-            return await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
+            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
         }
         catch (Exception e)
         {
@@ -58,7 +58,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> ChangeStatusAsync(ChangeStatusBusinessPlansQuery request)
+    public async ValueTask<Result<BusinessPlan>> ChangeStatusAsync(ChangeStatusBusinessPlansQuery request)
     {
         try
         {
@@ -68,7 +68,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
             };
 
             var item = await _context.BusinessPlans!.FindAsync(businessPlan);
-            if (item is null) return null;
+            if (item is null) return new Result<BusinessPlan>(new ValidationException(ResultErrorMessage.NotFound));
             item.BusinessPlansStatus = request.Status;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(item);
@@ -79,7 +79,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> CreateBusinessPlansAsync(CreateBusinessPlansCommand entity)
+    public async ValueTask<Result<BusinessPlan>> CreateBusinessPlansAsync(CreateBusinessPlansCommand entity)
     {
         try
         {
@@ -100,7 +100,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> UpdateBusinessPlansAsync(UpdateBusinessPlansCommand request)
+    public async ValueTask<Result<BusinessPlan>> UpdateBusinessPlansAsync(UpdateBusinessPlansCommand request)
     {
         try
         {
@@ -123,7 +123,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan?>> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
+    public async ValueTask<Result<BusinessPlan>> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
     {
         try
         {

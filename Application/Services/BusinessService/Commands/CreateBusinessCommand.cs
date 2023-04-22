@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.Commands;
 
-public struct CreateBusinessCommand : IRequest<Business>
+public struct CreateBusinessCommand : IRequest<Result<Business>>
 {
 
     public string BusinessName { get; set; }

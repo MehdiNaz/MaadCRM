@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230422081936_Updated")]
+    [Migration("20230422094049_Updated")]
     partial class Updated
     {
         /// <inheritdoc />
@@ -101,11 +101,11 @@ namespace DataAccess.Migrations
                     b.Property<bool>("IsDefault")
                         .HasColumnType("boolean");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -468,11 +468,11 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -550,14 +550,14 @@ namespace DataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusCustomersAddress")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusCustomersAddress")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -761,14 +761,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusCustomerEmailAddress")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusCustomerEmailAddress")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -800,14 +800,14 @@ namespace DataAccess.Migrations
                     b.Property<int>("PhoneType")
                         .HasColumnType("integer");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusCustomersPhoneNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusCustomersPhoneNumber")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -843,14 +843,14 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("PriceTotal")
                         .HasColumnType("numeric");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusForooshFactor")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusForooshFactor")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -903,17 +903,17 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("PriceTotal")
                         .HasColumnType("numeric");
 
-                    b.Property<uint>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
                     b.Property<int>("ShippingMethodType")
                         .HasColumnType("integer");
 
                     b.Property<int>("StatusForooshOrder")
                         .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -949,11 +949,11 @@ namespace DataAccess.Migrations
                     b.Property<string>("IdProduct")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -991,11 +991,11 @@ namespace DataAccess.Migrations
                     b.Property<int>("NoteAttachmentStatus")
                         .HasColumnType("integer");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -1022,16 +1022,16 @@ namespace DataAccess.Migrations
                     b.Property<int>("NoteHashTagStatus")
                         .HasColumnType("integer");
 
-                    b.Property<uint>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -1057,14 +1057,14 @@ namespace DataAccess.Migrations
                     b.Property<string>("IdCustomerNoteNavigationId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusNoteHashTag")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusNoteHashTag")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("IdCustomerNote", "IdNoteHashTable");
 
@@ -1095,14 +1095,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusCustomerPeyGiry")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusCustomerPeyGiry")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -1135,14 +1135,14 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusPeyGiryAttachment")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusPeyGiryAttachment")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -1165,14 +1165,14 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DateLastUpdate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<uint>("RowVersion")
+                    b.Property<int>("StatusProductCustomerFavoritesList")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("xid")
-                        .HasColumnName("rowversion");
-
-                    b.Property<int>("StatusProductCustomerFavoritesList")
-                        .HasColumnType("integer");
+                        .HasColumnName("xmin");
 
                     b.HasKey("IdProduct", "IdCustomer");
 

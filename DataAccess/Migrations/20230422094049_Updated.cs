@@ -667,7 +667,7 @@ namespace DataAccess.Migrations
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     IdProvince = table.Column<string>(type: "character varying(26)", nullable: false),
                     CityStatus = table.Column<int>(type: "integer", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -720,7 +720,7 @@ namespace DataAccess.Migrations
                     Title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     NoteHashTagStatus = table.Column<int>(type: "integer", nullable: false),
                     IdBusiness = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -776,7 +776,7 @@ namespace DataAccess.Migrations
                     CustomerCategoryId = table.Column<string>(type: "character varying(26)", nullable: true),
                     CustomerMoarefId = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdUser = table.Column<string>(type: "text", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -842,7 +842,7 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     StatusCustomersAddress = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -864,7 +864,7 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusCustomerPeyGiry = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -886,7 +886,7 @@ namespace DataAccess.Migrations
                     CustomerEmailAddress = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusCustomerEmailAddress = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -909,7 +909,7 @@ namespace DataAccess.Migrations
                     PhoneType = table.Column<int>(type: "integer", nullable: false),
                     StatusCustomersPhoneNumber = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -932,7 +932,7 @@ namespace DataAccess.Migrations
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -958,7 +958,7 @@ namespace DataAccess.Migrations
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
                     StatusProductCustomerFavoritesList = table.Column<int>(type: "integer", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -988,7 +988,7 @@ namespace DataAccess.Migrations
                     StatusForooshFactor = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdCustomerAddress = table.Column<string>(type: "character varying(26)", nullable: true),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1016,7 +1016,7 @@ namespace DataAccess.Migrations
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusPeyGiryAttachment = table.Column<int>(type: "integer", nullable: false),
                     IdPeyGiry = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1039,7 +1039,7 @@ namespace DataAccess.Migrations
                     Extenstion = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     NoteAttachmentStatus = table.Column<int>(type: "integer", nullable: false),
                     IdCustomerNote = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1061,7 +1061,7 @@ namespace DataAccess.Migrations
                     IdNoteHashTable = table.Column<string>(type: "character varying(26)", nullable: false),
                     StatusNoteHashTag = table.Column<int>(type: "integer", nullable: false),
                     IdCustomerNoteNavigationId = table.Column<string>(type: "character varying(26)", nullable: true),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -1096,7 +1096,7 @@ namespace DataAccess.Migrations
                     StatusForooshOrder = table.Column<int>(type: "integer", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdForooshFactor = table.Column<string>(type: "character varying(26)", nullable: false),
-                    rowversion = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

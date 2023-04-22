@@ -1,5 +1,5 @@
 ﻿namespace Application.Services.BusinessService.Queries;
 
-public struct AllBusinessQuery : IRequest<ICollection<Business>>
+public struct AllBusinessQuery : IRequest<Result<ICollection<Business>>>
 {
 }
