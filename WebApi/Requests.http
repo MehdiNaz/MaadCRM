@@ -1,0 +1,35 @@
+### loginWithPhone
+POST http://localhost:5001/v1/login/loginWithPhone
+Content-Type: application/json
+
+{
+  "Phone": "09906747192"
+}
+
+### verifyPhone
+POST http://localhost:5001/v1/login/verifyPhone
+Content-Type: application/json
+
+{
+  "Phone": "09906747192",
+  "Code": "8256"
+}
+
+> {%
+    client.global.set("auth_token", response.body.user.token); 
+    client.log(response.body.user.token)
+%}
+### SetProfile
+POST http://localhost:5001/v1/profile/SetProfile
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "Email" : "f@gmail.com",
+  "Gender" : 1,
+  "Name" : "Arash",
+  "Family" : "Farahmandi",
+  "Address" : "Address 1",
+  "BirthDatre" : "2023-04-11T06:10:46.516599Z",
+  "CodeMelli" : "2291967347"
+}
