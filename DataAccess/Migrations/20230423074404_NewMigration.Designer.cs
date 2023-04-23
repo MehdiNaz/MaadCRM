@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230423074404_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1167,6 +1170,10 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("IdUserUpdateNavigationId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("IdUserUpdated")
                         .IsRequired()
                         .HasColumnType("text");
@@ -1186,7 +1193,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("IdUserAdded");
 
-                    b.HasIndex("IdUserUpdated");
+                    b.HasIndex("IdUserUpdateNavigationId");
 
                     b.ToTable("CustomerPeyGiries", (string)null);
                 });
@@ -2220,16 +2227,16 @@ namespace DataAccess.Migrations
                         .HasConstraintName("FK_CustomerPeyGiry_Customers");
 
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")
-                        .WithMany("CustomerPeyGiriesAdded")
+                        .WithMany("CustomerPeyGiriesUpdated")
                         .HasForeignKey("IdUserAdded")
                         .IsRequired()
-                        .HasConstraintName("FK_Add_CustomerPeyGiry_User");
+                        .HasConstraintName("FK_Add_Customer_User");
 
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserUpdateNavigation")
-                        .WithMany("CustomerPeyGiriesUpdated")
-                        .HasForeignKey("IdUserUpdated")
-                        .IsRequired()
-                        .HasConstraintName("FK_Update_CustomerPeyGiry_User");
+                        .WithMany("CustomerPeyGiriesAdded")
+                        .HasForeignKey("IdUserUpdateNavigationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("IdCustomerNavigation");
 

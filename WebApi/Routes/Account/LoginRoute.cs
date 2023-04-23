@@ -78,12 +78,12 @@ public static class LoginRoute
                     Code = request.Code
                 });
                 
-                return resultVerifyCode.Result.Match<IResult>(
+                return resultVerifyCode.Result.Match(
                     u => Results.Ok(new
                     {
                         Valid = true,
                         Message = "Verify code success",
-                        User = u
+                        Data = u
                     }), 
                     exception => Results.BadRequest(new
                     {

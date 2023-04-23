@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerPeyGiryService.CommandHandler;
 
-public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<DeleteCustomerPeyGiryCommand, CustomerPeyGiry>
+public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<DeleteCustomerPeyGiryCommand, Result<CustomerPeyGiry>>
 {
     private readonly ICustomerPeyGiryRepository _repository;
 
@@ -9,6 +9,16 @@ public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<Del
         _repository = repository;
     }
 
-    public async Task<CustomerPeyGiry?> Handle(DeleteCustomerPeyGiryCommand request, CancellationToken cancellationToken)
-        => await _repository.DeleteCustomerPeyGiryAsync(request);
+    public async Task<Result<CustomerPeyGiry>> Handle(DeleteCustomerPeyGiryCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.DeleteCustomerPeyGiryAsync(request))
+                .Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerPeyGiry>(new Exception(e.Message));
+        }
+    }
 }

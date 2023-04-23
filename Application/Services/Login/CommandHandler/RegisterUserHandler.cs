@@ -15,7 +15,7 @@ public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Result<b
         {
             var result = await _repository.RegisterUser(request);
             return result.Match(
-                resultCode => new Result<bool>(resultCode), 
+                resultCode => new Result<bool>(resultCode),
                 error => new Result<bool>(error));
         }
         catch (Exception e)

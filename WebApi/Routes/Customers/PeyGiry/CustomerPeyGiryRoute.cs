@@ -4,7 +4,7 @@ public static class CustomerPeyGiryRoute
 {
     public static void MapCustomerPeyGiryRoute(this IEndpointRouteBuilder app)
     {
-        #region Customer Pey Giry
+        #region Customer PeyGiry
 
         var plan = app.MapGroup("v1/CustomerPeyGiry")
             //.RequireAuthorization()
@@ -19,11 +19,28 @@ public static class CustomerPeyGiryRoute
                 {
                     CustomerId = customerId
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Show All Customer PeyGiries.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -35,11 +52,27 @@ public static class CustomerPeyGiryRoute
                 {
                     CustomerPeyGiryId = request.CustomerPeyGiryId
                 });
-                return Results.Ok(result);
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Show Customer PeyGiry By Id.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -50,16 +83,35 @@ public static class CustomerPeyGiryRoute
                 var result = await mediator.Send(new CreateCustomerPeyGiryCommand
                 {
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+                    IdUserAdded = request.IdUserAdded,
+                    IdUserUpdated = request.IdUserUpdated,
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "New Customer PeyGiry Inserted.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
-        
+
         plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator) =>
         {
             try
@@ -69,11 +121,28 @@ public static class CustomerPeyGiryRoute
                     CustomerPeyGiryId = request.CustomerPeyGiryId,
                     CustomerPeyGiryStatus = request.CustomerPeyGiryStatus
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Status Customer PeyGiry Changed.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -85,13 +154,31 @@ public static class CustomerPeyGiryRoute
                 {
                     Id = request.Id,
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+                    IdUserAdded = request.IdUserAdded,
+                    IdUserUpdated = request.IdUserUpdated,
                 });
-                return Results.Ok(result);
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Customer PeyGiry Updated.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -103,11 +190,28 @@ public static class CustomerPeyGiryRoute
                 {
                     Id = request.Id
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Business Deleted.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 

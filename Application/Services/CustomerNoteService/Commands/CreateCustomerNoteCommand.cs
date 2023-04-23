@@ -8,4 +8,6 @@ public struct CreateCustomerNoteCommand : IRequest<CustomerNote>
     public ICollection<Ulid> CustomerNoteId { get; set; }
     //public File AttachmentFile { get; set; }
     public Ulid CustomerId { get; set; }
+    public required string IdUserAdded { get; set; }
+    public required string IdUserUpdated { get; set; }
 }

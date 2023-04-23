@@ -29,7 +29,9 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
             CustomersAddresses = request.CustomersAddresses,
             CustomerNotes = request.CustomerNotes,
             CustomerPeyGiries = request.CustomerPeyGiries,
-            CityId = request.CityId
+            CityId = request.CityId,
+            IdUserUpdated = request.IdUserUpdated,
+            IdUserAdded = request.IdUserAdded
         };
         var result = await _repository.CreateCustomerAsync(item);
         return result.Select(x => new CustomerResponse

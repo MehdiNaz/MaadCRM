@@ -37,7 +37,7 @@ public class BusinessRepository : IBusinessRepository
         try
         {
             var item = await _context.Businesses.FindAsync(request.BusinessId);
-            if (item is null) return new Result<Business>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<Business>(new ValidationException());
             item.StatusBusiness = request.BusinessStatus;
             await _context.SaveChangesAsync();
             return new Result<Business>(item);

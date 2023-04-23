@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Updated : Migration
+    public partial class NewMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -273,9 +273,9 @@ namespace DataAccess.Migrations
                     CountOfDay = table.Column<long>(type: "bigint", nullable: false),
                     PriceOfDay = table.Column<decimal>(type: "numeric", nullable: false),
                     Discount = table.Column<decimal>(type: "numeric", nullable: true),
-                    FinalPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    PriceFinal = table.Column<decimal>(type: "numeric", nullable: false),
+                    StatusPlan = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    PlanStatus = table.Column<int>(type: "integer", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -773,16 +773,29 @@ namespace DataAccess.Migrations
                     CustomerState = table.Column<int>(type: "integer", nullable: false),
                     CustomerActivationStatus = table.Column<int>(type: "integer", nullable: false),
                     IdCity = table.Column<string>(type: "character varying(26)", nullable: true),
-                    CustomerCategoryId = table.Column<string>(type: "character varying(26)", nullable: true),
-                    CustomerMoarefId = table.Column<string>(type: "character varying(26)", nullable: true),
+                    IdUserUpdated = table.Column<string>(type: "text", nullable: false),
+                    IdUserAdded = table.Column<string>(type: "text", nullable: false),
                     IdUser = table.Column<string>(type: "text", nullable: false),
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
+                    CustomerCategoryId = table.Column<string>(type: "character varying(26)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "Customers_AspNetUsers_Added",
+                        column: x => x.IdUserAdded,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "Customers_AspNetUsers_Updated",
+                        column: x => x.IdUserUpdated,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Customer_City",
                         column: x => x.IdCity,
@@ -864,6 +877,9 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     StatusCustomerPeyGiry = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
+                    IdUserUpdated = table.Column<string>(type: "text", nullable: false),
+                    IdUserUpdateNavigationId = table.Column<string>(type: "text", nullable: false),
+                    IdUserAdded = table.Column<string>(type: "text", nullable: false),
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -871,6 +887,17 @@ namespace DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerPeyGiries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Add_Customer_User",
+                        column: x => x.IdUserAdded,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerPeyGiries_AspNetUsers_IdUserUpdateNavigationId",
+                        column: x => x.IdUserUpdateNavigationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CustomerPeyGiry_Customers",
                         column: x => x.IdCustomer,
@@ -932,6 +959,9 @@ namespace DataAccess.Migrations
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
+                    IdUserUpdated = table.Column<string>(type: "text", nullable: false),
+                    IdUserUpdateNavigationId = table.Column<string>(type: "text", nullable: false),
+                    IdUserAdded = table.Column<string>(type: "text", nullable: false),
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -939,6 +969,11 @@ namespace DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerNotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Add_Customer_User",
+                        column: x => x.IdUserAdded,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CustomerNote_Customers",
                         column: x => x.IdCustomer,
@@ -949,6 +984,12 @@ namespace DataAccess.Migrations
                         column: x => x.IdProduct,
                         principalTable: "Products",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerNotes_AspNetUsers_IdUserUpdateNavigationId",
+                        column: x => x.IdUserUpdateNavigationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1225,9 +1266,29 @@ namespace DataAccess.Migrations
                 column: "IdProduct");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CustomerNotes_IdUserAdded",
+                table: "CustomerNotes",
+                column: "IdUserAdded");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerNotes_IdUserUpdateNavigationId",
+                table: "CustomerNotes",
+                column: "IdUserUpdateNavigationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CustomerPeyGiries_IdCustomer",
                 table: "CustomerPeyGiries",
                 column: "IdCustomer");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPeyGiries_IdUserAdded",
+                table: "CustomerPeyGiries",
+                column: "IdUserAdded");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPeyGiries_IdUserUpdateNavigationId",
+                table: "CustomerPeyGiries",
+                column: "IdUserUpdateNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerRepresentativeHistories_CustomerRepresentativeTypeId",
@@ -1248,6 +1309,16 @@ namespace DataAccess.Migrations
                 name: "IX_Customers_IdUser",
                 table: "Customers",
                 column: "IdUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_IdUserAdded",
+                table: "Customers",
+                column: "IdUserAdded");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_IdUserUpdated",
+                table: "Customers",
+                column: "IdUserUpdated");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailAddresses_IdCustomer",
@@ -1456,10 +1527,10 @@ namespace DataAccess.Migrations
                 name: "ProductCategories");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "CustomerCategories");

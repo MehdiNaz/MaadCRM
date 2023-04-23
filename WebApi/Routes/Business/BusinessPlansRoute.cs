@@ -19,11 +19,26 @@ public static class BusinessPlansRoute
                 {
                     BusinessId = request.BusinessId
                 });
-                return Results.Ok(result);
+                return result.Match(
+                    r => Results.Ok(new
+                    {
+                        Valid = r,
+                        Message = "Show All Business Plans",
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 

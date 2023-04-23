@@ -18,7 +18,9 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
             CustomerId = request.CustomerId,
             ProductId = request.ProductId,
             HashTagIds = request.HashTagIds,
-            CustomerNoteId = request.CustomerNoteId
+            CustomerNoteId = request.CustomerNoteId,
+            IdUserAdded = request.IdUserAdded,
+            IdUserUpdated = request.IdUserUpdated
         };
         return await _repository.UpdateCustomerNoteAsync(item);
     }

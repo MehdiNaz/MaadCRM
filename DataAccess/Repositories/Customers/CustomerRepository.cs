@@ -210,7 +210,9 @@ public class CustomerRepository : ICustomerRepository
                 // CustomersAddresses = request.CustomersAddresses,
                 // CustomerNotes = request.CustomerNotes,
                 // CustomerPeyGiries = request.CustomerPeyGiries,
-                IdCity = request.CityId
+                IdCity = request.CityId,
+                IdUserUpdated = request.IdUserAdded,
+                IdUserAdded = request.IdUserAdded
             };
             await _context.Customers!.AddAsync(entityEntry);
             var result = await _context.SaveChangesAsync();
@@ -260,7 +262,9 @@ public class CustomerRepository : ICustomerRepository
                     CustomerNote newNote = new()
                     {
                         IdCustomer = entityEntry.Id,
-                        Description = note
+                        Description = note,
+                        IdUserAdded = request.IdUserAdded,
+                        IdUserUpdated = request.IdUserUpdated
                     };
 
                     await _context.CustomerNotes.AddAsync(newNote);
@@ -336,7 +340,6 @@ public class CustomerRepository : ICustomerRepository
             customer.CityId = request.CityId;
             customer.Gender = request.Gender;
 
-
             await _context.SaveChangesAsync();
 
             if (request.PhoneNumbers != null)
@@ -382,7 +385,9 @@ public class CustomerRepository : ICustomerRepository
                     CustomerNote newNote = new()
                     {
                         IdCustomer = request.Id,
-                        Description = note
+                        Description = note,
+                        IdUserAdded = request.IdUserUpdated,
+                        IdUserUpdated = request.IdUserUpdated
                     };
 
                     await _context.CustomerNotes.AddAsync(newNote);

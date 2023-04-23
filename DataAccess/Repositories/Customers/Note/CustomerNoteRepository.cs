@@ -39,8 +39,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             {
                 IdCustomer = entity.CustomerId,
                 IdProduct = entity.ProductId,
-                Description = entity.Description
-
+                Description = entity.Description,
+                IdUserAdded = entity.IdUserAdded,
+                IdUserUpdated = entity.IdUserUpdated
             };
 
             await _context.CustomerNotes.AddAsync(newEntity);
@@ -95,8 +96,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             {
                 IdCustomer = entity.CustomerId,
                 IdProduct = entity.ProductId,
-                Description = entity.Description
-
+                Description = entity.Description,
+                IdUserAdded = entity.IdUserAdded,
+                IdUserUpdated = entity.IdUserUpdated
             };
 
             await _context.CustomerNotes.AddAsync(newEntity);

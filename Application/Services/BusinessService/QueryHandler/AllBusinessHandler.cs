@@ -11,7 +11,6 @@ public readonly struct AllBusinessHandler : IRequestHandler<AllBusinessQuery, Re
 
     public async Task<Result<ICollection<Business>>> Handle(AllBusinessQuery request, CancellationToken cancellationToken)
     {
-
         try
         {
             return (await _repository.GetAllBusinessesAsync()).Match(result => new Result<ICollection<Business>>(result), exception => new Result<ICollection<Business>>(exception));

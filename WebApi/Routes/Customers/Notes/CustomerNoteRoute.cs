@@ -49,7 +49,9 @@ public static class CustomerNoteRoute
                     CustomerId = request.CustomerId,
                     ProductId = request.ProductId,
                     HashTagIds = request.HashTagIds,
-                    CustomerNoteId = request.CustomerNoteId
+                    CustomerNoteId = request.CustomerNoteId,
+                    IdUserAdded = request.IdUserAdded,
+                    IdUserUpdated = request.IdUserUpdated
                 });
                 return Results.Ok(result);
             }
@@ -87,7 +89,9 @@ public static class CustomerNoteRoute
                     Description = request.Description,
                     CustomerId = request.CustomerId,
                     ProductId = request.ProductId,
-                    HashTagIds = request.HashTagIds
+                    HashTagIds = request.HashTagIds,
+                    IdUserUpdated = request.IdUserUpdated,
+                    IdUserAdded = request.IdUserAdded
                 });
                 return Results.Ok(result);
             }

@@ -13,7 +13,8 @@ public readonly struct ChangeStatusBusinessCommandHandler : IRequestHandler<Chan
     {
         try
         {
-            return (await _repository.ChangeStatsAsync(request)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
+            var resultVerifyCode = await _repository.ChangeStatsAsync(request);
+            return resultVerifyCode.Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
         }
         catch (Exception e)
         {

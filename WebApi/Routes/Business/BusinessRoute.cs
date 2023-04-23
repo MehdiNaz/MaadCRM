@@ -16,11 +16,28 @@ public static class BusinessRoute
             try
             {
                 var result = await mediator.Send(new AllBusinessQuery());
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Show All Businesses.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -32,11 +49,27 @@ public static class BusinessRoute
                 {
                     BusinessId = request.BusinessId
                 });
-                return Results.Ok(result);
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Show Business By Id.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -54,11 +87,28 @@ public static class BusinessRoute
                     DisplayOrder = request.DisplayOrder,
                     //UserId = request.UserId
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "New Business Inserted.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -71,11 +121,28 @@ public static class BusinessRoute
                     BusinessStatus = request.BusinessStatus,
                     BusinessId = request.BusinessId
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Status Business Changed.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -101,11 +168,27 @@ public static class BusinessRoute
                     //BusinessAttributeId = request.BusinessAttributeId,
                     //BusinessStatus = request.BusinessStatus
                 });
-                return Results.Ok(result);
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Business Updated.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
@@ -117,14 +200,30 @@ public static class BusinessRoute
                 {
                     BusinessId = request.BusinessId,
                 });
-                return Results.Ok(result);
+
+                return result.Match(
+                    u => Results.Ok(new
+                    {
+                        Valid = true,
+                        Message = "Business Deleted.",
+                        Data = u
+                    }),
+                    exception => Results.BadRequest(new
+                    {
+                        Valid = false,
+                        Message = exception,
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
-
         #endregion
     }
 }

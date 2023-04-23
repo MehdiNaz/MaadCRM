@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Notes;
-
-namespace Application.Services.CustomerNoteService.CommandHandler;
+﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
 public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, CustomerNote>
 {
@@ -19,7 +17,9 @@ public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<Create
             CustomerId = request.CustomerId,
             ProductId = request.ProductId,
             HashTagIds = request.HashTagIds,
-            CustomerNoteId=request.CustomerNoteId
+            CustomerNoteId = request.CustomerNoteId,
+            IdUserUpdated = request.IdUserUpdated,
+            IdUserAdded = request.IdUserAdded
         };
         return await _repository.CreateCustomerNoteAsync(item);
     }

@@ -29,7 +29,9 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
             CustomersAddresses = request.CustomersAddresses,
             CustomerNotes = request.CustomerNotes,
             CustomerPeyGiries = request.CustomerPeyGiries,
-            CityId = request.CityId
+            CityId = request.CityId,
+            IdUserAdded = request.IdUserAdded,
+            IdUserUpdated = request.IdUserUpdated
         };
         var result = await _repository.UpdateCustomerAsync(item);
         return result.Select(x => new CustomerResponse

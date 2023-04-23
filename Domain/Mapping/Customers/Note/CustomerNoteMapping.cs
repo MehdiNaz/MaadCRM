@@ -22,5 +22,17 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
             .HasForeignKey(x => x.IdProduct)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_CustomerNote_Product");
+
+        builder.HasOne(x => x.IdUserUpdateNavigation)
+            .WithMany(x => x.CustomerNotesAdded)
+            .HasForeignKey(d => d.IdUserAdded)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Add_CustomerNote_User");
+
+        builder.HasOne(x => x.IdUserAddNavigation)
+            .WithMany(x => x.CustomerNotesUpdated)
+            .HasForeignKey(d => d.IdUserAdded)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Add_CustomerNote_User");
     }
 }

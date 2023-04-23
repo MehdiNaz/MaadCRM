@@ -101,7 +101,9 @@ public static class CustomerRoute
                     CustomersAddresses = request.CustomersAddresses,
                     CustomerNotes = request.CustomerNotes,
                     CustomerPeyGiries = request.CustomerPeyGiries,
-                    CityId = request.CityId
+                    CityId = request.CityId,
+                    IdUserUpdated = request.IdUserUpdated,
+                    IdUserAdded = request.IdUserAdded
                 });
                 return result == null ? Results.BadRequest(result) : Results.Ok(result);
             }
@@ -148,7 +150,9 @@ public static class CustomerRoute
                     CustomersAddresses = request.CustomersAddresses,
                     CustomerNotes = request.CustomerNotes,
                     CustomerPeyGiries = request.CustomerPeyGiries,
-                    CityId = request.CityId
+                    CityId = request.CityId,
+                    IdUserAdded = request.IdUserAdded,
+                    IdUserUpdated = request.IdUserUpdated
                 });
                 return Results.Ok(result);
             }

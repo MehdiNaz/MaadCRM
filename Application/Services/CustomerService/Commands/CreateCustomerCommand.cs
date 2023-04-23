@@ -7,6 +7,8 @@ public struct CreateCustomerCommand : IRequest<CustomerResponse?>
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
     public required string UserId { get; set; }
+    public required string IdUserUpdated { get; set; }
+    public required string IdUserAdded { get; set; }
     //public required string CreatedBy { get; set; }
     //public required string UpdatedBy { get; set; }
     public Ulid? CityId { get; set; }

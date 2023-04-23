@@ -1,7 +1,4 @@
-﻿using Application.Services.Login.Queries;
-using MediatR;
-
-public class LoginWithPhoneNumberHelpers
+﻿public class LoginWithPhoneNumberHelpers
 {
     private readonly IMediator _mediator;
 
@@ -9,7 +6,7 @@ public class LoginWithPhoneNumberHelpers
     {
         _mediator = mediator;
     }
-
+   
     public bool LoginWithPhoneNumberTest()
     {
 

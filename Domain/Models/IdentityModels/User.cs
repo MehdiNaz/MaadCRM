@@ -5,9 +5,16 @@ public class User : IdentityUser
     public User()
     {
         UserStatus = Status.Show;
+
         Customers = new HashSet<Customer>();
         CustomersAdded = new HashSet<Customer>();
         CustomersUpdated = new HashSet<Customer>();
+
+        CustomerNotesAdded = new HashSet<CustomerNote>();
+        CustomerNotesUpdated = new HashSet<CustomerNote>();
+
+        CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
+        CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
     }
 
     public string? Name { get; set; }
@@ -42,11 +49,19 @@ public class User : IdentityUser
     // public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
-    public ICollection<Log>? Logs { get;}
+    public ICollection<Log>? Logs { get; }
     // public ICollection<SanAt>? SanAts { get; set; }
-    public virtual ICollection<Customer> Customers { get; }  
-    public virtual ICollection<Customer> CustomersAdded { get;}
-    public virtual ICollection<Customer> CustomersUpdated { get;}  
+    public virtual ICollection<Customer> Customers { get; }
+    public virtual ICollection<Customer> CustomersAdded { get; }
+    public virtual ICollection<Customer> CustomersUpdated { get; }
+
+
+    public virtual ICollection<CustomerNote> CustomerNotesAdded { get; }
+    public virtual ICollection<CustomerNote> CustomerNotesUpdated { get; }
+
+
+    public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesAdded { get; }
+    public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesUpdated { get; }
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
     // public ICollection<Plan>? Plans { get; set; }  
