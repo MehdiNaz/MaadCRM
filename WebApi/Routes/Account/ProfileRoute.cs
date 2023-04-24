@@ -23,7 +23,7 @@ public static class ProfileRoute
                         ReturnType = TokenReturnType.UserId
                     });
 
-                    return id.Result.Match<IResult>(
+                    return id.Result.Match(
                         r =>
                         {
                             var resultVerifyCode = mediator.Send(request with { Id = r });

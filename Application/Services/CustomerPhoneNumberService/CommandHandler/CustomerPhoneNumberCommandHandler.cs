@@ -14,7 +14,8 @@ public readonly struct CustomerPhoneNumberCommandHandler : IRequestHandler<Creat
         CreateCustomerPhoneNumberCommand item = new()
         {
             PhoneNo = request.PhoneNo,
-            CustomerId = request.CustomerId
+            CustomerId = request.CustomerId,
+            IdUser = request.IdUser
         };
         return await _repository.CreatePhoneNumberAsync(item);
     }

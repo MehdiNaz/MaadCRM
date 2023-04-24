@@ -16,6 +16,7 @@ public readonly struct UpdateCustomersEmailAddressCommandHandler : IRequestHandl
             Id = request.Id,
             EmailAddress = request.EmailAddress,
             CustomerId = request.CustomerId,
+            IdUser = request.IdUser
         };
         return await _repository.UpdateEmailAddressAsync(item);
     }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, CustomerNote>
+public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, Result<CustomerNote>>
 {
     private readonly ICustomerNoteRepository _repository;
 
@@ -9,19 +9,23 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
         _repository = repository;
     }
 
-    public async Task<CustomerNote> Handle(UpdateCustomerNoteCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerNote>> Handle(UpdateCustomerNoteCommand request, CancellationToken cancellationToken)
     {
-        UpdateCustomerNoteCommand item = new()
+        try
         {
-            Id = request.Id,
-            Description = request.Description,
-            CustomerId = request.CustomerId,
-            ProductId = request.ProductId,
-            HashTagIds = request.HashTagIds,
-            CustomerNoteId = request.CustomerNoteId,
-            IdUserAdded = request.IdUserAdded,
-            IdUserUpdated = request.IdUserUpdated
-        };
-        return await _repository.UpdateCustomerNoteAsync(item);
+            UpdateCustomerNoteCommand item = new()
+            {
+                Id = request.Id,
+                Description = request.Description,
+                ProductId = request.ProductId,
+                HashTagIds = request.HashTagIds,
+                IdUser = request.IdUser
+            };
+            return (await _repository.UpdateCustomerNoteAsync(item)).Match(result => new Result<CustomerNote>(result), exception => new Result<CustomerNote>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerNote>(new Exception(e.Message));
+        }
     }
 }

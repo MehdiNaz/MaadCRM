@@ -18,7 +18,8 @@ public readonly struct UpdateCustomersAddressCommandHandler : IRequestHandler<Up
             CodePost = request.CodePost,
             PhoneNo = request.PhoneNo,
             Description = request.Description,
-            CustomerId = request.CustomerId
+            CustomerId = request.CustomerId,
+            IdUser = request.IdUser
         };
         return await _repository.UpdateAddressAsync(item);
     }

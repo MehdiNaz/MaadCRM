@@ -11,105 +11,265 @@ public static class CustomerRoute
             .EnableOpenApiWithAuthentication()
         .WithOpenApi();
 
-        plan.MapPost("/AllCustomers", async ([FromBody] AllCustomersQuery request, IMediator mediator) =>
+        plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomersQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    UserId = request.UserId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new AllCustomersQuery
+                            {
+                                UserId = UserId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
 
-        plan.MapPost("/CustomerByFilterItems", async ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator) =>
+        plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerByFilterItemsQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerId = request.CustomerId,
-                    BirthDayDate = request.BirthDayDate,
-                    Gender = request.Gender,
-                    CityId = request.CityId,
-                    CustomerState = request.CustomerState,
-                    From = request.From,
-                    UpTo = request.UpTo,
-                    ProvinceId = request.ProvinceId,
-                    MoshtaryMoAref = request.MoshtaryMoAref,
-                    ProductCustomerFavorite = request.ProductCustomerFavorite
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CustomerByFilterItemsQuery
+                            {
+                                CustomerId = request.CustomerId,
+                                BirthDayDate = request.BirthDayDate,
+                                Gender = request.Gender,
+                                CityId = request.CityId,
+                                CustomerState = request.CustomerState,
+                                From = request.From,
+                                UpTo = request.UpTo,
+                                ProvinceId = request.ProvinceId,
+                                MoshtaryMoAref = request.MoshtaryMoAref,
+                                ProductCustomerFavorite = request.ProductCustomerFavorite
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers By Filter Items.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
-        plan.MapGet("/CustomerBySearchItem/{q}", async (string q, IMediator mediator) =>
+        plan.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerBySearchItemQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Q = q.ToLower()
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CustomerBySearchItemQuery
+                            {
+                                Q = q.ToLower()
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers By Search Item.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
-        plan.MapGet("/ById/{customerId}", async (Ulid customerId, IMediator mediator) =>
+        plan.MapGet("/ById/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new CustomerByIdQuery { CustomerId = customerId }));
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CustomerByIdQuery { CustomerId = customerId });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers By Search Item.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.Message);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomerCommand request, IMediator mediator) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CreateCustomerCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    UserId = request.UserId,
-                    FirstName = request.FirstName,
-                    LastName = request.LastName,
-                    BirthDayDate = request.BirthDayDate,
-                    CustomerPic = request.CustomerPic,
-                    CustomerCategoryId = request.CustomerCategoryId,
-                    Gender = request.Gender,
-                    CustomerMoarefId = request.CustomerMoarefId,
-                    PhoneNumbers = request.PhoneNumbers,
-                    EmailAddresses = request.EmailAddresses,
-                    FavoritesLists = request.FavoritesLists,
-                    CustomersAddresses = request.CustomersAddresses,
-                    CustomerNotes = request.CustomerNotes,
-                    CustomerPeyGiries = request.CustomerPeyGiries,
-                    CityId = request.CityId,
-                    IdUserUpdated = request.IdUserUpdated,
-                    IdUserAdded = request.IdUserAdded
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return result == null ? Results.BadRequest(result) : Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CreateCustomerCommand
+                            {
+                                UserId = UserId,
+                                FirstName = request.FirstName,
+                                LastName = request.LastName,
+                                BirthDayDate = request.BirthDayDate,
+                                CustomerPic = request.CustomerPic,
+                                CustomerCategoryId = request.CustomerCategoryId,
+                                Gender = request.Gender,
+                                CustomerMoarefId = request.CustomerMoarefId,
+                                PhoneNumbers = request.PhoneNumbers,
+                                EmailAddresses = request.EmailAddresses,
+                                FavoritesLists = request.FavoritesLists,
+                                CustomersAddresses = request.CustomersAddresses,
+                                CustomerNotes = request.CustomerNotes,
+                                CustomerPeyGiries = request.CustomerPeyGiries,
+                                CityId = request.CityId,
+                                IdUserAdded = UserId,
+                                IdUserUpdated = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "New Customer Inserted.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 
@@ -130,35 +290,64 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomerCommand request, IMediator mediator) =>
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new UpdateCustomerCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    FirstName = request.FirstName,
-                    LastName = request.LastName,
-                    BirthDayDate = request.BirthDayDate,
-                    CustomerPic = request.CustomerPic,
-                    CustomerCategoryId = request.CustomerCategoryId,
-                    Gender = request.Gender,
-                    CustomerMoarefId = request.CustomerMoarefId,
-                    PhoneNumbers = request.PhoneNumbers,
-                    EmailAddresses = request.EmailAddresses,
-                    FavoritesLists = request.FavoritesLists,
-                    CustomersAddresses = request.CustomersAddresses,
-                    CustomerNotes = request.CustomerNotes,
-                    CustomerPeyGiries = request.CustomerPeyGiries,
-                    CityId = request.CityId,
-                    IdUserAdded = request.IdUserAdded,
-                    IdUserUpdated = request.IdUserUpdated
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new UpdateCustomerCommand
+                            {
+                                Id = request.Id,
+                                FirstName = request.FirstName,
+                                LastName = request.LastName,
+                                BirthDayDate = request.BirthDayDate,
+                                CustomerPic = request.CustomerPic,
+                                CustomerCategoryId = request.CustomerCategoryId,
+                                Gender = request.Gender,
+                                CustomerMoarefId = request.CustomerMoarefId,
+                                PhoneNumbers = request.PhoneNumbers,
+                                EmailAddresses = request.EmailAddresses,
+                                FavoritesLists = request.FavoritesLists,
+                                CustomersAddresses = request.CustomersAddresses,
+                                CustomerNotes = request.CustomerNotes,
+                                CustomerPeyGiries = request.CustomerPeyGiries,
+                                CityId = request.CityId,
+                                IdUserUpdated = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer Note Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 

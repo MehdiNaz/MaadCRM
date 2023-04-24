@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.QueryHandler;
 
-public readonly struct CustomerNoteByIdHandler : IRequestHandler<CustomerNoteByIdQuery, CustomerNote>
+public readonly struct CustomerNoteByIdHandler : IRequestHandler<CustomerNoteByIdQuery, Result<CustomerNote>>
 {
     readonly ICustomerNoteRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct CustomerNoteByIdHandler : IRequestHandler<CustomerNoteByI
         _repository = repository;
     }
 
-    public async Task<CustomerNote> Handle(CustomerNoteByIdQuery request, CancellationToken cancellationToken)
-        => (await _repository.GetCustomerNoteByIdAsync(request.CustomerNoteId))!;
+    public async Task<Result<CustomerNote>> Handle(CustomerNoteByIdQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.GetCustomerNoteByIdAsync(request.CustomerNoteId)).Match(result => new Result<CustomerNote>(result), exception => new Result<CustomerNote>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerNote>(new Exception(e.Message));
+        }
+    }
 }

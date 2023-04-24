@@ -2,10 +2,10 @@
 
 public interface ICustomerNoteRepository
 {
-    ValueTask<ICollection<CustomerNote?>> GetAllCustomerNotesAsync(Ulid customerId);
-    ValueTask<CustomerNote?> GetCustomerNoteByIdAsync(Ulid customerNoteId);
-    ValueTask<CustomerNote?> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request);
-    ValueTask<CustomerNote?> CreateCustomerNoteAsync(CreateCustomerNoteCommand request);
-    ValueTask<CustomerNote?> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand request);
-    ValueTask<CustomerNote?> DeleteCustomerNoteAsync(DeleteCustomerNoteCommand request);
+    ValueTask<Result<ICollection<CustomerNote>>> GetAllCustomerNotesAsync(Ulid customerId);
+    ValueTask<Result<CustomerNote>> GetCustomerNoteByIdAsync(Ulid customerNoteId);
+    ValueTask<Result<CustomerNote>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request);
+    ValueTask<Result<CustomerNote>> CreateCustomerNoteAsync(CreateCustomerNoteCommand request);
+    ValueTask<Result<CustomerNote>> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand request);
+    ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(DeleteCustomerNoteCommand request);
 }

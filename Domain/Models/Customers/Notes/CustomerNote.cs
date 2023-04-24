@@ -23,7 +23,7 @@ public class CustomerNote : BaseEntity
     public required string IdUserUpdated { get; set; }
     public virtual User IdUserUpdateNavigation { get; set; }
 
-    public required string IdUserAdded { get; set; }
+    public string IdUserAdded { get; set; }
     public virtual User IdUserAddNavigation { get; set; }
 
 

@@ -5,4 +5,5 @@ public struct UpdateCustomersEmailAddressCommand : IRequest<CustomersEmailAddres
     public Ulid Id { get; set; }
     public string EmailAddress { get; set; }
     public Ulid CustomerId { get; set; }
+    public string? IdUser { get; set; }
 }

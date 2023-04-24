@@ -4,4 +4,5 @@ public struct CreateCustomersEmailAddressCommand : IRequest<CustomersEmailAddres
 {
     public string EmailAddress { get; set; }
     public Ulid CustomerId { get; set; }
+    public string? IdUser { get; set; }
 }

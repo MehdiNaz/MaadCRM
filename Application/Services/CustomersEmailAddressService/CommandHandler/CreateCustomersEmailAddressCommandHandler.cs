@@ -14,7 +14,8 @@ public readonly struct CreateCustomersEmailAddressCommandHandler : IRequestHandl
         CreateCustomersEmailAddressCommand item = new()
         {
             EmailAddress = request.EmailAddress,
-            CustomerId = request.CustomerId
+            CustomerId = request.CustomerId,
+            IdUser = request.IdUser
         };
         return await _repository.CreateEmailAddressAsync(item);
     }

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMigration : Migration
+    public partial class TestNew1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -878,7 +878,6 @@ namespace DataAccess.Migrations
                     StatusCustomerPeyGiry = table.Column<int>(type: "integer", nullable: false),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdUserUpdated = table.Column<string>(type: "text", nullable: false),
-                    IdUserUpdateNavigationId = table.Column<string>(type: "text", nullable: false),
                     IdUserAdded = table.Column<string>(type: "text", nullable: false),
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -888,20 +887,19 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_CustomerPeyGiries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Add_Customer_User",
+                        name: "FK_Add_CustomerPeyGiry_User",
                         column: x => x.IdUserAdded,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerPeyGiries_AspNetUsers_IdUserUpdateNavigationId",
-                        column: x => x.IdUserUpdateNavigationId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_CustomerPeyGiry_Customers",
                         column: x => x.IdCustomer,
                         principalTable: "Customers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Update_CustomerPeyGiry_User",
+                        column: x => x.IdUserUpdated,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
@@ -958,9 +956,9 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: true),
+                    IdProductNavigationId = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdUserUpdated = table.Column<string>(type: "text", nullable: false),
-                    IdUserUpdateNavigationId = table.Column<string>(type: "text", nullable: false),
                     IdUserAdded = table.Column<string>(type: "text", nullable: false),
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -970,7 +968,7 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_CustomerNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Add_Customer_User",
+                        name: "FK_Add_CustomerNote_User",
                         column: x => x.IdUserAdded,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -980,16 +978,15 @@ namespace DataAccess.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerNote_Product",
-                        column: x => x.IdProduct,
+                        name: "FK_CustomerNotes_Products_IdProductNavigationId",
+                        column: x => x.IdProductNavigationId,
                         principalTable: "Products",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerNotes_AspNetUsers_IdUserUpdateNavigationId",
-                        column: x => x.IdUserUpdateNavigationId,
+                        name: "FK_Update_CustomerNote_User",
+                        column: x => x.IdUserUpdated,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1261,9 +1258,9 @@ namespace DataAccess.Migrations
                 column: "IdCustomer");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerNotes_IdProduct",
+                name: "IX_CustomerNotes_IdProductNavigationId",
                 table: "CustomerNotes",
-                column: "IdProduct");
+                column: "IdProductNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerNotes_IdUserAdded",
@@ -1271,9 +1268,9 @@ namespace DataAccess.Migrations
                 column: "IdUserAdded");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerNotes_IdUserUpdateNavigationId",
+                name: "IX_CustomerNotes_IdUserUpdated",
                 table: "CustomerNotes",
-                column: "IdUserUpdateNavigationId");
+                column: "IdUserUpdated");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerPeyGiries_IdCustomer",
@@ -1286,9 +1283,9 @@ namespace DataAccess.Migrations
                 column: "IdUserAdded");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerPeyGiries_IdUserUpdateNavigationId",
+                name: "IX_CustomerPeyGiries_IdUserUpdated",
                 table: "CustomerPeyGiries",
-                column: "IdUserUpdateNavigationId");
+                column: "IdUserUpdated");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerRepresentativeHistories_CustomerRepresentativeTypeId",

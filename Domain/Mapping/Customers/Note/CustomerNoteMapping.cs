@@ -24,13 +24,13 @@ public class CustomerNoteMapping : IEntityTypeConfiguration<CustomerNote>
             .HasConstraintName("FK_CustomerNote_Product");
 
         builder.HasOne(x => x.IdUserUpdateNavigation)
-            .WithMany(x => x.CustomerNotesAdded)
-            .HasForeignKey(d => d.IdUserAdded)
+            .WithMany(x => x.CustomerNotesUpdated)
+            .HasForeignKey(d => d.IdUserUpdated)
             .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_Add_CustomerNote_User");
+            .HasConstraintName("FK_Update_CustomerNote_User");
 
         builder.HasOne(x => x.IdUserAddNavigation)
-            .WithMany(x => x.CustomerNotesUpdated)
+            .WithMany(x => x.CustomerNotesAdded)
             .HasForeignKey(d => d.IdUserAdded)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Add_CustomerNote_User");

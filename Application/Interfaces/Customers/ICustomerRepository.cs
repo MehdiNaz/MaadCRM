@@ -2,12 +2,12 @@
 
 public interface ICustomerRepository
 {
-    ValueTask<ICollection<CustomerResponse>> GetAllCustomersAsync(string userId);
-    ValueTask<CustomerResponse> GetCustomerByIdAsync(Ulid customerId);
-    ValueTask<ICollection<CustomerResponse>?> FilterByItemsAsync(CustomerByFilterItemsQuery request);
-    ValueTask<ICollection<CustomerResponse>?> SearchByItemsAsync(string request);
-    ValueTask<CustomerResponse?> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
-    ValueTask<CustomerResponse?> CreateCustomerAsync(CreateCustomerCommand request);
-    ValueTask<CustomerResponse?> UpdateCustomerAsync(UpdateCustomerCommand request);
-    ValueTask<CustomerResponse?> DeleteCustomerAsync(Ulid customerId);
+    ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId);
+    ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId);
+    ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
+    ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request);
+    ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
+    ValueTask<Result<CustomerResponse>> CreateCustomerAsync(CreateCustomerCommand request);
+    ValueTask<Result<CustomerResponse>> UpdateCustomerAsync(UpdateCustomerCommand request);
+    ValueTask<Result<CustomerResponse>> DeleteCustomerAsync(Ulid customerId);
 }

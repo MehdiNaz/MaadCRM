@@ -17,7 +17,8 @@ public readonly struct CreateCustomersAddressCommandHandler : IRequestHandler<Cr
             CodePost = request.CodePost,
             PhoneNo = request.PhoneNo,
             Description = request.Description,
-            CustomerId = request.CustomerId
+            CustomerId = request.CustomerId,
+            IdUser = request.IdUser
         };
         return await _repository.CreateAddressAsync(item);
     }

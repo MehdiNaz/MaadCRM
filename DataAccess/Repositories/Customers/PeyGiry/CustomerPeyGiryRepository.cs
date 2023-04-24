@@ -54,20 +54,6 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
         }
-
-        try
-        {
-            var item = await _context.CustomerPeyGiries!.FindAsync(request.CustomerPeyGiryId);
-            if (item is null) return new Result<CustomerPeyGiry>(new ValidationException(ResultErrorMessage.NotFound));
-            return new Result<CustomerPeyGiry>(new ValidationException());
-            item.StatusCustomerPeyGiry = request.CustomerPeyGiryStatus;
-            await _context.SaveChangesAsync();
-            return item;
-        }
-        catch (Exception e)
-        {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
-        }
     }
 
 
@@ -79,16 +65,16 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             {
                 Description = request.Description,
                 IdCustomer = request.CustomerId,
-                IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated
+                IdUserAdded = request.IdUser,
+                IdUserUpdated = request.IdUser
             };
             await _context.CustomerPeyGiries!.AddAsync(item);
             await _context.SaveChangesAsync();
             return new Result<CustomerPeyGiry>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
         }
     }
 
@@ -96,14 +82,9 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
     {
         try
         {
-            CustomerPeyGiry item = new()
-            {
-                Id = request.Id,
-                Description = request.Description,
-                IdCustomer = request.CustomerId,
-                IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated
-            };
+            CustomerPeyGiry item = await _context.CustomerPeyGiries.FindAsync(request.Id);
+            item.Description = request.Description;
+            item.IdUserUpdated = request.IdUser;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

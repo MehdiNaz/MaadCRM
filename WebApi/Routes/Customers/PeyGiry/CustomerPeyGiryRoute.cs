@@ -11,27 +11,42 @@ public static class CustomerPeyGiryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllCustomerPeyGiries/{customerId}", async (Ulid customerId, IMediator mediator) =>
+        plan.MapPost("/AllCustomerPeyGiries/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomerPeyGiriesQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerId = customerId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
 
-                return result.Match(
-                    u => Results.Ok(new
-                    {
-                        Valid = true,
-                        Message = "Show All Customer PeyGiries.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = exception,
-                    }));
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new AllCustomerPeyGiriesQuery
+                            {
+                                CustomerId = customerId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Customers PeyGiry",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (Exception e)
             {
@@ -44,26 +59,41 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] CustomerPeyGiryByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", ([FromBody] CustomerPeyGiryByIdQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CustomerPeyGiryByIdQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerPeyGiryId = request.CustomerPeyGiryId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return result.Match(
-                    u => Results.Ok(new
+
+                return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new CustomerPeyGiryByIdQuery
                     {
-                        Valid = true,
-                        Message = "Show Customer PeyGiry By Id.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = exception,
-                    }));
+                        CustomerPeyGiryId = request.CustomerPeyGiryId
+                    });
+                    return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show Customer PeyGiry By Id",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (Exception e)
             {
@@ -76,30 +106,44 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomerPeyGiryCommand request, IMediator mediator) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CreateCustomerPeyGiryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-                    IdUserAdded = request.IdUserAdded,
-                    IdUserUpdated = request.IdUserUpdated,
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
 
-                return result.Match(
-                    u => Results.Ok(new
+                return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new CreateCustomerPeyGiryCommand
                     {
-                        Valid = true,
-                        Message = "New Customer PeyGiry Inserted.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = exception,
-                    }));
+                        Description = request.Description,
+                        CustomerId = request.CustomerId,
+                        IdUser = UserId
+                    });
+
+                    return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get Customers PeyGiry.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (Exception e)
             {
@@ -112,72 +156,97 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusCustomerPeyGiryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerPeyGiryId = request.CustomerPeyGiryId,
-                    CustomerPeyGiryStatus = request.CustomerPeyGiryStatus
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
 
-                return result.Match(
-                    u => Results.Ok(new
-                    {
-                        Valid = true,
-                        Message = "Status Customer PeyGiry Changed.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = exception,
-                    }));
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new ChangeStatusCustomerPeyGiryCommand
+                            {
+                                CustomerPeyGiryId = request.CustomerPeyGiryId,
+                                CustomerPeyGiryStatus = request.CustomerPeyGiryStatus
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customers Note Status Changed.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomerPeyGiryCommand request, IMediator mediator) =>
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new UpdateCustomerPeyGiryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-                    IdUserAdded = request.IdUserAdded,
-                    IdUserUpdated = request.IdUserUpdated,
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return result.Match(
-                    u => Results.Ok(new
-                    {
-                        Valid = true,
-                        Message = "Customer PeyGiry Updated.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
-                    {
-                        Valid = false,
-                        Message = exception,
-                    }));
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new UpdateCustomerPeyGiryCommand
+                            {
+                                Id = request.Id,
+                                Description = request.Description,
+                                IdUser = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer PeyGiry Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });

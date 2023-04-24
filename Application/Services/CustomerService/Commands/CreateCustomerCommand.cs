@@ -1,16 +1,14 @@
 ﻿namespace Application.Services.CustomerService.Commands;
 
-public struct CreateCustomerCommand : IRequest<CustomerResponse?>
+public struct CreateCustomerCommand : IRequest<Result<CustomerResponse>>
 {
     public string FirstName { get; set; }
     public required string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    public required string UserId { get; set; }
-    public required string IdUserUpdated { get; set; }
-    public required string IdUserAdded { get; set; }
-    //public required string CreatedBy { get; set; }
-    //public required string UpdatedBy { get; set; }
+    public  string UserId { get; set; }
+    public  string IdUserAdded { get; set; }
+    public  string IdUserUpdated { get; set; }
     public Ulid? CityId { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public GenderTypes? Gender { get; set; }

@@ -11,105 +11,293 @@ public static class CustomerNoteRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllCustomersNote", async ([FromBody] AllCustomerNotesQuery request, IMediator mediator) =>
+        plan.MapPost("/AllCustomersNote", ([FromBody] AllCustomerNotesQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllCustomerNotesQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerId = request.CustomerId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapGet("/ById/{customerNoteId}", async (Ulid customerNoteId, IMediator mediator) =>
-        {
-            try
-            {
-                return Results.Ok(await mediator.Send(new CustomerNoteByIdQuery { CustomerNoteId = customerNoteId }));
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new AllCustomerNotesQuery
+                            {
+                                CustomerId = request.CustomerId
+                            });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomerNoteCommand request, IMediator mediator) =>
-        {
-            try
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers Notes",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new CreateCustomerNoteCommand
+                return Results.BadRequest(new
                 {
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-                    ProductId = request.ProductId,
-                    HashTagIds = request.HashTagIds,
-                    CustomerNoteId = request.CustomerNoteId,
-                    IdUserAdded = request.IdUserAdded,
-                    IdUserUpdated = request.IdUserUpdated
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator) =>
+        plan.MapGet("/ById/{customerNoteId}", (Ulid customerNoteId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusCustomerNoteCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerNoteStatus = request.CustomerNoteStatus,
-                    CustomerNoteId = request.CustomerNoteId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomerNoteCommand request, IMediator mediator) =>
-        {
-            try
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CustomerNoteByIdQuery { CustomerNoteId = customerNoteId });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get Customers Note By Id",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new UpdateCustomerNoteCommand
+                return Results.BadRequest(new
                 {
-                    Id = request.Id,
-                    CustomerNoteId = request.CustomerNoteId,
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-                    ProductId = request.ProductId,
-                    HashTagIds = request.HashTagIds,
-                    IdUserUpdated = request.IdUserUpdated,
-                    IdUserAdded = request.IdUserAdded
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerNoteCommand request, IMediator mediator) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteCustomerNoteCommand { Id = request.Id }));
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CreateCustomerNoteCommand
+                            {
+                                Description = request.Description,
+                                CustomerId = request.CustomerId,
+                                ProductId = request.ProductId,
+                                HashTagIds = request.HashTagIds,
+                                IdUser = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "New Customer Note Inserted.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new ChangeStatusCustomerNoteCommand
+                            {
+                                CustomerNoteStatus = request.CustomerNoteStatus,
+                                CustomerNoteId = request.CustomerNoteId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customers Note Status Changed.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new UpdateCustomerNoteCommand
+                            {
+                                Id = request.Id,
+                                Description = request.Description,
+                                ProductId = request.ProductId,
+                                HashTagIds = request.HashTagIds,
+                                IdUser = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer Note Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new DeleteCustomerNoteCommand
+                            {
+                                Id = request.Id,
+                                UserId = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer Note Deleted.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 

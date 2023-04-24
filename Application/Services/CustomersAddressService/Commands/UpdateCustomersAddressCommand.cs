@@ -8,4 +8,5 @@ public struct UpdateCustomersAddressCommand: IRequest<CustomerAddress>
     public string? PhoneNo { get; set; }
     public string? Description { get; set; }
     public Ulid CustomerId { get; set; }
+    public string? IdUser { get; set; }
 }

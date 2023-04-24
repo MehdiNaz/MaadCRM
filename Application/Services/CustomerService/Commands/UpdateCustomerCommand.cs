@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Commands;
 
-public struct UpdateCustomerCommand : IRequest<CustomerResponse?>
+public struct UpdateCustomerCommand : IRequest<Result<CustomerResponse>>
 {
     public Ulid Id { get; set; }
     public string FirstName { get; set; }
@@ -9,8 +9,7 @@ public struct UpdateCustomerCommand : IRequest<CustomerResponse?>
     public byte[]? CustomerPic { get; set; }
 
     public string UserId { get; set; }
-    public required string IdUserAdded { get; set; }
-    public required string IdUserUpdated { get; set; }
+    public string IdUserUpdated { get; set; }
 
     //public required string CreatedBy { get; set; }
     //public required string UpdatedBy { get; set; }

@@ -17,9 +17,7 @@ public readonly struct UpdateCustomerPeyGiryCommandHandler : IRequestHandler<Upd
             {
                 Id = request.Id,
                 Description = request.Description,
-                CustomerId = request.CustomerId,
-                IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated,
+                IdUser = request.IdUser
             };
             return (await _repository.UpdateCustomerPeyGiryAsync(item))
                 .Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));

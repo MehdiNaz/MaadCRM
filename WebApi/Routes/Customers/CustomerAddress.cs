@@ -49,7 +49,11 @@ public static class CustomerAddressRoute
                     CodePost = request.CodePost,
                     PhoneNo = request.PhoneNo,
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+
+
+                    // TODO: Get From Token
+                    IdUser = request.IdUser
                 });
                 return Results.Ok(result);
             }
@@ -87,7 +91,10 @@ public static class CustomerAddressRoute
                     CodePost = request.CodePost,
                     PhoneNo = request.PhoneNo,
                     Description = request.Description,
-                    CustomerId = request.CustomerId
+                    CustomerId = request.CustomerId,
+
+                    // TODO: Get From Token
+                    IdUser = request.IdUser
                 });
                 return Results.Ok(result);
             }
