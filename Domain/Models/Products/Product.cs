@@ -8,8 +8,8 @@ public class Product : BaseEntity
         StatusPublish = Enum.ProductStatus.Draft;
         StatusProduct = Status.Show;
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
-        FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
-        FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
+        CustomerNotes = new HashSet<CustomerNote>();
+        ForooshOrders = new HashSet<ForooshOrder>();
     }
 
     public Ulid Id { get; set; }

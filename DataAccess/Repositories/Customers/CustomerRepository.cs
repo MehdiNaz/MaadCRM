@@ -42,7 +42,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var result = await _context.Customers!.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show)
+            var result = await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show)
                 .Select(x => new CustomerResponse
                 {
                     CustomerId = x.Id,
@@ -175,11 +175,8 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerState = x.CustomerState,
-                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CityId = x.IdCity,
                     Gender = x.Gender
                 }));
@@ -322,7 +319,7 @@ public class CustomerRepository : ICustomerRepository
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new ValidationException(e.Message));
+            return new Result<CustomerResponse>(new ValidationException(e.Message + e.InnerException));
         }
     }
 
@@ -330,145 +327,57 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            CustomerResponse customer = await _context.Customers.FindAsync(request.Id)
-                .Select(x => new CustomerResponse
-                {
-                    CustomerId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.FirstName,
-                    BirthDayDate = x.BirthDayDate,
-                    EmailAddress = x.EmailAddresses.FirstOrDefault().ToString(),
-                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().ToString(),
-                    MoshtaryMoAref = x.CustomerMoarefId,
-                    Address = x.CustomerAddresses.FirstOrDefault().ToString(),
-                    CityId = x.IdCity,
-                    Gender = x.Gender
-                });
+            var customer = await _context.Customers.FindAsync(request.Id);
 
-            customer.CustomerId = request.Id;
             customer.FirstName = request.FirstName;
             customer.LastName = request.LastName;
             customer.BirthDayDate = request.BirthDayDate!;
-            customer.EmailAddress = request.EmailAddresses.FirstOrDefault();
-            customer.PhoneNumber = request.PhoneNumbers.FirstOrDefault();
-            customer.MoshtaryMoAref = request.CustomerMoarefId;
-            customer.Address = request.CustomersAddresses.FirstOrDefault();
-            customer.CityId = request.CityId;
+            customer.CustomerMoarefId = request.CustomerMoarefId;
+            customer.IdCity = request.CityId;
             customer.Gender = request.Gender;
 
-            await _context.SaveChangesAsync();
+            if (request.CustomersAddresses != null)
+            {
+                var resultAddress =
+                    await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.IdCustomer == request.Id);
+                resultAddress.Address = request.CustomersAddresses.FirstOrDefault();
+            }
+
 
             if (request.PhoneNumbers != null)
-                foreach (string PhoneNumbers in request.PhoneNumbers)
-                {
-                    CustomersPhoneNumber newPhone = new()
-                    {
-                        IdCustomer = request.Id,
-                        PhoneNo = PhoneNumbers,
-                        PhoneType = PhoneTypes.Phone
-                    };
-
-                    await _context.CustomersPhoneNumbers.AddAsync(newPhone);
-                }
-
-            if (request.CustomersAddresses != null)
-                foreach (string address in request.CustomersAddresses)
-                {
-                    CustomerAddress newAddress = new()
-                    {
-                        IdCustomer = request.Id,
-                        Address = address
-                    };
-
-                    await _context.CustomersAddresses.AddAsync(newAddress);
-                }
-
-            if (request.CustomerPeyGiries != null)
-                foreach (string peyGiry in request.CustomerPeyGiries)
-                {
-                    CustomerPeyGiry newPeyGiry = new()
-                    {
-                        IdCustomer = request.Id,
-                        Description = peyGiry
-                    };
-
-                    await _context.CustomerPeyGiries.AddAsync(newPeyGiry);
-                }
-
-            if (request.CustomerNotes != null)
-                foreach (string note in request.CustomerNotes)
-                {
-                    CustomerNote newNote = new()
-                    {
-                        IdCustomer = request.Id,
-                        Description = note,
-                        IdUserAdded = request.IdUserUpdated,
-                        IdUserUpdated = request.IdUserUpdated
-                    };
-
-                    await _context.CustomerNotes.AddAsync(newNote);
-                }
+            {
+                var phoneNumber =
+                    await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.IdCustomer == request.Id);
+                phoneNumber.PhoneNo = request.PhoneNumbers.FirstOrDefault();
+            }
 
             if (request.EmailAddresses != null)
-                foreach (string emailAddress in request.EmailAddresses)
-                {
-                    CustomersEmailAddress newEmailAddress = new()
-                    {
-                        IdCustomer = request.Id,
-                        CustomerEmailAddress = emailAddress,
-                        StatusCustomerEmailAddress = (Status)0
-                    };
-
-                    await _context.CustomersEmailAddresses.AddAsync(newEmailAddress);
-                }
-
-            //if (request.FavoritesLists != null)
-            //    foreach (var entityFavoritesList in request.FavoritesLists)
-            //    {
-            //        ProductCustomerFavoritesList newFavoritesList = new()
-            //        {
-            //            CustomerId = request.Id,
-            //            Id = Ulid.Parse(entityFavoritesList)
-            //        };
-
-            //        await _context.ProductCustomerFavoritesLists.AddAsync(newFavoritesList);
-            //    }
+            {
+                var emailAddress =
+                    await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.IdCustomer == request.Id);
+                emailAddress.CustomerEmailAddress = request.EmailAddresses.FirstOrDefault();
+            }
 
             await _context.SaveChangesAsync();
 
-            //CustomerResponse returnItem = new()
-            //{
-            //    BirthDayDate = customer.BirthDayDate,
-            //    CustomerId = customer.Id,
-            //    From = customer.DateCreated,
-            //    CustomerState = customer.CustomerState,
-            //    Id = customer.Id,
-            //    EmailAddress = customer.EmailAddresses.FirstOrDefault().EmailAddress,
-            //    PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
-            //    FirstName = customer.FirstName,
-            //    LastName = customer.LastName,
-            //    MoshtaryMoAref = customer.CustomerMoarefId,
-            //    Address = customer.CustomersAddresses.FirstOrDefault().Address
-            //};
-            return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.Id)
-                .Select(x => new CustomerResponse
-                {
-                    BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
-                    From = x.DateCreated,
-                    CustomerState = x.CustomerState,
-                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Address = x.CustomerAddresses.FirstOrDefault().Address,
-                    CityId = x.IdCity,
-                    Gender = x.Gender
-                }));
+            return new Result<CustomerResponse>(new CustomerResponse
+            {
+                CustomerId = customer.Id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                PhoneNumber = customer.PhoneNumbers.FirstOrDefault().ToString(),
+                EmailAddress = customer.EmailAddresses.FirstOrDefault().ToString(),
+                CityId = customer.IdCity,
+                MoshtaryMoAref = customer.CustomerMoarefId,
+                BirthDayDate = customer.BirthDayDate,
+                CustomerState = customer.CustomerState,
+                Address = customer.CustomerAddresses.FirstOrDefault().Address,
+                Gender = customer.Gender
+            });
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new ValidationException(e.Message));
+            return new Result<CustomerResponse>(new Exception(e.Message + "\t\t" + e.InnerException));
         }
     }
 
@@ -479,23 +388,18 @@ public class CustomerRepository : ICustomerRepository
             var customer = await _context.Customers.FindAsync(customerId);
             customer!.CustomerStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            CustomerResponse returnItem = new()
-            {
-                BirthDayDate = customer.BirthDayDate,
-                CustomerId = customer.Id,
-                From = customer.DateCreated,
-                CustomerState = customer.CustomerState,
-                // CustomerCategoryId = customer.CustomerCategoryId,
-                EmailAddress = customer.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                PhoneNumber = customer.PhoneNumbers.FirstOrDefault().PhoneNo,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                // MoshtaryMoAref = customer.IdUserAdded,
-                Address = customer.CustomerAddresses.FirstOrDefault().Address,
-                CityId = customer.IdCity,
-                Gender = customer.Gender
-            };
-            return new Result<CustomerResponse>(returnItem);
+            return new Result<CustomerResponse>(await _context.Customers.FindAsync(customerId)
+                .Select(x => new CustomerResponse
+                {
+                    BirthDayDate = x.BirthDayDate,
+                    CustomerId = x.Id,
+                    From = x.DateCreated,
+                    CustomerState = x.CustomerState,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    CityId = x.IdCity,
+                    Gender = x.Gender
+                }));
         }
         catch (Exception e)
         {

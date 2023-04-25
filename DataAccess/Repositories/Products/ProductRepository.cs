@@ -72,7 +72,7 @@ public class ProductRepository : IProductRepository
                 DiscountPercent = request.DiscountPercent,
                 Picture = request.Picture
             };
-            await _context.Products!.AddAsync(item);
+            await _context.Products.AddAsync(item);
             await _context.SaveChangesAsync();
             return item;
         }

@@ -59,7 +59,6 @@ public static class CustomerRoute
             }
         });
 
-
         plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -273,20 +272,51 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusCustomerCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerStatus = request.CustomerStatus,
-                    CustomerId = request.CustomerId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new ChangeStatusCustomerCommand
+                            {
+                                CustomerStatus = request.CustomerStatus,
+                                CustomerId = request.CustomerId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer Note Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 
@@ -305,6 +335,7 @@ public static class CustomerRoute
                         {
                             var result = mediator.Send(new UpdateCustomerCommand
                             {
+                                UserId = UserId,
                                 Id = request.Id,
                                 FirstName = request.FirstName,
                                 LastName = request.LastName,
@@ -351,19 +382,50 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapDelete("/Delete/{customerId}", async (Ulid customerId, IMediator mediator) =>
+        plan.MapDelete("/Delete/{customerId}", async (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new DeleteCustomerCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerId = customerId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new DeleteCustomerCommand
+                            {
+                                CustomerId = customerId,
+                                UserId = UserId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Customer Note Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
         #endregion

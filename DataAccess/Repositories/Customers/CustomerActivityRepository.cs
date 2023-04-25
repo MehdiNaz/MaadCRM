@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Repositories.Customers;
+﻿ namespace DataAccess.Repositories.Customers;
 
 public class CustomerActivityRepository : ICustomerActivityRepository
 {

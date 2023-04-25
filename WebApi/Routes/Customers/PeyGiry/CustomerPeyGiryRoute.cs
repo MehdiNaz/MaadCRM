@@ -121,9 +121,9 @@ public static class CustomerPeyGiryRoute
                 {
                     var result = mediator.Send(new CreateCustomerPeyGiryCommand
                     {
+                        IdUser = UserId,
                         Description = request.Description,
                         CustomerId = request.CustomerId,
-                        IdUser = UserId
                     });
 
                     return result.Result.Match(

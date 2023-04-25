@@ -48,11 +48,17 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
             .WithMany(p => p.CustomersAdded)
             .HasForeignKey(d => d.IdUserAdded)
             .HasConstraintName("Customers_AspNetUsers_Added");
-        
+
         builder.HasOne(d => d.IdUserUpdateNavigation)
             .WithMany(p => p.CustomersUpdated)
             .HasForeignKey(d => d.IdUserUpdated)
             .HasConstraintName("Customers_AspNetUsers_Updated");
+
+
+        builder.HasOne(d => d.CustomerMoaref)
+            .WithMany(p => p.CustomerMoarefs)
+            .HasForeignKey(d => d.CustomerMoarefId)
+            .HasConstraintName("Customers_Customer_MoAref");
 
         // builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.CreatedBy);
         // builder.HasOne(x => x.User).WithMany(x => x.Customers).HasForeignKey(x => x.UpdatedBy);
