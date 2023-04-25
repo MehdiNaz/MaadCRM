@@ -9,12 +9,25 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<Product>> GetAllProductsAsync(Ulid businessId)
+    public async ValueTask<ICollection<ProductCategoryResponse>> GetAllProductsAsync(Ulid businessId)
     {
+
         var result = await _context.Products.Where(x => x.StatusProduct == Status.Show)
-            .Include(x => x.ProductCategory)
-            .ThenInclude(x => x.Business)
-            .Where(x => x.ProductCategory.BusinessId == businessId)
+            .Include(c => c.ProductCategoryIdNavigation)
+            .Where(x => x.ProductCategoryIdNavigation.BusinessId == businessId)
+            .Select(x => new ProductCategoryResponse
+            {
+                ProductId = x.Id,
+                Title = x.Title,
+                CategoryName = x.ProductCategoryIdNavigation.ProductCategoryName,
+                Discount = x.Discount,
+                DiscountPercent = x.DiscountPercent,
+                Picture = x.Picture,
+                Price = x.Price,
+                ProductName = x.ProductName,
+                SecondaryPrice = x.SecondaryPrice,
+                Summery = x.Summery
+            })
             .ToListAsync();
         return result;
     }

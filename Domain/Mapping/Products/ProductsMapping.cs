@@ -8,16 +8,13 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ProductName).HasMaxLength(255).IsRequired();
         builder.Property(x => x.IdProductCategory).IsRequired();
-        builder.Property(x => x.Title).HasMaxLength(255).IsRequired();
-        builder.Property(x => x.Summery).HasMaxLength(255).IsRequired();
-        builder.Property(x => x.Price).IsRequired();
-        builder.Property(x => x.SecondaryPrice).IsRequired();
-        builder.Property(x => x.Discount).IsRequired();
-        builder.Property(x => x.DiscountPercent).IsRequired();
+        builder.Property(x => x.Title).HasMaxLength(255);
+        builder.Property(x => x.Summery).HasMaxLength(255);
 
-
-        //New Relations ==> OK
-        // builder.HasMany(x => x.FavoritesLists).WithOne(x => x.Product).HasForeignKey(x => x.Id);
-        // builder.HasMany(x => x.ForoshOrders).WithOne(x => x.Product).HasForeignKey(x => x.Id);
+        builder.HasOne(x => x.ProductCategoryIdNavigation)
+            .WithMany(x => x.Products)
+            .HasForeignKey(d => d.IdProductCategory)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Product_ProductCategory");
     }
 }

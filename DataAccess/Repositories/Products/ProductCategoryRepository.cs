@@ -17,7 +17,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         {
             return await _context.ProductCategories
                 .Where(x => x.ProductCategoryStatus == Status.Show)
-                .Include(x => x.Business).Where(x => x.BusinessId == businessId)
+                .Where(x => x.BusinessId == businessId)
                 .ToListAsync();
         }
         catch

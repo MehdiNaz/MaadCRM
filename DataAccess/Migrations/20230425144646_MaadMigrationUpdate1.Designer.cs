@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230424122247_TheLatest")]
-    partial class TheLatest
+    [Migration("20230425144646_MaadMigrationUpdate1")]
+    partial class MaadMigrationUpdate1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -476,6 +476,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("CustomerCategoryId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<string>("CustomerMoarefId")
+                        .HasColumnType("character varying(26)");
+
                     b.Property<byte[]>("CustomerPic")
                         .HasColumnType("bytea");
 
@@ -528,6 +531,8 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerCategoryId");
+
+                    b.HasIndex("CustomerMoarefId");
 
                     b.HasIndex("IdCity");
 
@@ -1272,11 +1277,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("Discount")
-                        .IsRequired()
                         .HasColumnType("numeric");
 
                     b.Property<byte?>("DiscountPercent")
-                        .IsRequired()
                         .HasColumnType("smallint");
 
                     b.Property<string>("IdProductCategory")
@@ -1287,12 +1290,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("bytea");
 
                     b.Property<decimal?>("Price")
-                        .IsRequired()
                         .HasColumnType("numeric");
-
-                    b.Property<string>("ProductCategoryId")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -1300,7 +1298,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<decimal?>("SecondaryPrice")
-                        .IsRequired()
                         .HasColumnType("numeric");
 
                     b.Property<int>("StatusProduct")
@@ -1321,7 +1318,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductCategoryId");
+                    b.HasIndex("IdProductCategory");
 
                     b.ToTable("Products", (string)null);
                 });
@@ -1351,7 +1348,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.Property<byte?>("Order")
-                        .IsRequired()
                         .HasColumnType("smallint");
 
                     b.Property<string>("ProductCategoryName")
@@ -2015,6 +2011,11 @@ namespace DataAccess.Migrations
                         .WithMany("Customers")
                         .HasForeignKey("CustomerCategoryId");
 
+                    b.HasOne("Domain.Models.Customers.Customer", "CustomerMoaref")
+                        .WithMany("CustomerMoarefs")
+                        .HasForeignKey("CustomerMoarefId")
+                        .HasConstraintName("Customers_Customer_MoAref");
+
                     b.HasOne("Domain.Models.Address.City", "IdCityNavigation")
                         .WithMany("Customers")
                         .HasForeignKey("IdCity")
@@ -2039,6 +2040,8 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("Customers_AspNetUsers_Updated");
+
+                    b.Navigation("CustomerMoaref");
 
                     b.Navigation("IdCityNavigation");
 
@@ -2269,22 +2272,22 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
-                    b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
-                        .WithMany()
-                        .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategoryIdNavigation")
+                        .WithMany("Products")
+                        .HasForeignKey("IdProductCategory")
+                        .IsRequired()
+                        .HasConstraintName("FK_Product_ProductCategory");
 
-                    b.Navigation("ProductCategory");
+                    b.Navigation("ProductCategoryIdNavigation");
                 });
 
             modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
                 {
                     b.HasOne("Domain.Models.Businesses.Business", "Business")
-                        .WithMany()
+                        .WithMany("ProductCategories")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_ProductCategories_Business");
 
                     b.Navigation("Business");
                 });
@@ -2396,6 +2399,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Businesses.Business", b =>
                 {
                     b.Navigation("CustomerNoteHashTables");
+
+                    b.Navigation("ProductCategories");
                 });
 
             modelBuilder.Entity("Domain.Models.Businesses.Plans.Plan", b =>
@@ -2421,6 +2426,8 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Domain.Models.Customers.Customer", b =>
                 {
                     b.Navigation("CustomerAddresses");
+
+                    b.Navigation("CustomerMoarefs");
 
                     b.Navigation("CustomerNotes");
 
@@ -2484,6 +2491,11 @@ namespace DataAccess.Migrations
                     b.Navigation("FavoritesLists");
 
                     b.Navigation("ForooshOrders");
+                });
+
+            modelBuilder.Entity("Domain.Models.Products.ProductCategory", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>

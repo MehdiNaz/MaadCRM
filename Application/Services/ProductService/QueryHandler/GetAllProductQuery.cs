@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.QueryHandler;
 
-public readonly struct GetAllProductHandler : IRequestHandler<AllProductsQuery, ICollection<Product>>
+public readonly struct GetAllProductHandler : IRequestHandler<AllProductsQuery, ICollection<ProductCategoryResponse>>
 {
     private readonly IProductRepository _repository;
 
@@ -9,6 +9,6 @@ public readonly struct GetAllProductHandler : IRequestHandler<AllProductsQuery, 
         _repository = repository;
     }
 
-    public async Task<ICollection<Product>> Handle(AllProductsQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<ProductCategoryResponse>> Handle(AllProductsQuery request, CancellationToken cancellationToken)
         => (await _repository.GetAllProductsAsync(request.BusinessId))!;
 }

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class TestNew1 : Migration
+    public partial class MaadMigrationUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -752,11 +752,10 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_ProductCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_Businesses_BusinessId",
+                        name: "FK_ProductCategories_Business",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -772,6 +771,7 @@ namespace DataAccess.Migrations
                     CustomerStatus = table.Column<int>(type: "integer", nullable: false),
                     CustomerState = table.Column<int>(type: "integer", nullable: false),
                     CustomerActivationStatus = table.Column<int>(type: "integer", nullable: false),
+                    CustomerMoarefId = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdCity = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdUserUpdated = table.Column<string>(type: "text", nullable: false),
                     IdUserAdded = table.Column<string>(type: "text", nullable: false),
@@ -796,6 +796,11 @@ namespace DataAccess.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "Customers_Customer_MoAref",
+                        column: x => x.CustomerMoarefId,
+                        principalTable: "Customers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Customer_City",
                         column: x => x.IdCity,
@@ -829,7 +834,6 @@ namespace DataAccess.Migrations
                     StatusPublish = table.Column<byte>(type: "smallint", nullable: false),
                     StatusProduct = table.Column<int>(type: "integer", nullable: false),
                     IdProductCategory = table.Column<string>(type: "character varying(26)", nullable: false),
-                    ProductCategoryId = table.Column<string>(type: "character varying(26)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateLastUpdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -837,11 +841,10 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_ProductCategories_ProductCategoryId",
-                        column: x => x.ProductCategoryId,
+                        name: "FK_Product_ProductCategory",
+                        column: x => x.IdProductCategory,
                         principalTable: "ProductCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -956,7 +959,6 @@ namespace DataAccess.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CustomerNoteStatus = table.Column<int>(type: "integer", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: true),
-                    IdProductNavigationId = table.Column<string>(type: "character varying(26)", nullable: true),
                     IdCustomer = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdUserUpdated = table.Column<string>(type: "text", nullable: false),
                     IdUserAdded = table.Column<string>(type: "text", nullable: false),
@@ -978,8 +980,8 @@ namespace DataAccess.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerNotes_Products_IdProductNavigationId",
-                        column: x => x.IdProductNavigationId,
+                        name: "FK_CustomerNote_Product",
+                        column: x => x.IdProduct,
                         principalTable: "Products",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -1258,9 +1260,9 @@ namespace DataAccess.Migrations
                 column: "IdCustomer");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerNotes_IdProductNavigationId",
+                name: "IX_CustomerNotes_IdProduct",
                 table: "CustomerNotes",
-                column: "IdProductNavigationId");
+                column: "IdProduct");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerNotes_IdUserAdded",
@@ -1296,6 +1298,11 @@ namespace DataAccess.Migrations
                 name: "IX_Customers_CustomerCategoryId",
                 table: "Customers",
                 column: "CustomerCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_CustomerMoarefId",
+                table: "Customers",
+                column: "CustomerMoarefId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_IdCity",
@@ -1388,9 +1395,9 @@ namespace DataAccess.Migrations
                 column: "IdCustomer");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductCategoryId",
+                name: "IX_Products_IdProductCategory",
                 table: "Products",
-                column: "ProductCategoryId");
+                column: "IdProductCategory");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Provinces_IdCountry",

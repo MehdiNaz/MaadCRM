@@ -5,7 +5,7 @@ public class Product : BaseEntity
     public Product()
     {
         Id = Ulid.NewUlid();
-        StatusPublish = Enum.ProductStatus.Draft;
+        StatusPublish = ProductStatus.Draft;
         StatusProduct = Status.Show;
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
         CustomerNotes = new HashSet<CustomerNote>();
@@ -23,13 +23,11 @@ public class Product : BaseEntity
     public byte[]? Picture { get; set; }
     public ProductStatus StatusPublish { get; set; }
     public Status StatusProduct { get; set; }
-    
+
     public Ulid IdProductCategory { get; set; }
-    public ProductCategory ProductCategory { get; set; }
+    public ProductCategory? ProductCategoryIdNavigation { get; set; }
 
     public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
     public virtual ICollection<CustomerNote>? CustomerNotes { get; set; }
     public virtual ICollection<ForooshOrder>? ForooshOrders { get; set; }
-    //public ProductCategory ProductCategory{ get; set; }                                           
-    // public virtual ICollection<Visit>? Visits { get; set; }
 }
