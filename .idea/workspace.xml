@@ -6,19 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3f97bfc3-d2d6-4031-9d6b-f98e538af4a8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Interfaces/Account/ILoginRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Interfaces/Account/ILoginRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/CommandHandler/RegisterUserHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/CommandHandler/RegisterUserHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/CommandHandler/SendVerifyHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/CommandHandler/SendVerifyHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/Commands/RegisterUserCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/Commands/RegisterUserCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/Commands/VerifyCodeCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/Commands/VerifyCodeCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/Queries/UserByEmailAddressQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/Queries/UserByEmailAddressQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/Queries/UserByPhoneAndPasswordQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/Queries/UserByPhoneAndPasswordQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByEmailAddressHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByEmailAddressHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByPhoneAndPasswordHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByPhoneAndPasswordHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByPhoneNumberHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Services/Login/QueryHandler/UserByPhoneNumberHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maad-api.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/maad-api.sln.DotSettings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,19 +21,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/arashfarahmandi&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/arashfarahmandi",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
 </project>

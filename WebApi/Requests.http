@@ -12,12 +12,12 @@ Content-Type: application/json
 
 {
   "Phone": "09906747192",
-  "Code": "8256"
+  "Code": "6121"
 }
 
 > {%
-    client.global.set("auth_token", response.body.user.token); 
-    client.log(response.body.user.token)
+    client.global.set("auth_token", response.body.data.token); 
+    client.log(response.body.data.token)
 %}
 ### SetProfile
 POST http://localhost:5001/v1/profile/SetProfile
