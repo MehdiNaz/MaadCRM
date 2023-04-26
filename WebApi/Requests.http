@@ -33,3 +33,20 @@ Authorization: Bearer {{auth_token}}
   "BirthDatre" : "2023-04-11T06:10:46.516599Z",
   "CodeMelli" : "2291967347"
 }
+
+### Customer Insert
+POST http://localhost:5001/v1/Customer/Insert
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "FirstName" : "New Hadi",
+  "LastName" : "New Tahery",
+  "BirthDayDate" : "2015-01-01" ,
+  "Gender" : 1 ,
+  "PhoneNumbers" : ["09906747191"] ,
+  "CustomersAddresses" : ["Shiraz"] ,
+  "CustomerPeyGiries" : [] ,
+  "CustomerNotes" : [] ,
+  "EmailAddresses" : ["DombeGorbe@gmail.com"]
+}
