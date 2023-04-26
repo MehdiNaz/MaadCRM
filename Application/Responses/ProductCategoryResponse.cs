@@ -3,6 +3,7 @@
 public class ProductCategoryResponse
 {
     public Ulid ProductId { get; set; }
+    public Ulid ProductCategoryId { get; set; }
     public string ProductName { get; set; }
     public string Title { get; set; }
     public string Summery { get; set; }

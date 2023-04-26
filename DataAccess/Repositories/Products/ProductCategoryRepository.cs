@@ -28,7 +28,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
     {
         try
         {
-            return await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id ==productCategoryId  && x.ProductCategoryStatus == Status.Show);
+            return await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id == productCategoryId && x.ProductCategoryStatus == Status.Show);
         }
         catch (Exception e)
         {

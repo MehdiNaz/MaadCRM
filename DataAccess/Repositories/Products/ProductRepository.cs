@@ -19,6 +19,7 @@ public class ProductRepository : IProductRepository
                 .Select(x => new ProductCategoryResponse
                 {
                     ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategoryIdNavigation.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategoryIdNavigation.ProductCategoryName,
                     Discount = x.Discount,
@@ -41,7 +42,8 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            return await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusProduct == Status.Show);
+            var result = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusProduct == Status.Show);
+            return result;
         }
         catch (Exception e)
         {
@@ -69,7 +71,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            return await _context.Products.Where(x => x.Title.Contains(request)).ToListAsync();
+            return await _context.Products.Where(x => x.Title.ToLower().Contains(request.ToLower()) && x.StatusProduct == Status.Show).ToListAsync();
         }
         catch (Exception e)
         {

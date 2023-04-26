@@ -32,6 +32,28 @@ public class BusinessRepository : IBusinessRepository
             return new Result<Business>(new ValidationException(e.Message));
         }
     }
+
+    public async ValueTask<Result<Business>> GetBusinessNameByUserId(string userId)
+    {
+        try
+        {
+            // TODO Get Business Name From UserId
+            var result = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                //.Select(x=> new User
+                //{
+                //    BusinessId = x.
+                //});
+            
+            
+
+            return null;
+        }
+        catch (Exception e)
+        {
+            return new Result<Business>(new ValidationException(e.Message));
+        }
+    }
+
     public async ValueTask<Result<Business>> ChangeStatsAsync(ChangeStatusBusinessCommand request)
     {
         try
