@@ -10,130 +10,386 @@ public static class ProductCategoryRoute
                  .EnableOpenApiWithAuthentication()
                  .WithOpenApi();
 
-        plan.MapPost("/AllProductCategories", async ([FromBody] AllProductCategoriesQuery request, IMediator mediator) =>
+        plan.MapPost("/AllProductCategories", ([FromBody] AllProductCategoriesQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new AllProductCategoriesQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    BusinessId = request.BusinessId
-                }));
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
-
-        plan.MapGet("/ById/{Id}", async (Ulid productCategoryId, IMediator mediator) =>
-        {
-            try
-            {
-                return Results.Ok(await mediator.Send(new ProductCategoryByIdQuery { ProductCategoryId = productCategoryId }));
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.Message);
-            }
-        });
-
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusProductCategoryCommand request, IMediator mediator) =>
-        {
-            try
-            {
-                var result = await mediator.Send(new ChangeStatusProductCategoryCommand
-                {
-                    Id = request.Id,
-                    ProductCategoryStatus = request.ProductCategoryStatus
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPost("/ProductCategorySearchByItem/{q}", async (string q, IMediator mediator) =>
-        {
-            try
-            {
-                var result = await mediator.Send(new ProductCategoryBySearchItemQuery { Q = q.ToLower() });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new AllProductCategoriesQuery
+                        {
+                            BusinessId = request.BusinessId
+                        });
 
-        plan.MapPost("/ChangeState", async ([FromBody] ChangeStateProductCommand request, IMediator mediator) =>
-        {
-            try
+                        return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Show All Customers PeyGiry",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new ChangeStateProductCommand
+                return Results.BadRequest(new
                 {
-                    Id = request.Id,
-                    Status = request.Status
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateProductCategoryCommand request, IMediator mediator) =>
+        plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CreateProductCategoryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Order = request.Order,
-                    ProductCategoryName = request.ProductCategoryName,
-                    Description = request.Description,
-                    Icon = request.Icon,
-                    BusinessId = request.BusinessId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return result == null ? Results.BadRequest(result) : Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateProductCategoryCommand request, IMediator mediator) =>
-        {
-            try
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ProductCategoryByIdQuery
+                        {
+                            ProductCategoryId = Id
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show Customer PeyGiry By Id",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new UpdateProductCategoryCommand
+                return Results.BadRequest(new
                 {
-                    Id = request.Id,
-                    Order = request.Order,
-                    ProductCategoryName = request.ProductCategoryName,
-                    Description = request.Description,
-                    Icon = request.Icon,
-                    BusinessId = request.BusinessId
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid productCategoryId, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusProductCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteProductCategoryCommand { Id = productCategoryId }));
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ChangeStatusProductCategoryCommand
+                        {
+                            Id = request.Id,
+                            ProductCategoryStatus = request.ProductCategoryStatus
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customers Note Status Changed.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapPost("/ProductCategorySearchByItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ProductCategoryBySearchItemQuery { Q = q.ToLower() });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show Customer PeyGiry By Id",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
+        plan.MapPost("/ChangeState", ([FromBody] ChangeStateProductCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ChangeStateProductCommand
+                        {
+                            Id = request.Id,
+                            Status = request.Status
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customers Note Status Changed.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapPost("/Insert", ([FromBody] CreateProductCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new CreateProductCategoryCommand
+                        {
+                            Order = request.Order,
+                            ProductCategoryName = request.ProductCategoryName,
+                            Description = request.Description,
+                            Icon = request.Icon,
+                            BusinessId = request.BusinessId
+                        });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Get Customers PeyGiry.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
+        plan.MapPut("/Update", ([FromBody] UpdateProductCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new UpdateProductCategoryCommand
+                        {
+                            Id = request.Id,
+                            Order = request.Order,
+                            ProductCategoryName = request.ProductCategoryName,
+                            Description = request.Description,
+                            Icon = request.Icon,
+                            BusinessId = request.BusinessId
+                        });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customer PeyGiry Updated.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapDelete("/Delete/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new DeleteProductCategoryCommand
+                        {
+                            Id = productCategoryId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customer PeyGiry Updated.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
     }

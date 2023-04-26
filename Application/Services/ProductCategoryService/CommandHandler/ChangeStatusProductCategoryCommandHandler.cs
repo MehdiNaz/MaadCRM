@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public readonly struct ChangeStatusProductCategoryCommandHandler : IRequestHandler<ChangeStatusProductCategoryCommand, ProductCategory?>
+public readonly struct ChangeStatusProductCategoryCommandHandler : IRequestHandler<ChangeStatusProductCategoryCommand, Result<ProductCategory>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct ChangeStatusProductCategoryCommandHandler : IRequestHandl
         _repository = repository;
     }
 
-    public async Task<ProductCategory?> Handle(ChangeStatusProductCategoryCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusProductCategoryByIdAsync(request);
+    public async Task<Result<ProductCategory>> Handle(ChangeStatusProductCategoryCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.ChangeStatusProductCategoryByIdAsync(request)).Match(result => new Result<ProductCategory>(result), exception => new Result<ProductCategory>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ProductCategory>(new Exception(e.Message));
+        }
+    }
 }

@@ -1,6 +1,4 @@
-﻿using Application.Services.ProductCategoryService.Commands;
-
-namespace DataAccess.Repositories.Products;
+﻿namespace DataAccess.Repositories.Products;
 
 public class ProductCategoryRepository : IProductCategoryRepository
 {
@@ -11,7 +9,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ProductCategory>> GetAllProductCategoriesAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<ProductCategory>>> GetAllProductCategoriesAsync(Ulid businessId)
     {
         try
         {
@@ -20,19 +18,37 @@ public class ProductCategoryRepository : IProductCategoryRepository
                 .Where(x => x.BusinessId == businessId)
                 .ToListAsync();
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ICollection<ProductCategory>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ProductCategory?> GetProductCategoryByIdAsync(Ulid businessId)
-        => await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id == businessId && x.ProductCategoryStatus == Status.Show);
+    public async ValueTask<Result<ProductCategory>> GetProductCategoryByIdAsync(Ulid productCategoryId)
+    {
+        try
+        {
+            return await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id ==productCategoryId  && x.ProductCategoryStatus == Status.Show);
+        }
+        catch (Exception e)
+        {
+            return new Result<ProductCategory>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<ICollection<ProductCategory>> SearchByItemsAsync(string request)
-        => await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatus == Status.Show).ToListAsync();
+    public async ValueTask<Result<ICollection<ProductCategory>>> SearchByItemsAsync(string request)
+    {
+        try
+        {
+            return await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatus == Status.Show).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ProductCategory>>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<ProductCategory?> ChangeStatusProductCategoryByIdAsync(ChangeStatusProductCategoryCommand request)
+    public async ValueTask<Result<ProductCategory>> ChangeStatusProductCategoryByIdAsync(ChangeStatusProductCategoryCommand request)
     {
         try
         {
@@ -42,13 +58,13 @@ public class ProductCategoryRepository : IProductCategoryRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ProductCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ProductCategory?> CreateProductCategoryAsync(CreateProductCategoryCommand request)
+    public async ValueTask<Result<ProductCategory>> CreateProductCategoryAsync(CreateProductCategoryCommand request)
     {
         try
         {
@@ -64,13 +80,13 @@ public class ProductCategoryRepository : IProductCategoryRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ProductCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ProductCategory?> UpdateProductCategoryAsync(UpdateProductCategoryCommand request)
+    public async ValueTask<Result<ProductCategory>> UpdateProductCategoryAsync(UpdateProductCategoryCommand request)
     {
         try
         {
@@ -88,24 +104,24 @@ public class ProductCategoryRepository : IProductCategoryRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ProductCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ProductCategory?> DeleteProductCategoryAsync(DeleteProductCategoryCommand request)
+    public async ValueTask<Result<ProductCategory>> DeleteProductCategoryAsync(DeleteProductCategoryCommand request)
     {
         try
         {
-            var productCategory = await GetProductCategoryByIdAsync(request.Id);
-            productCategory!.ProductCategoryStatus = Status.Deleted;
+            var productCategory = await _context.ProductCategories.FindAsync(request.Id);
+            productCategory.ProductCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return productCategory;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ProductCategory>(new ValidationException(e.Message));
         }
     }
 }

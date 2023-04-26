@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProductCategoryCommand, ProductCategory>
+public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProductCategoryCommand, Result<ProductCategory>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProd
         _repository = repository;
     }
 
-    public async Task<ProductCategory> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteProductCategoryAsync(request))!;
+    public async Task<Result<ProductCategory>> Handle(DeleteProductCategoryCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.DeleteProductCategoryAsync(request)).Match(result => new Result<ProductCategory>(result), exception => new Result<ProductCategory>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ProductCategory>(new Exception(e.Message));
+        }
+    }
 }

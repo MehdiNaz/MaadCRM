@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.Commands;
 
-public struct UpdateProductCategoryCommand : IRequest<ProductCategory>
+public struct UpdateProductCategoryCommand : IRequest<Result<ProductCategory>>
 {
     public Ulid Id { get; set; }
     public byte? Order { get; set; }
