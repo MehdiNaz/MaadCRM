@@ -4,111 +4,294 @@ public static class CustomerCategoryRoute
 {
     public static void MapCustomerCategoryRoute(this IEndpointRouteBuilder app)
     {
-        #region CustomerCategory
 
         RouteGroupBuilder plan = app.MapGroup("v1/CustomerCategory")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllCustomerCategories/{id}", async (string id, IMediator mediator) =>
+        plan.MapPost("/AllCustomerCategories", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllItemsCustomerCategoryQuery { UserId = id });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
-
-        plan.MapPost("/ById", async ([FromBody] CustomerCategoryByIdQuery request, IMediator mediator) =>
-        {
-            try
-            {
-                var result = await mediator.Send(new CustomerCategoryByIdQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    CustomerCategoryId = request.CustomerCategoryId,
-                    UserId = request.UserId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomerCategoryCommand request, IMediator mediator) =>
-        {
-            try
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new AllItemsCustomerCategoryQuery { UserId = UserId });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show All Customers PeyGiry",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new CreateCustomerCategoryCommand
+                return Results.BadRequest(new
                 {
-                    UserId = request.UserId,
-                    CustomerCategoryName = request.CustomerCategoryName
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerCategoryCommand request, IMediator mediator) =>
+        plan.MapPost("/ById", ([FromBody] CustomerCategoryByIdQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusCustomerCategoryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    CustomerCategoryStatus = request.CustomerCategoryStatus
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomerCategoryCommand request, IMediator mediator) =>
-        {
-            try
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new CustomerCategoryByIdQuery
+                        {
+                            CustomerCategoryId = request.CustomerCategoryId,
+                            UserId = request.UserId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show Customer PeyGiry By Id",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new UpdateCustomerCategoryCommand
+                return Results.BadRequest(new
                 {
-                    UserId = request.UserId,
-                    Id = request.Id,
-                    CustomerCategoryName = request.CustomerCategoryName,
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteCustomerCategoryCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    UserId = request.UserId
-                }));
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new CreateCustomerCategoryCommand
+                        {
+                            CustomerCategoryName = request.CustomerCategoryName,
+                            UserId = UserId
+                        });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Get Customers PeyGiry.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
-        #endregion
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ChangeStatusCustomerCategoryCommand
+                        {
+                            Id = request.Id,
+                            CustomerCategoryStatus = request.CustomerCategoryStatus
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customers Note Status Changed.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new UpdateCustomerCategoryCommand
+                        {
+                            UserId = request.UserId,
+                            Id = request.Id,
+                            CustomerCategoryName = request.CustomerCategoryName,
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customer PeyGiry Updated.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new DeleteCustomerCategoryCommand
+                        {
+                            Id = Id,
+                            UserId = UserId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customer PeyGiry Updated.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
     }
 }

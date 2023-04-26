@@ -35,7 +35,6 @@ public class CustomerRepository : ICustomerRepository
         {
             return new Result<ICollection<CustomerResponse>>(new ValidationException(e.Message));
         }
-        ;
     }
 
     public async ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId)
@@ -55,7 +54,6 @@ public class CustomerRepository : ICustomerRepository
         {
             return new Result<CustomerResponse>(new ValidationException(e.Message));
         }
-
     }
 
     public async ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request)

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.QueryHandlers;
 
-public readonly struct AllCustomerCategoryHandler : IRequestHandler<AllItemsCustomerCategoryQuery, ICollection<CustomerCategory?>>
+public readonly struct AllCustomerCategoryHandler : IRequestHandler<AllItemsCustomerCategoryQuery, Result<ICollection<CustomerCategory>>>
 {
     private readonly ICustomerCategoryRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct AllCustomerCategoryHandler : IRequestHandler<AllItemsCust
         _repository = repository;
     }
 
-    public async Task<ICollection<CustomerCategory?>> Handle(AllItemsCustomerCategoryQuery request, CancellationToken cancellationToken)
-        => await _repository.GetAllCustomerCategoryAsync(request.UserId);
+    public async Task<Result<ICollection<CustomerCategory>>> Handle(AllItemsCustomerCategoryQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.GetAllCustomerCategoryAsync(request.UserId)).Match(result => new Result<ICollection<CustomerCategory>>(result), exception => new Result<ICollection<CustomerCategory>>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<CustomerCategory>>(new Exception(e.Message));
+        }
+    }
 }

@@ -9,16 +9,34 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync(string userId)
-        => await _context.CustomerCategories.Where(x => x.CustomerCategoryStatus == Status.Show && x.UserId == userId).ToListAsync();
+    public async ValueTask<Result<ICollection<CustomerCategory>>> GetAllCustomerCategoryAsync(string userId)
+    {
+        try
+        {
+            return await _context.CustomerCategories.Where(x => x.CustomerCategoryStatus == Status.Show && x.UserId == userId).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<CustomerCategory>>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId)
-        => await _context.CustomerCategories.FirstOrDefaultAsync(x =>
-            x.Id == customerCategoryId
-            && x.CustomerCategoryStatus == Status.Show
-            && x.UserId == userId);
+    public async ValueTask<Result<CustomerCategory>> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId)
+    {
+        try
+        {
+            return await _context.CustomerCategories.FirstOrDefaultAsync(x =>
+                   x.Id == customerCategoryId
+                   && x.CustomerCategoryStatus == Status.Show
+                   && x.UserId == userId);
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerCategory>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerCategory>> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request)
     {
         try
         {
@@ -26,15 +44,15 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
             if (item is null) return null;
             item.CustomerCategoryStatus = request.CustomerCategoryStatus;
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<CustomerCategory>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<CustomerCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerCategory>> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request)
     {
         try
         {
@@ -43,17 +61,18 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
                 UserId = request.UserId,
                 CustomerCategoryName = request.CustomerCategoryName
             };
-            await _context.CustomerCategories!.AddAsync(item);
+
+            await _context.CustomerCategories.AddAsync(item);
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<CustomerCategory>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<CustomerCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerCategory>> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request)
     {
         try
         {
@@ -68,24 +87,24 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<CustomerCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(Ulid id)
+    public async ValueTask<Result<CustomerCategory>> DeleteCustomerCategoryAsync(Ulid id)
     {
         try
         {
-            var CustomerCategory = await _context.CustomerCategories.FindAsync(id);
-            CustomerCategory.CustomerCategoryStatus = Status.Deleted;
+            var item = await _context.CustomerCategories.FindAsync(id);
+            item.CustomerCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            return CustomerCategory;
+            return new Result<CustomerCategory>(item);
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<CustomerCategory>(new ValidationException(e.Message));
         }
     }
 }

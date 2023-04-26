@@ -2,10 +2,10 @@
 
 public interface ICustomerCategoryRepository
 {
-    ValueTask<ICollection<CustomerCategory?>> GetAllCustomerCategoryAsync(string userId);
-    ValueTask<CustomerCategory?> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId);
-    ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request);
-    ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request);
-    ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request);
-    ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(Ulid id);
+    ValueTask<Result<ICollection<CustomerCategory>>> GetAllCustomerCategoryAsync(string userId);
+    ValueTask<Result<CustomerCategory>> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId);
+    ValueTask<Result<CustomerCategory>> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request);
+    ValueTask<Result<CustomerCategory>> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request);
+    ValueTask<Result<CustomerCategory>> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request);
+    ValueTask<Result<CustomerCategory>> DeleteCustomerCategoryAsync(Ulid id);
 }

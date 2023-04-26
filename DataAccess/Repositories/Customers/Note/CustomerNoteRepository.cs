@@ -70,8 +70,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             var result = await _context.SaveChangesAsync();
 
 
-            if (result == 0)
-                return null;
+            //if (result == 0)
+            //    return null;
 
             // foreach (var entityHashTagId in entity.HashTagIds)
             // {

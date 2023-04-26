@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public readonly struct UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCustomerCategoryCommand, CustomerCategory>
+public readonly struct UpdateCustomerCategoryCommandHandlers : IRequestHandler<UpdateCustomerCategoryCommand, Result<CustomerCategory>>
 {
     private readonly ICustomerCategoryRepository _repository;
 
@@ -9,15 +9,23 @@ public readonly struct UpdateCustomerCategoryCommandHandlers : IRequestHandler<U
         _repository = repository;
     }
 
-    public async Task<CustomerCategory> Handle(UpdateCustomerCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerCategory>> Handle(UpdateCustomerCategoryCommand request, CancellationToken cancellationToken)
     {
-        UpdateCustomerCategoryCommand customerCategory = new()
+        try
         {
-            Id = request.Id,
-            CustomerCategoryName = request.CustomerCategoryName,
-            UserId = request.UserId
-        };
-
-        return await _repository.UpdateCustomerCategoryAsync(customerCategory);
+            UpdateCustomerCategoryCommand customerCategory = new()
+            {
+                Id = request.Id,
+                CustomerCategoryName = request.CustomerCategoryName,
+                UserId = request.UserId
+            };
+            return (await _repository.UpdateCustomerCategoryAsync(customerCategory))
+                .Match(result => new Result<CustomerCategory>(result),
+                    exception => new Result<CustomerCategory>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerCategory>(new Exception(e.Message));
+        }
     }
 }
