@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Product>
+public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<Product>>
 {
     private readonly IProductRepository _repository;
 
@@ -9,20 +9,27 @@ public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProdu
         _repository = repository;
     }
 
-    public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Product>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        CreateProductCommand item = new()
+        try
         {
-            ProductName = request.ProductName,
-            ProductCategoryId = request.ProductCategoryId,
-            Title = request.Title,
-            Summery = request.Summery,
-            Price = request.Price,
-            SecondaryPrice = request.SecondaryPrice,
-            Discount = request.Discount,
-            DiscountPercent = request.DiscountPercent,
-            Picture = request.Picture
-        };
-        return await _repository.CreateProductAsync(item);
+            CreateProductCommand item = new()
+            {
+                ProductName = request.ProductName,
+                ProductCategoryId = request.ProductCategoryId,
+                Title = request.Title,
+                Summery = request.Summery,
+                Price = request.Price,
+                SecondaryPrice = request.SecondaryPrice,
+                Discount = request.Discount,
+                DiscountPercent = request.DiscountPercent,
+                Picture = request.Picture
+            };
+            return (await _repository.CreateProductAsync(item)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<Product>(new Exception(e.Message));
+        }
     }
 }

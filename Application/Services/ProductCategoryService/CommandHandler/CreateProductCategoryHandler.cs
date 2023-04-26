@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProductCategoryCommand, ProductCategory>
+public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProductCategoryCommand, Result<ProductCategory>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,16 +9,23 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
         _repository = repository;
     }
 
-    public async Task<ProductCategory> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductCategory>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
-        CreateProductCategoryCommand item = new()
+        try
         {
-            Order = request.Order,
-            ProductCategoryName = request.ProductCategoryName,
-            Description = request.Description,
-            Icon = request.Icon,
-            BusinessId = request.BusinessId
-        };
-        return await _repository.CreateProductCategoryAsync(item);
+            CreateProductCategoryCommand item = new()
+            {
+                Order = request.Order,
+                ProductCategoryName = request.ProductCategoryName,
+                Description = request.Description,
+                Icon = request.Icon,
+                BusinessId = request.BusinessId
+            };
+            return await _repository.CreateProductCategoryAsync(item);
+        }
+        catch (Exception e)
+        {
+            return new Result<ProductCategory>(new Exception(e.Message));
+        }
     }
 }

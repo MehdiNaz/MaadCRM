@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Product>
+public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<Product>>
 {
     private readonly IProductRepository _repository;
 
@@ -9,22 +9,29 @@ public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProdu
         _repository = repository;
     }
 
-    public async Task<Product> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Product>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        UpdateProductCommand item = new()
+        try
         {
-            Id = request.Id,
-            ProductName = request.ProductName,
-            ProductCategoryId = request.ProductCategoryId,
-            Title = request.Title,
-            Summery = request.Summery,
-            Price = request.Price,
-            SecondaryPrice = request.SecondaryPrice,
-            Discount = request.Discount,
-            DiscountPercent = request.DiscountPercent,
-            FavoritesListId = request.FavoritesListId,
-            Picture = request.Picture
-        };
-        return await _repository.UpdateProductAsync(item);
+            UpdateProductCommand item = new()
+            {
+                Id = request.Id,
+                ProductName = request.ProductName,
+                ProductCategoryId = request.ProductCategoryId,
+                Title = request.Title,
+                Summery = request.Summery,
+                Price = request.Price,
+                SecondaryPrice = request.SecondaryPrice,
+                Discount = request.Discount,
+                DiscountPercent = request.DiscountPercent,
+                FavoritesListId = request.FavoritesListId,
+                Picture = request.Picture
+            };
+            return (await _repository.UpdateProductAsync(item)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<Product>(new Exception(e.Message));
+        }
     }
 }

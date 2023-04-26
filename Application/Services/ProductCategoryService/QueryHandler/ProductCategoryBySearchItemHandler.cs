@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.QueryHandler;
 
-public readonly struct ProductCategoryBySearchItemHandler: IRequestHandler<ProductCategoryBySearchItemQuery, ICollection<ProductCategory>>
+public readonly struct ProductCategoryBySearchItemHandler : IRequestHandler<ProductCategoryBySearchItemQuery, Result<ICollection<ProductCategory>>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct ProductCategoryBySearchItemHandler: IRequestHandler<Produ
         _repository = repository;
     }
 
-    public async Task<ICollection<ProductCategory>> Handle(ProductCategoryBySearchItemQuery request, CancellationToken cancellationToken)
-        => await _repository.SearchByItemsAsync(request.Q);
+    public async Task<Result<ICollection<ProductCategory>>> Handle(ProductCategoryBySearchItemQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.SearchByItemsAsync(request.Q)).Match(result => new Result<ICollection<ProductCategory>>(result), exception => new Result<ICollection<ProductCategory>>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ProductCategory>>(new Exception(e.Message));
+        }
+    }
 }

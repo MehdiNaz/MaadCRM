@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.Commands;
 
-public struct CreateProductCategoryCommand : IRequest<ProductCategory>
+public struct CreateProductCategoryCommand : IRequest<Result<ProductCategory>>
 {
     public byte? Order { get; set; }
     public required string ProductCategoryName { get; set; }
