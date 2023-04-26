@@ -7,5 +7,5 @@ public interface INoteHashTagRepository
     ValueTask<CustomerNoteHashTag?> ChangeStatusNoteHashTagByIdAsync(ChangeStatusNoteHashTagCommand request);
     ValueTask<CustomerNoteHashTag?> CreateNoteHashTagAsync(CreateNoteHashTagCommand request);
     ValueTask<CustomerNoteHashTag?> UpdateNoteHashTagAsync(UpdateNoteHashTagCommand request);
-    ValueTask<CustomerNoteHashTag?> DeleteNoteHashTagAsync(DeleteNoteHashTagCommand request);
+    ValueTask<CustomerNoteHashTag?> DeleteNoteHashTagAsync(Ulid id);
 }

@@ -10,5 +10,5 @@ public readonly struct DeleteCustomerPhoneNumberCommandHandler : IRequestHandler
     }
 
     public async Task<CustomersPhoneNumber> Handle(DeleteCustomerPhoneNumberCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeletePhoneNumberAsync(request))!;
+        => (await _repository.DeletePhoneNumberAsync(request.Id))!;
 }

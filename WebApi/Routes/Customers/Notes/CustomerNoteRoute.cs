@@ -253,7 +253,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -268,7 +268,7 @@ public static class CustomerNoteRoute
                         {
                             var result = mediator.Send(new DeleteCustomerNoteCommand
                             {
-                                Id = request.Id,
+                                Id = Id,
                                 UserId = UserId
                             });
                             return result.Result.Match(

@@ -7,5 +7,5 @@ public interface ICustomerNoteRepository
     ValueTask<Result<CustomerNote>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request);
     ValueTask<Result<CustomerNote>> CreateCustomerNoteAsync(CreateCustomerNoteCommand request);
     ValueTask<Result<CustomerNote>> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand request);
-    ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(DeleteCustomerNoteCommand request);
+    ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(Ulid id);
 }

@@ -63,7 +63,7 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            var customer = await GetCityByIdAsync(cityId);
+            var customer = await _context.Cities.FindAsync(cityId);
             customer!.CityStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customer;

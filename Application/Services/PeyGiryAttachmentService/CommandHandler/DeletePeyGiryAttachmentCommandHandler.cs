@@ -10,5 +10,5 @@ public readonly struct DeletePeyGiryAttachmentCommandHandler : IRequestHandler<D
     }
 
     public async Task<PeyGiryAttachment> Handle(DeletePeyGiryAttachmentCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeletePeyGiryAttachmentAsync(request))!;
+        => (await _repository.DeletePeyGiryAttachmentAsync(request.Id))!;
 }

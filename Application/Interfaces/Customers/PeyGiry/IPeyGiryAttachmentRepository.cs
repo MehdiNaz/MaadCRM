@@ -7,5 +7,5 @@ public interface IPeyGiryAttachmentRepository
     ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(ChangeStatusPeyGiryAttachmentCommand request);
     ValueTask<PeyGiryAttachment?> CreatePeyGiryAttachmentAsync(CreatePeyGiryAttachmentCommand request);
     ValueTask<PeyGiryAttachment?> UpdatePeyGiryAttachmentAsync(UpdatePeyGiryAttachmentCommand request);
-    ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(DeletePeyGiryAttachmentCommand request);
+    ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(Ulid id);
 }

@@ -1,7 +1,5 @@
 using Domain.Mapping.BusinessMapping;
 using Domain.Mapping.Customers.Foroosh;
-using Domain.Models.Businesses.Plans;
-using Domain.Models.Customers.Foroosh;
 
 namespace DataAccess;
 

@@ -7,5 +7,5 @@ public interface ICustomersEmailAddressRepository
     ValueTask<CustomersEmailAddress?> ChangeStatusEmailAddressByIdAsync(ChangeStatusCustomersEmailAddressCommand request);
     ValueTask<CustomersEmailAddress?> CreateEmailAddressAsync(CreateCustomersEmailAddressCommand request);
     ValueTask<CustomersEmailAddress?> UpdateEmailAddressAsync(UpdateCustomersEmailAddressCommand request);
-    ValueTask<CustomersEmailAddress?> DeleteEmailAddressAsync(DeleteCustomersEmailAddressCommand request);
+    ValueTask<CustomersEmailAddress?> DeleteEmailAddressAsync(Ulid id);
 }

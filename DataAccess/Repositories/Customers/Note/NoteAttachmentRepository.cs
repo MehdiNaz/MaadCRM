@@ -72,11 +72,11 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         }
     }
 
-    public async ValueTask<CustomerNoteAttachment?> DeleteNoteAttachmentAsync(DeleteNoteAttachmentCommand request)
+    public async ValueTask<CustomerNoteAttachment?> DeleteNoteAttachmentAsync(Ulid id)
     {
         try
         {
-            var noteAttachment = await GetNoteAttachmentByIdAsync(request.Id);
+            var noteAttachment = await _context.NoteAttachments.FindAsync(id);
             noteAttachment!.NoteAttachmentStatus = Status.Show;
             await _context.SaveChangesAsync();
             return noteAttachment;

@@ -7,5 +7,5 @@ public interface IContactRepository
     ValueTask<Contact?> ChangeStatusContactByIdAsync(ChangeStatusContactCommand request);
     ValueTask<Contact?> CreateContactAsync(CreateContactCommand entity);
     ValueTask<Contact?> UpdateContactAsync(UpdateContactCommand entity);
-    ValueTask<Contact?> DeleteContactAsync(DeleteContactCommand entity);
+    ValueTask<Contact?> DeleteContactAsync(Ulid id);
 }

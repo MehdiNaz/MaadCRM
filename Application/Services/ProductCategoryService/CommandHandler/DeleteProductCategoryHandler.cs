@@ -13,7 +13,7 @@ public readonly struct DeleteProductCategoryHandler : IRequestHandler<DeleteProd
     {
         try
         {
-            return (await _repository.DeleteProductCategoryAsync(request)).Match(result => new Result<ProductCategory>(result), exception => new Result<ProductCategory>(exception));
+            return (await _repository.DeleteProductCategoryAsync(request.Id)).Match(result => new Result<ProductCategory>(result), exception => new Result<ProductCategory>(exception));
         }
         catch (Exception e)
         {

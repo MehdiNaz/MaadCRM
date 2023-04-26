@@ -91,13 +91,13 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteNoteHashTagCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteNoteHashTagCommand
                 {
-                    Id = request.Id
+                    Id = Id
                 });
                 return Results.Ok(result);
             }

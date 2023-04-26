@@ -6,5 +6,5 @@ public interface IProductCustomerFavoritesListRepository
     ValueTask<ProductCustomerFavoritesList?> GetProductCustomerFavoritesListByIdAsync(Ulid productId, Ulid customerId);
     ValueTask<ProductCustomerFavoritesList?> CreateProductCustomerFavoritesListAsync(CreateProductCustomerFavoritesListCommand request);
     ValueTask<ProductCustomerFavoritesList?> UpdateProductCustomerFavoritesListAsync(UpdateProductCustomerFavoritesListCommand request);
-    ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(DeleteProductCustomerFavoritesListCommand request);
+    ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(Ulid productId, Ulid customerId);
 }

@@ -34,7 +34,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
     {
         try
         {
-            var attributeOptions = await GetAttributeOptionsByIdAsync(attributeOptionsId);
+            var attributeOptions = await _context.AttributeOptions.FindAsync(attributeOptionsId);
             //_context.AttributeOptions!.Remove(attributeOptions);
             attributeOptions.AttributeOptionsStatus = Status.Deleted;
             await _context.SaveChangesAsync();

@@ -7,5 +7,5 @@ public interface INoteHashTableRepository
     ValueTask<CustomerNoteHashTable?> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request);
     ValueTask<CustomerNoteHashTable?> CreateNoteHashTableAsync(CreateNoteHashTableCommand request);
     ValueTask<CustomerNoteHashTable?> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand request);
-    ValueTask<CustomerNoteHashTable?> DeleteNoteHashTableAsync(DeleteNoteHashTableCommand request);
+    ValueTask<CustomerNoteHashTable?> DeleteNoteHashTableAsync(Ulid id);
 }

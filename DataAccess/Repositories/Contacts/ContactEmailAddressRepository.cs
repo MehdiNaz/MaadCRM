@@ -71,11 +71,11 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         }
     }
 
-    public async ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(DeleteContactEmailAddressCommand request)
+    public async ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(Ulid id)
     {
         try
         {
-            var contactsEmailAddress = await GetContactsEmailAddressByIdAsync(request.Id);
+            var contactsEmailAddress = await _context.ContactsEmailAddresses.FindAsync(id);
             contactsEmailAddress!.ContactsEmailAddressStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactsEmailAddress;

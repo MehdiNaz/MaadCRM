@@ -9,5 +9,5 @@ public interface IPlanRepository
     ValueTask<Plan?> ChangeStatusPlansByIdAsync(ChangeStatusPlanCommand request);
     ValueTask<Plan?> CreatePlanAsync(CreatePlanCommand request);
     ValueTask<Plan?> UpdatePlanAsync(UpdatePlanCommand request);
-    ValueTask<Plan?> DeletePlanAsync(DeletePlanCommand request);
+    ValueTask<Plan?> DeletePlanAsync(Ulid id);
 }

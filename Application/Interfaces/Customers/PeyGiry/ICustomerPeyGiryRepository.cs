@@ -7,5 +7,5 @@ public interface ICustomerPeyGiryRepository
     ValueTask<Result<CustomerPeyGiry>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request);
     ValueTask<Result<CustomerPeyGiry>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request);
     ValueTask<Result<CustomerPeyGiry>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request);
-    ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(DeleteCustomerPeyGiryCommand request);
+    ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(Ulid id);
 }

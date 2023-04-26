@@ -8,5 +8,5 @@ public interface IProductCategoryRepository
     ValueTask<Result<ProductCategory>> ChangeStatusProductCategoryByIdAsync(ChangeStatusProductCategoryCommand request);
     ValueTask<Result<ProductCategory>> CreateProductCategoryAsync(CreateProductCategoryCommand request);
     ValueTask<Result<ProductCategory>> UpdateProductCategoryAsync(UpdateProductCategoryCommand request);
-    ValueTask<Result<ProductCategory>> DeleteProductCategoryAsync(DeleteProductCategoryCommand request);
+    ValueTask<Result<ProductCategory>> DeleteProductCategoryAsync(Ulid id);
 }

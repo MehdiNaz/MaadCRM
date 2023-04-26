@@ -54,11 +54,11 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
         }
     }
 
-    public async ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(DeleteProductCustomerFavoritesListCommand request)
+    public async ValueTask<ProductCustomerFavoritesList?> DeleteProductCustomerFavoritesListAsync(Ulid productId, Ulid customerId)
     {
         try
         {
-            var customer = await GetProductCustomerFavoritesListByIdAsync(request.ProductId, request.CustomerId);
+            var customer = await _context.ProductCustomerFavoritesLists.FindAsync(productId, customerId);
             customer!.StatusProductCustomerFavoritesList = Status.Show;
             await _context.SaveChangesAsync();
             return customer;

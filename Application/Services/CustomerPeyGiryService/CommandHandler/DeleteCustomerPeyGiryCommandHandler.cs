@@ -13,7 +13,7 @@ public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<Del
     {
         try
         {
-            return (await _repository.DeleteCustomerPeyGiryAsync(request))
+            return (await _repository.DeleteCustomerPeyGiryAsync(request.Id))
                 .Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));
         }
         catch (Exception e)

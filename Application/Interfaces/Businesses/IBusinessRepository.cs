@@ -8,5 +8,5 @@ public interface IBusinessRepository
     ValueTask<Result<Business>> ChangeStatsAsync(ChangeStatusBusinessCommand request);
     ValueTask<Result<Business>> CreateBusinessAsync(CreateBusinessCommand request);
     ValueTask<Result<Business>> UpdateBusinessAsync(UpdateBusinessCommand request);
-    ValueTask<Result<Business>> DeleteBusinessAsync(DeleteBusinessCommand request);
+    ValueTask<Result<Business>> DeleteBusinessAsync(Ulid id);
 }

@@ -39,12 +39,12 @@ public class BusinessRepository : IBusinessRepository
         {
             // TODO Get Business Name From UserId
             var result = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-                //.Select(x=> new User
-                //{
-                //    BusinessId = x.
-                //});
-            
-            
+            //.Select(x=> new User
+            //{
+            //    BusinessId = x.
+            //});
+
+
 
             return null;
         }
@@ -118,11 +118,11 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Result<Business>> DeleteBusinessAsync(DeleteBusinessCommand request)
+    public async ValueTask<Result<Business>> DeleteBusinessAsync(Ulid id)
     {
         try
         {
-            var business = await _context.Businesses.FirstOrDefaultAsync(x => x.Id == request.BusinessId && x.StatusBusiness == Status.Show);
+            var business = await _context.Businesses.FindAsync(id);
             business.StatusBusiness = Status.Deleted;
             await _context.SaveChangesAsync();
             return new Result<Business>(business);

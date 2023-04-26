@@ -148,11 +148,11 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public async ValueTask<Result<Product>> DeleteProductAsync(DeleteProductCommand request)
+    public async ValueTask<Result<Product>> DeleteProductAsync(Ulid id)
     {
         try
         {
-            var item = await _context.Products.FindAsync(request.Id);
+            var item = await _context.Products.FindAsync(id);
             item.StatusProduct = Status.Deleted;
             await _context.SaveChangesAsync();
             return item;

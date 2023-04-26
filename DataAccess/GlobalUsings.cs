@@ -76,4 +76,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+global using Application.Services.CustomerFeedbackService.Commands;
 global using Application.Services.ProductCategoryService.Commands;
+global using Domain.Models.Businesses.Plans;
+global using Domain.Models.Customers.Foroosh;

@@ -110,11 +110,11 @@ public class ProductCategoryRepository : IProductCategoryRepository
         }
     }
 
-    public async ValueTask<Result<ProductCategory>> DeleteProductCategoryAsync(DeleteProductCategoryCommand request)
+    public async ValueTask<Result<ProductCategory>> DeleteProductCategoryAsync(Ulid id)
     {
         try
         {
-            var productCategory = await _context.ProductCategories.FindAsync(request.Id);
+            var productCategory = await _context.ProductCategories.FindAsync(id);
             productCategory.ProductCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return productCategory;

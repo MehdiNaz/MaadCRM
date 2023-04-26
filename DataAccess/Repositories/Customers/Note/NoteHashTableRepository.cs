@@ -70,11 +70,11 @@ public class NoteHashTableRepository : INoteHashTableRepository
         }
     }
 
-    public async ValueTask<CustomerNoteHashTable?> DeleteNoteHashTableAsync(DeleteNoteHashTableCommand request)
+    public async ValueTask<CustomerNoteHashTable?> DeleteNoteHashTableAsync(Ulid id)
     {
         try
         {
-            var noteHashTable = await GetNoteHashTableByIdAsync(request.Id);
+            var noteHashTable = await _context.NoteHashTables.FindAsync(id);
             noteHashTable!.NoteHashTagStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return noteHashTable;

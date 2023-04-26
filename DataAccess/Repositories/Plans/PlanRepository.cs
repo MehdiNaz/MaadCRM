@@ -1,6 +1,4 @@
-﻿using Domain.Models.Businesses.Plans;
-
-namespace DataAccess.Repositories.Plans;
+﻿namespace DataAccess.Repositories.Plans;
 
 public class PlanRepository : IPlanRepository
 {
@@ -82,11 +80,11 @@ public class PlanRepository : IPlanRepository
         }
     }
 
-    public async ValueTask<Plan?> DeletePlanAsync(DeletePlanCommand request)
+    public async ValueTask<Plan?> DeletePlanAsync(Ulid id)
     {
         try
         {
-            Plan? plan = await GetPlansByIdAsync(request.Id);
+            Plan? plan = await _context.Plans.FindAsync(id);
             //_context.Plans.Remove(plan);
             plan.StatusPlan = Status.Deleted;
             await _context.SaveChangesAsync();

@@ -7,5 +7,5 @@ public interface INoteAttachmentRepository
     ValueTask<CustomerNoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(ChangeStatusNoteAttachmentCommand request);
     ValueTask<CustomerNoteAttachment?> CreateNoteAttachmentAsync(CreateNoteAttachmentCommand request);
     ValueTask<CustomerNoteAttachment?> UpdateNoteAttachmentAsync(UpdateNoteAttachmentCommand request);
-    ValueTask<CustomerNoteAttachment?> DeleteNoteAttachmentAsync(DeleteNoteAttachmentCommand request);
+    ValueTask<CustomerNoteAttachment?> DeleteNoteAttachmentAsync(Ulid id);
 }

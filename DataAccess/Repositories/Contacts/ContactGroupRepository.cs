@@ -71,11 +71,11 @@ public class ContactGroupRepository : IContactGroupRepository
         }
     }
 
-    public async ValueTask<ContactGroup?> DeleteContactGroupAsync(DeleteContactGroupCommand request)
+    public async ValueTask<ContactGroup?> DeleteContactGroupAsync(Ulid id)
     {
         try
         {
-            var contactGroup = await GetContactGroupByIdAsync(request.Id);
+            var contactGroup = await _context.ContactGroups.FindAsync(id);
             contactGroup!.ContactGroupStatus = Status.Show;
             await _context.SaveChangesAsync();
             return contactGroup;

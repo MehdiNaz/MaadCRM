@@ -123,11 +123,11 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         }
     }
 
-    public async ValueTask<Result<BusinessPlan>> DeleteBusinessPlansAsync(DeleteBusinessPlansCommand request)
+    public async ValueTask<Result<BusinessPlan>> DeleteBusinessPlansAsync(Ulid id)
     {
         try
         {
-            var businessPlan = (await _context.BusinessPlans!.FirstOrDefaultAsync(x => x.Id == request.BusinessPlansId && x.BusinessPlansStatus == Status.Show));
+            var businessPlan = await _context.BusinessPlans.FindAsync(id);
             businessPlan.BusinessPlansStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(businessPlan);

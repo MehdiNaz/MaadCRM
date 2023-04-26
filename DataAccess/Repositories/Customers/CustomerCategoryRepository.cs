@@ -74,11 +74,11 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
     }
 
-    public async ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(DeleteCustomerCategoryCommand request)
+    public async ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(Ulid id)
     {
         try
         {
-            var CustomerCategory = await GetCustomerCategoryByIdAsync(request.Id, request.UserId);
+            var CustomerCategory = await _context.CustomerCategories.FindAsync(id);
             CustomerCategory.CustomerCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return CustomerCategory;

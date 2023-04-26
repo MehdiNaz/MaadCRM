@@ -77,13 +77,13 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeletePeyGiryAttachmentCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeletePeyGiryAttachmentCommand
                 {
-                    Id = request.Id
+                    Id = Id
                 });
                 return Results.Ok(result);
             }

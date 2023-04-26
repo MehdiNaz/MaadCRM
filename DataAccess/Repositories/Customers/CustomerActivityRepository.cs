@@ -73,11 +73,11 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         }
     }
 
-    public async ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(DeleteCustomerActivityCommand request)
+    public async ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(Ulid id)
     {
         try
         {
-            var customerActivity = await GetCustomerActivityByIdAsync(request.Id);
+            var customerActivity = await _context.CustomerActivities.FindAsync(id);
             customerActivity!.CustomerActivityStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerActivity;

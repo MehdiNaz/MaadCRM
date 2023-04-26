@@ -34,7 +34,7 @@ public class CategoryAttributeRepository : ICategoryAttributeRepository
     {
         try
         {
-            var categoryAttribute = await GetCategoryAttributeByIdAsync(categoryAttributeId);
+            var categoryAttribute = await _context.CategoryAttributes.FindAsync(categoryAttributeId);
             //_context.CategoryAttributes!.Remove(categoryAttribute);
             categoryAttribute.CategoryAttributeStatus = Status.Deleted;
             await _context.SaveChangesAsync();

@@ -91,11 +91,11 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteNoteHashTableCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteNoteHashTableCommand { Id = request.Id }));
+                return Results.Ok(await mediator.Send(new DeleteNoteHashTableCommand { Id = Id }));
             }
             catch (ArgumentException e)
             {

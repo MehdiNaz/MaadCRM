@@ -7,5 +7,5 @@ public interface IContactGroupRepository
     ValueTask<ContactGroup?> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request);
     ValueTask<ContactGroup?> CreateContactGroupAsync(CreateContactGroupCommand request);
     ValueTask<ContactGroup?> UpdateContactGroupAsync(UpdateContactGroupCommand request);
-    ValueTask<ContactGroup?> DeleteContactGroupAsync(DeleteContactGroupCommand request);
+    ValueTask<ContactGroup?> DeleteContactGroupAsync(Ulid id);
 }

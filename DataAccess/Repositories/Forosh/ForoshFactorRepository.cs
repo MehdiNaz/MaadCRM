@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace DataAccess.Repositories.Forosh;
+﻿namespace DataAccess.Repositories.Forosh;
 
 public class ForoshFactorRepository : IForoshFactorRepository
 {
@@ -79,11 +77,11 @@ public class ForoshFactorRepository : IForoshFactorRepository
         }
     }
 
-    public async ValueTask<ForooshFactor?> DeleteForoshFactorAsync(DeleteForoshFactorCommand request)
+    public async ValueTask<ForooshFactor?> DeleteForoshFactorAsync(Ulid id)
     {
         try
         {
-            var foroshFactor = await GetForoshFactorByIdAsync(request.Id);
+            var foroshFactor = await _context.ForoshFactors.FindAsync(id);
             foroshFactor!.StatusForooshFactor = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshFactor;

@@ -146,13 +146,13 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteBusinessPlansCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteBusinessPlansCommand
                 {
-                    BusinessPlansId = request.BusinessPlansId,
+                    BusinessPlansId = Id
                 });
                 return Results.Ok(result);
             }

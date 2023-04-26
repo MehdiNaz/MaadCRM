@@ -7,5 +7,5 @@ public interface ICustomersPhoneNumberRepository
     ValueTask<CustomersPhoneNumber?> ChangeStatusPhoneNumberByIdAsync(ChangeStatusCustomerPhoneNumberCommand request);
     ValueTask<CustomersPhoneNumber?> CreatePhoneNumberAsync(CreateCustomerPhoneNumberCommand request);
     ValueTask<CustomersPhoneNumber?> UpdatePhoneNumberAsync(UpdateCustomerPhoneNumberCommand request);
-    ValueTask<CustomersPhoneNumber?> DeletePhoneNumberAsync(DeleteCustomerPhoneNumberCommand request);
+    ValueTask<CustomersPhoneNumber?> DeletePhoneNumberAsync(Ulid id);
 }

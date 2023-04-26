@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace DataAccess.Repositories.Forosh;
+﻿namespace DataAccess.Repositories.Forosh;
 
 public class ForoshOrderRepository : IForoshOrderRepository
 {
@@ -90,11 +88,11 @@ public class ForoshOrderRepository : IForoshOrderRepository
         }
     }
 
-    public async ValueTask<ForooshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request)
+    public async ValueTask<ForooshOrder?> DeleteForoshOrderAsync(Ulid id)
     {
         try
         {
-            var foroshOrder = await GetForoshOrderByIdAsync(request.Id);
+            var foroshOrder = await _context.ForoshOrders.FindAsync(id);
             foroshOrder!.StatusForooshOrder = Status.Deleted;
             await _context.SaveChangesAsync();
             return foroshOrder;

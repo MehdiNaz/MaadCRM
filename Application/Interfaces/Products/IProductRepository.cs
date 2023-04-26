@@ -9,5 +9,5 @@ public interface IProductRepository
     ValueTask<Result<Product>> ChangeStatusProductAsync(ChangeStateProductCommand request);
     ValueTask<Result<Product>> CreateProductAsync(CreateProductCommand request);
     ValueTask<Result<Product>> UpdateProductAsync(UpdateProductCommand request);
-    ValueTask<Result<Product>> DeleteProductAsync(DeleteProductCommand request);
+    ValueTask<Result<Product>> DeleteProductAsync(Ulid id);
 }

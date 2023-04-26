@@ -70,11 +70,11 @@ public class SanAtRepository : ISanAtRepository
         }
     }
 
-    public async ValueTask<SanAt?> DeleteSanAtsAsync(DeleteSanAtCommand request)
+    public async ValueTask<SanAt?> DeleteSanAtsAsync(Ulid id)
     {
         try
         {
-            var sanAt = await GetSanAtsByIdAsync(request.Id);
+            var sanAt = await _context.SanAts.FindAsync(id);
             sanAt.SanAtStatus = Status.Show;
             await _context.SaveChangesAsync();
             return sanAt;

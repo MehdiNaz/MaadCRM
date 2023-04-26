@@ -73,11 +73,11 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         }
     }
 
-    public async ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(DeletePeyGiryAttachmentCommand request)
+    public async ValueTask<PeyGiryAttachment?> DeletePeyGiryAttachmentAsync(Ulid id)
     {
         try
         {
-            var peyGiryAttachment = await GetPeyGiryAttachmentByIdAsync(request.Id);
+            var peyGiryAttachment = await _context.PeyGiryAttachments.FindAsync(id);
             peyGiryAttachment!.StatusPeyGiryAttachment = Status.Show;
             await _context.SaveChangesAsync();
             return peyGiryAttachment;

@@ -96,11 +96,11 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(DeleteCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(Ulid id)
     {
         try
         {
-            var item = (await _context.CustomerPeyGiries.FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusCustomerPeyGiry == Status.Show));
+            var item = await _context.CustomerPeyGiries.FindAsync(id);
             item.StatusCustomerPeyGiry = Status.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerPeyGiry>(item);

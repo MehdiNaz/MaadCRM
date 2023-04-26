@@ -79,11 +79,11 @@ public class ContactRepository : IContactRepository
         }
     }
 
-    public async ValueTask<Contact?> DeleteContactAsync(DeleteContactCommand request)
+    public async ValueTask<Contact?> DeleteContactAsync(Ulid id)
     {
         try
         {
-            var contact = await GetContactByIdAsync(request.ContactId);
+            var contact = await _context.Contacts.FindAsync(id);
             contact!.ContactStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contact;

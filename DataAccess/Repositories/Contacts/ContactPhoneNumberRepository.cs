@@ -72,11 +72,11 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         }
     }
 
-    public async ValueTask<ContactPhoneNumber?> DeleteContactPhoneNumberAsync(DeleteContactPhoneNumberCommand request)
+    public async ValueTask<ContactPhoneNumber?> DeleteContactPhoneNumberAsync(Ulid id)
     {
         try
         {
-            var contactPhoneNumber = await GetContactPhoneNumberByIdAsync(request.Id);
+            var contactPhoneNumber = await _context.ContactPhoneNumbers.FindAsync(id);
             contactPhoneNumber!.ContactPhoneNumberStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return contactPhoneNumber;

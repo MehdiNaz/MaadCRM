@@ -9,5 +9,5 @@ public interface IForoshOrderRepository
     ValueTask<ForooshOrder?> ChangeStatusForoshOrderByIdAsync(ChangeStatusForoshOrderCommand request);
     ValueTask<ForooshOrder?> CreateForoshOrderAsync(CreateForoshOrderCommand request);
     ValueTask<ForooshOrder?> UpdateForoshOrderAsync(UpdateForoshOrderCommand request);
-    ValueTask<ForooshOrder?> DeleteForoshOrderAsync(DeleteForoshOrderCommand request);
+    ValueTask<ForooshOrder?> DeleteForoshOrderAsync(Ulid id);
 }

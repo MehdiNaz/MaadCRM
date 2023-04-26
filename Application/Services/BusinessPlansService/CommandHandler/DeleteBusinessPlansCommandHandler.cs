@@ -13,7 +13,7 @@ public readonly struct DeleteBusinessPlansCommandHandler : IRequestHandler<Delet
     {
         try
         {
-            var resultVerifyCode = await _repository.DeleteBusinessPlansAsync(request);
+            var resultVerifyCode = await _repository.DeleteBusinessPlansAsync(request.BusinessPlansId);
             return resultVerifyCode.Match(result => new Result<BusinessPlan>(result), exception => new Result<BusinessPlan>(exception));
         }
         catch (Exception e)

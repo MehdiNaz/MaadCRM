@@ -12,5 +12,5 @@ public readonly struct DeletePlanCommandHandler : IRequestHandler<DeletePlanComm
     }
 
     public async Task<Plan> Handle(DeletePlanCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeletePlanAsync(request))!;
+        => (await _repository.DeletePlanAsync(request.Id))!;
 }

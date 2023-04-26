@@ -7,5 +7,5 @@ public interface IContactsEmailAddressRepository
     ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(ChangeStatusContactEmailAddressCommand request);
     ValueTask<ContactsEmailAddress?> CreateContactsEmailAddressAsync(CreateContactEmailAddressCommand request);
     ValueTask<ContactsEmailAddress?> UpdateContactsEmailAddressAsync(UpdateContactEmailAddressCommand request);
-    ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(DeleteContactEmailAddressCommand request);
+    ValueTask<ContactsEmailAddress?> DeleteContactsEmailAddressAsync(Ulid id);
 }

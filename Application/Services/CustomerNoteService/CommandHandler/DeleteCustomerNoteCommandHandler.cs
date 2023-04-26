@@ -13,7 +13,7 @@ public readonly struct DeleteCustomerNoteCommandHandler : IRequestHandler<Delete
     {
         try
         {
-            return (await _repository.DeleteCustomerNoteAsync(request)).Match(result => new Result<CustomerNote>(result), exception => new Result<CustomerNote>(exception));
+            return (await _repository.DeleteCustomerNoteAsync(request.Id)).Match(result => new Result<CustomerNote>(result), exception => new Result<CustomerNote>(exception));
         }
         catch (Exception e)
         {

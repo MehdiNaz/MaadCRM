@@ -72,11 +72,11 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         }
     }
 
-    public async ValueTask<CustomersEmailAddress?> DeleteEmailAddressAsync(DeleteCustomersEmailAddressCommand request)
+    public async ValueTask<CustomersEmailAddress?> DeleteEmailAddressAsync(Ulid id)
     {
         try
         {
-            var customer = await GetEmailAddressByIdAsync(request.Id);
+            var customer = await _context.CustomersEmailAddresses.FindAsync(id);
             customer!.StatusCustomerEmailAddress = Status.Show;
             await _context.SaveChangesAsync();
             return customer;

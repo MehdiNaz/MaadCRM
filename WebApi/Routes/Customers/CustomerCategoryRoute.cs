@@ -93,7 +93,7 @@ public static class CustomerCategoryRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerCategoryCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {

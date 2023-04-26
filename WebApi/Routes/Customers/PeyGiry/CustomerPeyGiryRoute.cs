@@ -251,13 +251,13 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerPeyGiryCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerPeyGiryCommand
                 {
-                    Id = request.Id
+                    Id = Id
                 });
 
                 return result.Match(

@@ -101,13 +101,13 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerFeedBackCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerFeedBackCommand
                 {
-                    // Id = request.Id,
+                    Id = Id
                 });
                 return Results.Ok(result);
             }

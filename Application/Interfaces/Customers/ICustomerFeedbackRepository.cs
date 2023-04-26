@@ -7,5 +7,5 @@ public interface ICustomerFeedbackRepository
     ValueTask<CustomerFeedback?> ChangeStatusCustomerFeedbackByIdAsync(ChangeStatusCustomerFeedBackCommand request);
     ValueTask<CustomerFeedback?> CreateCustomerFeedbackAsync(CreateCustomerFeedBackCommand request);
     ValueTask<CustomerFeedback?> UpdateCustomerFeedbackAsync(UpdateCustomerFeedBackCommand request);
-    ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(DeleteCustomerFeedBackCommand request);
+    ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(Ulid id);
 }

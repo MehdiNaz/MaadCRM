@@ -1,6 +1,4 @@
-﻿using Application.Services.CustomerFeedbackService.Commands;
-
-namespace DataAccess.Repositories.Customers;
+﻿namespace DataAccess.Repositories.Customers;
 
 public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 {
@@ -78,11 +76,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(DeleteCustomerFeedBackCommand request)
+    public async ValueTask<CustomerFeedback?> DeleteCustomerFeedbackAsync(Ulid id)
     {
         try
         {
-            var customerFeedback = await GetCustomerFeedbackByIdAsync(request.Id);
+            var customerFeedback = await _context.CustomerFeedbacks.FindAsync(id);
             customerFeedback!.CustomerFeedbackStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerFeedback;

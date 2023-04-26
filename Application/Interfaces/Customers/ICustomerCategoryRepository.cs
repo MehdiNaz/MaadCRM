@@ -7,5 +7,5 @@ public interface ICustomerCategoryRepository
     ValueTask<CustomerCategory?> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request);
     ValueTask<CustomerCategory?> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request);
     ValueTask<CustomerCategory?> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request);
-    ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(DeleteCustomerCategoryCommand request);
+    ValueTask<CustomerCategory?> DeleteCustomerCategoryAsync(Ulid id);
 }

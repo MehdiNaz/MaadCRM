@@ -156,11 +156,11 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         }
     }
 
-    public async ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(DeleteCustomerNoteCommand request)
+    public async ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(Ulid id)
     {
         try
         {
-            var businessPlan = await _context.CustomerNotes!.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var businessPlan = await _context.CustomerNotes.FindAsync(id);
             businessPlan.CustomerNoteStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerNote>(businessPlan);

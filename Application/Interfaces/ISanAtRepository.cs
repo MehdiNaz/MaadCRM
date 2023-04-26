@@ -7,5 +7,5 @@ public interface ISanAtRepository
     ValueTask<SanAt?> ChangeStatusSanAtsByIdAsync(ChangeStatusSanAtCommand request);
     ValueTask<SanAt?> CreateSanAtsAsync(CreateSanAtCommand request);
     ValueTask<SanAt?> UpdateSanAtsAsync(UpdateSanAtCommand request);
-    ValueTask<SanAt?> DeleteSanAtsAsync(DeleteSanAtCommand request);
+    ValueTask<SanAt?> DeleteSanAtsAsync(Ulid id);
 }

@@ -12,5 +12,5 @@ public readonly struct DeleteForoshFactorCommandHandler : IRequestHandler<Delete
     }
 
     public async Task<ForooshFactor> Handle(DeleteForoshFactorCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteForoshFactorAsync(request))!;
+        => (await _repository.DeleteForoshFactorAsync(request.Id))!;
 }

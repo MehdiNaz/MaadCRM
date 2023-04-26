@@ -10,5 +10,5 @@ public readonly struct DeleteSanAtCommandHandler : IRequestHandler<DeleteSanAtCo
     }
 
     public async Task<SanAt> Handle(DeleteSanAtCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteSanAtsAsync(request))!;
+        => (await _repository.DeleteSanAtsAsync(request.Id))!;
 }

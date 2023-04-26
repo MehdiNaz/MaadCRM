@@ -7,5 +7,5 @@ public interface ICustomerActivityRepository
     ValueTask<CustomerActivity?> ChangeStatusCustomerActivityByIdAsync(ChangeStatusCustomerActivityCommand request);
     ValueTask<CustomerActivity?> CreateCustomerActivityAsync(CreateCustomerActivityCommand request);
     ValueTask<CustomerActivity?> UpdateCustomerActivityAsync(UpdateCustomerActivityCommand request);
-    ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(DeleteCustomerActivityCommand request);
+    ValueTask<CustomerActivity?> DeleteCustomerActivityAsync(Ulid id);
 }

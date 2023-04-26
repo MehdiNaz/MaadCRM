@@ -80,13 +80,13 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapDelete("/Delete", async ([FromBody] DeleteCustomerActivityCommand request, IMediator mediator) =>
+        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerActivityCommand
                 {
-                    Id = request.Id,
+                    Id = Id
                 });
                 return Results.Ok(result);
             }
