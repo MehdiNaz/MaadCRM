@@ -2,5 +2,5 @@
 
 public struct BusinessByIdQuery : IRequest<Result<Business>>
 {
-    public string UserId { get; set; }
+    public Ulid Id { get; set; }
 }

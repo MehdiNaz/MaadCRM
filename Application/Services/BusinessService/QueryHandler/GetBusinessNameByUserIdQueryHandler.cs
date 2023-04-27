@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.QueryHandler;
 
-public readonly struct GetBusinessNameByUserIdQueryHandler : IRequestHandler<GetBusinessNameByUserIdQuery, Result<ICollection<Business>>>
+public readonly struct GetBusinessNameByUserIdQueryHandler : IRequestHandler<GetBusinessNameByUserIdQuery, Result<Business>>
 {
     private readonly IBusinessRepository _repository;
 
@@ -9,15 +9,17 @@ public readonly struct GetBusinessNameByUserIdQueryHandler : IRequestHandler<Get
         _repository = repository;
     }
 
-    public async Task<Result<ICollection<Business>>> Handle(GetBusinessNameByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<Business>> Handle(GetBusinessNameByUserIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.GetBusinessNameByUserId(request.UserId)).Match(result => new Result<ICollection<Business>>(result), exception => new Result<ICollection<Business>>(exception));
+            return (await _repository.GetBusinessByUserIdAsync(request.UserId))
+                .Match(result => new Result<Business>(result),
+                    exception => new Result<Business>(exception));
         }
         catch (Exception e)
         {
-            return new Result<ICollection<Business>>(new Exception(e.Message));
+            return new Result<Business>(new Exception(e.Message));
         }
     }
 }

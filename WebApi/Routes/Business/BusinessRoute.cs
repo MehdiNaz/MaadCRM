@@ -11,23 +11,39 @@ public static class BusinessRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllBusinesses", async (IMediator mediator) =>
+        plan.MapGet("/AllBusinesses", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllBusinessQuery());
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
 
-                return result.Match(
-                    u => Results.Ok(new
+                return id.Result.Match(
+                    UserId =>
                     {
-                        Valid = true,
-                        Message = "Show All Businesses.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
+                        var result = mediator.Send(new AllBusinessQuery());
+
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show All Businesses.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
                     {
                         Valid = false,
-                        Message = exception,
+                        Exceptions = exception
                     }));
             }
             catch (Exception e)
@@ -41,25 +57,45 @@ public static class BusinessRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] BusinessByIdQuery request, IMediator mediator) =>
+        plan.MapPost("/ById", ([FromBody] BusinessByIdQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new BusinessByIdQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    UserId = request.BusinessId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return result.Match(
-                    u => Results.Ok(new
+
+                return id.Result.Match(
+                    UserId =>
                     {
-                        Valid = true,
-                        Message = "Show Business By Id.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
+                        var business = mediator.Send(new GetBusinessByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+
+                        var result = mediator.Send(new GetBusinessByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show Product By Id",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
                     {
                         Valid = false,
-                        Message = exception,
+                        Exceptions = exception
                     }));
             }
             catch (Exception e)
@@ -112,36 +148,49 @@ public static class BusinessRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusBusinessCommand request, IMediator mediator) =>
+        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusBusinessCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusBusinessCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    BusinessStatus = request.BusinessStatus,
-                    BusinessId = request.BusinessId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
 
-                return result.Match(
-                    u => Results.Ok(new
+                return id.Result.Match(
+                    UserId =>
                     {
-                        Valid = true,
-                        Message = "Status Business Changed.",
-                        Data = u
-                    }),
-                    exception => Results.BadRequest(new
+                        var result = mediator.Send(new ChangeStatusBusinessCommand
+                        {
+                            BusinessStatus = request.BusinessStatus,
+                            BusinessId = request.BusinessId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Customers Note Status Changed.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
                     {
                         Valid = false,
-                        Message = exception,
+                        Exceptions = exception
                     }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });

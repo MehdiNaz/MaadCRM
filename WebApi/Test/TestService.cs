@@ -33,7 +33,7 @@ public class Test1Service : ITest1Service
             PhoneNumber = phone,
             UserName = phone,
             UserStatus = Status.Show,
-            BusinessId = newBusiness.Id,
+            IdBusiness = newBusiness.Id,
             CreatedOn = DateTime.UtcNow
         };
         

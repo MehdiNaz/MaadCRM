@@ -1,4 +1,6 @@
-﻿namespace WebApi.Routes.Products;
+﻿using LanguageExt;
+
+namespace WebApi.Routes.Products;
 
 public static class ProductRoute
 {
@@ -9,7 +11,7 @@ public static class ProductRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllProducts/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllProducts", ( IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -22,29 +24,38 @@ public static class ProductRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var business = mediator.Send(new BusinessByIdQuery()
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
                             UserId = UserId
                         });
 
-                        var result = mediator.Send(new AllProductsQuery
-                        {
-                            BusinessId = productId
-                        });
-
-
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+                        return business.Result.Match(bId =>
                             {
-                                Valid = true,
-                                Message = "Show All Products.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                var result = mediator.Send(new AllProductsQuery
+                                {
+                                    BusinessId = bId.Id
+                                });
+
+
+                                return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Show All Products.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                            },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {

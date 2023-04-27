@@ -142,7 +142,7 @@ public class LoginRepository : ILoginRepository
                 PhoneNumber = request.Phone,
                 UserName = request.Phone,
                 UserStatus = Status.Show,
-                BusinessId = newBusiness.Id,
+                IdBusiness = newBusiness.Id,
                 PhoneNumberConfirmed = true,
                 CreatedOn = DateTime.UtcNow
             };

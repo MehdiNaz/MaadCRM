@@ -24,14 +24,11 @@ public class BusinessRepository : IBusinessRepository
 
     public async ValueTask<Result<Business>> GetBusinessByUserIdAsync(string userId)
     {
-        throw new NotImplementedException();
-    }
-
-    public async ValueTask<Result<Business>> GetBusinessByIdAsync(Ulid businessId)
-    {
         try
         {
-            return await _context.Businesses.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
+            var resultUser = await _userManager.FindByIdAsync(userId);
+            var resultBusiness = await _context.Businesses.FindAsync(resultUser.IdBusiness);
+            return resultBusiness;
         }
         catch (Exception e)
         {
@@ -39,13 +36,11 @@ public class BusinessRepository : IBusinessRepository
         }
     }
 
-    public async ValueTask<Result<Business>> GetBusinessNameByUserId(string userId)
+    public async ValueTask<Result<Business>> GetBusinessByIdAsync(Ulid businessId)
     {
         try
         {
-            var resultUser = await _userManager.FindByIdAsync(userId);
-            var resultBusiness = await _context.Businesses.FindAsync(resultUser.IdBusiness);
-            return resultBusiness;
+            return await _context.Businesses.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
         }
         catch (Exception e)
         {
