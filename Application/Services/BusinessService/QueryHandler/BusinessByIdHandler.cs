@@ -13,12 +13,11 @@ public readonly struct BusinessByIdHandler : IRequestHandler<BusinessByIdQuery, 
     {
         try
         {
-            return (await _repository.GetBusinessByIdAsync(request.BusinessId)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
+            return (await _repository.GetBusinessByUserIdAsync(request.UserId)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
         }
         catch (Exception e)
         {
             return new Result<Business>(new Exception(e.Message));
         }
-
     }
 }

@@ -3,10 +3,11 @@
 public class BusinessRepository : IBusinessRepository
 {
     private readonly MaadContext _context;
-
-    public BusinessRepository(MaadContext context)
+    private readonly UserManager<User> _userManager;
+    public BusinessRepository(MaadContext context, UserManager<User> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public async ValueTask<Result<ICollection<Business>>> GetAllBusinessesAsync()
@@ -19,6 +20,11 @@ public class BusinessRepository : IBusinessRepository
         {
             return new Result<ICollection<Business>>(new ValidationException(e.Message));
         }
+    }
+
+    public async ValueTask<Result<Business>> GetBusinessByUserIdAsync(string userId)
+    {
+        throw new NotImplementedException();
     }
 
     public async ValueTask<Result<Business>> GetBusinessByIdAsync(Ulid businessId)
@@ -37,16 +43,9 @@ public class BusinessRepository : IBusinessRepository
     {
         try
         {
-            // TODO Get Business Name From UserId
-            var result = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-            //.Select(x=> new User
-            //{
-            //    BusinessId = x.
-            //});
-
-
-
-            return null;
+            var resultUser = await _userManager.FindByIdAsync(userId);
+            var resultBusiness = await _context.Businesses.FindAsync(resultUser.IdBusiness);
+            return resultBusiness;
         }
         catch (Exception e)
         {

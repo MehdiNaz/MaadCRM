@@ -43,6 +43,9 @@ public class User : IdentityUser
     public string Token { get; set; }// JWT Token
 
 
+    public Ulid IdBusiness { get; set; }
+    public Business IdBusinessNavigation { get; set; }
+
     // public Business Business { get; set; }
     // public City? City { get; set; }
     //public ICollection<Business>? Businesses { get; set; }
@@ -62,6 +65,7 @@ public class User : IdentityUser
 
     public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesAdded { get; }
     public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesUpdated { get; }
+
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
     // public ICollection<Plan>? Plans { get; set; }  

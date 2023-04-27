@@ -21,8 +21,11 @@ public class Business : BaseEntity
 
     public Status StatusBusiness { get; set; }
 
+
     public virtual ICollection<CustomerNoteHashTable>? CustomerNoteHashTables { get; set; }
     public virtual ICollection<ProductCategory>? ProductCategories { get; set; }
+
+    public virtual ICollection<User>? Users { get; set; }
 
     //public Ulid? AttributeOptionsValueId { get; set; }
     //public Ulid? BusinessAttributeId { get; set; }

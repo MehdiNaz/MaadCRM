@@ -47,7 +47,7 @@ public static class BusinessRoute
             {
                 var result = await mediator.Send(new BusinessByIdQuery
                 {
-                    BusinessId = request.BusinessId
+                    UserId = request.BusinessId
                 });
                 return result.Match(
                     u => Results.Ok(new

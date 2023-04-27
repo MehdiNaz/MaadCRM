@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.BusinessService.Queries;
 
-public struct BusinessByIdQuery : IRequest<Result<Business>>
+public struct GetBusinessNameByUserIdQuery : IRequest<Result<ICollection<Business>>>
 {
     public string UserId { get; set; }
 }

@@ -55,8 +55,8 @@ public class MaadContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //Identity : ==>
-        builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
-        builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
+        // builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
+        // builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
         builder.ApplyConfiguration(new UserMapping());
 
         //Customers

@@ -22,9 +22,14 @@ public static class ProductRoute
                 return id.Result.Match(
                     UserId =>
                     {
+                        var business = mediator.Send(new BusinessByIdQuery()
+                        {
+                            UserId = UserId
+                        });
+
                         var result = mediator.Send(new AllProductsQuery
                         {
-                            BusinessId = productId  //********************************
+                            BusinessId = productId
                         });
 
 
