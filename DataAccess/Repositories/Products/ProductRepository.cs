@@ -9,14 +9,14 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<ProductCategoryResponse>>> GetAllProductsAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsAsync(Ulid businessId)
     {
         try
         {
             return await _context.Products.Where(x => x.StatusProduct == Status.Show)
                 .Include(c => c.ProductCategoryIdNavigation)
                 .Where(x => x.ProductCategoryIdNavigation.BusinessId == businessId)
-                .Select(x => new ProductCategoryResponse
+                .Select(x => new ProductResponse
                 {
                     ProductId = x.Id,
                     ProductCategoryId = x.ProductCategoryIdNavigation.Id,
@@ -34,7 +34,7 @@ public class ProductRepository : IProductRepository
         }
         catch (Exception e)
         {
-            return new Result<ICollection<ProductCategoryResponse>>(new ValidationException(e.Message));
+            return new Result<ICollection<ProductResponse>>(new ValidationException(e.Message));
         }
     }
 
@@ -56,7 +56,7 @@ public class ProductRepository : IProductRepository
         try
         {
             var item = await _context.Products.FindAsync(productId);
-            if (item is null) new Result<BusinessPlan>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) new Result<Product>(new ValidationException(ResultErrorMessage.NotFound));
             item.StatusProduct = status;
             await _context.SaveChangesAsync();
             return item;

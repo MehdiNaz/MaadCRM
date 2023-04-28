@@ -78,7 +78,7 @@ public static class BusinessPlansRoute
         {
             try
             {
-                var result = await mediator.Send(new BusinessPlansByIdQuery()
+                var result = await mediator.Send(new BusinessPlansByIdQuery
                 {
                     BusinessPlansId = request.BusinessPlansId
                 });

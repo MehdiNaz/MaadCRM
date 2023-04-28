@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProductCategoryCommand, Result<ProductCategory>>
+public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProductCategoryCommand, Result<ProductCategoryResponse>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
         _repository = repository;
     }
 
-    public async Task<Result<ProductCategory>> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductCategoryResponse>> Handle(UpdateProductCategoryCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -22,11 +22,13 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
                 Icon = request.Icon,
                 BusinessId = request.BusinessId
             };
-            return (await _repository.UpdateProductCategoryAsync(item)).Match(result => new Result<ProductCategory>(result), exception => new Result<ProductCategory>(exception));
+            return (await _repository.UpdateProductCategoryAsync(item))
+                .Match(result => new Result<ProductCategoryResponse>(result),
+                    exception => new Result<ProductCategoryResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<ProductCategory>(new Exception(e.Message));
+            return new Result<ProductCategoryResponse>(new Exception(e.Message));
         }
     }
 }

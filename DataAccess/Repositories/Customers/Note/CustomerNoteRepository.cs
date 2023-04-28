@@ -11,9 +11,25 @@ public class CustomerNoteRepository : ICustomerNoteRepository
 
     public async ValueTask<Result<ICollection<CustomerNote>>> GetAllCustomerNotesAsync(Ulid customerId)
     {
+        // TODO : Show Customer Note By User Added Name 
+
+        //try
+        //{
+        //    return await _context.CustomerNotes
+        //        .Where(x => x.CustomerNoteStatus == Status.Show && x.IdCustomer == customerId)
+        //        .Include(x => x.IdUserAddNavigation)
+        //        .ToListAsync();
+        //}
+        //catch (Exception e)
+        //{
+        //    return new Result<ICollection<CustomerNote>>(new ValidationException(e.Message));
+        //}
+
         try
         {
-            return await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show && x.IdCustomer == customerId).ToListAsync();
+            return await _context.CustomerNotes
+                .Where(x => x.CustomerNoteStatus == Status.Show && x.IdCustomer == customerId)
+                .ToListAsync();
         }
         catch (Exception e)
         {

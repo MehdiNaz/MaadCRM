@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductCategoryService.CommandHandler;
 
-public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProductCategoryCommand, Result<ProductCategory>>
+public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProductCategoryCommand, Result<ProductCategoryResponse>>
 {
     private readonly IProductCategoryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
         _repository = repository;
     }
 
-    public async Task<Result<ProductCategory>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductCategoryResponse>> Handle(CreateProductCategoryCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -25,7 +25,7 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
         }
         catch (Exception e)
         {
-            return new Result<ProductCategory>(new Exception(e.Message));
+            return new Result<ProductCategoryResponse>(new Exception(e.Message));
         }
     }
 }

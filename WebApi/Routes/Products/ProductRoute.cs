@@ -1,6 +1,4 @@
-﻿using LanguageExt;
-
-namespace WebApi.Routes.Products;
+﻿namespace WebApi.Routes.Products;
 
 public static class ProductRoute
 {
@@ -11,7 +9,7 @@ public static class ProductRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapGet("/AllProducts", ( IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllProducts", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -74,7 +72,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPost("/ById/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ById", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -87,22 +85,38 @@ public static class ProductRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new ProductByIdQuery
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            ProductId = productId
+                            UserId = UserId
                         });
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new ProductByIdQuery
                             {
-                                Valid = true,
-                                Message = "Show Product By Id",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                ProductId = bId.Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Products.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -134,23 +148,39 @@ public static class ProductRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new ChangeStatusProductByIdCommand
+                        var business = mediator.Send(new ChangeStatusProductByIdCommand
                         {
                             ProductId = request.ProductId,
                             ProductStatus = request.ProductStatus
                         });
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new ProductByIdQuery
                             {
-                                Valid = true,
-                                Message = "Customers Note Status Changed.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                ProductId = bId.Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Products.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -158,12 +188,13 @@ public static class ProductRoute
                         Exceptions = exception
                     }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(new ErrorResponse
+                return Results.BadRequest(new
                 {
                     Valid = false,
-                    Exceptions = e
+                    e.Message,
+                    e.StackTrace
                 });
             }
         });

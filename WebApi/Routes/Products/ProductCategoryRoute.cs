@@ -10,7 +10,7 @@ public static class ProductCategoryRoute
                  .EnableOpenApiWithAuthentication()
                  .WithOpenApi();
 
-        plan.MapPost("/AllProductCategories", ([FromBody] AllProductCategoriesQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllProductCategories", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -23,23 +23,38 @@ public static class ProductCategoryRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new AllProductCategoriesQuery
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            BusinessId = request.BusinessId
+                            UserId = UserId
                         });
 
-                        return result.Result.Match(
-                                    succes => Results.Ok(new
-                                    {
-                                        Valid = true,
-                                        Message = "Show All Customers PeyGiry",
-                                        Data = succes
-                                    }),
-                                    error => Results.BadRequest(new ErrorResponse
-                                    {
-                                        Valid = false,
-                                        Exceptions = error
-                                    }));
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new AllProductCategoriesQuery
+                            {
+                                BusinessId = bId.Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Product Categories.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -60,6 +75,70 @@ public static class ProductCategoryRoute
 
         plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new ProductCategoryByIdQuery
+                            {
+
+                                BusinessId = bId.Id,
+                                ProductCategoryId = Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Product Categories.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+
+
+
             try
             {
                 var id = mediator.Send(new DecodeTokenQuery
@@ -256,27 +335,42 @@ public static class ProductCategoryRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new CreateProductCategoryCommand
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            Order = request.Order,
-                            ProductCategoryName = request.ProductCategoryName,
-                            Description = request.Description,
-                            Icon = request.Icon,
-                            BusinessId = request.BusinessId
+                            UserId = UserId
                         });
 
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new CreateProductCategoryCommand
                             {
-                                Valid = true,
-                                Message = "Get Customers PeyGiry.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                Order = request.Order,
+                                ProductCategoryName = request.ProductCategoryName,
+                                Description = request.Description,
+                                Icon = request.Icon,
+                                BusinessId = bId.Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Inserted new Product Category.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -308,28 +402,43 @@ public static class ProductCategoryRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new UpdateProductCategoryCommand
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            Id = request.Id,
-                            Order = request.Order,
-                            ProductCategoryName = request.ProductCategoryName,
-                            Description = request.Description,
-                            Icon = request.Icon,
-                            BusinessId = request.BusinessId
+                            UserId = UserId
                         });
 
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new UpdateProductCategoryCommand
                             {
-                                Valid = true,
-                                Message = "Customer PeyGiry Updated.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                Id = request.Id,
+                                Order = request.Order,
+                                ProductCategoryName = request.ProductCategoryName,
+                                Description = request.Description,
+                                Icon = request.Icon,
+                                BusinessId = bId.Id
+                            });
+
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Product Category Updated.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -337,12 +446,13 @@ public static class ProductCategoryRoute
                         Exceptions = exception
                     }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(new ErrorResponse
+                return Results.BadRequest(new
                 {
                     Valid = false,
-                    Exceptions = e
+                    e.Message,
+                    e.StackTrace
                 });
             }
         });
