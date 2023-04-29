@@ -103,6 +103,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ProductCustomerFavoritesListMapping());
 
         builder.ApplyConfiguration(new BusinessMapping());
+        builder.ApplyConfiguration(new BusinessPlanMapping());
 
 
         builder.ApplyConfiguration(new ForooshOrderMapping());

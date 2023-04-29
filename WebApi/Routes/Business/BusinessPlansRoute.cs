@@ -11,19 +11,19 @@ public static class BusinessPlansRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllBusinessByBusinessId", async ([FromBody] AllBusinessPlansQuery request, IMediator mediator) =>
+        plan.MapGet("/AllBusinessByBusinessId/{businessId}", async (Ulid businessId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllBusinessPlansQuery
                 {
-                    BusinessId = request.BusinessId
+                    BusinessId = businessId
                 });
                 return result.Match(
                     r => Results.Ok(new
                     {
                         Valid = r,
-                        Message = "Show All Business Plans",
+                        Message = "Show All Business Plans By Business Id",
                     }),
                     exception => Results.BadRequest(new
                     {
@@ -42,13 +42,13 @@ public static class BusinessPlansRoute
             }
         });
 
-        plan.MapPost("/AllActives", async ([FromBody] AllActivePlansQuery request, IMediator mediator) =>
+        plan.MapPost("/AllActives/{businessId}", async (Ulid businessId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new AllActivePlansQuery()
                 {
-                    BusinessId = request.BusinessId
+                    BusinessId = businessId
                 });
                 return Results.Ok(result);
             }
