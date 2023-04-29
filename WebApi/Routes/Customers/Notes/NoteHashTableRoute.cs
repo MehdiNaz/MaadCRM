@@ -11,7 +11,7 @@ public static class NoteHashTableRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllNoteHashTables", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllNoteHashTables", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {

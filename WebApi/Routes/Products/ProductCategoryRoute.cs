@@ -136,52 +136,6 @@ public static class ProductCategoryRoute
                     e.StackTrace
                 });
             }
-
-
-
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                    UserId =>
-                    {
-                        var result = mediator.Send(new ProductCategoryByIdQuery
-                        {
-                            ProductCategoryId = Id
-                        });
-                        return result.Result.Match(
-                            succes => Results.Ok(new
-                            {
-                                Valid = true,
-                                Message = "Show Customer PeyGiry By Id",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
-                            {
-                                Valid = false,
-                                Exceptions = error
-                            }));
-                    },
-                    exception => Results.BadRequest(new ErrorResponse
-                    {
-                        Valid = false,
-                        Exceptions = exception
-                    }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
         });
 
         plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusProductCategoryCommand request, IMediator mediator, HttpContext httpContext) =>

@@ -9,84 +9,114 @@ public class NoteHashTableRepository : INoteHashTableRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<CustomerNoteHashTable>>> GetAllNoteHashTablesAsync(Ulid customerId)
+    public async ValueTask<Result<ICollection<CustomerNoteHashTableResponse>>> GetAllNoteHashTablesAsync(Ulid customerId)
     {
         try
         {
-            return await _context.NoteHashTables.Where(x => x.NoteHashTagStatus == Status.Show).ToListAsync();
+            return await _context.NoteHashTables.
+                Where(x => x.NoteHashTagStatus == Status.Show)
+                .Select(x => new CustomerNoteHashTableResponse
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    NoteHashTagStatus = x.NoteHashTagStatus
+                }).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerNoteHashTable>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerNoteHashTableResponse>>(new ValidationException(e.Message));
         }
     }
-    public async ValueTask<Result<CustomerNoteHashTable>> GetNoteHashTableByIdAsync(Ulid noteHashTableId)
+    public async ValueTask<Result<CustomerNoteHashTableResponse>> GetNoteHashTableByIdAsync(Ulid noteHashTableId)
     {
         try
         {
-            return await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatus == Status.Show);
+            return await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatus == Status.Show).
+                Select(x => new CustomerNoteHashTableResponse()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    NoteHashTagStatus = x.NoteHashTagStatus
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new ValidationException(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNoteHashTable>> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request)
+    public async ValueTask<Result<CustomerNoteHashTableResponse>> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request)
     {
         try
         {
-            var item = await _context.NoteHashTables!.FindAsync(request.Id);
-            if (item is null) return null;
+            var item = await _context.NoteHashTables.FindAsync(request.Id);
+            if (item is null) return new Result<CustomerNoteHashTableResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.NoteHashTagStatus = request.NoteHashTagStatus;
             await _context.SaveChangesAsync();
-            return new Result<CustomerNoteHashTable>(item);
+            return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables.FindAsync(request.Id)
+                .Select(x => new CustomerNoteHashTableResponse
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    NoteHashTagStatus = x.NoteHashTagStatus
+
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new ValidationException(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNoteHashTable>> CreateNoteHashTableAsync(CreateNoteHashTableCommand entity)
+    public async ValueTask<Result<CustomerNoteHashTableResponse>> CreateNoteHashTableAsync(CreateNoteHashTableCommand request)
     {
         try
         {
             CustomerNoteHashTable item = new()
             {
-                Title = entity.Title,
-                IdBusiness = entity.BusinessId
+                Title = request.Title,
+                IdBusiness = request.BusinessId
             };
             await _context.NoteHashTables!.AddAsync(item);
             await _context.SaveChangesAsync();
-            return new Result<CustomerNoteHashTable>(item);
+            return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables
+                .FirstOrDefaultAsync(x => x.Title == request.Title)
+                            .Select(x => new CustomerNoteHashTableResponse
+                            {
+                                Id = x.Id,
+                                Title = x.Title,
+                                NoteHashTagStatus = x.NoteHashTagStatus
+
+                            }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new ValidationException(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNoteHashTable>> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand entity)
+    public async ValueTask<Result<CustomerNoteHashTableResponse>> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand request)
     {
         try
         {
-            CustomerNoteHashTable item = new()
-            {
-                Id = entity.Id,
-                Title = entity.Title,
-            };
+            var item = await _context.NoteHashTables.FindAsync(request.Id);
+            item.Title = request.Title;
             _context.Update(item);
             await _context.SaveChangesAsync();
-            return new Result<CustomerNoteHashTable>(item);
+            return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables.FindAsync(request.Id)
+                            .Select(x => new CustomerNoteHashTableResponse
+                            {
+                                Id = x.Id,
+                                Title = x.Title,
+                            }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new ValidationException(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNoteHashTable>> DeleteNoteHashTableAsync(Ulid id)
+    public async ValueTask<Result<CustomerNoteHashTableResponse>> DeleteNoteHashTableAsync(Ulid id)
     {
 
         try
@@ -95,11 +125,18 @@ public class NoteHashTableRepository : INoteHashTableRepository
             item!.NoteHashTagStatus = Status.Deleted;
 
             await _context.SaveChangesAsync();
-            return new Result<CustomerNoteHashTable>(item);
+            return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables.FindAsync(id)
+                .Select(x => new CustomerNoteHashTableResponse
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    NoteHashTagStatus = x.NoteHashTagStatus
+
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new ValidationException(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
         }
     }
 }

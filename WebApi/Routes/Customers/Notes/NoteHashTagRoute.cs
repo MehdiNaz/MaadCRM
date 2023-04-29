@@ -4,7 +4,7 @@ public static class NoteHashTagRoute
 {
     public static void MapNoteHashTagRoute(this IEndpointRouteBuilder app)
     {
-        #region BusinessPlans
+        #region NoteHashTag
 
         var plan = app.MapGroup("v1/NoteHashTag")
             //.RequireAuthorization()

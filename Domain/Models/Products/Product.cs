@@ -1,6 +1,4 @@
-﻿using LanguageExt.Common;
-
-namespace Domain.Models.Products;
+﻿namespace Domain.Models.Products;
 
 public class Product : BaseEntity
 {
@@ -25,7 +23,7 @@ public class Product : BaseEntity
     public byte[]? Picture { get; set; }
     public ProductStatus StatusPublish { get; set; }
     public Status StatusProduct { get; set; }
-    
+
     public Ulid IdProductCategory { get; set; }
     public ProductCategory ProductCategory { get; set; }
 

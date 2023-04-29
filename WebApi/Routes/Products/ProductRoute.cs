@@ -303,31 +303,45 @@ public static class ProductRoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new CreateProductCommand
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            ProductName = request.ProductName,
-                            ProductCategoryId = request.ProductCategoryId,
-                            Title = request.Title,
-                            Summery = request.Summery,
-                            Price = request.Price,
-                            SecondaryPrice = request.SecondaryPrice,
-                            Discount = request.Discount,
-                            DiscountPercent = request.DiscountPercent,
-                            Picture = request.Picture
+                            UserId = UserId
                         });
 
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new CreateProductCommand
                             {
-                                Valid = true,
-                                Message = "Get Customers PeyGiry.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                ProductName = request.ProductName,
+                                ProductCategoryId = request.ProductCategoryId,
+                                Title = request.Title,
+                                Summery = request.Summery,
+                                Price = request.Price,
+                                SecondaryPrice = request.SecondaryPrice,
+                                Discount = request.Discount,
+                                DiscountPercent = request.DiscountPercent,
+                                Picture = request.Picture
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Inserted new Product.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {

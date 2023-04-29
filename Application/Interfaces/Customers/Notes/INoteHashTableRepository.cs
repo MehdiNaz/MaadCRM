@@ -2,10 +2,10 @@
 
 public interface INoteHashTableRepository
 {
-    ValueTask<Result<ICollection<CustomerNoteHashTable>>> GetAllNoteHashTablesAsync(Ulid customerId);
-    ValueTask<Result<CustomerNoteHashTable>> GetNoteHashTableByIdAsync(Ulid noteHashTableId);
-    ValueTask<Result<CustomerNoteHashTable>> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request);
-    ValueTask<Result<CustomerNoteHashTable>> CreateNoteHashTableAsync(CreateNoteHashTableCommand request);
-    ValueTask<Result<CustomerNoteHashTable>> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand request);
-    ValueTask<Result<CustomerNoteHashTable>> DeleteNoteHashTableAsync(Ulid id);
+    ValueTask<Result<ICollection<CustomerNoteHashTableResponse>>> GetAllNoteHashTablesAsync(Ulid customerId);
+    ValueTask<Result<CustomerNoteHashTableResponse>> GetNoteHashTableByIdAsync(Ulid noteHashTableId);
+    ValueTask<Result<CustomerNoteHashTableResponse>> ChangeStatusNoteHashTableByIdAsync(ChangeStatusNoteHashTableCommand request);
+    ValueTask<Result<CustomerNoteHashTableResponse>> CreateNoteHashTableAsync(CreateNoteHashTableCommand request);
+    ValueTask<Result<CustomerNoteHashTableResponse>> UpdateNoteHashTableAsync(UpdateNoteHashTableCommand request);
+    ValueTask<Result<CustomerNoteHashTableResponse>> DeleteNoteHashTableAsync(Ulid id);
 }

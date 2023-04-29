@@ -65,7 +65,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         try
         {
             var item = await _context.ProductCategories.FindAsync(request.Id);
-            if (item is null) new Result<ProductCategory>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<ProductCategory>(new ValidationException(ResultErrorMessage.NotFound));
             item.ProductCategoryStatus = request.ProductCategoryStatus;
             await _context.SaveChangesAsync();
             return item;

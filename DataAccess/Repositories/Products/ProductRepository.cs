@@ -56,7 +56,7 @@ public class ProductRepository : IProductRepository
         try
         {
             var item = await _context.Products.FindAsync(productId);
-            if (item is null) new Result<Product>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<Product>(new ValidationException(ResultErrorMessage.NotFound));
             item.StatusProduct = status;
             await _context.SaveChangesAsync();
             return item;

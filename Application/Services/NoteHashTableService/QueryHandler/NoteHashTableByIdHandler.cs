@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTableService.QueryHandler;
 
-public readonly struct NoteHashTableByIdHandler : IRequestHandler<NoteHashTableByIdQuery, Result<CustomerNoteHashTable>>
+public readonly struct NoteHashTableByIdHandler : IRequestHandler<NoteHashTableByIdQuery, Result<CustomerNoteHashTableResponse>>
 {
     private readonly INoteHashTableRepository _repository;
 
@@ -9,17 +9,17 @@ public readonly struct NoteHashTableByIdHandler : IRequestHandler<NoteHashTableB
         _repository = repository;
     }
 
-    public async Task<Result<CustomerNoteHashTable>> Handle(NoteHashTableByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerNoteHashTableResponse>> Handle(NoteHashTableByIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
             return (await _repository.GetNoteHashTableByIdAsync(request.Id))
-                .Match(result => new Result<CustomerNoteHashTable>(result),
-                exception => new Result<CustomerNoteHashTable>(exception));
+                .Match(result => new Result<CustomerNoteHashTableResponse>(result),
+                exception => new Result<CustomerNoteHashTableResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTable>(new Exception(e.Message));
+            return new Result<CustomerNoteHashTableResponse>(new Exception(e.Message));
         }
     }
 }
