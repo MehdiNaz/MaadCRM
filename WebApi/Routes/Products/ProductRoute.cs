@@ -72,7 +72,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPost("/ById", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {

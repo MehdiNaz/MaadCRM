@@ -24,13 +24,13 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] NoteHashTagByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{noteHashTagId}", async (Ulid noteHashTagId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new NoteHashTagByIdQuery
                 {
-                    NoteHashTagId = request.NoteHashTagId
+                    NoteHashTagId = noteHashTagId
                 });
                 return Results.Ok(result);
             }

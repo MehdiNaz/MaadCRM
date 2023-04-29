@@ -24,13 +24,13 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] PeyGiryAttachmentByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{peyGiryAttachmentId}", async (Ulid peyGiryAttachmentId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new PeyGiryAttachmentByIdQuery
                 {
-                    PeyGiryAttachmentId = request.PeyGiryAttachmentId
+                    PeyGiryAttachmentId = peyGiryAttachmentId
                 });
                 return Results.Ok(result);
             }

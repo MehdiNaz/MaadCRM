@@ -24,13 +24,13 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] NoteAttachmentByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{noteAttachmentId}", async (Ulid noteAttachmentId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new NoteAttachmentByIdQuery
                 {
-                    NoteAttachmentId = request.NoteAttachmentId
+                    NoteAttachmentId = noteAttachmentId
                 });
                 return Results.Ok(result);
             }

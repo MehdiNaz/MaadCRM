@@ -59,7 +59,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/ById", ([FromBody] CustomerPeyGiryByIdQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById/{customerPeyGiryId}", (Ulid customerPeyGiryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -74,7 +74,7 @@ public static class CustomerPeyGiryRoute
                 {
                     var result = mediator.Send(new CustomerPeyGiryByIdQuery
                     {
-                        CustomerPeyGiryId = request.CustomerPeyGiryId
+                        CustomerPeyGiryId = customerPeyGiryId
                     });
                     return result.Result.Match(
                                 succes => Results.Ok(new

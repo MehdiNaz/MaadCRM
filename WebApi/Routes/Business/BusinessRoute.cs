@@ -57,7 +57,7 @@ public static class BusinessRoute
             }
         });
 
-        plan.MapPost("/ById", ([FromBody] BusinessByIdQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {

@@ -27,13 +27,13 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapPost("/ById", async ([FromBody] CustomerActivityByIdQuery request, IMediator mediator) =>
+        plan.MapGet("/ById/{customerActivityId}", async (Ulid customerActivityId, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new CustomerActivityByIdQuery
                 {
-                    CustomerActivityId = request.CustomerActivityId
+                    CustomerActivityId = customerActivityId
                 });
                 return Results.Ok(result);
             }

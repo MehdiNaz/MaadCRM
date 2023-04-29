@@ -55,7 +55,7 @@ public static class CustomerCategoryRoute
             }
         });
 
-        plan.MapPost("/ById", ([FromBody] CustomerCategoryByIdQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById/{customerCategoryId}", (Ulid customerCategoryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -70,8 +70,8 @@ public static class CustomerCategoryRoute
                     {
                         var result = mediator.Send(new CustomerCategoryByIdQuery
                         {
-                            CustomerCategoryId = request.CustomerCategoryId,
-                            UserId = request.UserId
+                            CustomerCategoryId = customerCategoryId,
+                            UserId = UserId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new
