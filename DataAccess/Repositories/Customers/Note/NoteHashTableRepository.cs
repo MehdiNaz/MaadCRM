@@ -75,7 +75,6 @@ public class NoteHashTableRepository : INoteHashTableRepository
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                IdBusiness = entity.BusinessId
             };
             _context.Update(item);
             await _context.SaveChangesAsync();

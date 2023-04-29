@@ -14,14 +14,14 @@ public class ProductRepository : IProductRepository
         try
         {
             return await _context.Products.Where(x => x.StatusProduct == Status.Show)
-                .Include(c => c.ProductCategoryIdNavigation)
-                .Where(x => x.ProductCategoryIdNavigation.BusinessId == businessId)
+                .Include(c => c.ProductCategory)
+                .Where(x => x.ProductCategory.BusinessId == businessId)
                 .Select(x => new ProductResponse
                 {
                     ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategoryIdNavigation.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
                     Title = x.Title,
-                    CategoryName = x.ProductCategoryIdNavigation.ProductCategoryName,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
                     DiscountPercent = x.DiscountPercent,
                     Picture = x.Picture,

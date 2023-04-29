@@ -11,7 +11,7 @@ public class ProductsMapping : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Title).HasMaxLength(255);
         builder.Property(x => x.Summery).HasMaxLength(255);
 
-        builder.HasOne(x => x.ProductCategoryIdNavigation)
+        builder.HasOne(x => x.ProductCategory)
             .WithMany(x => x.Products)
             .HasForeignKey(d => d.IdProductCategory)
             .OnDelete(DeleteBehavior.ClientSetNull)
