@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.NoteHashTableService.CommandHandler;
 
-public readonly struct DeleteNoteHashTableCommandHandler : IRequestHandler<DeleteNoteHashTableCommand, CustomerNoteHashTable>
+public readonly struct DeleteNoteHashTableCommandHandler : IRequestHandler<DeleteNoteHashTableCommand, Result<CustomerNoteHashTable>>
 {
     private readonly INoteHashTableRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct DeleteNoteHashTableCommandHandler : IRequestHandler<Delet
         _repository = repository;
     }
 
-    public async Task<CustomerNoteHashTable> Handle(DeleteNoteHashTableCommand request, CancellationToken cancellationToken)
-        => await _repository.DeleteNoteHashTableAsync(request.Id);
+    public async Task<Result<CustomerNoteHashTable>> Handle(DeleteNoteHashTableCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.DeleteNoteHashTableAsync(request.Id)).Match(result => new Result<CustomerNoteHashTable>(result), exception => new Result<CustomerNoteHashTable>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerNoteHashTable>(new Exception(e.Message));
+        }
+    }
 }
