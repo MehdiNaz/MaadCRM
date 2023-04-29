@@ -289,12 +289,11 @@ public class CustomerRepository : ICustomerRepository
                 From = entityEntry.DateCreated,
                 CustomerState = entityEntry.CustomerState,
                 // CustomerCategoryId = entityEntry.CustomerCategoryId,
-                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault().PhoneNo,
+                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
+                PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault()!.PhoneNo,
                 FirstName = entityEntry.FirstName,
                 LastName = entityEntry.LastName,
-                // MoshtaryMoAref = entityEntry.IdUserAdded,
-                Address = entityEntry.CustomerAddresses.FirstOrDefault().Address,
+                Address = entityEntry.CustomerAddresses.FirstOrDefault()!.Address,
                 CityId = entityEntry.IdCity,
                 Gender = entityEntry.Gender
             };

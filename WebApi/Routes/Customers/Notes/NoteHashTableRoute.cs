@@ -141,7 +141,8 @@ public static class NoteHashTableRoute
                             var result = mediator.Send(new CreateNoteHashTableCommand
                             {
                                 Title = request.Title,
-                                BusinessId = bId.Id
+                                BusinessId = bId.Id,
+                                HashTagIds = request.HashTagIds
                             });
 
                             return result.Result.Match(

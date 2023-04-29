@@ -4,4 +4,5 @@ public struct CreateNoteHashTableCommand : IRequest<Result<CustomerNoteHashTable
 {
     public string Title { get; set; }
     public Ulid BusinessId { get; set; }
+    public Ulid HashTagIds { get; set; }
 }
