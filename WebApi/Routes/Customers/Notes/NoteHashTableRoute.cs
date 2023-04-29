@@ -11,96 +11,334 @@ public static class NoteHashTableRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllNoteHashTables", async ([FromBody] AllNoteHashTableQuery request, IMediator mediator) =>
+        plan.MapPost("/AllNoteHashTables", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new AllNoteHashTableQuery
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    BusinessId = request.BusinessId
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapGet("/ById/{noteHashTable}", async (Ulid noteHashTable, IMediator mediator) =>
-        {
-            try
-            {
-                return Results.Ok(await mediator.Send(new NoteHashTableByIdQuery { Id = noteHashTable }));
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateNoteHashTableCommand request, IMediator mediator) =>
-        {
-            try
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new AllNoteHashTableQuery
+                            {
+                                BusinessId = bId.Id
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Note Hash Tables.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
             {
-                var result = await mediator.Send(new CreateNoteHashTableCommand
+                return Results.BadRequest(new
                 {
-                    Title = request.Title,
-                    BusinessId = request.BusinessId
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteHashTableCommand request, IMediator mediator) =>
+        plan.MapGet("/ById/{noteHashTable}", (Ulid noteHashTable, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusNoteHashTableCommand
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    NoteHashTagStatus = request.NoteHashTagStatus
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(e.ParamName);
-            }
-        });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateNoteHashTableCommand request, IMediator mediator) =>
-        {
-            try
-            {
-                var result = await mediator.Send(new UpdateNoteHashTableCommand
+                return id.Result.Match(
+                UserId =>
                 {
-                    Id = request.Id,
-                    Title = request.Title,
-                    BusinessId = request.BusinessId
-                });
-                return Results.Ok(result);
+                    var result = mediator.Send(new NoteHashTableByIdQuery { Id = noteHashTable });
+
+                    return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Get Note Hash Table By Id.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapPost("/Insert", ([FromBody] CreateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                return Results.Ok(await mediator.Send(new DeleteNoteHashTableCommand { Id = Id }));
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new CreateNoteHashTableCommand
+                            {
+                                Title = request.Title,
+                                BusinessId = bId.Id
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "New Note Hash Table Inserted.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
             }
+        });
+
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new ChangeStatusNoteHashTableCommand
+                    {
+                        Id = request.Id,
+                        NoteHashTagStatus = request.NoteHashTagStatus
+                    });
+
+                    return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Status of Note Hash Table Changed.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
+        plan.MapPut("/Update", ([FromBody] UpdateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new UpdateNoteHashTableCommand
+                    {
+                        Id = request.Id,
+                        Title = request.Title,
+                    });
+
+                    return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Update Note Hash Table.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
+        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new DeleteNoteHashTableCommand { Id = Id });
+
+                    return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Note Hash Table Deleted.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+
+
+
+
+
+
+
+
+
+            //try
+            //{
+            //    return Results.Ok(await );
+            //}
+            //catch (ArgumentException e)
+            //{
+            //    return Results.BadRequest(e.ParamName);
+            //}
         });
         #endregion
     }

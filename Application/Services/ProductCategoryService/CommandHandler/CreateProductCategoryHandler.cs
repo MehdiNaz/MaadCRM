@@ -21,8 +21,10 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
                 Icon = request.Icon,
                 BusinessId = request.BusinessId
             };
-            return await _repository.CreateProductCategoryAsync(item);
-        }
+            return (await _repository.CreateProductCategoryAsync(item)).
+                Match(result => new Result<ProductCategoryResponse>(result),
+                exception => new Result<ProductCategoryResponse>(exception));
+        } 
         catch (Exception e)
         {
             return new Result<ProductCategoryResponse>(new Exception(e.Message));

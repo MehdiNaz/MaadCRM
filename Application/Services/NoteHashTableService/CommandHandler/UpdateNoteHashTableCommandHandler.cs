@@ -17,7 +17,6 @@ public readonly struct UpdateNoteHashTableCommandHandler : IRequestHandler<Updat
             {
                 Id = request.Id,
                 Title = request.Title,
-                BusinessId = request.BusinessId
             };
             return (await _repository.UpdateNoteHashTableAsync(item))
                 .Match(result => new Result<CustomerNoteHashTable>(result),
