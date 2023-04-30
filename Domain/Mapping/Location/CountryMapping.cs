@@ -1,4 +1,4 @@
-﻿namespace Domain.Mapping.Address;
+﻿namespace Domain.Mapping.Location;
 
 public class CountryMapping : IEntityTypeConfiguration<Country>
 {

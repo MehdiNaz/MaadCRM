@@ -68,7 +68,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             };
 
             var item = await _context.CustomerNotes!.FindAsync(request.CustomerNoteId);
-            if (item is null) return new Result<CustomerNote>(new ValidationException(ResultErrorMessage.NotFound)); ;
+            if (item is null) return new Result<CustomerNote>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerNoteStatus = request.CustomerNoteStatus;
             await _context.SaveChangesAsync();
             return new Result<CustomerNote>(item);

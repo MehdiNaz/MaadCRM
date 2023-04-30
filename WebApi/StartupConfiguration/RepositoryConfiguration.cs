@@ -64,6 +64,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
 
 
+        collection.AddTransient<ICountryRepository, CountryRepository>();
+        collection.AddTransient<IProvinceRepository, ProvinceRepository>();
         collection.AddTransient<ICityRepository, CityRepository>();
 
 

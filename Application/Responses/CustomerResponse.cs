@@ -12,7 +12,8 @@ public struct CustomerResponse
     public Ulid? CityId { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
-    public CustomerStateTypes CustomerState { get; set; }
+    public Status CustomerStatus { get; set; }
+    public CustomerStateTypes CustomerStateType { get; set; }
     public DateTime? From { get; set; }
     public DateTime? UpTo { get; set; }
     public Ulid? MoshtaryMoAref { get; set; }

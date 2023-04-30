@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Address;
+﻿namespace Domain.Models.Location;
 
 public class City : BaseEntity
 {
@@ -12,10 +12,9 @@ public class City : BaseEntity
     public Ulid Id { get; set; }
     public string CityName { get; set; }
     public bool IsDefault { get; set; }
-    public int DisplayOrder { get; set; }
+    public uint DisplayOrder { get; set; }
     public Ulid IdProvince { get; set; }
     public Status CityStatus { get; set; }
-    
     public uint Version { get; set; }
 
 

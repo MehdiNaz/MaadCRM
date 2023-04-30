@@ -1,3 +1,5 @@
+using WebApi.Routes.Locations;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -70,6 +72,9 @@ app.MapCustomerPeyGiryAttachmentRoute();
 app.MapPlanRoute();
 app.MapProductRoute();
 app.MapProductCategoryRoute();
+app.MapCityRoute();
+app.MapCountryRoute();
+app.MapProvinceRoute();
 #endregion
 
 app.Run();

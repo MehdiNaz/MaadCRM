@@ -4,9 +4,17 @@ public interface ICustomerRepository
 {
     ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId);
     ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId);
+    ValueTask<Result<int>> ShowBelghovehCustomersCountAsync();
+    ValueTask<Result<int>> ShowBelFelCustomersCountAsync();
+    ValueTask<Result<int>> ShowRazyCustomersCountAsync();
+    ValueTask<Result<int>> ShowNaRazyCustomersCountAsync();
+    ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync();
+    ValueTask<Result<int>> ShowVafadarCustomersCountAsync();
+    ValueTask<Result<int>> ShowAllCustomersCountAsync();
     ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
     ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request);
     ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
+    ValueTask<Result<CustomerResponse>> ChangeStateCustomerByIdAsync(ChangeStateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> CreateCustomerAsync(CreateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> UpdateCustomerAsync(UpdateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> DeleteCustomerAsync(Ulid customerId);

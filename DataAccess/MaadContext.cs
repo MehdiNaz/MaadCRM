@@ -1,5 +1,7 @@
 using Domain.Mapping.BusinessMapping;
 using Domain.Mapping.Customers.Foroosh;
+using Domain.Mapping.Location;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
 
@@ -126,6 +128,9 @@ public class MaadContext : IdentityDbContext
                     .HasConversion(new UlidToStringConverter());
             }
         }
+
+        new DbInitializer(builder).Seed();
+
 
         base.OnModelCreating(builder);
     }

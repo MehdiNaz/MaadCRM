@@ -1,12 +1,12 @@
 global using Application.Interfaces;
 global using Application.Interfaces.Account;
-global using Application.Interfaces.Addresses;
 global using Application.Interfaces.Businesses;
 global using Application.Interfaces.Contacts;
 global using Application.Interfaces.Customers;
 global using Application.Interfaces.Customers.Forosh;
 global using Application.Interfaces.Customers.Notes;
 global using Application.Interfaces.Customers.PeyGiry;
+global using Application.Interfaces.Locations;
 global using Application.Interfaces.Plans;
 global using Application.Interfaces.Products;
 global using Application.Interfaces.SpecialFields;
@@ -61,6 +61,7 @@ global using Domain.Models.Customers.Foroosh;
 global using Domain.Models.Customers.Notes;
 global using Domain.Models.Customers.PeyGiry;
 global using Domain.Models.IdentityModels;
+global using Domain.Models.Location;
 global using Domain.Models.Products;
 global using Domain.Models.SpecialFields;
 global using Domain.UnDifined;
@@ -80,3 +81,4 @@ global using System.ComponentModel.DataAnnotations;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+

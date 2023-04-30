@@ -19,7 +19,8 @@ public class CustomerRepository : ICustomerRepository
                     BirthDayDate = x.BirthDayDate,
                     CustomerId = x.Id,
                     From = x.DateCreated,
-                    CustomerState = x.CustomerState,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
                     // CustomerCategoryId = x.CustomerCategoryId,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
@@ -56,25 +57,110 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
+    public async ValueTask<Result<int>> ShowBelghovehCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowBelFelCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowRazyCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowNaRazyCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowVafadarCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<int>> ShowAllCustomersCountAsync()
+    {
+        try
+        {
+            return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.CustomerStatus == Status.Show).CountAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<int>(new ValidationException(e.Message));
+        }
+    }
+
     public async ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
-            .Select(customers => new CustomerResponse
+            .Select(x => new CustomerResponse
             {
-                CustomerId = customers.Id,
-                FirstName = customers.FirstName,
-                LastName = customers.LastName,
-                PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
-                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                Address = customers.CustomerAddresses.FirstOrDefault().Address,
-                CustomerState = customers.CustomerState,
-                From = customers.DateCreated,
+                CustomerId = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                Address = x.CustomerAddresses.FirstOrDefault().Address,
+                CustomerStateType = x.CustomerState,
+                CustomerStatus = x.CustomerStatus,
+                From = x.DateCreated,
                 UpTo = DateTime.UtcNow,
-                BirthDayDate = customers.BirthDayDate,
-                CityId = customers.IdCity,
-                Gender = customers.Gender,
-                DateCreated = customers.DateCreated,
+                BirthDayDate = x.BirthDayDate,
+                CityId = x.IdCity,
+                Gender = x.Gender,
+                DateCreated = x.DateCreated,
             }).AsQueryable();
 
         var test = resultsListCustomer.ToList();
@@ -99,7 +185,7 @@ public class CustomerRepository : ICustomerRepository
 
 
         if (request is { CustomerState: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerState == request.CustomerState);
+            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerStateType == request.CustomerState);
 
         if (request is { MoshtaryMoAref: { } })
             resultsListCustomer = resultsListCustomer.Where(x => x.MoshtaryMoAref == request.MoshtaryMoAref);
@@ -128,23 +214,24 @@ public class CustomerRepository : ICustomerRepository
             .Include(x => x.FavoritesLists)
             // .Include(x => x.City)
             // .ThenInclude(x => x.Province)
-            .Select(customers => new CustomerResponse
+            .Select(x => new CustomerResponse
             {
-                CustomerId = customers.Id,
-                FirstName = customers.FirstName,
-                LastName = customers.LastName,
-                PhoneNumber = customers.PhoneNumbers.FirstOrDefault().PhoneNo,
-                EmailAddress = customers.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                Address = customers.CustomerAddresses.FirstOrDefault().Address,
-                CustomerState = customers.CustomerState,
+                CustomerId = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                Address = x.CustomerAddresses.FirstOrDefault().Address,
+                CustomerStateType = x.CustomerState,
+                CustomerStatus = x.CustomerStatus,
                 // MoshtaryMoAref = customers.IdUserAdded,
                 // CustomerCategoryId = customers.CustomerCategoryId,
-                From = customers.DateCreated,
+                From = x.DateCreated,
                 UpTo = DateTime.UtcNow,
-                BirthDayDate = customers.BirthDayDate,
-                CityId = customers.IdCity,
-                Gender = customers.Gender,
-                DateCreated = customers.DateCreated
+                BirthDayDate = x.BirthDayDate,
+                CityId = x.IdCity,
+                Gender = x.Gender,
+                DateCreated = x.DateCreated
             }).AsQueryable();
 
         var result = await resultsListCustomer.Where(
@@ -163,7 +250,7 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var item = await _context.Customers.FindAsync(request.CustomerId);
-            if (item is null) return new Result<CustomerResponse>(new ValidationException());
+            if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerStatus = request.CustomerStatus;
             await _context.SaveChangesAsync();
             return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.CustomerId)
@@ -172,7 +259,36 @@ public class CustomerRepository : ICustomerRepository
                     BirthDayDate = x.BirthDayDate,
                     CustomerId = x.Id,
                     From = x.DateCreated,
-                    CustomerState = x.CustomerState,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    CityId = x.IdCity,
+                    Gender = x.Gender
+                }));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<CustomerResponse>> ChangeStateCustomerByIdAsync(ChangeStateCustomerCommand request)
+    {
+        try
+        {
+            var item = await _context.Customers.FindAsync(request.CustomerId);
+            if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
+            item.CustomerState = request.CustomerStateType;
+            await _context.SaveChangesAsync();
+            return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.CustomerId)
+                .Select(x => new CustomerResponse
+                {
+                    BirthDayDate = x.BirthDayDate,
+                    CustomerId = x.Id,
+                    From = x.DateCreated,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     CityId = x.IdCity,
@@ -189,6 +305,13 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
+            if (await _context.Customers.AnyAsync(x => x.PhoneNumbers == request.PhoneNumbers))
+            {
+                return new Result<CustomerResponse>();
+            }
+
+
+
             var entityEntry = new Customer
             {
                 FirstName = request.FirstName,
@@ -287,7 +410,8 @@ public class CustomerRepository : ICustomerRepository
                 BirthDayDate = entityEntry.BirthDayDate,
                 CustomerId = entityEntry.Id,
                 From = entityEntry.DateCreated,
-                CustomerState = entityEntry.CustomerState,
+                CustomerStateType = entityEntry.CustomerState,
+                CustomerStatus = entityEntry.CustomerStatus,
                 // CustomerCategoryId = entityEntry.CustomerCategoryId,
                 EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
                 PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault()!.PhoneNo,
@@ -304,7 +428,8 @@ public class CustomerRepository : ICustomerRepository
                     BirthDayDate = x.BirthDayDate,
                     CustomerId = x.Id,
                     From = x.DateCreated,
-                    CustomerState = x.CustomerState,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     FirstName = x.FirstName,
@@ -316,7 +441,7 @@ public class CustomerRepository : ICustomerRepository
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new ValidationException(e.Message + e.InnerException));
+            return new Result<CustomerResponse>(new ValidationException(e.Message));
         }
     }
 
@@ -367,14 +492,15 @@ public class CustomerRepository : ICustomerRepository
                 CityId = customer.IdCity,
                 MoshtaryMoAref = customer.CustomerMoarefId,
                 BirthDayDate = customer.BirthDayDate,
-                CustomerState = customer.CustomerState,
+                CustomerStateType = customer.CustomerState,
+                CustomerStatus = customer.CustomerStatus,
                 Address = customer.CustomerAddresses.FirstOrDefault().Address,
                 Gender = customer.Gender
             });
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new Exception(e.Message + "\t\t" + e.InnerException));
+            return new Result<CustomerResponse>(new Exception(e.Message));
         }
     }
 
@@ -391,7 +517,8 @@ public class CustomerRepository : ICustomerRepository
                     BirthDayDate = x.BirthDayDate,
                     CustomerId = x.Id,
                     From = x.DateCreated,
-                    CustomerState = x.CustomerState,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     CityId = x.IdCity,
