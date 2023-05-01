@@ -6,10 +6,7 @@ public static class CustomerRoute
     {
         #region Customer
 
-        var plan = app.MapGroup("v1/Customer")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-        .WithOpenApi();
+        RouteGroupBuilder plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
 
         plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
         {
@@ -59,398 +56,110 @@ public static class CustomerRoute
             }
         });
 
+        plan.MapGet("/CustomerDashBourd", (IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new CustomerDashBourdQuery
+                            {
+                                UserId = UserId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
         plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
+{
+    try
+    {
+        var id = mediator.Send(new DecodeTokenQuery
         {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new CustomerByFilterItemsQuery
-                            {
-                                CustomerId = request.CustomerId,
-                                BirthDayDate = request.BirthDayDate,
-                                Gender = request.Gender,
-                                CityId = request.CityId,
-                                CustomerState = request.CustomerState,
-                                From = request.From,
-                                UpTo = request.UpTo,
-                                ProvinceId = request.ProvinceId,
-                                MoshtaryMoAref = request.MoshtaryMoAref,
-                                ProductCustomerFavorite = request.ProductCustomerFavorite
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Get All Customers By Filter Items.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
+            Token = httpContext.Request.Headers["Authorization"].ToString(),
+            ReturnType = TokenReturnType.UserId
         });
 
-        plan.MapGet("/ShowBelghovehCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
+        return id.Result.Match(
+                UserId =>
                 {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
+                    var result = mediator.Send(new CustomerByFilterItemsQuery
+                    {
+                        CustomerId = request.CustomerId,
+                        BirthDayDate = request.BirthDayDate,
+                        Gender = request.Gender,
+                        CityId = request.CityId,
+                        CustomerState = request.CustomerState,
+                        From = request.From,
+                        UpTo = request.UpTo,
+                        ProvinceId = request.ProvinceId,
+                        MoshtaryMoAref = request.MoshtaryMoAref,
+                        ProductCustomerFavorite = request.ProductCustomerFavorite
+                    });
 
-                return id.Result.Match(
-                        UserId =>
+                    return result.Result.Match(
+                        succes => Results.Ok(new
                         {
-                            var result = mediator.Send(new BelghovehCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
+                            Valid = true,
+                            Message = "Get All Customers By Filter Items.",
+                            Data = succes
+                        }),
+                        error => Results.BadRequest(new ErrorResponse
                         {
                             Valid = false,
-                            Exceptions = exception
+                            Exceptions = error
                         }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
+                },
+                exception => Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-
-        plan.MapGet("/ShowBelFelCustomersCount", (IMediator mediator, HttpContext httpContext) =>
+                    Exceptions = exception
+                }));
+    }
+    catch (Exception e)
+    {
+        return Results.BadRequest(new
         {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new BelFelCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
+            Valid = false,
+            e.Message,
+            e.StackTrace
         });
-
-        plan.MapGet("/ShowRazyCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new RazyCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-
-        plan.MapGet("/ShowNaRazyCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new NaRazyCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-        
-        plan.MapGet("/ShowDarHalePeyGiryCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new DarHalePeyGiryCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-
-        plan.MapGet("/ShowVafadarCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new VafadarCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-
-        plan.MapGet("/ShowAllCustomersCount", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new AllCustomersCountQuery
-                            {
-                                UserId = UserId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Show Bel ghoveh Customers Count.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
+    }
+});
 
         plan.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
@@ -544,7 +253,7 @@ public static class CustomerRoute
                 });
             }
         });
-
+         
         plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -607,7 +316,7 @@ public static class CustomerRoute
                 });
             }
         });
-
+ 
         plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -655,55 +364,55 @@ public static class CustomerRoute
                 });
             }
         });
-
+        
         plan.MapPost("/ChangeState", ([FromBody] ChangeStateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+{
+    try
+    {
+        var id = mediator.Send(new DecodeTokenQuery
         {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        UserId =>
-                        {
-                            var result = mediator.Send(new ChangeStateCustomerCommand
-                            {
-                                CustomerStateType = request.CustomerStateType,
-                                CustomerId = request.CustomerId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Customer State doen't Changed.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (ArgumentException e)
-            {
-                return Results.BadRequest(new ErrorResponse
-                {
-                    Valid = false,
-                    Exceptions = e
-                });
-            }
+            Token = httpContext.Request.Headers["Authorization"].ToString(),
+            ReturnType = TokenReturnType.UserId
         });
 
+        return id.Result.Match(
+                UserId =>
+                {
+                    var result = mediator.Send(new ChangeStateCustomerCommand
+                    {
+                        CustomerStateType = request.CustomerStateType,
+                        CustomerId = request.CustomerId
+                    });
+
+                    return result.Result.Match(
+                        succes => Results.Ok(new
+                        {
+                            Valid = true,
+                            Message = "Customer State doen't Changed.",
+                            Data = succes
+                        }),
+                        error => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = error
+                        }));
+                },
+                exception => Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = exception
+                }));
+    }
+    catch (ArgumentException e)
+    {
+        return Results.BadRequest(new ErrorResponse
+        {
+            Valid = false,
+            Exceptions = e
+        });
+    }
+});
+ 
         plan.MapPut("/Update", ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try

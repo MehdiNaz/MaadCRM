@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Query;
 
-public struct NaRazyCustomersCountQuery : IRequest<Result<int>>
+public struct CustomerDashBourdQuery : IRequest<Result<CustomerDashboardResponse>>
 {
     public string UserId { get; set; }
 }
