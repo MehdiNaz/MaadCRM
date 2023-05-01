@@ -2,10 +2,10 @@
 
 public interface IContactRepository
 {
-    ValueTask<ICollection<Contact?>> GetAllContactAsync();
-    ValueTask<Contact?> GetContactByIdAsync(Ulid contactId);
-    ValueTask<Contact?> ChangeStatusContactByIdAsync(ChangeStatusContactCommand request);
-    ValueTask<Contact?> CreateContactAsync(CreateContactCommand entity);
-    ValueTask<Contact?> UpdateContactAsync(UpdateContactCommand entity);
-    ValueTask<Contact?> DeleteContactAsync(Ulid id);
+    ValueTask<Result<ICollection<Contact>>> GetAllContactAsync();
+    ValueTask<Result<Contact>> GetContactByIdAsync(Ulid contactId);
+    ValueTask<Result<Contact>> ChangeStatusContactByIdAsync(ChangeStatusContactCommand request);
+    ValueTask<Result<Contact>> CreateContactAsync(CreateContactCommand entity);
+    ValueTask<Result<Contact>> UpdateContactAsync(UpdateContactCommand entity);
+    ValueTask<Result<Contact>> DeleteContactAsync(Ulid id);
 }

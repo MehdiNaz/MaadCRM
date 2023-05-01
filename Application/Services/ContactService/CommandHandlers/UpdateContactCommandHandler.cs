@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.CommandHandlers;
 
-public readonly struct UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, Contact>
+public readonly struct UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, Result<Contact>>
 {
     private readonly IContactRepository _repository;
 
@@ -9,18 +9,25 @@ public readonly struct UpdateContactCommandHandler : IRequestHandler<UpdateConta
         _repository = repository;
     }
 
-    public async Task<Contact> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Contact>> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
     {
-        UpdateContactCommand item = new()
+        try
         {
-            Id = request.Id,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            EmailId = request.EmailId,
-            ContactGroupId = request.ContactGroupId,
-            Job = request.Job,
-            BusinessId = request.BusinessId
-        };
-        return await _repository.UpdateContactAsync(item);
+            UpdateContactCommand item = new()
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                EmailId = request.EmailId,
+                ContactGroupId = request.ContactGroupId,
+                Job = request.Job,
+                BusinessId = request.BusinessId
+            };
+            return (await _repository.UpdateContactAsync(item)).Match(result => new Result<Contact>(result), exception => new Result<Contact>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<Contact>(new Exception(e.Message));
+        }
     }
 }

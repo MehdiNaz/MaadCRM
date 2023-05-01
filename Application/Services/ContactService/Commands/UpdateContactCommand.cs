@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.Commands;
 
-public struct UpdateContactCommand : IRequest<Contact>
+public struct UpdateContactCommand : IRequest<Result<Contact>>
 {
     public Ulid Id { get; set; }
     public string FirstName { get; set; }

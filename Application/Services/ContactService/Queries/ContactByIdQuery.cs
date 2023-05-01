@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.Queries;
 
-public struct GetByIdContactQuery : IRequest<Contact>
+public struct ContactByIdQuery : IRequest<Result<Contact>>
 {
     public Ulid ContactId { get; set; }
 }

@@ -22,6 +22,8 @@ public readonly struct CustomerDashBourdHandler : IRequestHandler<CustomerDashBo
             (await _repository.ShowVafadarCustomersCountAsync()).Match(result => response.VafadarCount = result, exception => response.VafadarCount = 0);
             (await _repository.ShowAllCustomersCountAsync()).Match(result => response.AllCount = result, exception => response.AllCount = 0);
 
+            (await _repository.GetAllCustomersAsync(request.UserId)).Match(result => response.AllCustomersInfo = result, exception => response.AllCustomersInfo = null);
+
             return response;
         }
         catch (Exception e)
