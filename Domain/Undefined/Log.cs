@@ -13,7 +13,6 @@ public class Log : BaseEntity
     public Ulid Id { get; set; }
     public string UserId { get; set; }
     public LogKinds Kind { get; set; }
-    public DateTime DateCreated { get; set; }
 
     public User User { get; init; }
 }

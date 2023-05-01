@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public partial class Customer : BaseEntity
+public partial class Customer : BaseEntityWithUserId
 {
     public Customer()
     {
@@ -47,14 +47,14 @@ public partial class Customer : BaseEntity
 
 
 
-    public string IdUserUpdated { get; set; }
-    public virtual User IdUserUpdateNavigation { get; set; }
+    // public string IdUserUpdated { get; set; }
+    // public virtual User IdUserUpdateNavigation { get; set; }
+    //
+    // public string IdUserAdded { get; set; }
+    // public virtual User IdUserAddNavigation { get; set; }
 
-    public string IdUserAdded { get; set; }
-    public virtual User IdUserAddNavigation { get; set; }
-
-    public string IdUser { get; set; }
-    public virtual User IdUserNavigation { get; set; }
+    // public string IdUser { get; set; }
+    // public virtual User IdUserNavigation { get; set; }
 
     public virtual ICollection<CustomersEmailAddress>? EmailAddresses { get; }
     public virtual ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }

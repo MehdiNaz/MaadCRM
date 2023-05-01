@@ -1,11 +1,9 @@
-﻿namespace Domain.Models;
+﻿using Domain.Models.Base;
 
-public class BaseEntityWithUpdateInfo : BaseEntity
+namespace Domain.Models;
+
+public class BaseEntityWithUserId : BaseEntityWithUserUpdate
 {
-    // public string CreatedBy { get; set; }
-    // public string UpdatedBy { get; set; }
-
-    // public User User { get; set; }
-    // public User UpdateUser { get; set; }
-
+    public string IdUser { get; set; }
+    public virtual User IdUserNavigation { get; set; }
 }
