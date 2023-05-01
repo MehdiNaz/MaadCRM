@@ -1,4 +1,5 @@
 # maad-api
+
 maad-api
 
 maad-api
@@ -6,7 +7,7 @@ maad-api
 │   ├── Entities
 │   ├── Exceptions
 │   ├── Validation
-│   └── ValueObjects
+│   └── Mapping
 ├── Application
 │   ├── Interfaces
 │   ├── Request Dto's
@@ -19,10 +20,7 @@ maad-api
 │   │   └── Migrations
 │   └── Logging
 ├── WebAPI
-│   ├── Routs
-│   ├── Models
-│   ├── Services
-│   └── Validators
+│   └── Routs
 ├── Tests
 │   ├── Domain.Tests
 │   ├── Application.Tests

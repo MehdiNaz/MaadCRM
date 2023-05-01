@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public partial class Customer : BaseEntity
+public sealed class Customer : BaseEntityWithUserId
 {
     public Customer()
     {
@@ -36,8 +36,8 @@ public partial class Customer : BaseEntity
     //public virtual User User { get; set; }
 
     public Ulid? CustomerMoarefId { get; set; }
-    public virtual Customer? CustomerMoaref { get; set; }
-    public virtual ICollection<Customer>? CustomerMoarefs { get; set; }
+    public Customer? CustomerMoaref { get; set; }
+    public ICollection<Customer>? CustomerMoarefs { get; set; }
 
     // public virtual Business Business { get; set; }     
     // public virtual CustomerCategory CustomerCategory { get; set; }  
@@ -47,23 +47,23 @@ public partial class Customer : BaseEntity
 
 
 
-    public string IdUserUpdated { get; set; }
-    public virtual User IdUserUpdateNavigation { get; set; }
+    // public string IdUserUpdated { get; set; }
+    // public virtual User IdUserUpdateNavigation { get; set; }
+    //
+    // public string IdUserAdded { get; set; }
+    // public virtual User IdUserAddNavigation { get; set; }
 
-    public string IdUserAdded { get; set; }
-    public virtual User IdUserAddNavigation { get; set; }
+    // public string IdUser { get; set; }
+    // public virtual User IdUserNavigation { get; set; }
 
-    public string IdUser { get; set; }
-    public virtual User IdUserNavigation { get; set; }
+    public ICollection<CustomersEmailAddress>? EmailAddresses { get; }
+    public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
+    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
+    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
+    public ICollection<CustomerAddress>? CustomerAddresses { get; }
+    public ICollection<CustomerNote>? CustomerNotes { get; }
 
-    public virtual ICollection<CustomersEmailAddress>? EmailAddresses { get; }
-    public virtual ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
-    public virtual ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
-    public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
-    public virtual ICollection<CustomerAddress>? CustomerAddresses { get; }
-    public virtual ICollection<CustomerNote>? CustomerNotes { get; }
-
-    public virtual ICollection<ForooshFactor>? ForooshFactors { get; }
+    public ICollection<ForooshFactor>? ForooshFactors { get; }
 
 
     #region Old Relations

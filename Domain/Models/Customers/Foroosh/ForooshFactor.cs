@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.Foroosh;
 
-public class ForooshFactor : BaseEntity
+public sealed class ForooshFactor : BaseEntityWithUserUpdate
 {
     public ForooshFactor()
     {
@@ -18,13 +18,13 @@ public class ForooshFactor : BaseEntity
     
     
     public required Ulid IdCustomer { get; set; }
-    public virtual Customer IdCustomerNavigation { get; set; }
+    public Customer IdCustomerNavigation { get; set; }
     
     
     public required Ulid? IdCustomerAddress { get; set; }
     public CustomerAddress? IdCustomerAddressNavigation { get; set; }
 
-    public virtual ICollection<ForooshOrder> ForooshOrders { get; set; }
+    public ICollection<ForooshOrder> ForooshOrders { get; set; }
 
     
     public uint Version { get; set; }

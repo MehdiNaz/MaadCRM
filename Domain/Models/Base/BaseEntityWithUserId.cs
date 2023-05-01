@@ -1,7 +1,10 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.Models.Base;
 
-public class BaseEntityWithUserId : BaseEntity
+public class BaseEntityWithUserUpdate : BaseEntity
 {
-    public string UserId { get; set; }
-    // public User User { get; set; }
+    public string IdUserUpdated { get; set; }
+    public virtual User IdUserUpdateNavigation { get; set; }
+
+    public string IdUserAdded { get; set; }
+    public virtual User IdUserAddNavigation { get; set; }
 }

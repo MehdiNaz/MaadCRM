@@ -6,5 +6,4 @@ public class Visit : BaseEntity
     public string IdUser { get; set; }
     public string IpAddress { get; set; }
     public string UserAgent { get; set; }
-    public DateTime DateCreated { get; set; }
 }
