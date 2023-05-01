@@ -1,6 +1,6 @@
 namespace Domain.Models.Products;
 
-public class ProductCategory : BaseEntity
+public sealed class ProductCategory : BaseEntityWithUserUpdate
 {
     public ProductCategory()
     {
@@ -16,8 +16,8 @@ public class ProductCategory : BaseEntity
     public string? Icon { get; set; }
     public Status ProductCategoryStatus { get; set; }
 
-    public virtual ICollection<Product>? Products { get; set; }
+    public ICollection<Product>? Products { get; set; }
 
-    public virtual Ulid BusinessId { get; set; }
-    public virtual Business? Business { get; set; }
+    public Ulid BusinessId { get; set; }
+    public Business? Business { get; set; }
 }

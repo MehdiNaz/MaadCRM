@@ -1,6 +1,4 @@
-﻿using Domain.Models.Base;
-
-namespace Domain.Models;
+﻿namespace Domain.Models;
 
 public class BaseEntityWithUserId : BaseEntityWithUserUpdate
 {

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.Notes;
 
-public class CustomerNote : BaseEntity
+public class CustomerNote : BaseEntityWithUserUpdate
 {
     public CustomerNote()
     {
@@ -19,13 +19,7 @@ public class CustomerNote : BaseEntity
 
     public required Ulid IdCustomer { get; set; }
     public virtual Customer? IdCustomerNavigation { get; set; }
-
-    public required string IdUserUpdated { get; set; }
-    public virtual User IdUserUpdateNavigation { get; set; }
-
-    public string IdUserAdded { get; set; }
-    public virtual User IdUserAddNavigation { get; set; }
-
+    
 
     public virtual ICollection<CustomerNoteHashTag>? NoteHashTags { get; set; }
     public virtual ICollection<CustomerNoteAttachment>? NoteAttachments { get; set; }

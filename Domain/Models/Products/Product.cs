@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Products;
 
-public class Product : BaseEntity
+public sealed class Product : BaseEntityWithUserUpdate
 {
     public Product()
     {
@@ -27,9 +27,9 @@ public class Product : BaseEntity
     public Ulid IdProductCategory { get; set; }
     public ProductCategory ProductCategory { get; set; }
 
-    public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
-    public virtual ICollection<CustomerNote>? CustomerNotes { get; set; }
-    public virtual ICollection<ForooshOrder>? ForooshOrders { get; set; }
+    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
+    public ICollection<CustomerNote>? CustomerNotes { get; set; }
+    public ICollection<ForooshOrder>? ForooshOrders { get; set; }
     //public ProductCategory ProductCategory{ get; set; }                                           
     // public virtual ICollection<Visit>? Visits { get; set; }
 }
