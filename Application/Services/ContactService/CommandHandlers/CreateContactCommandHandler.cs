@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.CommandHandlers;
 
-public readonly struct CreateContactCommandHandler : IRequestHandler<CreateContactCommand, Result<Contact>>
+public readonly struct CreateContactCommandHandler : IRequestHandler<CreateContactCommand, Result<ContactsResponse>>
 {
     private readonly IContactRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
         _repository = repository;
     }
 
-    public async Task<Result<Contact>> Handle(CreateContactCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ContactsResponse>> Handle(CreateContactCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -22,11 +22,11 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
                 Job = request.Job,
                 BusinessId = request.BusinessId
             };
-            return (await _repository.CreateContactAsync(item)).Match(result => new Result<Contact>(result), exception => new Result<Contact>(exception));
+            return (await _repository.CreateContactAsync(item)).Match(result => new Result<ContactsResponse>(result), exception => new Result<ContactsResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<Contact>(new Exception(e.Message));
+            return new Result<ContactsResponse>(new Exception(e.Message));
         }
     }
 }

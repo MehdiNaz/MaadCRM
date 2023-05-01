@@ -49,6 +49,20 @@ public class ContactGroupRepository : IContactGroupRepository
         }
     }
 
+    public async ValueTask<Result<ICollection<ContactGroup>>> SearchContactGroupAsync(string q)
+    {
+        try
+        {
+            return new Result<ICollection<ContactGroup>>(await _context.ContactGroups
+                .Where(x => x.ContactGroupStatus == Status.Show
+                 && x.GroupName.Contains(q)).ToListAsync());
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ContactGroup?>>(new ValidationException(e.Message));
+        }
+    }
+
     public async ValueTask<Result<ContactGroup>> CreateContactGroupAsync(CreateContactGroupCommand request)
     {
         try

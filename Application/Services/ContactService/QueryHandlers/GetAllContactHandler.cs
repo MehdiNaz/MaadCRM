@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactService.QueryHandlers;
 
-public readonly struct GetAllContactHandler : IRequestHandler<AllContactQuery, Result<ICollection<Contact>>>
+public readonly struct GetAllContactHandler : IRequestHandler<AllContactQuery, Result<ICollection<ContactsResponse>>>
 {
     private readonly IContactRepository _repository;
 
@@ -9,15 +9,15 @@ public readonly struct GetAllContactHandler : IRequestHandler<AllContactQuery, R
         _repository = repository;
     }
 
-    public async Task<Result<ICollection<Contact>>> Handle(AllContactQuery request, CancellationToken cancellationToken)
+    public async Task<Result<ICollection<ContactsResponse>>> Handle(AllContactQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.GetAllContactAsync()).Match(result => new Result<ICollection<Contact>>(result), exception => new Result<ICollection<Contact>>(exception));
+            return (await _repository.GetAllContactAsync()).Match(result => new Result<ICollection<ContactsResponse>>(result), exception => new Result<ICollection<ContactsResponse>>(exception));
         }
         catch (Exception e)
         {
-            return new Result<ICollection<Contact>>(new Exception(e.Message));
+            return new Result<ICollection<ContactsResponse>>(new Exception(e.Message));
         }
     }
 }

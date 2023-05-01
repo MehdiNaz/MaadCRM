@@ -18,6 +18,7 @@ global using Application.Services.BusinessPlansService.Queries;
 global using Application.Services.BusinessPlansService.Validation;
 global using Application.Services.BusinessService.Commands;
 global using Application.Services.BusinessService.Queries;
+global using Application.Services.ContactGroupService.Queries;
 global using Application.Services.ContactService.Commands;
 global using Application.Services.ContactService.Queries;
 global using Application.Services.CustomerActivityService.Commands;

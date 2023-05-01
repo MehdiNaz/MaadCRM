@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace WebApi.Routes.Contacts;
+﻿namespace WebApi.Routes.Contacts;
 
 public static class ContactRoute
 {
@@ -101,6 +99,102 @@ public static class ContactRoute
             }
         });
 
+        plan.MapGet("/ContactByGroupIdAsync/{contactGroupId}", (Ulid contactGroupId, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new ContactByGroupIdQuery
+                            {
+                                ContactGroupId = contactGroupId
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Contacts By Group Id.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
+        plan.MapGet("/ContactBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new ContactBySearchItemQuery
+                            {
+                                Q = q.ToLower()
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Get All Customers By Search Item.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
         plan.MapPost("/Insert", ([FromBody] CreateContactCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -167,7 +261,7 @@ public static class ContactRoute
                 });
             }
         });
-   
+
         plan.MapPut("/Update", ([FromBody] UpdateContactCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -186,7 +280,6 @@ public static class ContactRoute
                                 FirstName = request.FirstName,
                                 LastName = request.LastName,
                                 EmailId = request.EmailId,
-                                //BusinesksId = bId.Id,
                                 Job = request.Job,
                                 ContactGroupId = request.ContactGroupId
                             });
@@ -219,5 +312,50 @@ public static class ContactRoute
             }
         });
 
+        plan.MapDelete("/Delete/{contactId}", (Ulid contactId, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                        UserId =>
+                        {
+                            var result = mediator.Send(new DeleteContactCommand
+                            {
+                                ContactId = contactId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Contact Deleted.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
     }
 }
