@@ -70,9 +70,11 @@ public class ContactGroupRepository : IContactGroupRepository
             ContactGroup item = new()
             {
                 GroupName = request.GroupName,
-                DisplayOrder = request.DisplayOrder
+                DisplayOrder = request.DisplayOrder,
+                BusinessId = request.BusinessId
             };
-            await _context.ContactGroups!.AddAsync(item!);
+
+            await _context.ContactGroups.AddAsync(item!);
             await _context.SaveChangesAsync();
             return new Result<ContactGroup>(item);
         }
@@ -86,14 +88,13 @@ public class ContactGroupRepository : IContactGroupRepository
     {
         try
         {
-            ContactGroup item = new()
-            {
-                Id = request.Id,
-                GroupName = request.GroupName,
-                DisplayOrder = request.DisplayOrder
-            };
+            ContactGroup item = await _context.ContactGroups.FindAsync(request.Id);
+            item.Id = request.Id;
+            item.GroupName = request.GroupName;
+            item.DisplayOrder = request.DisplayOrder;
 
-            _context.Update(item); await _context.SaveChangesAsync();
+            _context.Update(item);
+            await _context.SaveChangesAsync();
             return new Result<ContactGroup>(item);
         }
         catch (Exception e)
@@ -107,7 +108,7 @@ public class ContactGroupRepository : IContactGroupRepository
         try
         {
             var contactGroup = await _context.ContactGroups.FindAsync(id);
-            contactGroup!.ContactGroupStatus = Status.Show;
+            contactGroup!.ContactGroupStatus = Status.Deleted;
             await _context.SaveChangesAsync();
             return new Result<ContactGroup>(contactGroup);
         }

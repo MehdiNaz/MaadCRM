@@ -6,6 +6,7 @@ public class Contact : BaseEntity
     {
         Id = Ulid.NewUlid();
         ContactStatus = Status.Show;
+        ContactsEmailAddresses = new HashSet<ContactsEmailAddress>();
     }
 
     public Ulid Id { get; set; }

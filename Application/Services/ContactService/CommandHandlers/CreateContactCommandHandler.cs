@@ -17,7 +17,8 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                EmailId = request.EmailId,
+                EmailAddresses = request.EmailAddresses,
+                PhoneNumber = request.PhoneNumber,
                 ContactGroupId = request.ContactGroupId,
                 Job = request.Job,
                 BusinessId = request.BusinessId

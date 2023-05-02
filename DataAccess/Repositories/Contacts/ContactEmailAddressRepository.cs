@@ -39,7 +39,7 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         {
             ContactsEmailAddress item = new()
             {
-                CustomersEmailAddrs = request.EmailAddress
+                ContactEmailAddress = request.EmailAddress
             };
             await _context.ContactsEmailAddresses!.AddAsync(item!);
             await _context.SaveChangesAsync();
@@ -58,7 +58,7 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
             ContactsEmailAddress item = new()
             {
                 Id = request.Id,
-                CustomersEmailAddrs = request.EmailAddress
+                ContactEmailAddress = request.EmailAddress
             };
 
             _context.Update(item);

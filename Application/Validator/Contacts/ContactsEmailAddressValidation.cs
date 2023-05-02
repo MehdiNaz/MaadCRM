@@ -4,6 +4,6 @@ public class ContactsEmailAddressValidation : AbstractValidator<ContactsEmailAdd
 {
     public ContactsEmailAddressValidation()
     {
-        RuleFor(x => x.CustomersEmailAddrs).NotEmpty().WithMessage("لطفاً آدرس ایمیل را درج نمائید");
+        RuleFor(x => x.ContactEmailAddress).NotEmpty().WithMessage("لطفاً آدرس ایمیل را درج نمائید");
     }
 }
