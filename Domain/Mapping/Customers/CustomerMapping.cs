@@ -21,7 +21,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         builder.HasOne(d => d.CustomerMoaref)
             .WithMany(p => p.CustomerMoarefs)
             .HasForeignKey(d => d.CustomerMoarefId)
-            .HasConstraintName("Customers_Customer_MoAref");
+            .HasConstraintName("FK_Customer_MoAref");
         
         builder.HasOne(d => d.IdUserNavigation)
             .WithMany(p => p.Customers)

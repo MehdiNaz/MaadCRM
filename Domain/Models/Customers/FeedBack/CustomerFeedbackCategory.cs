@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.FeedBack;
 
-public class CustomerFeedbackCategory : BaseEntityWithUserId
+public class CustomerFeedbackCategory : BaseEntityWithUserUpdate
 {
     public CustomerFeedbackCategory()
     {
@@ -14,6 +14,9 @@ public class CustomerFeedbackCategory : BaseEntityWithUserId
     public FeedbackType TypeFeedback { get; set; }
     public bool PositiveNegative { get; set; }
     public Status Status { get; set; }
-    
+
+    public Ulid IdBusiness { get; set; }
+    public Business IdBusinessNavigation { get; set; }
+
     public ICollection<CustomerFeedback>? Feedbacks; 
 }

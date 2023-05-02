@@ -16,6 +16,7 @@ public sealed class Customer : BaseEntityWithUserId
         CustomerAddresses = new HashSet<CustomerAddress>();
         ForooshFactors = new HashSet<ForooshFactor>();
         CustomerMoarefs = new HashSet<Customer>();
+        CustomerFeedbacks = new HashSet<CustomerFeedback>();
     }
 
     public Ulid Id { get; set; }
@@ -50,18 +51,20 @@ public sealed class Customer : BaseEntityWithUserId
     // public virtual User IdUserNavigation { get; set; }
 
     public ICollection<CustomersEmailAddress>? EmailAddresses { get; }
-    
+
     public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
-    
+
     public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
-    
+
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
-    
+
     public ICollection<CustomerAddress>? CustomerAddresses { get; }
-    
+
     public ICollection<CustomerNote>? CustomerNotes { get; }
 
     public ICollection<ForooshFactor>? ForooshFactors { get; }
+
+    public ICollection<CustomerFeedback>? CustomerFeedbacks { get; }
 
 
     #region Old Relations

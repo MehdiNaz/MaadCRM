@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.IdentityModels;
 
-public sealed class User : IdentityUser
+public class User : IdentityUser
 {
     public User()
     {
@@ -15,10 +15,14 @@ public sealed class User : IdentityUser
 
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
-        
-        // CustomerFeedbacks = new HashSet<CustomerFeedback>();
-        // CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
-        // CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
+
+        //CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        //CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
+        //CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
+
+        CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
+        CustomerFeedbackCategoryAdded = new HashSet<CustomerFeedbackCategory>();
+        CustomerFeedbackCategoryUpdated = new HashSet<CustomerFeedbackCategory>();
     }
 
     public string? Name { get; set; }
@@ -50,7 +54,7 @@ public sealed class User : IdentityUser
     public Business IdBusinessNavigation { get; set; }
 
     public IEnumerable<Log>? Logs { get; }
-    
+
     public IEnumerable<Customer>? Customers { get; }
     public IEnumerable<Customer>? CustomersAdded { get; }
     public IEnumerable<Customer>? CustomersUpdated { get; }
@@ -62,10 +66,16 @@ public sealed class User : IdentityUser
 
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesAdded { get; }
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesUpdated { get; }
-    
-    // public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
-    // public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
-    // public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
+
+
+    //public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
+    //public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
+    //public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
+
+
+    public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; }
+    public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryAdded { get; }
+    public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryUpdated { get; }
 
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  

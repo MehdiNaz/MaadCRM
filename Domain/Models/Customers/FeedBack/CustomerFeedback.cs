@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.FeedBack;
 
-public sealed class CustomerFeedback : BaseEntityWithUserId
+public class CustomerFeedback 
 {
     public CustomerFeedback()
     {
@@ -19,5 +19,9 @@ public sealed class CustomerFeedback : BaseEntityWithUserId
     public Ulid IdProduct { get; set; }
     public Product? IdProductNavigation { get; set; }
 
+    public Ulid IdCustomer { get; set; }
+    public Customer? IdCustomerNavigation { get; set; }
+
     public ICollection<CustomerFeedbackAttachment>? Attachments;
+
 }
