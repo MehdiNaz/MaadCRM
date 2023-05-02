@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactGroupService.CommandHandler;
 
-public readonly struct DeleteContactGroupCommandHandler : IRequestHandler<DeleteContactGroupCommand, ContactGroup>
+public readonly struct DeleteContactGroupCommandHandler : IRequestHandler<DeleteContactGroupCommand, Result<ContactGroup>>
 {
     private readonly IContactGroupRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct DeleteContactGroupCommandHandler : IRequestHandler<Delete
         _repository = repository;
     }
 
-    public async Task<ContactGroup> Handle(DeleteContactGroupCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteContactGroupAsync(request.Id))!;
+    public async Task<Result<ContactGroup>> Handle(DeleteContactGroupCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.DeleteContactGroupAsync(request.Id)).Match(result => new Result<ContactGroup>(result), exception => new Result<ContactGroup>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ContactGroup>(new Exception(e.Message));
+        }
+    }
 }

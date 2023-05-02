@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ContactGroupService.QueryHandler;
 
-public readonly struct GetContactGroupBuIdHandler : IRequestHandler<GetContactGroupByIdQuery, ContactGroup?>
+public readonly struct GetContactGroupBuIdHandler : IRequestHandler<ContactGroupByIdQuery, Result<ContactGroup>>
 {
     private readonly IContactGroupRepository _repository;
 
@@ -9,6 +9,15 @@ public readonly struct GetContactGroupBuIdHandler : IRequestHandler<GetContactGr
         _repository = repository;
     }
 
-    public async Task<ContactGroup?> Handle(GetContactGroupByIdQuery request, CancellationToken cancellationToken)
-        => await _repository.GetContactGroupByIdAsync(request.ContactGroupId);
+    public async Task<Result<ContactGroup>> Handle(ContactGroupByIdQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.GetContactGroupByIdAsync(request.ContactGroupId)).Match(result => new Result<ContactGroup>(result), exception => new Result<ContactGroup>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ContactGroup>(new Exception(e.Message));
+        }
+    }
 }

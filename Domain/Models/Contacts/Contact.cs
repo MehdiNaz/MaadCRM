@@ -20,7 +20,7 @@ public class Contact : BaseEntity
 
 
     //public Business Business { get; set; }
-    //public ContactsEmailAddress ContactsEmailAddress { get; set; }
-    //public ContactPhoneNumber ContactPhoneNumber { get; set; }
+    public ICollection<ContactsEmailAddress> ContactsEmailAddresses { get; set; }
+    public ICollection<ContactPhoneNumber> ContactPhoneNumbers { get; set; }
     //public ContactGroup ContactGroup { get; set; }
 }

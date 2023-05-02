@@ -2,10 +2,11 @@
 
 public interface IContactGroupRepository
 {
-    ValueTask<ICollection<ContactGroup?>> GetAllContactGroupsAsync();
-    ValueTask<ContactGroup?> GetContactGroupByIdAsync(Ulid requestId);
-    ValueTask<ContactGroup?> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request);
-    ValueTask<ContactGroup?> CreateContactGroupAsync(CreateContactGroupCommand request);
-    ValueTask<ContactGroup?> UpdateContactGroupAsync(UpdateContactGroupCommand request);
-    ValueTask<ContactGroup?> DeleteContactGroupAsync(Ulid id);
+    ValueTask<Result<ICollection<ContactGroup>>> GetAllContactGroupsAsync();
+    ValueTask<Result<ContactGroup>> GetContactGroupByIdAsync(Ulid requestId);
+    ValueTask<Result<ContactGroup>> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request);
+    ValueTask<Result<ICollection<ContactGroup>>> SearchContactGroupAsync(string q);
+    ValueTask<Result<ContactGroup>> CreateContactGroupAsync(CreateContactGroupCommand request);
+    ValueTask<Result<ContactGroup>> UpdateContactGroupAsync(UpdateContactGroupCommand request);
+    ValueTask<Result<ContactGroup>> DeleteContactGroupAsync(Ulid id);
 }
