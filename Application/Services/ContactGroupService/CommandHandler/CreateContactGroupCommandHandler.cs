@@ -16,7 +16,8 @@ public readonly struct CreateContactGroupCommandHandler : IRequestHandler<Create
             CreateContactGroupCommand item = new()
             {
                 GroupName = request.GroupName,
-                DisplayOrder = request.DisplayOrder
+                DisplayOrder = request.DisplayOrder,
+                BusinessId = request.BusinessId
             };
             return (await _repository.CreateContactGroupAsync(item)).Match(result => new Result<ContactGroup>(result), exception => new Result<ContactGroup>(exception));
         }

@@ -73,7 +73,7 @@ public static class ContactRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Get All Customers By Search Item.",
+                                    Message = "Get Contact By Id.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -219,7 +219,8 @@ public static class ContactRoute
                             {
                                 FirstName = request.FirstName,
                                 LastName = request.LastName,
-                                EmailId = request.EmailId,
+                                EmailAddresses = request.EmailAddresses,
+                                PhoneNumber = request.PhoneNumber,
                                 BusinessId = bId.Id,
                                 Job = request.Job,
                                 ContactGroupId = request.ContactGroupId
@@ -277,6 +278,7 @@ public static class ContactRoute
                         {
                             var result = mediator.Send(new UpdateContactCommand
                             {
+                                Id = request.Id,
                                 FirstName = request.FirstName,
                                 LastName = request.LastName,
                                 EmailId = request.EmailId,

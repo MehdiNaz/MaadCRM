@@ -9,10 +9,11 @@ public class ContactPhoneNumber : BaseEntity
     }
 
     public Ulid Id { get; set; }
+    public Ulid ContactId { get; set; }
     public string PhoneNo { get; set; }
     public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
     public Status ContactPhoneNumberStatus { get; set; }
 
-    public ICollection<Contact>? Contacts { get; set; }
+    public Contact? Contacts { get; set; }
 }

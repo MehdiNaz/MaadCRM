@@ -9,8 +9,9 @@ public class ContactsEmailAddress : BaseEntity
     }
 
     public Ulid Id { get; set; }
-    public string CustomersEmailAddrs { get; set; }
+    public Ulid ContactId { get; set; }
+    public string ContactEmailAddress { get; set; }
     public Status ContactsEmailAddressStatus { get; set; }
 
-    public ICollection<Contact>? Contacts { get; set; }
+    public Contact? Contacts { get; set; }
 }
