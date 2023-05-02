@@ -1,8 +1,10 @@
 global using Domain.Enum;
 global using Domain.Models;
+global using Domain.Models.Base;
 global using Domain.Models.Businesses;
 global using Domain.Models.Contacts;
 global using Domain.Models.Customers;
+global using Domain.Models.Customers.FeedBack;
 global using Domain.Models.Customers.Foroosh;
 global using Domain.Models.Customers.Notes;
 global using Domain.Models.Customers.PeyGiry;
@@ -16,5 +18,3 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
-global using Domain.Models.Base;
-global using Domain.Models.Customers.FeedBack;

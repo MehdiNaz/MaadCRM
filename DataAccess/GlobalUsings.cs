@@ -79,5 +79,9 @@ global using System.ComponentModel.DataAnnotations;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+global using Domain.Mapping.BusinessMapping;
+global using Domain.Mapping.Customers.Feedback;
+global using Domain.Mapping.Customers.Foroosh;
+global using Domain.Mapping.Location;
 global using Domain.Models.Customers.FeedBack;
 

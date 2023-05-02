@@ -8,8 +8,9 @@ public sealed class Product : BaseEntityWithUserUpdate
         StatusPublish = Enum.ProductStatus.Draft;
         StatusProduct = Status.Show;
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
-        FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
-        FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
+        CustomerNotes = new HashSet<CustomerNote>();
+        ForooshOrders = new HashSet<ForooshOrder>();
+        CustomerFeedbacks = new HashSet<CustomerFeedback>();
     }
 
     public Ulid Id { get; set; }
@@ -30,6 +31,7 @@ public sealed class Product : BaseEntityWithUserUpdate
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; set; }
     public ICollection<CustomerNote>? CustomerNotes { get; set; }
     public ICollection<ForooshOrder>? ForooshOrders { get; set; }
+    public ICollection<CustomerFeedback>? CustomerFeedbacks { get; set; }
     //public ProductCategory ProductCategory{ get; set; }                                           
     // public virtual ICollection<Visit>? Visits { get; set; }
 }

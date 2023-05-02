@@ -15,10 +15,9 @@ public sealed class CustomerFeedback : BaseEntityWithUserId
 
     public Ulid IdCategory { get; set; }
     public CustomerFeedbackCategory? Category { get; set; }
-    
+
     public Ulid IdProduct { get; set; }
     public Product? IdProductNavigation { get; set; }
 
-    public ICollection<CustomerFeedbackAttachment>? Attachments; 
-
+    public ICollection<CustomerFeedbackAttachment>? Attachments;
 }
