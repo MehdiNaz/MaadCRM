@@ -90,3 +90,4 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
 global using Application.Services.Locations.CountryService.Queries;
 global using Application.Services.Locations.ProvinceService.Queries;
+global using Domain.Models.Customers.FeedBack;

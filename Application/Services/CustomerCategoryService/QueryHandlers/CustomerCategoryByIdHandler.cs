@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.QueryHandlers;
 
-public readonly struct CustomerCategoryByIdHandler : IRequestHandler<CustomerCategoryByIdQuery, Result<CustomerCategory>>
+public readonly struct CustomerCategoryByIdHandler : IRequestHandler<CustomerCategoryByIdQuery, Result<CustomerFeedbackCategory>>
 {
     private readonly ICustomerCategoryRepository _repository;
 
@@ -9,15 +9,15 @@ public readonly struct CustomerCategoryByIdHandler : IRequestHandler<CustomerCat
         _repository = repository;
     }
 
-    public async Task<Result<CustomerCategory>> Handle(CustomerCategoryByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerFeedbackCategory>> Handle(CustomerCategoryByIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.GetCustomerCategoryByIdAsync(request.CustomerCategoryId, request.UserId)).Match(result => new Result<CustomerCategory>(result), exception => new Result<CustomerCategory>(exception));
+            return (await _repository.GetCustomerCategoryByIdAsync(request.CustomerCategoryId, request.UserId)).Match(result => new Result<CustomerFeedbackCategory>(result), exception => new Result<CustomerFeedbackCategory>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new Exception(e.Message));
+            return new Result<CustomerFeedbackCategory>(new Exception(e.Message));
         }
     }
 }

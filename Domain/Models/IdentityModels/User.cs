@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.IdentityModels;
 
-public class User : IdentityUser
+public sealed class User : IdentityUser
 {
     public User()
     {
@@ -15,6 +15,10 @@ public class User : IdentityUser
 
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
+        
+        CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
+        CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
     }
 
     public string? Name { get; set; }
@@ -39,10 +43,10 @@ public class User : IdentityUser
     public DateTime? OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
     public Status UserStatus { get; set; }
-    public string Token { get; set; }// JWT Token
+    public string? Token { get; set; }// JWT Token
 
 
-    public Ulid IdBusiness { get; set; }
+    public required Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }
 
     // public Business Business { get; set; }
@@ -51,19 +55,23 @@ public class User : IdentityUser
     // public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
     //public ICollection<ActivityLog> ActivityLogs { get; set; }
     //public ICollection<Notification> Notifications { get; set; }
-    public ICollection<Log>? Logs { get; }
+    public IEnumerable<Log>? Logs { get; }
     // public ICollection<SanAt>? SanAts { get; set; }
-    public virtual ICollection<Customer> Customers { get; }
-    public virtual ICollection<Customer> CustomersAdded { get; }
-    public virtual ICollection<Customer> CustomersUpdated { get; }
+    public IEnumerable<Customer>? Customers { get; }
+    public IEnumerable<Customer>? CustomersAdded { get; }
+    public IEnumerable<Customer>? CustomersUpdated { get; }
 
 
-    public virtual ICollection<CustomerNote> CustomerNotesAdded { get; }
-    public virtual ICollection<CustomerNote> CustomerNotesUpdated { get; }
+    public IEnumerable<CustomerNote>? CustomerNotesAdded { get; }
+    public IEnumerable<CustomerNote>? CustomerNotesUpdated { get; }
 
 
-    public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesAdded { get; }
-    public virtual ICollection<CustomerPeyGiry> CustomerPeyGiriesUpdated { get; }
+    public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesAdded { get; }
+    public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesUpdated { get; }
+    
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
 
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
