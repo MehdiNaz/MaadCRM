@@ -33,7 +33,16 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
                 IdUserAdded = request.IdUserAdded,
                 IdUserUpdated = request.IdUserUpdated
             };
-            return (await _repository.CreateCustomerAsync(item)).Match(result => new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
+             (await _repository.CreateCustomerAsync(item)).Match(result =>
+             {
+                 return new Result<CustomerResponse>(result);
+             }, exception =>
+             {
+                 return new Result<CustomerResponse>(exception);
+             });
+             
+            return new Result<CustomerResponse>(new Exception("Error"));
+            // return (await _repository.CreateCustomerAsync(item)).Match(result => new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
         }
         catch (Exception e)
         {

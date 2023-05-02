@@ -21,7 +21,6 @@ public static class RepositoryConfiguration
         collection.AddTransient<ITestService, TestService>();
 
         //Application ==> Interfaces :
-        collection.AddTransient<ICustomerCategoryRepository, CustomerCategoryRepository>();
         collection.AddTransient<ICustomerRepository, CustomerRepository>();
         collection.AddTransient<ICustomersEmailAddressRepository, CustomersEmailAddressRepository>();
         collection.AddTransient<ICustomersPhoneNumberRepository, CustomersPhoneNumberRepository>();
@@ -61,7 +60,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactRepository, ContactRepository>();
         collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
         collection.AddTransient<IContactsEmailAddressRepository, ContactEmailAddressRepository>();
-        collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
+        // collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
+        // collection.AddTransient<ICustomerCategoryRepository, CustomerCategoryRepository>();
 
 
         collection.AddTransient<ICountryRepository, CountryRepository>();

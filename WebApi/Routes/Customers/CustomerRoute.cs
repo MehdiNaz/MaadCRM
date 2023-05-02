@@ -6,7 +6,7 @@ public static class CustomerRoute
     {
         #region Customer
 
-        RouteGroupBuilder plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
+        var plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
 
         plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
         {

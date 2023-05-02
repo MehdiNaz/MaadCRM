@@ -18,8 +18,6 @@ global using Application.Services.ContactGroupService.Commands;
 global using Application.Services.ContactPhoneNumberService.Commands;
 global using Application.Services.ContactService.Commands;
 global using Application.Services.CustomerActivityService.Commands;
-global using Application.Services.CustomerCategoryService.Commands;
-global using Application.Services.CustomerFeedbackService.Commands;
 global using Application.Services.CustomerNoteService.Commands;
 global using Application.Services.CustomerPeyGiryService.Commands;
 global using Application.Services.CustomerPhoneNumberService.Commands;

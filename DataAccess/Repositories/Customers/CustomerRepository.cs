@@ -310,8 +310,6 @@ public class CustomerRepository : ICustomerRepository
                 return new Result<CustomerResponse>();
             }
 
-
-
             var entityEntry = new Customer
             {
                 FirstName = request.FirstName,

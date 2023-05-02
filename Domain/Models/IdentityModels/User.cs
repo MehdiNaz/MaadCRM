@@ -16,9 +16,9 @@ public sealed class User : IdentityUser
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
         
-        CustomerFeedbacks = new HashSet<CustomerFeedback>();
-        CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
-        CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
+        // CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        // CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
+        // CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
     }
 
     public string? Name { get; set; }
@@ -49,14 +49,8 @@ public sealed class User : IdentityUser
     public required Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }
 
-    // public Business Business { get; set; }
-    // public City? City { get; set; }
-    //public ICollection<Business>? Businesses { get; set; }
-    // public ICollection<CustomerSubmission>? CustomerSubmissions { get; set; }
-    //public ICollection<ActivityLog> ActivityLogs { get; set; }
-    //public ICollection<Notification> Notifications { get; set; }
     public IEnumerable<Log>? Logs { get; }
-    // public ICollection<SanAt>? SanAts { get; set; }
+    
     public IEnumerable<Customer>? Customers { get; }
     public IEnumerable<Customer>? CustomersAdded { get; }
     public IEnumerable<Customer>? CustomersUpdated { get; }
@@ -69,9 +63,9 @@ public sealed class User : IdentityUser
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesAdded { get; }
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesUpdated { get; }
     
-    public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
-    public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
-    public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
+    // public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
+    // public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
+    // public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
 
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  

@@ -9,7 +9,7 @@ public static class LoginRoute
             .WithOpenApi()
             .AllowAnonymous();
 
-        login.MapPost("/loginWithPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
+        login.MapPost("/loginWithPhone",  ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
         {
             try
             {
@@ -41,7 +41,7 @@ public static class LoginRoute
             }
         });
         
-        login.MapPost("/loginWithEmail", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
+        login.MapPost("/loginWithEmail",  ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByEmailAddressQuery request) =>
         {
             try
             {
@@ -68,7 +68,7 @@ public static class LoginRoute
             }
         });
 
-        login.MapPost("/verifyPhone", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
+        login.MapPost("/verifyPhone",  ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] VerifyCodeQuery request,IMediator mediator) =>
         {
             try
             {

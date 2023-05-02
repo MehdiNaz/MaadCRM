@@ -18,7 +18,6 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(UpdateBusinessPlanValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CategoryAttributeValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerActivityValidation).Assembly);
-        collection.AddValidatorsFromAssembly(typeof(CustomerCategoryValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerAddressValidation).Assembly);
