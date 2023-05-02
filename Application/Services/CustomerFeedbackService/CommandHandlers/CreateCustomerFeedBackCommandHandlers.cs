@@ -13,10 +13,7 @@ public readonly struct CreateCustomerFeedBackCommandHandlers : IRequestHandler<C
     {
         CreateCustomerFeedBackCommand item = new()
         {
-            FeedbackName = request.FeedbackName,
-            DisplayOrder = request.DisplayOrder,
-            Point = request.Point,
-            BalancePoint = request.BalancePoint
+            Description = request.Description,
         };
         return await _repository.CreateCustomerFeedbackAsync(item);
     }

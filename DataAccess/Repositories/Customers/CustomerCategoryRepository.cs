@@ -9,78 +9,78 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<CustomerCategory>>> GetAllCustomerCategoryAsync(string userId)
+    public async ValueTask<Result<ICollection<CustomerFeedbackCategory>>> GetAllCustomerCategoryAsync(string userId)
     {
         try
         {
-            return await _context.CustomerCategories.Where(x => x.CustomerCategoryStatus == Status.Show && x.UserId == userId).ToListAsync();
+            return await _context.CustomerCategories.Where(x => x.Status == Status.Show && x.IdUser == userId).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerCategory>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerFeedbackCategory>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerCategory>> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId)
+    public async ValueTask<Result<CustomerFeedbackCategory>> GetCustomerCategoryByIdAsync(Ulid customerCategoryId, string userId)
     {
         try
         {
             return await _context.CustomerCategories.FirstOrDefaultAsync(x =>
                    x.Id == customerCategoryId
-                   && x.CustomerCategoryStatus == Status.Show
-                   && x.UserId == userId);
+                   && x.Status == Status.Show
+                   && x.IdUser == userId);
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerCategory>> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategory>> ChangeStatusCustomerCategoryByIdAsync(ChangeStatusCustomerCategoryCommand request)
     {
         try
         {
             var item = await _context.CustomerCategories.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerCategoryStatus = request.CustomerCategoryStatus;
+            item.Status = request.CustomerCategoryStatus;
             await _context.SaveChangesAsync();
-            return new Result<CustomerCategory>(item);
+            return new Result<CustomerFeedbackCategory>(item);
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerCategory>> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategory>> CreateCustomerCategoryAsync(CreateCustomerCategoryCommand request)
     {
         try
         {
-            CustomerCategory item = new()
+            CustomerFeedbackCategory item = new()
             {
-                UserId = request.UserId,
-                CustomerCategoryName = request.CustomerCategoryName
+                IdUser = request.UserId,
+                Name = request.CustomerCategoryName
             };
 
             await _context.CustomerCategories.AddAsync(item);
             await _context.SaveChangesAsync();
-            return new Result<CustomerCategory>(item);
+            return new Result<CustomerFeedbackCategory>(item);
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerCategory>> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategory>> UpdateCustomerCategoryAsync(UpdateCustomerCategoryCommand request)
     {
         try
         {
-            CustomerCategory item = new()
+            CustomerFeedbackCategory item = new()
             {
                 Id = request.Id,
-                UserId = request.UserId,
-                CustomerCategoryName = request.CustomerCategoryName
+                IdUser = request.UserId,
+                Name = request.CustomerCategoryName
             };
 
             _context.Update(item);
@@ -89,22 +89,22 @@ public class CustomerCategoryRepository : ICustomerCategoryRepository
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerCategory>> DeleteCustomerCategoryAsync(Ulid id)
+    public async ValueTask<Result<CustomerFeedbackCategory>> DeleteCustomerCategoryAsync(Ulid id)
     {
         try
         {
             var item = await _context.CustomerCategories.FindAsync(id);
-            item.CustomerCategoryStatus = Status.Deleted;
+            item.Status = Status.Deleted;
             await _context.SaveChangesAsync();
-            return new Result<CustomerCategory>(item);
+            return new Result<CustomerFeedbackCategory>(item);
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
         }
     }
 }

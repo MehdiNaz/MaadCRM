@@ -1,4 +1,5 @@
-﻿namespace Domain.Mapping.Customers;
+﻿
+namespace Domain.Mapping.Customers;
 
 public class CustomerFeedbackMapping : IEntityTypeConfiguration<CustomerFeedback>
 {

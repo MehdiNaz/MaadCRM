@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerCategoryService.CommandHandlers;
 
-public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCustomerCategoryCommand, Result<CustomerCategory>>
+public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<CreateCustomerCategoryCommand, Result<CustomerFeedbackCategory>>
 {
     private readonly ICustomerCategoryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<C
         _repository = repository;
     }
 
-    public async Task<Result<CustomerCategory>> Handle(CreateCustomerCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerFeedbackCategory>> Handle(CreateCustomerCategoryCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -18,11 +18,11 @@ public readonly struct CreateCustomerCategoryCommandHandlers : IRequestHandler<C
                 UserId = request.UserId,
                 CustomerCategoryName = request.CustomerCategoryName
             };
-            return (await _repository.CreateCustomerCategoryAsync(customerCategory)).Match(result => new Result<CustomerCategory>(result), exception => new Result<CustomerCategory>(exception));
+            return (await _repository.CreateCustomerCategoryAsync(customerCategory)).Match(result => new Result<CustomerFeedbackCategory>(result), exception => new Result<CustomerFeedbackCategory>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerCategory>(new Exception(e.Message));
+            return new Result<CustomerFeedbackCategory>(new Exception(e.Message));
         }
     }
 }

@@ -10,11 +10,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
     }
 
     public async ValueTask<ICollection<CustomerFeedback?>> GetAllCustomerFeedbacksAsync()
-        => await _context.CustomerFeedbacks.Where(x => x.CustomerFeedbackStatus == Status.Show).ToListAsync();
+        => await _context.CustomerFeedbacks.Where(x => x.Status == Status.Show).ToListAsync();
 
 
     public async ValueTask<CustomerFeedback?> GetCustomerFeedbackByIdAsync(Ulid customerFeedbackId)
-        => await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == customerFeedbackId && x.CustomerFeedbackStatus == Status.Show);
+        => await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == customerFeedbackId && x.Status == Status.Show);
 
     public async ValueTask<CustomerFeedback?> ChangeStatusCustomerFeedbackByIdAsync(ChangeStatusCustomerFeedBackCommand request)
     {
@@ -22,7 +22,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         {
             var item = await _context.CustomerFeedbacks.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerFeedbackStatus = request.CustomerFeedbackStatus;
+            item.Status = request.CustomerFeedbackStatus;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -38,10 +38,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         {
             CustomerFeedback item = new()
             {
-                FeedbackName = request.FeedbackName,
-                DisplayOrder = request.DisplayOrder,
-                Point = request.Point,
-                BalancePoint = request.BalancePoint
+                Description = request.Description,
             };
             await _context.CustomerFeedbacks!.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -60,10 +57,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             CustomerFeedback item = new()
             {
                 Id = request.Id,
-                FeedbackName = request.FeedbackName,
-                DisplayOrder = request.DisplayOrder,
-                Point = request.Point,
-                BalancePoint = request.BalancePoint
+                Description = request.Description,
             };
 
             _context.Update(item);
@@ -81,7 +75,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         try
         {
             var customerFeedback = await _context.CustomerFeedbacks.FindAsync(id);
-            customerFeedback!.CustomerFeedbackStatus = Status.Deleted;
+            customerFeedback!.Status = Status.Deleted;
             await _context.SaveChangesAsync();
             return customerFeedback;
         }

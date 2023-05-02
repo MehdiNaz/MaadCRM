@@ -17,3 +17,4 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Domain.Models.Base;
+global using Domain.Models.Customers.FeedBack;

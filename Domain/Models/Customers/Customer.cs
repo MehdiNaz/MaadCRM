@@ -23,17 +23,10 @@ public sealed class Customer : BaseEntityWithUserId
     public required string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-    // public Ulid Id { get; set; }
     public GenderTypes? Gender { get; set; }
     public Status CustomerStatus { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
-
-    // public Ulid? CustomerCategoryId { get; set; }
-
-    // public virtual string CreatedBy { get; set; }
-    // public virtual string UpdatedBy { get; set; }
-    //public virtual User User { get; set; }
 
     public Ulid? CustomerMoarefId { get; set; }
     public Customer? CustomerMoaref { get; set; }
@@ -57,24 +50,24 @@ public sealed class Customer : BaseEntityWithUserId
     // public virtual User IdUserNavigation { get; set; }
 
     public ICollection<CustomersEmailAddress>? EmailAddresses { get; }
+    
     public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
+    
     public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
+    
     public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
+    
     public ICollection<CustomerAddress>? CustomerAddresses { get; }
+    
     public ICollection<CustomerNote>? CustomerNotes { get; }
 
     public ICollection<ForooshFactor>? ForooshFactors { get; }
 
 
     #region Old Relations
-    // public virtual ICollection<Customer>? CustomersMoaref { get; set; }
     // public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     // public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
     // public ICollection<CustomerActivity> CustomerActivities { get; set; }
     // public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistory { get; set; }
     #endregion
-
-
-
-    public uint Version { get; set; }
 }
