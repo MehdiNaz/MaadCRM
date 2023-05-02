@@ -305,11 +305,11 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            if (await _context.Customers.AnyAsync(x => x.PhoneNumbers == request.PhoneNumbers))
+            if (await _context.Customers.AnyAsync(x => x.PhoneNumbers.Any(p => request.PhoneNumbers != null && p.PhoneNo == request.PhoneNumbers.FirstOrDefault())))
             {
-                return new Result<CustomerResponse>();
+                return new Result<CustomerResponse>(new ValidationException("کابری با این شماره تلفن قبلا ثبت شده است"));
             }
-
+            
             var entityEntry = new Customer
             {
                 FirstName = request.FirstName,

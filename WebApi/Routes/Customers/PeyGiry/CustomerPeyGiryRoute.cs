@@ -4,8 +4,6 @@ public static class CustomerPeyGiryRoute
 {
     public static void MapCustomerPeyGiryRoute(this IEndpointRouteBuilder app)
     {
-        #region Customer PeyGiry
-
         var plan = app.MapGroup("v1/CustomerPeyGiry")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
@@ -22,7 +20,7 @@ public static class CustomerPeyGiryRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new AllCustomerPeyGiriesQuery
                             {
@@ -70,7 +68,7 @@ public static class CustomerPeyGiryRoute
                 });
 
                 return id.Result.Match(
-                UserId =>
+                _ =>
                 {
                     var result = mediator.Send(new CustomerPeyGiryByIdQuery
                     {
@@ -117,11 +115,11 @@ public static class CustomerPeyGiryRoute
                 });
 
                 return id.Result.Match(
-                UserId =>
+                userId =>
                 {
                     var result = mediator.Send(new CreateCustomerPeyGiryCommand
                     {
-                        IdUser = UserId,
+                        IdUser = userId,
                         Description = request.Description,
                         CustomerId = request.CustomerId,
                     });
@@ -167,7 +165,7 @@ public static class CustomerPeyGiryRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new ChangeStatusCustomerPeyGiryCommand
                             {
@@ -214,13 +212,13 @@ public static class CustomerPeyGiryRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        userId =>
                         {
                             var result = mediator.Send(new UpdateCustomerPeyGiryCommand
                             {
                                 Id = request.Id,
                                 Description = request.Description,
-                                IdUser = UserId
+                                IdUser = userId
                             });
                             return result.Result.Match(
                                 succes => Results.Ok(new
@@ -251,13 +249,13 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerPeyGiryCommand
                 {
-                    Id = Id
+                    Id = id
                 });
 
                 return result.Match(
@@ -283,7 +281,5 @@ public static class CustomerPeyGiryRoute
                 });
             }
         });
-
-        #endregion
     }
 }

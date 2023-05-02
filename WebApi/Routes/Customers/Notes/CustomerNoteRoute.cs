@@ -4,8 +4,6 @@ public static class CustomerNoteRoute
 {
     public static void MapCustomerNoteRoute(this IEndpointRouteBuilder app)
     {
-        #region CustomerNote
-
         var plan = app.MapGroup("v1/CustomerNote")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
@@ -22,7 +20,7 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new AllCustomerNotesQuery
                             {
@@ -70,7 +68,7 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new CustomerNoteByIdQuery { CustomerNoteId = customerNoteId });
 
@@ -115,7 +113,7 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        userId =>
                         {
                             var result = mediator.Send(new CreateCustomerNoteCommand
                             {
@@ -123,7 +121,7 @@ public static class CustomerNoteRoute
                                 CustomerId = request.CustomerId,
                                 ProductId = request.ProductId,
                                 HashTagIds = request.HashTagIds,
-                                IdUser = UserId
+                                IdUser = userId
                             });
                             return result.Result.Match(
                                 succes => Results.Ok(new
@@ -155,7 +153,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeStatus",  ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -166,7 +164,7 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new ChangeStatusCustomerNoteCommand
                             {
@@ -214,7 +212,7 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        userId =>
                         {
                             var result = mediator.Send(new UpdateCustomerNoteCommand
                             {
@@ -222,7 +220,7 @@ public static class CustomerNoteRoute
                                 Description = request.Description,
                                 ProductId = request.ProductId,
                                 HashTagIds = request.HashTagIds,
-                                IdUser = UserId
+                                IdUser = userId
                             });
                             return result.Result.Match(
                                 succes => Results.Ok(new
@@ -253,7 +251,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        plan.MapDelete("/Delete/{idNote}", (Ulid idNote, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -264,12 +262,12 @@ public static class CustomerNoteRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        userId =>
                         {
                             var result = mediator.Send(new DeleteCustomerNoteCommand
                             {
-                                Id = Id,
-                                UserId = UserId
+                                Id = idNote,
+                                UserId = userId
                             });
                             return result.Result.Match(
                                 succes => Results.Ok(new
@@ -300,7 +298,5 @@ public static class CustomerNoteRoute
                 });
             }
         });
-
-        #endregion
     }
 }

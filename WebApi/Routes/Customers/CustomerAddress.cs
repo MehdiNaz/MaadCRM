@@ -4,8 +4,6 @@ public static class CustomerAddressRoute
 {
     public static void MapCustomerAddressRoute(this IEndpointRouteBuilder app)
     {
-        #region Customer Address
-
         var plan = app.MapGroup("v1/CustomerAddress")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
@@ -115,7 +113,5 @@ public static class CustomerAddressRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-        #endregion
     }
 }

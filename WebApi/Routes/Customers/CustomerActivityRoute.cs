@@ -4,8 +4,6 @@ public static class CustomerActivityRoute
 {
     public static void MapCustomerActivityRoute(this IEndpointRouteBuilder app)
     {
-        #region CustomerActivity
-
         var plan = app.MapGroup("v1/CustomerActivity")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
@@ -80,13 +78,13 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteCustomerActivityCommand
                 {
-                    Id = Id
+                    Id = id
                 });
                 return Results.Ok(result);
             }
@@ -95,7 +93,5 @@ public static class CustomerActivityRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-        #endregion
     }
 }

@@ -4,8 +4,6 @@ public static class PeyGiryAttachmentRoute
 {
     public static void MapCustomerPeyGiryAttachmentRoute(this IEndpointRouteBuilder app)
     {
-        #region CustomerPeyGiryAttachment
-
         var plan = app.MapGroup("v1/PeyGiryAttachment")
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
@@ -77,13 +75,13 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeletePeyGiryAttachmentCommand
                 {
-                    Id = Id
+                    Id = id
                 });
                 return Results.Ok(result);
             }
@@ -92,8 +90,5 @@ public static class PeyGiryAttachmentRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-
-        #endregion
     }
 }

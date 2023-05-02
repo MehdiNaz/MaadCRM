@@ -94,13 +94,13 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        plan.MapDelete("/Delete/{idAttachment}", async (Ulid idAttachment, IMediator mediator) =>
         {
             try
             {
                 var result = await mediator.Send(new DeleteNoteAttachmentCommand
                 {
-                    Id = Id
+                    Id = idAttachment
                 });
                 return Results.Ok(result);
             }
