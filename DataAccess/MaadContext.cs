@@ -1,7 +1,3 @@
-using Domain.Mapping.BusinessMapping;
-using Domain.Mapping.Customers.Foroosh;
-using Domain.Mapping.Location;
-
 namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
@@ -17,7 +13,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<Plan> Plans { get; set; }
     public DbSet<SanAt> SanAts { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    // public DbSet<CustomerFeedbackCategory> CustomerCategories { get; set; }
     public DbSet<CustomerActivity> CustomerActivities { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<City> Cities { get; set; }
@@ -47,11 +42,13 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerNoteHashTable> NoteHashTables { get; set; }
     public DbSet<CustomerNoteAttachment> NoteAttachments { get; set; }
     public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
-    // public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
     public DbSet<ForooshOrder> ForoshOrders { get; set; }
     public DbSet<ForooshFactor> ForoshFactors { get; set; }
+    public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
+    public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }
+    public DbSet<CustomerFeedbackCategory> CustomerCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -65,7 +62,9 @@ public class MaadContext : IdentityDbContext
         // builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());
         builder.ApplyConfiguration(new CustomerMapping());
         builder.ApplyConfiguration(new CustomersAddressMapping());
-        // builder.ApplyConfiguration(new CustomerFeedbackMapping());
+        builder.ApplyConfiguration(new CustomerFeedbackMapping());
+        builder.ApplyConfiguration(new CustomerFeedbackAttachmentMapping());
+        builder.ApplyConfiguration(new CustomerFeedbackCategoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeHistoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeTypeMapping());
         builder.ApplyConfiguration(new CustomerSubmissionMapping());
@@ -108,7 +107,7 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new ForooshOrderMapping());
         builder.ApplyConfiguration(new ForooshFactorMapping());
-        
+
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
             // Find the properties that are our strongly-typed ID
