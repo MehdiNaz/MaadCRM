@@ -48,7 +48,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<ForooshFactor> ForoshFactors { get; set; }
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }
-    public DbSet<CustomerFeedbackCategory> CustomerCategories { get; set; }
+    public DbSet<CustomerFeedbackCategory> CustomerFeedbackCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

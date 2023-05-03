@@ -6,5 +6,4 @@ public struct UpdateCustomerFeedbackCategoryCommand : IRequest<Result<CustomerFe
     public string Name { get; set; }
     public FeedbackType TypeFeedback { get; set; }
     public bool PositiveNegative { get; set; }
-    public Ulid IdBusiness { get; set; }
 }

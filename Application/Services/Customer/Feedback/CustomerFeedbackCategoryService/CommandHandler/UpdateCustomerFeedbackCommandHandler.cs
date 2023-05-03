@@ -18,7 +18,6 @@ public readonly struct UpdateCustomerFeedbackCommandHandler : IRequestHandler<Up
                 Id = request.Id,
                 PositiveNegative = request.PositiveNegative,
                 TypeFeedback = request.TypeFeedback,
-                IdBusiness = request.IdBusiness,
                 Name = request.Name
             };
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.Feedback.CustomerFeedbackCategoryService.CommandHandler;
 
-public readonly struct ChangeStateCustomerFeedbackCategoryCommandHandler : IRequestHandler<ChangeStateCustomerFeedbackCategoryCommand, Result<CustomerFeedbackCategory>>
+public readonly struct ChangeStateCustomerFeedbackCategoryCommandHandler : IRequestHandler<ChangeStatusCustomerFeedbackCategoryCommand, Result<CustomerFeedbackCategory>>
 {
     private readonly ICustomerFeedbackCategoryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct ChangeStateCustomerFeedbackCategoryCommandHandler : IRequ
         _repository = repository;
     }
 
-    public async Task<Result<CustomerFeedbackCategory>> Handle(ChangeStateCustomerFeedbackCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerFeedbackCategory>> Handle(ChangeStatusCustomerFeedbackCategoryCommand request, CancellationToken cancellationToken)
     {
         try
         {

@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Routes.Customers.Feedback;
 
-public static class CustomerFeedback
+public static class CustomerFeedbackRoute
 {
     public static void MapCustomerFeedbackRoute(this IEndpointRouteBuilder app)
     {

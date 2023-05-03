@@ -1,7 +1,3 @@
-using WebApi.Routes.Contacts;
-using WebApi.Routes.Customers.Feedback;
-using WebApi.Routes.Locations;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -78,6 +74,7 @@ app.MapProvinceRoute();
 app.MapContactRoute();
 app.MapContactGroupRoute();
 app.MapCustomerFeedbackRoute();
+app.MapCustomerFeedbackCategoryReoute();
 #endregion
 
 app.Run();

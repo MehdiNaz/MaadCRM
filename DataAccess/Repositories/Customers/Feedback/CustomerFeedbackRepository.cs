@@ -93,6 +93,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         try
         {
             CustomerFeedback item = await _context.CustomerFeedbacks.FindAsync(request.Id);
+            item.Id= request.Id;
             item.Description = request.Description;
             item.IdCategory = request.IdCategory;
             item.IdProduct = request.IdProduct;
@@ -112,10 +113,10 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
     {
         try
         {
-            var businessPlan = await _context.CustomerFeedbacks.FindAsync(id);
-            businessPlan.CustomerFeedbackStatus = Status.Deleted;
+            var item = await _context.CustomerFeedbacks.FindAsync(id);
+            item.CustomerFeedbackStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedback>(businessPlan);
+            return new Result<CustomerFeedback>(item);
         }
         catch (Exception e)
         {

@@ -4,7 +4,7 @@ public class CustomerFeedbackCategoryMapping : IEntityTypeConfiguration<Customer
 {
     public void Configure(EntityTypeBuilder<CustomerFeedbackCategory> builder)
     {
-        builder.ToTable("CustomerCategories");
+        builder.ToTable("CustomerFeedbackCategories");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(255).IsRequired();
 

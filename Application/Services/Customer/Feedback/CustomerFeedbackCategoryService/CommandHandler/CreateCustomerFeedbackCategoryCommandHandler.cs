@@ -18,7 +18,9 @@ public readonly struct CreateCustomerFeedbackCategoryCommandHandler : IRequestHa
                 Name = request.Name,
                 IdBusiness = request.IdBusiness,
                 PositiveNegative = request.PositiveNegative,
-                TypeFeedback = request.TypeFeedback
+                TypeFeedback = request.TypeFeedback,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
 
             return (await _repository.CreateCustomerFeedbackCategoryAsync(item))
