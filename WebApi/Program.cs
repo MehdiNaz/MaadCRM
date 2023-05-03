@@ -1,4 +1,5 @@
 using WebApi.Routes.Contacts;
+using WebApi.Routes.Customers.Feedback;
 using WebApi.Routes.Locations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,6 +77,7 @@ app.MapCountryRoute();
 app.MapProvinceRoute();
 app.MapContactRoute();
 app.MapContactGroupRoute();
+app.MapCustomerFeedbackRoute();
 #endregion
 
 app.Run();

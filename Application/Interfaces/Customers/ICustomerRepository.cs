@@ -11,7 +11,7 @@ public interface ICustomerRepository
     ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync();
     ValueTask<Result<int>> ShowVafadarCustomersCountAsync();
     ValueTask<Result<int>> ShowAllCustomersCountAsync();
-    ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
+    ValueTask<Result<CustomerDashboardResponse>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
     ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request);
     ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
     ValueTask<Result<CustomerResponse>> ChangeStateCustomerByIdAsync(ChangeStateCustomerCommand request);

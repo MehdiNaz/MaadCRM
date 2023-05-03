@@ -141,9 +141,11 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<CustomerResponse>>> FilterByItemsAsync(CustomerByFilterItemsQuery request)
+    public async ValueTask<Result<CustomerDashboardResponse>> FilterByItemsAsync(CustomerByFilterItemsQuery request)
     {
-        var resultsListCustomer = _context.Customers
+        try
+        {
+            var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
             .Select(x => new CustomerResponse
             {
@@ -163,49 +165,69 @@ public class CustomerRepository : ICustomerRepository
                 DateCreated = x.DateCreated,
             }).AsQueryable();
 
-        var test = resultsListCustomer.ToList();
+            var test = resultsListCustomer.ToList();
 
-        if (request is { From: { }, UpTo: { } })
-        {
-            resultsListCustomer =
-                resultsListCustomer.Where(x => x.DateCreated < request.UpTo && x.DateCreated > request.From);
+            if (request is { From: { }, UpTo: { } })
+            {
+                resultsListCustomer =
+                    resultsListCustomer.Where(x => x.DateCreated < request.UpTo && x.DateCreated > request.From);
+            }
+            else if (request is { From: { } })
+            {
+                resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated > request.From);
+            }
+            else if (request is { UpTo: { } })
+            {
+                resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated < request.UpTo);
+            }
+
+            if (!request.CustomerId.ToString().IsNullOrEmpty())
+                resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
+
+
+
+            if (request is { CustomerState: { } })
+                resultsListCustomer = resultsListCustomer.Where(x => x.CustomerStateType == request.CustomerState);
+
+            if (request is { MoshtaryMoAref: { } })
+                resultsListCustomer = resultsListCustomer.Where(x => x.MoshtaryMoAref == request.MoshtaryMoAref);
+
+            if (request is { BirthDayDate: { } })
+                resultsListCustomer = resultsListCustomer.Where(x => x.BirthDayDate == request.BirthDayDate);
+
+            if (request is { Gender: { } })
+                resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
+
+            // if (request is { ProvinceId: { } })
+            //     resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
+
+            if (request is { CityId: { } })
+                resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
+
+            // if (request is { Id: { } })
+            //     resultsListCustomer = resultsListCustomer.Where(x => x.Id == request.Id);
+            //
+
+            await resultsListCustomer.ToListAsync();
+
+            CustomerDashboardResponse result = new()
+            {
+                AllCustomersInfo = resultsListCustomer,
+                AllCount = resultsListCustomer.Count(),
+                BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+                BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+                RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+                NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+                DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar),
+
+            };
+            return result;
         }
-        else if (request is { From: { } })
+        catch (Exception e)
         {
-            resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated > request.From);
+            return new Result<CustomerDashboardResponse>(new ValidationException(e.Message));
         }
-        else if (request is { UpTo: { } })
-        {
-            resultsListCustomer = resultsListCustomer.Where(x => x.DateCreated < request.UpTo);
-        }
-
-        if (!request.CustomerId.ToString().IsNullOrEmpty())
-            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
-
-
-
-        if (request is { CustomerState: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.CustomerStateType == request.CustomerState);
-
-        if (request is { MoshtaryMoAref: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.MoshtaryMoAref == request.MoshtaryMoAref);
-
-        if (request is { BirthDayDate: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.BirthDayDate == request.BirthDayDate);
-
-        if (request is { Gender: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
-
-        // if (request is { ProvinceId: { } })
-        //     resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
-
-        if (request is { CityId: { } })
-            resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
-
-        // if (request is { Id: { } })
-        //     resultsListCustomer = resultsListCustomer.Where(x => x.Id == request.Id);
-        //
-        return await resultsListCustomer.ToListAsync();
     }
 
     public async ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request)
@@ -309,7 +331,7 @@ public class CustomerRepository : ICustomerRepository
             {
                 return new Result<CustomerResponse>(new ValidationException("کابری با این شماره تلفن قبلا ثبت شده است"));
             }
-            
+
             var entityEntry = new Customer
             {
                 FirstName = request.FirstName,

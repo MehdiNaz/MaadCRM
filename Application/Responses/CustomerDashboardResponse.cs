@@ -9,5 +9,5 @@ public struct CustomerDashboardResponse
     public int DarHalePeyGiryCount { get; set; }
     public int VafadarCount { get; set; }
     public int AllCount { get; set; }
-    public ICollection<CustomerResponse> AllCustomersInfo { get; set; }
+    public IQueryable<CustomerResponse> AllCustomersInfo { get; set; }
 }

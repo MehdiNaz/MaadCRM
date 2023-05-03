@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Interfaces.Customers.Feedback;
+
+namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
@@ -60,8 +62,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactRepository, ContactRepository>();
         collection.AddTransient<IContactPhoneNumberRepository, ContactPhoneNumberRepository>();
         collection.AddTransient<IContactsEmailAddressRepository, ContactEmailAddressRepository>();
-        // collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
-        // collection.AddTransient<ICustomerCategoryRepository, CustomerCategoryRepository>();
+        collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
+        collection.AddTransient<ICustomerFeedbackCategoryRepository, CustomerFeedbackCategoryRepository>();
 
 
         collection.AddTransient<ICountryRepository, CountryRepository>();

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.QueryHandler;
 
-public readonly struct CustomerByFilterItemsHandler : IRequestHandler<CustomerByFilterItemsQuery, Result<ICollection<CustomerResponse>>>
+public readonly struct CustomerByFilterItemsHandler : IRequestHandler<CustomerByFilterItemsQuery, Result<CustomerDashboardResponse>>
 {
     private readonly ICustomerRepository _repository;
 
@@ -9,15 +9,17 @@ public readonly struct CustomerByFilterItemsHandler : IRequestHandler<CustomerBy
         _repository = repository;
     }
 
-    public async Task<Result<ICollection<CustomerResponse>>> Handle(CustomerByFilterItemsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerDashboardResponse>> Handle(CustomerByFilterItemsQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.FilterByItemsAsync(request)).Match(result => new Result<ICollection<CustomerResponse>>(result), exception => new Result<ICollection<CustomerResponse>>(exception));
+            return (await _repository.FilterByItemsAsync(request))
+                .Match(result => new Result<CustomerDashboardResponse>(result),
+                exception => new Result<CustomerDashboardResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerResponse>>(new Exception(e.Message));
+            return new Result<CustomerDashboardResponse>(new Exception(e.Message));
         }
     }
 }

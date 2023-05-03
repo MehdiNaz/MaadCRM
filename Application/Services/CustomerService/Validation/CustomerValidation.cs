@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerService.Validation;
 
-public class CustomerValidation : AbstractValidator<Customer>
+public class CustomerValidation : AbstractValidator<Domain.Models.Customers.Customer>
 {
     public CustomerValidation()
     {
