@@ -4,16 +4,17 @@ public class CustomerRepository : ICustomerRepository
 {
     private readonly MaadContext _context;
 
-    public CustomerRepository(MaadContext aadContext)
+    public CustomerRepository(MaadContext maadContext)
     {
-        _context = aadContext;
+        _context = maadContext;
     }
 
     public async ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId)
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId)
+            var result = await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId)
+                .Include(x => x.CustomerMoaref)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -26,11 +27,12 @@ public class CustomerRepository : ICustomerRepository
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    // MoshtaryMoAref = x.IdUserAdded,
+                    MoshtaryMoAref = x.CustomerMoaref.Id,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CityId = x.IdCity,
                     Gender = x.Gender
                 }).ToListAsync();
+            return result;
         }
         catch (Exception e)
         {
@@ -338,6 +340,7 @@ public class CustomerRepository : ICustomerRepository
                 LastName = request.LastName,
                 BirthDayDate = request.BirthDayDate!,
                 CustomerPic = request.CustomerPic,
+                CustomerMoarefId = request.CustomerMoarefId,
                 IdUser = request.UserId,
                 Gender = request.Gender,
                 IdCity = request.CityId,
@@ -432,6 +435,7 @@ public class CustomerRepository : ICustomerRepository
                 From = entityEntry.DateCreated,
                 CustomerStateType = entityEntry.CustomerState,
                 CustomerStatus = entityEntry.CustomerStatus,
+                MoshtaryMoAref = entityEntry.CustomerMoarefId,
                 // CustomerCategoryId = entityEntry.CustomerCategoryId,
                 EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
                 PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault()!.PhoneNo,

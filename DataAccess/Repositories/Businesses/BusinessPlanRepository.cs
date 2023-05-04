@@ -104,14 +104,13 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            BusinessPlan item = new()
-            {
-                Id = request.BusinessPlansId,
-                PlanId = request.PlanId,
-                BusinessId = request.BusinessId,
-                CountOfDay = request.CountOfDay,
-                CountOfUsers = request.CountOfUsers
-            };
+            BusinessPlan item = await _context.BusinessPlans.FindAsync(request.BusinessPlansId);
+
+            item.PlanId = request.PlanId;
+            item.BusinessId = request.BusinessId;
+            item.CountOfDay = request.CountOfDay;
+            item.CountOfUsers = request.CountOfUsers;
+
 
             _context.Update(item);
             await _context.SaveChangesAsync();

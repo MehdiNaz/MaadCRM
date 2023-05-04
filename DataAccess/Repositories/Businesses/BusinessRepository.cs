@@ -91,16 +91,14 @@ public class BusinessRepository : IBusinessRepository
     {
         try
         {
-            Business item = new()
-            {
-                Id = request.BusinessId,
-                BusinessName = request.BusinessName,
-                Url = request.Url,
-                Hosts = request.Hosts,
-                CompanyName = request.CompanyName,
-                CompanyAddress = request.CompanyAddress,
-                DisplayOrder = request.DisplayOrder
-            };
+            Business item = await _context.Businesses.FindAsync(request.BusinessId);
+
+            item.BusinessName = request.BusinessName;
+            item.Url = request.Url;
+            item.Hosts = request.Hosts;
+            item.CompanyName = request.CompanyName;
+            item.CompanyAddress = request.CompanyAddress;
+            item.DisplayOrder = request.DisplayOrder;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

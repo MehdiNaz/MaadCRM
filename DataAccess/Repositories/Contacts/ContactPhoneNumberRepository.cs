@@ -55,12 +55,11 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
     {
         try
         {
-            ContactPhoneNumber item = new()
-            {
-                Id = request.Id,
-                PhoneNo = request.PhoneNo,
-                CustomerId = request.CustomerId
-            };
+            ContactPhoneNumber item = await _context.ContactPhoneNumbers.FindAsync(request.Id);
+
+
+            item.PhoneNo = request.PhoneNo;
+            item.CustomerId = request.CustomerId;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

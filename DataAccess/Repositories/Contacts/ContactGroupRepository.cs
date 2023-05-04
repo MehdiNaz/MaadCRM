@@ -89,7 +89,6 @@ public class ContactGroupRepository : IContactGroupRepository
         try
         {
             ContactGroup item = await _context.ContactGroups.FindAsync(request.Id);
-            item.Id = request.Id;
             item.GroupName = request.GroupName;
             item.DisplayOrder = request.DisplayOrder;
 

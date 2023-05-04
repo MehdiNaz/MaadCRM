@@ -55,11 +55,9 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
     {
         try
         {
-            ContactsEmailAddress item = new()
-            {
-                Id = request.Id,
-                ContactEmailAddress = request.EmailAddress
-            };
+            ContactsEmailAddress item = await _context.ContactsEmailAddresses.FindAsync(request.Id);
+
+            item.ContactEmailAddress = request.EmailAddress;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

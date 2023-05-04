@@ -1,4 +1,4 @@
-﻿ namespace DataAccess.Repositories.Customers;
+﻿namespace DataAccess.Repositories.Customers;
 
 public class CustomerActivityRepository : ICustomerActivityRepository
 {
@@ -55,13 +55,11 @@ public class CustomerActivityRepository : ICustomerActivityRepository
     {
         try
         {
-            CustomerActivity item = new()
-            {
-                Id = request.Id,
-                CustomerActivityName = request.CustomerActivityName,
-                CustomerActivityDescription = request.CustomerActivityDescription,
-                CustomerId = request.CustomerId
-            };
+            CustomerActivity item = await _context.CustomerActivities.FindAsync(request.Id);
+
+            item.CustomerActivityName = request.CustomerActivityName;
+            item.CustomerActivityDescription = request.CustomerActivityDescription;
+            item.CustomerId = request.CustomerId;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

@@ -86,7 +86,6 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
         try
         {
             CustomerFeedbackAttachment item = await _context.CustomerFeedbackAttachments.FindAsync(request.Id);
-            item.Id = request.Id;
             item.Extenstion = request.Extenstion;
             item.Name = request.Name;
             item.FileName = request.FileName;

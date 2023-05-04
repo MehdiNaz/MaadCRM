@@ -2,9 +2,6 @@ namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
 {
-    protected MaadContext()
-    {
-    }
     public MaadContext(DbContextOptions<MaadContext> opt) : base(opt)
     {
     }
@@ -52,14 +49,9 @@ public class MaadContext : IdentityDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //Identity : ==>
-        // builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
-        // builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
         builder.ApplyConfiguration(new UserMapping());
 
-        //Customers
         builder.ApplyConfiguration(new CustomerActivityMapping());
-        // builder.ApplyConfiguration(new CustomerFeedbackHistoryMapping());
         builder.ApplyConfiguration(new CustomerMapping());
         builder.ApplyConfiguration(new CustomersAddressMapping());
         builder.ApplyConfiguration(new CustomerFeedbackMapping());
@@ -125,8 +117,8 @@ public class MaadContext : IdentityDbContext
                     .HasConversion(new UlidToStringConverter());
             }
         }
-
-        new DbInitializer(builder).Seed();
+            
+        new DbInitializer(builder, this).Seed();
 
 
         base.OnModelCreating(builder);
@@ -136,13 +128,11 @@ public class MaadContext : IdentityDbContext
 
 public class UlidToStringConverter : ValueConverter<Ulid, string>
 {
-    private static readonly ConverterMappingHints defaultHints = new ConverterMappingHints(size: 26);
+    private static readonly ConverterMappingHints defaultHints = new(size: 26);
 
-    public UlidToStringConverter(ConverterMappingHints mappingHints = null)
-        : base(
+    public UlidToStringConverter(ConverterMappingHints mappingHints = null) : base(
             convertToProviderExpression: x => x.ToString(),
             convertFromProviderExpression: x => Ulid.Parse(x),
             mappingHints: defaultHints.With(mappingHints))
-    {
-    }
+    { }
 }
