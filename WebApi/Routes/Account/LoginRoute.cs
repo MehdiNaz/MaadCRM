@@ -54,7 +54,7 @@ public static class LoginRoute
             }
         });
         
-        login.MapPost("/loginWithPhoneAndPass", async ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
+        login.MapPost("/loginWithPhoneAndPass",  ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneAndPasswordQuery request) =>
         {
             try
             {

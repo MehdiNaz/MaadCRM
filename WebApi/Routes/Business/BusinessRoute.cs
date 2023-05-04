@@ -148,7 +148,7 @@ public static class BusinessRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusBusinessCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeStatus",  ([FromBody] ChangeStatusBusinessCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {

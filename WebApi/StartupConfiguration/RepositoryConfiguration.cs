@@ -1,6 +1,4 @@
-﻿using Application.Interfaces.Customers.Feedback;
-
-namespace WebApi.StartupConfiguration;
+﻿namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
@@ -18,9 +16,6 @@ public static class RepositoryConfiguration
         // builder.Services.AddSingleton(typeof(ILogger), logger!);
 
 
-        // TODO: Remove test
-        collection.AddTransient<ITest1Service, Test1Service>();
-        collection.AddTransient<ITestService, TestService>();
 
         //Application ==> Interfaces :
         collection.AddTransient<ICustomerRepository, CustomerRepository>();

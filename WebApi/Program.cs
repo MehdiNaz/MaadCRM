@@ -49,8 +49,6 @@ app.UseFileServer();
 
 #region Routes
 
-app.MapTestRoute();
-
 
 app.MapProfileRoute();
 app.MapLoginRoute();
