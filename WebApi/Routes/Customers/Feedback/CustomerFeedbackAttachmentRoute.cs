@@ -1,12 +1,12 @@
 ﻿namespace WebApi.Routes.Customers.Feedback;
 
-public static class CustomerFeedbackRoute
+public static class CustomerFeedbackAttachmentRoute
 {
-    public static void MapCustomerFeedbackRoute(this IEndpointRouteBuilder app)
+    public static void MapCustomerFeedbackAttachmentRoute(this IEndpointRouteBuilder app)
     {
-        RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedback").EnableOpenApiWithAuthentication().WithOpenApi();
+        RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedbackAttachment").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllCustomerFeedbacks", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllCustomerFeedbackAttachment/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -19,13 +19,16 @@ public static class CustomerFeedbackRoute
                 return id.Result.Match(
                         _ =>
                         {
-                            var result = mediator.Send(new AllCustomerFeedbacksQuery());
+                            var result = mediator.Send(new AllCustomerFeedbackAttachmentsQuery
+                            {
+                                CustomerFeedbackId = customerFeedbackId
+                            });
 
                             return result.Result.Match(
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Show All Customer Feedbacks.",
+                                    Message = "Show All Customer Feedback Attachments.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -51,7 +54,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapGet("/ById/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -64,15 +67,15 @@ public static class CustomerFeedbackRoute
                 return id.Result.Match(
                 _ =>
                 {
-                    var result = mediator.Send(new CustomerFeedbackByIdQuery
+                    var result = mediator.Send(new CustomerFeedbackAttachmentByIdQuery
                     {
-                        Id = customerFeedbackId
+                        Id = Id
                     });
                     return result.Result.Match(
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Show Customer Feedback By Id",
+                                    Message = "Show Customer Feedback Attachment  By Id",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -98,7 +101,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -109,21 +112,20 @@ public static class CustomerFeedbackRoute
                 });
 
                 return id.Result.Match(
-                        _ =>
-                        {
-                            var result = mediator.Send(new CreateCustomerFeedbackCommand
-                            {
-                                Description = request.Description,
-                                IdCategory = request.IdCategory,
-                                IdCustomer = request.IdCustomer,
-                                IdProduct = request.IdProduct
-                            });
-
-                            return result.Result.Match(
+                _ =>
+                {
+                    var result = mediator.Send(new CreateCustomerFeedbackAttachmentCommand()
+                    {
+                        Name = request.Name,
+                        FileName = request.FileName,
+                        Extenstion = request.Extenstion,
+                        IdCustomerFeedback = request.IdCustomerFeedback
+                    });
+                    return result.Result.Match(
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
+                                    Message = "Customer Feedback Attachment Inserted.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -131,7 +133,7 @@ public static class CustomerFeedbackRoute
                                     Valid = false,
                                     Exceptions = error
                                 }));
-                        },
+                },
                         exception => Results.BadRequest(new ErrorResponse
                         {
                             Valid = false,
@@ -149,7 +151,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -160,19 +162,21 @@ public static class CustomerFeedbackRoute
                 });
 
                 return id.Result.Match(
-                        _ =>
-                        {
-                            var result = mediator.Send(new ChangeStateCustomerFeedbackCommand
-                            {
-                                Id = request.Id,
-                                CustomerFeedbackStatus = request.CustomerFeedbackStatus
-                            });
-
-                            return result.Result.Match(
+                _ =>
+                {
+                    var result = mediator.Send(new UpdateCustomerFeedbackAttachmentCommand()
+                    {
+                        Id = request.Id,
+                        Name = request.Name,
+                        FileName = request.FileName,
+                        Extenstion = request.Extenstion,
+                        IdCustomerFeedback = request.IdCustomerFeedback
+                    });
+                    return result.Result.Match(
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
+                                    Message = "Customer Feedback Attachment Updated.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -180,7 +184,7 @@ public static class CustomerFeedbackRoute
                                     Valid = false,
                                     Exceptions = error
                                 }));
-                        },
+                },
                         exception => Results.BadRequest(new ErrorResponse
                         {
                             Valid = false,
@@ -198,7 +202,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -209,88 +213,37 @@ public static class CustomerFeedbackRoute
                 });
 
                 return id.Result.Match(
-                        _ =>
+                    UserId =>
+                    {
+                        var result = mediator.Send(new DeleteCustomerFeedbackAttachmentCommand
                         {
-                            var result = mediator.Send(new UpdateCustomerFeedbackCommand
+                            Id = Id
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
                             {
-                                Id = request.Id,
-                                Description = request.Description,
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
+                                Valid = true,
+                                Message = "Customer Feedback Attachment Deleted.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
-
-        plan.MapPut("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
-
-                return id.Result.Match(
-                        _ =>
-                        {
-                            var result = mediator.Send(new DeleteCustomerFeedbackCommand
-                            {
-                                Id = Id
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });

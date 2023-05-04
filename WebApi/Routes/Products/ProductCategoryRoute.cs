@@ -302,7 +302,9 @@ public static class ProductCategoryRoute
                                 ProductCategoryName = request.ProductCategoryName,
                                 Description = request.Description,
                                 Icon = request.Icon,
-                                BusinessId = bId.Id
+                                BusinessId = bId.Id,
+                                IdUserAdded = UserId,
+                                IdUserUpdated = UserId
                             });
 
 
@@ -370,7 +372,8 @@ public static class ProductCategoryRoute
                                 ProductCategoryName = request.ProductCategoryName,
                                 Description = request.Description,
                                 Icon = request.Icon,
-                                BusinessId = bId.Id
+                                BusinessId = bId.Id,
+                                IdUserUpdated = UserId
                             });
 
 
@@ -378,7 +381,7 @@ public static class ProductCategoryRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Product Category Updated.",
+                                    Message = "Inserted new Product Category.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -409,6 +412,74 @@ public static class ProductCategoryRoute
                     e.StackTrace
                 });
             }
+
+
+
+
+            //try
+            //{
+            //    var id = mediator.Send(new DecodeTokenQuery
+            //    {
+            //        Token = httpContext.Request.Headers["Authorization"].ToString(),
+            //        ReturnType = TokenReturnType.UserId
+            //    });
+
+            //    return id.Result.Match(
+            //        UserId =>
+            //        {
+            //            var business = mediator.Send(new GetBusinessNameByUserIdQuery
+            //            {
+            //                UserId = UserId
+            //            });
+
+            //            return business.Result.Match(bId =>
+            //            {
+            //                var result = mediator.Send(new UpdateProductCategoryCommand
+            //                {
+            //                    Id = request.Id,
+            //                    Order = request.Order,
+            //                    ProductCategoryName = request.ProductCategoryName,
+            //                    Description = request.Description,
+            //                    Icon = request.Icon,
+            //                    BusinessId = bId.Id,
+            //                    IdUserUpdated = UserId
+            //                });
+
+            //                return result.Result.Match(
+            //                    succes => Results.Ok(new
+            //                    {
+            //                        Valid = true,
+            //                        Message = "Product Category Updated.",
+            //                        Data = succes
+            //                    }),
+            //                    error => Results.BadRequest(new ErrorResponse
+            //                    {
+            //                        Valid = false,
+            //                        Exceptions = error
+            //                    }));
+            //            },
+            //                exception => Results.BadRequest(new ErrorResponse
+            //                {
+            //                    Valid = false,
+            //                    Exceptions = exception
+            //                }));
+
+            //        },
+            //        exception => Results.BadRequest(new ErrorResponse
+            //        {
+            //            Valid = false,
+            //            Exceptions = exception
+            //        }));
+            //}
+            //catch (Exception e)
+            //{
+            //    return Results.BadRequest(new
+            //    {
+            //        Valid = false,
+            //        e.Message,
+            //        e.StackTrace
+            //    });
+            //}
         });
 
         plan.MapDelete("/Delete/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>

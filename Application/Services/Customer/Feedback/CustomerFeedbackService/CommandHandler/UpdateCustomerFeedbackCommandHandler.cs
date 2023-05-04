@@ -17,9 +17,6 @@ public readonly struct UpdateCustomerFeedbackCommandHandler : IRequestHandler<Up
             {
                 Id = request.Id,
                 Description = request.Description,
-                IdCategory = request.IdCategory,
-                IdCustomer = request.IdCustomer,
-                IdProduct = request.IdProduct
             };
 
             return (await _repository.UpdateCustomerFeedbackAsync(item))

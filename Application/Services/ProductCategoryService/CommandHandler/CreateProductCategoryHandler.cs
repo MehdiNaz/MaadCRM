@@ -19,12 +19,14 @@ public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProd
                 ProductCategoryName = request.ProductCategoryName,
                 Description = request.Description,
                 Icon = request.Icon,
-                BusinessId = request.BusinessId
+                BusinessId = request.BusinessId,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.CreateProductCategoryAsync(item)).
                 Match(result => new Result<ProductCategoryResponse>(result),
                 exception => new Result<ProductCategoryResponse>(exception));
-        } 
+        }
         catch (Exception e)
         {
             return new Result<ProductCategoryResponse>(new Exception(e.Message));

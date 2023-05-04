@@ -1,6 +1,6 @@
 ﻿namespace Domain.Mapping.Customers.Feedback;
 
-internal class CustomerFeedbackMapping : IEntityTypeConfiguration<CustomerFeedback>
+public class CustomerFeedbackMapping : IEntityTypeConfiguration<CustomerFeedback>
 {
     public void Configure(EntityTypeBuilder<CustomerFeedback> builder)
     {

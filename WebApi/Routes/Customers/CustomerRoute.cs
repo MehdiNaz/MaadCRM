@@ -102,8 +102,7 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/CustomerByFilterItems",
-            ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -253,8 +252,7 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/Insert",
-            ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -316,8 +314,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPost("/ChangeStatus",
-            ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -365,8 +362,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPost("/ChangeState",
-            ([FromBody] ChangeStateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeState", ([FromBody] ChangeStateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -414,8 +410,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPut("/Update",
-            ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPut("/Update", ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {

@@ -9,46 +9,70 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedbackCategory>>> GetAllCustomerFeedbackCategoriesAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<CustomerFeedbackCategoryResponse>>> GetAllCustomerFeedbackCategoriesAsync(Ulid businessId)
     {
         try
         {
-            var result = await _context.CustomerFeedbackCategories.Where(x => x.IdBusiness == businessId).ToListAsync();
-            return new Result<ICollection<CustomerFeedbackCategory>>(result);
+            return await _context.CustomerFeedbackCategories.Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatus == Status.Show)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                })
+                .ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerFeedbackCategory>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerFeedbackCategoryResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedbackCategory>> GetCustomerFeedbackCategoryByIdAsync(Ulid feedbackCategoryId)
+    public async ValueTask<Result<CustomerFeedbackCategoryResponse>> GetCustomerFeedbackCategoryByIdAsync(Ulid feedbackCategoryId)
     {
         try
         {
-            return await _context.CustomerFeedbackCategories.FirstOrDefaultAsync(x => x.Id == feedbackCategoryId && x.CustomerFeedbackCategoryStatus == Status.Show);
+            return await _context.CustomerFeedbackCategories.FirstOrDefaultAsync(x => x.Id == feedbackCategoryId && x.CustomerFeedbackCategoryStatus == Status.Show)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(e.Message));
         }
-
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedbackCategory>>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<ICollection<CustomerFeedbackCategoryResponse>>> SearchByItemsAsync(Ulid businessId, string request)
     {
         try
         {
-            return new Result<ICollection<CustomerFeedbackCategory>>
-                (await _context.CustomerFeedbackCategories.Where(x => x.Name.Contains(request)).ToListAsync());
+            return await _context.CustomerFeedbackCategories
+                .Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatus == Status.Show && x.Name.ToLower()
+                .Contains(request.ToLower()))
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                }).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerFeedbackCategory>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerFeedbackCategoryResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedbackCategory>> ChangeStatusCustomerFeedbackCategoryByIdAsync(ChangeStatusCustomerFeedbackCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategoryResponse>> ChangeStatusCustomerFeedbackCategoryByIdAsync(ChangeStatusCustomerFeedbackCategoryCommand request)
     {
         try
         {
@@ -60,18 +84,26 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
             };
 
             var item = await _context.CustomerFeedbackCategories.FindAsync(request.Id);
-            if (item is null) return new Result<CustomerFeedbackCategory>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerFeedbackCategoryStatus = request.CustomerFeedbackCategoryStatus;
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedbackCategory>(item);
+            return await _context.CustomerFeedbackCategories.FindAsync(request.Id)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedbackCategory>> CreateCustomerFeedbackCategoryAsync(CreateCustomerFeedbackCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategoryResponse>> CreateCustomerFeedbackCategoryAsync(CreateCustomerFeedbackCategoryCommand request)
     {
         try
         {
@@ -86,47 +118,70 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
             };
             await _context.CustomerFeedbackCategories.AddAsync(item);
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedbackCategory>(item);
+            return await _context.CustomerFeedbackCategories.FirstOrDefaultAsync(x => x.Name == request.Name && x.IdUserAdded == request.IdUserAdded)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedbackCategory>> UpdateCustomerFeedbackCategoryAsync(UpdateCustomerFeedbackCategoryCommand request)
+    public async ValueTask<Result<CustomerFeedbackCategoryResponse>> UpdateCustomerFeedbackCategoryAsync(UpdateCustomerFeedbackCategoryCommand request)
     {
         try
         {
             CustomerFeedbackCategory item = await _context.CustomerFeedbackCategories.FindAsync(request.Id);
-            item.Id = request.Id;
             item.Name = request.Name;
             item.TypeFeedback = request.TypeFeedback;
             item.PositiveNegative = request.PositiveNegative;
 
             _context.Update(item);
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedbackCategory>(item);
+            return await _context.CustomerFeedbackCategories.FindAsync(request.Id)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(e.Message));
         }
 
     }
 
-    public async ValueTask<Result<CustomerFeedbackCategory>> DeleteCustomerFeedbackCategoryAsync(Ulid feedbackCategoryId)
+    public async ValueTask<Result<CustomerFeedbackCategoryResponse>> DeleteCustomerFeedbackCategoryAsync(Ulid feedbackCategoryId)
     {
         try
         {
             var item = await _context.CustomerFeedbackCategories.FindAsync(feedbackCategoryId);
             item.CustomerFeedbackCategoryStatus = Status.Deleted;
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedbackCategory>(item);
+            return await _context.CustomerFeedbackCategories.FindAsync(feedbackCategoryId)
+                .Select(x => new CustomerFeedbackCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PositiveNegative = x.PositiveNegative,
+                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    TypeFeedback = x.TypeFeedback
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(e.Message));
         }
 
     }

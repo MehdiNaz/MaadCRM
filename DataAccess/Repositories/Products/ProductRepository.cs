@@ -108,8 +108,11 @@ public class ProductRepository : IProductRepository
                 SecondaryPrice = request.SecondaryPrice,
                 Discount = request.Discount,
                 DiscountPercent = request.DiscountPercent,
-                Picture = request.Picture
+                Picture = request.Picture,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
+
             await _context.Products.AddAsync(item);
             await _context.SaveChangesAsync();
             return item;
@@ -124,19 +127,17 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            Product item = new()
-            {
-                Id = request.Id,
-                ProductName = request.ProductName,
-                IdProductCategory = request.ProductCategoryId,
-                Title = request.Title,
-                Summery = request.Summery,
-                Price = request.Price,
-                SecondaryPrice = request.SecondaryPrice,
-                Discount = request.Discount,
-                DiscountPercent = request.DiscountPercent,
-                Picture = request.Picture
-            };
+            Product item = await _context.Products.FindAsync(request.Id);
+            item.Id = request.Id;
+            item.ProductName = request.ProductName;
+            item.Title = request.Title;
+            item.Summery = request.Summery;
+            item.Price = request.Price;
+            item.SecondaryPrice = request.SecondaryPrice;
+            item.Discount = request.Discount;
+            item.DiscountPercent = request.DiscountPercent;
+            item.Picture = request.Picture;
+            item.IdUserUpdated = request.IdUserUpdated;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

@@ -20,7 +20,8 @@ public readonly struct UpdateProductCategoryHandler : IRequestHandler<UpdateProd
                 ProductCategoryName = request.ProductCategoryName,
                 Description = request.Description,
                 Icon = request.Icon,
-                BusinessId = request.BusinessId
+                BusinessId = request.BusinessId,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.UpdateProductCategoryAsync(item))
                 .Match(result => new Result<ProductCategoryResponse>(result),

@@ -93,11 +93,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         try
         {
             CustomerFeedback item = await _context.CustomerFeedbacks.FindAsync(request.Id);
-            item.Id= request.Id;
             item.Description = request.Description;
-            item.IdCategory = request.IdCategory;
-            item.IdProduct = request.IdProduct;
-            item.IdCustomer = request.IdCustomer;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

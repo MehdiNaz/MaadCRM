@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.Feedback.CustomerFeedbackCategoryService.CommandHandler;
 
-public readonly struct CreateCustomerFeedbackCategoryCommandHandler : IRequestHandler<CreateCustomerFeedbackCategoryCommand, Result<CustomerFeedbackCategory>>
+public readonly struct CreateCustomerFeedbackCategoryCommandHandler : IRequestHandler<CreateCustomerFeedbackCategoryCommand, Result<CustomerFeedbackCategoryResponse>>
 {
     private readonly ICustomerFeedbackCategoryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateCustomerFeedbackCategoryCommandHandler : IRequestHa
         _repository = repository;
     }
 
-    public async Task<Result<CustomerFeedbackCategory>> Handle(CreateCustomerFeedbackCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerFeedbackCategoryResponse>> Handle(CreateCustomerFeedbackCategoryCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -24,12 +24,12 @@ public readonly struct CreateCustomerFeedbackCategoryCommandHandler : IRequestHa
             };
 
             return (await _repository.CreateCustomerFeedbackCategoryAsync(item))
-                .Match(result => new Result<CustomerFeedbackCategory>(result),
-                    exception => new Result<CustomerFeedbackCategory>(exception));
+                .Match(result => new Result<CustomerFeedbackCategoryResponse>(result),
+                    exception => new Result<CustomerFeedbackCategoryResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackCategory>(new Exception(e.Message));
+            return new Result<CustomerFeedbackCategoryResponse>(new Exception(e.Message));
         }
     }
 }

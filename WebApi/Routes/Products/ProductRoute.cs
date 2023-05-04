@@ -72,7 +72,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapGet("/ById", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -94,7 +94,7 @@ public static class ProductRoute
                         {
                             var result = mediator.Send(new ProductByIdQuery
                             {
-                                ProductId = bId.Id
+                                ProductId = Id
                             });
 
 
@@ -320,7 +320,9 @@ public static class ProductRoute
                                 SecondaryPrice = request.SecondaryPrice,
                                 Discount = request.Discount,
                                 DiscountPercent = request.DiscountPercent,
-                                Picture = request.Picture
+                                Picture = request.Picture,
+                                IdUserAdded = UserId,
+                                IdUserUpdated = UserId
                             });
 
                             return result.Result.Match(
@@ -377,7 +379,6 @@ public static class ProductRoute
                         {
                             Id = request.Id,
                             ProductName = request.ProductName,
-                            ProductCategoryId = request.ProductCategoryId,
                             Title = request.Title,
                             Summery = request.Summery,
                             Price = request.Price,
@@ -385,7 +386,8 @@ public static class ProductRoute
                             Discount = request.Discount,
                             DiscountPercent = request.DiscountPercent,
                             FavoritesListId = request.FavoritesListId,
-                            Picture = request.Picture
+                            Picture = request.Picture,
+                            IdUserUpdated = UserId
                         });
 
                         return result.Result.Match(

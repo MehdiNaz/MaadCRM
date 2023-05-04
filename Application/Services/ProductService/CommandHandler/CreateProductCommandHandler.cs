@@ -23,7 +23,9 @@ public readonly struct CreateProductCommandHandler : IRequestHandler<CreateProdu
                 SecondaryPrice = request.SecondaryPrice,
                 Discount = request.Discount,
                 DiscountPercent = request.DiscountPercent,
-                Picture = request.Picture
+                Picture = request.Picture,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.CreateProductAsync(item)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
         }

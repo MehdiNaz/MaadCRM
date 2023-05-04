@@ -6,6 +6,7 @@ public class CustomerFeedbackAttachmentMapping : IEntityTypeConfiguration<Custom
     {
         builder.ToTable("CustomerFeedbackAttachments");
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.Name).HasMaxLength(255).IsRequired();
         builder.Property(x => x.Extenstion).HasMaxLength(255).IsRequired();
 
         builder.HasOne(x => x.IdCustomerFeedbackNavigation)

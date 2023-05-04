@@ -74,7 +74,8 @@ app.MapProvinceRoute();
 app.MapContactRoute();
 app.MapContactGroupRoute();
 app.MapCustomerFeedbackRoute();
-app.MapCustomerFeedbackCategoryReoute();
+app.MapCustomerFeedbackCategoryRoute();
+app.MapCustomerFeedbackAttachmentRoute();
 #endregion
 
 app.Run();

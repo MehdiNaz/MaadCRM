@@ -17,7 +17,6 @@ public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProdu
             {
                 Id = request.Id,
                 ProductName = request.ProductName,
-                ProductCategoryId = request.ProductCategoryId,
                 Title = request.Title,
                 Summery = request.Summery,
                 Price = request.Price,
@@ -25,8 +24,10 @@ public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProdu
                 Discount = request.Discount,
                 DiscountPercent = request.DiscountPercent,
                 FavoritesListId = request.FavoritesListId,
-                Picture = request.Picture
+                Picture = request.Picture,
+                IdUserUpdated = request.IdUserUpdated
             };
+
             return (await _repository.UpdateProductAsync(item)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
         }
         catch (Exception e)

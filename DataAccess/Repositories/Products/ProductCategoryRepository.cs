@@ -86,7 +86,9 @@ public class ProductCategoryRepository : IProductCategoryRepository
                 ProductCategoryName = request.ProductCategoryName,
                 Description = request.Description,
                 Icon = request.Icon,
-                BusinessId = request.BusinessId
+                BusinessId = request.BusinessId,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             await _context.ProductCategories.AddAsync(item);
             if (await _context.SaveChangesAsync() != 0)
@@ -111,15 +113,14 @@ public class ProductCategoryRepository : IProductCategoryRepository
     {
         try
         {
-            ProductCategory item = new()
-            {
-                Id = request.Id,
-                Order = request.Order,
-                ProductCategoryName = request.ProductCategoryName,
-                Description = request.Description,
-                Icon = request.Icon,
-                BusinessId = request.BusinessId
-            };
+            ProductCategory item = await _context.ProductCategories.FindAsync(request.Id);
+            item.Order = request.Order;
+            item.ProductCategoryName = request.ProductCategoryName;
+            item.Description = request.Description;
+            item.Icon = request.Icon;
+            item.BusinessId = request.BusinessId;
+            item.IdUserUpdated = request.IdUserUpdated;
+
 
             _context.Update(item);
             if (await _context.SaveChangesAsync() != 0)

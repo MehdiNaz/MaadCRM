@@ -64,6 +64,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<IContactsEmailAddressRepository, ContactEmailAddressRepository>();
         collection.AddTransient<ICustomerFeedbackRepository, CustomerFeedbackRepository>();
         collection.AddTransient<ICustomerFeedbackCategoryRepository, CustomerFeedbackCategoryRepository>();
+        collection.AddTransient<ICustomerFeedbackAttachmentRepository, CustomerFeedbackAttachmentRepository>();
 
 
         collection.AddTransient<ICountryRepository, CountryRepository>();

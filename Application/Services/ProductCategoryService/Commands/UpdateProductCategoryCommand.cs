@@ -8,4 +8,5 @@ public struct UpdateProductCategoryCommand : IRequest<Result<ProductCategoryResp
     public string Description { get; set; }
     public string? Icon { get; set; }
     public Ulid BusinessId { get; set; }
+    public string IdUserUpdated { get; set; }
 }

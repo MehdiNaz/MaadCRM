@@ -4,7 +4,6 @@ public struct UpdateProductCommand : IRequest<Result<Product>>
 {
     public Ulid Id { get; set; }
     public string ProductName { get; set; }
-    public Ulid ProductCategoryId { get; set; }
     public string Title { get; set; }
     public string Summery { get; set; }
     public decimal? Price { get; set; }
@@ -13,4 +12,5 @@ public struct UpdateProductCommand : IRequest<Result<Product>>
     public byte? DiscountPercent { get; set; }
     public Ulid FavoritesListId { get; set; }
     public byte[] Picture { get; set; }
+    public string IdUserUpdated { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.Feedback.CustomerFeedbackCategoryService.Commands;
 
-public struct UpdateCustomerFeedbackCategoryCommand : IRequest<Result<CustomerFeedbackCategory>>
+public struct UpdateCustomerFeedbackCategoryCommand : IRequest<Result<CustomerFeedbackCategoryResponse>>
 {
     public Ulid Id { get; set; }
     public string Name { get; set; }

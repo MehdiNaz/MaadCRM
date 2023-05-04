@@ -1,11 +1,8 @@
-﻿using Application.Services.Customer.Feedback.CustomerFeedbackCategoryService.Commands;
-using Domain.Models.Customers.FeedBack;
+﻿namespace WebApi.Routes.Customers.Feedback;
 
-namespace WebApi.Routes.Customers.Feedback;
-
-public static class CustomerFeedbackCategoryReoute
+public static class CustomerFeedbackCategoryRoute
 {
-    public static void MapCustomerFeedbackCategoryReoute(this IEndpointRouteBuilder app)
+    public static void MapCustomerFeedbackCategoryRoute(this IEndpointRouteBuilder app)
     {
         RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedbackCategory").EnableOpenApiWithAuthentication().WithOpenApi();
 
@@ -13,7 +10,6 @@ public static class CustomerFeedbackCategoryReoute
         {
             try
             {
-
                 var id = mediator.Send(new DecodeTokenQuery
                 {
                     Token = httpContext.Request.Headers["Authorization"].ToString(),
@@ -23,7 +19,6 @@ public static class CustomerFeedbackCategoryReoute
                 return id.Result.Match(
                     UserId =>
                     {
-
                         var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
                             UserId = UserId
@@ -31,35 +26,31 @@ public static class CustomerFeedbackCategoryReoute
 
                         return business.Result.Match(bId =>
                         {
-
                             var result = mediator.Send(new AllCustomerFeedbackCategoriesQuery
                             {
                                 BusinessId = bId.Id
                             });
 
-                            Console.WriteLine(result);
-                            Console.WriteLine(result.Result);
-
 
                             return result.Result.Match(
-                               succes =>
-                               Results.Ok(new
-                               {
-                                   Valid = true,
-                                   Message = "Show All Customer Feedback Categories.",
-                                   Data = succes
-                               }),
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Product Categories.",
+                                    Data = succes
+                                }),
                                 error => Results.BadRequest(new ErrorResponse
                                 {
                                     Valid = false,
                                     Exceptions = error
                                 }));
                         },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
@@ -172,7 +163,7 @@ public static class CustomerFeedbackCategoryReoute
             }
         });
 
-        plan.MapPost("/CustomerFeedbackCategorySearchByItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/CustomerFeedbackCategorySearchByItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -185,19 +176,38 @@ public static class CustomerFeedbackCategoryReoute
                 return id.Result.Match(
                     UserId =>
                     {
-                        var result = mediator.Send(new CustomerFeedbackCategoryBySearchItemQuery { Q = q.ToLower() });
-                        return result.Result.Match(
-                            succes => Results.Ok(new
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+
+                        return business.Result.Match(bId =>
+                        {
+                            var result = mediator.Send(new CustomerFeedbackCategoryBySearchItemQuery
                             {
-                                Valid = true,
-                                Message = "Show Customer Feedback Category By Id",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
+                                Q = q,
+                                BusinessId = bId.Id
+                            });
+
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "Show All Customer Feedback Category By Search Item.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                            exception => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = error
+                                Exceptions = exception
                             }));
+
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {
