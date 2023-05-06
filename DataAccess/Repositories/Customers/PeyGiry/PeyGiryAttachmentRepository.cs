@@ -55,13 +55,10 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
     {
         try
         {
-            PeyGiryAttachment item = new()
-            {
-                Id = request.Id,
-                IdPeyGiry = request.PeyGiryNoteId,
-                FileName = request.FileName,
-                Extenstion = request.Extenstion
-            };
+            PeyGiryAttachment item = await _context.PeyGiryAttachments.FindAsync(request.Id);
+            item.IdPeyGiry = request.PeyGiryNoteId;
+            item.FileName = request.FileName;
+            item.Extenstion = request.Extenstion;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

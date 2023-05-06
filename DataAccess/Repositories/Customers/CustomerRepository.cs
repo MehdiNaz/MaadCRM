@@ -14,6 +14,8 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var result = await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId)
+                .Include(x=>x.IdCityNavigation)
+                .Include(x=>x.CustomerMoaref)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -29,7 +31,9 @@ public class CustomerRepository : ICustomerRepository
                     MoshtaryMoAref = x.CustomerMoarefId,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CityId = x.IdCity,
-                    Gender = x.Gender
+                    Gender = x.Gender,
+                    CityName = x.IdCityNavigation.CityName,
+                    MoarefName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
                 }).ToListAsync();
             return result;
         }

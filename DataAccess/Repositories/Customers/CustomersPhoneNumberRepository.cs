@@ -55,13 +55,10 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
     {
         try
         {
-            CustomersPhoneNumber item = new()
-            {
-                Id = request.Id,
-                PhoneNo = request.PhoneNo,
-                IdCustomer = request.CustomerId,
-                PhoneType = PhoneTypes.Phone
-            };
+            CustomersPhoneNumber item = await _context.CustomersPhoneNumbers.FindAsync(request.Id);
+            item.PhoneNo = request.PhoneNo;
+            item.IdCustomer = request.CustomerId;
+            item.PhoneType = PhoneTypes.Phone;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

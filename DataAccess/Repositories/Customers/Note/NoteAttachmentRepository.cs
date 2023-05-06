@@ -55,13 +55,10 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
     {
         try
         {
-            CustomerNoteAttachment item = new()
-            {
-                Id = request.Id,
-                IdCustomerNote = request.CustomerNoteId,
-                FileName = request.FileName,
-                Extenstion = request.Extenstion
-            };
+            CustomerNoteAttachment item = await _context.NoteAttachments.FindAsync(request.Id);
+            item.IdCustomerNote = request.CustomerNoteId;
+            item.FileName = request.FileName;
+            item.Extenstion = request.Extenstion;
             _context.Update(item);
             await _context.SaveChangesAsync();
             return item;

@@ -60,16 +60,14 @@ public class PlanRepository : IPlanRepository
     {
         try
         {
-            Plan plan = new()
-            {
-                PlanName = request.PlanName,
-                CountOfUsers = request.CountOfUsers,
-                PriceOfUsers = request.PriceOfUsers,
-                CountOfDay = request.CountOfDay,
-                PriceOfDay = request.PriceOfDay,
-                UserId = request.UserId,
-                PriceFinal = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay
-            };
+            Plan plan = await _context.Plans.FindAsync(request.Id);
+            plan.PlanName = request.PlanName;
+            plan.CountOfUsers = request.CountOfUsers;
+            plan.PriceOfUsers = request.PriceOfUsers;
+            plan.CountOfDay = request.CountOfDay;
+            plan.PriceOfDay = request.PriceOfDay;
+            plan.UserId = request.UserId;
+            plan.PriceFinal = request.CountOfUsers * request.PriceOfUsers + request.CountOfDay * request.PriceOfDay;
             _context.Update(plan);
             await _context.SaveChangesAsync();
             return plan;

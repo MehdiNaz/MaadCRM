@@ -39,11 +39,10 @@ public class ProductCustomerFavoritesListRepository : IProductCustomerFavoritesL
     {
         try
         {
-            ProductCustomerFavoritesList item = new()
-            {
-                IdProduct = request.ProductId,
-                IdCustomer = request.CustomerId
-            };
+            ProductCustomerFavoritesList item =
+                await _context.ProductCustomerFavoritesLists.FindAsync(request.ProductId);
+                item.IdProduct = request.ProductId;
+            item.IdCustomer = request.CustomerId;
             _context.Update(item);
             await _context.SaveChangesAsync();
             return item;
