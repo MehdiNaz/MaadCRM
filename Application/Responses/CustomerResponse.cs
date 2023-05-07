@@ -11,7 +11,6 @@ public struct CustomerResponse
     public string Address { get; set; }
     public Ulid? CityId { get; set; }
     public string CityName { get; set; }
-    public string MoarefName { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public Status CustomerStatus { get; set; }
@@ -19,6 +18,9 @@ public struct CustomerResponse
     public DateTime? From { get; set; }
     public DateTime? UpTo { get; set; }
     public Ulid? MoshtaryMoAref { get; set; }
+    public string MoarefFullName { get; set; }
+    public Ulid ProductId { get; set; }
+    public string ProductName { get; set; }
 
     public DateTime? DateCreated { get; set; }
     // public Ulid? ProductCustomerFavorite { get; set; }

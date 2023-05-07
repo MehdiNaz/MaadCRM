@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace Application.Services.ForoshOrderService.QueryHandler;
+﻿namespace Application.Services.ForoshOrderService.QueryHandler;
 
 public readonly struct GetAllForoshOrdersHandler : IRequestHandler<GetAllForoshOrdersQuery, ICollection<ForooshOrder?>>
 {

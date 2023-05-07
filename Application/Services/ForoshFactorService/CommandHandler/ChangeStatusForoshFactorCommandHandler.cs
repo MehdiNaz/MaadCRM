@@ -1,8 +1,6 @@
-﻿using Domain.Models.Customers.Foroosh;
+﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-namespace Application.Services.ForoshFactorService.CommandHandler;
-
-public readonly struct ChangeStatusForoshFactorCommandHandler : IRequestHandler<ChangeStatusForoshFactorCommand, ForooshFactor?>
+public readonly struct ChangeStatusForoshFactorCommandHandler : IRequestHandler<ChangeStatusForoshFactorCommand, Result<ForooshFactor>>
 {
     private readonly IForoshFactorRepository _repository;
 
@@ -11,6 +9,17 @@ public readonly struct ChangeStatusForoshFactorCommandHandler : IRequestHandler<
         _repository = repository;
     }
 
-    public async Task<ForooshFactor?> Handle(ChangeStatusForoshFactorCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusForoshFactorByIdAsync(request);
+    public async Task<Result<ForooshFactor>> Handle(ChangeStatusForoshFactorCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.ChangeStatusForoshFactorByIdAsync(request))
+                .Match(result => new Result<ForooshFactor>(result),
+                    exception => new Result<ForooshFactor>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshFactor>(new Exception(e.Message));
+        }
+    }
 }

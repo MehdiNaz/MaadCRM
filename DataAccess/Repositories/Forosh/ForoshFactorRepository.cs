@@ -9,37 +9,53 @@ public class ForoshFactorRepository : IForoshFactorRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ForooshFactor?>> GetAllForoshFactorsAsync()
-        => await _context.ForoshFactors.Where(x => x.StatusForooshFactor == Status.Show).ToListAsync();
-
-    public async ValueTask<ForooshFactor?> GetForoshFactorByIdAsync(Ulid foroshFactorId)
-        => await _context.ForoshFactors.SingleOrDefaultAsync(x => x.Id == foroshFactorId && x.StatusForooshFactor == Status.Show);
-
-    public async ValueTask<ForooshFactor?> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request)
+    public async ValueTask<Result<ICollection<ForooshFactor>>> GetAllForoshFactorsAsync()
     {
         try
         {
-            var item = await _context.ForoshFactors!.FindAsync(request.Id);
-            if (item is null) return null;
-            item.StatusForooshFactor = request.ForoshFactorStatus;
-            await _context.SaveChangesAsync();
-            return item;
+            return await _context.ForoshFactors.Where(x => x.StatusForooshFactor == Status.Show).ToListAsync();
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ICollection<ForooshFactor>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshFactor?> CreateForoshFactorAsync(CreateForoshFactorCommand request)
+    public async ValueTask<Result<ForooshFactor>> GetForoshFactorByIdAsync(Ulid foroshFactorId)
+    {
+        try
+        {
+            return await _context.ForoshFactors.SingleOrDefaultAsync(x => x.Id == foroshFactorId && x.StatusForooshFactor == Status.Show);
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshFactor>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<ForooshFactor>> ChangeStatusForoshFactorByIdAsync(ChangeStatusForoshFactorCommand request)
+    {
+        try
+        {
+            var item = await _context.ForoshFactors.FindAsync(request.Id);
+            if (item is null) return new Result<ForooshFactor>(new ValidationException(ResultErrorMessage.NotFound));
+            item.StatusForooshFactor = request.ForoshFactorStatus;
+            await _context.SaveChangesAsync();
+
+            return item;
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshFactor>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<ForooshFactor>> CreateForoshFactorAsync(CreateForoshFactorCommand request)
     {
         try
         {
             ForooshFactor item = new()
             {
-                Price = request.Price,
-                DiscountPrice = request.DiscountPrice,
-                PriceTotal = request.FinalTotal,
                 IdCustomer = request.CustomerId,
                 IdCustomerAddress = request.CustomersAddressId
             };
@@ -47,21 +63,18 @@ public class ForoshFactorRepository : IForoshFactorRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshFactor>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshFactor?> UpdateForoshFactorAsync(UpdateForoshFactorCommand request)
+    public async ValueTask<Result<ForooshFactor>> UpdateForoshFactorAsync(UpdateForoshFactorCommand request)
     {
         try
         {
             ForooshFactor item = await _context.ForoshFactors.FindAsync(request.Id);
-           
-            item.Price = request.Price;
-            item.DiscountPrice = request.DiscountPrice;
-            item.PriceTotal = request.FinalTotal;
+
             item.IdCustomer = request.CustomerId;
             item.IdCustomerAddress = request.CustomersAddressId;
 
@@ -69,13 +82,13 @@ public class ForoshFactorRepository : IForoshFactorRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshFactor>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshFactor?> DeleteForoshFactorAsync(Ulid id)
+    public async ValueTask<Result<ForooshFactor>> DeleteForoshFactorAsync(Ulid id)
     {
         try
         {
@@ -84,9 +97,9 @@ public class ForoshFactorRepository : IForoshFactorRepository
             await _context.SaveChangesAsync();
             return foroshFactor;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshFactor>(new ValidationException(e.Message));
         }
     }
 }

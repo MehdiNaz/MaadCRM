@@ -1,8 +1,6 @@
-﻿using Domain.Models.Customers.Foroosh;
+﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-namespace Application.Services.ForoshFactorService.CommandHandler;
-
-public readonly struct UpdateForoshFactorCommandHandler : IRequestHandler<UpdateForoshFactorCommand, ForooshFactor>
+public readonly struct UpdateForoshFactorCommandHandler : IRequestHandler<UpdateForoshFactorCommand, Result<ForooshFactor>>
 {
     private readonly IForoshFactorRepository _repository;
 
@@ -11,17 +9,24 @@ public readonly struct UpdateForoshFactorCommandHandler : IRequestHandler<Update
         _repository = repository;
     }
 
-    public async Task<ForooshFactor> Handle(UpdateForoshFactorCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ForooshFactor>> Handle(UpdateForoshFactorCommand request, CancellationToken cancellationToken)
     {
-        UpdateForoshFactorCommand item = new()
+        try
         {
-            Id = request.Id,
-            Price = request.Price,
-            DiscountPrice = request.DiscountPrice,
-            FinalTotal = request.FinalTotal,
-            CustomerId = request.CustomerId,
-            CustomersAddressId = request.CustomersAddressId
-        };
-        return await _repository.UpdateForoshFactorAsync(item);
+            UpdateForoshFactorCommand item = new()
+            {
+                Id = request.Id,
+                CustomerId = request.CustomerId,
+                CustomersAddressId = request.CustomersAddressId
+            };
+
+            return (await _repository.UpdateForoshFactorAsync(item))
+                .Match(result => new Result<ForooshFactor>(result),
+                    exception => new Result<ForooshFactor>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshFactor>(new Exception(e.Message));
+        }
     }
 }

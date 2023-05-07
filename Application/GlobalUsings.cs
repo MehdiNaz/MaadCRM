@@ -95,3 +95,4 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
 global using Application.Services.Customer.Feedback.CustomerFeedbackAttachmentService.Commands;
 global using Application.Services.Customer.Feedback.CustomerFeedbackAttachmentService.Queries;
+global using Domain.Models.Customers.Foroosh;

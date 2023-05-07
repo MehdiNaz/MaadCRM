@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace Application.Services.ForoshOrderService.CommandHandler;
+﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
 public readonly struct DeleteForoshOrderCommandHandler : IRequestHandler<DeleteForoshOrderCommand, ForooshOrder>
 {

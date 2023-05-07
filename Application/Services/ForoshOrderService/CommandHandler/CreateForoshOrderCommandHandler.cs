@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace Application.Services.ForoshOrderService.CommandHandler;
+﻿namespace Application.Services.ForoshOrderService.CommandHandler;
 
 public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateForoshOrderCommand, ForooshOrder>
 {
@@ -15,13 +13,10 @@ public readonly struct CreateForoshOrderCommandHandler : IRequestHandler<CreateF
     {
         CreateForoshOrderCommand item = new()
         {
-            PaymentDate = request.PaymentDate,
             Price = request.Price,
             ShippingPrice = request.ShippingPrice,
             PriceTotal = request.PriceTotal,
             DiscountPrice = request.DiscountPrice,
-            Description = request.Description,
-            PaymentMethodType = request.PaymentMethodType,
             ShippingMethodType = request.ShippingMethodType,
             ProductId = request.ProductId
         };

@@ -10,5 +10,5 @@ public readonly struct DeleteProductCustomerFavoritesListCommandHandler : IReque
     }
 
     public async Task<ProductCustomerFavoritesList> Handle(DeleteProductCustomerFavoritesListCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteProductCustomerFavoritesListAsync(request.ProductId,request.CustomerId))!;
+        => (await _repository.DeleteProductCustomerFavoritesListAsync(request.ProductId, request.CustomerId))!;
 }

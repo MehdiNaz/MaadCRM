@@ -6,101 +6,101 @@ public static class CustomerRoute
     {
         var plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
+        //plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
+        //{
+        //    try
+        //    {
+        //        var id = mediator.Send(new DecodeTokenQuery
+        //        {
+        //            Token = httpContext.Request.Headers["Authorization"].ToString(),
+        //            ReturnType = TokenReturnType.UserId
+        //        });
 
-                return id.Result.Match(
-                    userId =>
-                    {
-                        var result = mediator.Send(new AllCustomersQuery
-                        {
-                            UserId = userId
-                        });
+        //        return id.Result.Match(
+        //            userId =>
+        //            {
+        //                var result = mediator.Send(new AllCustomersQuery
+        //                {
+        //                    UserId = userId
+        //                });
 
-                        return result.Result.Match(
-                            succes => Results.Ok(new
-                            {
-                                Valid = true,
-                                Message = "Get All Customers.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
-                            {
-                                Valid = false,
-                                Exceptions = error
-                            }));
-                    },
-                    exception => Results.BadRequest(new ErrorResponse
-                    {
-                        Valid = false,
-                        Exceptions = exception
-                    }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
+        //                return result.Result.Match(
+        //                    succes => Results.Ok(new
+        //                    {
+        //                        Valid = true,
+        //                        Message = "Get All Customers.",
+        //                        Data = succes
+        //                    }),
+        //                    error => Results.BadRequest(new ErrorResponse
+        //                    {
+        //                        Valid = false,
+        //                        Exceptions = error
+        //                    }));
+        //            },
+        //            exception => Results.BadRequest(new ErrorResponse
+        //            {
+        //                Valid = false,
+        //                Exceptions = exception
+        //            }));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Results.BadRequest(new
+        //        {
+        //            Valid = false,
+        //            e.Message,
+        //            e.StackTrace
+        //        });
+        //    }
+        //});
 
-        plan.MapGet("/CustomerDashBoard", (IMediator mediator, HttpContext httpContext) =>
-        {
-            try
-            {
-                var id = mediator.Send(new DecodeTokenQuery
-                {
-                    Token = httpContext.Request.Headers["Authorization"].ToString(),
-                    ReturnType = TokenReturnType.UserId
-                });
+        //plan.MapGet("/CustomerDashBoard", (IMediator mediator, HttpContext httpContext) =>
+        //{
+        //    try
+        //    {
+        //        var id = mediator.Send(new DecodeTokenQuery
+        //        {
+        //            Token = httpContext.Request.Headers["Authorization"].ToString(),
+        //            ReturnType = TokenReturnType.UserId
+        //        });
 
-                return id.Result.Match(
-                    userId =>
-                    {
-                        var result = mediator.Send(new CustomerDashBourdQuery
-                        {
-                            UserId = userId
-                        });
+        //        return id.Result.Match(
+        //            userId =>
+        //            {
+        //                var result = mediator.Send(new CustomerDashBourdQuery
+        //                {
+        //                    UserId = userId
+        //                });
 
-                        return result.Result.Match(
-                            succes => Results.Ok(new
-                            {
-                                Valid = true,
-                                Message = "Get All Customers.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
-                            {
-                                Valid = false,
-                                Exceptions = error
-                            }));
-                    },
-                    exception => Results.BadRequest(new ErrorResponse
-                    {
-                        Valid = false,
-                        Exceptions = exception
-                    }));
-            }
-            catch (Exception e)
-            {
-                return Results.BadRequest(new
-                {
-                    Valid = false,
-                    e.Message,
-                    e.StackTrace
-                });
-            }
-        });
+        //                return result.Result.Match(
+        //                    succes => Results.Ok(new
+        //                    {
+        //                        Valid = true,
+        //                        Message = "Get All Customers.",
+        //                        Data = succes
+        //                    }),
+        //                    error => Results.BadRequest(new ErrorResponse
+        //                    {
+        //                        Valid = false,
+        //                        Exceptions = error
+        //                    }));
+        //            },
+        //            exception => Results.BadRequest(new ErrorResponse
+        //            {
+        //                Valid = false,
+        //                Exceptions = exception
+        //            }));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Results.BadRequest(new
+        //        {
+        //            Valid = false,
+        //            e.Message,
+        //            e.StackTrace
+        //        });
+        //    }
+        //});
 
         plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
             {
@@ -252,68 +252,6 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
-            {
-                try
-                {
-                    var id = mediator.Send(new DecodeTokenQuery
-                    {
-                        Token = httpContext.Request.Headers["Authorization"].ToString(),
-                        ReturnType = TokenReturnType.UserId
-                    });
-
-                    return id.Result.Match(
-                        userId =>
-                        {
-                            var result = mediator.Send(new CreateCustomerCommand
-                            {
-                                UserId = userId,
-                                FirstName = request.FirstName,
-                                LastName = request.LastName,
-                                BirthDayDate = request.BirthDayDate,
-                                CustomerPic = request.CustomerPic,
-                                CustomerCategoryId = request.CustomerCategoryId,
-                                Gender = request.Gender,
-                                CustomerMoarefId = request.CustomerMoarefId,
-                                PhoneNumbers = request.PhoneNumbers,
-                                EmailAddresses = request.EmailAddresses,
-                                FavoritesLists = request.FavoritesLists,
-                                CustomersAddresses = request.CustomersAddresses,
-                                CustomerNotes = request.CustomerNotes,
-                                CustomerPeyGiries = request.CustomerPeyGiries,
-                                CityId = request.CityId,
-                                IdUserAdded = userId,
-                                IdUserUpdated = userId
-                            });
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "New Customer Inserted.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-                }
-                catch (ArgumentException e)
-                {
-                    return Results.BadRequest(new ErrorResponse
-                    {
-                        Valid = false,
-                        Exceptions = e
-                    });
-                }
-            });
-
         plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
@@ -386,6 +324,68 @@ public static class CustomerRoute
                                 {
                                     Valid = true,
                                     Message = "Customer State doesn't Changed.",
+                                    Data = succes
+                                }),
+                                error => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = error
+                                }));
+                        },
+                        exception => Results.BadRequest(new ErrorResponse
+                        {
+                            Valid = false,
+                            Exceptions = exception
+                        }));
+                }
+                catch (ArgumentException e)
+                {
+                    return Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = e
+                    });
+                }
+            });
+
+        plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+            {
+                try
+                {
+                    var id = mediator.Send(new DecodeTokenQuery
+                    {
+                        Token = httpContext.Request.Headers["Authorization"].ToString(),
+                        ReturnType = TokenReturnType.UserId
+                    });
+
+                    return id.Result.Match(
+                        userId =>
+                        {
+                            var result = mediator.Send(new CreateCustomerCommand
+                            {
+                                UserId = userId,
+                                FirstName = request.FirstName,
+                                LastName = request.LastName,
+                                BirthDayDate = request.BirthDayDate,
+                                CustomerPic = request.CustomerPic,
+                                CustomerCategoryId = request.CustomerCategoryId,
+                                Gender = request.Gender,
+                                CustomerMoarefId = request.CustomerMoarefId,
+                                PhoneNumbers = request.PhoneNumbers,
+                                EmailAddresses = request.EmailAddresses,
+                                FavoritesLists = request.FavoritesLists,
+                                CustomersAddresses = request.CustomersAddresses,
+                                CustomerNotes = request.CustomerNotes,
+                                CustomerPeyGiries = request.CustomerPeyGiries,
+                                CityId = request.CityId,
+                                IdUserAdded = userId,
+                                IdUserUpdated = userId
+                            });
+                            return result.Result.Match(
+                                succes => Results.Ok(new
+                                {
+                                    Valid = true,
+                                    Message = "New Customer Inserted.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse

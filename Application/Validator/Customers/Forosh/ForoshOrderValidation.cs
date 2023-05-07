@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace Application.Validator.Customers.Forosh;
+﻿namespace Application.Validator.Customers.Forosh;
 
 public class ForoshOrderValidation : AbstractValidator<ForooshOrder>
 {

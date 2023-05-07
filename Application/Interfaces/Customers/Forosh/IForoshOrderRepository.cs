@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Foroosh;
-
-namespace Application.Interfaces.Customers.Forosh;
+﻿namespace Application.Interfaces.Customers.Forosh;
 
 public interface IForoshOrderRepository
 {

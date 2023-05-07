@@ -1,8 +1,6 @@
-﻿using Domain.Models.Customers.Foroosh;
+﻿namespace Application.Services.ForoshFactorService.CommandHandler;
 
-namespace Application.Services.ForoshFactorService.CommandHandler;
-
-public readonly struct DeleteForoshFactorCommandHandler : IRequestHandler<DeleteForoshFactorCommand, ForooshFactor>
+public readonly struct DeleteForoshFactorCommandHandler : IRequestHandler<DeleteForoshFactorCommand, Result<ForooshFactor>>
 {
     private readonly IForoshFactorRepository _repository;
 
@@ -11,6 +9,17 @@ public readonly struct DeleteForoshFactorCommandHandler : IRequestHandler<Delete
         _repository = repository;
     }
 
-    public async Task<ForooshFactor> Handle(DeleteForoshFactorCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteForoshFactorAsync(request.Id))!;
+    public async Task<Result<ForooshFactor>> Handle(DeleteForoshFactorCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return ((await _repository.DeleteForoshFactorAsync(request.Id)))
+                .Match(result => new Result<ForooshFactor>(result),
+                    exception => new Result<ForooshFactor>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshFactor>(new Exception(e.Message));
+        }
+    }
 }
