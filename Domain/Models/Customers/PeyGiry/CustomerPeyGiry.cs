@@ -17,7 +17,5 @@ public sealed class CustomerPeyGiry : BaseEntityWithUserUpdate
     public required Ulid IdCustomer { get; set; }
     public Customer? IdCustomerNavigation { get; set; }
 
-    public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; } 
-    
-    public uint Version { get; set; }
+    public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
 }

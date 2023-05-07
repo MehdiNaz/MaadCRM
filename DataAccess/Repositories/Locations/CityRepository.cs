@@ -14,11 +14,14 @@ public class CityRepository : ICityRepository
         try
         {
             return new Result<ICollection<CityResponse>>(await _context.Cities!.Where(x => x.CityStatus == Status.Show)
+                .Include(x => x.IdProvinceNavigation)
                 .Select(x => new CityResponse
                 {
                     CityId = x.Id,
                     CityName = x.CityName,
-                    DisplayOrder = x.DisplayOrder
+                    DisplayOrder = x.DisplayOrder,
+                    ProvinceId = x.IdProvinceNavigation.Id,
+                    ProvinceName = x.IdProvinceNavigation.ProvinceName
                 }).ToListAsync());
         }
         catch (Exception e)

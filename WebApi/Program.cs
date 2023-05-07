@@ -1,3 +1,5 @@
+using WebApi.Routes.Customers.Foroosh;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -74,6 +76,7 @@ app.MapContactGroupRoute();
 app.MapCustomerFeedbackRoute();
 app.MapCustomerFeedbackCategoryRoute();
 app.MapCustomerFeedbackAttachmentRoute();
+app.MapForooshFactorRoute();
 #endregion
 
 app.Run();

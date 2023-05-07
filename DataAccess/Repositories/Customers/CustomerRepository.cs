@@ -14,8 +14,8 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var result = await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId)
-                .Include(x=>x.IdCityNavigation)
-                .Include(x=>x.CustomerMoaref)
+                .Include(x => x.IdCityNavigation)
+                .Include(x => x.CustomerMoaref)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -33,7 +33,7 @@ public class CustomerRepository : ICustomerRepository
                     CityId = x.IdCity,
                     Gender = x.Gender,
                     CityName = x.IdCityNavigation.CityName,
-                    MoarefName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
+                    MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
                 }).ToListAsync();
             return result;
         }
@@ -152,24 +152,27 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var resultsListCustomer = _context.Customers
-            .Include(x => x.FavoritesLists)
-            .Select(x => new CustomerResponse
-            {
-                CustomerId = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                Address = x.CustomerAddresses.FirstOrDefault().Address,
-                CustomerStateType = x.CustomerState,
-                CustomerStatus = x.CustomerStatus,
-                From = x.DateCreated,
-                UpTo = DateTime.UtcNow,
-                BirthDayDate = x.BirthDayDate,
-                CityId = x.IdCity,
-                Gender = x.Gender,
-                DateCreated = x.DateCreated,
-            }).AsQueryable();
+                .Include(x => x.CustomerMoaref)
+                .Include(x => x.FavoritesLists)
+                .Select(x => new CustomerResponse
+                {
+                    CustomerId = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                    Address = x.CustomerAddresses.FirstOrDefault().Address,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatus = x.CustomerStatus,
+                    From = x.DateCreated,
+                    UpTo = DateTime.UtcNow,
+                    BirthDayDate = x.BirthDayDate,
+                    CityId = x.IdCity,
+                    Gender = x.Gender,
+                    DateCreated = x.DateCreated,
+                    MoshtaryMoAref = x.CustomerMoaref.Id,
+                    MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
+                }).AsQueryable();
 
             var test = resultsListCustomer.ToList();
 
@@ -204,15 +207,14 @@ public class CustomerRepository : ICustomerRepository
             if (request is { Gender: { } })
                 resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
 
-            // if (request is { ProvinceId: { } })
-            //     resultsListCustomer = resultsListCustomer.Where(x => x.ProvinceId == request.ProvinceId);
-
             if (request is { CityId: { } })
                 resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
 
-            // if (request is { Id: { } })
-            //     resultsListCustomer = resultsListCustomer.Where(x => x.Id == request.Id);
-            //
+            //if (request is { ProductCustomerFavorite: { } })
+            //{
+            //    resultsListCustomer= resultsListCustomer.Where(x=>x.ProductId=;
+            //}
+            // TODO: Add Favirout List
 
             await resultsListCustomer.ToListAsync();
 
@@ -225,8 +227,7 @@ public class CustomerRepository : ICustomerRepository
                 RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
                 NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
                 DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
-                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar),
-
+                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             };
             return result;
         }

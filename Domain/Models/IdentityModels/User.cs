@@ -13,6 +13,12 @@ public class User : IdentityUser
         CustomerNotesAdded = new HashSet<CustomerNote>();
         CustomerNotesUpdated = new HashSet<CustomerNote>();
 
+        ForooshOrdersAdded = new HashSet<ForooshOrder>();
+        ForooshOrdersUpdated = new HashSet<ForooshOrder>();
+
+        ForooshFactorsAdded = new HashSet<ForooshFactor>();
+        ForooshFactorsUpdated = new HashSet<ForooshFactor>();
+
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
 
@@ -66,6 +72,12 @@ public class User : IdentityUser
 
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesAdded { get; }
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesUpdated { get; }
+
+    public IEnumerable<ForooshFactor>? ForooshFactorsAdded { get; }
+    public IEnumerable<ForooshFactor>? ForooshFactorsUpdated { get; }
+
+    public IEnumerable<ForooshOrder>? ForooshOrdersAdded { get; }
+    public IEnumerable<ForooshOrder>? ForooshOrdersUpdated { get; }
 
 
     //public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }

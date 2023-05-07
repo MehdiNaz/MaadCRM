@@ -16,8 +16,4 @@ public class PeyGiryAttachment : BaseEntity
     
     public Ulid IdPeyGiry { get; set; }
     public virtual CustomerPeyGiry? IdCustomerPeyGiryNavigation { get; set; }
-    
-    
-    public uint Version { get; set; }
-
 }

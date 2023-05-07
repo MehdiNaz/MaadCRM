@@ -18,6 +18,4 @@ public class CustomersPhoneNumber : BaseEntity
     public Ulid IdCustomer { get; set; }
 
     public virtual Customer? IdCustomerNavigation { get; set; }
-    
-    public uint Version { get; set; }
 }

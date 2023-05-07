@@ -23,7 +23,4 @@ public class CustomerNote : BaseEntityWithUserUpdate
 
     public virtual ICollection<CustomerNoteHashTag>? NoteHashTags { get; set; }
     public virtual ICollection<CustomerNoteAttachment>? NoteAttachments { get; set; }
-
-
-    public uint Version { get; set; }
 }

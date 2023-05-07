@@ -20,7 +20,5 @@ public class CustomerAddress : BaseEntity
     public required Ulid IdCustomer { get; set; }
     public Customer? IdCustomerNavigation { get; set; }
     
-    public virtual ICollection<ForooshFactor>? ForooshFactors { get; set; }  
-
-    public uint Version { get; set; }
+    public virtual ICollection<ForooshFactor>? ForooshFactors { get; set; }
 }

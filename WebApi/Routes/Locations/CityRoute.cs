@@ -72,7 +72,7 @@ public static class CityRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Get Customers Note By Id",
+                                    Message = "Get City By Id",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -97,5 +97,51 @@ public static class CityRoute
                 });
             }
         });
+
+        plan.MapGet("/ByProvinceId/{provinceId}", (Ulid provinceId, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new ShowCitiesByIdProvinceQuery { ProvinceId = provinceId });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Show Cities By Province Id",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
+
     }
 }

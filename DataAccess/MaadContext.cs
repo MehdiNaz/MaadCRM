@@ -41,8 +41,9 @@ public class MaadContext : IdentityDbContext
     public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
     public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
-    public DbSet<ForooshOrder> ForoshOrders { get; set; }
-    public DbSet<ForooshFactor> ForoshFactors { get; set; }
+    public DbSet<ForooshOrder> ForooshOrders { get; set; }
+    public DbSet<ForooshFactor> ForooshFactors { get; set; }
+    public DbSet<Payment> Payments { get; set; }
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }
     public DbSet<CustomerFeedbackCategory> CustomerFeedbackCategories { get; set; }
@@ -99,6 +100,7 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new ForooshOrderMapping());
         builder.ApplyConfiguration(new ForooshFactorMapping());
+        builder.ApplyConfiguration(new PaymentMapping());
 
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
@@ -118,7 +120,7 @@ public class MaadContext : IdentityDbContext
             }
         }
             
-        new DbInitializer(builder, this).Seed();
+        new DbInitializer(builder).Seed();
 
 
         base.OnModelCreating(builder);

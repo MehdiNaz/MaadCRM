@@ -15,7 +15,4 @@ public class CustomerNoteAttachment : BaseEntity
 
     public required Ulid IdCustomerNote { get; set; }
     public virtual CustomerNote? IdCustomerNoteNavigation { get; set; }
-    
-    
-    public uint Version { get; set; }
 }

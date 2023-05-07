@@ -1,10 +1,8 @@
-﻿using Domain.Models.Customers.Foroosh;
+﻿namespace Application.Validator.Customers.Foroosh;
 
-namespace Application.Validator.Customers.Forosh;
-
-public class ForoshOrderValidation : AbstractValidator<ForooshOrder>
+public class ForooshOrderValidation : AbstractValidator<ForooshOrder>
 {
-    public ForoshOrderValidation()
+    public ForooshOrderValidation()
     {
         RuleFor(x => x.Price).NotEmpty();
         RuleFor(x => x.PriceShipping).NotEmpty();
