@@ -55,12 +55,9 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
     {
         try
         {
-            CustomersEmailAddress item =aw _context.CustomersEmailAddresses
-            {
-                Id = request.Id,
-                CustomerEmailAddress = request.EmailAddress,
-                IdCustomer = request.CustomerId
-            };
+            CustomersEmailAddress item = await _context.CustomersEmailAddresses.FindAsync(request.Id);
+
+            item.CustomerEmailAddress = request.EmailAddress;
 
             _context.Update(item);
             await _context.SaveChangesAsync();
