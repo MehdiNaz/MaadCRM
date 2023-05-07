@@ -56,11 +56,23 @@ public class ForoshFactorRepository : IForoshFactorRepository
         {
             ForooshFactor item = new()
             {
+                Amount = request.Amount,
+                AmountTax = request.AmountTax,
+                AmountTotal = request.AmountTotal,
+                PaymentMethod = request.PaymentMethod,
+                ShippingMethodType = request.ShippingMethodType,
                 IdCustomer = request.CustomerId,
                 IdCustomerAddress = request.CustomersAddressId
             };
-            await _context.ForoshFactors!.AddAsync(item);
+            await _context.ForoshFactors.AddAsync(item);
             await _context.SaveChangesAsync();
+
+
+            //if (request.PaymentMethodTypes==)
+            //{
+
+            //}
+
             return item;
         }
         catch (Exception e)
