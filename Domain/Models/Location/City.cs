@@ -15,9 +15,6 @@ public class City : BaseEntity
     public uint DisplayOrder { get; set; }
     public Ulid IdProvince { get; set; }
     public Status CityStatus { get; set; }
-    public uint Version { get; set; }
-
-
 
 
     public virtual Province IdProvinceNavigation { get; set; }

@@ -21,7 +21,7 @@ public static class ProvinceRoute
                 return id.Result.Match(
                         UserId =>
                         {
-                            var result = mediator.Send(new GetAllCitiesQuery());
+                            var result = mediator.Send(new GetAllProvincesQuery());
 
                             return result.Result.Match(
                                 succes => Results.Ok(new
