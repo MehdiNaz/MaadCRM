@@ -79,7 +79,6 @@ public class LoginRepository : ILoginRepository
 
             await _userManager.UpdateAsync(result);
 
-            // TODO: Send SMS
             await SendVerifySms(SmsType.Verify, request.Phone, result.OtpPassword);
 
             Console.WriteLine("OTP: " + result.OtpPassword);
@@ -97,7 +96,10 @@ public class LoginRepository : ILoginRepository
         try
         {
             var result = await _userManager.FindByNameAsync(request.Phone);
-            if (result == null || result.OtpPasswordExpired < DateTime.UtcNow)
+            if (result?.OtpPassword != request.Code)
+                return new Result<User>(new ValidationException("کد وارد شده صحیح نیست"));
+            
+            if (result.OtpPasswordExpired < DateTime.UtcNow)
                 return new Result<User>(new ValidationException("کد وارد شده منقضی شده است"));
 
             var userRoles = await _userManager.GetRolesAsync(result);
