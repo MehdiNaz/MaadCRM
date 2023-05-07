@@ -59,11 +59,9 @@ public class NoteHashTagRepository : INoteHashTagRepository
     {
         try
         {
-            CustomerNoteHashTag item = new()
-            {
-                IdCustomerNote = request.CustomerNoteId,
-                IdNoteHashTable = request.NoteHashTableId
-            };
+            CustomerNoteHashTag item = await _context.NoteHashTags.FindAsync(request.Id);
+            item.IdCustomerNote = request.CustomerNoteId;
+            item.IdNoteHashTable = request.NoteHashTableId;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

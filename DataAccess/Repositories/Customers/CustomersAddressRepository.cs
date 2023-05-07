@@ -57,15 +57,11 @@ public class CustomersAddressRepository : ICustomersAddressRepository
     {
         try
         {
-            CustomerAddress item = new()
-            {
-                Id = request.Id,
-                Address = request.Address,
-                CodePost = request.CodePost,
-                PhoneNo = request.PhoneNo,
-                Description = request.Description,
-                IdCustomer = request.CustomerId
-            };
+            CustomerAddress item = await _context.CustomersAddresses.FindAsync(request.Id);
+            item.Address = request.Address;
+            item.CodePost = request.CodePost;
+            item.PhoneNo = request.PhoneNo;
+            item.Description = request.Description;
             _context.Update(item);
             await _context.SaveChangesAsync();
             return item;

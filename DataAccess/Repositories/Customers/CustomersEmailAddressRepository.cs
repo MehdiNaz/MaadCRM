@@ -55,7 +55,7 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
     {
         try
         {
-            CustomersEmailAddress item = new()
+            CustomersEmailAddress item =aw _context.CustomersEmailAddresses
             {
                 Id = request.Id,
                 CustomerEmailAddress = request.EmailAddress,

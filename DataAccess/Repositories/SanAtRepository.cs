@@ -54,11 +54,10 @@ public class SanAtRepository : ISanAtRepository
     {
         try
         {
-            SanAt item = new()
-            {
-                SanAtName = request.SanAtName,
-                UserId = request.UserId
-            };
+            SanAt item = await _context.SanAts.FindAsync(request.Id);
+
+            item.SanAtName = request.SanAtName;
+            item.UserId = request.UserId;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

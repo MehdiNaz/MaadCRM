@@ -57,15 +57,13 @@ public class ForoshFactorRepository : IForoshFactorRepository
     {
         try
         {
-            ForooshFactor item = new()
-            {
-                Id = request.Id,
-                Price = request.Price,
-                DiscountPrice = request.DiscountPrice,
-                PriceTotal = request.FinalTotal,
-                IdCustomer = request.CustomerId,
-                IdCustomerAddress = request.CustomersAddressId
-            };
+            ForooshFactor item = await _context.ForoshFactors.FindAsync(request.Id);
+           
+            item.Price = request.Price;
+            item.DiscountPrice = request.DiscountPrice;
+            item.PriceTotal = request.FinalTotal;
+            item.IdCustomer = request.CustomerId;
+            item.IdCustomerAddress = request.CustomersAddressId;
 
             _context.Update(item);
             await _context.SaveChangesAsync();

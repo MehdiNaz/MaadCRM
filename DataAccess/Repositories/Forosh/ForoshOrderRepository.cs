@@ -64,20 +64,17 @@ public class ForoshOrderRepository : IForoshOrderRepository
         try
         {
             // TODO: add Id Factor
-            ForooshOrder item = new()
-            {
-                Id = request.Id,
-                DatePayment = request.PaymentDate,
-                Price = request.Price,
-                PriceShipping = request.ShippingPrice,
-                PriceTotal = request.PriceTotal,
-                PriceDiscount = request.DiscountPrice,
-                Description = request.Description,
-                PaymentMethodType = request.PaymentMethodType,
-                ShippingMethodType = request.ShippingMethodType,
-                IdProduct = request.ProductId,
-                IdForooshFactor = default
-            };
+            ForooshOrder item = await _context.ForoshOrders.FindAsync(request.Id);
+            item.DatePayment = request.PaymentDate;
+            item.Price = request.Price;
+            item.PriceShipping = request.ShippingPrice;
+            item.PriceTotal = request.PriceTotal;
+            item.PriceDiscount = request.DiscountPrice;
+            item.Description = request.Description;
+            item.PaymentMethodType = request.PaymentMethodType;
+            item.ShippingMethodType = request.ShippingMethodType;
+            item.IdProduct = request.ProductId;
+            item.IdForooshFactor = default;
             _context.Update(item);
             await _context.SaveChangesAsync();
             return item;

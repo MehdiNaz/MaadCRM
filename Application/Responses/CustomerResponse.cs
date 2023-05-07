@@ -10,6 +10,8 @@ public struct CustomerResponse
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
     public Ulid? CityId { get; set; }
+    public string CityName { get; set; }
+    public string MoarefName { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public Status CustomerStatus { get; set; }
