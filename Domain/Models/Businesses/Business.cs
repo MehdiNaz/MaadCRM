@@ -10,6 +10,7 @@ public class Business : BaseEntity
         CustomerNoteHashTables = new HashSet<CustomerNoteHashTable>();
         ProductCategories = new HashSet<ProductCategory>();
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
+        Attributes = new HashSet<Attribute>();
     }
 
     public Ulid Id { get; set; }
@@ -29,6 +30,12 @@ public class Business : BaseEntity
     public virtual ICollection<User>? Users { get; set; }
 
     public virtual ICollection<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; set; }
+    public virtual ICollection<Attribute>? Attributes { get; set; }
+
+
+
+
+
 
     //public Ulid? AttributeOptionsValueId { get; set; }
     //public Ulid? BusinessAttributeId { get; set; }

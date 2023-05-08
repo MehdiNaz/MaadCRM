@@ -51,8 +51,6 @@ public static class RepositoryConfiguration
         //Application ==> Interfaces ==> SpecialFields
         collection.AddTransient<IAttributeOptionsRepository, AttributeOptionsRepository>();
         collection.AddTransient<IAttributeOptionsValueRepository, AttributeOptionsValueRepository>();
-        collection.AddTransient<IBusinessAttributeRepository, BusinessAttributeRepository>();
-        collection.AddTransient<ICategoryAttributeRepository, CategoryAttributeRepository>();
 
         collection.AddTransient<IContactGroupRepository, ContactGroupRepository>();
         collection.AddTransient<IContactRepository, ContactRepository>();

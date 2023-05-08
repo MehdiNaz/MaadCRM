@@ -22,6 +22,9 @@ public class User : IdentityUser
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
 
+        AttributeAdded = new HashSet<Attribute>();
+        AttributeUpdated = new HashSet<Attribute>();
+
         //CustomerFeedbacks = new HashSet<CustomerFeedback>();
         //CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
         //CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
@@ -79,6 +82,8 @@ public class User : IdentityUser
     public IEnumerable<ForooshOrder>? ForooshOrdersAdded { get; }
     public IEnumerable<ForooshOrder>? ForooshOrdersUpdated { get; }
 
+    public IEnumerable<Attribute>? AttributeAdded { get; }
+    public IEnumerable<Attribute>? AttributeUpdated { get; }
 
     //public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
     //public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
