@@ -1,8 +1,8 @@
 ﻿namespace Domain.Mapping.SpecialFields;
 
-public class AttributeOptionsValueMapping : IEntityTypeConfiguration<AttributeOptionsValue>
+public class AttributeOptionsValueMapping : IEntityTypeConfiguration<AttributeOptionValue>
 {
-    public void Configure(EntityTypeBuilder<AttributeOptionsValue> builder)
+    public void Configure(EntityTypeBuilder<AttributeOptionValue> builder)
     {
         builder.ToTable("AttributeOptionsValues");
         builder.HasKey(x => x.AttributeOptionsValueId);

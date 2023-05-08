@@ -1,6 +1,6 @@
 ﻿namespace Application.Validator.SpecialFields;
 
-public class AttributeOptionsValueValidation : AbstractValidator<AttributeOptionsValue>
+public class AttributeOptionsValueValidation : AbstractValidator<AttributeOptionValue>
 {
     public AttributeOptionsValueValidation()
     {

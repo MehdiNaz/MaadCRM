@@ -1,27 +1,18 @@
 ﻿namespace Domain.Models.SpecialFields;
 
-public class AttributeOptionsValue : BaseEntity
+public class AttributeOptionValue : BaseEntity
 {
-    public AttributeOptionsValue()
+    public AttributeOptionValue()
     {
-        AttributeOptionsValueId = Ulid.NewUlid();
-        AttributeOptionsValueStatus = Status.Show;
+        Id = Ulid.NewUlid();
+        Status = Status.Show;
     }
 
-    public Ulid AttributeOptionsValueId { get; set; }
-    public int ForCustomerId { get; set; }
-    public string AttributeDescriptionValue { get; set; }
-    public string AttributeXMLValue { get; set; }
-    public string AttributeJsonValue { get; set; }
-    public int? FileId { get; set; }
-    public int? PictureId { get; set; }
-    public string FilePath { get; set; }
-    public string ImagePath { get; set; }
-    public Ulid AttributeOptionId { get; set; }
-    public Status AttributeOptionsValueStatus { get; set; }
+    public Ulid Id { get; set; }
+    public required string Value { get; set; }
+    public string? FilePath { get; set; }
+    public Status Status { get; set; }
 
-
-    //public Business Business { get; set; }
-    //public Customer Customer { get; set; }
-    //public AttributeOptions AttributeOptions { get; set; }
+    public Ulid? IdAttributeOption { get; set; }
+    public AttributeOption? AttributeOptions { get; set; }
 }
