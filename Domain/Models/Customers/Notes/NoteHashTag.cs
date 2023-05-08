@@ -17,7 +17,4 @@ public class CustomerNoteHashTag : BaseEntity
 
     public Ulid IdNoteHashTable { get; set; }
     public virtual CustomerNoteHashTable? IdNoteHashTableNavigation { get; set; }
-
-
-    public uint Version { get; set; }
 }

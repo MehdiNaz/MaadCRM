@@ -33,8 +33,9 @@ public static class RepositoryConfiguration
         collection.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
 
 
-        collection.AddTransient<IForoshOrderRepository, ForoshOrderRepository>();
-        collection.AddTransient<IForoshFactorRepository, ForoshFactorRepository>();
+        collection.AddTransient<IForooshOrderRepository, ForooshOrderRepository>();
+        collection.AddTransient<IForooshFactorRepository, ForooshFactorRepository>();
+        collection.AddTransient<IPaymentRepository, PaymentRepository>();
 
 
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();

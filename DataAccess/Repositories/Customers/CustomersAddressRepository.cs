@@ -10,7 +10,10 @@ public class CustomersAddressRepository : ICustomersAddressRepository
     }
 
     public async ValueTask<ICollection<CustomerAddress?>> GetAllAddressesAsync(Ulid customerId)
-        => await _context.CustomersAddresses.Where(x => x.StatusCustomersAddress == Status.Show && x.IdCustomer == customerId).ToListAsync();
+    {
+        var result = await _context.CustomersAddresses.Where(x => x.StatusCustomersAddress == Status.Show && x.IdCustomer == customerId).ToListAsync();
+        return result;
+    }
 
     public async ValueTask<CustomerAddress?> GetAddressByIdAsync(Ulid customersAddressId)
         => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.StatusCustomersAddress == Status.Show);

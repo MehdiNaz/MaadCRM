@@ -16,6 +16,4 @@ public class CustomerNoteHashTable : BaseEntity
     public virtual Business? IdBusinessNavigation { get; set; }
     
     public virtual ICollection<CustomerNoteHashTag>? CustomerNoteHashTags { get; set; }
-
-    public uint Version { get; set; }
 }

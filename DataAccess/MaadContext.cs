@@ -41,8 +41,8 @@ public class MaadContext : IdentityDbContext
     public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
     public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
-    public DbSet<ForooshOrder> ForoshOrders { get; set; }
-    public DbSet<ForooshFactor> ForoshFactors { get; set; }
+    public DbSet<ForooshOrder> ForooshOrders { get; set; }
+    public DbSet<ForooshFactor> ForooshFactors { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }

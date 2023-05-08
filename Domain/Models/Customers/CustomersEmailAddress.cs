@@ -16,6 +16,4 @@ public class CustomersEmailAddress : BaseEntity
     public required Ulid IdCustomer { get; set; }
 
     public virtual Customer? IdCustomerNavigation { get; set; }
-    
-    public uint Version { get; set; }
 }

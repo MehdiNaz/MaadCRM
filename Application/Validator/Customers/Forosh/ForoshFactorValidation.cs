@@ -1,8 +1,8 @@
-﻿namespace Application.Validator.Customers.Forosh;
+﻿namespace Application.Validator.Customers.Foroosh;
 
-public class ForoshFactorValidation : AbstractValidator<ForooshFactor>
+public class ForooshFactorValidation : AbstractValidator<ForooshFactor>
 {
-    public ForoshFactorValidation()
+    public ForooshFactorValidation()
     {
     }
 }

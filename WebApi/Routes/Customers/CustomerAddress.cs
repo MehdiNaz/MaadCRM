@@ -9,7 +9,7 @@ public static class CustomerAddressRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllCustomerAddress/{id}", async (Ulid id, IMediator mediator) =>
+        plan.MapGet("/AllCustomerAddress/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {

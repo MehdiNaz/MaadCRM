@@ -1,8 +1,8 @@
-﻿namespace Application.Validator.Customers.Forosh;
+﻿namespace Application.Validator.Customers.Foroosh;
 
-public class ForoshOrderValidation : AbstractValidator<ForooshOrder>
+public class ForooshOrderValidation : AbstractValidator<ForooshOrder>
 {
-    public ForoshOrderValidation()
+    public ForooshOrderValidation()
     {
         RuleFor(x => x.Price).NotEmpty();
         RuleFor(x => x.PriceShipping).NotEmpty();
