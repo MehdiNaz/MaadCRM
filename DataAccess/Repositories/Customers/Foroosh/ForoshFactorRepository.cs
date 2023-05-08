@@ -132,7 +132,6 @@ public class ForooshFactorRepository : IForooshFactorRepository
 
             if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
             {
-
                 Payment payment = new()
                 {
                     PaymentAmount = request.PishPardakht,
@@ -142,35 +141,23 @@ public class ForooshFactorRepository : IForooshFactorRepository
 
                 await _context.Payments.AddAsync(payment);
 
-                var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) / request.TedadeAghsat;
+                var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
+                                    request.TedadeAghsat;
                 var paymentDate = request.ShoroAghsat;
                 // ToDo : Payment
-                for (int i = 0; i < request.TedadeAghsat; i++)
+                for (var i = 0; i < request.TedadeAghsat; i++)
                 {
-                    if (i == 0)
-                    {
-                        payment = new Payment
-                        {
-                            PaymentAmount = paymentAmount,
-                            IdForooshFactor = item.Id,
-                            DatePay = request.ShoroAghsat
-                        };
-                        await _context.Payments.AddAsync(payment);
-                    }
-
-                    paymentDate = paymentDate.AddDays(request.BazeyeZamany);
-
                     payment = new Payment
                     {
                         PaymentAmount = paymentAmount,
                         IdForooshFactor = item.Id,
                         DatePay = paymentDate
-                        ////DatePay = payment.DatePay.AddDays(request.BazeyeZamany)
                     };
                     await _context.Payments.AddAsync(payment);
+
+                    paymentDate = paymentDate.AddDays(request.BazeyeZamany);
                 }
             }
-
             else
             {
                 Payment payment = new()
@@ -183,8 +170,8 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 await _context.Payments.AddAsync(payment);
             }
 
-
             await _context.SaveChangesAsync();
+
 
             var result = await _context.ForooshFactors
                 .Select(x => new FactorInformationResponse
@@ -213,7 +200,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     //Tedad = x.ForooshOrders.FirstOrDefault().Tedad,
                 }).OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.FactorForooshId == item.Id);
 
-            return result;
+            return new Result<FactorInformationResponse>(result);
         }
         catch (Exception e)
         {
