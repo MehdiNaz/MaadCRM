@@ -15,4 +15,8 @@
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.5" />
       <PackageReference Include="Ulid" Version="1.2.6" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Undefined\SpecialFields\" />
+    </ItemGroup>
 </Project>
