@@ -81,6 +81,8 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new SettingMapping());
+        builder.ApplyConfiguration(new BusinessAttributeMapping());
+        builder.ApplyConfiguration(new CategoryAttributeMapping());
         builder.ApplyConfiguration(new AttributeOptionsMapping());
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());

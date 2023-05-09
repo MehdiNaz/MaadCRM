@@ -9,21 +9,21 @@ public class AttributeOptionsValueRepository : IAttributeOptionsValueRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<AttributeOptionsValue?>> GetAllAttributeOptionsValueAsync()
+    public async ValueTask<ICollection<AttributeOptionValue?>> GetAllAttributeOptionsValueAsync()
         => await _context.AttributeOptionsValues.Where(x => x.AttributeOptionsValueStatus == Status.Show).ToListAsync();
 
 
-    public async ValueTask<AttributeOptionsValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId) 
+    public async ValueTask<AttributeOptionValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId) 
         => await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId);
 
-    public async ValueTask<AttributeOptionsValue?> CreateAttributeOptionsValueAsync(AttributeOptionsValue? toCreate)
+    public async ValueTask<AttributeOptionValue?> CreateAttributeOptionsValueAsync(AttributeOptionValue? toCreate)
     {
         await _context.AttributeOptionsValues!.AddAsync(toCreate);
         await _context.SaveChangesAsync();
         return toCreate;
     }
 
-    public async ValueTask<AttributeOptionsValue?> UpdateAttributeOptionsValueAsync(string updateContent, int attributeOptionsValueId)
+    public async ValueTask<AttributeOptionValue?> UpdateAttributeOptionsValueAsync(string updateContent, int attributeOptionsValueId)
     {
         var attributeOptionsValues = await GetAttributeOptionsValueByIdAsync(attributeOptionsValueId);
         _context.Update(attributeOptionsValues);
@@ -31,7 +31,7 @@ public class AttributeOptionsValueRepository : IAttributeOptionsValueRepository
         return attributeOptionsValues;
     }
 
-    public async ValueTask<AttributeOptionsValue?> DeleteAttributeOptionsValueAsync(int attributeOptionsValueId)
+    public async ValueTask<AttributeOptionValue?> DeleteAttributeOptionsValueAsync(int attributeOptionsValueId)
     {
         try
         {
