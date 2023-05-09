@@ -18,6 +18,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<Business> Businesses { get; set; }
     public DbSet<BusinessPlan> BusinessPlans { get; set; }
     public DbSet<Setting> Settings { get; set; }
+    public DbSet<Domain.Models.SpecialFields.Attribute> Attributes { get; set; }
     public DbSet<AttributeOptionsValue> AttributeOptionsValues { get; set; }
     public DbSet<AttributeOption> AttributeOptions { get; set; }
     public DbSet<CustomersPhoneNumber> CustomersPhoneNumbers { get; set; }
@@ -98,6 +99,9 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new ForooshFactorMapping());
         builder.ApplyConfiguration(new PaymentMapping());
 
+
+        builder.ApplyConfiguration(new AttributeMapping());
+
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
             // Find the properties that are our strongly-typed ID
@@ -115,7 +119,7 @@ public class MaadContext : IdentityDbContext
                     .HasConversion(new UlidToStringConverter());
             }
         }
-            
+
         new DbInitializer(builder).Seed();
 
 
