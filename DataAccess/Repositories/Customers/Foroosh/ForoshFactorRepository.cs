@@ -143,16 +143,30 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 await _context.Payments.AddAsync(payment);
 
                 var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) / request.TedadeAghsat;
-
+                var paymentDate = request.ShoroAghsat;
+                // ToDo : Payment
                 for (int i = 0; i < request.TedadeAghsat; i++)
                 {
+                    if (i == 0)
+                    {
+                        payment = new Payment
+                        {
+                            PaymentAmount = paymentAmount,
+                            IdForooshFactor = item.Id,
+                            DatePay = request.ShoroAghsat
+                        };
+                        await _context.Payments.AddAsync(payment);
+                    }
+
+                    paymentDate = paymentDate.AddDays(request.BazeyeZamany);
+
                     payment = new Payment
                     {
                         PaymentAmount = paymentAmount,
                         IdForooshFactor = item.Id,
-                        DatePay = payment.DatePay.AddDays(request.BazeyeZamany)
+                        DatePay = paymentDate
+                        ////DatePay = payment.DatePay.AddDays(request.BazeyeZamany)
                     };
-
                     await _context.Payments.AddAsync(payment);
                 }
             }
@@ -197,7 +211,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     //PriceShipping = x.ForooshOrders.FirstOrDefault().PriceShipping,
                     //PriceTotal = x.ForooshOrders.FirstOrDefault().PriceTotal,
                     //Tedad = x.ForooshOrders.FirstOrDefault().Tedad,
-                }).OrderBy(x=>x.DatePayed).SingleOrDefaultAsync(x => x.FactorForooshId == item.Id);
+                }).OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.FactorForooshId == item.Id);
 
             return result;
         }
