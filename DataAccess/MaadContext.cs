@@ -18,8 +18,8 @@ public class MaadContext : IdentityDbContext
     public DbSet<Business> Businesses { get; set; }
     public DbSet<BusinessPlan> BusinessPlans { get; set; }
     public DbSet<Setting> Settings { get; set; }
-    public DbSet<Domain.Models.SpecialFields.Attribute> Attributes { get; set; }
-    public DbSet<AttributeOptionsValue> AttributeOptionsValues { get; set; }
+    public DbSet<Attribute> Attributes { get; set; }
+    public DbSet<AttributeOptionValue> AttributeOptionsValues { get; set; }
     public DbSet<AttributeOption> AttributeOptions { get; set; }
     public DbSet<CustomersPhoneNumber> CustomersPhoneNumbers { get; set; }
     public DbSet<CustomersEmailAddress> CustomersEmailAddresses { get; set; }
@@ -81,8 +81,6 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new SettingMapping());
-        builder.ApplyConfiguration(new BusinessAttributeMapping());
-        builder.ApplyConfiguration(new CategoryAttributeMapping());
         builder.ApplyConfiguration(new AttributeOptionsMapping());
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());

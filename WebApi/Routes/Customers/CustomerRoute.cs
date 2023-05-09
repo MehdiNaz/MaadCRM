@@ -267,7 +267,7 @@ public static class CustomerRoute
                         {
                             var result = mediator.Send(new ChangeStatusCustomerCommand
                             {
-                                CustomerStatus = request.CustomerStatus,
+                                CustomerStatusType = request.CustomerStatusType,
                                 CustomerId = request.CustomerId
                             });
 
@@ -275,7 +275,7 @@ public static class CustomerRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Customer Status doesn't Changed.",
+                                    Message = "Customer StatusType doesn't Changed.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse

@@ -5,12 +5,12 @@ public class CustomersEmailAddress : BaseEntity
     public CustomersEmailAddress()
     {
         Id = Ulid.NewUlid();
-        StatusCustomerEmailAddress = Status.Show;
+        StatusTypeCustomerEmailAddress = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
     public required string CustomerEmailAddress { get; set; }
-    public Status StatusCustomerEmailAddress { get; set; }
+    public StatusType StatusTypeCustomerEmailAddress { get; set; }
     
 
     public required Ulid IdCustomer { get; set; }

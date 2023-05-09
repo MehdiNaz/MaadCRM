@@ -1,6 +1,6 @@
 namespace Domain.Enum;
 
-public enum AttributeInputType
+public enum AttributeInputType : byte
 {
     [Display(Name = "فهرست کشویی")]
     DropDownList = 1,

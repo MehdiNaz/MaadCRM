@@ -5,13 +5,13 @@ public class CustomerFeedback
     public CustomerFeedback()
     {
         Id = Ulid.NewUlid();
-        CustomerFeedbackStatus = Status.Show;
+        CustomerFeedbackStatusType = StatusType.Show;
         Attachments = new HashSet<CustomerFeedbackAttachment>();
     }
 
     public Ulid Id { get; set; }
     public string? Description { get; set; }
-    public Status CustomerFeedbackStatus { get; set; }
+    public StatusType CustomerFeedbackStatusType { get; set; }
 
     public Ulid IdCategory { get; set; }
     public CustomerFeedbackCategory? Category { get; set; }

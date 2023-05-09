@@ -6,7 +6,7 @@ public sealed class Customer : BaseEntityWithUserId
     {
         Id = Ulid.NewUlid();
         CustomerState = CustomerStateTypes.Belghoveh;
-        CustomerStatus = Status.Show;
+        CustomerStatusType = StatusType.Show;
         CustomerActivationStatus = CustomerActivationStatus.Active;
         EmailAddresses = new HashSet<CustomersEmailAddress>();
         PhoneNumbers = new HashSet<CustomersPhoneNumber>();
@@ -25,7 +25,7 @@ public sealed class Customer : BaseEntityWithUserId
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
     public GenderTypes? Gender { get; set; }
-    public Status CustomerStatus { get; set; }
+    public StatusType CustomerStatusType { get; set; }
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 

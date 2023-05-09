@@ -16,13 +16,13 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             return await _context.CustomerNotes
-                .Where(x => x.CustomerNoteStatus == Status.Show && x.IdCustomer == customerId)
+                .Where(x => x.CustomerNoteStatusType == StatusType.Show && x.IdCustomer == customerId)
                 .Include(x => x.IdUserAddNavigation)
                 .Select(x => new CustomerNoteHashTableResponse
                 {
                     Id = x.Id,
                     Title = x.Description,
-                    NoteHashTagStatus = x.CustomerNoteStatus,
+                    NoteHashTagStatusType = x.CustomerNoteStatusType,
                     CreationDate = x.DateCreated,
                     UserId = x.IdUserAdded,
                     Username = x.IdUserAddNavigation.Name,
@@ -40,13 +40,13 @@ public class CustomerNoteRepository : ICustomerNoteRepository
     {
         try
         {
-            return await _context.CustomerNotes.Where(x => x.CustomerNoteStatus == Status.Show)
+            return await _context.CustomerNotes.Where(x => x.CustomerNoteStatusType == StatusType.Show)
                 .Include(x => x.IdUserAddNavigation).FirstOrDefaultAsync(x => x.Id == customerNoteId)
                 .Select(x => new CustomerNoteHashTableResponse
                 {
                     Id = x.Id,
                     Title = x.Description,
-                    NoteHashTagStatus = x.CustomerNoteStatus,
+                    NoteHashTagStatusType = x.CustomerNoteStatusType,
                     CreationDate = x.DateCreated,
                     UserId = x.IdUserAdded,
                     Username = x.IdUserAddNavigation.Name,
@@ -69,7 +69,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
 
             var item = await _context.CustomerNotes!.FindAsync(request.CustomerNoteId);
             if (item is null) return new Result<CustomerNote>(new ValidationException(ResultErrorMessage.NotFound));
-            item.CustomerNoteStatus = request.CustomerNoteStatus;
+            item.CustomerNoteStatusType = request.CustomerNoteStatusType;
             await _context.SaveChangesAsync();
             return new Result<CustomerNote>(item);
         }
@@ -169,7 +169,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             var businessPlan = await _context.CustomerNotes.FindAsync(id);
-            businessPlan.CustomerNoteStatus = Status.Deleted;
+            businessPlan.CustomerNoteStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerNote>(businessPlan);
         }

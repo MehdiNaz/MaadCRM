@@ -68,7 +68,7 @@ public static class CustomerAddressRoute
                 var result = await mediator.Send(new ChangeStatusCustomersAddressCommand
                 {
                     Id = request.Id,
-                    CustomersAddressStatus = request.CustomersAddressStatus
+                    CustomersAddressStatusType = request.CustomersAddressStatusType
                 });
                 return Results.Ok(result);
             }

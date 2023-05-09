@@ -10,10 +10,10 @@ public class PlanRepository : IPlanRepository
     }
 
     public async ValueTask<ICollection<Plan?>> GetAllPlansAsync()
-        => await _context.Plans.Where(x => x.StatusPlan == Status.Show).ToListAsync()!;
+        => await _context.Plans.Where(x => x.StatusTypePlan == StatusType.Show).ToListAsync()!;
 
     public async ValueTask<Plan?> GetPlansByIdAsync(Ulid postId)
-        => await _context.Plans.FirstOrDefaultAsync(x => x.Id == postId && x.StatusPlan == Status.Show);
+        => await _context.Plans.FirstOrDefaultAsync(x => x.Id == postId && x.StatusTypePlan == StatusType.Show);
 
     public async ValueTask<Plan?> ChangeStatusPlansByIdAsync(ChangeStatusPlanCommand request)
     {
@@ -21,7 +21,7 @@ public class PlanRepository : IPlanRepository
         {
             var item = await _context.Plans!.FindAsync(request.PlanId);
             if (item is null) return null;
-            item.StatusPlan = request.PlanStatus;
+            item.StatusTypePlan = request.PlanStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -84,7 +84,7 @@ public class PlanRepository : IPlanRepository
         {
             Plan? plan = await _context.Plans.FindAsync(id);
             //_context.Plans.Remove(plan);
-            plan.StatusPlan = Status.Deleted;
+            plan.StatusTypePlan = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return plan;
         }

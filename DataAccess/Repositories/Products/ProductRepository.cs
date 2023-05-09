@@ -13,7 +13,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            return await _context.Products.Where(x => x.StatusProduct == Status.Show)
+            return await _context.Products.Where(x => x.StatusTypeProduct == StatusType.Show)
                 .Include(c => c.ProductCategory)
                 .Where(x => x.ProductCategory.BusinessId == businessId)
                 .Select(x => new ProductResponse
@@ -42,7 +42,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var result = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusProduct == Status.Show);
+            var result = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show);
             return result;
         }
         catch (Exception e)
@@ -51,13 +51,13 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public async ValueTask<Result<Product>> ChangeStatusProductByIdAsync(Status status, Ulid productId)
+    public async ValueTask<Result<Product>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId)
     {
         try
         {
             var item = await _context.Products.FindAsync(productId);
             if (item is null) return new Result<Product>(new ValidationException(ResultErrorMessage.NotFound));
-            item.StatusProduct = status;
+            item.StatusTypeProduct = statusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -71,7 +71,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            return await _context.Products.Where(x => x.Title.ToLower().Contains(request.ToLower()) && x.StatusProduct == Status.Show).ToListAsync();
+            return await _context.Products.Where(x => x.Title.ToLower().Contains(request.ToLower()) && x.StatusTypeProduct == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -83,7 +83,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var item = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusProduct == Status.Show);
+            var item = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show);
             item.StatusPublish = request.Status;
             await _context.SaveChangesAsync();
             return item;
@@ -154,7 +154,7 @@ public class ProductRepository : IProductRepository
         try
         {
             var item = await _context.Products.FindAsync(id);
-            item.StatusProduct = Status.Deleted;
+            item.StatusTypeProduct = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return item;
         }

@@ -5,7 +5,7 @@ public class Address : BaseEntity
     public Address()
     {
         AddressId = Ulid.NewUlid();
-        AddressStatus = Status.Show;
+        AddressStatusType = StatusType.Show;
     }
 
     public Ulid AddressId { get; set; }
@@ -15,7 +15,7 @@ public class Address : BaseEntity
     public string ZipPostalCode { get; set; }
     public string Description { get; set; }
     public Ulid CityId { get; set; }
-    public Status AddressStatus { get; set; }
+    public StatusType AddressStatusType { get; set; }
 
 
     //[ForeignKey(nameof(Id))]

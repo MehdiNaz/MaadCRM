@@ -10,14 +10,14 @@ public class NoteHashTagRepository : INoteHashTagRepository
     }
 
     public async ValueTask<ICollection<CustomerNoteHashTag?>> GetAllNoteHashTagsAsync()
-        => await _context.NoteHashTags.Where(x => x.StatusNoteHashTag == Status.Show).ToListAsync();
+        => await _context.NoteHashTags.Where(x => x.StatusTypeNoteHashTag == StatusType.Show).ToListAsync();
 
     public async ValueTask<CustomerNoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
     {
         // TODO: Fix x.IdCustomerNote == noteHashTagId
         return await _context.NoteHashTags.FirstOrDefaultAsync(x =>
             x.IdNoteHashTable == noteHashTagId && x.IdCustomerNote == noteHashTagId &&
-            x.StatusNoteHashTag == Status.Show);
+            x.StatusTypeNoteHashTag == StatusType.Show);
     }
 
     public async ValueTask<CustomerNoteHashTag?> ChangeStatusNoteHashTagByIdAsync(ChangeStatusNoteHashTagCommand request)
@@ -26,7 +26,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
         {
             var item = await _context.NoteHashTags!.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusNoteHashTag = request.NoteHashTagStatus;
+            item.StatusTypeNoteHashTag = request.NoteHashTagStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -78,7 +78,7 @@ public class NoteHashTagRepository : INoteHashTagRepository
         try
         {
             var noteHashTag = await _context.NoteHashTags.FindAsync(id);
-            noteHashTag!.StatusNoteHashTag = Status.Deleted;
+            noteHashTag!.StatusTypeNoteHashTag = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return noteHashTag;
         }

@@ -14,7 +14,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         try
         {
             return await _context.ProductCategories
-                .Where(x => x.ProductCategoryStatus == Status.Show)
+                .Where(x => x.ProductCategoryStatusType == StatusType.Show)
                 .Where(x => x.BusinessId == businessId)
                 .Select(x => new ProductCategoryResponse
                 {
@@ -35,7 +35,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         {
             return await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id == productCategoryId
                                                                              && x.BusinessId == businessId
-                                                                             && x.ProductCategoryStatus == Status.Show)
+                                                                             && x.ProductCategoryStatusType == StatusType.Show)
                 .Select(x => new ProductCategoryResponse
                 {
                     Id = x.Id,
@@ -52,7 +52,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
     {
         try
         {
-            return await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatus == Status.Show).ToListAsync();
+            return await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatusType == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -66,7 +66,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         {
             var item = await _context.ProductCategories.FindAsync(request.Id);
             if (item is null) return new Result<ProductCategory>(new ValidationException(ResultErrorMessage.NotFound));
-            item.ProductCategoryStatus = request.ProductCategoryStatus;
+            item.ProductCategoryStatusType = request.ProductCategoryStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -146,7 +146,7 @@ public class ProductCategoryRepository : IProductCategoryRepository
         try
         {
             var productCategory = await _context.ProductCategories.FindAsync(id);
-            productCategory.ProductCategoryStatus = Status.Deleted;
+            productCategory.ProductCategoryStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return await _context.ProductCategories
                 .FindAsync(id)

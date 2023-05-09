@@ -1,6 +1,6 @@
 namespace Domain.Enum;
 
-public enum AttributeType
+public enum AttributeType : byte
 {
     [Display(Name = "مشتری")]
     Customer = 1,

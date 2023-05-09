@@ -156,7 +156,7 @@ public static class ForooshFactorRoute
                     {
                         var result = mediator.Send(new ChangeStatusForooshFactorCommand
                         {
-                            ForooshFactorStatus = request.ForooshFactorStatus,
+                            ForooshFactorStatusType = request.ForooshFactorStatusType,
                             Id = request.Id
                         });
 
@@ -164,7 +164,7 @@ public static class ForooshFactorRoute
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Foroosh Factor Status Changed.",
+                                Message = "Foroosh Factor StatusType Changed.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse

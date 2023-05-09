@@ -13,7 +13,7 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            return new Result<ICollection<ContactsResponse>>(await _context.Contacts.Where(x => x.ContactStatus == Status.Show)
+            return new Result<ICollection<ContactsResponse>>(await _context.Contacts.Where(x => x.ContactStatusType == StatusType.Show)
                 .Include(x => x.ContactsEmailAddresses)
                 .Select(x => new ContactsResponse
                 {
@@ -38,7 +38,7 @@ public class ContactRepository : IContactRepository
             return await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
-                .FirstOrDefaultAsync(x => x.Id == contactId && x.ContactStatus == Status.Show)
+                .FirstOrDefaultAsync(x => x.Id == contactId && x.ContactStatusType == StatusType.Show)
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
@@ -60,7 +60,7 @@ public class ContactRepository : IContactRepository
         try
         {
             return new Result<ICollection<ContactsResponse>>(await _context.Contacts
-                .Where(x => x.ContactStatus == Status.Show && x.ContactGroupId == contactGroupId)
+                .Where(x => x.ContactStatusType == StatusType.Show && x.ContactGroupId == contactGroupId)
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
@@ -81,7 +81,7 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            var resultsListcontact = _context.Contacts.Where(x => x.ContactStatus == Status.Show)
+            var resultsListcontact = _context.Contacts.Where(x => x.ContactStatusType == StatusType.Show)
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Select(x => new ContactsResponse
@@ -111,7 +111,7 @@ public class ContactRepository : IContactRepository
         {
             var item = await _context.Contacts.FindAsync(request.Id);
             if (item is null) return new Result<ContactsResponse>(new ValidationException(ResultErrorMessage.NotFound));
-            item.ContactStatus = request.ContactStatus;
+            item.ContactStatusType = request.ContactStatusType;
             await _context.SaveChangesAsync();
             return await _context.Contacts
             .Include(x => x.ContactsEmailAddresses)
@@ -234,7 +234,7 @@ public class ContactRepository : IContactRepository
         try
         {
             var contact = await _context.Contacts.FindAsync(id);
-            contact.ContactStatus = Status.Deleted;
+            contact.ContactStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return await _context.Contacts
             .Include(x => x.ContactsEmailAddresses)

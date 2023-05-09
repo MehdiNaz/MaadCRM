@@ -5,7 +5,7 @@ public class Business : BaseEntity
     public Business()
     {
         Id = Ulid.NewUlid();
-        StatusBusiness = Status.Show;
+        StatusTypeBusiness = StatusType.Show;
         DisplayOrder = 0;
         CustomerNoteHashTables = new HashSet<CustomerNoteHashTable>();
         ProductCategories = new HashSet<ProductCategory>();
@@ -21,7 +21,7 @@ public class Business : BaseEntity
     public string? CompanyAddress { get; set; }
     public int? DisplayOrder { get; set; }
 
-    public Status StatusBusiness { get; set; }
+    public StatusType StatusTypeBusiness { get; set; }
 
 
     public virtual ICollection<CustomerNoteHashTable>? CustomerNoteHashTables { get; set; }
@@ -31,10 +31,6 @@ public class Business : BaseEntity
 
     public virtual ICollection<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; set; }
     public virtual ICollection<Attribute>? Attributes { get; set; }
-
-
-
-
 
 
     //public Ulid? AttributeOptionsValueId { get; set; }

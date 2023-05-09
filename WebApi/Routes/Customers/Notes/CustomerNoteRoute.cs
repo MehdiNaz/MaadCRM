@@ -168,7 +168,7 @@ public static class CustomerNoteRoute
                         {
                             var result = mediator.Send(new ChangeStatusCustomerNoteCommand
                             {
-                                CustomerNoteStatus = request.CustomerNoteStatus,
+                                CustomerNoteStatusType = request.CustomerNoteStatusType,
                                 CustomerNoteId = request.CustomerNoteId
                             });
 
@@ -176,7 +176,7 @@ public static class CustomerNoteRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Customers Note Status Changed.",
+                                    Message = "Customers Note StatusType Changed.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse

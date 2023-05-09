@@ -5,13 +5,13 @@ public class PeyGiryAttachment : BaseEntity
     public PeyGiryAttachment()
     {
         Id = Ulid.NewUlid();
-        StatusPeyGiryAttachment = Status.Show;
+        StatusTypePeyGiryAttachment = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
     public required byte[] FileName { get; set; }
     public string Extenstion { get; set; }
-    public Status StatusPeyGiryAttachment { get; set; }
+    public StatusType StatusTypePeyGiryAttachment { get; set; }
     
     
     public Ulid IdPeyGiry { get; set; }

@@ -163,14 +163,14 @@ public static class BusinessRoute
                     {
                         var result = mediator.Send(new ChangeStatusBusinessCommand
                         {
-                            BusinessStatus = request.BusinessStatus,
+                            BusinessStatusType = request.BusinessStatusType,
                             BusinessId = request.BusinessId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Customers Note Status Changed.",
+                                Message = "Customers Note StatusType Changed.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -215,7 +215,7 @@ public static class BusinessRoute
                     //AttributeOptionsId = request.AttributeOptionsId,
                     //AttributeOptionsValueId = request.AttributeOptionsValueId,
                     //BusinessAttributeId = request.BusinessAttributeId,
-                    //BusinessStatus = request.BusinessStatus
+                    //BusinessStatusType = request.BusinessStatusType
                 });
                 return result.Match(
                     u => Results.Ok(new

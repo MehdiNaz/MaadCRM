@@ -13,7 +13,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var result = await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.IdUser == userId)
+            var result = await _context.Customers.Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
                 .Include(x => x.IdCityNavigation)
                 .Include(x => x.CustomerMoaref)
                 .Select(x => new CustomerResponse
@@ -22,7 +22,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     // CustomerCategoryId = x.CustomerCategoryId,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
@@ -47,7 +47,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var result = await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatus == Status.Show)
+            var result = await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
                     CustomerId = x.Id,
@@ -67,7 +67,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -79,7 +79,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -91,7 +91,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -103,7 +103,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -115,7 +115,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -127,7 +127,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -139,7 +139,7 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            return await _context.Customers.Where(x => x.CustomerStatus == Status.Show && x.CustomerStatus == Status.Show).CountAsync();
+            return await _context.Customers.Where(x => x.CustomerStatusType == StatusType.Show && x.CustomerStatusType == StatusType.Show).CountAsync();
         }
         catch (Exception e)
         {
@@ -163,7 +163,7 @@ public class CustomerRepository : ICustomerRepository
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     From = x.DateCreated,
                     UpTo = DateTime.UtcNow,
                     BirthDayDate = x.BirthDayDate,
@@ -252,7 +252,7 @@ public class CustomerRepository : ICustomerRepository
                 EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                 Address = x.CustomerAddresses.FirstOrDefault().Address,
                 CustomerStateType = x.CustomerState,
-                CustomerStatus = x.CustomerStatus,
+                CustomerStatusType = x.CustomerStatusType,
                 // MoshtaryMoAref = customers.IdUserAdded,
                 // CustomerCategoryId = customers.CustomerCategoryId,
                 From = x.DateCreated,
@@ -280,7 +280,7 @@ public class CustomerRepository : ICustomerRepository
         {
             var item = await _context.Customers.FindAsync(request.CustomerId);
             if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
-            item.CustomerStatus = request.CustomerStatus;
+            item.CustomerStatusType = request.CustomerStatusType;
             await _context.SaveChangesAsync();
             return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.CustomerId)
                 .Select(x => new CustomerResponse
@@ -289,7 +289,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     CityId = x.IdCity,
@@ -317,7 +317,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     CityId = x.IdCity,
@@ -439,7 +439,7 @@ public class CustomerRepository : ICustomerRepository
                 CustomerId = entityEntry.Id,
                 From = entityEntry.DateCreated,
                 CustomerStateType = entityEntry.CustomerState,
-                CustomerStatus = entityEntry.CustomerStatus,
+                CustomerStatusType = entityEntry.CustomerStatusType,
                 MoshtaryMoAref = entityEntry.CustomerMoarefId,
                 // CustomerCategoryId = entityEntry.CustomerCategoryId,
                 EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
@@ -458,7 +458,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     FirstName = x.FirstName,
@@ -522,7 +522,7 @@ public class CustomerRepository : ICustomerRepository
                 MoshtaryMoAref = customer.CustomerMoarefId,
                 BirthDayDate = customer.BirthDayDate,
                 CustomerStateType = customer.CustomerState,
-                CustomerStatus = customer.CustomerStatus,
+                CustomerStatusType = customer.CustomerStatusType,
                 Address = customer.CustomerAddresses.FirstOrDefault().Address,
                 Gender = customer.Gender
             });
@@ -538,7 +538,7 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var customer = await _context.Customers.FindAsync(customerId);
-            customer!.CustomerStatus = Status.Deleted;
+            customer!.CustomerStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerResponse>(await _context.Customers.FindAsync(customerId)
                 .Select(x => new CustomerResponse
@@ -547,7 +547,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerId = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
-                    CustomerStatus = x.CustomerStatus,
+                    CustomerStatusType = x.CustomerStatusType,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     CityId = x.IdCity,

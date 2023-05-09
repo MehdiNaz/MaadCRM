@@ -6,7 +6,7 @@ public sealed class Product : BaseEntityWithUserUpdate
     {
         Id = Ulid.NewUlid();
         StatusPublish = Enum.ProductStatus.Draft;
-        StatusProduct = Status.Show;
+        StatusTypeProduct = StatusType.Show;
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
         CustomerNotes = new HashSet<CustomerNote>();
         ForooshOrders = new HashSet<ForooshOrder>();
@@ -23,7 +23,7 @@ public sealed class Product : BaseEntityWithUserUpdate
     public byte? DiscountPercent { get; set; }
     public byte[]? Picture { get; set; }
     public ProductStatus StatusPublish { get; set; }
-    public Status StatusProduct { get; set; }
+    public StatusType StatusTypeProduct { get; set; }
 
     public Ulid IdProductCategory { get; set; }
     public ProductCategory ProductCategory { get; set; }

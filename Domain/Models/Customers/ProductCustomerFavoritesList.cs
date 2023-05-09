@@ -5,11 +5,11 @@ public class ProductCustomerFavoritesList : BaseEntity
     public ProductCustomerFavoritesList()
     {
         // Id = Ulid.NewUlid();
-        StatusProductCustomerFavoritesList = Status.Show;
+        StatusTypeProductCustomerFavoritesList = StatusType.Show;
     }
 
     // public Ulid Id { get; set; }
-    public Status StatusProductCustomerFavoritesList { get; set; }
+    public StatusType StatusTypeProductCustomerFavoritesList { get; set; }
 
     
     public Ulid IdProduct { get; set; }

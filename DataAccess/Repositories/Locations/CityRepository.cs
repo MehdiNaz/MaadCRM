@@ -13,7 +13,7 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            return new Result<ICollection<CityResponse>>(await _context.Cities!.Where(x => x.CityStatus == Status.Show)
+            return new Result<ICollection<CityResponse>>(await _context.Cities!.Where(x => x.CityStatusType == StatusType.Show)
                 .Include(x => x.IdProvinceNavigation)
                 .Select(x => new CityResponse
                 {
@@ -34,7 +34,7 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            return new Result<CityResponse>(await _context.Cities.FirstOrDefaultAsync(x => x.Id == cityId && x.CityStatus == Status.Show)
+            return new Result<CityResponse>(await _context.Cities.FirstOrDefaultAsync(x => x.Id == cityId && x.CityStatusType == StatusType.Show)
                 .Select(x => new CityResponse
                 {
                     CityId = x.Id,
@@ -52,7 +52,7 @@ public class CityRepository : ICityRepository
     {
         try
         {
-            return new Result<ICollection<CityResponse>>(await _context.Cities.Where(x => x.CityStatus == Status.Show)
+            return new Result<ICollection<CityResponse>>(await _context.Cities.Where(x => x.CityStatusType == StatusType.Show)
                 .Include(x => x.IdProvinceNavigation)
                 .Where(x => x.IdProvince == provinceId)
                 .Select(x => new CityResponse
@@ -69,13 +69,13 @@ public class CityRepository : ICityRepository
         }
     }
 
-    //public async ValueTask<City?> ChangeStatusCityByIdAsync(Status status, Ulid cityId)
+    //public async ValueTask<City?> ChangeStatusCityByIdAsync(StatusType statusType, Ulid cityId)
     //{
     //    try
     //    {
     //        var item = await _context.Cities!.FindAsync(cityId);
     //        if (item is null) return null;
-    //        item.CityStatus = status;
+    //        item.CityStatusType = statusType;
     //        await _context.SaveChangesAsync();
     //        return item;
     //    }
@@ -118,7 +118,7 @@ public class CityRepository : ICityRepository
     //    try
     //    {
     //        var customer = await _context.Cities.FindAsync(cityId);
-    //        customer!.CityStatus = Status.Deleted;
+    //        customer!.CityStatusType = StatusType.Deleted;
     //        await _context.SaveChangesAsync();
     //        return customer;
     //    }

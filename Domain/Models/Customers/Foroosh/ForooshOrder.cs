@@ -5,7 +5,7 @@ public sealed class ForooshOrder : BaseEntityWithUserUpdate
     public ForooshOrder()
     {
         Id = Ulid.NewUlid();
-        StatusForooshOrder = Status.Show;
+        StatusTypeForooshOrder = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
@@ -14,7 +14,7 @@ public sealed class ForooshOrder : BaseEntityWithUserUpdate
     public uint Tedad { get; set; }
     public decimal PriceDiscount { get; set; }
     public decimal PriceShipping { get; set; }
-    public Status StatusForooshOrder { get; set; }
+    public StatusType StatusTypeForooshOrder { get; set; }
 
 
     public Ulid IdProduct { get; set; }

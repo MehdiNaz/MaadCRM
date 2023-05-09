@@ -14,7 +14,7 @@ public class PaymentRepository : IPaymentRepository
     {
         try
         {
-            return await _context.Payments.Where(x => x.PaymentStatus == Status.Show).ToListAsync();
+            return await _context.Payments.Where(x => x.PaymentStatusType == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -26,7 +26,7 @@ public class PaymentRepository : IPaymentRepository
     {
         try
         {
-            return await _context.Payments.SingleOrDefaultAsync(x => x.Id == paymentId && x.PaymentStatus == Status.Show);
+            return await _context.Payments.SingleOrDefaultAsync(x => x.Id == paymentId && x.PaymentStatusType == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -40,7 +40,7 @@ public class PaymentRepository : IPaymentRepository
         {
             var item = await _context.Payments.FindAsync(request.Id);
             if (item is null) return new Result<Payment>(new ValidationException(ResultErrorMessage.NotFound));
-            item.PaymentStatus = request.PaymentStatus;
+            item.PaymentStatusType = request.PaymentStatusType;
             await _context.SaveChangesAsync();
 
             return item;
@@ -95,7 +95,7 @@ public class PaymentRepository : IPaymentRepository
         try
         {
             var item = await _context.Payments.FindAsync(paymentId);
-            item.PaymentStatus = Status.Deleted;
+            item.PaymentStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return item;
         }

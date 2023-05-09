@@ -5,7 +5,7 @@ public class Country : BaseEntity
     public Country()
     {
         Id = Ulid.NewUlid();
-        CountryStatus = Status.Show;
+        CountryStatusType = StatusType.Show;
         Provinces = new HashSet<Province>();
     }
 
@@ -13,7 +13,7 @@ public class Country : BaseEntity
     public string CountryName { get; set; }
     public bool IsDefault { get; set; }
     public uint DisplayOrder { get; set; }
-    public Status CountryStatus { get; set; }
+    public StatusType CountryStatusType { get; set; }
     
     public virtual ICollection<Province>? Provinces { get; set; }
 }

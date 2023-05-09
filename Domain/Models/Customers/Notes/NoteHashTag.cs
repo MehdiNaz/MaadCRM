@@ -5,12 +5,12 @@ public class CustomerNoteHashTag : BaseEntity
     public CustomerNoteHashTag()
     {
         Id = Ulid.NewUlid();
-        StatusNoteHashTag = Status.Show;
+        StatusTypeNoteHashTag = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
 
-    public Status StatusNoteHashTag { get; set; }
+    public StatusType StatusTypeNoteHashTag { get; set; }
 
     public Ulid IdCustomerNote { get; set; }
     public virtual CustomerNote? IdCustomerNoteNavigation { get; set; }

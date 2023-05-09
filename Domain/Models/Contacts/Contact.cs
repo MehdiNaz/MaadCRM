@@ -5,7 +5,7 @@ public class Contact : BaseEntity
     public Contact()
     {
         Id = Ulid.NewUlid();
-        ContactStatus = Status.Show;
+        ContactStatusType = StatusType.Show;
         ContactsEmailAddresses = new HashSet<ContactsEmailAddress>();
     }
 
@@ -17,7 +17,7 @@ public class Contact : BaseEntity
     public Ulid ContactGroupId { get; set; }
     public string Job { get; set; }
     public Ulid BusinessId { get; set; }
-    public Status ContactStatus { get; set; }
+    public StatusType ContactStatusType { get; set; }
 
 
     //public Business Business { get; set; }

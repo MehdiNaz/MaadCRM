@@ -165,7 +165,7 @@ public static class CustomerFeedbackRoute
                             var result = mediator.Send(new ChangeStateCustomerFeedbackCommand
                             {
                                 Id = request.Id,
-                                CustomerFeedbackStatus = request.CustomerFeedbackStatus
+                                CustomerFeedbackStatusType = request.CustomerFeedbackStatusType
                             });
 
                             return result.Result.Match(

@@ -6,5 +6,5 @@ public struct CustomerFeedbackCategoryResponse
     public required string Name { get; set; }
     public FeedbackType TypeFeedback { get; set; }
     public bool PositiveNegative { get; set; }
-    public Status CustomerFeedbackCategoryStatus { get; set; }
+    public StatusType CustomerFeedbackCategoryStatusType { get; set; }
 }

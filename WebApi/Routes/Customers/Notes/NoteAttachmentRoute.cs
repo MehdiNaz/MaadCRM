@@ -64,7 +64,7 @@ public static class NoteAttachmentRoute
             {
                 var result = await mediator.Send(new ChangeStatusNoteAttachmentCommand
                 {
-                    NoteAttachmentStatus = request.NoteAttachmentStatus,
+                    NoteAttachmentStatusType = request.NoteAttachmentStatusType,
                     Id = request.Id
                 });
                 return Results.Ok(result);

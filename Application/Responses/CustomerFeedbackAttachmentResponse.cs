@@ -6,5 +6,5 @@ public struct CustomerFeedbackAttachmentResponse
     public string Name { get; set; }
     public byte[] FileName { get; set; }
     public string Extenstion { get; set; }
-    public Status CustomerFeedbackAttachmentStatus { get; set; }
+    public StatusType CustomerFeedbackAttachmentStatusType { get; set; }
 }

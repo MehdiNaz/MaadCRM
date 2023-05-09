@@ -10,11 +10,11 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
     }
 
     public async ValueTask<ICollection<ContactPhoneNumber?>> GetAllContactPhoneNumberAsync()
-        => await _context.ContactPhoneNumbers.Where(x => x.ContactPhoneNumberStatus == Status.Show).ToListAsync();
+        => await _context.ContactPhoneNumbers.Where(x => x.ContactPhoneNumberStatusType == StatusType.Show).ToListAsync();
 
     public async ValueTask<ContactPhoneNumber?> GetContactPhoneNumberByIdAsync(Ulid contactPhoneNumberId)
         => await _context.ContactPhoneNumbers.FirstOrDefaultAsync(x =>
-            x.Id == contactPhoneNumberId && x.ContactPhoneNumberStatus == Status.Show);
+            x.Id == contactPhoneNumberId && x.ContactPhoneNumberStatusType == StatusType.Show);
 
     public async ValueTask<ContactPhoneNumber?> ChangeStatusContactPhoneNumberByIdAsync(ChangeStatusContactPhoneNumberCommand request)
     {
@@ -22,7 +22,7 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         {
             var item = await _context.ContactPhoneNumbers!.FindAsync(request.ContactPhoneNumberId);
             if (item is null) return null;
-            item.ContactPhoneNumberStatus = request.ContactPhoneNumberStatus;
+            item.ContactPhoneNumberStatusType = request.ContactPhoneNumberStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -76,7 +76,7 @@ public class ContactPhoneNumberRepository : IContactPhoneNumberRepository
         try
         {
             var contactPhoneNumber = await _context.ContactPhoneNumbers.FindAsync(id);
-            contactPhoneNumber!.ContactPhoneNumberStatus = Status.Deleted;
+            contactPhoneNumber!.ContactPhoneNumberStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return contactPhoneNumber;
         }

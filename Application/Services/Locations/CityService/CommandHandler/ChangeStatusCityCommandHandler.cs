@@ -14,7 +14,7 @@ public readonly struct ChangeStatusCityCommandHandler : IRequestHandler<ChangeSt
         return null;
         //try
         //{
-        //    return (await _repository.ChangeStatusCityByIdAsync(request.CityStatus, request.CityId))
+        //    return (await _repository.ChangeStatusCityByIdAsync(request.CityStatusType, request.CityId))
         //        .Match(result => new Result<City>(result),
         //        exception => new Result<City>(exception));
         //}

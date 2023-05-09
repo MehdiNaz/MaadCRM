@@ -5,7 +5,7 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public ForooshFactor()
     {
         Id = Ulid.NewUlid();
-        StatusForooshFactor = Status.Show;
+        StatusTypeForooshFactor = StatusType.Show;
         ForooshOrders = new HashSet<ForooshOrder>();
     }
 
@@ -13,7 +13,7 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public decimal Amount { get; set; }
     public decimal AmountTax { get; set; }
     public decimal AmountTotal { get; set; }
-    public Status StatusForooshFactor { get; set; }
+    public StatusType StatusTypeForooshFactor { get; set; }
     public DateTime DatePayed { get; set; }
     public PaymentMethodTypes PaymentMethod { get; set; }
     public ShippingMethodTypes ShippingMethodType { get; set; }

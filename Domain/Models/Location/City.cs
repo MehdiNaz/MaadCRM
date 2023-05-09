@@ -5,7 +5,7 @@ public class City : BaseEntity
     public City()
     {
         Id = Ulid.NewUlid();
-        CityStatus = Status.Show;
+        CityStatusType = StatusType.Show;
         Customers = new HashSet<Customer>();
     }
 
@@ -14,7 +14,7 @@ public class City : BaseEntity
     public bool IsDefault { get; set; }
     public uint DisplayOrder { get; set; }
     public Ulid IdProvince { get; set; }
-    public Status CityStatus { get; set; }
+    public StatusType CityStatusType { get; set; }
 
 
     public virtual Province IdProvinceNavigation { get; set; }

@@ -132,13 +132,13 @@ public static class CustomerFeedbackCategoryRoute
                         var result = mediator.Send(new ChangeStatusCustomerFeedbackCategoryCommand
                         {
                             Id = request.Id,
-                            CustomerFeedbackCategoryStatus = request.CustomerFeedbackCategoryStatus
+                            CustomerFeedbackCategoryStatusType = request.CustomerFeedbackCategoryStatusType
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Customers Note Status Changed.",
+                                Message = "Customers Note StatusType Changed.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse

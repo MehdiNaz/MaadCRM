@@ -96,7 +96,7 @@ public static class BusinessPlansRoute
             {
                 var result = await mediator.Send(new ChangeStatusBusinessPlansQuery
                 {
-                    Status = request.Status,
+                    StatusType = request.StatusType,
                     BusinessPlansId = request.BusinessPlansId
                 });
                 return Results.Ok(result);

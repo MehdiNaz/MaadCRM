@@ -10,10 +10,10 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
     }
 
     public async ValueTask<ICollection<PeyGiryAttachment?>> GetAllPeyGiryAttachmentsAsync()
-        => await _context.PeyGiryAttachments.Where(x => x.StatusPeyGiryAttachment == Status.Show).ToListAsync();
+        => await _context.PeyGiryAttachments.Where(x => x.StatusTypePeyGiryAttachment == StatusType.Show).ToListAsync();
 
     public async ValueTask<PeyGiryAttachment?> GetPeyGiryAttachmentByIdAsync(Ulid peyGiryAttachmentId)
-        => await _context.PeyGiryAttachments.FirstOrDefaultAsync(x => x.Id == peyGiryAttachmentId && x.StatusPeyGiryAttachment == Status.Show);
+        => await _context.PeyGiryAttachments.FirstOrDefaultAsync(x => x.Id == peyGiryAttachmentId && x.StatusTypePeyGiryAttachment == StatusType.Show);
 
     public async ValueTask<PeyGiryAttachment?> ChangeStatusPeyGiryAttachmentByIdAsync(ChangeStatusPeyGiryAttachmentCommand request)
     {
@@ -21,7 +21,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         {
             var item = await _context.PeyGiryAttachments!.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusPeyGiryAttachment = request.StatusPeyGiryAttachment;
+            item.StatusTypePeyGiryAttachment = request.StatusTypePeyGiryAttachment;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -75,7 +75,7 @@ public class PeyGiryAttachmentRepository : IPeyGiryAttachmentRepository
         try
         {
             var peyGiryAttachment = await _context.PeyGiryAttachments.FindAsync(id);
-            peyGiryAttachment!.StatusPeyGiryAttachment = Status.Show;
+            peyGiryAttachment!.StatusTypePeyGiryAttachment = StatusType.Show;
             await _context.SaveChangesAsync();
             return peyGiryAttachment;
         }

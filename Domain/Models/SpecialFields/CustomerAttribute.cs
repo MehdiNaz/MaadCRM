@@ -5,11 +5,11 @@ public class CustomerAttribute
     public CustomerAttribute()
     {
         Id = Ulid.NewUlid();
-        Status = Status.Show;
+        StatusType = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
-    public Status Status { get; set; }
+    public StatusType StatusType { get; set; }
 
     public Ulid? IdAttributeOption { get; set; }
     public AttributeOption? IdAttributeOptionNavigation { get; set; }

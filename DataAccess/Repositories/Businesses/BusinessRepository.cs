@@ -14,7 +14,7 @@ public class BusinessRepository : IBusinessRepository
     {
         try
         {
-            return await _context.Businesses.Where(x => x.StatusBusiness == Status.Show).ToListAsync();
+            return await _context.Businesses.Where(x => x.StatusTypeBusiness == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -40,7 +40,7 @@ public class BusinessRepository : IBusinessRepository
     {
         try
         {
-            return await _context.Businesses.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusBusiness == Status.Show);
+            return await _context.Businesses.FirstOrDefaultAsync(x => x.Id == businessId && x.StatusTypeBusiness == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -54,7 +54,7 @@ public class BusinessRepository : IBusinessRepository
         {
             var item = await _context.Businesses.FindAsync(request.BusinessId);
             if (item is null) return new Result<Business>(new ValidationException());
-            item.StatusBusiness = request.BusinessStatus;
+            item.StatusTypeBusiness = request.BusinessStatusType;
             await _context.SaveChangesAsync();
             return new Result<Business>(item);
         }
@@ -115,7 +115,7 @@ public class BusinessRepository : IBusinessRepository
         try
         {
             var business = await _context.Businesses.FindAsync(id);
-            business.StatusBusiness = Status.Deleted;
+            business.StatusTypeBusiness = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<Business>(business);
         }

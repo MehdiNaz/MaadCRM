@@ -10,10 +10,10 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
     }
 
     public async ValueTask<ICollection<CustomersPhoneNumber?>> GetAllPhoneNumbersAsync()
-        => await _context.CustomersPhoneNumbers.Where(x => x.StatusCustomersPhoneNumber == Status.Show).ToListAsync();
+        => await _context.CustomersPhoneNumbers.Where(x => x.StatusTypeCustomersPhoneNumber == StatusType.Show).ToListAsync();
 
     public async ValueTask<CustomersPhoneNumber?> GetPhoneNumberByIdAsync(Ulid phoneNumberId)
-        => await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.Id == phoneNumberId && x.StatusCustomersPhoneNumber == Status.Show);
+        => await _context.CustomersPhoneNumbers.FirstOrDefaultAsync(x => x.Id == phoneNumberId && x.StatusTypeCustomersPhoneNumber == StatusType.Show);
 
     public async ValueTask<CustomersPhoneNumber?> ChangeStatusPhoneNumberByIdAsync(ChangeStatusCustomerPhoneNumberCommand request)
     {
@@ -21,7 +21,7 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
         {
             var item = await _context.CustomersPhoneNumbers.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusCustomersPhoneNumber = request.ContactPhoneNumberStatus;
+            item.StatusTypeCustomersPhoneNumber = request.ContactPhoneNumberStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -75,7 +75,7 @@ public class CustomersPhoneNumberRepository : ICustomersPhoneNumberRepository
         try
         {
             var phoneNumber = await _context.CustomersPhoneNumbers.FindAsync(id);
-            phoneNumber!.StatusCustomersPhoneNumber = Status.Show;
+            phoneNumber!.StatusTypeCustomersPhoneNumber = StatusType.Show;
             await _context.SaveChangesAsync();
             return phoneNumber;
         }

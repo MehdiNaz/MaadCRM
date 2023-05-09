@@ -6,7 +6,7 @@ public class AttributeMapping : IEntityTypeConfiguration<Attribute>
     {
         builder.ToTable("Attributes");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Lable).HasMaxLength(255);
+        builder.Property(x => x.Label).HasMaxLength(255);
         builder.Property(x => x.ValidationFileAllowExtension).HasMaxLength(255).IsRequired();
         builder.Property(x => x.DefaultValue).HasMaxLength(255).IsRequired();
 

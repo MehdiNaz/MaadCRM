@@ -13,7 +13,7 @@ public class ContactGroupRepository : IContactGroupRepository
     {
         try
         {
-            return new Result<ICollection<ContactGroup?>>(await _context.ContactGroups.Where(x => x.ContactGroupStatus == Status.Show).ToListAsync());
+            return new Result<ICollection<ContactGroup?>>(await _context.ContactGroups.Where(x => x.ContactGroupStatusType == StatusType.Show).ToListAsync());
         }
         catch (Exception e)
         {
@@ -25,7 +25,7 @@ public class ContactGroupRepository : IContactGroupRepository
     {
         try
         {
-            return await _context.ContactGroups!.FirstOrDefaultAsync(x => x.Id == contactGroupId && x.ContactGroupStatus == Status.Show);
+            return await _context.ContactGroups!.FirstOrDefaultAsync(x => x.Id == contactGroupId && x.ContactGroupStatusType == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -39,7 +39,7 @@ public class ContactGroupRepository : IContactGroupRepository
         {
             var item = await _context.ContactGroups!.FindAsync(request.ContactGroupId);
             if (item is null) return new Result<ContactGroup>(new ValidationException(ResultErrorMessage.NotFound)); ;
-            item.ContactGroupStatus = request.ContactGroupStatus;
+            item.ContactGroupStatusType = request.ContactGroupStatusType;
             await _context.SaveChangesAsync();
             return new Result<ContactGroup>(item);
         }
@@ -54,7 +54,7 @@ public class ContactGroupRepository : IContactGroupRepository
         try
         {
             return new Result<ICollection<ContactGroup>>(await _context.ContactGroups
-                .Where(x => x.ContactGroupStatus == Status.Show
+                .Where(x => x.ContactGroupStatusType == StatusType.Show
                  && x.GroupName.Contains(q)).ToListAsync());
         }
         catch (Exception e)
@@ -107,7 +107,7 @@ public class ContactGroupRepository : IContactGroupRepository
         try
         {
             var contactGroup = await _context.ContactGroups.FindAsync(id);
-            contactGroup!.ContactGroupStatus = Status.Deleted;
+            contactGroup!.ContactGroupStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<ContactGroup>(contactGroup);
         }

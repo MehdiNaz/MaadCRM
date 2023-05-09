@@ -10,10 +10,10 @@ public class SanAtRepository : ISanAtRepository
     }
 
     public async Task<ICollection<SanAt?>> GetAllSanAtsAsync()
-        => await _context.SanAts!.Where(x => x.SanAtStatus == Status.Show).ToListAsync();
+        => await _context.SanAts!.Where(x => x.SanAtStatusType == StatusType.Show).ToListAsync();
 
     public async ValueTask<SanAt?> GetSanAtsByIdAsync(Ulid sanAtId)
-        => await _context.SanAts.FirstOrDefaultAsync(x => x.Id == sanAtId && x.SanAtStatus == Status.Show);
+        => await _context.SanAts.FirstOrDefaultAsync(x => x.Id == sanAtId && x.SanAtStatusType == StatusType.Show);
 
     public async ValueTask<SanAt?> ChangeStatusSanAtsByIdAsync(ChangeStatusSanAtCommand request)
     {
@@ -21,7 +21,7 @@ public class SanAtRepository : ISanAtRepository
         {
             var item = await _context.SanAts!.FindAsync(request.Id);
             if (item is null) return null;
-            item.SanAtStatus = request.SanAtStatus;
+            item.SanAtStatusType = request.SanAtStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -74,7 +74,7 @@ public class SanAtRepository : ISanAtRepository
         try
         {
             var sanAt = await _context.SanAts.FindAsync(id);
-            sanAt.SanAtStatus = Status.Show;
+            sanAt.SanAtStatusType = StatusType.Show;
             await _context.SaveChangesAsync();
             return sanAt;
         }

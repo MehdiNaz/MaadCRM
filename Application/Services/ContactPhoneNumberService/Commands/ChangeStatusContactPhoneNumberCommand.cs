@@ -3,5 +3,5 @@
 public struct ChangeStatusContactPhoneNumberCommand : IRequest<ContactPhoneNumber?>
 {
     public Ulid ContactPhoneNumberId { get; set; }
-    public Status ContactPhoneNumberStatus { get; set; }
+    public StatusType ContactPhoneNumberStatusType { get; set; }
 }

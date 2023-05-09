@@ -5,7 +5,7 @@ public class AttributeOption : BaseEntity
     public AttributeOption()
     {
         AttributeOptionsId = Ulid.NewUlid();
-        AttributeOptionsStatus = Status.Show;
+        Status = StatusType.Show;
         DisplayOrder = 0;
     }
 
@@ -13,7 +13,7 @@ public class AttributeOption : BaseEntity
     public required string Title { get; set; }
     public string? ColorSquaresRgb { get; set; }
     public int DisplayOrder { get; set; }
-    public Status AttributeOptionsStatus { get; set; }
+    public StatusType Status { get; set; }
     
     public Ulid? IdAttribute { get; set; }
     public Attribute IdAttributeNavigation { get; set; }

@@ -5,7 +5,7 @@ public class ContactPhoneNumber : BaseEntity
     public ContactPhoneNumber()
     {
         Id = Ulid.NewUlid();
-        ContactPhoneNumberStatus = Status.Show;
+        ContactPhoneNumberStatusType = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
@@ -13,7 +13,7 @@ public class ContactPhoneNumber : BaseEntity
     public string PhoneNo { get; set; }
     public PhoneTypes PhoneType { get; set; }
     public Ulid CustomerId { get; set; }
-    public Status ContactPhoneNumberStatus { get; set; }
+    public StatusType ContactPhoneNumberStatusType { get; set; }
 
     public Contact? Contacts { get; set; }
 }

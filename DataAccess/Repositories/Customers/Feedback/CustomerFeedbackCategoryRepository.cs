@@ -13,13 +13,13 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
     {
         try
         {
-            return await _context.CustomerFeedbackCategories.Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatus == Status.Show)
+            return await _context.CustomerFeedbackCategories.Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatusType == StatusType.Show)
                 .Select(x => new CustomerFeedbackCategoryResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 })
                 .ToListAsync();
@@ -34,13 +34,13 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
     {
         try
         {
-            return await _context.CustomerFeedbackCategories.FirstOrDefaultAsync(x => x.Id == feedbackCategoryId && x.CustomerFeedbackCategoryStatus == Status.Show)
+            return await _context.CustomerFeedbackCategories.FirstOrDefaultAsync(x => x.Id == feedbackCategoryId && x.CustomerFeedbackCategoryStatusType == StatusType.Show)
                 .Select(x => new CustomerFeedbackCategoryResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 });
         }
@@ -55,14 +55,14 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
         try
         {
             return await _context.CustomerFeedbackCategories
-                .Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatus == Status.Show && x.Name.ToLower()
+                .Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatusType == StatusType.Show && x.Name.ToLower()
                 .Contains(request.ToLower()))
                 .Select(x => new CustomerFeedbackCategoryResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 }).ToListAsync();
         }
@@ -80,12 +80,12 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
             {
                 Name = "",
                 Id = request.Id,
-                CustomerFeedbackCategoryStatus = request.CustomerFeedbackCategoryStatus
+                CustomerFeedbackCategoryStatusType = request.CustomerFeedbackCategoryStatusType
             };
 
             var item = await _context.CustomerFeedbackCategories.FindAsync(request.Id);
             if (item is null) return new Result<CustomerFeedbackCategoryResponse>(new ValidationException(ResultErrorMessage.NotFound));
-            item.CustomerFeedbackCategoryStatus = request.CustomerFeedbackCategoryStatus;
+            item.CustomerFeedbackCategoryStatusType = request.CustomerFeedbackCategoryStatusType;
             await _context.SaveChangesAsync();
             return await _context.CustomerFeedbackCategories.FindAsync(request.Id)
                 .Select(x => new CustomerFeedbackCategoryResponse
@@ -93,7 +93,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 });
         }
@@ -124,7 +124,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 });
         }
@@ -151,7 +151,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 });
         }
@@ -167,7 +167,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
         try
         {
             var item = await _context.CustomerFeedbackCategories.FindAsync(feedbackCategoryId);
-            item.CustomerFeedbackCategoryStatus = Status.Deleted;
+            item.CustomerFeedbackCategoryStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return await _context.CustomerFeedbackCategories.FindAsync(feedbackCategoryId)
                 .Select(x => new CustomerFeedbackCategoryResponse
@@ -175,7 +175,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
                     Id = x.Id,
                     Name = x.Name,
                     PositiveNegative = x.PositiveNegative,
-                    CustomerFeedbackCategoryStatus = x.CustomerFeedbackCategoryStatus,
+                    CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
                 });
         }

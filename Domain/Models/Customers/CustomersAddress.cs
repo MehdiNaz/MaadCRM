@@ -5,7 +5,7 @@ public class CustomerAddress : BaseEntity
     public CustomerAddress()
     {
         Id = Ulid.NewUlid();
-        StatusCustomersAddress = Status.Show;
+        StatusTypeCustomersAddress = StatusType.Show;
         ForooshFactors = new HashSet<ForooshFactor>();
     }
 
@@ -14,7 +14,7 @@ public class CustomerAddress : BaseEntity
     public string? CodePost { get; set; }
     public string? PhoneNo { get; set; }
     public string? Description { get; set; }
-    public Status StatusCustomersAddress { get; set; }
+    public StatusType StatusTypeCustomersAddress { get; set; }
 
     
     public required Ulid IdCustomer { get; set; }

@@ -4,7 +4,7 @@ public class User : IdentityUser
 {
     public User()
     {
-        UserStatus = Status.Show;
+        UserStatusType = StatusType.Show;
 
         Customers = new HashSet<Customer>();
         CustomersAdded = new HashSet<Customer>();
@@ -55,7 +55,7 @@ public class User : IdentityUser
     public string? OtpPassword { get; set; }
     public DateTime? OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
-    public Status UserStatus { get; set; }
+    public StatusType UserStatusType { get; set; }
     public string? Token { get; set; }// JWT Token
 
 

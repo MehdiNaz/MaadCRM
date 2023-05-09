@@ -10,7 +10,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
     }
 
     public async ValueTask<ICollection<AttributeOption?>> GetAllAttributeOptionsAsync()
-        => await _context.AttributeOptions.Where(x => x.AttributeOptionsStatus == Status.Show).ToListAsync();
+        => await _context.AttributeOptions.Where(x => x.Status == StatusType.Show).ToListAsync();
 
     public async ValueTask<AttributeOption?> GetAttributeOptionsByIdAsync(int attributeOptionsId)
         => await _context.AttributeOptions.FindAsync(attributeOptionsId);
@@ -36,7 +36,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
         {
             var attributeOptions = await _context.AttributeOptions.FindAsync(attributeOptionsId);
             //_context.AttributeOptions!.Remove(attributeOptions);
-            attributeOptions.AttributeOptionsStatus = Status.Deleted;
+            attributeOptions.Status = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return attributeOptions;
         }

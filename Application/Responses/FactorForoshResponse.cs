@@ -8,7 +8,7 @@ public struct FactorInformationResponse
     public decimal Amount { get; set; }
     public decimal AmountTax { get; set; }
     public decimal AmountTotal { get; set; }
-    public Status StatusForooshFactor { get; set; }
+    public StatusType StatusTypeForooshFactor { get; set; }
     public DateTime DatePayed { get; set; }
     public PaymentMethodTypes PaymentMethod { get; set; }
     public ShippingMethodTypes ShippingMethodType { get; set; }
@@ -27,7 +27,7 @@ public struct FactorInformationResponse
     public decimal PriceDiscount { get; set; }
     public decimal PriceShipping { get; set; }
     public decimal PaymentAmount { get; set; }
-    public Status PaymentStatus { get; set; }
+    public StatusType PaymentStatusType { get; set; }
     public Ulid IdProduct { get; set; }
     public  Ulid IdCustomer { get; set; }
     public  Ulid? IdCustomerAddress { get; set; }

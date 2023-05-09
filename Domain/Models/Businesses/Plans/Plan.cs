@@ -12,7 +12,7 @@ public class Plan : BaseEntity
     public Plan()
     {
         Id = Ulid.NewUlid();
-        StatusPlan = Status.Show;
+        StatusTypePlan = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
@@ -23,7 +23,7 @@ public class Plan : BaseEntity
     public decimal PriceOfDay { get; set; }
     public decimal? Discount { get; set; } 
     public decimal PriceFinal { get; set; }
-    public Status StatusPlan { get; set; }
+    public StatusType StatusTypePlan { get; set; }
     
     public string UserId { get; set; }
     

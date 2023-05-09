@@ -10,10 +10,10 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
     }
 
     public async ValueTask<ICollection<CustomerNoteAttachment?>> GetAllNoteAttachmentsAsync()
-        => await _context.NoteAttachments.Where(x => x.NoteAttachmentStatus == Status.Show).ToListAsync();
+        => await _context.NoteAttachments.Where(x => x.NoteAttachmentStatusType == StatusType.Show).ToListAsync();
 
     public async ValueTask<CustomerNoteAttachment?> GetNoteAttachmentByIdAsync(Ulid noteAttachmentId)
-        => await _context.NoteAttachments.FirstOrDefaultAsync(x => x.Id == noteAttachmentId && x.NoteAttachmentStatus == Status.Show);
+        => await _context.NoteAttachments.FirstOrDefaultAsync(x => x.Id == noteAttachmentId && x.NoteAttachmentStatusType == StatusType.Show);
 
     public async ValueTask<CustomerNoteAttachment?> ChangeStatusNoteAttachmentByIdAsync(ChangeStatusNoteAttachmentCommand request)
     {
@@ -21,7 +21,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         {
             var item = await _context.NoteAttachments!.FindAsync(request.Id);
             if (item is null) return null;
-            item.NoteAttachmentStatus = request.NoteAttachmentStatus;
+            item.NoteAttachmentStatusType = request.NoteAttachmentStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -74,7 +74,7 @@ public class NoteAttachmentRepository : INoteAttachmentRepository
         try
         {
             var noteAttachment = await _context.NoteAttachments.FindAsync(id);
-            noteAttachment!.NoteAttachmentStatus = Status.Show;
+            noteAttachment!.NoteAttachmentStatusType = StatusType.Show;
             await _context.SaveChangesAsync();
             return noteAttachment;
         }

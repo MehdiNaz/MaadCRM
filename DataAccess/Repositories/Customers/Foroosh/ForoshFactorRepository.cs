@@ -13,7 +13,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
     {
         try
         {
-            return await _context.ForooshFactors.Where(x => x.StatusForooshFactor == Status.Show).OrderBy(x => x.DatePayed).ToListAsync();
+            return await _context.ForooshFactors.Where(x => x.StatusTypeForooshFactor == StatusType.Show).OrderBy(x => x.DatePayed).ToListAsync();
         }
         catch (Exception e)
         {
@@ -25,7 +25,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
     {
         try
         {
-            return await _context.ForooshFactors.OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.Id == ForooshFactorId && x.StatusForooshFactor == Status.Show);
+            return await _context.ForooshFactors.OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.Id == ForooshFactorId && x.StatusTypeForooshFactor == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -43,11 +43,11 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 .ThenInclude(x => x.IdProductNavigation)
                 .Include(x => x.IdCustomerNavigation)
                 .Include(x => x.IdCustomerAddressNavigation)
-                .Where(x => x.Id == ForooshFactorId && x.StatusForooshFactor == Status.Show)
+                .Where(x => x.Id == ForooshFactorId && x.StatusTypeForooshFactor == StatusType.Show)
                 .Select(x => new FactorInformationResponse
                 {
                     IdProduct = x.ForooshOrders.FirstOrDefault().IdProduct,
-                    PaymentStatus = x.Payments.FirstOrDefault().PaymentStatus,
+                    PaymentStatusType = x.Payments.FirstOrDefault().PaymentStatusType,
                     ShippingMethodType = x.ShippingMethodType,
                     AmountTax = x.AmountTax,
                     PaymentMethod = x.PaymentMethod,
@@ -70,7 +70,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     PriceDiscount = x.ForooshOrders.FirstOrDefault().PriceDiscount,
                     PriceShipping = x.ForooshOrders.FirstOrDefault().PriceShipping,
                     PriceTotal = x.ForooshOrders.FirstOrDefault().PriceTotal,
-                    StatusForooshFactor = x.StatusForooshFactor,
+                    StatusTypeForooshFactor = x.StatusTypeForooshFactor,
                     Tedad = x.ForooshOrders.FirstOrDefault().Tedad,
                 })
                 .AsQueryable();
@@ -88,7 +88,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
         {
             var item = await _context.ForooshFactors.FindAsync(request.Id);
             if (item is null) return new Result<ForooshFactor>(new ValidationException(ResultErrorMessage.NotFound));
-            item.StatusForooshFactor = request.ForooshFactorStatus;
+            item.StatusTypeForooshFactor = request.ForooshFactorStatusType;
             await _context.SaveChangesAsync();
 
             return item;
@@ -205,7 +205,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     DatePayed = x.DatePayed,
                     FactorForooshId = x.Id,
                     MablagheKoleSoud = x.MablagheKoleSoud,
-                    StatusForooshFactor = x.StatusForooshFactor,
+                    StatusTypeForooshFactor = x.StatusTypeForooshFactor,
                     //Price = x.ForooshOrders.FirstOrDefault().Price,
                     //PriceDiscount = x.ForooshOrders.FirstOrDefault().PriceDiscount,
                     //PriceShipping = x.ForooshOrders.FirstOrDefault().PriceShipping,
@@ -243,7 +243,6 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 item.ShoroAghsat = request.ShoroAghsat;
             }
 
-            _context.Update(item);
             await _context.SaveChangesAsync();
             return item;
         }
@@ -258,7 +257,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
         try
         {
             var ForooshFactor = await _context.ForooshFactors.FindAsync(id);
-            ForooshFactor!.StatusForooshFactor = Status.Deleted;
+            ForooshFactor!.StatusTypeForooshFactor = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return ForooshFactor;
         }

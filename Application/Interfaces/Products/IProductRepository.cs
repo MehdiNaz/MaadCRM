@@ -4,7 +4,7 @@ public interface IProductRepository
 {
     ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsAsync(Ulid businessId);
     ValueTask<Result<Product>> GetProductByIdAsync(Ulid productId);
-    ValueTask<Result<Product>> ChangeStatusProductByIdAsync(Status status, Ulid productId);
+    ValueTask<Result<Product>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId);
     ValueTask<Result<ICollection<Product>>> SearchByItemsAsync(string request);
     ValueTask<Result<Product>> ChangeStatusProductAsync(ChangeStateProductCommand request);
     ValueTask<Result<Product>> CreateProductAsync(CreateProductCommand request);

@@ -10,11 +10,11 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
     }
 
     public async ValueTask<ICollection<ContactsEmailAddress?>> GetAllContactsEmailAddressAsync()
-        => await _context.ContactsEmailAddresses.Where(x => x.ContactsEmailAddressStatus == Status.Show).ToListAsync();
+        => await _context.ContactsEmailAddresses.Where(x => x.ContactsEmailAddressStatusType == StatusType.Show).ToListAsync();
 
     public async ValueTask<ContactsEmailAddress?> GetContactsEmailAddressByIdAsync(Ulid requestId)
         => await _context.ContactsEmailAddresses!.SingleOrDefaultAsync(x =>
-            x.Id == requestId && x.ContactsEmailAddressStatus == Status.Show);
+            x.Id == requestId && x.ContactsEmailAddressStatusType == StatusType.Show);
 
     public async ValueTask<ContactsEmailAddress?> ChangeStatusContactsEmailAddressByIdAsync(ChangeStatusContactEmailAddressCommand request)
     {
@@ -22,7 +22,7 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         {
             var item = await _context.ContactsEmailAddresses!.FindAsync(request.CustomersEmailAddressId);
             if (item is null) return null;
-            item.ContactsEmailAddressStatus = request.ContactsEmailAddressStatus;
+            item.ContactsEmailAddressStatusType = request.ContactsEmailAddressStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -74,7 +74,7 @@ public class ContactEmailAddressRepository : IContactsEmailAddressRepository
         try
         {
             var contactsEmailAddress = await _context.ContactsEmailAddresses.FindAsync(id);
-            contactsEmailAddress!.ContactsEmailAddressStatus = Status.Deleted;
+            contactsEmailAddress!.ContactsEmailAddressStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return contactsEmailAddress;
         }

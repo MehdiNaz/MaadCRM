@@ -63,7 +63,7 @@ public static class NoteHashTagRoute
             {
                 var result = await mediator.Send(new ChangeStatusNoteHashTagCommand
                 {
-                    NoteHashTagStatus = request.NoteHashTagStatus,
+                    NoteHashTagStatusType = request.NoteHashTagStatusType,
                     Id = request.Id
                 });
                 return Results.Ok(result);

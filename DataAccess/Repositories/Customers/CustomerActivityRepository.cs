@@ -10,10 +10,10 @@ public class CustomerActivityRepository : ICustomerActivityRepository
     }
 
     public async ValueTask<ICollection<CustomerActivity?>> GetAllCustomerActivitiesAsync(Ulid customerId)
-        => await _context.CustomerActivities.Where(x => x.CustomerActivityStatus == Status.Show && x.CustomerId == customerId).ToListAsync();
+        => await _context.CustomerActivities.Where(x => x.CustomerActivityStatusType == StatusType.Show && x.CustomerId == customerId).ToListAsync();
 
     public async ValueTask<CustomerActivity?> GetCustomerActivityByIdAsync(Ulid customerActivityId)
-        => await _context.CustomerActivities.FirstOrDefaultAsync(x => x.Id == customerActivityId && x.CustomerActivityStatus == Status.Show);
+        => await _context.CustomerActivities.FirstOrDefaultAsync(x => x.Id == customerActivityId && x.CustomerActivityStatusType == StatusType.Show);
 
     public async ValueTask<CustomerActivity?> ChangeStatusCustomerActivityByIdAsync(ChangeStatusCustomerActivityCommand request)
     {
@@ -21,7 +21,7 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         {
             var item = await _context.CustomerActivities!.FindAsync(request.Id);
             if (item is null) return null;
-            item.CustomerActivityStatus = request.CustomerActivityStatus;
+            item.CustomerActivityStatusType = request.CustomerActivityStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -76,7 +76,7 @@ public class CustomerActivityRepository : ICustomerActivityRepository
         try
         {
             var customerActivity = await _context.CustomerActivities.FindAsync(id);
-            customerActivity!.CustomerActivityStatus = Status.Deleted;
+            customerActivity!.CustomerActivityStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return customerActivity;
         }

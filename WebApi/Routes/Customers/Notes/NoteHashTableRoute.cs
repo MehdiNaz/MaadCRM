@@ -198,14 +198,14 @@ public static class NoteHashTableRoute
                     var result = mediator.Send(new ChangeStatusNoteHashTableCommand
                     {
                         Id = request.Id,
-                        NoteHashTagStatus = request.NoteHashTagStatus
+                        NoteHashTagStatusType = request.NoteHashTagStatusType
                     });
 
                     return result.Result.Match(
                                     succes => Results.Ok(new
                                     {
                                         Valid = true,
-                                        Message = "Status of Note Hash Table Changed.",
+                                        Message = "StatusType of Note Hash Table Changed.",
                                         Data = succes
                                     }),
                                     error => Results.BadRequest(new ErrorResponse

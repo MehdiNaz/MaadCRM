@@ -14,12 +14,12 @@ public class NoteHashTableRepository : INoteHashTableRepository
         try
         {
             return await _context.NoteHashTables.
-                Where(x => x.NoteHashTagStatus == Status.Show)
+                Where(x => x.NoteHashTagStatusType == StatusType.Show)
                 .Select(x => new CustomerNoteHashTableResponse
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    NoteHashTagStatus = x.NoteHashTagStatus
+                    NoteHashTagStatusType = x.NoteHashTagStatusType
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -31,12 +31,12 @@ public class NoteHashTableRepository : INoteHashTableRepository
     {
         try
         {
-            return await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatus == Status.Show).
+            return await _context.NoteHashTables.SingleOrDefaultAsync(x => x.Id == noteHashTableId && x.NoteHashTagStatusType == StatusType.Show).
                 Select(x => new CustomerNoteHashTableResponse()
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    NoteHashTagStatus = x.NoteHashTagStatus
+                    NoteHashTagStatusType = x.NoteHashTagStatusType
                 });
         }
         catch (Exception e)
@@ -51,14 +51,14 @@ public class NoteHashTableRepository : INoteHashTableRepository
         {
             var item = await _context.NoteHashTables.FindAsync(request.Id);
             if (item is null) return new Result<CustomerNoteHashTableResponse>(new ValidationException(ResultErrorMessage.NotFound));
-            item.NoteHashTagStatus = request.NoteHashTagStatus;
+            item.NoteHashTagStatusType = request.NoteHashTagStatusType;
             await _context.SaveChangesAsync();
             return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables.FindAsync(request.Id)
                 .Select(x => new CustomerNoteHashTableResponse
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    NoteHashTagStatus = x.NoteHashTagStatus
+                    NoteHashTagStatusType = x.NoteHashTagStatusType
 
                 }));
         }
@@ -85,7 +85,7 @@ public class NoteHashTableRepository : INoteHashTableRepository
                             {
                                 Id = x.Id,
                                 Title = x.Title,
-                                NoteHashTagStatus = x.NoteHashTagStatus
+                                NoteHashTagStatusType = x.NoteHashTagStatusType
 
                             }));
         }
@@ -122,7 +122,7 @@ public class NoteHashTableRepository : INoteHashTableRepository
         try
         {
             var item = await _context.NoteHashTables.FindAsync(id);
-            item!.NoteHashTagStatus = Status.Deleted;
+            item!.NoteHashTagStatusType = StatusType.Deleted;
 
             await _context.SaveChangesAsync();
             return new Result<CustomerNoteHashTableResponse>(await _context.NoteHashTables.FindAsync(id)
@@ -130,7 +130,7 @@ public class NoteHashTableRepository : INoteHashTableRepository
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    NoteHashTagStatus = x.NoteHashTagStatus
+                    NoteHashTagStatusType = x.NoteHashTagStatusType
 
                 }));
         }

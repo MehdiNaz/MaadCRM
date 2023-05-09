@@ -10,10 +10,10 @@ public class ForooshOrderRepository : IForooshOrderRepository
     }
 
     public async ValueTask<ICollection<ForooshOrder?>> GetAllForooshOrdersAsync()
-        => await _context.ForooshOrders.Where(x => x.StatusForooshOrder == Status.Show).ToListAsync();
+        => await _context.ForooshOrders.Where(x => x.StatusTypeForooshOrder == StatusType.Show).ToListAsync();
 
     public async ValueTask<ForooshOrder?> GetForooshOrderByIdAsync(Ulid ForooshOrderId)
-        => await _context.ForooshOrders.SingleOrDefaultAsync(x => x.Id == ForooshOrderId && x.StatusForooshOrder == Status.Show);
+        => await _context.ForooshOrders.SingleOrDefaultAsync(x => x.Id == ForooshOrderId && x.StatusTypeForooshOrder == StatusType.Show);
 
     public async ValueTask<ForooshOrder?> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request)
     {
@@ -21,7 +21,7 @@ public class ForooshOrderRepository : IForooshOrderRepository
         {
             var item = await _context.ForooshOrders!.FindAsync(request.ForooshOrderId);
             if (item is null) return null;
-            item.StatusForooshOrder = request.ForooshOrderStatus;
+            item.StatusTypeForooshOrder = request.ForooshOrderStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -80,7 +80,7 @@ public class ForooshOrderRepository : IForooshOrderRepository
         try
         {
             var ForooshOrder = await _context.ForooshOrders.FindAsync(id);
-            ForooshOrder!.StatusForooshOrder = Status.Deleted;
+            ForooshOrder!.StatusTypeForooshOrder = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return ForooshOrder;
         }

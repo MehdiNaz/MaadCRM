@@ -5,7 +5,7 @@
 ///  به غیر از محصولات
 /// </summary>
 
-public enum Status
+public enum StatusType
 {
     Show = 1,
     Hidden = 2,

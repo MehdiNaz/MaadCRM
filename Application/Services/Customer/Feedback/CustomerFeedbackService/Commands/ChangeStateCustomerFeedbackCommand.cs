@@ -3,5 +3,5 @@
 public struct ChangeStateCustomerFeedbackCommand : IRequest<Result<CustomerFeedback>>
 {
     public Ulid Id { get; set; }
-    public Status CustomerFeedbackStatus { get; set; }
+    public StatusType CustomerFeedbackStatusType { get; set; }
 }

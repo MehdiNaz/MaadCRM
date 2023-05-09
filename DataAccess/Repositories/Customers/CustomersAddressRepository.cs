@@ -11,12 +11,12 @@ public class CustomersAddressRepository : ICustomersAddressRepository
 
     public async ValueTask<ICollection<CustomerAddress?>> GetAllAddressesAsync(Ulid customerId)
     {
-        var result = await _context.CustomersAddresses.Where(x => x.StatusCustomersAddress == Status.Show && x.IdCustomer == customerId).ToListAsync();
+        var result = await _context.CustomersAddresses.Where(x => x.StatusTypeCustomersAddress == StatusType.Show && x.IdCustomer == customerId).ToListAsync();
         return result;
     }
 
     public async ValueTask<CustomerAddress?> GetAddressByIdAsync(Ulid customersAddressId)
-        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.StatusCustomersAddress == Status.Show);
+        => await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.Id == customersAddressId && x.StatusTypeCustomersAddress == StatusType.Show);
 
     public async ValueTask<CustomerAddress?> ChangeStatusAddressByIdAsync(ChangeStatusCustomersAddressCommand request)
     {
@@ -24,7 +24,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         {
             var item = await _context.CustomersAddresses.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusCustomersAddress = request.CustomersAddressStatus;
+            item.StatusTypeCustomersAddress = request.CustomersAddressStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -80,7 +80,7 @@ public class CustomersAddressRepository : ICustomersAddressRepository
         try
         {
             var customersAddress = await _context.CustomersAddresses.FindAsync(id);
-            customersAddress.StatusCustomersAddress = Status.Deleted;
+            customersAddress.StatusTypeCustomersAddress = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return customersAddress;
         }

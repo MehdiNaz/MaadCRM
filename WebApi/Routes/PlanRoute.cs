@@ -68,7 +68,7 @@ public static class PlanRoute
                 var result = await mediator.Send(new ChangeStatusPlanCommand
                 {
                     PlanId = request.PlanId,
-                    PlanStatus = request.PlanStatus
+                    PlanStatusType = request.PlanStatusType
                 });
                 return Results.Ok(result);
             }

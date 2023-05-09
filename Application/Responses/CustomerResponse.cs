@@ -13,7 +13,7 @@ public struct CustomerResponse
     public string CityName { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
-    public Status CustomerStatus { get; set; }
+    public StatusType CustomerStatusType { get; set; }
     public CustomerStateTypes CustomerStateType { get; set; }
     public DateTime? From { get; set; }
     public DateTime? UpTo { get; set; }

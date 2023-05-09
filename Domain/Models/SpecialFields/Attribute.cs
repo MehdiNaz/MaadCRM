@@ -5,13 +5,13 @@ public class Attribute : BaseEntityWithUserUpdate
     public Attribute()
     {
         Id = Ulid.NewUlid();
-        AttributeOptionsStatus = Status.Show;
+        Status = StatusType.Show;
         DisplayOrder = 0;
         IsRequired = false;
     }
 
     public Ulid Id { get; set; }
-    public string Lable { get; set; }
+    public string Label { get; set; }
     public int DisplayOrder { get; set; }
     public bool IsRequired { get; set; }
 
@@ -26,5 +26,5 @@ public class Attribute : BaseEntityWithUserUpdate
 
     public Ulid? IdBusiness { get; set; }
     public Business? IdBusinessNavigation { get; set; }
-    public Status AttributeOptionsStatus { get; set; }
+    public StatusType Status { get; set; }
 }

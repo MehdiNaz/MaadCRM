@@ -14,7 +14,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             return await _context.CustomerPeyGiries
-                .Where(x => x.StatusCustomerPeyGiry == Status.Show && x.IdCustomer == customerId)
+                .Where(x => x.StatusTypeCustomerPeyGiry == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
                     CustomerPeyGiryId = x.Id,
@@ -32,7 +32,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
     {
         try
         {
-            return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.StatusCustomerPeyGiry == Status.Show);
+            return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.StatusTypeCustomerPeyGiry == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -46,7 +46,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             var item = await _context.CustomerPeyGiries.FindAsync(request.CustomerPeyGiryId);
             if (item is null) return new Result<CustomerPeyGiry>(new ValidationException());
-            item.StatusCustomerPeyGiry = request.CustomerPeyGiryStatus;
+            item.StatusTypeCustomerPeyGiry = request.CustomerPeyGiryStatusType;
             await _context.SaveChangesAsync();
             return new Result<CustomerPeyGiry>(item);
         }
@@ -100,7 +100,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             var item = await _context.CustomerPeyGiries.FindAsync(id);
-            item.StatusCustomerPeyGiry = Status.Deleted;
+            item.StatusTypeCustomerPeyGiry = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerPeyGiry>(item);
         }

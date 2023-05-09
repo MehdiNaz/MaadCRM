@@ -3,5 +3,5 @@
 public struct ChangeStatusForooshOrderCommand : IRequest<ForooshOrder?>
 {
     public Ulid ForooshOrderId { get; set; }
-    public Status ForooshOrderStatus { get; set; }
+    public StatusType ForooshOrderStatusType { get; set; }
 }

@@ -25,7 +25,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
     {
         try
         {
-            return await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatus == Status.Show);
+            return await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -57,7 +57,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
             var item = await _context.CustomerFeedbacks.FindAsync(feedback);
             if (item is null) return new Result<CustomerFeedback>(new ValidationException(ResultErrorMessage.NotFound));
-            item.CustomerFeedbackStatus = request.CustomerFeedbackStatus;
+            item.CustomerFeedbackStatusType = request.CustomerFeedbackStatusType;
             await _context.SaveChangesAsync();
             return new Result<CustomerFeedback>(item);
         }
@@ -110,7 +110,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         try
         {
             var item = await _context.CustomerFeedbacks.FindAsync(id);
-            item.CustomerFeedbackStatus = Status.Deleted;
+            item.CustomerFeedbackStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<CustomerFeedback>(item);
         }

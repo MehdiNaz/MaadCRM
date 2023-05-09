@@ -3,5 +3,5 @@
 public struct ChangeStatusNoteHashTagCommand : IRequest<CustomerNoteHashTag?>
 {
     public Ulid Id { get; set; }
-    public Status NoteHashTagStatus { get; set; }
+    public StatusType NoteHashTagStatusType { get; set; }
 }

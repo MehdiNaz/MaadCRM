@@ -10,10 +10,10 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
     }
 
     public async ValueTask<ICollection<CustomersEmailAddress?>> GetAllEmailAddressesAsync()
-        => await _context.CustomersEmailAddresses.Where(x => x.StatusCustomerEmailAddress == Status.Show).ToListAsync();
+        => await _context.CustomersEmailAddresses.Where(x => x.StatusTypeCustomerEmailAddress == StatusType.Show).ToListAsync();
 
     public async ValueTask<CustomersEmailAddress?> GetEmailAddressByIdAsync(Ulid emailAddressId)
-        => await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.Id == emailAddressId && x.StatusCustomerEmailAddress == Status.Show);
+        => await _context.CustomersEmailAddresses.FirstOrDefaultAsync(x => x.Id == emailAddressId && x.StatusTypeCustomerEmailAddress == StatusType.Show);
 
     public async ValueTask<CustomersEmailAddress?> ChangeStatusEmailAddressByIdAsync(ChangeStatusCustomersEmailAddressCommand request)
     {
@@ -21,7 +21,7 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         {
             var item = await _context.CustomersEmailAddresses.FindAsync(request.Id);
             if (item is null) return null;
-            item.StatusCustomerEmailAddress = request.ContactsEmailAddressStatus;
+            item.StatusTypeCustomerEmailAddress = request.ContactsEmailAddressStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
@@ -74,7 +74,7 @@ public class CustomersEmailAddressRepository : ICustomersEmailAddressRepository
         try
         {
             var customer = await _context.CustomersEmailAddresses.FindAsync(id);
-            customer!.StatusCustomerEmailAddress = Status.Show;
+            customer!.StatusTypeCustomerEmailAddress = StatusType.Show;
             await _context.SaveChangesAsync();
             return customer;
         }

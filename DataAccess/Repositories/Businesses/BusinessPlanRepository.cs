@@ -26,7 +26,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
 
         try
         {
-            return await _context.BusinessPlans.Where(x => x.BusinessId == businessId && x.BusinessPlansStatus == Status.Show).ToListAsync();
+            return await _context.BusinessPlans.Where(x => x.BusinessId == businessId && x.BusinessPlansStatusType == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -50,7 +50,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatus == Status.Show);
+            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatusType == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -69,7 +69,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
 
             var item = await _context.BusinessPlans!.FindAsync(businessPlan);
             if (item is null) return new Result<BusinessPlan>(new ValidationException(ResultErrorMessage.NotFound));
-            item.BusinessPlansStatus = request.Status;
+            item.BusinessPlansStatusType = request.StatusType;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(item);
         }
@@ -127,7 +127,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         try
         {
             var businessPlan = await _context.BusinessPlans.FindAsync(id);
-            businessPlan.BusinessPlansStatus = Status.Deleted;
+            businessPlan.BusinessPlansStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(businessPlan);
         }

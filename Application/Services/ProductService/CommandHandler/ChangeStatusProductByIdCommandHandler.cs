@@ -13,7 +13,7 @@ public readonly struct ChangeStatusProductByIdCommandHandler : IRequestHandler<C
     {
         try
         {
-            return (await _repository.ChangeStatusProductByIdAsync(request.ProductStatus, request.ProductId)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
+            return (await _repository.ChangeStatusProductByIdAsync(request.ProductStatusType, request.ProductId)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
         }
         catch (Exception e)
         {

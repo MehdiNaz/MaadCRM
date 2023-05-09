@@ -22,7 +22,7 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
                     Name = x.Name,
                     FileName = x.FileName,
                     Extenstion = x.Extenstion,
-                    CustomerFeedbackAttachmentStatus = x.CustomerFeedbackAttachmentStatus
+                    CustomerFeedbackAttachmentStatusType = x.CustomerFeedbackAttachmentStatusType
                 }).ToListAsync());
         }
         catch (Exception e)
@@ -36,14 +36,14 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
         try
         {
             return await _context.CustomerFeedbackAttachments
-                .FirstOrDefaultAsync(x => x.Id == attachmentId && x.CustomerFeedbackAttachmentStatus == Status.Show)
+                .FirstOrDefaultAsync(x => x.Id == attachmentId && x.CustomerFeedbackAttachmentStatusType == StatusType.Show)
                 .Select(x => new CustomerFeedbackAttachmentResponse
                 {
                     Id = x.Id,
                     Extenstion = x.Extenstion,
                     Name = x.Name,
                     FileName = x.FileName,
-                    CustomerFeedbackAttachmentStatus = x.CustomerFeedbackAttachmentStatus
+                    CustomerFeedbackAttachmentStatusType = x.CustomerFeedbackAttachmentStatusType
                 });
         }
         catch (Exception e)
@@ -72,7 +72,7 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
                     Extenstion = x.Extenstion,
                     Name = x.Name,
                     FileName = x.FileName,
-                    CustomerFeedbackAttachmentStatus = x.CustomerFeedbackAttachmentStatus
+                    CustomerFeedbackAttachmentStatusType = x.CustomerFeedbackAttachmentStatusType
                 });
         }
         catch (Exception e)
@@ -99,7 +99,7 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
                     Extenstion = x.Extenstion,
                     Name = x.Name,
                     FileName = x.FileName,
-                    CustomerFeedbackAttachmentStatus = x.CustomerFeedbackAttachmentStatus
+                    CustomerFeedbackAttachmentStatusType = x.CustomerFeedbackAttachmentStatusType
                 });
         }
         catch (Exception e)
@@ -126,7 +126,7 @@ public class CustomerFeedbackAttachmentRepository : ICustomerFeedbackAttachmentR
                     Extenstion = x.Extenstion,
                     Name = x.Name,
                     FileName = x.FileName,
-                    CustomerFeedbackAttachmentStatus = x.CustomerFeedbackAttachmentStatus
+                    CustomerFeedbackAttachmentStatusType = x.CustomerFeedbackAttachmentStatusType
                 });
         }
         catch (Exception e)

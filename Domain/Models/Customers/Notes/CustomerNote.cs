@@ -5,14 +5,14 @@ public class CustomerNote : BaseEntityWithUserUpdate
     public CustomerNote()
     {
         Id = Ulid.NewUlid();
-        CustomerNoteStatus = Status.Show;
+        CustomerNoteStatusType = StatusType.Show;
         NoteHashTags = new HashSet<CustomerNoteHashTag>();
         NoteAttachments = new HashSet<CustomerNoteAttachment>();
     }
 
     public Ulid Id { get; set; }
     public string Description { get; set; }
-    public Status CustomerNoteStatus { get; set; }
+    public StatusType CustomerNoteStatusType { get; set; }
 
     public Ulid? IdProduct { get; set; }
     public virtual Product? IdProductNavigation { get; set; }

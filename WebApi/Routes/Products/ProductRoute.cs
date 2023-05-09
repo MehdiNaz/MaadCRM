@@ -151,7 +151,7 @@ public static class ProductRoute
                         var business = mediator.Send(new ChangeStatusProductByIdCommand
                         {
                             ProductId = request.ProductId,
-                            ProductStatus = request.ProductStatus
+                            ProductStatusType = request.ProductStatusType
                         });
 
                         return business.Result.Match(bId =>
@@ -265,7 +265,7 @@ public static class ProductRoute
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Customers Note Status Changed.",
+                                Message = "Customers Note StatusType Changed.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
