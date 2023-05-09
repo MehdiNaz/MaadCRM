@@ -89,5 +89,6 @@ global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
 global using Application.Services.Customer.Foroosh.ForooshFactorService.Commands;
+global using Application.Services.SpecialFields.AttributeOptionService.Commands;
 global using Application.Services.SpecialFields.AttributeService.Commands;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

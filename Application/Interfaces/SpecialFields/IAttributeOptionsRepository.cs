@@ -2,9 +2,10 @@
 
 public interface IAttributeOptionsRepository
 {
-    ValueTask<ICollection<AttributeOption?>> GetAllAttributeOptionsAsync();
-    ValueTask<AttributeOption?> GetAttributeOptionsByIdAsync(int attributeOptionsId);
-    ValueTask<AttributeOption?> CreateAttributeOptionsAsync(AttributeOption? toCreate);
-    ValueTask<AttributeOption?> UpdateAttributeOptionsAsync(string updateContent, int attributeOptionsId);
-    ValueTask<AttributeOption?> DeleteAttributeOptionsAsync(int attributeOptionsId);
+    ValueTask<Result<ICollection<AttributeOptionResponse>>> GetAllAttributeOptionsAsync();
+    ValueTask<Result<AttributeOptionResponse>> GetAttributeOptionsByIdAsync(Ulid attributeOptionsId);
+    ValueTask<Result<AttributeOptionResponse>> ChangeStatusAttributeIdAsync(ChangeStatusAttributeOptionCommand request);
+    ValueTask<Result<AttributeOptionResponse>> CreateAttributeOptionsAsync(CreateAttributeOptionCommand request);
+    ValueTask<Result<AttributeOptionResponse>> UpdateAttributeOptionsAsync(UpdateAttributeOptionCommand request);
+    ValueTask<Result<AttributeOptionResponse>> DeleteAttributeOptionsAsync(Ulid attributeOptionsId);
 }

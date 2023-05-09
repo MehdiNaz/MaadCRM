@@ -8,6 +8,7 @@ public class Attribute : BaseEntityWithUserUpdate
         Status = StatusType.Show;
         DisplayOrder = 0;
         IsRequired = false;
+        AttributeOptions = new HashSet<AttributeOption>();
     }
 
     public Ulid Id { get; set; }
@@ -27,4 +28,5 @@ public class Attribute : BaseEntityWithUserUpdate
     public Ulid? IdBusiness { get; set; }
     public Business? IdBusinessNavigation { get; set; }
     public StatusType Status { get; set; }
+    public ICollection<AttributeOption>? AttributeOptions { get; set; }
 }
