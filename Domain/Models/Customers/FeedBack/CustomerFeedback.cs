@@ -16,10 +16,10 @@ public class CustomerFeedback
     public Ulid IdCategory { get; set; }
     public CustomerFeedbackCategory? Category { get; set; }
 
-    public Ulid IdProduct { get; set; }
+    public Ulid? IdProduct { get; set; }
     public Product? IdProductNavigation { get; set; }
 
-    public Ulid IdCustomer { get; set; }
+    public Ulid? IdCustomer { get; set; }
     public Customer? IdCustomerNavigation { get; set; }
 
     public ICollection<CustomerFeedbackAttachment>? Attachments;

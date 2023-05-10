@@ -149,16 +149,16 @@ public class ContactRepository : IContactRepository
             await _context.SaveChangesAsync();
 
 
-
-            foreach (var email in request.EmailAddresses)
-            {
-                ContactsEmailAddress emailAddress = new()
+            if (request.EmailAddresses is not null)
+                foreach (var email in request.EmailAddresses)
                 {
-                    ContactId = item.Id,
-                    ContactEmailAddress = email
-                };
-                await _context.ContactsEmailAddresses.AddAsync(emailAddress);
-            }
+                    ContactsEmailAddress emailAddress = new()
+                    {
+                        ContactId = item.Id,
+                        ContactEmailAddress = email
+                    };
+                    await _context.ContactsEmailAddresses.AddAsync(emailAddress);
+                }
 
             foreach (var phone in request.PhoneNumber)
             {

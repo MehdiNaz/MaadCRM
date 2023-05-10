@@ -9,41 +9,145 @@ public class AttributeOptionsValueRepository : IAttributeOptionsValueRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<AttributeOptionValue?>> GetAllAttributeOptionsValueAsync()
-        => await _context.AttributeOptionsValues.Where(x => x.Status == StatusType.Show).ToListAsync();
-
-
-    public async ValueTask<AttributeOptionValue?> GetAttributeOptionsValueByIdAsync(int attributeOptionsValueId) 
-        => await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId);
-
-    public async ValueTask<AttributeOptionValue?> CreateAttributeOptionsValueAsync(AttributeOptionValue? toCreate)
-    {
-        await _context.AttributeOptionsValues!.AddAsync(toCreate);
-        await _context.SaveChangesAsync();
-        return toCreate;
-    }
-
-    public async ValueTask<AttributeOptionValue?> UpdateAttributeOptionsValueAsync(string updateContent, int attributeOptionsValueId)
-    {
-        var attributeOptionsValues = await GetAttributeOptionsValueByIdAsync(attributeOptionsValueId);
-        _context.Update(attributeOptionsValues);
-        await _context.SaveChangesAsync();
-        return attributeOptionsValues;
-    }
-
-    public async ValueTask<AttributeOptionValue?> DeleteAttributeOptionsValueAsync(int attributeOptionsValueId)
+    public async ValueTask<Result<ICollection<AttributeOptionValueResponse>>> GetAllAttributeOptionsValueAsync()
     {
         try
         {
-            var attributeOptionsValues = await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId);
-            //_context.AttributeOptionsValues!.Remove(attributeOptionsValues);
-            attributeOptionsValues.Status = StatusType.Deleted;
-            await _context.SaveChangesAsync();
-            return attributeOptionsValues;
+            return new Result<ICollection<AttributeOptionValueResponse>>(await _context.AttributeOptionsValues.Where(x => x.Status == StatusType.Show)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    FilePath = x.FilePath,
+                    IdAttributeOption = x.IdAttributeOption,
+                    Value = x.Value
+                })
+                .ToListAsync());
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ICollection<AttributeOptionValueResponse>>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<AttributeOptionValueResponse>> GetAttributeOptionsValueByIdAsync(Ulid attributeOptionsValueId)
+    {
+        try
+        {
+            return new Result<AttributeOptionValueResponse>(await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    Value = x.Value,
+                    IdAttributeOption = x.IdAttributeOption,
+                    FilePath = x.FilePath
+                }));
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeOptionValueResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<AttributeOptionValueResponse>> ChangeStatusAttributeOptionsByIdAsync(ChangeStatusAttributeOptionValueCommand request)
+    {
+        try
+        {
+            var item = await _context.AttributeOptionsValues.FindAsync(request.Id);
+            if (item is null) return new Result<AttributeOptionValueResponse>(new ValidationException(ResultErrorMessage.NotFound));
+            item.Status = request.Status;
+            await _context.SaveChangesAsync();
+            return await _context.AttributeOptionsValues.FindAsync(request.Id)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    Value = x.Value,
+                    IdAttributeOption = x.IdAttributeOption,
+                    FilePath = x.FilePath
+                });
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeOptionValueResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<AttributeOptionValueResponse>> CreateAttributeOptionsValueAsync(CreateAttributeOptionValueCommand request)
+    {
+        try
+        {
+            AttributeOptionValue item = new()
+            {
+                Value = request.Value,
+                IdAttributeOption = request.IdAttributeOption,
+                FilePath = request.FilePath
+            };
+            await _context.AttributeOptionsValues.AddAsync(item);
+            await _context.SaveChangesAsync();
+            return await _context.AttributeOptionsValues.FindAsync(item.Id)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    Value = x.Value,
+                    IdAttributeOption = x.IdAttributeOption,
+                    FilePath = x.FilePath
+                });
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeOptionValueResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<AttributeOptionValueResponse>> UpdateAttributeOptionsValueAsync(UpdateAttributeOptionValueCommand request)
+    {
+        try
+        {
+            AttributeOptionValue item = await _context.AttributeOptionsValues.FindAsync(request.Id);
+
+            item.Value = request.Value;
+            item.FilePath = request.FilePath;
+
+            await _context.SaveChangesAsync();
+            return await _context.AttributeOptionsValues.FindAsync(request.Id)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    Value = x.Value,
+                    IdAttributeOption = x.IdAttributeOption,
+                    FilePath = x.FilePath
+                });
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeOptionValueResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<AttributeOptionValueResponse>> DeleteAttributeOptionsValueAsync(Ulid attributeOptionsValueId)
+    {
+        try
+        {
+            var item = await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId);
+            item!.Status = StatusType.Deleted;
+            await _context.SaveChangesAsync();
+            return await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId)
+                .Select(x => new AttributeOptionValueResponse
+                {
+                    Id = x.Id,
+                    Status = x.Status,
+                    Value = x.Value,
+                    IdAttributeOption = x.IdAttributeOption,
+                    FilePath = x.FilePath
+                });
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeOptionValueResponse>(new ValidationException(e.Message));
         }
     }
 }

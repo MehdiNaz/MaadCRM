@@ -77,6 +77,7 @@ app.MapCustomerFeedbackAttachmentRoute();
 app.MapForooshFactorRoute();
 app.MapAttributeRoute();
 app.MapAttributeOptionRoute();
+app.MapAttributeOptionValueRoute();
 #endregion
 
 app.Run();

@@ -51,6 +51,7 @@ public static class RepositoryConfiguration
         //Application ==> Interfaces ==> SpecialFields
         collection.AddTransient<IAttributeOptionsRepository, AttributeOptionsRepository>();
         collection.AddTransient<IAttributeOptionsValueRepository, AttributeOptionsValueRepository>();
+        collection.AddTransient<IAttributeRepository, AttributeRepository>();
 
         collection.AddTransient<IContactGroupRepository, ContactGroupRepository>();
         collection.AddTransient<IContactRepository, ContactRepository>();
@@ -64,10 +65,6 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICountryRepository, CountryRepository>();
         collection.AddTransient<IProvinceRepository, ProvinceRepository>();
         collection.AddTransient<ICityRepository, CityRepository>();
-
-
-        collection.AddTransient<IAttributeRepository, AttributeRepository>();
-        collection.AddTransient<IAttributeOptionsRepository, AttributeOptionsRepository>();
 
         collection.AddTransient<INoteHashTableRepository, NoteHashTableRepository>();
     }

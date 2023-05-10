@@ -226,6 +226,52 @@ public static class CustomerFeedbackCategoryRoute
             }
         });
 
+        plan.MapPost("/SearchByFeedbackTypeName", ([FromBody] SearchByFeedbackTypeNameQuery request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var result = mediator.Send(new SearchByFeedbackTypeNameQuery
+                        {
+                            Type = request.Type
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "Search By Feedback Type Name.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
         plan.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try

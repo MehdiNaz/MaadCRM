@@ -81,7 +81,6 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new SanAtMapping());
         builder.ApplyConfiguration(new SettingMapping());
-        builder.ApplyConfiguration(new AttributeOptionsMapping());
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());
         builder.ApplyConfiguration(new ContactMapping());
@@ -101,6 +100,8 @@ public class MaadContext : IdentityDbContext
 
 
         builder.ApplyConfiguration(new AttributeMapping());
+        builder.ApplyConfiguration(new AttributeOptionsMapping());
+        builder.ApplyConfiguration(new AttributeOptionsValueMapping());
 
         foreach (var entityType in builder.Model.GetEntityTypes())
         {

@@ -47,13 +47,27 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var result = await _context.Customers.FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
+            var result = await _context.Customers
+                .Include(x=>x.PhoneNumbers)
+                .Include(x=>x.EmailAddresses)
+                .Include(x=>x.CustomerAddresses)
+                .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
                     CustomerId = x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    MoshtaryMoAref = x.CustomerMoarefId
+                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
+                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
+                    Address = x.CustomerAddresses.FirstOrDefault().Address,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatusType = x.CustomerStatusType,
+                    From = x.DateCreated,
+                    UpTo = DateTime.UtcNow,
+                    BirthDayDate = x.BirthDayDate,
+                    CityId = x.IdCity,
+                    Gender = x.Gender,
+                    DateCreated = x.DateCreated
                 });
             return result;
         }
@@ -237,7 +251,7 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
@@ -271,7 +285,18 @@ public class CustomerRepository : ICustomerRepository
             // || x.Address.Contains(request)
         ).ToListAsync();
 
-        return result;
+
+        return new CustomerDashboardResponse
+        {
+            AllCustomersInfo = resultsListCustomer,
+            AllCount = resultsListCustomer.Count(),
+            BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+            BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+            RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+            NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+            DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+            VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
+        };
     }
 
     public async ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request)

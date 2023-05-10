@@ -72,6 +72,27 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
         }
     }
 
+    public async ValueTask<Result<ICollection<CustomerFeedbackCategoryResponse>>> SearchByFeedbackTypeNameAsync(FeedbackType request)
+    {
+        try
+        {
+            return await _context.CustomerFeedbackCategories
+                .Where(x => x.TypeFeedback ==request && x.CustomerFeedbackCategoryStatusType == StatusType.Show)
+                    .Select(x => new CustomerFeedbackCategoryResponse
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        PositiveNegative = x.PositiveNegative,
+                        CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
+                        TypeFeedback = x.TypeFeedback
+                    }).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<CustomerFeedbackCategoryResponse>>(new ValidationException(e.Message));
+        }
+    }
+
     public async ValueTask<Result<CustomerFeedbackCategoryResponse>> ChangeStatusCustomerFeedbackCategoryByIdAsync(ChangeStatusCustomerFeedbackCategoryCommand request)
     {
         try

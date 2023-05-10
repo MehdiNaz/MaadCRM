@@ -18,5 +18,5 @@ public class CustomerFeedbackCategory : BaseEntityWithUserUpdate
     public Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }
 
-    public ICollection<CustomerFeedback>? Feedbacks; 
+    public ICollection<CustomerFeedback>? Feedbacks;
 }

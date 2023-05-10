@@ -64,6 +64,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             {
                 Description = request.Description,
                 IdCustomer = request.CustomerId,
+                DatePeyGiry = request.DatePeyGiry,
                 IdUserAdded = request.IdUser,
                 IdUserUpdated = request.IdUser
             };
@@ -83,6 +84,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             CustomerPeyGiry item = await _context.CustomerPeyGiries.FindAsync(request.Id);
             item.Description = request.Description;
+            item.DatePeyGiry = request.DatePeyGiry;
             item.IdUserUpdated = request.IdUser;
 
             _context.Update(item);

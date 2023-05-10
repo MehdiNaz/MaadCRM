@@ -99,6 +99,8 @@ global using System.Text;
 global using Application.Interfaces.SpecialFields;
 global using Application.Services.SpecialFields.AttributeOptionService.Commands;
 global using Application.Services.SpecialFields.AttributeOptionService.Queries;
+global using Application.Services.SpecialFields.AttributeOptionsValueService.Commands;
+global using Application.Services.SpecialFields.AttributeOptionsValueService.Queries;
 global using Application.Services.SpecialFields.AttributeService.Commands;
 global using Application.Services.SpecialFields.AttributeService.Queries;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

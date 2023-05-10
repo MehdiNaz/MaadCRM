@@ -16,6 +16,7 @@ public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<Cre
             CreateCustomerPeyGiryCommand item = new()
             {
                 Description = request.Description,
+                DatePeyGiry = request.DatePeyGiry,
                 CustomerId = request.CustomerId,
                 IdUser = request.IdUser
             };

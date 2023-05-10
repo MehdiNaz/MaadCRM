@@ -17,6 +17,7 @@ public readonly struct UpdateCustomerPeyGiryCommandHandler : IRequestHandler<Upd
             {
                 Id = request.Id,
                 Description = request.Description,
+                DatePeyGiry = request.DatePeyGiry,
                 IdUser = request.IdUser
             };
             return (await _repository.UpdateCustomerPeyGiryAsync(item))

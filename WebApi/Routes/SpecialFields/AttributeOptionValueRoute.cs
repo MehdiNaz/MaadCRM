@@ -1,12 +1,12 @@
 ﻿namespace WebApi.Routes.SpecialFields;
 
-public static class AttributeOptionRoute
+public static class AttributeOptionValueRoute
 {
-    public static void MapAttributeOptionRoute(this IEndpointRouteBuilder app)
+    public static void MapAttributeOptionValueRoute(this IEndpointRouteBuilder app)
     {
-        var plan = app.MapGroup("v1/AttributeOption").EnableOpenApiWithAuthentication().WithOpenApi();
+        var plan = app.MapGroup("v1/AttributeOptionValue").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllAttributeOptions", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllAttributeOptionValues", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -19,13 +19,13 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     userId =>
                     {
-                        var result = mediator.Send(new AllAttributesOptionQuery());
+                        var result = mediator.Send(new AllAttributesOptionValueQuery());
 
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Get All Attribute Options.",
+                                Message = "Get All Attribute Option Value.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -51,7 +51,7 @@ public static class AttributeOptionRoute
             }
         });
 
-        plan.MapGet("/ById/{attributeOptionId}", (Ulid attributeOptionId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/ById/{attributeOptionValueId}", (Ulid attributeOptionValueId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -64,13 +64,13 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     _ =>
                     {
-                        var result = mediator.Send(new AttributeOptionByIdQuery { Id = attributeOptionId });
+                        var result = mediator.Send(new AttributeOptionValueByIdQuery { Id = attributeOptionValueId });
 
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Get Attribute Option By Id.",
+                                Message = "Get Attribute Option Value By Id.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -96,7 +96,7 @@ public static class AttributeOptionRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeOptionCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeOptionValueCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -109,7 +109,7 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     _ =>
                     {
-                        var result = mediator.Send(new ChangeStatusAttributeOptionCommand
+                        var result = mediator.Send(new ChangeStatusAttributeOptionValueCommand
                         {
                             Status = request.Status,
                             Id = request.Id
@@ -144,7 +144,7 @@ public static class AttributeOptionRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateAttributeOptionCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/Insert", ([FromBody] CreateAttributeOptionValueCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -157,19 +157,18 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     _ =>
                     {
-                        var result = mediator.Send(new CreateAttributeOptionCommand
+                        var result = mediator.Send(new CreateAttributeOptionValueCommand
                         {
-                            Title = request.Title,
-                            ColorSquaresRgb = request.ColorSquaresRgb,
-                            DisplayOrder = request.DisplayOrder,
-                            IdAttribute = request.IdAttribute
+                            Value = request.Value,
+                            FilePath = request.FilePath,
+                            IdAttributeOption = request.IdAttributeOption
                         });
 
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "AttributeOption Created.",
+                                Message = "Attribute Option Value Created.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -194,7 +193,7 @@ public static class AttributeOptionRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateAttributeOptionCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPut("/Update", ([FromBody] UpdateAttributeOptionValueCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -207,19 +206,18 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     _ =>
                     {
-                        var result = mediator.Send(new UpdateAttributeOptionCommand
+                        var result = mediator.Send(new UpdateAttributeOptionValueCommand
                         {
                             Id = request.Id,
-                            Title = request.Title,
-                            ColorSquaresRgb = request.ColorSquaresRgb,
-                            DisplayOrder = request.DisplayOrder
+                            Value = request.Value,
+                            FilePath = request.FilePath
                         });
 
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "AttributeOption Created.",
+                                Message = "Attribute Option Value Created.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -244,7 +242,7 @@ public static class AttributeOptionRoute
             }
         });
 
-        plan.MapDelete("/Delete/{attributeId}", (Ulid attributeId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapDelete("/Delete/{attributeValueId}", (Ulid attributeValueId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -257,9 +255,9 @@ public static class AttributeOptionRoute
                 return id.Result.Match(
                     userId =>
                     {
-                        var result = mediator.Send(new DeleteAttributeOptionCommand
+                        var result = mediator.Send(new DeleteAttributeOptionValueCommand
                         {
-                            Id = attributeId
+                            Id = attributeValueId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new

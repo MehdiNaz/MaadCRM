@@ -121,6 +121,7 @@ public static class CustomerPeyGiryRoute
                     {
                         IdUser = userId,
                         Description = request.Description,
+                        DatePeyGiry = request.DatePeyGiry,
                         CustomerId = request.CustomerId,
                     });
 
@@ -218,6 +219,7 @@ public static class CustomerPeyGiryRoute
                             {
                                 Id = request.Id,
                                 Description = request.Description,
+                                DatePeyGiry = request.DatePeyGiry,
                                 IdUser = userId
                             });
                             return result.Result.Match(

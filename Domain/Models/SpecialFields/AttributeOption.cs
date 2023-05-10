@@ -7,6 +7,7 @@ public class AttributeOption : BaseEntity
         Id = Ulid.NewUlid();
         Status = StatusType.Show;
         DisplayOrder = 0;
+        AttributeOptionValues = new HashSet<AttributeOptionValue>();
     }
 
     public Ulid Id { get; set; }
@@ -16,4 +17,5 @@ public class AttributeOption : BaseEntity
     public StatusType Status { get; set; }
     public Ulid? IdAttribute { get; set; }
     public Attribute IdAttributeNavigation { get; set; }
+    public ICollection<AttributeOptionValue>? AttributeOptionValues { get; set; }
 }

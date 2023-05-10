@@ -12,7 +12,7 @@ public interface ICustomerRepository
     ValueTask<Result<int>> ShowVafadarCustomersCountAsync();
     ValueTask<Result<int>> ShowAllCustomersCountAsync();
     ValueTask<Result<CustomerDashboardResponse>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
-    ValueTask<Result<ICollection<CustomerResponse>>> SearchByItemsAsync(string request);
+    ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request);
     ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
     ValueTask<Result<CustomerResponse>> ChangeStateCustomerByIdAsync(ChangeStateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> CreateCustomerAsync(CreateCustomerCommand request);
