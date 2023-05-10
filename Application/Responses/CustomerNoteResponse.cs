@@ -9,4 +9,5 @@ public struct CustomerNoteResponse
     public Ulid IdCustomer { get; set; }
     public string UserFirstName { get; set; }
     public string UserLastName { get; set; }
+    public DateTime CreateDate { get; set; }
 }

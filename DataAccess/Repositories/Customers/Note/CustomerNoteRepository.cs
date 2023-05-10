@@ -25,6 +25,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     IdCustomer = x.IdCustomer,
                     UserFirstName = x.IdUserAddNavigation.Name,
                     UserLastName = x.IdUserAddNavigation.Family,
+                    CreateDate = x.DateCreated
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -48,6 +49,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     IdCustomer = x.IdCustomer,
                     UserFirstName = x.IdUserAddNavigation.Name,
                     UserLastName = x.IdUserAddNavigation.Family,
+                    CreateDate = x.DateCreated
                 });
         }
         catch (Exception e)
