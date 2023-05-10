@@ -1,8 +1,6 @@
-﻿using Application.Services.Customer.Foroosh.ForooshOrderService.Commands;
+﻿namespace Application.Services.Customer.Foroosh.ForoshOrderService.CommandHandler;
 
-namespace Application.Services.Customer.Foroosh.ForooshOrderService.CommandHandler;
-
-public readonly struct ChangeStatusForooshOrderCommandHandler : IRequestHandler<ChangeStatusForooshOrderCommand, ForooshOrder?>
+public readonly struct ChangeStatusForooshOrderCommandHandler : IRequestHandler<ChangeStatusForooshOrderCommand, Result<ForooshOrder>>
 {
     private readonly IForooshOrderRepository _repository;
 
@@ -11,6 +9,17 @@ public readonly struct ChangeStatusForooshOrderCommandHandler : IRequestHandler<
         _repository = repository;
     }
 
-    public async Task<ForooshOrder?> Handle(ChangeStatusForooshOrderCommand request, CancellationToken cancellationToken)
-        => await _repository.ChangeStatusForooshOrderByIdAsync(request);
+    public async Task<Result<ForooshOrder>> Handle(ChangeStatusForooshOrderCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.ChangeStatusForooshOrderByIdAsync(request))
+                .Match(result => new Result<ForooshOrder>(result),
+                    exception => new Result<ForooshOrder>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshOrder>(new Exception(e.Message));
+        }
+    }
 }

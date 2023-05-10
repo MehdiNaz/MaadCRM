@@ -1,13 +1,11 @@
-﻿using Application.Services.Customer.Foroosh.ForooshOrderService.Commands;
-
-namespace Application.Interfaces.Customers.Foroosh;
+﻿namespace Application.Interfaces.Customers.Foroosh;
 
 public interface IForooshOrderRepository
 {
-    ValueTask<ICollection<ForooshOrder?>> GetAllForooshOrdersAsync();
-    ValueTask<ForooshOrder?> GetForooshOrderByIdAsync(Ulid ForooshOrderId);
-    ValueTask<ForooshOrder?> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request);
-    ValueTask<ForooshOrder?> CreateForooshOrderAsync(CreateForooshOrderCommand request);
-    ValueTask<ForooshOrder?> UpdateForooshOrderAsync(UpdateForooshOrderCommand request);
-    ValueTask<ForooshOrder?> DeleteForooshOrderAsync(Ulid id);
+    ValueTask<Result<ICollection<ForooshOrder>>> GetAllForooshOrdersAsync();
+    ValueTask<Result<ForooshOrder>> GetForooshOrderByIdAsync(Ulid forooshOrderId);
+    ValueTask<Result<ForooshOrder>> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request);
+    ValueTask<Result<ForooshOrder>> CreateForooshOrderAsync(CreateForooshOrderCommand request);
+    ValueTask<Result<ForooshOrder>> UpdateForooshOrderAsync(UpdateForooshOrderCommand request);
+    ValueTask<Result<ForooshOrder>> DeleteForooshOrderAsync(Ulid forooshOrderId);
 }

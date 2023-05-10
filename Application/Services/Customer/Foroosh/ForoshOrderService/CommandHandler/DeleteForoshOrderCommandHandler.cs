@@ -1,8 +1,6 @@
-﻿using Application.Services.Customer.Foroosh.ForooshOrderService.Commands;
+﻿namespace Application.Services.Customer.Foroosh.ForoshOrderService.CommandHandler;
 
-namespace Application.Services.Customer.Foroosh.ForooshOrderService.CommandHandler;
-
-public readonly struct DeleteForooshOrderCommandHandler : IRequestHandler<DeleteForooshOrderCommand, ForooshOrder>
+public readonly struct DeleteForooshOrderCommandHandler : IRequestHandler<DeleteForooshOrderCommand, Result<ForooshOrder>>
 {
     private readonly IForooshOrderRepository _repository;
 
@@ -11,6 +9,17 @@ public readonly struct DeleteForooshOrderCommandHandler : IRequestHandler<Delete
         _repository = repository;
     }
 
-    public async Task<ForooshOrder> Handle(DeleteForooshOrderCommand request, CancellationToken cancellationToken)
-        => (await _repository.DeleteForooshOrderAsync(request.Id))!;
+    public async Task<Result<ForooshOrder>> Handle(DeleteForooshOrderCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.DeleteForooshOrderAsync(request.Id))
+                .Match(result => new Result<ForooshOrder>(result),
+                    exception => new Result<ForooshOrder>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshOrder>(new Exception(e.Message));
+        }
+    }
 }

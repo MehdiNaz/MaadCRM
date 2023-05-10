@@ -1,6 +1,6 @@
-﻿namespace Application.Services.Customer.Foroosh.ForooshOrderService.Commands;
+﻿namespace Application.Services.Customer.Foroosh.ForoshOrderService.Commands;
 
-public struct CreateForooshOrderCommand : IRequest<ForooshOrder>
+public struct CreateForooshOrderCommand : IRequest<Result<ForooshOrder>>
 {
     public decimal Price { get; set; }
     public decimal ShippingPrice { get; set; }

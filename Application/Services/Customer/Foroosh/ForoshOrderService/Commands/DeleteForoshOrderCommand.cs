@@ -1,6 +1,6 @@
-﻿namespace Application.Services.Customer.Foroosh.ForooshOrderService.Commands;
+﻿namespace Application.Services.Customer.Foroosh.ForoshOrderService.Commands;
 
-public struct DeleteForooshOrderCommand : IRequest<ForooshOrder>
+public struct DeleteForooshOrderCommand : IRequest<Result<ForooshOrder>>
 {
     public Ulid Id { get; set; }
 }

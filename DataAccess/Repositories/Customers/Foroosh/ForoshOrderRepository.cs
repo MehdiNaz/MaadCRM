@@ -9,29 +9,47 @@ public class ForooshOrderRepository : IForooshOrderRepository
         _context = context;
     }
 
-    public async ValueTask<ICollection<ForooshOrder?>> GetAllForooshOrdersAsync()
-        => await _context.ForooshOrders.Where(x => x.StatusTypeForooshOrder == StatusType.Show).ToListAsync();
+    public async ValueTask<Result<ICollection<ForooshOrder>>> GetAllForooshOrdersAsync()
+    {
+        try
+        {
+            return await _context.ForooshOrders.Where(x => x.StatusTypeForooshOrder == StatusType.Show).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ForooshOrder>>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<ForooshOrder?> GetForooshOrderByIdAsync(Ulid ForooshOrderId)
-        => await _context.ForooshOrders.SingleOrDefaultAsync(x => x.Id == ForooshOrderId && x.StatusTypeForooshOrder == StatusType.Show);
+    public async ValueTask<Result<ForooshOrder>> GetForooshOrderByIdAsync(Ulid ForooshOrderId)
+    {
+        try
+        {
+            return await _context.ForooshOrders.SingleOrDefaultAsync(x => x.Id == ForooshOrderId && x.StatusTypeForooshOrder == StatusType.Show);
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshOrder>(new ValidationException(e.Message));
+        }
+    }
 
-    public async ValueTask<ForooshOrder?> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request)
+    public async ValueTask<Result<ForooshOrder>> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request)
     {
         try
         {
             var item = await _context.ForooshOrders!.FindAsync(request.ForooshOrderId);
-            if (item is null) return null;
+            if (item is null) return new Result<ForooshOrder>(new ValidationException(ResultErrorMessage.NotFound)); ;
             item.StatusTypeForooshOrder = request.ForooshOrderStatusType;
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshOrder>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshOrder?> CreateForooshOrderAsync(CreateForooshOrderCommand request)
+    public async ValueTask<Result<ForooshOrder>> CreateForooshOrderAsync(CreateForooshOrderCommand request)
     {
         try
         {
@@ -48,13 +66,13 @@ public class ForooshOrderRepository : IForooshOrderRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshOrder>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshOrder?> UpdateForooshOrderAsync(UpdateForooshOrderCommand request)
+    public async ValueTask<Result<ForooshOrder>> UpdateForooshOrderAsync(UpdateForooshOrderCommand request)
     {
         try
         {
@@ -69,24 +87,24 @@ public class ForooshOrderRepository : IForooshOrderRepository
             await _context.SaveChangesAsync();
             return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshOrder>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<ForooshOrder?> DeleteForooshOrderAsync(Ulid id)
+    public async ValueTask<Result<ForooshOrder>> DeleteForooshOrderAsync(Ulid id)
     {
         try
         {
-            var ForooshOrder = await _context.ForooshOrders.FindAsync(id);
-            ForooshOrder!.StatusTypeForooshOrder = StatusType.Deleted;
+            var item = await _context.ForooshOrders.FindAsync(id);
+            item.StatusTypeForooshOrder = StatusType.Deleted;
             await _context.SaveChangesAsync();
-            return ForooshOrder;
+            return item;
         }
-        catch
+        catch (Exception e)
         {
-            return null;
+            return new Result<ForooshOrder>(new ValidationException(e.Message));
         }
     }
 }

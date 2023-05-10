@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, Result<CustomerNote>>
+public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<UpdateCustomerNoteCommand, Result<CustomerNoteResponse>>
 {
     private readonly ICustomerNoteRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
         _repository = repository;
     }
 
-    public async Task<Result<CustomerNote>> Handle(UpdateCustomerNoteCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerNoteResponse>> Handle(UpdateCustomerNoteCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -21,11 +21,13 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
                 HashTagIds = request.HashTagIds,
                 IdUser = request.IdUser
             };
-            return (await _repository.UpdateCustomerNoteAsync(item)).Match(result => new Result<CustomerNote>(result), exception => new Result<CustomerNote>(exception));
+            return (await _repository.UpdateCustomerNoteAsync(item))
+                .Match(result => new Result<CustomerNoteResponse>(result),
+                    exception => new Result<CustomerNoteResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new Exception(e.Message));
+            return new Result<CustomerNoteResponse>(new Exception(e.Message));
         }
     }
 }

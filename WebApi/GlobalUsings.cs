@@ -112,6 +112,8 @@ global using System.Text;
 global using System.Threading.RateLimiting;
 global using Application.Services.Customer.Foroosh.ForooshFactorService.Commands;
 global using Application.Services.Customer.Foroosh.ForooshFactorService.Queries;
+global using Application.Services.Customer.Foroosh.ForoshOrderService.Commands;
+global using Application.Services.Customer.Foroosh.ForoshOrderService.Queries;
 global using Application.Services.Customer.Foroosh.PaymentService.Commands;
 global using Application.Services.Customer.Foroosh.PaymentService.Queries;
 global using Application.Services.SpecialFields.AttributeOptionService.Commands;

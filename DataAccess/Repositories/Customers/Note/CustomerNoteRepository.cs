@@ -57,7 +57,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
-    public async ValueTask<Result<CustomerNote>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request)
+    public async ValueTask<Result<CustomerNoteResponse>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request)
     {
         try
         {
@@ -66,43 +66,52 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                 BusinessId = request.CustomerNoteId
             };
 
-            var item = await _context.CustomerNotes!.FindAsync(request.CustomerNoteId);
-            if (item is null) return new Result<CustomerNote>(new ValidationException(ResultErrorMessage.NotFound));
+            var item = await _context.CustomerNotes.FindAsync(request.CustomerNoteId);
+            if (item is null) return new Result<CustomerNoteResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerNoteStatusType = request.CustomerNoteStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerNote>(item);
+            return await _context.CustomerNotes.FindAsync(request.CustomerNoteId)
+                .Select(x => new CustomerNoteResponse
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    CreateDate = x.DateCreated
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new ValidationException(e.Message));
+            return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNote>> CreateCustomerNoteAsync(CreateCustomerNoteCommand entity)
+    public async ValueTask<Result<CustomerNoteResponse>> CreateCustomerNoteAsync(CreateCustomerNoteCommand request)
     {
         try
         {
             CustomerNote item = new()
             {
-                IdCustomer = entity.CustomerId,
-                IdProduct = entity.ProductId,
-                Description = entity.Description,
-                IdUserAdded = entity.IdUser,
-                IdUserUpdated = entity.IdUser
+                IdCustomer = request.CustomerId,
+                IdProduct = request.ProductId,
+                Description = request.Description,
+                IdUserAdded = request.IdUser,
+                IdUserUpdated = request.IdUser
             };
             await _context.CustomerNotes.AddAsync(item);
             var result = await _context.SaveChangesAsync();
 
 
             if (result == 0)
-                return new Result<CustomerNote>(new ValidationException(""));
+                return new Result<CustomerNoteResponse>(new ValidationException(""));
 
-            if (entity.HashTagIds is not null)
-                foreach (var entityHashTagId in entity.HashTagIds)
+            if (request.HashTagIds is not null)
+                foreach (var requestHashTagId in request.HashTagIds)
                 {
                     CustomerNoteHashTag newHashTable = new()
                     {
-                        IdNoteHashTable = entityHashTagId,
+                        IdNoteHashTable = requestHashTagId,
                         IdCustomerNote = item.Id
                     };
                     await _context.NoteHashTags.AddAsync(newHashTable);
@@ -111,21 +120,32 @@ public class CustomerNoteRepository : ICustomerNoteRepository
 
             await _context.SaveChangesAsync();
 
-            return new Result<CustomerNote>(item);
+            return await _context.CustomerNotes.FindAsync(item.Id)
+                .Select(x => new CustomerNoteResponse
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    UserFirstName = x.IdUserAddNavigation.Name,
+                    UserLastName = x.IdUserAddNavigation.Family,
+                    CreateDate = x.DateCreated
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new ValidationException(e.Message));
+            return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNote>> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand entity)
+    public async ValueTask<Result<CustomerNoteResponse>> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand request)
     {
         try
         {
-            var result = await _context.CustomerNotes.FindAsync(entity.Id);
-            result.IdUserUpdated = entity.IdUser;
-            result.Description = entity.Description;
+            var result = await _context.CustomerNotes.FindAsync(request.Id);
+            result.IdUserUpdated = request.IdUser;
+            result.Description = request.Description;
 
 
             //await _context.SaveChangesAsync();
@@ -135,16 +155,16 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             //if (result == 0)
             //    return null;
 
-            // foreach (var entityHashTagId in entity.HashTagIds)
+            // foreach (var requestHashTagId in request.HashTagIds)
             // {
             //     CustomerNoteHashTag newHashTable = new()
             //     {
-            //         IdNoteHashTable = entityHashTagId
+            //         IdNoteHashTable = requestHashTagId
             //     };
             //     await _context.NoteHashTags.AddAsync(newHashTable);
             // }
 
-            // foreach (var customerNoteId in entity.CustomerNoteId)
+            // foreach (var customerNoteId in request.CustomerNoteId)
             // {
             //     CustomerNoteHashTag newHashTable = new()
             //     {
@@ -156,26 +176,46 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             //await _context.SaveChangesAsync();
 
             await _context.SaveChangesAsync();
-            return new Result<CustomerNote>(result);
+            return await _context.CustomerNotes.FindAsync(request.Id)
+                .Select(x => new CustomerNoteResponse
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    UserFirstName = x.IdUserAddNavigation.Name,
+                    UserLastName = x.IdUserAddNavigation.Family,
+                    CreateDate = x.DateCreated
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new ValidationException(e.Message));
+            return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNote>> DeleteCustomerNoteAsync(Ulid id)
+    public async ValueTask<Result<CustomerNoteResponse>> DeleteCustomerNoteAsync(Ulid id)
     {
         try
         {
-            var businessPlan = await _context.CustomerNotes.FindAsync(id);
-            businessPlan.CustomerNoteStatusType = StatusType.Deleted;
+            var item = await _context.CustomerNotes.FindAsync(id);
+            item.CustomerNoteStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
-            return new Result<CustomerNote>(businessPlan);
+            return await _context.CustomerNotes.FindAsync(id)
+                .Select(x => new CustomerNoteResponse
+                {
+                    Id = x.Id,
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    CreateDate = x.DateCreated
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new ValidationException(e.Message));
+            return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
 }

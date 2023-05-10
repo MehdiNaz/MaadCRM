@@ -1,8 +1,6 @@
-﻿using LanguageExt.Common;
+﻿namespace Application.Services.CustomerNoteService.CommandHandler;
 
-namespace Application.Services.CustomerNoteService.CommandHandler;
-
-public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, Result<CustomerNote>>
+public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<CreateCustomerNoteCommand, Result<CustomerNoteResponse>>
 {
     private readonly ICustomerNoteRepository _repository;
 
@@ -11,7 +9,7 @@ public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<Create
         _repository = repository;
     }
 
-    public async Task<Result<CustomerNote>> Handle(CreateCustomerNoteCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerNoteResponse>> Handle(CreateCustomerNoteCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -26,12 +24,12 @@ public readonly struct CreateCustomerNoteCommandHandler : IRequestHandler<Create
 
             var result = await _repository.CreateCustomerNoteAsync(item);
             return result.Match(
-                resultCode => new Result<CustomerNote>(resultCode),
-                exception => new Result<CustomerNote>(exception));
+                resultCode => new Result<CustomerNoteResponse>(resultCode),
+                exception => new Result<CustomerNoteResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerNote>(new Exception(e.Message));
+            return new Result<CustomerNoteResponse>(new Exception(e.Message));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CustomerNoteService.Commands;
 
-public struct UpdateCustomerNoteCommand : IRequest<Result<CustomerNote>>
+public struct UpdateCustomerNoteCommand : IRequest<Result<CustomerNoteResponse>>
 {
     public Ulid Id { get; set; }
     public string Description { get; set; }

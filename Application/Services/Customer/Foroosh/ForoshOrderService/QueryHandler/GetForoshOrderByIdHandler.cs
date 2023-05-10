@@ -1,8 +1,6 @@
-﻿using Application.Services.Customer.Foroosh.ForooshOrderService.Queries;
+﻿namespace Application.Services.Customer.Foroosh.ForoshOrderService.QueryHandler;
 
-namespace Application.Services.Customer.Foroosh.ForooshOrderService.QueryHandler;
-
-public readonly struct GetForooshOrderByIdHandler : IRequestHandler<GetForooshOrderByIdQuery, ForooshOrder?>
+public readonly struct GetForooshOrderByIdHandler : IRequestHandler<GetForooshOrderByIdQuery, Result<ForooshOrder>>
 {
     private readonly IForooshOrderRepository _repository;
 
@@ -11,6 +9,17 @@ public readonly struct GetForooshOrderByIdHandler : IRequestHandler<GetForooshOr
         _repository = repository;
     }
 
-    public async Task<ForooshOrder?> Handle(GetForooshOrderByIdQuery request, CancellationToken cancellationToken)
-        => await _repository.GetForooshOrderByIdAsync(request.ForooshOrderId);
+    public async Task<Result<ForooshOrder>> Handle(GetForooshOrderByIdQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return (await _repository.GetForooshOrderByIdAsync(request.ForooshOrderId))
+                .Match(result => new Result<ForooshOrder>(result),
+                    exception => new Result<ForooshOrder>(exception));
+        }
+        catch (Exception e)
+        {
+            return new Result<ForooshOrder>(new Exception(e.Message));
+        }
+    }
 }
