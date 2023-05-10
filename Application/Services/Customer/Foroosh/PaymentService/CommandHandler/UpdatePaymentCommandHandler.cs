@@ -17,8 +17,7 @@ public readonly struct UpdatePaymentCommandHandler : IRequestHandler<UpdatePayme
             {
                 Id = request.Id,
                 DatePay = request.DatePay,
-                PaymentAmount = request.PaymentAmount,
-                IdForooshFactor = request.IdForooshFactor
+                PaymentAmount = request.PaymentAmount
             };
 
             return (await _repository.UpdatePaymentAsync(item))

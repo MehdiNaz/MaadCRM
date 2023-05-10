@@ -2,8 +2,8 @@
 
 public interface ICustomerNoteRepository
 {
-    ValueTask<Result<ICollection<CustomerNoteHashTableResponse>>> GetAllCustomerNotesAsync(Ulid customerId);
-    ValueTask<Result<CustomerNoteHashTableResponse>> GetCustomerNoteByIdAsync(Ulid customerNoteId);
+    ValueTask<Result<ICollection<CustomerNoteResponse>>> GetAllCustomerNotesAsync(Ulid customerId);
+    ValueTask<Result<CustomerNoteResponse>> GetCustomerNoteByIdAsync(Ulid customerNoteId);
     ValueTask<Result<CustomerNote>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request);
     ValueTask<Result<CustomerNote>> CreateCustomerNoteAsync(CreateCustomerNoteCommand request);
     ValueTask<Result<CustomerNote>> UpdateCustomerNoteAsync(UpdateCustomerNoteCommand request);

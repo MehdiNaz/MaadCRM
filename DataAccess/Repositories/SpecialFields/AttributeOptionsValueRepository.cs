@@ -34,7 +34,8 @@ public class AttributeOptionsValueRepository : IAttributeOptionsValueRepository
     {
         try
         {
-            return new Result<AttributeOptionValueResponse>(await _context.AttributeOptionsValues.FindAsync(attributeOptionsValueId)
+            return new Result<AttributeOptionValueResponse>(await _context.AttributeOptionsValues
+                .FirstOrDefaultAsync(x => x.Id == attributeOptionsValueId && x.Status == StatusType.Show)
                 .Select(x => new AttributeOptionValueResponse
                 {
                     Id = x.Id,

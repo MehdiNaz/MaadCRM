@@ -78,9 +78,7 @@ public class PaymentRepository : IPaymentRepository
             Payment item = await _context.Payments.FindAsync(request.Id);
 
             item.PaymentAmount = request.PaymentAmount;
-            item.IdForooshFactor = request.IdForooshFactor;
 
-            _context.Update(item);
             await _context.SaveChangesAsync();
             return item;
         }

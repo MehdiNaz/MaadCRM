@@ -1,6 +1,4 @@
-﻿using Domain.Models.Customers.Notes;
-
-namespace DataAccess.Repositories.Customers.Note;
+﻿namespace DataAccess.Repositories.Customers.Note;
 
 public class CustomerNoteRepository : ICustomerNoteRepository
 {
@@ -11,51 +9,50 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<CustomerNoteHashTableResponse>>> GetAllCustomerNotesAsync(Ulid customerId)
+    public async ValueTask<Result<ICollection<CustomerNoteResponse>>> GetAllCustomerNotesAsync(Ulid customerId)
     {
         try
         {
             return await _context.CustomerNotes
                 .Where(x => x.CustomerNoteStatusType == StatusType.Show && x.IdCustomer == customerId)
                 .Include(x => x.IdUserAddNavigation)
-                .Select(x => new CustomerNoteHashTableResponse
+                .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
-                    Title = x.Description,
-                    NoteHashTagStatusType = x.CustomerNoteStatusType,
-                    CreationDate = x.DateCreated,
-                    UserId = x.IdUserAdded,
-                    Username = x.IdUserAddNavigation.Name,
-                    UserFamily = x.IdUserAddNavigation.Family,
-                })
-                .ToListAsync();
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    UserFirstName = x.IdUserAddNavigation.Name,
+                    UserLastName = x.IdUserAddNavigation.Family,
+                }).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerNoteHashTableResponse>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerNoteResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerNoteHashTableResponse>> GetCustomerNoteByIdAsync(Ulid customerNoteId)
+    public async ValueTask<Result<CustomerNoteResponse>> GetCustomerNoteByIdAsync(Ulid customerNoteId)
     {
         try
         {
             return await _context.CustomerNotes.Where(x => x.CustomerNoteStatusType == StatusType.Show)
                 .Include(x => x.IdUserAddNavigation).FirstOrDefaultAsync(x => x.Id == customerNoteId)
-                .Select(x => new CustomerNoteHashTableResponse
+                .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
-                    Title = x.Description,
-                    NoteHashTagStatusType = x.CustomerNoteStatusType,
-                    CreationDate = x.DateCreated,
-                    UserId = x.IdUserAdded,
-                    Username = x.IdUserAddNavigation.Name,
-                    UserFamily = x.IdUserAddNavigation.Family,
+                    Description = x.Description,
+                    CustomerNoteStatusType = x.CustomerNoteStatusType,
+                    IdProduct = x.IdProduct,
+                    IdCustomer = x.IdCustomer,
+                    UserFirstName = x.IdUserAddNavigation.Name,
+                    UserLastName = x.IdUserAddNavigation.Family,
                 });
         }
         catch (Exception e)
         {
-            return new Result<CustomerNoteHashTableResponse>(new ValidationException(e.Message));
+            return new Result<CustomerNoteResponse>(new ValidationException(e.Message));
         }
     }
     public async ValueTask<Result<CustomerNote>> ChangeStatusCustomerNoteByIdAsync(ChangeStatusCustomerNoteCommand request)
@@ -98,15 +95,16 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             if (result == 0)
                 return new Result<CustomerNote>(new ValidationException(""));
 
-            foreach (var entityHashTagId in entity.HashTagIds)
-            {
-                CustomerNoteHashTag newHashTable = new()
+            if (entity.HashTagIds is not null)
+                foreach (var entityHashTagId in entity.HashTagIds)
                 {
-                    IdNoteHashTable = entityHashTagId,
-                    IdCustomerNote = item.Id
-                };
-                await _context.NoteHashTags.AddAsync(newHashTable);
-            }
+                    CustomerNoteHashTag newHashTable = new()
+                    {
+                        IdNoteHashTable = entityHashTagId,
+                        IdCustomerNote = item.Id
+                    };
+                    await _context.NoteHashTags.AddAsync(newHashTable);
+                }
 
 
             await _context.SaveChangesAsync();

@@ -75,6 +75,7 @@ app.MapCustomerFeedbackRoute();
 app.MapCustomerFeedbackCategoryRoute();
 app.MapCustomerFeedbackAttachmentRoute();
 app.MapForooshFactorRoute();
+app.MapPaymentRoute();
 app.MapAttributeRoute();
 app.MapAttributeOptionRoute();
 app.MapAttributeOptionValueRoute();

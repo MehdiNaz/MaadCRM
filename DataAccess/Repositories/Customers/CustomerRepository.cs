@@ -48,9 +48,9 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var result = await _context.Customers
-                .Include(x=>x.PhoneNumbers)
-                .Include(x=>x.EmailAddresses)
-                .Include(x=>x.CustomerAddresses)
+                .Include(x => x.PhoneNumbers)
+                .Include(x => x.EmailAddresses)
+                .Include(x => x.CustomerAddresses)
                 .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
@@ -167,6 +167,7 @@ public class CustomerRepository : ICustomerRepository
         {
             var resultsListCustomer = _context.Customers
                 .Include(x => x.CustomerMoaref)
+                //.Include(x => x.PhoneNumbers)
                 .Include(x => x.FavoritesLists)
                 .Select(x => new CustomerResponse
                 {
@@ -188,8 +189,6 @@ public class CustomerRepository : ICustomerRepository
                     MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
                 }).AsQueryable();
 
-            var test = resultsListCustomer.ToList();
-
             if (request is { From: { }, UpTo: { } })
             {
                 resultsListCustomer =
@@ -206,7 +205,6 @@ public class CustomerRepository : ICustomerRepository
 
             if (!request.CustomerId.ToString().IsNullOrEmpty())
                 resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
-
 
 
             if (request is { CustomerState: { } })
@@ -255,7 +253,7 @@ public class CustomerRepository : ICustomerRepository
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
-            // .Include(x => x.City)
+            .Include(x => x.PhoneNumbers)
             // .ThenInclude(x => x.Province)
             .Select(x => new CustomerResponse
             {
@@ -277,18 +275,28 @@ public class CustomerRepository : ICustomerRepository
                 DateCreated = x.DateCreated
             }).AsQueryable();
 
-        var result = await resultsListCustomer.Where(
-            x => x.FirstName.ToLower().Contains(request.ToLower())
-                 || x.LastName.ToLower().Contains(request.ToLower())
-                 || x.PhoneNumber.ToLower().Contains(request.ToLower())
-                 || x.EmailAddress.ToLower().Contains(request.ToLower())
-            // || x.Address.Contains(request)
-        ).ToListAsync();
+        var result = resultsListCustomer.Where(
+                x => x.FirstName.ToLower().Contains(request.ToLower())
+                     || x.LastName.ToLower().Contains(request.ToLower())
+                     || x.PhoneNumber.ToLower().Contains(request.ToLower())
+                     || x.EmailAddress.ToLower().Contains(request.ToLower()))
+            .Select(x => new CustomerResponse
+            {
+                CustomerId = x.CustomerId,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                CustomerStatusType = x.CustomerStatusType,
+                From = x.DateCreated,
+                UpTo = DateTime.UtcNow,
+                BirthDayDate = x.BirthDayDate,
+                Gender = x.Gender,
+                DateCreated = x.DateCreated
+            });
 
 
         return new CustomerDashboardResponse
         {
-            AllCustomersInfo = resultsListCustomer,
+            AllCustomersInfo = result,
             AllCount = resultsListCustomer.Count(),
             BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
             BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),

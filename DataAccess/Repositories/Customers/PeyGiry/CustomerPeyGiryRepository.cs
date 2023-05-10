@@ -68,7 +68,15 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                 IdUserAdded = request.IdUser,
                 IdUserUpdated = request.IdUser
             };
-            await _context.CustomerPeyGiries!.AddAsync(item);
+
+            await _context.CustomerPeyGiries.AddAsync(item);
+
+            if (request.DatePeyGiry > DateTime.UtcNow)
+            {
+                var customerId = (await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == item.Id)).IdCustomer;
+                (await _context.Customers.SingleOrDefaultAsync(x => x.Id == customerId)).CustomerState = CustomerStateTypes.BelFel;
+            }
+
             await _context.SaveChangesAsync();
             return new Result<CustomerPeyGiry>(item);
         }
