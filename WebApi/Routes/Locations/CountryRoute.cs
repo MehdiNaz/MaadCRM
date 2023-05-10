@@ -64,7 +64,7 @@ public static class CountryRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        _ =>
                         {
                             var result = mediator.Send(new GetCountryByIdQuery { CountryId = countryId });
 

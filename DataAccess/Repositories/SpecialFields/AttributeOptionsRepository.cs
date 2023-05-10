@@ -55,7 +55,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
     {
         try
         {
-            var item = await _context.Attributes.FindAsync(request.Id);
+            var item = await _context.AttributeOptions.FindAsync(request.Id);
             if (item is null) return new Result<AttributeOptionResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.Status = request.Status;
             await _context.SaveChangesAsync();
@@ -112,13 +112,11 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
     {
         try
         {
-            AttributeOption item = new()
-            {
-                Id = request.Id,
-                Title = request.Title,
-                ColorSquaresRgb = request.ColorSquaresRgb,
-                DisplayOrder = request.DisplayOrder,
-            };
+            AttributeOption item = await _context.AttributeOptions.FindAsync(request.Id);
+
+            item.Title = request.Title;
+            item.ColorSquaresRgb = request.ColorSquaresRgb;
+            item.DisplayOrder = request.DisplayOrder;
 
             await _context.SaveChangesAsync();
             return await _context.AttributeOptions.FindAsync(item.Id)
