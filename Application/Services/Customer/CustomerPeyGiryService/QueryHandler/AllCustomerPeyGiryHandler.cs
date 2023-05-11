@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerPeyGiryService.QueryHandler;
+﻿namespace Application.Services.Customer.CustomerPeyGiryService.QueryHandler;
 
 public readonly struct AllCustomerPeyGiryHandler : IRequestHandler<AllCustomerPeyGiriesQuery, Result<ICollection<CustomerPeyGiryResponse>>>
 {

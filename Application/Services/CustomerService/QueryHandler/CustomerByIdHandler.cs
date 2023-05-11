@@ -13,7 +13,9 @@ public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, 
     {
         try
         {
-            return (await _repository.GetCustomerByIdAsync(request.CustomerId)).Match(result => new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
+            return (await _repository.GetCustomerByIdAsync(request.CustomerId))
+                .Match(result => new Result<CustomerResponse>(result),
+                    exception => new Result<CustomerResponse>(exception));
         }
         catch (Exception e)
         {

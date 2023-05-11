@@ -9,7 +9,7 @@ public static class CustomerPeyGiryRoute
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
 
-        plan.MapPost("/AllCustomerPeyGiries/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllCustomerPeyGiries/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {

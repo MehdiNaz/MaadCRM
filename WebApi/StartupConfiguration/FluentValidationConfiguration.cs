@@ -1,4 +1,6 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Services.Customer.CustomerPeyGiryService.Validation;
+
+namespace WebApi.StartupConfiguration;
 
 public static class FluentValidationConfiguration
 {

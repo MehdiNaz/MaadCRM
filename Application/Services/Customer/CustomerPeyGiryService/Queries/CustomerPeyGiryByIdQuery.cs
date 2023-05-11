@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerPeyGiryService.Queries;
+﻿namespace Application.Services.Customer.CustomerPeyGiryService.Queries;
 
 public struct CustomerPeyGiryByIdQuery : IRequest<Result<CustomerPeyGiry>>
 {

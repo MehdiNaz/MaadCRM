@@ -19,11 +19,15 @@ public class User : IdentityUser
         ForooshFactorsAdded = new HashSet<ForooshFactor>();
         ForooshFactorsUpdated = new HashSet<ForooshFactor>();
 
+        PeyGiryCategoriesAdded = new HashSet<PeyGiryCategory>();
+        PeyGiryCategoriesUpdated = new HashSet<PeyGiryCategory>();
+
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
 
         AttributeAdded = new HashSet<Attribute>();
         AttributeUpdated = new HashSet<Attribute>();
+
 
         //CustomerFeedbacks = new HashSet<CustomerFeedback>();
         //CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
@@ -84,6 +88,9 @@ public class User : IdentityUser
 
     public IEnumerable<Attribute>? AttributeAdded { get; }
     public IEnumerable<Attribute>? AttributeUpdated { get; }
+
+    public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesAdded { get; }
+    public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesUpdated { get; }
 
     //public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
     //public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }

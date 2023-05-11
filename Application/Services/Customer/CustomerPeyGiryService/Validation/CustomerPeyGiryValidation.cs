@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerPeyGiryService.Validation;
+﻿namespace Application.Services.Customer.CustomerPeyGiryService.Validation;
 
 public class CustomerPeyGiryValidation : AbstractValidator<CustomerPeyGiry>
 {

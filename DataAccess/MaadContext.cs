@@ -33,6 +33,7 @@ public class MaadContext : IdentityDbContext
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
     //public DbSet<Note>? Notes { get; set; }
     public DbSet<CustomerPeyGiry> CustomerPeyGiries { get; set; }
+    public DbSet<PeyGiryCategory> PeyGiryCategories { get; set; }
     public DbSet<CustomerNote> CustomerNotes { get; set; }
     public DbSet<CustomerNoteHashTag> NoteHashTags { get; set; }
     public DbSet<CustomerNoteHashTable> NoteHashTables { get; set; }
@@ -64,6 +65,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CustomerNoteMapping());
         builder.ApplyConfiguration(new NoteHashTableMapping());
         builder.ApplyConfiguration(new CustomerPeyGiryMapping());
+        builder.ApplyConfiguration(new PeyGiryCategoryMapping());
         builder.ApplyConfiguration(new NoteHashTagMapping());
         builder.ApplyConfiguration(new NoteAttachmentMapping());
         builder.ApplyConfiguration(new PeyGiryAttachmentMapping());

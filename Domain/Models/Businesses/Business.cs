@@ -11,6 +11,7 @@ public class Business : BaseEntity
         ProductCategories = new HashSet<ProductCategory>();
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
         Attributes = new HashSet<Attribute>();
+        PeyGiryCategories = new HashSet<PeyGiryCategory>();
     }
 
     public Ulid Id { get; set; }
@@ -31,6 +32,7 @@ public class Business : BaseEntity
 
     public virtual ICollection<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; set; }
     public virtual ICollection<Attribute>? Attributes { get; set; }
+    public virtual ICollection<PeyGiryCategory>? PeyGiryCategories { get; set; }
 
 
     //public Ulid? AttributeOptionsValueId { get; set; }

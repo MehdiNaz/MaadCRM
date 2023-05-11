@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerPeyGiryService.CommandHandler;
+﻿namespace Application.Services.Customer.CustomerPeyGiryService.CommandHandler;
 
 public readonly struct DeleteCustomerPeyGiryCommandHandler : IRequestHandler<DeleteCustomerPeyGiryCommand, Result<CustomerPeyGiry>>
 {
