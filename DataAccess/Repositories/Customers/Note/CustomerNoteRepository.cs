@@ -128,8 +128,6 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     CustomerNoteStatusType = x.CustomerNoteStatusType,
                     IdProduct = x.IdProduct,
                     IdCustomer = x.IdCustomer,
-                    UserFirstName = x.IdUserAddNavigation.Name,
-                    UserLastName = x.IdUserAddNavigation.Family,
                     CreateDate = x.DateCreated
                 });
         }
@@ -184,8 +182,6 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     CustomerNoteStatusType = x.CustomerNoteStatusType,
                     IdProduct = x.IdProduct,
                     IdCustomer = x.IdCustomer,
-                    UserFirstName = x.IdUserAddNavigation.Name,
-                    UserLastName = x.IdUserAddNavigation.Family,
                     CreateDate = x.DateCreated
                 });
         }
