@@ -11,6 +11,7 @@ public sealed class Product : BaseEntityWithUserUpdate
         CustomerNotes = new HashSet<CustomerNote>();
         ForooshOrders = new HashSet<ForooshOrder>();
         CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        Logs = new HashSet<Log>();
     }
 
     public Ulid Id { get; set; }
@@ -32,6 +33,7 @@ public sealed class Product : BaseEntityWithUserUpdate
     public ICollection<CustomerNote>? CustomerNotes { get; set; }
     public ICollection<ForooshOrder>? ForooshOrders { get; set; }
     public ICollection<CustomerFeedback>? CustomerFeedbacks { get; set; }
+    public ICollection<Log>? Logs { get; set; }
     //public ProductCategory ProductCategory{ get; set; }                                           
     // public virtual ICollection<Visit>? Visits { get; set; }
 }

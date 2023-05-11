@@ -67,7 +67,8 @@ public class CustomerRepository : ICustomerRepository
                     BirthDayDate = x.BirthDayDate,
                     CityId = x.IdCity,
                     Gender = x.Gender,
-                    DateCreated = x.DateCreated
+                    DateCreated = x.DateCreated,
+                    MoarefFullName = x.FirstName + " " + x.LastName
                 });
             return result;
         }

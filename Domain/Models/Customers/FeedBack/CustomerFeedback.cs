@@ -1,12 +1,13 @@
 ﻿namespace Domain.Models.Customers.FeedBack;
 
-public class CustomerFeedback 
+public class CustomerFeedback
 {
     public CustomerFeedback()
     {
         Id = Ulid.NewUlid();
         CustomerFeedbackStatusType = StatusType.Show;
         Attachments = new HashSet<CustomerFeedbackAttachment>();
+        Logs = new HashSet<Log>();
     }
 
     public Ulid Id { get; set; }
@@ -23,5 +24,6 @@ public class CustomerFeedback
     public Customer? IdCustomerNavigation { get; set; }
 
     public ICollection<CustomerFeedbackAttachment>? Attachments;
+    public ICollection<Log>? Logs;
 
 }

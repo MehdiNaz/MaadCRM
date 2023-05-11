@@ -68,5 +68,7 @@ public static class RepositoryConfiguration
         collection.AddTransient<ICityRepository, CityRepository>();
 
         collection.AddTransient<INoteHashTableRepository, NoteHashTableRepository>();
+
+        collection.AddTransient<ILogRepository, LogRepository>();
     }
 }

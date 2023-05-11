@@ -17,7 +17,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<Province> Provinces { get; set; }
     public DbSet<Business> Businesses { get; set; }
     public DbSet<BusinessPlan> BusinessPlans { get; set; }
-    public DbSet<Setting> Settings { get; set; }
     public DbSet<Attribute> Attributes { get; set; }
     public DbSet<AttributeOptionValue> AttributeOptionsValues { get; set; }
     public DbSet<AttributeOption> AttributeOptions { get; set; }
@@ -31,7 +30,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<ProductCustomerFavoritesList>? ProductCustomerFavoritesLists { get; set; }
-    //public DbSet<Note>? Notes { get; set; }
     public DbSet<CustomerPeyGiry> CustomerPeyGiries { get; set; }
     public DbSet<PeyGiryCategory> PeyGiryCategories { get; set; }
     public DbSet<CustomerNote> CustomerNotes { get; set; }
@@ -39,7 +37,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerNoteHashTable> NoteHashTables { get; set; }
     public DbSet<CustomerNoteAttachment> NoteAttachments { get; set; }
     public DbSet<PeyGiryAttachment> PeyGiryAttachments { get; set; }
-    public DbSet<CustomerRepresentativeHistory> CustomerRepresentativeHistories { get; set; }
     public DbSet<CustomerSubmission> CustomerSubmissions { get; set; }
     public DbSet<ForooshOrder> ForooshOrders { get; set; }
     public DbSet<ForooshFactor> ForooshFactors { get; set; }
@@ -58,7 +55,6 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CustomerFeedbackMapping());
         builder.ApplyConfiguration(new CustomerFeedbackAttachmentMapping());
         builder.ApplyConfiguration(new CustomerFeedbackCategoryMapping());
-        builder.ApplyConfiguration(new CustomerRepresentativeHistoryMapping());
         builder.ApplyConfiguration(new CustomerRepresentativeTypeMapping());
         builder.ApplyConfiguration(new CustomerSubmissionMapping());
         builder.ApplyConfiguration(new CustomersPhoneNumberMapping());
@@ -76,13 +72,11 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CountryMapping());
         builder.ApplyConfiguration(new ProvinceMapping());
         builder.ApplyConfiguration(new AttributeOptionsValueMapping());
-        builder.ApplyConfiguration(new LogMapping());
         //builder.ApplyConfiguration(new NoteMapping());
         builder.ApplyConfiguration(new PlanMapping());
         builder.ApplyConfiguration(new UsersPlansMapping());
 
         builder.ApplyConfiguration(new SanAtMapping());
-        builder.ApplyConfiguration(new SettingMapping());
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());
         builder.ApplyConfiguration(new ContactMapping());

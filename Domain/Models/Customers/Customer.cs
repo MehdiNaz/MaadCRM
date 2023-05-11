@@ -17,6 +17,7 @@ public sealed class Customer : BaseEntityWithUserId
         ForooshFactors = new HashSet<ForooshFactor>();
         CustomerMoarefs = new HashSet<Customer>();
         CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        Logs = new HashSet<Log>();
     }
 
     public Ulid Id { get; set; }
@@ -65,6 +66,7 @@ public sealed class Customer : BaseEntityWithUserId
     public ICollection<ForooshFactor>? ForooshFactors { get; }
 
     public ICollection<CustomerFeedback>? CustomerFeedbacks { get; }
+    public ICollection<Log>? Logs { get; }
 
 
     #region Old Relations

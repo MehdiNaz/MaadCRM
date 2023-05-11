@@ -120,16 +120,20 @@ public class CustomerNoteRepository : ICustomerNoteRepository
 
             await _context.SaveChangesAsync();
 
-            return await _context.CustomerNotes.FindAsync(item.Id)
-                .Select(x => new CustomerNoteResponse
-                {
-                    Id = x.Id,
-                    Description = x.Description,
-                    CustomerNoteStatusType = x.CustomerNoteStatusType,
-                    IdProduct = x.IdProduct,
-                    IdCustomer = x.IdCustomer,
-                    CreateDate = x.DateCreated
-                });
+            // TODO: حل مشکل نام کاربر
+            return await _context.CustomerNotes
+            .Include(x => x.IdUserAddNavigation)
+            .Select(x => new CustomerNoteResponse
+            {
+                Id = x.Id,
+                Description = x.Description,
+                CustomerNoteStatusType = x.CustomerNoteStatusType,
+                IdProduct = x.IdProduct,
+                IdCustomer = x.IdCustomer,
+                UserFirstName = x.IdUserAddNavigation.Name,
+                UserLastName = x.IdUserAddNavigation.Family,
+                CreateDate = x.DateCreated
+            }).FirstOrDefaultAsync(x => x.Id == item.Id);
         }
         catch (Exception e)
         {

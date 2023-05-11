@@ -36,6 +36,7 @@ public class User : IdentityUser
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
         CustomerFeedbackCategoryAdded = new HashSet<CustomerFeedbackCategory>();
         CustomerFeedbackCategoryUpdated = new HashSet<CustomerFeedbackCategory>();
+        Logs = new HashSet<Log>();
     }
 
     public string? Name { get; set; }
@@ -66,7 +67,7 @@ public class User : IdentityUser
     public required Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }
 
-    public IEnumerable<Log>? Logs { get; }
+    public IEnumerable<Log>? Logs { get; set; }
 
     public IEnumerable<Customer>? Customers { get; }
     public IEnumerable<Customer>? CustomersAdded { get; }

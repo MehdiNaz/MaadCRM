@@ -7,6 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Undefined\SpecialFields\**" />
+      <EmbeddedResource Remove="Undefined\SpecialFields\**" />
+      <None Remove="Undefined\SpecialFields\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
       <PackageReference Include="LanguageExt.Core" Version="4.4.3" />
@@ -14,9 +20,5 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.5" />
       <PackageReference Include="Ulid" Version="1.2.6" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Undefined\SpecialFields\" />
     </ItemGroup>
 </Project>

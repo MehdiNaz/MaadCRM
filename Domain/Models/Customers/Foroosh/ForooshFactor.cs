@@ -7,6 +7,7 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
         Id = Ulid.NewUlid();
         StatusTypeForooshFactor = StatusType.Show;
         ForooshOrders = new HashSet<ForooshOrder>();
+        Logs = new HashSet<Log>();
     }
 
     public Ulid Id { get; set; }
@@ -34,4 +35,5 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
 
     public ICollection<ForooshOrder>? ForooshOrders { get; set; }
     public ICollection<Payment>? Payments { get; set; }
+    public ICollection<Log>? Logs { get; set; }
 }
