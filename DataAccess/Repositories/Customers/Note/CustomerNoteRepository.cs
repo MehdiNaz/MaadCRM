@@ -1,12 +1,16 @@
-﻿namespace DataAccess.Repositories.Customers.Note;
+﻿using LanguageExt.Pipes;
+
+namespace DataAccess.Repositories.Customers.Note;
 
 public class CustomerNoteRepository : ICustomerNoteRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public CustomerNoteRepository(MaadContext context)
+    public CustomerNoteRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<CustomerNoteResponse>>> GetAllCustomerNotesAsync(Ulid customerId)
@@ -117,8 +121,25 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     await _context.NoteHashTags.AddAsync(newHashTable);
                 }
 
-
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = item.Id,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.InsertNote,
+                UserId = request.IdUser,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
 
             // TODO: حل مشکل نام کاربر
             return await _context.CustomerNotes
@@ -146,7 +167,6 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             var result = await _context.CustomerNotes.FindAsync(request.Id);
-            result.IdUserUpdated = request.IdUser;
             result.Description = request.Description;
 
 
@@ -178,6 +198,24 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             //await _context.SaveChangesAsync();
 
             await _context.SaveChangesAsync();
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = request.Id,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.UpdateNote,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
+
             return await _context.CustomerNotes.FindAsync(request.Id)
                 .Select(x => new CustomerNoteResponse
                 {
@@ -202,6 +240,26 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             var item = await _context.CustomerNotes.FindAsync(id);
             item.CustomerNoteStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = id,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.DeleteNote,
+                UserId = "request.IdUser",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
+
             return await _context.CustomerNotes.FindAsync(id)
                 .Select(x => new CustomerNoteResponse
                 {

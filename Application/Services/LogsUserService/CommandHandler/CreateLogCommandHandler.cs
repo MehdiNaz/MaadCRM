@@ -29,7 +29,7 @@ public readonly struct CreateLogCommandHandler : IRequestHandler<CreateLogComman
                 Type = request.Type
             };
 
-            return (await _repository.CreateLogAsync(item))
+            return (await _repository.InsertAsync(item))
                 .Match(result => new Result<LogResponse>(result),
                     exception => new Result<LogResponse>(exception));
         }

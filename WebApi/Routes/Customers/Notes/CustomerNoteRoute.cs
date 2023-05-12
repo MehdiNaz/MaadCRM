@@ -153,7 +153,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus",  ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -219,8 +219,7 @@ public static class CustomerNoteRoute
                                 Id = request.Id,
                                 Description = request.Description,
                                 ProductId = request.ProductId,
-                                HashTagIds = request.HashTagIds,
-                                IdUser = userId
+                                HashTagIds = request.HashTagIds
                             });
                             return result.Result.Match(
                                 succes => Results.Ok(new

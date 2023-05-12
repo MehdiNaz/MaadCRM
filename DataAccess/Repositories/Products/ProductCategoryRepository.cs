@@ -3,10 +3,12 @@
 public class ProductCategoryRepository : IProductCategoryRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public ProductCategoryRepository(MaadContext context)
+    public ProductCategoryRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<ProductCategoryResponse>>> GetAllProductCategoriesAsync(Ulid businessId)
@@ -91,17 +93,34 @@ public class ProductCategoryRepository : IProductCategoryRepository
                 IdUserUpdated = request.IdUserUpdated
             };
             await _context.ProductCategories.AddAsync(item);
-            if (await _context.SaveChangesAsync() != 0)
+
+            CreateLogCommand command = new()
             {
-                return await _context.ProductCategories
-                     .FirstOrDefaultAsync(x => x.ProductCategoryName == request.ProductCategoryName)
-                     .Select(x => new ProductCategoryResponse
-                     {
-                         Id = x.Id,
-                         Name = x.ProductCategoryName
-                     });
-            }
-            return new Result<ProductCategoryResponse>(new ValidationException("Error"));
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = item.Id,
+                ForooshId = null,
+                Type = LogTypes.InsertCategory,
+                UserId = request.IdUserAdded,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
+            await _context.SaveChangesAsync();
+            return await _context.ProductCategories
+                 .FirstOrDefaultAsync(x => x.ProductCategoryName == request.ProductCategoryName)
+                 .Select(x => new ProductCategoryResponse
+                 {
+                     Id = x.Id,
+                     Name = x.ProductCategoryName
+                 });
+            //return new Result<ProductCategoryResponse>(new ValidationException("Error"));
         }
         catch (Exception e)
         {
@@ -123,6 +142,25 @@ public class ProductCategoryRepository : IProductCategoryRepository
 
 
             _context.Update(item);
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = item.Id,
+                ForooshId = null,
+                Type = LogTypes.UpdateCategory,
+                UserId = request.IdUserUpdated,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             if (await _context.SaveChangesAsync() != 0)
             {
                 return await _context.ProductCategories
@@ -148,6 +186,23 @@ public class ProductCategoryRepository : IProductCategoryRepository
             var productCategory = await _context.ProductCategories.FindAsync(id);
             productCategory.ProductCategoryStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = id,
+                ForooshId = null,
+                Type = LogTypes.InsertCategory,
+                UserId = "request.IdUserAdded",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
             return await _context.ProductCategories
                 .FindAsync(id)
                 .Select(x => new ProductCategoryResponse

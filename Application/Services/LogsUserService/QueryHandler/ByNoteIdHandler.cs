@@ -1,10 +1,10 @@
 ﻿namespace Application.Services.LogsUserService.QueryHandler;
 
-public readonly struct ByPeyNoteIdHandler : IRequestHandler<ByPeyGiryIdQuery, Result<LogResponse>>
+public readonly struct ByNoteIdHandler : IRequestHandler<ByPeyGiryIdQuery, Result<LogResponse>>
 {
     private readonly ILogRepository _repository;
 
-    public ByPeyNoteIdHandler(ILogRepository repository)
+    public ByNoteIdHandler(ILogRepository repository)
     {
         _repository = repository;
     }
@@ -13,7 +13,7 @@ public readonly struct ByPeyNoteIdHandler : IRequestHandler<ByPeyGiryIdQuery, Re
     {
         try
         {
-            return (await _repository.GetByPeyGiryIdAsync(request.PeyGiryId))
+            return (await _repository.GetByNoteIdAsync(request.PeyGiryId))
                 .Match(result => new Result<LogResponse>(result),
                     exception => new Result<LogResponse>(exception));
         }

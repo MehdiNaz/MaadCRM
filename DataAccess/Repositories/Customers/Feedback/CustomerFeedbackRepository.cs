@@ -1,12 +1,16 @@
-﻿namespace DataAccess.Repositories.Customers.Feedback;
+﻿using LanguageExt.Pipes;
+
+namespace DataAccess.Repositories.Customers.Feedback;
 
 public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public CustomerFeedbackRepository(MaadContext context)
+    public CustomerFeedbackRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<CustomerFeedback>>> GetAllCustomerFeedbacksAsync()
@@ -80,6 +84,25 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             };
             await _context.CustomerFeedbacks.AddAsync(item);
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = item.Id,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.InsertFeedBack,
+                UserId = "request.IdUserAdded",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return new Result<CustomerFeedback>(item);
         }
         catch (Exception e)
@@ -97,6 +120,25 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
             _context.Update(item);
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = request.Id,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.UpdateFeedBack,
+                UserId = "request.IdUserAdded",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return new Result<CustomerFeedback>(item);
         }
         catch (Exception e)
@@ -112,6 +154,25 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             var item = await _context.CustomerFeedbacks.FindAsync(id);
             item.CustomerFeedbackStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = id,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.DeleteFeedBack,
+                UserId = "request.IdUser",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return new Result<CustomerFeedback>(item);
         }
         catch (Exception e)

@@ -19,7 +19,6 @@ public readonly struct UpdateCustomerNoteCommandHandler : IRequestHandler<Update
                 Description = request.Description,
                 ProductId = request.ProductId,
                 HashTagIds = request.HashTagIds,
-                IdUser = request.IdUser
             };
             return (await _repository.UpdateCustomerNoteAsync(item))
                 .Match(result => new Result<CustomerNoteResponse>(result),

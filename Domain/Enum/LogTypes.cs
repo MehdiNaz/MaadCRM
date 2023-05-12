@@ -2,33 +2,33 @@
 
 public enum LogTypes : byte
 {
-    PeyGiryInsert = 1,
-    PeyGiryDelete = 2,
-    PeyGiryUpdate = 3,
+    InsertPeyGiry = 1,
+    UpdatePeyGiry = 2,
+    DeletePeyGiry = 3,
 
-    NoteInsert = 4,
-    NoteDelete = 5,
-    NoteUpdate = 6,
+    InsertNote = 4,
+    UpdateNote = 5,
+    DeleteNote = 6,
 
-    FeedBackInsert = 7,
-    FeedBackDelete = 8,
-    FeedBackUpdate = 9,
+    InsertFeedBack = 7,
+    UpdateFeedBack = 8,
+    DeleteFeedBack = 9,
 
-    CustomerInsert = 10,
-    CustomerDelete = 11,
-    CustomerUpdate = 12,
+    InsertCustomer = 10,
+    UpdateCustomer = 11,
+    DeleteCustomer = 12,
 
-    ProductInsert = 13,
-    ProductDelete = 14,
-    ProductUpdate = 15,
+    InsertProduct = 13,
+    UpdateProduct = 14,
+    DeleteProduct = 15,
 
-    CategoryInsert = 16,
-    CategoryDelete = 17,
-    CategoryUpdate = 18,
+    InsertCategory = 16,
+    UpdateCategory = 17,
+    DeleteCategory = 18,
 
-    ForooshInsert = 19,
-    ForooshDelete = 20,
-    ForooshUpdate = 21,
+    InsertForoosh = 19,
+    UpdateForoosh = 20,
+    DeleteForoosh = 21,
 
-    ProfileEdit = 22,
+    UpdateProfile = 22
 }

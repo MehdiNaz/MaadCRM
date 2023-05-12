@@ -3,10 +3,12 @@
 public class ProductRepository : IProductRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public ProductRepository(MaadContext context)
+    public ProductRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsAsync(Ulid businessId)
@@ -115,6 +117,26 @@ public class ProductRepository : IProductRepository
 
             await _context.Products.AddAsync(item);
             await _context.SaveChangesAsync();
+
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = item.Id,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.InsertProduct,
+                UserId = request.IdUserAdded,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return item;
         }
         catch (Exception e)
@@ -141,6 +163,25 @@ public class ProductRepository : IProductRepository
 
             _context.Update(item);
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = request.Id,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.UpdateProduct,
+                UserId = request.IdUserUpdated,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return item;
         }
         catch (Exception e)
@@ -156,6 +197,25 @@ public class ProductRepository : IProductRepository
             var item = await _context.Products.FindAsync(id);
             item.StatusTypeProduct = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = id,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.DeleteProduct,
+                UserId = "request.IdUserAdded",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return item;
         }
         catch (Exception e)

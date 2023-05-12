@@ -95,5 +95,6 @@ global using Application.Interfaces.LogsUser;
 global using Application.Services.Customer.CustomerPeyGiryService.Commands;
 global using Application.Services.Customer.PeyGiryCategoryService.Commands;
 global using Application.Services.LogsUserService.Commands;
+global using DataAccess.Repositories.UsersLog;
 global using Domain.Models.LogsUser;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

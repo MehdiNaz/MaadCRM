@@ -16,7 +16,6 @@ public struct LogResponse
     public Ulid? ProductCategoryId { get; set; }
     public string ProductCategoryName { get; set; }
     public Ulid? ForooshId { get; set; }
-    public decimal ForooshAmount { get; set; }
     public LogTypes Type { get; set; }
     public string UserId { get; set; }
     public string UserFullName { get; set; }

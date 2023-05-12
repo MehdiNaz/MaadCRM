@@ -3,10 +3,12 @@
 public class CustomerRepository : ICustomerRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public CustomerRepository(MaadContext maadContext)
+    public CustomerRepository(MaadContext maadContext, ILogRepository log)
     {
         _context = maadContext;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId)
@@ -467,24 +469,42 @@ public class CustomerRepository : ICustomerRepository
 
             await _context.SaveChangesAsync();
 
-            CustomerResponse returnItem = new()
+            //CustomerResponse returnItem = new()
+            //{
+            //    BirthDayDate = entityEntry.BirthDayDate,
+            //    CustomerId = entityEntry.Id,
+            //    From = entityEntry.DateCreated,
+            //    CustomerStateType = entityEntry.CustomerState,
+            //    CustomerStatusType = entityEntry.CustomerStatusType,
+            //    MoshtaryMoAref = entityEntry.CustomerMoarefId,
+            //    // CustomerCategoryId = entityEntry.CustomerCategoryId,
+            //    EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
+            //    PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault()!.PhoneNo,
+            //    FirstName = entityEntry.FirstName,
+            //    LastName = entityEntry.LastName,
+            //    Address = entityEntry.CustomerAddresses.FirstOrDefault()!.Address,
+            //    CityId = entityEntry.IdCity,
+            //    Gender = entityEntry.Gender
+            //};
+
+            CreateLogCommand command = new()
             {
-                BirthDayDate = entityEntry.BirthDayDate,
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
                 CustomerId = entityEntry.Id,
-                From = entityEntry.DateCreated,
-                CustomerStateType = entityEntry.CustomerState,
-                CustomerStatusType = entityEntry.CustomerStatusType,
-                MoshtaryMoAref = entityEntry.CustomerMoarefId,
-                // CustomerCategoryId = entityEntry.CustomerCategoryId,
-                EmailAddress = entityEntry.EmailAddresses.FirstOrDefault()!.CustomerEmailAddress,
-                PhoneNumber = entityEntry.PhoneNumbers.FirstOrDefault()!.PhoneNo,
-                FirstName = entityEntry.FirstName,
-                LastName = entityEntry.LastName,
-                Address = entityEntry.CustomerAddresses.FirstOrDefault()!.Address,
-                CityId = entityEntry.IdCity,
-                Gender = entityEntry.Gender
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.InsertCustomer,
+                UserId = request.IdUserAdded,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
             };
-            //return returnItem;
+
+            await _log.InsertAsync(command);
+
             return new Result<CustomerResponse>(await _context.Customers.FindAsync(entityEntry.Id)
                 .Select(x => new CustomerResponse
                 {
@@ -545,6 +565,26 @@ public class CustomerRepository : ICustomerRepository
 
             await _context.SaveChangesAsync();
 
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = request.Id,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.UpdateCustomer,
+                UserId = request.UserId,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
+
+
             return new Result<CustomerResponse>(new CustomerResponse
             {
                 CustomerId = customer.Id,
@@ -574,6 +614,25 @@ public class CustomerRepository : ICustomerRepository
             var customer = await _context.Customers.FindAsync(customerId);
             customer!.CustomerStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = customerId,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = null,
+                Type = LogTypes.DeleteCustomer,
+                UserId = "request.IdUserAdded",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return new Result<CustomerResponse>(await _context.Customers.FindAsync(customerId)
                 .Select(x => new CustomerResponse
                 {

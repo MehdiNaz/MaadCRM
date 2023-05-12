@@ -373,7 +373,7 @@ public static class CustomerFeedbackCategoryRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Update Customer Feedback Category Updated.",
+                                    Message = "UpdateAsync Customer Feedback Category Updated.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse

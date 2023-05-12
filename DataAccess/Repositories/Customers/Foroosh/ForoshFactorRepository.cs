@@ -3,10 +3,12 @@
 public class ForooshFactorRepository : IForooshFactorRepository
 {
     private readonly MaadContext _context;
+    private readonly ILogRepository _log;
 
-    public ForooshFactorRepository(MaadContext context)
+    public ForooshFactorRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
+        _log = log;
     }
 
     public async ValueTask<Result<ICollection<ForooshFactor>>> GetAllForooshFactorsAsync()
@@ -172,6 +174,23 @@ public class ForooshFactorRepository : IForooshFactorRepository
 
             await _context.SaveChangesAsync();
 
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = item.Id,
+                Type = LogTypes.InsertForoosh,
+                UserId = request.UserIdAdded,
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
 
             var result = await _context.ForooshFactors
                 .Select(x => new FactorInformationResponse
@@ -231,6 +250,25 @@ public class ForooshFactorRepository : IForooshFactorRepository
             }
 
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = request.Id,
+                Type = LogTypes.UpdateForoosh,
+                UserId = "UserId",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return item;
         }
         catch (Exception e)
@@ -246,6 +284,25 @@ public class ForooshFactorRepository : IForooshFactorRepository
             var ForooshFactor = await _context.ForooshFactors.FindAsync(id);
             ForooshFactor!.StatusTypeForooshFactor = StatusType.Deleted;
             await _context.SaveChangesAsync();
+
+            CreateLogCommand command = new()
+            {
+                PeyGiryId = null,
+                NoteId = null,
+                FeedBackId = null,
+                CustomerId = null,
+                ProductId = null,
+                ProductCategoryId = null,
+                ForooshId = id,
+                Type = LogTypes.DeleteForoosh,
+                UserId = "UserId",
+                IpAddress = "IPAddress",
+                UserAgent = "UserAgent",
+                Description = "Description"
+            };
+
+            await _log.InsertAsync(command);
+
             return ForooshFactor;
         }
         catch (Exception e)

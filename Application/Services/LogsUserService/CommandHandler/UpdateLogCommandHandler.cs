@@ -29,10 +29,10 @@ public readonly struct UpdateLogCommandHandler : IRequestHandler<UpdateLogComman
                 Description = request.Description,
                 Type = request.Type
             };
-
-            return (await _repository.UpdateLogAsync(item))
-                .Match(result => new Result<LogResponse>(result),
-                    exception => new Result<LogResponse>(exception));
+            return new Result<LogResponse>(new Exception(""));
+            //return (await _repository.UpdateAsync(item))
+            //    .Match(result => new Result<LogResponse>(result),
+            //        exception => new Result<LogResponse>(exception));
         }
         catch (Exception e)
         {

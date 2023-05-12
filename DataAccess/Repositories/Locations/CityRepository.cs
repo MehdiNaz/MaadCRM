@@ -103,7 +103,7 @@ public class CityRepository : ICityRepository
     //{
     //    try
     //    {
-    //        _context.Update(entity);
+    //        _context.UpdateAsync(entity);
     //        await _context.SaveChangesAsync();
     //        return entity;
     //    }

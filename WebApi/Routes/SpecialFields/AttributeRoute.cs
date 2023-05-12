@@ -144,7 +144,6 @@ public static class AttributeRoute
             }
         });
 
-
         plan.MapPost("/Insert", ([FromBody] CreateAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try

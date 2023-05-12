@@ -254,7 +254,7 @@ public static class NoteHashTableRoute
                                     succes => Results.Ok(new
                                     {
                                         Valid = true,
-                                        Message = "Update Note Hash Table.",
+                                        Message = "UpdateAsync Note Hash Table.",
                                         Data = succes
                                     }),
                                     error => Results.BadRequest(new ErrorResponse

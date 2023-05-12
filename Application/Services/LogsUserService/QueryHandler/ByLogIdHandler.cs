@@ -13,7 +13,7 @@ public readonly struct ByLogIdHandler : IRequestHandler<ByLogIdQuery, Result<Log
     {
         try
         {
-            return (await _repository.DeleteLogAsync(request.Id))
+            return (await _repository.GetByLogIdAsync(request.Id))
                 .Match(result => new Result<LogResponse>(result),
                     exception => new Result<LogResponse>(exception));
         }

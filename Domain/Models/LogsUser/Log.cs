@@ -21,12 +21,12 @@ public class Log : BaseEntity
     public required string UserAgent { get; set; }
     public string? Description { get; set; }
 
-    public CustomerPeyGiry PeyGiry { get; set; }
-    public CustomerNote Note { get; set; }
-    public CustomerFeedback Feedback { get; set; }
-    public Customer Customer { get; set; }
-    public Product Product { get; set; }
-    public ProductCategory ProductCategory { get; set; }
-    public ForooshFactor ForooshFactor { get; set; }
-    public User User { get; set; }
+    public CustomerPeyGiry? PeyGiry { get; set; }
+    public CustomerNote? Note { get; set; }
+    public CustomerFeedback? Feedback { get; set; }
+    public Customer? Customer { get; set; }
+    public Product? Product { get; set; }
+    public ProductCategory? ProductCategory { get; set; }
+    public ForooshFactor? ForooshFactor { get; set; }
+    public User? User { get; set; }
 }
