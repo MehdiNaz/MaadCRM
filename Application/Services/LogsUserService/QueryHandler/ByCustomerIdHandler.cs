@@ -1,4 +1,4 @@
-﻿namespace Application.Services.LogsUserService.Query;
+﻿namespace Application.Services.LogsUserService.QueryHandler;
 
 public readonly struct ByCustomerIdHandler : IRequestHandler<ByCustomerIdQuery, Result<LogResponse>>
 {
