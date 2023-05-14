@@ -170,7 +170,7 @@ public class CustomerRepository : ICustomerRepository
         {
             var resultsListCustomer = _context.Customers
                 .Include(x => x.CustomerMoaref)
-                //.Include(x => x.PhoneNumbers)
+                .Include(x => x.PhoneNumbers)
                 .Include(x => x.FavoritesLists)
                 .Select(x => new CustomerResponse
                 {
@@ -189,7 +189,8 @@ public class CustomerRepository : ICustomerRepository
                     Gender = x.Gender,
                     DateCreated = x.DateCreated,
                     MoshtaryMoAref = x.CustomerMoaref.Id,
-                    MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
+                    MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName,
+                    UserId = x.IdUserAdded
                 }).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
@@ -231,18 +232,18 @@ public class CustomerRepository : ICustomerRepository
             //}
             // TODO: Add Favirout List
 
-            await resultsListCustomer.ToListAsync();
+            var finalResult = await resultsListCustomer.Where(x => x.UserId == request.UserId).ToListAsync();
 
             CustomerDashboardResponse result = new()
             {
-                AllCustomersInfo = resultsListCustomer,
-                AllCount = resultsListCustomer.Count(),
-                BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
-                BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
-                RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
-                NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-                DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
-                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
+                AllCustomersInfo = finalResult,
+                AllCount = finalResult.Count,
+                BelghovehCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+                BelFelCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+                RazyCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+                NaRazyCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+                DarHalePeyGiryCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                VafadarCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             };
             return result;
         }
@@ -252,11 +253,13 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = _context.Customers
             .Include(x => x.FavoritesLists)
             .Include(x => x.PhoneNumbers)
+            .Include(x => x.IdUserAddNavigation)
+            .Where(x => x.IdUser == userId)
             // .ThenInclude(x => x.Province)
             .Select(x => new CustomerResponse
             {
@@ -275,14 +278,14 @@ public class CustomerRepository : ICustomerRepository
                 BirthDayDate = x.BirthDayDate,
                 CityId = x.IdCity,
                 Gender = x.Gender,
-                DateCreated = x.DateCreated
+                DateCreated = x.DateCreated,
+                UserId = x.IdUserAdded
             }).AsQueryable();
 
-        var result = resultsListCustomer.Where(
-                x => x.FirstName.ToLower().Contains(request.ToLower())
-                     || x.LastName.ToLower().Contains(request.ToLower())
-                     || x.PhoneNumber.ToLower().Contains(request.ToLower())
-                     || x.EmailAddress.ToLower().Contains(request.ToLower()))
+        var result = resultsListCustomer.Where(x => x.FirstName.ToLower().Contains(request.ToLower())
+                                                    || x.LastName.ToLower().Contains(request.ToLower())
+                                                    || x.PhoneNumber.ToLower().Contains(request.ToLower())
+                                                    || x.EmailAddress.ToLower().Contains(request.ToLower()))
             .Select(x => new CustomerResponse
             {
                 CustomerId = x.CustomerId,
@@ -293,13 +296,14 @@ public class CustomerRepository : ICustomerRepository
                 UpTo = DateTime.UtcNow,
                 BirthDayDate = x.BirthDayDate,
                 Gender = x.Gender,
-                DateCreated = x.DateCreated
+                DateCreated = x.DateCreated,
+                UserId = x.UserId
             });
 
 
         return new CustomerDashboardResponse
         {
-            AllCustomersInfo = result,
+            AllCustomersInfo = result.ToList(),
             AllCount = resultsListCustomer.Count(),
             BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
             BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),

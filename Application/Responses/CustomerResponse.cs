@@ -21,6 +21,7 @@ public struct CustomerResponse
     public string? MoarefFullName { get; set; }
     public Ulid? ProductId { get; set; }
     public string? ProductName { get; set; }
+    public string? UserId { get; set; }
 
     public DateTime? DateCreated { get; set; }
     // public Ulid? ProductCustomerFavorite { get; set; }

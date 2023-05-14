@@ -265,7 +265,7 @@ public static class AttributeOptionRoute
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Customer Note Updated.",
+                                Message = "Attribute Option Deleted.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse

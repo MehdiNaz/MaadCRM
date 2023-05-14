@@ -103,61 +103,62 @@ public static class CustomerRoute
         //});
 
         plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
             {
-                try
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    var id = mediator.Send(new DecodeTokenQuery
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    userId =>
                     {
-                        Token = httpContext.Request.Headers["Authorization"].ToString(),
-                        ReturnType = TokenReturnType.UserId
-                    });
-
-                    return id.Result.Match(
-                        _ =>
+                        var result = mediator.Send(new CustomerByFilterItemsQuery
                         {
-                            var result = mediator.Send(new CustomerByFilterItemsQuery
+                            CustomerId = request.CustomerId,
+                            BirthDayDate = request.BirthDayDate,
+                            Gender = request.Gender,
+                            CityId = request.CityId,
+                            CustomerState = request.CustomerState,
+                            From = request.From,
+                            UpTo = request.UpTo,
+                            ProvinceId = request.ProvinceId,
+                            MoshtaryMoAref = request.MoshtaryMoAref,
+                            ProductCustomerFavorite = request.ProductCustomerFavorite,
+                            UserId = userId
+                        });
+
+                        return result.Result.Match(
+                            succes => Results.Ok(new
                             {
-                                CustomerId = request.CustomerId,
-                                BirthDayDate = request.BirthDayDate,
-                                Gender = request.Gender,
-                                CityId = request.CityId,
-                                CustomerState = request.CustomerState,
-                                From = request.From,
-                                UpTo = request.UpTo,
-                                ProvinceId = request.ProvinceId,
-                                MoshtaryMoAref = request.MoshtaryMoAref,
-                                ProductCustomerFavorite = request.ProductCustomerFavorite
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Get All Customers By Filter Items.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
-                }
-                catch (Exception e)
-                {
-                    return Results.BadRequest(new
+                                Valid = true,
+                                Message = "Get All Customers By Filter Items.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
                     {
                         Valid = false,
-                        e.Message,
-                        e.StackTrace
-                    });
-                }
-            });
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
 
         plan.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
@@ -170,11 +171,12 @@ public static class CustomerRoute
                 });
 
                 return id.Result.Match(
-                    _ =>
+                    userId =>
                     {
                         var result = mediator.Send(new CustomerBySearchItemQuery
                         {
-                            Q = q.ToLower()
+                            Q = q.ToLower(),
+                            UserId = userId
                         });
 
                         return result.Result.Match(

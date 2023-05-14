@@ -14,4 +14,5 @@ public struct CustomerByFilterItemsQuery : IRequest<Result<CustomerDashboardResp
     public Ulid? ProductCustomerFavorite { get; set; }
     public Ulid ProductId { get; set; }
     public string ProductName { get; set; }
+    public string UserId { get; set; }
 }
