@@ -92,14 +92,12 @@ public class ContactRepository : IContactRepository
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
                 .Where(x => x.ContactStatusType == StatusType.Show
-                            && x.FirstName.ToLower().Contains(q.ToLower())
-                            || x.LastName.ToLower().Contains(q.ToLower())
                             || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
 
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FullName = x.FirstName + " " + x.LastName,
+                    FullName = x.FirstName + " " + x.LastName.Contains(q),
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
