@@ -19,8 +19,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
@@ -46,8 +45,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
@@ -71,8 +69,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
@@ -91,17 +88,18 @@ public class ContactRepository : IContactRepository
         try
         {
             return await _context.Contacts
-                .Where(x => x.ContactStatusType == StatusType.Show
-                            && x.FirstName.ToLower().Contains(q.ToLower())
-                            || x.LastName.ToLower().Contains(q.ToLower()))
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
+                .Where(x => x.ContactStatusType == StatusType.Show
+                            && x.FirstName.ToLower().Contains(q.ToLower())
+                            || x.LastName.ToLower().Contains(q.ToLower())
+                            || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
+
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
@@ -131,8 +129,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
@@ -196,8 +193,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = item.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
@@ -237,8 +233,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
@@ -267,8 +262,7 @@ public class ContactRepository : IContactRepository
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
