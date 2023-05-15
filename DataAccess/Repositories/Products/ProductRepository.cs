@@ -67,6 +67,34 @@ public class ProductRepository : IProductRepository
         }
     }
 
+    public async ValueTask<Result<ICollection<ProductResponse>>> GetProductByIdCategoryAsync(Ulid categoryId)
+    {
+        try
+        {
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .Where(x => x.IdProductCategory == categoryId && x.StatusTypeProduct == StatusType.Show)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                }).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ProductResponse>>(new ValidationException(e.Message));
+        }
+    }
+
     public async ValueTask<Result<ProductResponse>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId)
     {
         try
