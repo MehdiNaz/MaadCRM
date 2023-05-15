@@ -21,7 +21,7 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
@@ -30,7 +30,7 @@ public class CustomerRepository : ICustomerRepository
                     Name = x.FirstName + " " + x.LastName,
                     MoshtaryMoAref = x.CustomerMoarefId,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender,
                     CityName = x.IdCityNavigation.CityName,
                     MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName
@@ -54,7 +54,7 @@ public class CustomerRepository : ICustomerRepository
                 .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     Name = x.FirstName + " " + x.LastName,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
@@ -64,7 +64,7 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     UpTo = DateTime.UtcNow,
                     BirthDayDate = x.BirthDayDate,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender,
                     DateCreated = x.DateCreated,
                     MoarefFullName = x.FirstName + " " + x.LastName
@@ -171,7 +171,7 @@ public class CustomerRepository : ICustomerRepository
                 .Include(x => x.FavoritesLists)
                 .Select(x => new CustomerResponse
                 {
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     Name = x.FirstName + " " + x.LastName,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
@@ -181,12 +181,12 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     UpTo = DateTime.UtcNow,
                     BirthDayDate = x.BirthDayDate,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender,
                     DateCreated = x.DateCreated,
                     MoshtaryMoAref = x.CustomerMoaref.Id,
                     MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName,
-                    UserId = x.IdUserAdded
+                    IdUser = x.IdUserAdded
                 }).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
@@ -204,7 +204,7 @@ public class CustomerRepository : ICustomerRepository
             }
 
             if (!request.CustomerId.ToString().IsNullOrEmpty())
-                resultsListCustomer = resultsListCustomer.Where(x => x.CustomerId == request.CustomerId);
+                resultsListCustomer = resultsListCustomer.Where(x => x.IdCustomer == request.CustomerId);
 
 
             if (request is { CustomerState: { } })
@@ -220,15 +220,15 @@ public class CustomerRepository : ICustomerRepository
                 resultsListCustomer = resultsListCustomer.Where(x => x.Gender == request.Gender);
 
             if (request is { CityId: { } })
-                resultsListCustomer = resultsListCustomer.Where(x => x.CityId == request.CityId);
+                resultsListCustomer = resultsListCustomer.Where(x => x.IdCity == request.CityId);
 
             //if (request is { ProductCustomerFavorite: { } })
             //{
-            //    resultsListCustomer= resultsListCustomer.Where(x=>x.ProductId=;
+            //    resultsListCustomer= resultsListCustomer.Where(x=>x.IdProduct=;
             //}
             // TODO: Add Favirout List
 
-            var finalResult = await resultsListCustomer.Where(x => x.UserId == request.UserId).ToListAsync();
+            var finalResult = await resultsListCustomer.Where(x => x.IdUser == request.UserId).ToListAsync();
 
             CustomerDashboardResponse result = new()
             {
@@ -256,8 +256,8 @@ public class CustomerRepository : ICustomerRepository
             .Where(x => x.IdUser == userId)
             .Select(x => new CustomerResponse
             {
-                UserId = x.IdUser,
-                CustomerId = x.Id,
+                IdUser = x.IdUser,
+                IdCustomer = x.Id,
                 Name = x.FirstName + " " + x.LastName,
                 PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                 EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
@@ -293,12 +293,12 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
                     Name = x.FirstName + " " + x.LastName,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender
                 }));
         }
@@ -320,12 +320,12 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
                     Name = x.FirstName + " " + x.LastName,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender
                 }));
         }
@@ -441,7 +441,7 @@ public class CustomerRepository : ICustomerRepository
             //CustomerResponse returnItem = new()
             //{
             //    BirthDayDate = entityEntry.BirthDayDate,
-            //    CustomerId = entityEntry.Id,
+            //    IdCustomer = entityEntry.Id,
             //    From = entityEntry.DateCreated,
             //    CustomerStateType = entityEntry.CustomerState,
             //    CustomerStatusType = entityEntry.CustomerStatusType,
@@ -452,7 +452,7 @@ public class CustomerRepository : ICustomerRepository
             //    FirstName = entityEntry.FirstName,
             //    LastName = entityEntry.LastName,
             //    Address = entityEntry.CustomerAddresses.FirstOrDefault()!.Address,
-            //    CityId = entityEntry.IdCity,
+            //    IdCity = entityEntry.IdCity,
             //    Gender = entityEntry.Gender
             //};
 
@@ -478,7 +478,7 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
@@ -486,7 +486,7 @@ public class CustomerRepository : ICustomerRepository
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     Name = x.FirstName + " " + x.LastName,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender
                 }));
         }
@@ -555,11 +555,11 @@ public class CustomerRepository : ICustomerRepository
 
             return new Result<CustomerResponse>(new CustomerResponse
             {
-                CustomerId = customer.Id,
+                IdCustomer = customer.Id,
                 Name = customer.FirstName + " " + customer.LastName,
                 PhoneNumber = customer.PhoneNumbers.FirstOrDefault().ToString(),
                 EmailAddress = customer.EmailAddresses.FirstOrDefault().ToString(),
-                CityId = customer.IdCity,
+                IdCity = customer.IdCity,
                 MoshtaryMoAref = customer.CustomerMoarefId,
                 BirthDayDate = customer.BirthDayDate,
                 CustomerStateType = customer.CustomerState,
@@ -604,12 +604,12 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
-                    CustomerId = x.Id,
+                    IdCustomer = x.Id,
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
                     Name = x.FirstName + " " + x.LastName,
-                    CityId = x.IdCity,
+                    IdCity = x.IdCity,
                     Gender = x.Gender
                 }));
         }

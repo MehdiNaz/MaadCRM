@@ -121,7 +121,7 @@ public static class BusinessRoute
                     CompanyName = request.CompanyName,
                     CompanyAddress = request.CompanyAddress,
                     DisplayOrder = request.DisplayOrder,
-                    //UserId = request.UserId
+                    //IdUser = request.IdUser
                 });
 
                 return result.Match(
@@ -208,7 +208,7 @@ public static class BusinessRoute
                     CompanyName = request.CompanyName,
                     CompanyAddress = request.CompanyAddress,
                     DisplayOrder = request.DisplayOrder,
-                    //UserId = request.UserId,
+                    //IdUser = request.IdUser,
                     //Id = request.Id,
                     //Id = request.Id,
                     //Id = request.Id,

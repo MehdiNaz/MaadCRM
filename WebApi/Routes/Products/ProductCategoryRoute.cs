@@ -421,15 +421,15 @@ public static class ProductCategoryRoute
             //    var id = mediator.Send(new DecodeTokenQuery
             //    {
             //        Token = httpContext.Request.Headers["Authorization"].ToString(),
-            //        ReturnType = TokenReturnType.UserId
+            //        ReturnType = TokenReturnType.IdUser
             //    });
 
             //    return id.Result.Match(
-            //        UserId =>
+            //        IdUser =>
             //        {
             //            var business = mediator.Send(new GetBusinessNameByUserIdQuery
             //            {
-            //                UserId = UserId
+            //                IdUser = IdUser
             //            });
 
             //            return business.Result.Match(bId =>
@@ -441,8 +441,8 @@ public static class ProductCategoryRoute
             //                    ProductCategoryName = request.ProductCategoryName,
             //                    Description = request.Description,
             //                    Icon = request.Icon,
-            //                    BusinessId = bId.Id,
-            //                    IdUserUpdated = UserId
+            //                    IdBusiness = bId.Id,
+            //                    IdUserUpdated = IdUser
             //                });
 
             //                return result.Result.Match(

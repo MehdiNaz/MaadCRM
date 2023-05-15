@@ -15,7 +15,7 @@ public static class CustomerRoute
         //        var id = mediator.Send(new DecodeTokenQuery
         //        {
         //            Token = httpContext.Request.Headers["Authorization"].ToString(),
-        //            ReturnType = TokenReturnType.UserId
+        //            ReturnType = TokenReturnType.IdUser
         //        });
 
         //        return id.Result.Match(
@@ -23,7 +23,7 @@ public static class CustomerRoute
         //            {
         //                var result = mediator.Send(new AllCustomersQuery
         //                {
-        //                    UserId = userId
+        //                    IdUser = userId
         //                });
 
         //                return result.Result.Match(
@@ -63,7 +63,7 @@ public static class CustomerRoute
         //        var id = mediator.Send(new DecodeTokenQuery
         //        {
         //            Token = httpContext.Request.Headers["Authorization"].ToString(),
-        //            ReturnType = TokenReturnType.UserId
+        //            ReturnType = TokenReturnType.IdUser
         //        });
 
         //        return id.Result.Match(
@@ -71,7 +71,7 @@ public static class CustomerRoute
         //            {
         //                var result = mediator.Send(new CustomerDashBourdQuery
         //                {
-        //                    UserId = userId
+        //                    IdUser = userId
         //                });
 
         //                return result.Result.Match(

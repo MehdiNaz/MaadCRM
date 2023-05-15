@@ -19,7 +19,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
                 {
                     Id = x.Id,
                     Kind = x.Kind,
-                    BusinessId = x.BusinessId,
+                    IdBusiness = x.BusinessId,
                     Status = x.Status
                 }).ToListAsync();
         }
@@ -38,7 +38,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
                 {
                     Id = x.Id,
                     Kind = x.Kind,
-                    BusinessId = x.BusinessId,
+                    IdBusiness = x.BusinessId,
                     Status = x.Status
                 });
         }
@@ -60,7 +60,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
             {
                 Id = x.Id,
                 Kind = x.Kind,
-                BusinessId = x.BusinessId,
+                IdBusiness = x.BusinessId,
                 Status = x.Status
             });
         }
@@ -90,7 +90,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
             {
                 Id = x.Id,
                 Kind = x.Kind,
-                BusinessId = x.BusinessId,
+                IdBusiness = x.BusinessId,
                 Status = x.Status
             });
         }
@@ -113,7 +113,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
             {
                 Id = x.Id,
                 Kind = x.Kind,
-                BusinessId = x.BusinessId,
+                IdBusiness = x.BusinessId,
                 Status = x.Status
             });
         }
@@ -134,7 +134,7 @@ public class PeyGiryCategoryRepository : IPeyGiryCategoryRepository
             {
                 Id = x.Id,
                 Kind = x.Kind,
-                BusinessId = x.BusinessId,
+                IdBusiness = x.BusinessId,
                 Status = x.Status
             });
         }

@@ -19,7 +19,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                 .Where(x => x.Status == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }).ToListAsync();
@@ -37,7 +37,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 });
@@ -60,7 +60,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             (await _context.CustomerPeyGiries.FindAsync(request.CustomerPeyGiryId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }));
@@ -117,7 +117,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             (await _context.CustomerPeyGiries.FindAsync(item.Id)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }));
@@ -162,7 +162,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             (await _context.CustomerPeyGiries.FindAsync(item.Id)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }));
@@ -203,7 +203,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             (await _context.CustomerPeyGiries.FindAsync(item.Id)
                 .Select(x => new CustomerPeyGiryResponse
                 {
-                    CustomerPeyGiryId = x.Id,
+                    IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }));

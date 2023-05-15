@@ -10,5 +10,5 @@ public struct UpdateBusinessCommand : IRequest<Result<Business>>
     public string CompanyAddress { get; set; }
     //public bool SslEnabled { get; set; }
     public int DisplayOrder { get; set; }
-    //public string? UserId { get; set; }
+    //public string? IdUser { get; set; }
 }

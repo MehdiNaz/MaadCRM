@@ -12,6 +12,6 @@ public readonly struct DeleteCityCommandHandler : IRequestHandler<DeleteCityComm
     public async Task<City> Handle(DeleteCityCommand request, CancellationToken cancellationToken)
     {
         return null;
-        //(await _repository.DeleteCityAsync(request.CityId))!;
+        //(await _repository.DeleteCityAsync(request.IdCity))!;
     }
 }

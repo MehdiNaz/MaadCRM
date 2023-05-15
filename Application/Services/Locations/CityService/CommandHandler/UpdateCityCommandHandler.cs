@@ -17,9 +17,9 @@ public readonly struct UpdateCityCommandHandler : IRequestHandler<UpdateCityComm
         //    CityName = request.CityName,
         //    IsDefault = request.IsDefault,
         //    DisplayOrder = request.DisplayOrder,
-        //    IdProvince = request.ProvinceId
+        //    IdProvince = request.IdProvince
         //};
-        //await _repository.UpdateCityAsync(item, request.CityId);
+        //await _repository.UpdateCityAsync(item, request.IdCity);
         //return item;
     }
 }

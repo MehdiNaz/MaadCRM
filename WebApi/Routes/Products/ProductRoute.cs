@@ -221,7 +221,7 @@ public static class ProductRoute
                         {
                             var result = mediator.Send(new ProductByIdQuery
                             {
-                                ProductId = bId.ProductId
+                                ProductId = bId.IdProduct
                             });
 
 

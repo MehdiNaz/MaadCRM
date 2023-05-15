@@ -16,7 +16,7 @@ public class CountryRepository : ICountryRepository
             return new Result<ICollection<CountryResponse>>(await _context.Countries.Where(x => x.CountryStatusType == StatusType.Show)
                 .Select(x => new CountryResponse()
                 {
-                    CountryId = x.Id,
+                    IdCountry = x.Id,
                     CountryName = x.CountryName,
                     DisplayOrder = x.DisplayOrder
                 }).ToListAsync());
@@ -34,7 +34,7 @@ public class CountryRepository : ICountryRepository
             return new Result<CountryResponse>(await _context.Countries.FirstOrDefaultAsync(x => x.Id == countryId && x.CountryStatusType == StatusType.Show)
                 .Select(x => new CountryResponse()
                 {
-                    CountryId = x.Id,
+                    IdCountry = x.Id,
                     CountryName = x.CountryName,
                     DisplayOrder = x.DisplayOrder
                 }));

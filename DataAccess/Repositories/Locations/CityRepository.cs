@@ -17,10 +17,10 @@ public class CityRepository : ICityRepository
                 .Include(x => x.IdProvinceNavigation)
                 .Select(x => new CityResponse
                 {
-                    CityId = x.Id,
+                    IdCity = x.Id,
                     CityName = x.CityName,
                     DisplayOrder = x.DisplayOrder,
-                    ProvinceId = x.IdProvinceNavigation.Id,
+                    IdProvince = x.IdProvinceNavigation.Id,
                     ProvinceName = x.IdProvinceNavigation.ProvinceName
                 }).ToListAsync());
         }
@@ -37,7 +37,7 @@ public class CityRepository : ICityRepository
             return new Result<CityResponse>(await _context.Cities.FirstOrDefaultAsync(x => x.Id == cityId && x.CityStatusType == StatusType.Show)
                 .Select(x => new CityResponse
                 {
-                    CityId = x.Id,
+                    IdCity = x.Id,
                     CityName = x.CityName,
                     DisplayOrder = x.DisplayOrder
                 }));
@@ -57,7 +57,7 @@ public class CityRepository : ICityRepository
                 .Where(x => x.IdProvince == provinceId)
                 .Select(x => new CityResponse
                 {
-                    CityId = x.Id,
+                    IdCity = x.Id,
                     CityName = x.CityName,
                     ProvinceName = x.IdProvinceNavigation.ProvinceName,
                     DisplayOrder = x.DisplayOrder

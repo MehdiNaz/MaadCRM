@@ -66,7 +66,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     BazeyeZamany = x.BazeyeZamany,
                     DarSadeSoud = x.DarSadeSoud,
                     DatePayed = x.DatePayed,
-                    FactorForooshId = x.Id,
+                    IdFactorForoosh = x.Id,
                     MablagheKoleSoud = x.MablagheKoleSoud,
                     Price = x.ForooshOrders.FirstOrDefault().Price,
                     PriceDiscount = x.ForooshOrders.FirstOrDefault().PriceDiscount,
@@ -209,7 +209,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     BazeyeZamany = x.BazeyeZamany,
                     DarSadeSoud = x.DarSadeSoud,
                     DatePayed = x.DatePayed,
-                    FactorForooshId = x.Id,
+                    IdFactorForoosh = x.Id,
                     MablagheKoleSoud = x.MablagheKoleSoud,
                     StatusTypeForooshFactor = x.StatusTypeForooshFactor,
                     //Price = x.ForooshOrders.FirstOrDefault().Price,
@@ -217,7 +217,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                     //PriceShipping = x.ForooshOrders.FirstOrDefault().PriceShipping,
                     //PriceTotal = x.ForooshOrders.FirstOrDefault().PriceTotal,
                     //Tedad = x.ForooshOrders.FirstOrDefault().Tedad,
-                }).OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.FactorForooshId == item.Id);
+                }).OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.IdFactorForoosh == item.Id);
 
             return new Result<FactorInformationResponse>(result);
         }
@@ -261,7 +261,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 ProductCategoryId = null,
                 ForooshId = request.Id,
                 Type = LogTypes.UpdateForoosh,
-                UserId = "UserId",
+                UserId = "IdUser",
                 IpAddress = "IPAddress",
                 UserAgent = "UserAgent",
                 Description = "Description"
@@ -295,7 +295,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 ProductCategoryId = null,
                 ForooshId = id,
                 Type = LogTypes.DeleteForoosh,
-                UserId = "UserId",
+                UserId = "IdUser",
                 IpAddress = "IPAddress",
                 UserAgent = "UserAgent",
                 Description = "Description"

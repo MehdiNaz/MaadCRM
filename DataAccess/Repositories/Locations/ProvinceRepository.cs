@@ -16,7 +16,7 @@ public class ProvinceRepository : IProvinceRepository
             return new Result<ICollection<ProvinceResponse>>(await _context.Provinces.Where(x => x.ProvinceStatusType == StatusType.Show)
                 .Select(x => new ProvinceResponse
                 {
-                    ProvinceId = x.Id,
+                    IdProvince = x.Id,
                     ProvinceName = x.ProvinceName,
                     DisplayOrder = x.DisplayOrder
                 }).ToListAsync());
@@ -34,7 +34,7 @@ public class ProvinceRepository : IProvinceRepository
             return new Result<ProvinceResponse>(await _context.Provinces.FirstOrDefaultAsync(x => x.Id == provinceId && x.ProvinceStatusType == StatusType.Show)
                 .Select(x => new ProvinceResponse()
                 {
-                    ProvinceId = x.Id,
+                    IdProvince = x.Id,
                     ProvinceName = x.ProvinceName,
                     DisplayOrder = x.DisplayOrder
                 }));

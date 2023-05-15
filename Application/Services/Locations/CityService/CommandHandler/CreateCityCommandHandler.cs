@@ -19,7 +19,7 @@ public readonly struct CreateCityCommandHandler : IRequestHandler<CreateCityComm
         //    CityName = request.CityName,
         //    IsDefault = request.IsDefault,
         //    DisplayOrder = request.DisplayOrder,
-        //    IdProvince = request.ProvinceId
+        //    IdProvince = request.IdProvince
         //};
         //await _repository.CreateCityAsync(item);
         //return item;

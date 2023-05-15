@@ -18,12 +18,12 @@ public class ContactRepository : IContactRepository
                 .Include(x => x.ContactGroup)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 }).ToListAsync());
         }
@@ -44,12 +44,12 @@ public class ContactRepository : IContactRepository
                 .FirstOrDefaultAsync(x => x.Id == contactId && x.ContactStatusType == StatusType.Show)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 });
         }
@@ -68,12 +68,12 @@ public class ContactRepository : IContactRepository
                 .Where(x => x.ContactStatusType == StatusType.Show && x.ContactGroupId == contactGroupId)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 }).ToListAsync());
         }
@@ -95,12 +95,12 @@ public class ContactRepository : IContactRepository
                  || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 }).ToListAsync()).Where(x=>x.FullName.Contains(q)).ToList();
         }
@@ -125,12 +125,12 @@ public class ContactRepository : IContactRepository
                 .FirstOrDefaultAsync(x => x.Id == request.Id)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 });
         }
@@ -189,12 +189,12 @@ public class ContactRepository : IContactRepository
                 .FirstOrDefaultAsync(x => x.FirstName == request.FirstName && x.LastName == request.LastName)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = item.Id,
+                    IdContact = item.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName,
                 });
         }
@@ -229,12 +229,12 @@ public class ContactRepository : IContactRepository
                     x.FirstName == request.FirstName && x.LastName == request.LastName && x.Id == item.Id)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 });
         }
@@ -258,12 +258,12 @@ public class ContactRepository : IContactRepository
                 .FirstOrDefaultAsync(x => x.Id == id)
                 .Select(x => new ContactsResponse
                 {
-                    ContactId = x.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
-                    ContactGroupId = x.ContactGroup.Id,
+                    IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 });
         }

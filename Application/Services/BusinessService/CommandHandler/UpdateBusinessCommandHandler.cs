@@ -22,7 +22,7 @@ public readonly struct UpdateBusinessCommandHandler : IRequestHandler<UpdateBusi
                 CompanyAddress = request.CompanyAddress,
                 DisplayOrder = request.DisplayOrder,
                 BusinessName = request.BusinessName
-                //UserId = request.UserId!
+                //IdUser = request.IdUser!
             };
             return (await _repository.UpdateBusinessAsync(item)).Match(result => new Result<Business>(result), exception => new Result<Business>(exception));
         }

@@ -2,7 +2,7 @@
 
 public struct FactorInformationResponse
 {
-    public Ulid FactorForooshId { get; set; }
+    public Ulid IdFactorForoosh { get; set; }
     public string CustomerFullName { get; set; }
     public string CustomerAddress { get; set; }
     public decimal Amount { get; set; }

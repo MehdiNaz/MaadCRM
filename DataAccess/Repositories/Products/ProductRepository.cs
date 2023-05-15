@@ -20,8 +20,8 @@ public class ProductRepository : IProductRepository
                 .Where(x => x.ProductCategory.BusinessId == businessId)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -48,8 +48,8 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -76,8 +76,8 @@ public class ProductRepository : IProductRepository
                 .Where(x => x.IdProductCategory == categoryId && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -108,8 +108,8 @@ public class ProductRepository : IProductRepository
                   .FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show)
                   .Select(x => new ProductResponse
                   {
-                      ProductId = x.Id,
-                      ProductCategoryId = x.ProductCategory.Id,
+                      IdProduct = x.Id,
+                      IdProductCategory = x.ProductCategory.Id,
                       Title = x.Title,
                       CategoryName = x.ProductCategory.ProductCategoryName,
                       Discount = x.Discount,
@@ -135,8 +135,8 @@ public class ProductRepository : IProductRepository
                 .Include(x => x.ProductCategory)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -166,8 +166,8 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -235,8 +235,8 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Id == item.Id && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -296,8 +296,8 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
@@ -346,8 +346,8 @@ public class ProductRepository : IProductRepository
                 .FirstOrDefaultAsync(x => x.Id == id)
                 .Select(x => new ProductResponse
                 {
-                    ProductId = x.Id,
-                    ProductCategoryId = x.ProductCategory.Id,
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
                     Title = x.Title,
                     CategoryName = x.ProductCategory.ProductCategoryName,
                     Discount = x.Discount,
