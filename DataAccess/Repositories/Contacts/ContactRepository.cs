@@ -87,23 +87,22 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            return await _context.Contacts
+            return (await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
                 .Where(x => x.ContactStatusType == StatusType.Show
-                            || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
-
+                 || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
                 .Select(x => new ContactsResponse
                 {
                     ContactId = x.Id,
-                    FullName = x.FirstName + " " + x.LastName.Contains(q),
+                    FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
                     ContactGroupId = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
-                }).ToListAsync();
+                }).ToListAsync()).Where(x=>x.FullName.Contains(q)).ToList();
         }
         catch (Exception e)
         {
