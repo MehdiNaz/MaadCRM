@@ -298,7 +298,12 @@ public class CustomerRepository : ICustomerRepository
                 Gender = x.Gender,
                 DateCreated = x.DateCreated,
                 UserId = x.UserId,
-                PhoneNumber = x.PhoneNumber
+                PhoneNumber = x.PhoneNumber,
+                EmailAddress = x.EmailAddress,
+                ProductName = x.ProductName,
+                MoarefFullName = x.MoarefFullName,
+                Address = x.Address,
+                CityName = x.CityName
             });
 
 
