@@ -123,6 +123,7 @@ public static class CustomerPeyGiryRoute
                         Description = request.Description,
                         DatePeyGiry = request.DatePeyGiry,
                         CustomerId = request.CustomerId,
+                        IdPeyGiryCategory = request.IdPeyGiryCategory
                     });
 
                     return result.Result.Match(

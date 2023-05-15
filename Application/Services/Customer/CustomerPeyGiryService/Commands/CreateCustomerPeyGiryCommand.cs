@@ -6,4 +6,5 @@ public struct CreateCustomerPeyGiryCommand : IRequest<Result<CustomerPeyGiry>>
     public DateTime DatePeyGiry { get; set; }
     public Ulid CustomerId { get; set; }
     public string? IdUser { get; set; }
+    public Ulid IdPeyGiryCategory { get; set; }
 }

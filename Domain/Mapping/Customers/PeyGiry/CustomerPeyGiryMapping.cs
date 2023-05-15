@@ -17,6 +17,12 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_CustomerPeyGiry_Customers");
 
+        builder.HasOne(x => x.IdPeyGiryCategoryNavigation)
+            .WithMany(x => x.CustomerPeyGiries)
+            .HasForeignKey(x => x.IdPeyGiryCategory)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_PeyGiryCategory_CustomerPeyGiry");
+
         builder.HasOne(x => x.IdUserUpdateNavigation)
             .WithMany(x => x.CustomerPeyGiriesUpdated)
             .HasForeignKey(d => d.IdUserUpdated)

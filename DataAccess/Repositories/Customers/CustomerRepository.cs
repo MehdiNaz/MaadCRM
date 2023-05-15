@@ -297,7 +297,8 @@ public class CustomerRepository : ICustomerRepository
                 BirthDayDate = x.BirthDayDate,
                 Gender = x.Gender,
                 DateCreated = x.DateCreated,
-                UserId = x.UserId
+                UserId = x.UserId,
+                PhoneNumber = x.PhoneNumber
             });
 
 

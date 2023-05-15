@@ -18,7 +18,8 @@ public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<Cre
                 Description = request.Description,
                 DatePeyGiry = request.DatePeyGiry,
                 CustomerId = request.CustomerId,
-                IdUser = request.IdUser
+                IdUser = request.IdUser,
+                IdPeyGiryCategory = request.IdPeyGiryCategory
             };
             return (await _repository.CreateCustomerPeyGiryAsync(item)).Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));
         }
