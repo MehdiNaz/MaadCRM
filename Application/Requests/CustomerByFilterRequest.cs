@@ -1,6 +1,6 @@
-﻿namespace Application.Services.CustomerService.Query;
+﻿namespace Application.Requests;
 
-public class CustomerByFilterItemsQuery : IRequest<Result<CustomerDashboardResponse>>
+public class CustomerFilterRequest
 {
     public Ulid? CustomerId { get; set; }
     public DateOnly? BirthDayDate { get; set; }

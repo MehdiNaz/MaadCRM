@@ -1,4 +1,6 @@
-﻿namespace WebApi.Routes.Customers;
+﻿using Application.Requests;
+
+namespace WebApi.Routes.Customers;
 
 public static class CustomerRoute
 {
@@ -102,7 +104,7 @@ public static class CustomerRoute
         //    }
         //});
 
-        plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerByFilterItemsQuery request, IMediator mediator, HttpContext httpContext) =>
+        plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerFilterRequest request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -158,6 +160,7 @@ public static class CustomerRoute
                     e.StackTrace
                 });
             }
+
         });
 
         plan.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>

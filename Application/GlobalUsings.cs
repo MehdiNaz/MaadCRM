@@ -106,6 +106,7 @@ global using System.Globalization;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
 global using Application.Interfaces.LogsUser;
+global using Application.Requests;
 global using Application.Services.Customer.CustomerPeyGiryService.Queries;
 global using Application.Services.Customer.PeyGiryCategoryService.Queries;
 global using Application.Services.LogsUserService.Commands;

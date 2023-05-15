@@ -25,11 +25,9 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
-                    // CustomerCategoryId = x.CustomerCategoryId,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     MoshtaryMoAref = x.CustomerMoarefId,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CityId = x.IdCity,
@@ -57,8 +55,7 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     CustomerId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
@@ -175,8 +172,7 @@ public class CustomerRepository : ICustomerRepository
                 .Select(x => new CustomerResponse
                 {
                     CustomerId = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
@@ -245,6 +241,7 @@ public class CustomerRepository : ICustomerRepository
                 DarHalePeyGiryCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
                 VafadarCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             };
+
             return result;
         }
         catch (Exception e)
@@ -256,61 +253,25 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = _context.Customers
-            .Include(x => x.FavoritesLists)
-            .Include(x => x.PhoneNumbers)
-            .Include(x => x.IdUserAddNavigation)
             .Where(x => x.IdUser == userId)
-            // .ThenInclude(x => x.Province)
             .Select(x => new CustomerResponse
             {
+                UserId = x.IdUser,
                 CustomerId = x.Id,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
+                Name = x.FirstName + " " + x.LastName,
                 PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                 EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                 Address = x.CustomerAddresses.FirstOrDefault().Address,
-                CustomerStateType = x.CustomerState,
-                CustomerStatusType = x.CustomerStatusType,
-                // MoshtaryMoAref = customers.IdUserAdded,
-                // CustomerCategoryId = customers.CustomerCategoryId,
-                From = x.DateCreated,
-                UpTo = DateTime.UtcNow,
-                BirthDayDate = x.BirthDayDate,
-                CityId = x.IdCity,
-                Gender = x.Gender,
-                DateCreated = x.DateCreated,
-                UserId = x.IdUserAdded
-            }).AsQueryable();
+            }).ToList();
 
-        var result = resultsListCustomer.Where(x => x.FirstName.ToLower().Contains(request.ToLower())
-                                                    || x.LastName.ToLower().Contains(request.ToLower())
+        var result = resultsListCustomer.Where(x => x.Name.ToLower().Contains(request.ToLower()) 
                                                     || x.PhoneNumber.ToLower().Contains(request.ToLower())
-                                                    || x.EmailAddress.ToLower().Contains(request.ToLower()))
-            .Select(x => new CustomerResponse
-            {
-                CustomerId = x.CustomerId,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                CustomerStatusType = x.CustomerStatusType,
-                From = x.DateCreated,
-                UpTo = DateTime.UtcNow,
-                BirthDayDate = x.BirthDayDate,
-                Gender = x.Gender,
-                DateCreated = x.DateCreated,
-                UserId = x.UserId,
-                PhoneNumber = x.PhoneNumber,
-                EmailAddress = x.EmailAddress,
-                ProductName = x.ProductName,
-                MoarefFullName = x.MoarefFullName,
-                Address = x.Address,
-                CityName = x.CityName
-            });
-
+                                                    || x.EmailAddress.ToLower().Contains(request.ToLower()));
 
         return new CustomerDashboardResponse
         {
             AllCustomersInfo = result.ToList(),
-            AllCount = resultsListCustomer.Count(),
+            AllCount = resultsListCustomer.Count,
             BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
             BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
             RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
@@ -336,8 +297,7 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     CityId = x.IdCity,
                     Gender = x.Gender
                 }));
@@ -364,8 +324,7 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     CityId = x.IdCity,
                     Gender = x.Gender
                 }));
@@ -525,8 +484,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerStatusType = x.CustomerStatusType,
                     EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                     PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     CityId = x.IdCity,
                     Gender = x.Gender
@@ -598,8 +556,7 @@ public class CustomerRepository : ICustomerRepository
             return new Result<CustomerResponse>(new CustomerResponse
             {
                 CustomerId = customer.Id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
+                Name = customer.FirstName + " " + customer.LastName,
                 PhoneNumber = customer.PhoneNumbers.FirstOrDefault().ToString(),
                 EmailAddress = customer.EmailAddresses.FirstOrDefault().ToString(),
                 CityId = customer.IdCity,
@@ -651,8 +608,7 @@ public class CustomerRepository : ICustomerRepository
                     From = x.DateCreated,
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
+                    Name = x.FirstName + " " + x.LastName,
                     CityId = x.IdCity,
                     Gender = x.Gender
                 }));

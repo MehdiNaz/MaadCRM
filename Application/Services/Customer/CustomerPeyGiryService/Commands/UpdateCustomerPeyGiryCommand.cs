@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.CustomerPeyGiryService.Commands;
 
-public struct UpdateCustomerPeyGiryCommand : IRequest<Result<CustomerPeyGiry>>
+public struct UpdateCustomerPeyGiryCommand : IRequest<Result<CustomerPeyGiryResponse>>
 {
     public Ulid Id { get; set; }
     public DateTime DatePeyGiry { get; set; }

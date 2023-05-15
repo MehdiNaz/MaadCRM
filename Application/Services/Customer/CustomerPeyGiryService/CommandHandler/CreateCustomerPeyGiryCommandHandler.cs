@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.CustomerPeyGiryService.CommandHandler;
 
-public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<CreateCustomerPeyGiryCommand, Result<CustomerPeyGiry>>
+public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<CreateCustomerPeyGiryCommand, Result<CustomerPeyGiryResponse>>
 {
     private readonly ICustomerPeyGiryRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<Cre
         _repository = repository;
     }
 
-    public async Task<Result<CustomerPeyGiry>> Handle(CreateCustomerPeyGiryCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerPeyGiryResponse>> Handle(CreateCustomerPeyGiryCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -21,11 +21,13 @@ public readonly struct CreateCustomerPeyGiryCommandHandler : IRequestHandler<Cre
                 IdUser = request.IdUser,
                 IdPeyGiryCategory = request.IdPeyGiryCategory
             };
-            return (await _repository.CreateCustomerPeyGiryAsync(item)).Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));
+            return (await _repository.CreateCustomerPeyGiryAsync(item))
+                .Match(result => new Result<CustomerPeyGiryResponse>(result),
+                    exception => new Result<CustomerPeyGiryResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new Exception(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new Exception(e.Message));
         }
     }
 }

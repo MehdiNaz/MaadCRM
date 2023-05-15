@@ -3,9 +3,9 @@
 public interface ICustomerPeyGiryRepository
 {
     ValueTask<Result<ICollection<CustomerPeyGiryResponse>>> GetAllCustomerPeyGiriesAsync(Ulid customerId);
-    ValueTask<Result<CustomerPeyGiry>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId);
-    ValueTask<Result<CustomerPeyGiry>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request);
-    ValueTask<Result<CustomerPeyGiry>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request);
-    ValueTask<Result<CustomerPeyGiry>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request);
-    ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(Ulid id);
+    ValueTask<Result<CustomerPeyGiryResponse>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId);
+    ValueTask<Result<CustomerPeyGiryResponse>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request);
+    ValueTask<Result<CustomerPeyGiryResponse>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request);
+    ValueTask<Result<CustomerPeyGiryResponse>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request);
+    ValueTask<Result<CustomerPeyGiryResponse>> DeleteCustomerPeyGiryAsync(Ulid id);
 }

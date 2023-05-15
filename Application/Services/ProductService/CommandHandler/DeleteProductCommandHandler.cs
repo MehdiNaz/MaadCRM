@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public readonly struct DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result<Product>>
+public readonly struct DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result<ProductResponse>>
 {
     private readonly IProductRepository _repository;
 
@@ -9,15 +9,17 @@ public readonly struct DeleteProductCommandHandler : IRequestHandler<DeleteProdu
         _repository = repository;
     }
 
-    public async Task<Result<Product>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductResponse>> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.DeleteProductAsync(request.Id)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
+            return (await _repository.DeleteProductAsync(request.Id))
+                .Match(result => new Result<ProductResponse>(result),
+                    exception => new Result<ProductResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<Product>(new Exception(e.Message));
+            return new Result<ProductResponse>(new Exception(e.Message));
         }
     }
 }

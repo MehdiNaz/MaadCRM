@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.Commands;
 
-public struct CreateProductCommand : IRequest<Result<Product>>
+public struct CreateProductCommand : IRequest<Result<ProductResponse>>
 {
     public string ProductName { get; set; }
     public Ulid ProductCategoryId { get; set; }

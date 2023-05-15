@@ -12,7 +12,7 @@ public sealed class ForooshOrder : BaseEntityWithUserUpdate
     public decimal Price { get; set; }
     public decimal PriceTotal { get; set; }
     public uint Tedad { get; set; }
-    public decimal PriceDiscount { get; set; }
+    public decimal PriceDiscount { get; set; } // تخفیف بخش فروش
     public decimal PriceShipping { get; set; }
     public StatusType StatusTypeForooshOrder { get; set; }
 

@@ -3,7 +3,6 @@
 public struct ProductResponse
 {
     public Ulid ProductId { get; set; }
-    public Ulid ProductCategoryId { get; set; }
     public string ProductName { get; set; }
     public string Title { get; set; }
     public string Summery { get; set; }
@@ -13,4 +12,5 @@ public struct ProductResponse
     public byte? DiscountPercent { get; set; }
     public byte[]? Picture { get; set; }
     public string CategoryName { get; set; }
+    public Ulid ProductCategoryId { get; set; }
 }

@@ -11,7 +11,8 @@ public static class CorsConfiguration
                 {
                     policy.WithOrigins(
                             "http://192.168.43.118:3000",
-                            "http://localhost:3000"
+                            "http://localhost:3000",
+                            "https://maad-crm.vercel.app"
                         )
                         .AllowAnyHeader()
                         .AllowAnyMethod()

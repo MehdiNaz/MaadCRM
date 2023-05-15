@@ -30,35 +30,48 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
     {
         try
         {
-            return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show);
+            return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    CustomerPeyGiryId = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request)
     {
         try
         {
             var item = await _context.CustomerPeyGiries.FindAsync(request.CustomerPeyGiryId);
-            if (item is null) return new Result<CustomerPeyGiry>(new ValidationException());
+            if (item is null) return new Result<CustomerPeyGiryResponse>(new ValidationException());
             item.Status = request.CustomerPeyGiryStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerPeyGiry>(item);
+            return new Result<CustomerPeyGiryResponse>
+            (await _context.CustomerPeyGiries.FindAsync(request.CustomerPeyGiryId)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    CustomerPeyGiryId = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request)
     {
         try
         {
@@ -100,15 +113,22 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerPeyGiry>(item);
+            return new Result<CustomerPeyGiryResponse>
+            (await _context.CustomerPeyGiries.FindAsync(item.Id)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    CustomerPeyGiryId = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request)
     {
         try
         {
@@ -138,15 +158,22 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             await _log.InsertAsync(command);
 
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<CustomerPeyGiryResponse>
+            (await _context.CustomerPeyGiries.FindAsync(item.Id)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    CustomerPeyGiryId = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiry>> DeleteCustomerPeyGiryAsync(Ulid id)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> DeleteCustomerPeyGiryAsync(Ulid id)
     {
         try
         {
@@ -172,11 +199,19 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerPeyGiry>(item);
+            return new Result<CustomerPeyGiryResponse>
+            (await _context.CustomerPeyGiries.FindAsync(item.Id)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    CustomerPeyGiryId = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated
+                }));
+
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new ValidationException(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.CustomerPeyGiryService.CommandHandler;
 
-public readonly struct ChangeStatusCustomerPeyGiryCommandHandler : IRequestHandler<ChangeStatusCustomerPeyGiryCommand, Result<CustomerPeyGiry>>
+public readonly struct ChangeStatusCustomerPeyGiryCommandHandler : IRequestHandler<ChangeStatusCustomerPeyGiryCommand, Result<CustomerPeyGiryResponse>>
 {
     private readonly ICustomerPeyGiryRepository _repository;
 
@@ -9,17 +9,17 @@ public readonly struct ChangeStatusCustomerPeyGiryCommandHandler : IRequestHandl
         _repository = repository;
     }
 
-    public async Task<Result<CustomerPeyGiry>> Handle(ChangeStatusCustomerPeyGiryCommand request,
+    public async Task<Result<CustomerPeyGiryResponse>> Handle(ChangeStatusCustomerPeyGiryCommand request,
         CancellationToken cancellationToken)
     {
         try
         {
             return (await _repository.ChangeStatusCustomerPeyGiryByIdAsync(request))
-                .Match(result => new Result<CustomerPeyGiry>(result), exception => new Result<CustomerPeyGiry>(exception));
+                .Match(result => new Result<CustomerPeyGiryResponse>(result), exception => new Result<CustomerPeyGiryResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<CustomerPeyGiry>(new Exception(e.Message));
+            return new Result<CustomerPeyGiryResponse>(new Exception(e.Message));
         }
     }
 }

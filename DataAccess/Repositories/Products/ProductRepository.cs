@@ -31,8 +31,7 @@ public class ProductRepository : IProductRepository
                     ProductName = x.ProductName,
                     SecondaryPrice = x.SecondaryPrice,
                     Summery = x.Summery
-                })
-                .ToListAsync();
+                }).ToListAsync();
         }
         catch (Exception e)
         {
@@ -40,63 +39,125 @@ public class ProductRepository : IProductRepository
         }
     }
 
-    public async ValueTask<Result<Product>> GetProductByIdAsync(Ulid productId)
+    public async ValueTask<Result<ProductResponse>> GetProductByIdAsync(Ulid productId)
     {
         try
         {
-            var result = await _context.Products.FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show);
-            return result;
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Product>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId)
+    public async ValueTask<Result<ProductResponse>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId)
     {
         try
         {
             var item = await _context.Products.FindAsync(productId);
-            if (item is null) return new Result<Product>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<ProductResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.StatusTypeProduct = statusType;
             await _context.SaveChangesAsync();
-            return item;
+            return await _context.Products
+                  .Include(x => x.ProductCategory)
+                  .FirstOrDefaultAsync(x => x.Id == productId && x.StatusTypeProduct == StatusType.Show)
+                  .Select(x => new ProductResponse
+                  {
+                      ProductId = x.Id,
+                      ProductCategoryId = x.ProductCategory.Id,
+                      Title = x.Title,
+                      CategoryName = x.ProductCategory.ProductCategoryName,
+                      Discount = x.Discount,
+                      DiscountPercent = x.DiscountPercent,
+                      Picture = x.Picture,
+                      Price = x.Price,
+                      ProductName = x.ProductName,
+                      SecondaryPrice = x.SecondaryPrice,
+                      Summery = x.Summery
+                  });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<ICollection<Product>>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<ICollection<ProductResponse>>> SearchByItemsAsync(string request)
     {
         try
         {
-            return await _context.Products.Where(x => x.Title.ToLower().Contains(request.ToLower()) && x.StatusTypeProduct == StatusType.Show).ToListAsync();
+            return await _context.Products.Where(x => x.Title.ToLower().Contains(request.ToLower()) && x.StatusTypeProduct == StatusType.Show)
+                .Include(x => x.ProductCategory)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                }).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<Product>>(new ValidationException(e.Message));
+            return new Result<ICollection<ProductResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Product>> ChangeStatusProductAsync(ChangeStateProductCommand request)
+    public async ValueTask<Result<ProductResponse>> ChangeStatusProductAsync(ChangeStateProductCommand request)
     {
         try
         {
             var item = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show);
             item.StatusPublish = request.Status;
             await _context.SaveChangesAsync();
-            return item;
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Product>> CreateProductAsync(CreateProductCommand request)
+    public async ValueTask<Result<ProductResponse>> CreateProductAsync(CreateProductCommand request)
     {
         try
         {
@@ -137,15 +198,35 @@ public class ProductRepository : IProductRepository
 
             await _log.InsertAsync(command);
 
-            return item;
+
+            await _context.SaveChangesAsync();
+
+
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .FirstOrDefaultAsync(x => x.Id == item.Id && x.StatusTypeProduct == StatusType.Show)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Product>> UpdateProductAsync(UpdateProductCommand request)
+    public async ValueTask<Result<ProductResponse>> UpdateProductAsync(UpdateProductCommand request)
     {
         try
         {
@@ -182,15 +263,31 @@ public class ProductRepository : IProductRepository
 
             await _log.InsertAsync(command);
 
-            return item;
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Product>> DeleteProductAsync(Ulid id)
+    public async ValueTask<Result<ProductResponse>> DeleteProductAsync(Ulid id)
     {
         try
         {
@@ -216,11 +313,27 @@ public class ProductRepository : IProductRepository
 
             await _log.InsertAsync(command);
 
-            return item;
+            return await _context.Products
+                .Include(x => x.ProductCategory)
+                .FirstOrDefaultAsync(x => x.Id == id)
+                .Select(x => new ProductResponse
+                {
+                    ProductId = x.Id,
+                    ProductCategoryId = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                });
         }
         catch (Exception e)
         {
-            return new Result<Product>(new ValidationException(e.Message));
+            return new Result<ProductResponse>(new ValidationException(e.Message));
         }
     }
 }

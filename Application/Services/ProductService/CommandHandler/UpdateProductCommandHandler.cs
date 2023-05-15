@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.ProductService.CommandHandler;
 
-public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<Product>>
+public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<ProductResponse>>
 {
     private readonly IProductRepository _repository;
 
@@ -9,7 +9,7 @@ public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProdu
         _repository = repository;
     }
 
-    public async Task<Result<Product>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -28,11 +28,13 @@ public readonly struct UpdateProductCommandHandler : IRequestHandler<UpdateProdu
                 IdUserUpdated = request.IdUserUpdated
             };
 
-            return (await _repository.UpdateProductAsync(item)).Match(result => new Result<Product>(result), exception => new Result<Product>(exception));
+            return (await _repository.UpdateProductAsync(item))
+                .Match(result => new Result<ProductResponse>(result),
+                    exception => new Result<ProductResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<Product>(new Exception(e.Message));
+            return new Result<ProductResponse>(new Exception(e.Message));
         }
     }
 }
