@@ -1,5 +1,3 @@
-using LanguageExt;
-
 namespace WebApi.Routes.Account;
 
 public static class ProfileRoute

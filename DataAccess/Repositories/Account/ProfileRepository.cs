@@ -31,7 +31,7 @@ public class ProfileRepository : IProfileRepository
             result.Address = request.Address;
             result.DateOfBirth = request.BirthDatre;
             result.CodeMelli = request.CodeMelli;
-            // result.IdCity = request.IdCity;
+            result.CityId = request.CityId;
 
             await _userManager.UpdateAsync(result);
 

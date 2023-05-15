@@ -9,7 +9,7 @@ public struct CreateAttributeCommand : IRequest<Result<AttributeResponse>>
     public AttributeType AttributeTypeId { get; set; }
     public int? ValidationMinLength { get; set; }
     public int? ValidationMaxLength { get; set; }
-    public string ValidationFileAllowExtension { get; set; }
+    public string? ValidationFileAllowExtension { get; set; }
     public int? ValidationFileMaximumSize { get; set; }
     public string? DefaultValue { get; set; }
     public Ulid? IdBusiness { get; set; }
