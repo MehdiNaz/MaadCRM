@@ -21,7 +21,7 @@ public struct CreateForooshFactorCommand : IRequest<Result<FactorInformationResp
     public DateTime DatePay { get; set; }
 
     public Ulid CustomerId { get; set; }
-    public Ulid CustomersAddressId { get; set; }
+    public Ulid? CustomersAddressId { get; set; }
 
     public string UserIdAdded { get; set; }
     public string UserIdUpdated { get; set; }
