@@ -14,12 +14,12 @@ public struct FactorInformationResponse
     public ShippingMethodTypes ShippingMethodType { get; set; }
 
     // در صورت غیر نقدی : 
-    public uint TedadeAghsat { get; set; }
-    public uint BazeyeZamany { get; set; }
-    public decimal DarSadeSoud { get; set; }
-    public decimal PishPardakht { get; set; }
-    public decimal MablagheKoleSoud { get; set; }
-    public DateTime ShoroAghsat { get; set; }
+    public uint? TedadeAghsat { get; set; }
+    public uint? BazeyeZamany { get; set; }
+    public decimal? DarSadeSoud { get; set; }
+    public decimal? PishPardakht { get; set; }
+    public decimal? MablagheKoleSoud { get; set; }
+    public DateTime? ShoroAghsat { get; set; }
 
     public decimal Price { get; set; }
     public decimal PriceTotal { get; set; }

@@ -20,12 +20,12 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public ShippingMethodTypes ShippingMethodType { get; set; }
 
     // در صورت غیر نقدی : 
-    public uint TedadeAghsat { get; set; }
-    public uint BazeyeZamany { get; set; }
-    public decimal DarSadeSoud { get; set; }
-    public decimal PishPardakht { get; set; }
-    public decimal MablagheKoleSoud { get; set; }
-    public DateTime ShoroAghsat { get; set; }
+    public uint? TedadeAghsat { get; set; }
+    public uint? BazeyeZamany { get; set; }
+    public decimal? DarSadeSoud { get; set; }
+    public decimal? PishPardakht { get; set; }
+    public decimal? MablagheKoleSoud { get; set; }
+    public DateTime? ShoroAghsat { get; set; }
 
     public required Ulid IdCustomer { get; set; }
     public Customer IdCustomerNavigation { get; set; }

@@ -136,7 +136,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
             {
                 Payment payment = new()
                 {
-                    PaymentAmount = request.PishPardakht,
+                    PaymentAmount = request.PishPardakht.Value,
                     IdForooshFactor = item.Id,
                     DatePay = DateTime.UtcNow
                 };
@@ -151,13 +151,13 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 {
                     payment = new Payment
                     {
-                        PaymentAmount = paymentAmount,
+                        PaymentAmount = paymentAmount.Value,
                         IdForooshFactor = item.Id,
-                        DatePay = paymentDate
+                        DatePay = paymentDate.Value
                     };
                     await _context.Payments.AddAsync(payment);
 
-                    paymentDate = paymentDate.AddDays(request.BazeyeZamany);
+                    paymentDate = paymentDate.Value.AddDays(request.BazeyeZamany.Value);
                 }
             }
             else

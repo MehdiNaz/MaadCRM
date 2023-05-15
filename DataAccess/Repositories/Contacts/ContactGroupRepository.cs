@@ -53,13 +53,14 @@ public class ContactGroupRepository : IContactGroupRepository
     {
         try
         {
-            return new Result<ICollection<ContactGroup>>(await _context.ContactGroups
-                .Where(x => x.ContactGroupStatusType == StatusType.Show
-                 && x.GroupName.Contains(q)).ToListAsync());
+            var result = await _context.ContactGroups.Where(x => x.ContactGroupStatusType == StatusType.Show 
+                    && x.GroupName.ToLower().Contains(q.ToLower())).ToListAsync();
+
+            return new Result<ICollection<ContactGroup>>(result);
         }
         catch (Exception e)
         {
-            return new Result<ICollection<ContactGroup?>>(new ValidationException(e.Message));
+            return new Result<ICollection<ContactGroup>>(new ValidationException(e.Message));
         }
     }
 
