@@ -51,6 +51,7 @@ public class CustomerRepository : ICustomerRepository
                 .Include(x => x.PhoneNumbers)
                 .Include(x => x.EmailAddresses)
                 .Include(x => x.CustomerAddresses)
+                .Include(x => x.IdCityNavigation)
                 .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
@@ -67,7 +68,8 @@ public class CustomerRepository : ICustomerRepository
                     IdCity = x.IdCity,
                     Gender = x.Gender,
                     DateCreated = x.DateCreated,
-                    MoarefFullName = x.FirstName + " " + x.LastName
+                    MoarefFullName = x.FirstName + " " + x.LastName,
+                    CityName = x.IdCityNavigation.CityName
                 });
             return result;
         }
@@ -169,6 +171,7 @@ public class CustomerRepository : ICustomerRepository
                 .Include(x => x.CustomerMoaref)
                 .Include(x => x.PhoneNumbers)
                 .Include(x => x.FavoritesLists)
+                .Include(x => x.IdCityNavigation)
                 .Select(x => new CustomerResponse
                 {
                     IdCustomer = x.Id,
@@ -186,7 +189,8 @@ public class CustomerRepository : ICustomerRepository
                     DateCreated = x.DateCreated,
                     MoshtaryMoAref = x.CustomerMoaref.Id,
                     MoarefFullName = x.CustomerMoaref.FirstName + " " + x.CustomerMoaref.LastName,
-                    IdUser = x.IdUserAdded
+                    IdUser = x.IdUserAdded,
+                    CityName = x.IdCityNavigation.CityName
                 }).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
@@ -253,6 +257,7 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = _context.Customers
+            .Include(x => x.IdCityNavigation)
             .Where(x => x.IdUser == userId)
             .Select(x => new CustomerResponse
             {
@@ -262,9 +267,10 @@ public class CustomerRepository : ICustomerRepository
                 PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
                 EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
                 Address = x.CustomerAddresses.FirstOrDefault().Address,
+                CityName = x.IdCityNavigation.CityName
             }).ToList();
 
-        var result = resultsListCustomer.Where(x => x.Name.ToLower().Contains(request.ToLower()) 
+        var result = resultsListCustomer.Where(x => x.Name.ToLower().Contains(request.ToLower())
                                                     || x.PhoneNumber.ToLower().Contains(request.ToLower())
                                                     || x.EmailAddress.ToLower().Contains(request.ToLower()));
 
@@ -289,7 +295,10 @@ public class CustomerRepository : ICustomerRepository
             if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerStatusType = request.CustomerStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.CustomerId)
+            return new Result<CustomerResponse>(
+                await _context.Customers
+                .Include(x => x.IdCityNavigation)
+                .FirstOrDefaultAsync(x => x.Id == request.CustomerId)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -299,7 +308,8 @@ public class CustomerRepository : ICustomerRepository
                     CustomerStatusType = x.CustomerStatusType,
                     Name = x.FirstName + " " + x.LastName,
                     IdCity = x.IdCity,
-                    Gender = x.Gender
+                    Gender = x.Gender,
+                    CityName = x.IdCityNavigation.CityName
                 }));
         }
         catch (Exception e)
@@ -316,18 +326,22 @@ public class CustomerRepository : ICustomerRepository
             if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerState = request.CustomerStateType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerResponse>(await _context.Customers.FindAsync(request.CustomerId)
-                .Select(x => new CustomerResponse
-                {
-                    BirthDayDate = x.BirthDayDate,
-                    IdCustomer = x.Id,
-                    From = x.DateCreated,
-                    CustomerStateType = x.CustomerState,
-                    CustomerStatusType = x.CustomerStatusType,
-                    Name = x.FirstName + " " + x.LastName,
-                    IdCity = x.IdCity,
-                    Gender = x.Gender
-                }));
+            return new Result<CustomerResponse>(
+                await _context.Customers
+                    .Include(x => x.IdCityNavigation)
+                    .FirstOrDefaultAsync(x => x.Id == request.CustomerId)
+                    .Select(x => new CustomerResponse
+                    {
+                        BirthDayDate = x.BirthDayDate,
+                        IdCustomer = x.Id,
+                        From = x.DateCreated,
+                        CustomerStateType = x.CustomerState,
+                        CustomerStatusType = x.CustomerStatusType,
+                        Name = x.FirstName + " " + x.LastName,
+                        IdCity = x.IdCity,
+                        Gender = x.Gender,
+                        CityName = x.IdCityNavigation.CityName
+                    }));
         }
         catch (Exception e)
         {
@@ -474,7 +488,10 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerResponse>(await _context.Customers.FindAsync(entityEntry.Id)
+            return new Result<CustomerResponse>(
+                await _context.Customers
+                    .Include(x => x.IdCityNavigation)
+                    .FirstOrDefaultAsync(x => x.Id == entityEntry.Id)
                 .Select(x => new CustomerResponse
                 {
                     BirthDayDate = x.BirthDayDate,
@@ -487,7 +504,8 @@ public class CustomerRepository : ICustomerRepository
                     Name = x.FirstName + " " + x.LastName,
                     Address = x.CustomerAddresses.FirstOrDefault().Address,
                     IdCity = x.IdCity,
-                    Gender = x.Gender
+                    Gender = x.Gender,
+                    CityName = x.IdCityNavigation.CityName
                 }));
         }
         catch (Exception e)
@@ -565,7 +583,8 @@ public class CustomerRepository : ICustomerRepository
                 CustomerStateType = customer.CustomerState,
                 CustomerStatusType = customer.CustomerStatusType,
                 Address = customer.CustomerAddresses.FirstOrDefault().Address,
-                Gender = customer.Gender
+                Gender = customer.Gender,
+                CityName = customer.IdCityNavigation.CityName
             });
         }
         catch (Exception e)
@@ -600,18 +619,22 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerResponse>(await _context.Customers.FindAsync(customerId)
-                .Select(x => new CustomerResponse
-                {
-                    BirthDayDate = x.BirthDayDate,
-                    IdCustomer = x.Id,
-                    From = x.DateCreated,
-                    CustomerStateType = x.CustomerState,
-                    CustomerStatusType = x.CustomerStatusType,
-                    Name = x.FirstName + " " + x.LastName,
-                    IdCity = x.IdCity,
-                    Gender = x.Gender
-                }));
+            return new Result<CustomerResponse>(
+                await _context.Customers
+                    .Include(x => x.IdCityNavigation)
+                    .FirstOrDefaultAsync(x => x.Id == customerId)
+                    .Select(x => new CustomerResponse
+                    {
+                        BirthDayDate = x.BirthDayDate,
+                        IdCustomer = x.Id,
+                        From = x.DateCreated,
+                        CustomerStateType = x.CustomerState,
+                        CustomerStatusType = x.CustomerStatusType,
+                        Name = x.FirstName + " " + x.LastName,
+                        IdCity = x.IdCity,
+                        Gender = x.Gender,
+                        CityName = x.IdCityNavigation.CityName
+                    }));
         }
         catch (Exception e)
         {

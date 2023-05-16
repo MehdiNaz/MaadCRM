@@ -9,7 +9,7 @@ public struct CustomerResponse
     public string? PhoneNumber { get; set; }
     public string? Address { get; set; }
     public Ulid? IdCity { get; set; }
-    public string? CityName { get; set; }
+    public string CityName { get; set; }
     public GenderTypes? Gender { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public StatusType? CustomerStatusType { get; set; }
