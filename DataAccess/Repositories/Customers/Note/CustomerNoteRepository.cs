@@ -1,6 +1,4 @@
-﻿using LanguageExt.Pipes;
-
-namespace DataAccess.Repositories.Customers.Note;
+﻿namespace DataAccess.Repositories.Customers.Note;
 
 public class CustomerNoteRepository : ICustomerNoteRepository
 {
@@ -20,6 +18,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             return await _context.CustomerNotes
                 .Where(x => x.CustomerNoteStatusType == StatusType.Show && x.IdCustomer == customerId)
                 .Include(x => x.IdUserAddNavigation)
+                .Include(x => x.IdCustomerNavigation)
                 .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
@@ -29,7 +28,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     IdCustomer = x.IdCustomer,
                     UserFirstName = x.IdUserAddNavigation.Name,
                     UserLastName = x.IdUserAddNavigation.Family,
-                    CreateDate = x.DateCreated
+                    CreateDate = x.DateCreated,
+                    CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -43,7 +43,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         try
         {
             return await _context.CustomerNotes.Where(x => x.CustomerNoteStatusType == StatusType.Show)
-                .Include(x => x.IdUserAddNavigation).FirstOrDefaultAsync(x => x.Id == customerNoteId)
+                .Include(x => x.IdUserAddNavigation)
+                .Include(x => x.IdCustomerNavigation)
+                .FirstOrDefaultAsync(x => x.Id == customerNoteId)
                 .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
@@ -53,7 +55,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     IdCustomer = x.IdCustomer,
                     UserFirstName = x.IdUserAddNavigation.Name,
                     UserLastName = x.IdUserAddNavigation.Family,
-                    CreateDate = x.DateCreated
+                    CreateDate = x.DateCreated,
+                    CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
                 });
         }
         catch (Exception e)
@@ -74,7 +77,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             if (item is null) return new Result<CustomerNoteResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerNoteStatusType = request.CustomerNoteStatusType;
             await _context.SaveChangesAsync();
-            return await _context.CustomerNotes.FindAsync(request.CustomerNoteId)
+            return await _context.CustomerNotes
+                .Include(x => x.IdCustomerNavigation)
+                .FirstOrDefaultAsync(x => x.Id == request.CustomerNoteId)
                 .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
@@ -82,7 +87,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     CustomerNoteStatusType = x.CustomerNoteStatusType,
                     IdProduct = x.IdProduct,
                     IdCustomer = x.IdCustomer,
-                    CreateDate = x.DateCreated
+                    CreateDate = x.DateCreated,
+                    CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
                 });
         }
         catch (Exception e)
@@ -144,6 +150,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             // TODO: حل مشکل نام کاربر
             return await _context.CustomerNotes
             .Include(x => x.IdUserAddNavigation)
+            .Include(x => x.IdCustomerNavigation)
             .Select(x => new CustomerNoteResponse
             {
                 Id = x.Id,
@@ -153,7 +160,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                 IdCustomer = x.IdCustomer,
                 UserFirstName = x.IdUserAddNavigation.Name,
                 UserLastName = x.IdUserAddNavigation.Family,
-                CreateDate = x.DateCreated
+                CreateDate = x.DateCreated,
+                CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
             }).FirstOrDefaultAsync(x => x.Id == item.Id);
         }
         catch (Exception e)
@@ -216,7 +224,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             await _log.InsertAsync(command);
 
 
-            return await _context.CustomerNotes.FindAsync(request.Id)
+            return await _context.CustomerNotes
+                .Include(x => x.IdCustomerNavigation)
+                .FirstOrDefaultAsync(x => x.Id == request.Id)
                 .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
@@ -224,7 +234,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     CustomerNoteStatusType = x.CustomerNoteStatusType,
                     IdProduct = x.IdProduct,
                     IdCustomer = x.IdCustomer,
-                    CreateDate = x.DateCreated
+                    CreateDate = x.DateCreated,
+                    CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
                 });
         }
         catch (Exception e)
@@ -260,7 +271,9 @@ public class CustomerNoteRepository : ICustomerNoteRepository
             await _log.InsertAsync(command);
 
 
-            return await _context.CustomerNotes.FindAsync(id)
+            return await _context.CustomerNotes
+                .Include(x => x.IdCustomerNavigation)
+                .FirstOrDefaultAsync(x => x.Id == id)
                 .Select(x => new CustomerNoteResponse
                 {
                     Id = x.Id,
@@ -268,7 +281,8 @@ public class CustomerNoteRepository : ICustomerNoteRepository
                     CustomerNoteStatusType = x.CustomerNoteStatusType,
                     IdProduct = x.IdProduct,
                     IdCustomer = x.IdCustomer,
-                    CreateDate = x.DateCreated
+                    CreateDate = x.DateCreated,
+                    CustomerName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName
                 });
         }
         catch (Exception e)
