@@ -29,9 +29,9 @@ public class User : IdentityUser
         AttributeUpdated = new HashSet<Attribute>();
 
 
-        //CustomerFeedbacks = new HashSet<CustomerFeedback>();
-        //CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
-        //CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
+        CustomerFeedbacks = new HashSet<CustomerFeedback>();
+        CustomerFeedbacksAdded = new HashSet<CustomerFeedback>();
+        CustomerFeedbacksUpdated = new HashSet<CustomerFeedback>();
 
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
         CustomerFeedbackCategoryAdded = new HashSet<CustomerFeedbackCategory>();
@@ -93,15 +93,13 @@ public class User : IdentityUser
     public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesAdded { get; }
     public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesUpdated { get; }
 
-    //public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
-    //public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
-    //public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
-
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacks { get; }
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacksAdded { get; }
+    public IEnumerable<CustomerFeedback>? CustomerFeedbacksUpdated { get; }
 
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryAdded { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryUpdated { get; }
-
 
     // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
     // public ICollection<Plan>? Plans { get; set; }  

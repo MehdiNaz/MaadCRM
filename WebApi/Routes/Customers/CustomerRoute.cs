@@ -280,7 +280,7 @@ public static class CustomerRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Customer StatusType doesn't Changed.",
+                                    Message = "Customer StatusType Changed.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -328,7 +328,7 @@ public static class CustomerRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Customer State doesn't Changed.",
+                                    Message = "Customer State Changed.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -452,7 +452,7 @@ public static class CustomerRoute
                                 succes => Results.Ok(new
                                 {
                                     Valid = true,
-                                    Message = "Customer Note Updated.",
+                                    Message = "Customer Updated.",
                                     Data = succes
                                 }),
                                 error => Results.BadRequest(new ErrorResponse
@@ -499,7 +499,7 @@ public static class CustomerRoute
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Customer Note Updated.",
+                                Message = "Customer Deleted.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse

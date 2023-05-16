@@ -18,9 +18,9 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Customer_City");
 
-        builder.HasOne(d => d.CustomerMoaref)
-            .WithMany(p => p.CustomerMoarefs)
-            .HasForeignKey(d => d.CustomerMoarefId)
+        builder.HasOne(d => d.IdMoarefNavigation)
+            .WithMany(p => p.Moarefs)
+            .HasForeignKey(d => d.IdMoaref)
             .HasConstraintName("FK_Customer_MoAref");
         
         builder.HasOne(d => d.IdUserNavigation)

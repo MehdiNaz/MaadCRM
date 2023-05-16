@@ -1,6 +1,4 @@
-﻿using LanguageExt.Pipes;
-
-namespace DataAccess.Repositories.Customers.Feedback;
+﻿namespace DataAccess.Repositories.Customers.Feedback;
 
 public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 {
@@ -13,44 +11,91 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         _log = log;
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedback>>> GetAllCustomerFeedbacksAsync()
+    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> GetAllCustomerFeedbacksAsync()
     {
         try
         {
-            return new Result<ICollection<CustomerFeedback>>(await _context.CustomerFeedbacks.ToListAsync());
+            return new Result<ICollection<CustomerFeedbackResponse>>(await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser,
+                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                }).ToListAsync());
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerFeedback>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerFeedbackResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedback>> GetCustomerFeedbackByIdAsync(Ulid feedbackId)
+    public async ValueTask<Result<CustomerFeedbackResponse>> GetCustomerFeedbackByIdAsync(Ulid feedbackId)
     {
         try
         {
-            return await _context.CustomerFeedbacks.FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show);
+            return await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show)
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser,
+                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                });
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedback>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedback>>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> SearchByItemsAsync(string request)
     {
         try
         {
-            return new Result<ICollection<CustomerFeedback>>
-                (await _context.CustomerFeedbacks.Where(x => x.Description.Contains(request)).ToListAsync());
+            return new Result<ICollection<CustomerFeedbackResponse>>
+            (await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .Where(x => x.Description.Contains(request))
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser,
+                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                }).ToListAsync());
         }
         catch (Exception e)
         {
-            return new Result<ICollection<CustomerFeedback>>(new ValidationException(e.Message));
+            return new Result<ICollection<CustomerFeedbackResponse>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedback>> ChangeStatusCustomerFeedbacksByIdAsync(ChangeStateCustomerFeedbackCommand request)
+    public async ValueTask<Result<CustomerFeedbackResponse>> ChangeStatusCustomerFeedbacksByIdAsync(ChangeStateCustomerFeedbackCommand request)
     {
         try
         {
@@ -59,19 +104,35 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                 Id = request.Id
             };
 
-            var item = await _context.CustomerFeedbacks.FindAsync(feedback);
-            if (item is null) return new Result<CustomerFeedback>(new ValidationException(ResultErrorMessage.NotFound));
+            var item = await _context.CustomerFeedbacks.FindAsync(request.Id);
+            if (item is null) return new Result<CustomerFeedbackResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerFeedbackStatusType = request.CustomerFeedbackStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedback>(item);
+            return new Result<CustomerFeedbackResponse>
+            (await _context.CustomerFeedbacks
+                .Include(x => x.IdUserUpdateNavigation)
+                .FirstOrDefaultAsync(x => x.Id == request.Id)
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedback>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedback>> CreateCustomerFeedbackAsync(CreateCustomerFeedbackCommand request)
+    public async ValueTask<Result<CustomerFeedbackResponse>> CreateCustomerFeedbackAsync(CreateCustomerFeedbackCommand request)
     {
         try
         {
@@ -80,7 +141,10 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                 Description = request.Description,
                 IdCategory = request.IdCategory,
                 IdProduct = request.IdProduct,
-                IdCustomer = request.IdCustomer
+                IdCustomer = request.IdCustomer,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated,
+                IdUser = request.IdUser
             };
             await _context.CustomerFeedbacks.AddAsync(item);
             await _context.SaveChangesAsync();
@@ -103,20 +167,38 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerFeedback>(item);
+            return new Result<CustomerFeedbackResponse>
+            (await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .FirstOrDefaultAsync(x => x.Id == item.Id)
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser,
+                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedback>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedback>> UpdateCustomerFeedbackAsync(UpdateCustomerFeedbackCommand request)
+    public async ValueTask<Result<CustomerFeedbackResponse>> UpdateCustomerFeedbackAsync(UpdateCustomerFeedbackCommand request)
     {
         try
         {
             CustomerFeedback item = await _context.CustomerFeedbacks.FindAsync(request.Id);
             item.Description = request.Description;
+            item.IdUser = request.IdUser;
 
             _context.Update(item);
             await _context.SaveChangesAsync();
@@ -138,16 +220,32 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             };
 
             await _log.InsertAsync(command);
-
-            return new Result<CustomerFeedback>(item);
+            return new Result<CustomerFeedbackResponse>
+            (await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .FirstOrDefaultAsync(x => x.Id == request.Id)
+                .Select(x => new CustomerFeedbackResponse
+                {
+                    Id = x.Id,
+                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                    Description = x.Description,
+                    IdCustomer = x.IdCustomer,
+                    IdCategory = x.IdCategory,
+                    IdProduct = x.IdProduct,
+                    IdProductNavigation = x.IdProductNavigation,
+                    IdUserAdded = x.IdUser,
+                    IdUserUpdated = x.IdUser,
+                    IdUser = x.IdUser,
+                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedback>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<CustomerFeedback>> DeleteCustomerFeedbackAsync(Ulid id)
+    public async ValueTask<Result<CustomerFeedbackResponse>> DeleteCustomerFeedbackAsync(Ulid id)
     {
         try
         {
@@ -173,11 +271,28 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerFeedback>(item);
+            return new Result<CustomerFeedbackResponse>
+            (await _context.CustomerFeedbacks
+                .Include(x => x.IdUserNavigation)
+                .FirstOrDefaultAsync(x => x.Id == id)
+             .Select(x => new CustomerFeedbackResponse
+             {
+                 Id = x.Id,
+                 CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
+                 Description = x.Description,
+                 IdCustomer = x.IdCustomer,
+                 IdCategory = x.IdCategory,
+                 IdProduct = x.IdProduct,
+                 IdProductNavigation = x.IdProductNavigation,
+                 IdUserAdded = x.IdUser,
+                 IdUserUpdated = x.IdUser,
+                 UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family,
+                 IdUser = x.IdUser
+             }));
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedback>(new ValidationException(e.Message));
+            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
         }
     }
 }

@@ -109,42 +109,43 @@ public static class CustomerFeedbackRoute
                 });
 
                 return id.Result.Match(
-                        _ =>
+                    userId =>
+                    {
+                        var result = mediator.Send(new CreateCustomerFeedbackCommand
                         {
-                            var result = mediator.Send(new CreateCustomerFeedbackCommand
+                            Description = request.Description,
+                            IdCategory = request.IdCategory,
+                            IdCustomer = request.IdCustomer,
+                            IdProduct = request.IdProduct,
+                            IdUserAdded = userId,
+                            IdUserUpdated = userId,
+                            IdUser = request.IdUser
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
                             {
-                                Description = request.Description,
-                                IdCategory = request.IdCategory,
-                                IdCustomer = request.IdCustomer,
-                                IdProduct = request.IdProduct
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
-                        {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
+                                Valid = true,
+                                Message = "Insert Customer Feedbacks Done.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });

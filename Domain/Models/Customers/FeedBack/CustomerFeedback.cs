@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.FeedBack;
 
-public class CustomerFeedback
+public class CustomerFeedback : BaseEntityWithOptionalUserId
 {
     public CustomerFeedback()
     {
@@ -25,5 +25,4 @@ public class CustomerFeedback
 
     public ICollection<CustomerFeedbackAttachment>? Attachments;
     public ICollection<Log>? Logs;
-
 }

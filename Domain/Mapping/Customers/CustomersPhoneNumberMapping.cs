@@ -6,7 +6,7 @@ public class CustomersPhoneNumberMapping : IEntityTypeConfiguration<CustomersPho
     {
         builder.ToTable("PhoneNumbers");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.PhoneNo).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.PhoneNo).HasMaxLength(11).IsRequired();
         
         builder.Property(e => e.Version)
             .IsRowVersion();

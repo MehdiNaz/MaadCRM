@@ -15,7 +15,7 @@ public sealed class Customer : BaseEntityWithUserId
         FavoritesLists = new HashSet<ProductCustomerFavoritesList>();
         CustomerAddresses = new HashSet<CustomerAddress>();
         ForooshFactors = new HashSet<ForooshFactor>();
-        CustomerMoarefs = new HashSet<Customer>();
+        Moarefs = new HashSet<Customer>();
         CustomerFeedbacks = new HashSet<CustomerFeedback>();
         Logs = new HashSet<Log>();
         CustomerAttributes = new HashSet<CustomerAttribute>();
@@ -31,26 +31,12 @@ public sealed class Customer : BaseEntityWithUserId
     public CustomerStateTypes CustomerState { get; set; }
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 
-    public Ulid? CustomerMoarefId { get; set; }
-    public Customer? CustomerMoaref { get; set; }
-    public ICollection<Customer>? CustomerMoarefs { get; set; }
-
-    // public virtual Business Business { get; set; }     
-    // public virtual CustomerCategory CustomerCategory { get; set; }  
+    public Ulid? IdMoaref { get; set; }
+    public Customer? IdMoarefNavigation { get; set; }
+    public ICollection<Customer>? Moarefs { get; set; }
 
     public Ulid? IdCity { get; set; }
     public City? IdCityNavigation { get; set; }
-
-
-
-    // public string IdUserUpdated { get; set; }
-    // public virtual User IdUserUpdateNavigation { get; set; }
-    //
-    // public string IdUserAdded { get; set; }
-    // public virtual User IdUserAddNavigation { get; set; }
-
-    // public string IdUser { get; set; }
-    // public virtual User IdUserNavigation { get; set; }
 
     public ICollection<CustomersEmailAddress>? EmailAddresses { get; }
 
@@ -71,11 +57,4 @@ public sealed class Customer : BaseEntityWithUserId
     public ICollection<Log>? Logs { get; }
 
     public ICollection<CustomerAttribute>? CustomerAttributes { get; }
-
-    #region Old Relations
-    // public ICollection<AttributeOptionsValue> AttributeOptionsValues { get; set; }
-    // public ICollection<CustomerSubmission> CustomerSubmission { get; set; }
-    // public ICollection<CustomerActivity> CustomerActivities { get; set; }
-    // public ICollection<CustomerFeedbackHistory> CustomerFeedbackHistory { get; set; }
-    #endregion
 }

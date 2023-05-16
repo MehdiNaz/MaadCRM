@@ -8,7 +8,7 @@ public class CustomersAddressMapping : IEntityTypeConfiguration<CustomerAddress>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Address).HasMaxLength(255).IsRequired();
         builder.Property(x => x.CodePost).HasMaxLength(255);
-        builder.Property(x => x.PhoneNo).HasMaxLength(255);
+        builder.Property(x => x.PhoneNo).HasMaxLength(11);
         builder.Property(x => x.Description).HasMaxLength(255);
         
         builder.Property(e => e.Version)

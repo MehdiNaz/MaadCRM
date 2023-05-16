@@ -110,7 +110,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 Amount = request.Amount,
                 AmountTax = request.AmountTax,
                 PaymentMethod = request.PaymentMethod,
-                ShippingMethodType = request.ShippingMethodType.Value,
+                ShippingMethodType = request.ShippingMethodType,
                 IdCustomer = request.CustomerId,
                 IdCustomerAddress = request.CustomersAddressId,
                 IdUserAdded = request.UserIdAdded,
@@ -195,7 +195,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
             var result = await _context.ForooshFactors
                 .Select(x => new FactorInformationResponse
                 {
-                    ShippingMethodType = x.ShippingMethodType.Value,
+                    // ShippingMethodType = x.ShippingMethodType.Value,
                     AmountTax = x.AmountTax,
                     PaymentMethod = x.PaymentMethod,
                     //PaymentAmount = x.Payments.FirstOrDefault().PaymentAmount,

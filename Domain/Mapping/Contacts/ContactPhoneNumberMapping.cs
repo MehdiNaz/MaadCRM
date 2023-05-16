@@ -6,6 +6,6 @@ public class ContactPhoneNumberMapping : IEntityTypeConfiguration<ContactPhoneNu
     {
         builder.ToTable("ContactPhoneNumbers");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.PhoneNo).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.PhoneNo).HasMaxLength(11).IsRequired();
     }
 }

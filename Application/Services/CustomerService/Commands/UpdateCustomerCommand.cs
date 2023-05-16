@@ -7,12 +7,8 @@ public struct UpdateCustomerCommand : IRequest<Result<CustomerResponse>>
     public string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }
-
     public string UserId { get; set; }
     public string IdUserUpdated { get; set; }
-
-    //public required string CreatedBy { get; set; }
-    //public required string UpdatedBy { get; set; }
     public Ulid? CityId { get; set; }
     public Ulid? CustomerCategoryId { get; set; }
     public GenderTypes? Gender { get; set; }
