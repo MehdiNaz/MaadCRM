@@ -79,7 +79,6 @@ app.MapForooshFactorRoute();
 app.MapPaymentRoute();
 app.MapAttributeRoute();
 app.MapAttributeOptionRoute();
-app.MapAttributeOptionValueRoute();
 app.MapLogRoute();
 #endregion
 

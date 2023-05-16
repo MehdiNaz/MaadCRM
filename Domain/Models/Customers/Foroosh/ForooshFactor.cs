@@ -17,7 +17,7 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public StatusType StatusTypeForooshFactor { get; set; }
     public DateTime DatePayed { get; set; }
     public PaymentMethodTypes PaymentMethod { get; set; }
-    public ShippingMethodTypes ShippingMethodType { get; set; }
+    public ShippingMethodTypes? ShippingMethodType { get; set; }
 
     // در صورت غیر نقدی : 
     public uint? TedadeAghsat { get; set; }

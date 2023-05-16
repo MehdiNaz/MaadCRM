@@ -7,7 +7,7 @@ public struct UpdateForooshFactorCommand : IRequest<Result<ForooshFactor>>
     public decimal AmountTax { get; set; }
     public decimal AmountTotal { get; set; }
     public PaymentMethodTypes PaymentMethod { get; set; }
-    public ShippingMethodTypes ShippingMethodType { get; set; }
+    public ShippingMethodTypes? ShippingMethodType { get; set; }
 
     // در صورت غیر نقدی : 
     public uint TedadeAghsat { get; set; }

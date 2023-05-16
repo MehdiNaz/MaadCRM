@@ -13,5 +13,10 @@ public class CustomerAttributeMapping : IEntityTypeConfiguration<CustomerAttribu
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_AttributeOptionNavigation_CustomerAttribute");
 
+        builder.HasOne(x => x.IdCustomerNavigation)
+            .WithMany(x => x.CustomerAttributes)
+            .HasForeignKey(x => x.IdCustomer)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_Customer_CustomerAttribute");
     }
 }
