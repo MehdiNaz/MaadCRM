@@ -1,4 +1,3 @@
-global using Application.Interfaces;
 global using Application.Interfaces.Account;
 global using Application.Interfaces.Businesses;
 global using Application.Interfaces.Contacts;
@@ -80,8 +79,6 @@ global using Application.Services.ProductCustomerFavoritesListService.Queries;
 global using Application.Services.ProductService.Commands;
 global using Application.Services.ProductService.Queries;
 global using Application.Services.Profile.Command;
-global using Application.Services.SanAtService.Commands;
-global using Application.Services.SanAtService.Queries;
 global using Application.Services.SpecialFields.AttributeOptionService.Commands;
 global using Application.Services.SpecialFields.AttributeOptionService.Queries;
 global using Application.Services.SpecialFields.AttributeService.Commands;

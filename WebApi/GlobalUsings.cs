@@ -81,7 +81,6 @@ global using Application.Services.ProductService.Commands;
 global using Application.Services.ProductService.Queries;
 global using Application.Services.ProductService.Validation;
 global using Application.Services.Profile.Command;
-global using Application.Services.SanAtService.Validation;
 global using Application.Services.SpecialFields.AttributeOptionService.Commands;
 global using Application.Services.SpecialFields.AttributeOptionService.Queries;
 global using Application.Services.SpecialFields.AttributeService.Commands;
