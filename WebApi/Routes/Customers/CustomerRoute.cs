@@ -1,6 +1,4 @@
-﻿using Application.Requests;
-
-namespace WebApi.Routes.Customers;
+﻿namespace WebApi.Routes.Customers;
 
 public static class CustomerRoute
 {
@@ -8,53 +6,7 @@ public static class CustomerRoute
     {
         var plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        //plan.MapGet("/AllCustomers", (IMediator mediator, HttpContext httpContext) =>
-        //{
-        //    try
-        //    {
-        //        var id = mediator.Send(new DecodeTokenQuery
-        //        {
-        //            Token = httpContext.Request.Headers["Authorization"].ToString(),
-        //            ReturnType = TokenReturnType.IdUser
-        //        });
-
-        //        return id.Result.Match(
-        //            userId =>
-        //            {
-        //                var result = mediator.Send(new AllCustomersQuery
-        //                {
-        //                    IdUser = userId
-        //                });
-
-        //                return result.Result.Match(
-        //                    succes => Results.Ok(new
-        //                    {
-        //                        Valid = true,
-        //                        Message = "Get All Customers.",
-        //                        Data = succes
-        //                    }),
-        //                    error => Results.BadRequest(new ErrorResponse
-        //                    {
-        //                        Valid = false,
-        //                        Exceptions = error
-        //                    }));
-        //            },
-        //            exception => Results.BadRequest(new ErrorResponse
-        //            {
-        //                Valid = false,
-        //                Exceptions = exception
-        //            }));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Results.BadRequest(new
-        //        {
-        //            Valid = false,
-        //            e.Message,
-        //            e.StackTrace
-        //        });
-        //    }
-        //});
+        
 
         //plan.MapGet("/CustomerDashBoard", (IMediator mediator, HttpContext httpContext) =>
         //{

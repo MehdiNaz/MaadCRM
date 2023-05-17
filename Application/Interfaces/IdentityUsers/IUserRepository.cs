@@ -2,5 +2,5 @@
 
 public interface IUserRepository
 {
-    ValueTask<Result<ICollection<User>>> GetAllUsersByBusinessIdAsync(Ulid businessId);
+    ValueTask<Result<ICollection<UserResponse>>> GetAllUsersByBusinessIdAsync(Ulid businessId);
 }
