@@ -4,7 +4,6 @@ public class CustomerRepository : ICustomerRepository
 {
     private readonly MaadContext _context;
     private readonly ILogRepository _log;
-
     public CustomerRepository(MaadContext maadContext, ILogRepository log)
     {
         _context = maadContext;
@@ -55,27 +54,18 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var checkCustomer = await _context.Customers
+            return new Result<CustomerResponse>(await _context.Customers
                 .Include(x => x.PhoneNumbers)
                 .Include(x => x.EmailAddresses)
                 .Include(x => x.CustomerAddresses)
                 .Include(x => x.IdCityNavigation)
                 .Include(x => x.IdMoarefNavigation)
                 .ThenInclude(x => x.PhoneNumbers)
-                .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show);
-
-            if (checkCustomer != null)
-            {
-                return new Result<CustomerResponse>(
-                    await _context.Customers
-                        .Include(x => x.PhoneNumbers)
-                        .Include(x => x.EmailAddresses)
-                        .Include(x => x.CustomerAddresses)
-                        .Include(x => x.IdCityNavigation)
-                        .Include(x => x.IdMoarefNavigation)
-                        .ThenInclude(x => x.PhoneNumbers)
-                        .FirstOrDefaultAsync(x => x.Id == customerId && x.CustomerStatusType == StatusType.Show)
-                        .Select(x => new CustomerResponse
+                .FirstOrDefaultAsync(x => x.Id == customerId)
+                .Select(x =>
+                {
+                    if (x != null)
+                        return new CustomerResponse
                         {
                             BirthDayDate = x.BirthDayDate,
                             IdCustomer = x.Id,
@@ -94,9 +84,9 @@ public class CustomerRepository : ICustomerRepository
                             FirstName = x.FirstName,
                             LastName = x.LastName,
                             MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                        }));
-            }
-            return new Result<CustomerResponse>(new ValidationException("Null"));
+                        };
+                    return new CustomerResponse();
+                }));
         }
         catch (Exception e)
         {
@@ -192,31 +182,32 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var resultsListCustomer = _context.Customers
-                .Include(x => x.IdMoarefNavigation)
-                .Include(x => x.PhoneNumbers)
-                .Include(x => x.FavoritesLists)
-                .Include(x => x.IdCityNavigation)
-                .Select(x => new CustomerResponse
+            var resultsListCustomer = (from customer in _context.Customers
+                join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
+                join city in _context.Cities on customer.IdCity equals city.Id
+                join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
+                join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
+                join user in _context.Users on customer.IdUser equals user.Id
+                select new CustomerResponse
                 {
-                    IdCustomer = x.Id,
-                    Name = x.FirstName + " " + x.LastName,
-                    PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                    EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                    Address = x.CustomerAddresses.FirstOrDefault().Address,
-                    CustomerStateType = x.CustomerState,
-                    CustomerStatusType = x.CustomerStatusType,
-                    From = x.DateCreated,
+                    IdCustomer = customer.Id,
+                    Name = customer.FirstName + " " + customer.LastName,
+                    PhoneNumber = phoneNumber.PhoneNo,
+                    EmailAddress = emailAddress.CustomerEmailAddress,
+                    Address = address.Address,
+                    CustomerStateType = customer.CustomerState,
+                    CustomerStatusType = customer.CustomerStatusType,
+                    From = customer.DateCreated,
                     UpTo = DateTime.UtcNow,
-                    BirthDayDate = x.BirthDayDate,
-                    IdCity = x.IdCity,
-                    Gender = x.Gender,
-                    DateCreated = x.DateCreated,
-                    MoshtaryMoAref = x.IdMoarefNavigation.Id,
-                    MoarefFullName = x.IdMoarefNavigation.FirstName + " " + x.IdMoarefNavigation.LastName,
-                    IdUser = x.IdUserAdded,
-                    CityName = x.IdCityNavigation.CityName
-                }).AsQueryable();
+                    BirthDayDate = customer.BirthDayDate,
+                    IdCity = city.Id,
+                    Gender = customer.Gender,
+                    DateCreated = customer.DateCreated,
+                    MoshtaryMoAref = customer.IdMoaref,
+                    MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
+                    IdUser = user.Id,
+                    CityName = city.CityName
+                }).Where(x => x.CustomerStatusType == StatusType.Show).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
             {
@@ -281,42 +272,38 @@ public class CustomerRepository : ICustomerRepository
 
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
-        var resultsListCustomer = await _context.Customers
-            .Include(x => x.PhoneNumbers)
-            .Include(x => x.EmailAddresses)
-            .Include(x => x.CustomerAddresses)
-            .Include(x => x.IdCityNavigation)
-            .Include(x => x.IdMoarefNavigation)
-            .ThenInclude(x => x.PhoneNumbers)
-            .Where(x => x.CustomerStatusType == StatusType.Show)
-            .Select(x => new CustomerResponse
+        var resultsListCustomer = await (from customer in _context.Customers
+            join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
+            join city in _context.Cities on customer.IdCity equals city.Id
+            join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
+            join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
+            join user in _context.Users on customer.IdUser equals user.Id
+            select new CustomerResponse
             {
-                BirthDayDate = x.BirthDayDate,
-                IdCustomer = x.Id,
-                From = x.DateCreated,
-                CustomerStateType = x.CustomerState,
-                CustomerStatusType = x.CustomerStatusType,
-                EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                Name = x.FirstName + " " + x.LastName,
-                MoshtaryMoAref = x.IdMoaref,
-                Address = x.CustomerAddresses.FirstOrDefault().Address,
-                IdCity = x.IdCity,
-                Gender = x.Gender,
-                CityName = x.IdCityNavigation.CityName,
-                MoarefFullName = x.IdMoarefNavigation.FirstName + " " + x.IdMoarefNavigation.LastName,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                MoarefPhoneNumber = x.IdMoarefNavigation.PhoneNumbers.FirstOrDefault().PhoneNo
-            }).ToListAsync();
-
-        var result = resultsListCustomer.Where(x => x.Name.ToLower().Contains(request.ToLower())
-                                                    || x.PhoneNumber.ToLower().Contains(request.ToLower())
-                                                    || x.EmailAddress.ToLower().Contains(request.ToLower()));
-
+                IdCustomer = customer.Id,
+                Name = customer.FirstName + " " + customer.LastName,
+                PhoneNumber = phoneNumber.PhoneNo,
+                EmailAddress = emailAddress.CustomerEmailAddress,
+                Address = address.Address,
+                CustomerStateType = customer.CustomerState,
+                CustomerStatusType = customer.CustomerStatusType,
+                From = customer.DateCreated,
+                UpTo = DateTime.UtcNow,
+                BirthDayDate = customer.BirthDayDate,
+                IdCity = city.Id,
+                Gender = customer.Gender,
+                DateCreated = customer.DateCreated,
+                MoshtaryMoAref = customer.IdMoaref,
+                MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
+                IdUser = user.Id,
+                CityName = city.CityName
+            }).Where(x => x.CustomerStatusType == StatusType.Show && x.Name.ToLower().Contains(request.ToLower())
+                        || x.PhoneNumber.ToLower().Contains(request.ToLower())
+                        || x.EmailAddress.ToLower().Contains(request.ToLower())).ToListAsync();
+        
         return new CustomerDashboardResponse
         {
-            AllCustomersInfo = result.ToList(),
+            AllCustomersInfo = resultsListCustomer,
             AllCount = resultsListCustomer.Count,
             BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
             BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
