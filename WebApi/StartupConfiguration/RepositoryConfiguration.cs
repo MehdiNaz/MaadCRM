@@ -48,7 +48,6 @@ public static class RepositoryConfiguration
         collection.AddTransient<IBusinessPlanRepository, BusinessPlanRepository>();
 
 
-        collection.AddTransient<ISanAtRepository, SanAtRepository>();
         collection.AddTransient<IBusinessRepository, BusinessRepository>();
 
         //Application ==> Interfaces ==> SpecialFields

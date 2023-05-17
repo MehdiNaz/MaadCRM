@@ -18,6 +18,7 @@ public class Attribute : BaseEntityWithUserUpdate
 
     public required AttributeInputType AttributeInputTypeId { get; set; }
     public required AttributeType AttributeTypeId { get; set; }
+    public StatusType Status { get; set; }
 
     public int? ValidationMinLength { get; set; }
     public int? ValidationMaxLength { get; set; }
@@ -27,6 +28,5 @@ public class Attribute : BaseEntityWithUserUpdate
 
     public Ulid? IdBusiness { get; set; }
     public Business? IdBusinessNavigation { get; set; }
-    public StatusType Status { get; set; }
     public ICollection<AttributeOption>? AttributeOptions { get; set; }
 }

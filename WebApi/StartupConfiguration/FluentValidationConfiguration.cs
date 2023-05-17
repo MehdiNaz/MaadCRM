@@ -21,7 +21,6 @@ public static class FluentValidationConfiguration
         collection.AddValidatorsFromAssembly(typeof(CustomersPhoneNumberValidator).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomerNoteValidation).Assembly);
-        collection.AddValidatorsFromAssembly(typeof(SanAtValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(CustomersEmailAddressValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactGroupValidation).Assembly);
         collection.AddValidatorsFromAssembly(typeof(ContactValidation).Assembly);
