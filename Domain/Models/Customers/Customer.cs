@@ -22,7 +22,7 @@ public sealed class Customer : BaseEntityWithUserId
     }
 
     public Ulid Id { get; set; }
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
     public required string LastName { get; set; }
     public DateOnly? BirthDayDate { get; set; }
     public byte[]? CustomerPic { get; set; }

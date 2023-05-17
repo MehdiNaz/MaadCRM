@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerService.Query;
+﻿namespace Application.Services.Customer.CustomerService.Query;
 
 public struct CustomerByIdQuery : IRequest<Result<CustomerResponse>>
 {

@@ -9,23 +9,33 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<User>>> GetAllUsersByBusinessIdAsync()
+    public async ValueTask<Result<ICollection<UserResponse>>> GetAllUsersByBusinessIdAsync(Ulid businessId)
     {
         try
         {
-            return (from user in _context.Users
+            return await (from user in _context.Users
                 join business in _context.Businesses on user.IdBusiness equals business.Id
-                select new User
+                select new UserResponse
                 {
-                    Id = user.Id,
+                    UserId = user.Id,
                     Name = user.Name,
                     Family = user.Family,
-                    IdBusiness = business.Id
-                }).ToList();
+                    IdBusiness = business.Id,
+                    Gender = user.Gender,
+                    BusinessName = business.BusinessName,
+                    CodeMelli = user.CodeMelli,
+                    Address = user.Address,
+                    CreatedOn = user.CreatedOn,
+                    DateOfBirth = user.DateOfBirth,
+                    Flag = user.Flag,
+                    Married = user.Married,
+                    LastIp = user.LastIp,
+                    LastLogin = user.LastLogin
+                }).ToListAsync();
         }
         catch (Exception e)
         {
-            return new Result<ICollection<User>>(new ValidationException(e.Message));
+            return new Result<ICollection<UserResponse>>(new ValidationException(e.Message));
         }
     }
 }

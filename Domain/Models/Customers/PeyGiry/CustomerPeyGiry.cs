@@ -13,7 +13,7 @@ public sealed class CustomerPeyGiry : BaseEntityWithOptionalUserId
     public Ulid Id { get; set; }
     public string? Description { get; set; }
     public StatusType Status { get; set; }
-    public DateTime DatePeyGiry { get; set; }
+    public DateTime? DatePeyGiry { get; set; }
 
     public required Ulid IdCustomer { get; set; }
     public Customer? IdCustomerNavigation { get; set; }

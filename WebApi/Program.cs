@@ -1,3 +1,5 @@
+using WebApi.Routes.IdentityUser;
+
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -80,6 +82,7 @@ app.MapPaymentRoute();
 app.MapAttributeRoute();
 app.MapAttributeOptionRoute();
 app.MapLogRoute();
+app.MapUserRoute();
 #endregion
 
 app.Run();
