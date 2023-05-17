@@ -19,6 +19,7 @@ public class User : IdentityUser
         ForooshFactorsAdded = new HashSet<ForooshFactor>();
         ForooshFactorsUpdated = new HashSet<ForooshFactor>();
 
+        PeyGiryCategories = new HashSet<PeyGiryCategory>();
         PeyGiryCategoriesAdded = new HashSet<PeyGiryCategory>();
         PeyGiryCategoriesUpdated = new HashSet<PeyGiryCategory>();
 
@@ -90,6 +91,7 @@ public class User : IdentityUser
     public IEnumerable<Attribute>? AttributeAdded { get; }
     public IEnumerable<Attribute>? AttributeUpdated { get; }
 
+    public IEnumerable<PeyGiryCategory>? PeyGiryCategories { get; }
     public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesAdded { get; }
     public IEnumerable<PeyGiryCategory>? PeyGiryCategoriesUpdated { get; }
 

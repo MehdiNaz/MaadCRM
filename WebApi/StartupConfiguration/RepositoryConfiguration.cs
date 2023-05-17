@@ -4,6 +4,8 @@ public static class RepositoryConfiguration
 {
     public static void Configure(IServiceCollection collection)
     {
+        collection.AddTransient<IUserRepository, UserRepository>();
+
         // Repository :
         collection.AddTransient<ILoginRepository, LoginRepository>();
         collection.AddTransient<IProfileRepository, ProfileRepository>();

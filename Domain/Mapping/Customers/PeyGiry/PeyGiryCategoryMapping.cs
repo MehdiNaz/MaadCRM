@@ -14,6 +14,12 @@ public class PeyGiryCategoryMapping : IEntityTypeConfiguration<PeyGiryCategory>
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Business_PeyGiryCategory");
 
+        builder.HasOne(x => x.IdUserNavigation)
+            .WithMany(x => x.PeyGiryCategories)
+            .HasForeignKey(x => x.IdUser)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_User_PeyGiryCategory");
+
         builder.HasOne(x => x.IdUserAddNavigation)
             .WithMany(x => x.PeyGiryCategoriesAdded)
             .HasForeignKey(x => x.IdUserAdded)

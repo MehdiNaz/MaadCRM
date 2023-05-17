@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers.PeyGiry;
 
-public class PeyGiryCategory : BaseEntityWithUserUpdate
+public class PeyGiryCategory : BaseEntityWithOptionalUserId
 {
     public PeyGiryCategory()
     {

@@ -23,4 +23,12 @@
     <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Interfaces\IdentityUsers\" />
+      <Folder Include="Services\SpecialFields\CustomerAttribute\CommandHandlers\" />
+      <Folder Include="Services\SpecialFields\CustomerAttribute\Commands\" />
+      <Folder Include="Services\SpecialFields\CustomerAttribute\QueryHandlers\" />
+      <Folder Include="Services\SpecialFields\CustomerAttribute\Queries\" />
+    </ItemGroup>
 </Project>

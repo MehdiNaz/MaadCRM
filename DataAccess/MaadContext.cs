@@ -6,6 +6,7 @@ public class MaadContext : IdentityDbContext
     {
     }
 
+    public DbSet<User> Users { get; set; }
     public DbSet<Log> Logs { get; set; }
     public DbSet<Plan> Plans { get; set; }
     public DbSet<SanAt> SanAts { get; set; }

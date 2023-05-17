@@ -6,7 +6,7 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
     {
         builder.ToTable("CustomerPeyGiries");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Description).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.Description).HasMaxLength(255);
 
         builder.Property(e => e.Version).IsRowVersion();
 
