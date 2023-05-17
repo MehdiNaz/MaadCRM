@@ -213,7 +213,7 @@ public class CustomerRepository : ICustomerRepository
                                            MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
                                            IdUser = user.Id,
                                            CityName = city.CityName
-                                       }).Where(x => x.CustomerStatusType == StatusType.Show).AsQueryable();
+                                       }).Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == request.UserId).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
             {
