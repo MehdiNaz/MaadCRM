@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.SpecialFields;
+﻿namespace Application.Responses;
 
 public struct CustomerAttributeResponse
 {

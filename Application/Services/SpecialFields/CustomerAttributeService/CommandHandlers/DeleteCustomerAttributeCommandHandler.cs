@@ -1,4 +1,4 @@
-﻿namespace Application.Services.SpecialFields.CustomerAttribute.CommandHandlers;
+﻿namespace Application.Services.SpecialFields.CustomerAttributeService.CommandHandlers;
 
 public class DeleteCustomerAttributeCommandHandler
 {

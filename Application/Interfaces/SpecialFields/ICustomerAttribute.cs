@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.SpecialFields;
+﻿using Application.Services.SpecialFields.CustomerAttributeService.Commands;
+
+namespace Application.Interfaces.SpecialFields;
 
 public interface ICustomerAttribute
 {

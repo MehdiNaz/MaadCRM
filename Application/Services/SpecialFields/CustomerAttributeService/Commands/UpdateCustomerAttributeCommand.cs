@@ -1,6 +1,6 @@
-﻿namespace Application.Services.SpecialFields.CustomerAttribute.Commands;
+﻿namespace Application.Services.SpecialFields.CustomerAttributeService.Commands;
 
-public class UpdateCustomerAttributeCommand
+public struct UpdateCustomerAttributeCommand : IRequest<Result<CustomerAttribute>>
 {
-    
+
 }
