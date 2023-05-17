@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models.Customers;
 
-public sealed class Customer : BaseEntityWithUserId
+public class Customer : BaseEntityWithUserId
 {
     public Customer()
     {
@@ -32,29 +32,29 @@ public sealed class Customer : BaseEntityWithUserId
     public CustomerActivationStatus CustomerActivationStatus { get; set; }
 
     public Ulid? IdMoaref { get; set; }
-    public Customer? IdMoarefNavigation { get; set; }
-    public ICollection<Customer>? Moarefs { get; set; }
+    public virtual Customer? IdMoarefNavigation { get; set; }
+    public virtual ICollection<Customer>? Moarefs { get; set; }
 
     public Ulid? IdCity { get; set; }
-    public City? IdCityNavigation { get; set; }
+    public virtual City? IdCityNavigation { get; set; }
 
-    public ICollection<CustomersEmailAddress>? EmailAddresses { get; }
+    public virtual ICollection<CustomersEmailAddress>? EmailAddresses { get; }
 
-    public ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
+    public virtual ICollection<CustomersPhoneNumber>? PhoneNumbers { get; }
 
-    public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
+    public virtual ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; }
 
-    public ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
+    public virtual ICollection<ProductCustomerFavoritesList>? FavoritesLists { get; }
 
-    public ICollection<CustomerAddress>? CustomerAddresses { get; }
+    public virtual ICollection<CustomerAddress>? CustomerAddresses { get; }
 
-    public ICollection<CustomerNote>? CustomerNotes { get; }
+    public virtual ICollection<CustomerNote>? CustomerNotes { get; }
 
-    public ICollection<ForooshFactor>? ForooshFactors { get; }
+    public virtual ICollection<ForooshFactor>? ForooshFactors { get; }
 
-    public ICollection<CustomerFeedback>? CustomerFeedbacks { get; }
+    public virtual ICollection<CustomerFeedback>? CustomerFeedbacks { get; }
 
-    public ICollection<Log>? Logs { get; }
+    public virtual ICollection<Log>? Logs { get; }
 
-    public ICollection<CustomerAttribute>? CustomerAttributes { get; }
+    public virtual ICollection<CustomerAttribute>? CustomerAttributes { get; }
 }

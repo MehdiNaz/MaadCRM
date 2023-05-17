@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/MaadDb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@luca.iran.liara.ir" uuid="6be13a85-a305-45e2-993f-47b869fc362d">
+    <data-source source="LOCAL" name="maaddb@luca.iran.liara.ir" uuid="68bd1058-41b6-4f77-83d1-27384420d5b8">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://luca.iran.liara.ir:32533/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://luca.iran.liara.ir:32533/maaddb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

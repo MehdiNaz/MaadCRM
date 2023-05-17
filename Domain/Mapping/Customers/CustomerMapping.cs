@@ -16,12 +16,14 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
             .WithMany(x => x.Customers)
             .HasForeignKey(d => d.IdCity)
             .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_Customer_City");
+            .HasConstraintName("FK_Customer_City")
+            .IsRequired(false);
 
         builder.HasOne(d => d.IdMoarefNavigation)
             .WithMany(p => p.Moarefs)
             .HasForeignKey(d => d.IdMoaref)
-            .HasConstraintName("FK_Customer_MoAref");
+            .HasConstraintName("FK_Customer_MoAref")
+            .IsRequired(false);
         
         builder.HasOne(d => d.IdUserNavigation)
             .WithMany(p => p.Customers)

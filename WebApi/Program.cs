@@ -31,6 +31,7 @@ app.UseCors();
 
 app.UseAuthorization();
 
+// Todo: Remove comment in production
 // if (app.Environment.IsDevelopment())
 // {
     app.UseSwagger();
