@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerService.Validation;
+﻿namespace Application.Services.Customer.CustomerService.Validation;
 
 public class CustomerValidation : AbstractValidator<CustomerFilterRequest>
 {

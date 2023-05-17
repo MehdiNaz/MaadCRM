@@ -1,4 +1,6 @@
-﻿namespace Application.Services.CustomerService.QueryHandler;
+﻿using Application.Services.Customer.CustomerService.Query;
+
+namespace Application.Services.Customer.CustomerService.QueryHandler;
 
 public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, Result<CustomerResponse>>
 {

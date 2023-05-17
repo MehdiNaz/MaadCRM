@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerService.Commands;
+﻿namespace Application.Services.Customer.CustomerService.Commands;
 
 public struct ChangeStateCustomerCommand : IRequest<Result<CustomerResponse>>
 {

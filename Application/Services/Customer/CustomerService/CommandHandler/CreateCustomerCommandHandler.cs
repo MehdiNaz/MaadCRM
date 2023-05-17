@@ -1,26 +1,28 @@
-﻿namespace Application.Services.CustomerService.CommandHandler;
+﻿using Application.Services.Customer.CustomerService.Commands;
 
-public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, Result<CustomerResponse>>
+namespace Application.Services.Customer.CustomerService.CommandHandler;
+
+public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Result<CustomerResponse>>
 {
     private readonly ICustomerRepository _repository;
 
-    public UpdateCustomerCommandHandler(ICustomerRepository repository)
+    public CreateCustomerCommandHandler(ICustomerRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<CustomerResponse>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CustomerResponse>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var item = new UpdateCustomerCommand
+            var item = new CreateCustomerCommand
             {
-                Id = request.Id,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 BirthDayDate = request.BirthDayDate!,
                 CustomerPic = request.CustomerPic,
                 CustomerCategoryId = request.CustomerCategoryId,
+                UserId = request.UserId,
                 Gender = request.Gender,
                 CustomerMoarefId = request.CustomerMoarefId,
                 PhoneNumbers = request.PhoneNumbers,
@@ -30,9 +32,11 @@ public readonly struct UpdateCustomerCommandHandler : IRequestHandler<UpdateCust
                 CustomerNotes = request.CustomerNotes,
                 CustomerPeyGiries = request.CustomerPeyGiries,
                 CityId = request.CityId,
+                IdUserAdded = request.IdUserAdded,
                 IdUserUpdated = request.IdUserUpdated
             };
-            return (await _repository.UpdateCustomerAsync(item)).Match(result => new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
+            return (await _repository.CreateCustomerAsync(item)).Match(result =>
+            new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
         }
         catch (Exception e)
         {

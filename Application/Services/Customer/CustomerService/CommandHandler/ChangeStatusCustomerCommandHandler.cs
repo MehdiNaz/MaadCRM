@@ -1,4 +1,6 @@
-﻿namespace Application.Services.CustomerService.CommandHandler;
+﻿using Application.Services.Customer.CustomerService.Commands;
+
+namespace Application.Services.Customer.CustomerService.CommandHandler;
 
 public readonly struct ChangeStatusCustomerCommandHandler : IRequestHandler<ChangeStatusCustomerCommand, Result<CustomerResponse>>
 {

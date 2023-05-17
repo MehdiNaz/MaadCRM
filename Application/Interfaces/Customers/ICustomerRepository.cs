@@ -1,4 +1,7 @@
-﻿namespace Application.Interfaces.Customers;
+﻿using Application.Services.Customer.CustomerService.Commands;
+using Application.Services.Customer.CustomerService.Query;
+
+namespace Application.Interfaces.Customers;
 
 public interface ICustomerRepository
 {

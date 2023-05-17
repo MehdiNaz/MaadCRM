@@ -6,56 +6,6 @@ public static class CustomerRoute
     {
         var plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        
-
-        //plan.MapGet("/CustomerDashBoard", (IMediator mediator, HttpContext httpContext) =>
-        //{
-        //    try
-        //    {
-        //        var id = mediator.Send(new DecodeTokenQuery
-        //        {
-        //            Token = httpContext.Request.Headers["Authorization"].ToString(),
-        //            ReturnType = TokenReturnType.IdUser
-        //        });
-
-        //        return id.Result.Match(
-        //            userId =>
-        //            {
-        //                var result = mediator.Send(new CustomerDashBourdQuery
-        //                {
-        //                    IdUser = userId
-        //                });
-
-        //                return result.Result.Match(
-        //                    succes => Results.Ok(new
-        //                    {
-        //                        Valid = true,
-        //                        Message = "Get All Customers.",
-        //                        Data = succes
-        //                    }),
-        //                    error => Results.BadRequest(new ErrorResponse
-        //                    {
-        //                        Valid = false,
-        //                        Exceptions = error
-        //                    }));
-        //            },
-        //            exception => Results.BadRequest(new ErrorResponse
-        //            {
-        //                Valid = false,
-        //                Exceptions = exception
-        //            }));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Results.BadRequest(new
-        //        {
-        //            Valid = false,
-        //            e.Message,
-        //            e.StackTrace
-        //        });
-        //    }
-        //});
-
         plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerFilterRequest request, IMediator mediator, HttpContext httpContext) =>
         {
             try

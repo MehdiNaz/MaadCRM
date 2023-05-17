@@ -20,6 +20,7 @@ public class CustomerRepository : ICustomerRepository
                     .Include(x => x.EmailAddresses)
                     .Include(x => x.CustomerAddresses)
                     .Include(x => x.IdCityNavigation)
+                    .ThenInclude(x => x.IdProvinceNavigation)
                     .Include(x => x.IdMoarefNavigation)
                     .ThenInclude(x => x.PhoneNumbers)
                     .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
@@ -41,7 +42,9 @@ public class CustomerRepository : ICustomerRepository
                         MoarefFullName = x.IdMoarefNavigation.FirstName + " " + x.IdMoarefNavigation.LastName,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation.PhoneNumbers.FirstOrDefault().PhoneNo
+                        MoarefPhoneNumber = x.IdMoarefNavigation.PhoneNumbers.FirstOrDefault().PhoneNo,
+                        IdProvince = x.IdCityNavigation.IdProvinceNavigation.Id,
+                        ProductName = x.IdCityNavigation.IdProvinceNavigation.ProvinceName
                     }).ToListAsync());
         }
         catch (Exception e)
@@ -59,6 +62,7 @@ public class CustomerRepository : ICustomerRepository
                 .Include(x => x.EmailAddresses)
                 .Include(x => x.CustomerAddresses)
                 .Include(x => x.IdCityNavigation)
+                .ThenInclude(x => x.IdProvinceNavigation)
                 .Include(x => x.IdMoarefNavigation)
                 .ThenInclude(x => x.PhoneNumbers)
                 .FirstOrDefaultAsync(x => x.Id == customerId)
@@ -83,7 +87,9 @@ public class CustomerRepository : ICustomerRepository
                             MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
                             FirstName = x.FirstName,
                             LastName = x.LastName,
-                            MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
+                            MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
+                            IdProvince = x.IdCityNavigation.IdProvinceNavigation.Id,
+                            ProductName = x.IdCityNavigation.IdProvinceNavigation.ProvinceName
                         };
                     return new CustomerResponse();
                 }));
@@ -183,31 +189,31 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var resultsListCustomer = (from customer in _context.Customers
-                join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
-                join city in _context.Cities on customer.IdCity equals city.Id
-                join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
-                join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
-                join user in _context.Users on customer.IdUser equals user.Id
-                select new CustomerResponse
-                {
-                    IdCustomer = customer.Id,
-                    Name = customer.FirstName + " " + customer.LastName,
-                    PhoneNumber = phoneNumber.PhoneNo,
-                    EmailAddress = emailAddress.CustomerEmailAddress,
-                    Address = address.Address,
-                    CustomerStateType = customer.CustomerState,
-                    CustomerStatusType = customer.CustomerStatusType,
-                    From = customer.DateCreated,
-                    UpTo = DateTime.UtcNow,
-                    BirthDayDate = customer.BirthDayDate,
-                    IdCity = city.Id,
-                    Gender = customer.Gender,
-                    DateCreated = customer.DateCreated,
-                    MoshtaryMoAref = customer.IdMoaref,
-                    MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
-                    IdUser = user.Id,
-                    CityName = city.CityName
-                }).Where(x => x.CustomerStatusType == StatusType.Show).AsQueryable();
+                                       join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
+                                       join city in _context.Cities on customer.IdCity equals city.Id
+                                       join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
+                                       join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
+                                       join user in _context.Users on customer.IdUser equals user.Id
+                                       select new CustomerResponse
+                                       {
+                                           IdCustomer = customer.Id,
+                                           Name = customer.FirstName + " " + customer.LastName,
+                                           PhoneNumber = phoneNumber.PhoneNo,
+                                           EmailAddress = emailAddress.CustomerEmailAddress,
+                                           Address = address.Address,
+                                           CustomerStateType = customer.CustomerState,
+                                           CustomerStatusType = customer.CustomerStatusType,
+                                           From = customer.DateCreated,
+                                           UpTo = DateTime.UtcNow,
+                                           BirthDayDate = customer.BirthDayDate,
+                                           IdCity = city.Id,
+                                           Gender = customer.Gender,
+                                           DateCreated = customer.DateCreated,
+                                           MoshtaryMoAref = customer.IdMoaref,
+                                           MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
+                                           IdUser = user.Id,
+                                           CityName = city.CityName
+                                       }).Where(x => x.CustomerStatusType == StatusType.Show).AsQueryable();
 
             if (request is { From: { }, UpTo: { } })
             {
@@ -273,34 +279,34 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = await (from customer in _context.Customers
-            join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
-            join city in _context.Cities on customer.IdCity equals city.Id
-            join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
-            join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
-            join user in _context.Users on customer.IdUser equals user.Id
-            select new CustomerResponse
-            {
-                IdCustomer = customer.Id,
-                Name = customer.FirstName + " " + customer.LastName,
-                PhoneNumber = phoneNumber.PhoneNo,
-                EmailAddress = emailAddress.CustomerEmailAddress,
-                Address = address.Address,
-                CustomerStateType = customer.CustomerState,
-                CustomerStatusType = customer.CustomerStatusType,
-                From = customer.DateCreated,
-                UpTo = DateTime.UtcNow,
-                BirthDayDate = customer.BirthDayDate,
-                IdCity = city.Id,
-                Gender = customer.Gender,
-                DateCreated = customer.DateCreated,
-                MoshtaryMoAref = customer.IdMoaref,
-                MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
-                IdUser = user.Id,
-                CityName = city.CityName
-            }).Where(x => x.CustomerStatusType == StatusType.Show && x.Name.ToLower().Contains(request.ToLower())
-                        || x.PhoneNumber.ToLower().Contains(request.ToLower())
-                        || x.EmailAddress.ToLower().Contains(request.ToLower())).ToListAsync();
-        
+                                         join phoneNumber in _context.CustomersPhoneNumbers on customer.Id equals phoneNumber.IdCustomer
+                                         join city in _context.Cities on customer.IdCity equals city.Id
+                                         join emailAddress in _context.CustomersEmailAddresses on customer.Id equals emailAddress.IdCustomer
+                                         join address in _context.CustomersAddresses on customer.Id equals address.IdCustomer
+                                         join user in _context.Users on customer.IdUser equals user.Id
+                                         select new CustomerResponse
+                                         {
+                                             IdCustomer = customer.Id,
+                                             Name = customer.FirstName + " " + customer.LastName,
+                                             PhoneNumber = phoneNumber.PhoneNo,
+                                             EmailAddress = emailAddress.CustomerEmailAddress,
+                                             Address = address.Address,
+                                             CustomerStateType = customer.CustomerState,
+                                             CustomerStatusType = customer.CustomerStatusType,
+                                             From = customer.DateCreated,
+                                             UpTo = DateTime.UtcNow,
+                                             BirthDayDate = customer.BirthDayDate,
+                                             IdCity = city.Id,
+                                             Gender = customer.Gender,
+                                             DateCreated = customer.DateCreated,
+                                             MoshtaryMoAref = customer.IdMoaref,
+                                             MoarefFullName = customer.IdMoarefNavigation.FirstName + " " + customer.IdMoarefNavigation.LastName,
+                                             IdUser = user.Id,
+                                             CityName = city.CityName
+                                         }).Where(x => x.CustomerStatusType == StatusType.Show && x.Name.ToLower().Contains(request.ToLower())
+                                                     || x.PhoneNumber.ToLower().Contains(request.ToLower())
+                                                     || x.EmailAddress.ToLower().Contains(request.ToLower())).ToListAsync();
+
         return new CustomerDashboardResponse
         {
             AllCustomersInfo = resultsListCustomer,

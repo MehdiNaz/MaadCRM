@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CustomerService.Commands;
+﻿namespace Application.Services.Customer.CustomerService.Commands;
 
 public struct DeleteCustomerCommand : IRequest<Result<CustomerResponse>>
 {
