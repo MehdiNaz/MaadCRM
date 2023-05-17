@@ -9,11 +9,11 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<User>>> GetAllUsersByBusinessIdAsync()
+    public async ValueTask<Result<ICollection<User>>> GetAllUsersByBusinessIdAsync(Ulid businessId)
     {
         try
         {
-            return (from user in _context.Users
+            return await (from user in _context.Users
                 join business in _context.Businesses on user.IdBusiness equals business.Id
                 select new User
                 {
@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
                     Name = user.Name,
                     Family = user.Family,
                     IdBusiness = business.Id
-                }).ToList();
+                }).ToListAsync();
         }
         catch (Exception e)
         {

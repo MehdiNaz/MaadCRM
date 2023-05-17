@@ -109,3 +109,5 @@ global using Microsoft.IdentityModel.Tokens;
 global using System.Globalization;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
+global using Application.Interfaces.IdentityUsers;
+global using Application.Services.UserService.Queries;

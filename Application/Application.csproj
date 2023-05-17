@@ -26,9 +26,11 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\IdentityUsers\" />
-      <Folder Include="Services\SpecialFields\CustomerAttribute\CommandHandlers\" />
-      <Folder Include="Services\SpecialFields\CustomerAttribute\Commands\" />
-      <Folder Include="Services\SpecialFields\CustomerAttribute\QueryHandlers\" />
-      <Folder Include="Services\SpecialFields\CustomerAttribute\Queries\" />
+      <Folder Include="Services\SpecialFields\CustomerAttributeService\QueryHandlers\" />
+      <Folder Include="Services\SpecialFields\CustomerAttributeService\Queries\" />
+      <Folder Include="Services\UserService\CommandHandlers\" />
+      <Folder Include="Services\UserService\Commands\" />
+      <Folder Include="Services\UserService\QueryHandlers\" />
+      <Folder Include="Services\UserService\Queries\" />
     </ItemGroup>
 </Project>
