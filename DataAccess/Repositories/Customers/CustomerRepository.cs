@@ -59,34 +59,30 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var resultCustomer = await _context.Customers
-                .FirstOrDefaultAsync(x => x.CustomerStatusType == StatusType.Show && x.Id == customerId && x.IdUser == userId)
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.Id == customerId && x.IdUser == userId)
                 .Select(x =>
-                {
-                    if (x != null)
-                        return new CustomerResponse
-                        {
-                            IdCustomer = x.Id,
-                            Name = x.FirstName + " " + x.LastName,
-                            FirstName = x.FirstName,
-                            LastName = x.LastName,
-                            PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
-                            EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
-                            Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
-                            CustomerStateType = x.CustomerState,
-                            CustomerStatusType = x.CustomerStatusType,
-                            From = x.DateCreated,
-                            UpTo = DateTime.UtcNow,
-                            BirthDayDate = x.BirthDayDate,
-                            IdCity = x.IdCity,
-                            CityName = x.IdCityNavigation?.CityName,
-                            Gender = x.Gender,
-                            DateCreated = x.DateCreated,
-                            MoshtaryMoAref = x.IdMoaref,
-                            MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
-                            IdUser = x.IdUser,
-                        };
-                    return default;
-                });
+                    new CustomerResponse
+                    {
+                        IdCustomer = x.Id,
+                        Name = x.FirstName + " " + x.LastName,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
+                        EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
+                        Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
+                        CustomerStateType = x.CustomerState,
+                        CustomerStatusType = x.CustomerStatusType,
+                        From = x.DateCreated,
+                        UpTo = DateTime.UtcNow,
+                        BirthDayDate = x.BirthDayDate,
+                        IdCity = x.IdCity,
+                        CityName = x.IdCityNavigation!.CityName,
+                        Gender = x.Gender,
+                        DateCreated = x.DateCreated,
+                        MoshtaryMoAref = x.IdMoaref,
+                        MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
+                        IdUser = x.IdUser,
+                    }).FirstOrDefaultAsync();
 
             return new Result<CustomerResponse>(resultCustomer);
         }
