@@ -9,29 +9,30 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<UserResponse>>> GetAllUsersByBusinessIdAsync(Ulid businessId)
+    public async ValueTask<Result<ICollection<UserResponse>>> GetAllUsersByBusinessIdAsync(Ulid idBusiness)
     {
         try
         {
-            return await (from user in _context.Users
-                join business in _context.Businesses on user.IdBusiness equals business.Id
-                select new UserResponse
+            return await _context.Users
+                .Where(x => x.IdBusiness == idBusiness)
+                .Select(x => new UserResponse
                 {
-                    UserId = user.Id,
-                    Name = user.Name,
-                    Family = user.Family,
-                    IdBusiness = business.Id,
-                    Gender = user.Gender,
-                    BusinessName = business.BusinessName,
-                    CodeMelli = user.CodeMelli,
-                    Address = user.Address,
-                    CreatedOn = user.CreatedOn,
-                    DateOfBirth = user.DateOfBirth,
-                    Flag = user.Flag,
-                    Married = user.Married,
-                    LastIp = user.LastIp,
-                    LastLogin = user.LastLogin
-                }).ToListAsync();
+                    UserId = x.Id,
+                    Name = x.Name,
+                    Family = x.Family,
+                    IdBusiness = x.IdBusiness,
+                    Gender = x.Gender,
+                    BusinessName = x.IdBusinessNavigation.BusinessName,
+                    CodeMelli = x.CodeMelli,
+                    Address = x.Address,
+                    CreatedOn = x.CreatedOn,
+                    DateOfBirth = x.DateOfBirth,
+                    Flag = x.Flag,
+                    Married = x.Married,
+                    LastIp = x.LastIp,
+                    LastLogin = x.LastLogin
+                })
+                .ToListAsync();
         }
         catch (Exception e)
         {
