@@ -54,13 +54,12 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId)
+    public async ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId, string userId)
     {
         try
         {
-            // TODO: should get user id from token and only get customers that belong to that user
             var resultCustomer = await _context.Customers
-                .FirstOrDefaultAsync(x => x.CustomerStatusType == StatusType.Show && x.Id == customerId)
+                .FirstOrDefaultAsync(x => x.CustomerStatusType == StatusType.Show && x.Id == customerId && x.IdUser == userId)
                 .Select(x =>
                 {
                     if (x != null)
@@ -68,6 +67,8 @@ public class CustomerRepository : ICustomerRepository
                         {
                             IdCustomer = x.Id,
                             Name = x.FirstName + " " + x.LastName,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
                             PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
                             EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
                             Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
@@ -275,11 +276,11 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = await _context.Customers
-            .Where(x => 
-                x.CustomerStatusType == StatusType.Show && 
-                        (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) && 
-                             x.IdUser == userId || 
-                             x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) || 
+            .Where(x =>
+                x.CustomerStatusType == StatusType.Show &&
+                        (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) &&
+                             x.IdUser == userId ||
+                             x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) ||
                              x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress.ToLower().Contains(request.ToLower()))
             .Select(x => new CustomerResponse
             {
@@ -324,37 +325,8 @@ public class CustomerRepository : ICustomerRepository
             if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerStatusType = request.CustomerStatusType;
             await _context.SaveChangesAsync();
-            
-            // TODO: call customer by id
-            return new Result<CustomerResponse>(
-                await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
-                    .FirstOrDefaultAsync(x => x.Id == request.CustomerId)
-                    .Select(x => new CustomerResponse
-                    {
-                        BirthDayDate = x.BirthDayDate,
-                        IdCustomer = x.Id,
-                        From = x.DateCreated,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
-                        Name = x.FirstName + " " + x.LastName,
-                        MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
-                        IdCity = x.IdCity,
-                        Gender = x.Gender,
-                        CityName = x.IdCityNavigation?.CityName,
-                        MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                    }));
+
+            return await GetCustomerByIdAsync(request.CustomerId, request.UserId);
         }
         catch (Exception e)
         {
@@ -370,37 +342,8 @@ public class CustomerRepository : ICustomerRepository
             if (item is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerState = request.CustomerStateType;
             await _context.SaveChangesAsync();
-            
-            // TODO: call customer by id
-            return new Result<CustomerResponse>(
-                await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
-                    .FirstOrDefaultAsync(x => x.Id == request.CustomerId)
-                    .Select(x => new CustomerResponse
-                    {
-                        BirthDayDate = x.BirthDayDate,
-                        IdCustomer = x.Id,
-                        From = x.DateCreated,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses.FirstOrDefault().CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers.FirstOrDefault().PhoneNo,
-                        Name = x.FirstName + " " + x.LastName,
-                        MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses.FirstOrDefault().Address,
-                        IdCity = x.IdCity,
-                        Gender = x.Gender,
-                        CityName = x.IdCityNavigation?.CityName,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                    }));
+
+            return await GetCustomerByIdAsync(request.CustomerId, request.UserId);
         }
         catch (Exception e)
         {
@@ -663,12 +606,12 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<CustomerResponse>> DeleteCustomerAsync(Ulid customerId)
+    public async ValueTask<string> DeleteCustomerAsync(Ulid customerId)
     {
         try
         {
             var customer = await _context.Customers.FindAsync(customerId);
-            customer!.CustomerStatusType = StatusType.Deleted;
+            customer.CustomerStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
 
             CreateLogCommand command = new()
@@ -689,41 +632,11 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            
-            // TODO: call customer by id
-            return new Result<CustomerResponse>(
-                await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
-                    .FirstOrDefaultAsync(x => x.Id == customerId)
-                    .Select(x => new CustomerResponse
-                    {
-                        BirthDayDate = x.BirthDayDate,
-                        IdCustomer = x.Id,
-                        From = x.DateCreated,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
-                        Name = x.FirstName + " " + x.LastName,
-                        MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
-                        IdCity = x.IdCity,
-                        Gender = x.Gender,
-                        CityName = x.IdCityNavigation?.CityName,
-                        MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                    }));
+            return "Customer Deleted.";
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new ValidationException(e.Message));
+            return e.Message;
         }
     }
 }

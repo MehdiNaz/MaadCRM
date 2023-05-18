@@ -125,15 +125,19 @@ public static class CustomerRoute
                 });
 
                 return id.Result.Match(
-                    _ =>
+                    UserId =>
                     {
-                        var result = mediator.Send(new CustomerByIdQuery { CustomerId = customerId });
+                        var result = mediator.Send(new CustomerByIdQuery
+                        {
+                            CustomerId = customerId,
+                            UserId = UserId
+                        });
 
                         return result.Result.Match(
                             succes => Results.Ok(new
                             {
                                 Valid = true,
-                                Message = "Get All Customers By Search Item.",
+                                Message = "Get All Customers By Id.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse
@@ -170,12 +174,13 @@ public static class CustomerRoute
                     });
 
                     return id.Result.Match(
-                        _ =>
+                        UserId =>
                         {
                             var result = mediator.Send(new ChangeStatusCustomerCommand
                             {
                                 CustomerStatusType = request.CustomerStatusType,
-                                CustomerId = request.CustomerId
+                                CustomerId = request.CustomerId,
+                                UserId = UserId
                             });
 
                             return result.Result.Match(
@@ -218,12 +223,13 @@ public static class CustomerRoute
                     });
 
                     return id.Result.Match(
-                        _ =>
+                        UserId =>
                         {
                             var result = mediator.Send(new ChangeStateCustomerCommand
                             {
                                 CustomerStateType = request.CustomerStateType,
-                                CustomerId = request.CustomerId
+                                CustomerId = request.CustomerId,
+                                UserId = UserId
                             });
 
                             return result.Result.Match(
@@ -394,21 +400,14 @@ public static class CustomerRoute
                     {
                         var result = mediator.Send(new DeleteCustomerCommand
                         {
-                            CustomerId = customerId,
-                            UserId = userId
+                            CustomerId = customerId
                         });
-                        return result.Result.Match(
-                            succes => Results.Ok(new
-                            {
-                                Valid = true,
-                                Message = "Customer Deleted.",
-                                Data = succes
-                            }),
-                            error => Results.BadRequest(new ErrorResponse
-                            {
-                                Valid = false,
-                                Exceptions = error
-                            }));
+                        return Results.Ok(new
+                        {
+                            Valid = true,
+                            Message = "Customer Deleted.",
+                            Data = result.Result
+                        });
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {

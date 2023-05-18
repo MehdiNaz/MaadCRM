@@ -1,6 +1,4 @@
-﻿using Application.Services.Customer.CustomerService.Query;
-
-namespace Application.Services.Customer.CustomerService.QueryHandler;
+﻿namespace Application.Services.Customer.CustomerService.QueryHandler;
 
 public readonly struct CustomerDashBourdHandler : IRequestHandler<CustomerDashBourdQuery, Result<CustomerDashboardResponse>>
 {

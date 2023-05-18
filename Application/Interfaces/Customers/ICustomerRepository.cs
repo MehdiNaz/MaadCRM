@@ -1,12 +1,9 @@
-﻿using Application.Services.Customer.CustomerService.Commands;
-using Application.Services.Customer.CustomerService.Query;
-
-namespace Application.Interfaces.Customers;
+﻿namespace Application.Interfaces.Customers;
 
 public interface ICustomerRepository
 {
     ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId);
-    ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId);
+    ValueTask<Result<CustomerResponse>> GetCustomerByIdAsync(Ulid customerId, string userId);
     ValueTask<Result<int>> ShowBelghovehCustomersCountAsync();
     ValueTask<Result<int>> ShowBelFelCustomersCountAsync();
     ValueTask<Result<int>> ShowRazyCustomersCountAsync();
@@ -15,10 +12,10 @@ public interface ICustomerRepository
     ValueTask<Result<int>> ShowVafadarCustomersCountAsync();
     ValueTask<Result<int>> ShowAllCustomersCountAsync();
     ValueTask<Result<CustomerDashboardResponse>> FilterByItemsAsync(CustomerByFilterItemsQuery request);
-    ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request,string userId);
+    ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId);
     ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request);
     ValueTask<Result<CustomerResponse>> ChangeStateCustomerByIdAsync(ChangeStateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> CreateCustomerAsync(CreateCustomerCommand request);
     ValueTask<Result<CustomerResponse>> UpdateCustomerAsync(UpdateCustomerCommand request);
-    ValueTask<Result<CustomerResponse>> DeleteCustomerAsync(Ulid customerId);
+    ValueTask<string> DeleteCustomerAsync(Ulid customerId);
 }

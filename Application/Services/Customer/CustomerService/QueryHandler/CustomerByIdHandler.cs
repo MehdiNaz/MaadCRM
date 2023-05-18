@@ -1,6 +1,4 @@
-﻿using Application.Services.Customer.CustomerService.Query;
-
-namespace Application.Services.Customer.CustomerService.QueryHandler;
+﻿namespace Application.Services.Customer.CustomerService.QueryHandler;
 
 public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, Result<CustomerResponse>>
 {
@@ -15,7 +13,7 @@ public readonly struct CustomerByIdHandler : IRequestHandler<CustomerByIdQuery, 
     {
         try
         {
-            return (await _repository.GetCustomerByIdAsync(request.CustomerId))
+            return (await _repository.GetCustomerByIdAsync(request.CustomerId, request.UserId))
                 .Match(result => new Result<CustomerResponse>(result),
                     exception => new Result<CustomerResponse>(exception));
         }

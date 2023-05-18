@@ -3,5 +3,6 @@
 public struct ChangeStateCustomerCommand : IRequest<Result<CustomerResponse>>
 {
     public Ulid CustomerId { get; set; }
+    public string UserId { get; set; }
     public CustomerStateTypes CustomerStateType { get; set; }
 }

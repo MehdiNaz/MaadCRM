@@ -1,8 +1,6 @@
-﻿using Application.Services.Customer.CustomerService.Commands;
+﻿namespace Application.Services.Customer.CustomerService.CommandHandler;
 
-namespace Application.Services.Customer.CustomerService.CommandHandler;
-
-public readonly struct DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, Result<CustomerResponse>>
+public readonly struct DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, string>
 {
     private readonly ICustomerRepository _repository;
 
@@ -11,15 +9,15 @@ public readonly struct DeleteCustomerCommandHandler : IRequestHandler<DeleteCust
         _repository = repository;
     }
 
-    public async Task<Result<CustomerResponse>> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.DeleteCustomerAsync(request.CustomerId)).Match(result => new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
+            return await _repository.DeleteCustomerAsync(request.CustomerId);
         }
         catch (Exception e)
         {
-            return new Result<CustomerResponse>(new Exception(e.Message));
+            return e.Message;
         }
     }
 }
