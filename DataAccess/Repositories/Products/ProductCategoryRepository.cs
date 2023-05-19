@@ -36,8 +36,8 @@ public class ProductCategoryRepository : IProductCategoryRepository
         try
         {
             return await _context.ProductCategories.FirstOrDefaultAsync(x => x.Id == productCategoryId
-                                                                             && x.BusinessId == businessId
-                                                                             && x.ProductCategoryStatusType == StatusType.Show)
+                && x.BusinessId == businessId
+                && x.ProductCategoryStatusType == StatusType.Show)
                 .Select(x => new ProductCategoryResponse
                 {
                     Id = x.Id,
@@ -54,7 +54,8 @@ public class ProductCategoryRepository : IProductCategoryRepository
     {
         try
         {
-            return await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower()) && x.ProductCategoryStatusType == StatusType.Show).ToListAsync();
+            return await _context.ProductCategories.Where(x => x.Description.ToLower().Contains(request.ToLower())
+                                                 || x.ProductCategoryStatusType == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -161,17 +162,15 @@ public class ProductCategoryRepository : IProductCategoryRepository
 
             await _log.InsertAsync(command);
 
-            if (await _context.SaveChangesAsync() != 0)
-            {
-                return await _context.ProductCategories
-                    .FirstOrDefaultAsync(x => x.ProductCategoryName == request.ProductCategoryName)
-                    .Select(x => new ProductCategoryResponse
-                    {
-                        Id = x.Id,
-                        Name = x.ProductCategoryName
-                    });
-            }
-            return new Result<ProductCategoryResponse>(new ValidationException("Error"));
+            await _context.SaveChangesAsync();
+            return await _context.ProductCategories
+                .FirstOrDefaultAsync(x => x.ProductCategoryName == request.ProductCategoryName)
+                .Select(x => new ProductCategoryResponse
+                {
+                    Id = x.Id,
+                    Name = x.ProductCategoryName
+                });
+            // return new Result<ProductCategoryResponse>(new ValidationException("Error"));
         }
         catch (Exception e)
         {

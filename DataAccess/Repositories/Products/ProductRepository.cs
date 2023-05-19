@@ -158,12 +158,12 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var item = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show);
-            item.StatusPublish = request.Status;
+            var item = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id);
+            item.StatusTypeProduct = request.Status;
             await _context.SaveChangesAsync();
             return await _context.Products
                 .Include(x => x.ProductCategory)
-                .FirstOrDefaultAsync(x => x.Id == request.Id && x.StatusTypeProduct == StatusType.Show)
+                .FirstOrDefaultAsync(x => x.Id == request.Id)
                 .Select(x => new ProductResponse
                 {
                     IdProduct = x.Id,
@@ -206,7 +206,6 @@ public class ProductRepository : IProductRepository
 
             await _context.Products.AddAsync(item);
             await _context.SaveChangesAsync();
-
 
             CreateLogCommand command = new()
             {

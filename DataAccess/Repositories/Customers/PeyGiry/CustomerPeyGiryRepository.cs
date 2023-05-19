@@ -16,12 +16,14 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             return await _context.CustomerPeyGiries
+                .Include(x=>x.IdPeyGiryCategoryNavigation)
                 .Where(x => x.Status == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
                     IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
-                    DateCreated = x.DateCreated
+                    DateCreated = x.DateCreated,
+                    CategoryName = x.IdPeyGiryCategoryNavigation.Kind
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -34,12 +36,15 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
     {
         try
         {
-            return await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
+            return await _context.CustomerPeyGiries
+                .Include(x=>x.IdPeyGiryCategoryNavigation)
+                .SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
                 .Select(x => new CustomerPeyGiryResponse
                 {
                     IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
-                    DateCreated = x.DateCreated
+                    DateCreated = x.DateCreated,
+                    CategoryName = x.IdPeyGiryCategoryNavigation.Kind
                 });
         }
         catch (Exception e)
