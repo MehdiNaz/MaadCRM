@@ -87,22 +87,27 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            return (await _context.Contacts
-                .Include(x => x.ContactsEmailAddresses)
-                .Include(x => x.ContactPhoneNumbers)
-                .Include(x => x.ContactGroup)
-                .Where(x => x.ContactStatusType == StatusType.Show
-                 || x.ContactPhoneNumbers.FirstOrDefault().PhoneNo.Contains(q))
+            // TODO: add IdUser to search condition x.IdUser == userId
+            return new Result<ICollection<ContactsResponse>>(await _context.Contacts
+                // .Include(x => x.ContactsEmailAddresses)
+                // .Include(x => x.ContactPhoneNumbers)
+                // .Include(x => x.ContactGroup)
+                .Where(x => x.ContactStatusType == StatusType.Show &&
+                            x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.Contains(q) ||
+                            (x.FirstName + " " + x.LastName).ToLower().Contains(q.ToLower()) &&
+                            x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(q.ToLower()) ||
+                            x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress.ToLower()
+                                .Contains(q.ToLower()))
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
-                }).ToListAsync()).Where(x=>x.FullName.Contains(q)).ToList();
+                }).ToListAsync());
         }
         catch (Exception e)
         {
