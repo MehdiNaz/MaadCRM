@@ -13,7 +13,7 @@ public readonly struct CustomerFeedbackBySearchItemHandler : IRequestHandler<Cus
     {
         try
         {
-            return (await _repository.SearchByItemsAsync(request.Q))
+            return (await _repository.SearchByItemsAsync(request.Q, request.UserId))
                 .Match(result => new Result<ICollection<CustomerFeedbackResponse>>(result),
                 exception => new Result<ICollection<CustomerFeedbackResponse>>(exception));
         }

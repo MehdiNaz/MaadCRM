@@ -66,14 +66,15 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> SearchByItemsAsync(string request)
+    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> SearchByItemsAsync(string request, string userId)
     {
         try
         {
             return new Result<ICollection<CustomerFeedbackResponse>>
             (await _context.CustomerFeedbacks
                 .Include(x => x.IdUserNavigation)
-                .Where(x => x.Description.Contains(request))
+                .Where(x => x.IdUserAdded == userId)
+                .Where(x => x.Description.ToLower().Contains(request.ToLower()))
                 .Select(x => new CustomerFeedbackResponse
                 {
                     Id = x.Id,
@@ -82,8 +83,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                     IdCustomer = x.IdCustomer,
                     IdCategory = x.IdCategory,
                     IdProduct = x.IdProduct,
-                    IdUserAdded = x.IdUser,
-                    IdUserUpdated = x.IdUser,
+                    IdUserAdded = x.IdUserNavigation.Id,
                     IdUser = x.IdUser,
                     UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
                 }).ToListAsync());

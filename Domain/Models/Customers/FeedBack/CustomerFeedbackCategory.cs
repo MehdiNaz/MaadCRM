@@ -13,7 +13,7 @@ public class CustomerFeedbackCategory : BaseEntityWithUserUpdate
     public required string Name { get; set; }
     public FeedbackType TypeFeedback { get; set; }
     public bool PositiveNegative { get; set; }
-    public StatusType CustomerFeedbackCategoryStatusType { get; set; }
+    public StatusType CustomerFeedbackCategoryStatusType { get; set; } 
 
     public Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }

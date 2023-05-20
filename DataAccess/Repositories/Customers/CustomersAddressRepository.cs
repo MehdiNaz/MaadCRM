@@ -65,7 +65,6 @@ public class CustomersAddressRepository : ICustomersAddressRepository
             item.CodePost = request.CodePost;
             item.PhoneNo = request.PhoneNo;
             item.Description = request.Description;
-            _context.Update(item);
             await _context.SaveChangesAsync();
             return item;
         }

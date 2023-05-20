@@ -11,7 +11,7 @@ public sealed class CustomerFeedbackAttachment : BaseEntity
     public Ulid Id { get; set; }
     public required string Name { get; set; }
     public required byte[] FileName { get; set; }
-    public string Extenstion { get; set; }
+    public required string Extenstion { get; set; }
     public StatusType CustomerFeedbackAttachmentStatusType { get; set; }
     
     public Ulid IdCustomerFeedback { get; set; }
