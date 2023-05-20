@@ -4,9 +4,9 @@ public static class PaymentRoute
 {
     public static void MapPaymentRoute(this IEndpointRouteBuilder app)
     {
-        var plan = app.MapGroup("v1/Payment").EnableOpenApiWithAuthentication().WithOpenApi();
+        var payment = app.MapGroup("v1/Payment").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllPayments", (IMediator mediator, HttpContext httpContext) =>
+        payment.MapGet("/AllPayments", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -51,7 +51,7 @@ public static class PaymentRoute
             }
         });
 
-        plan.MapGet("/ById/{paymentId}", (Ulid paymentId, IMediator mediator, HttpContext httpContext) =>
+        payment.MapGet("/ById/{paymentId}", (Ulid paymentId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -96,7 +96,7 @@ public static class PaymentRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusPaymentCommand request, IMediator mediator, HttpContext httpContext) =>
+        payment.MapPost("/ChangeStatus", ([FromBody] ChangeStatusPaymentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -144,7 +144,7 @@ public static class PaymentRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreatePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
+        payment.MapPost("/Insert", ([FromBody] CreatePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -192,7 +192,7 @@ public static class PaymentRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdatePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
+        payment.MapPut("/Update", ([FromBody] UpdatePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -240,7 +240,7 @@ public static class PaymentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{paymentId}", (Ulid paymentId, IMediator mediator, HttpContext httpContext) =>
+        payment.MapDelete("/Delete/{paymentId}", (Ulid paymentId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -262,6 +262,69 @@ public static class PaymentRoute
                             {
                                 Valid = true,
                                 Message = "Payment Deleted.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = error
+                            }));
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (ArgumentException e)
+            {
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
+            }
+        });
+
+        payment.MapPost("/SavePayment", ([FromBody] SavePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    userId =>
+                    {
+                        var result = mediator.Send(new SavePaymentCommand
+                        {
+                            IdFactor = request.IdFactor,
+                            Amount = request.Amount,
+                            AmountTax = request.AmountTax,
+                            AmountTotal = request.AmountTotal,
+                            PaymentMethod = request.PaymentMethod,
+                            ShippingMethodType = request.ShippingMethodType,
+                            TedadeAghsat = request.TedadeAghsat,
+                            BazeyeZamany = request.BazeyeZamany,
+                            DarSadeSoud = request.DarSadeSoud,
+                            PishPardakht = request.PishPardakht,
+                            MablagheKoleSoud = request.MablagheKoleSoud,
+                            ShoroAghsat = request.ShoroAghsat,
+                            PaymentAmount = request.PaymentAmount,
+                            DatePay = request.DatePay,
+                            CustomerId = request.CustomerId,
+                            CustomersAddressId = request.CustomersAddressId,
+                            UserIdAdded = userId,
+                            UserIdUpdated = userId
+                        });
+                        return result.Result.Match(
+                            succes => Results.Ok(new
+                            {
+                                Valid = true,
+                                Message = "New Payment Saved.",
                                 Data = succes
                             }),
                             error => Results.BadRequest(new ErrorResponse

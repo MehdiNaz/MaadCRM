@@ -8,4 +8,5 @@ public interface IPaymentRepository
     ValueTask<Result<Payment>> CreatePaymentAsync(CreatePaymentCommand request);
     ValueTask<Result<Payment>> UpdatePaymentAsync(UpdatePaymentCommand request);
     ValueTask<Result<Payment>> DeletePaymentAsync(Ulid paymentId);
+    ValueTask<Result<SavePaymentResponse>> SavePaymentsAsync(SavePaymentCommand request);
 }

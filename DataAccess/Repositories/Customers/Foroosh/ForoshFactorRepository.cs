@@ -125,60 +125,60 @@ public class ForooshFactorRepository : IForooshFactorRepository
                 DatePayed = DateTime.UtcNow
             };
 
-            if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
-            {
-                item.TedadeAghsat = request.TedadeAghsat;
-                item.BazeyeZamany = request.BazeyeZamany;
-                item.DarSadeSoud = request.DarSadeSoud;
-                item.PishPardakht = request.PishPardakht;
-                item.MablagheKoleSoud = request.MablagheKoleSoud;
-                item.ShoroAghsat = request.ShoroAghsat;
-            }
+            // if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
+            // {
+            //     item.TedadeAghsat = request.TedadeAghsat;
+            //     item.BazeyeZamany = request.BazeyeZamany;
+            //     item.DarSadeSoud = request.DarSadeSoud;
+            //     item.PishPardakht = request.PishPardakht;
+            //     item.MablagheKoleSoud = request.MablagheKoleSoud;
+            //     item.ShoroAghsat = request.ShoroAghsat;
+            // }
 
             await _context.ForooshFactors.AddAsync(item);
             await _context.SaveChangesAsync();
 
-            if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
-            {
-                Payment payment = new()
-                {
-                    PaymentAmount = request.PishPardakht.Value,
-                    IdForooshFactor = item.Id,
-                    DatePay = DateTime.UtcNow
-                };
-
-                await _context.Payments.AddAsync(payment);
-
-                var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
-                                    request.TedadeAghsat;
-                var paymentDate = request.ShoroAghsat;
-                // ToDo : Payment
-                for (var i = 0; i < request.TedadeAghsat; i++)
-                {
-                    payment = new Payment
-                    {
-                        PaymentAmount = paymentAmount.Value,
-                        IdForooshFactor = item.Id,
-                        DatePay = paymentDate.Value
-                    };
-                    await _context.Payments.AddAsync(payment);
-
-                    paymentDate = paymentDate.Value.AddDays(request.BazeyeZamany.Value);
-                }
-            }
-            else
-            {
-                Payment payment = new()
-                {
-                    PaymentAmount = request.AmountTotal,
-                    IdForooshFactor = item.Id,
-                    DatePay = DateTime.UtcNow
-                };
-
-                await _context.Payments.AddAsync(payment);
-            }
-
-            await _context.SaveChangesAsync();
+            // if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
+            // {
+            //     Payment payment = new()
+            //     {
+            //         PaymentAmount = request.PishPardakht.Value,
+            //         IdForooshFactor = item.Id,
+            //         DatePay = DateTime.UtcNow
+            //     };
+            //
+            //     await _context.Payments.AddAsync(payment);
+            //
+            //     var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
+            //                         request.TedadeAghsat;
+            //     var paymentDate = request.ShoroAghsat;
+            //     // ToDo : Payment
+            //     for (var i = 0; i < request.TedadeAghsat; i++)
+            //     {
+            //         payment = new Payment
+            //         {
+            //             PaymentAmount = paymentAmount.Value,
+            //             IdForooshFactor = item.Id,
+            //             DatePay = paymentDate.Value
+            //         };
+            //         await _context.Payments.AddAsync(payment);
+            //
+            //         paymentDate = paymentDate.Value.AddDays(request.BazeyeZamany.Value);
+            //     }
+            // }
+            // else
+            // {
+            //     Payment payment = new()
+            //     {
+            //         PaymentAmount = request.AmountTotal,
+            //         IdForooshFactor = item.Id,
+            //         DatePay = DateTime.UtcNow
+            //     };
+            //
+            //     await _context.Payments.AddAsync(payment);
+            // }
+            //
+            // await _context.SaveChangesAsync();
 
             CreateLogCommand command = new()
             {
