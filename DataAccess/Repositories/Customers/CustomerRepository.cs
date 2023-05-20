@@ -17,13 +17,6 @@ public class CustomerRepository : ICustomerRepository
         {
             return new Result<ICollection<CustomerResponse>>(
                 await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .ThenInclude(x => x.IdProvinceNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
                     .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
                     .Select(x => new CustomerResponse
                     {
@@ -38,13 +31,14 @@ public class CustomerRepository : ICustomerRepository
                         MoshtaryMoAref = x.IdMoaref,
                         Address = x.CustomerAddresses.FirstOrDefault().Address,
                         IdCity = x.IdCity,
+                        CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
+                        IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
+                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
                         Gender = x.Gender,
-                        CityName = x.IdCityNavigation.CityName,
                         MoarefFullName = x.IdMoarefNavigation.FirstName + " " + x.IdMoarefNavigation.LastName,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
                         MoarefPhoneNumber = x.IdMoarefNavigation.PhoneNumbers.FirstOrDefault().PhoneNo,
-                        IdProvince = x.IdCityNavigation.IdProvinceNavigation.Id,
                         ProductName = x.IdCityNavigation.IdProvinceNavigation.ProvinceName
                     }).ToListAsync());
         }
@@ -76,7 +70,9 @@ public class CustomerRepository : ICustomerRepository
                         UpTo = DateTime.UtcNow,
                         BirthDayDate = x.BirthDayDate,
                         IdCity = x.IdCity,
-                        CityName = x.IdCityNavigation!.CityName,
+                        CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
+                        IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
+                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
                         Gender = x.Gender,
                         DateCreated = x.DateCreated,
                         MoshtaryMoAref = x.IdMoaref,
@@ -293,7 +289,9 @@ public class CustomerRepository : ICustomerRepository
                 UpTo = DateTime.UtcNow,
                 BirthDayDate = x.BirthDayDate,
                 IdCity = x.IdCity,
-                CityName = x.IdCityNavigation!.CityName,
+                CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
+                IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
+                ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
                 Gender = x.Gender,
                 DateCreated = x.DateCreated,
                 MoshtaryMoAref = x.IdMoaref,
@@ -378,7 +376,7 @@ public class CustomerRepository : ICustomerRepository
             if (result == 0) return new Result<CustomerResponse>(new ValidationException());
 
             if (request.PhoneNumbers != null)
-                foreach (string PhoneNumbers in request.PhoneNumbers)
+                foreach (var PhoneNumbers in request.PhoneNumbers)
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
@@ -391,7 +389,7 @@ public class CustomerRepository : ICustomerRepository
                 }
 
             if (request.CustomersAddresses != null)
-                foreach (string address in request.CustomersAddresses)
+                foreach (var address in request.CustomersAddresses)
                 {
                     CustomerAddress newAddress = new()
                     {
@@ -403,7 +401,7 @@ public class CustomerRepository : ICustomerRepository
                 }
 
             if (request.CustomerPeyGiries != null)
-                foreach (string peyGiry in request.CustomerPeyGiries)
+                foreach (var peyGiry in request.CustomerPeyGiries)
                 {
                     CustomerPeyGiry newPeyGiry = new()
                     {
@@ -415,7 +413,7 @@ public class CustomerRepository : ICustomerRepository
                 }
 
             if (request.CustomerNotes != null)
-                foreach (string note in request.CustomerNotes)
+                foreach (var note in request.CustomerNotes)
                 {
                     CustomerNote newNote = new()
                     {
@@ -475,13 +473,6 @@ public class CustomerRepository : ICustomerRepository
             // TODO: call customer by id
             return new Result<CustomerResponse>(
                 await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
-                    .FirstOrDefaultAsync(x => x.Id == entityEntry.Id && x.CustomerStatusType == StatusType.Show)
                     .Select(x => new CustomerResponse
                     {
                         BirthDayDate = x.BirthDayDate,
@@ -489,19 +480,21 @@ public class CustomerRepository : ICustomerRepository
                         From = x.DateCreated,
                         CustomerStateType = x.CustomerState,
                         CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
+                        EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
+                        PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
                         Name = x.FirstName + " " + x.LastName,
                         MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
+                        Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
                         IdCity = x.IdCity,
                         Gender = x.Gender,
-                        CityName = x.IdCityNavigation?.CityName,
-                        MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
+                        CityName = x.IdCityNavigation!.CityName,
+                        MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                    }));
+                        MoarefPhoneNumber = x.IdMoarefNavigation!.PhoneNumbers!.FirstOrDefault()!.PhoneNo
+                    })
+                    .FirstOrDefaultAsync(x => x.IdCustomer == entityEntry.Id && x.CustomerStatusType == StatusType.Show)
+                );
         }
         catch (Exception e)
         {
@@ -568,35 +561,34 @@ public class CustomerRepository : ICustomerRepository
             await _log.InsertAsync(command);
 
             // TODO: call customer by id
-            return new Result<CustomerResponse>(
-                await _context.Customers
-                    .Include(x => x.PhoneNumbers)
-                    .Include(x => x.EmailAddresses)
-                    .Include(x => x.CustomerAddresses)
-                    .Include(x => x.IdCityNavigation)
-                    .Include(x => x.IdMoarefNavigation)
-                    .ThenInclude(x => x.PhoneNumbers)
-                    .FirstOrDefaultAsync(x => x.Id == request.Id)
-                    .Select(x => new CustomerResponse
+            var resultCustomer = await _context.Customers
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.Id == request.Id)
+                .Select(x =>
+                    new CustomerResponse
                     {
-                        BirthDayDate = x.BirthDayDate,
                         IdCustomer = x.Id,
-                        From = x.DateCreated,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses?.FirstOrDefault()?.CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers?.FirstOrDefault()?.PhoneNo,
                         Name = x.FirstName + " " + x.LastName,
-                        MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses?.FirstOrDefault()?.Address,
-                        IdCity = x.IdCity,
-                        Gender = x.Gender,
-                        CityName = x.IdCityNavigation?.CityName,
-                        MoarefFullName = x.IdMoarefNavigation?.FirstName + " " + x.IdMoarefNavigation?.LastName,
                         FirstName = x.FirstName,
                         LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation?.PhoneNumbers?.FirstOrDefault()?.PhoneNo
-                    }));
+                        PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
+                        EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
+                        Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
+                        CustomerStateType = x.CustomerState,
+                        CustomerStatusType = x.CustomerStatusType,
+                        From = x.DateCreated,
+                        UpTo = DateTime.UtcNow,
+                        BirthDayDate = x.BirthDayDate,
+                        IdCity = x.IdCity,
+                        CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
+                        IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
+                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
+                        Gender = x.Gender,
+                        DateCreated = x.DateCreated,
+                        MoshtaryMoAref = x.IdMoaref,
+                        MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
+                        IdUser = x.IdUser,
+                    }).FirstOrDefaultAsync();
+            return new Result<CustomerResponse>(resultCustomer);
         }
         catch (Exception e)
         {
@@ -609,6 +601,9 @@ public class CustomerRepository : ICustomerRepository
         try
         {
             var customer = await _context.Customers.FindAsync(customerId);
+            if (customer == null)
+                return "Error.";
+            
             customer.CustomerStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
 

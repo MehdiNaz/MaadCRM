@@ -5,6 +5,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
     private readonly MaadContext _context;
     private readonly ILogRepository _log;
 
+    // TODO: user id should be passed
     public ForooshFactorRepository(MaadContext context, ILogRepository log)
     {
         _context = context;
@@ -15,7 +16,10 @@ public class ForooshFactorRepository : IForooshFactorRepository
     {
         try
         {
-            return await _context.ForooshFactors.Where(x => x.StatusTypeForooshFactor == StatusType.Show).OrderBy(x => x.DatePayed).ToListAsync();
+            return new Result<ICollection<ForooshFactor>>(await _context.ForooshFactors
+                .Where(x => x.StatusTypeForooshFactor == StatusType.Show)
+                .OrderBy(x => x.DatePayed)
+                .ToListAsync());
         }
         catch (Exception e)
         {
@@ -27,7 +31,9 @@ public class ForooshFactorRepository : IForooshFactorRepository
     {
         try
         {
-            return await _context.ForooshFactors.OrderBy(x => x.DatePayed).SingleOrDefaultAsync(x => x.Id == ForooshFactorId && x.StatusTypeForooshFactor == StatusType.Show);
+            return new Result<ForooshFactor>(await _context.ForooshFactors
+                .OrderBy(x => x.DatePayed)
+                .SingleOrDefaultAsync(x => x.Id == ForooshFactorId && x.StatusTypeForooshFactor == StatusType.Show));
         }
         catch (Exception e)
         {
