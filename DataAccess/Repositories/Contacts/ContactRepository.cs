@@ -2,8 +2,8 @@
 
 public class ContactRepository : IContactRepository
 {
+    // TODO: Return only contact that business id  is from this user
     private readonly MaadContext _context;
-
     public ContactRepository(MaadContext context)
     {
         _context = context;
@@ -13,7 +13,8 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            return new Result<ICollection<ContactsResponse>>(await _context.Contacts.Where(x => x.ContactStatusType == StatusType.Show)
+            return new Result<ICollection<ContactsResponse>>(await _context.Contacts
+                .Where(x => x.ContactStatusType == StatusType.Show)
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactGroup)
                 .Select(x => new ContactsResponse
@@ -21,8 +22,8 @@ public class ContactRepository : IContactRepository
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 }).ToListAsync());
@@ -37,21 +38,21 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            return await _context.Contacts
+            return new Result<ContactsResponse>(await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
-                .FirstOrDefaultAsync(x => x.Id == contactId && x.ContactStatusType == StatusType.Show)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
-                    ContactGroupName = x.ContactGroup.GroupName
-                });
+                    ContactGroupName = x.ContactGroup.GroupName,
+                    Status = x.ContactStatusType
+                }).FirstOrDefaultAsync(x => x.IdContact == contactId && x.Status == StatusType.Show));
         }
         catch (Exception e)
         {
@@ -71,8 +72,8 @@ public class ContactRepository : IContactRepository
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault().ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault().PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
                 }).ToListAsync());
@@ -121,23 +122,24 @@ public class ContactRepository : IContactRepository
         {
             var item = await _context.Contacts.FindAsync(request.Id);
             if (item is null) return new Result<ContactsResponse>(new ValidationException(ResultErrorMessage.NotFound));
+            
             item.ContactStatusType = request.ContactStatusType;
             await _context.SaveChangesAsync();
-            return await _context.Contacts
+            return new Result<ContactsResponse>(await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
-                .FirstOrDefaultAsync(x => x.Id == request.Id)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
-                    ContactGroupName = x.ContactGroup.GroupName
-                });
+                    ContactGroupName = x.ContactGroup.GroupName,
+                    Status = x.ContactStatusType
+                }).FirstOrDefaultAsync(x => x.IdContact == request.Id && x.Status == StatusType.Show));
         }
         catch (Exception e)
         {
@@ -149,7 +151,7 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            if (await _context.Contacts.AnyAsync(x => x.ContactPhoneNumbers.Any(x => x.PhoneNo != null && x.PhoneNo == request.PhoneNumber.FirstOrDefault())))
+            if (await _context.Contacts.AnyAsync(x => x.ContactPhoneNumbers!.Any(xx => xx.PhoneNo == request.PhoneNumber.FirstOrDefault())))
                 return new Result<ContactsResponse>(new ValidationException("این مخاطب قبلا ثبت شده است"));
 
             Contact item = new()
@@ -187,21 +189,21 @@ public class ContactRepository : IContactRepository
 
             await _context.SaveChangesAsync();
 
-            return await _context.Contacts
+            return new Result<ContactsResponse>(await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
-                .FirstOrDefaultAsync(x => x.FirstName == request.FirstName && x.LastName == request.LastName)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = item.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName,
-                });
+                    Status = x.ContactStatusType
+                }).FirstOrDefaultAsync(x => x.IdContact == item.Id ));
         }
         catch (Exception e)
         {
@@ -213,7 +215,10 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            Contact item = await _context.Contacts.FindAsync(request.Id);
+            var item = await _context.Contacts.FindAsync(request.Id);
+            if (item == null)
+                return new Result<ContactsResponse>(new ValidationException("مخاطبی با این مشخصات یافت نشد"));
+            
             item.Id = request.Id;
             item.FirstName = request.FirstName;
             item.LastName = request.LastName;
@@ -226,22 +231,23 @@ public class ContactRepository : IContactRepository
             await _context.SaveChangesAsync();
 
 
-            return await _context.Contacts
+            return new Result<ContactsResponse>(await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
-                .FirstOrDefaultAsync(x =>
-                    x.FirstName == request.FirstName && x.LastName == request.LastName && x.Id == item.Id)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
-                    ContactGroupName = x.ContactGroup.GroupName
-                });
+                    ContactGroupName = x.ContactGroup.GroupName,
+                    Status = x.ContactStatusType
+                })
+                .FirstOrDefaultAsync(x => x.IdContact == item.Id));
+
         }
         catch (Exception e)
         {
@@ -254,23 +260,26 @@ public class ContactRepository : IContactRepository
         try
         {
             var contact = await _context.Contacts.FindAsync(id);
+            if (contact == null)
+                return new Result<ContactsResponse>(new ValidationException("مخاطبی با این مشخصات یافت نشد"));
+                
             contact.ContactStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
-            return await _context.Contacts
+            return new Result<ContactsResponse>(await _context.Contacts
                 .Include(x => x.ContactsEmailAddresses)
                 .Include(x => x.ContactPhoneNumbers)
                 .Include(x => x.ContactGroup)
-                .FirstOrDefaultAsync(x => x.Id == id)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     Job = x.Job,
-                    EmailAddress = x.ContactsEmailAddresses.FirstOrDefault()?.ContactEmailAddress,
-                    MobileNumber = x.ContactPhoneNumbers.FirstOrDefault()?.PhoneNo,
+                    EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
+                    MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName
-                });
+                })
+                .FirstOrDefaultAsync(x => x.IdContact == id));
         }
         catch (Exception e)
         {
