@@ -1,6 +1,6 @@
 namespace Application.Services.Customer.Foroosh.PaymentService.Commands;
 
-public struct SavePaymentCommand : IRequest<Result<SavePaymentResponse>>
+public struct SaveForooshPaymentCommand : IRequest<Result<SaveForooshPaymentResponse>>
 {
     public Ulid IdFactor { get; set; }
     public decimal Amount { get; set; }
@@ -22,7 +22,7 @@ public struct SavePaymentCommand : IRequest<Result<SavePaymentResponse>>
     public DateTime DatePay { get; set; }
 
     public Ulid CustomerId { get; set; }
-    public Ulid? CustomersAddressId { get; set; }
+    // public Ulid? CustomersAddressId { get; set; }
 
     public string UserIdAdded { get; set; }
     public string UserIdUpdated { get; set; }

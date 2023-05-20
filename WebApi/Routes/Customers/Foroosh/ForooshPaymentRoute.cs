@@ -4,7 +4,7 @@ public static class PaymentRoute
 {
     public static void MapPaymentRoute(this IEndpointRouteBuilder app)
     {
-        var payment = app.MapGroup("v1/Payment").EnableOpenApiWithAuthentication().WithOpenApi();
+        var payment = app.MapGroup("v1/ForooshPayment").EnableOpenApiWithAuthentication().WithOpenApi();
 
         payment.MapGet("/AllPayments", (IMediator mediator, HttpContext httpContext) =>
         {
@@ -286,7 +286,7 @@ public static class PaymentRoute
             }
         });
 
-        payment.MapPost("/SavePayment", ([FromBody] SavePaymentCommand request, IMediator mediator, HttpContext httpContext) =>
+        payment.MapPost("/SavePayment", ([FromBody] SaveForooshPaymentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -299,7 +299,7 @@ public static class PaymentRoute
                 return id.Result.Match(
                     userId =>
                     {
-                        var result = mediator.Send(new SavePaymentCommand
+                        var result = mediator.Send(new SaveForooshPaymentCommand
                         {
                             IdFactor = request.IdFactor,
                             Amount = request.Amount,
@@ -316,8 +316,7 @@ public static class PaymentRoute
                             PaymentAmount = request.PaymentAmount,
                             DatePay = request.DatePay,
                             CustomerId = request.CustomerId,
-                            CustomersAddressId = request.CustomersAddressId,
-                            UserIdAdded = userId,
+                            // CustomersAddressId = request.CustomersAddressId,
                             UserIdUpdated = userId
                         });
                         return result.Result.Match(

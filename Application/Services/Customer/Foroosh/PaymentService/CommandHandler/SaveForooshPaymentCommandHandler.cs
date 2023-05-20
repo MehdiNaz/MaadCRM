@@ -1,19 +1,19 @@
 namespace Application.Services.Customer.Foroosh.PaymentService.CommandHandler;
 
-public readonly struct SavePaymentCommandHandler : IRequestHandler<SavePaymentCommand, Result<SavePaymentResponse>>
+public readonly struct SaveForooshPaymentCommandHandler : IRequestHandler<SaveForooshPaymentCommand, Result<SaveForooshPaymentResponse>>
 {
     private readonly IPaymentRepository _repository;
 
-    public SavePaymentCommandHandler(IPaymentRepository repository)
+    public SaveForooshPaymentCommandHandler(IPaymentRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<SavePaymentResponse>> Handle(SavePaymentCommand request, CancellationToken cancellationToken)
+    public async Task<Result<SaveForooshPaymentResponse>> Handle(SaveForooshPaymentCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var item = new SavePaymentCommand()
+            var item = new SaveForooshPaymentCommand()
             {
                 IdFactor = request.IdFactor,
                 Amount = request.Amount,
@@ -30,17 +30,17 @@ public readonly struct SavePaymentCommandHandler : IRequestHandler<SavePaymentCo
                 PaymentAmount = request.PaymentAmount,
                 DatePay = request.DatePay,
                 CustomerId = request.CustomerId,
-                CustomersAddressId = request.CustomersAddressId,
+                // CustomersAddressId = request.CustomersAddressId,
                 UserIdAdded = request.UserIdAdded,
                 UserIdUpdated = request.UserIdUpdated
             };
             return (await _repository.SavePaymentsAsync(item))
-                .Match(result => new Result<SavePaymentResponse>(result),
-                    exception => new Result<SavePaymentResponse>(exception));
+                .Match(result => new Result<SaveForooshPaymentResponse>(result),
+                    exception => new Result<SaveForooshPaymentResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<SavePaymentResponse>(new Exception(e.Message));
+            return new Result<SaveForooshPaymentResponse>(new Exception(e.Message));
         }
     }
 }

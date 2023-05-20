@@ -105,43 +105,45 @@ public class PaymentRepository : IPaymentRepository
         }
     }
     
-    public async ValueTask<Result<SavePaymentResponse>> SavePaymentsAsync(SavePaymentCommand request)
+    public async ValueTask<Result<SaveForooshPaymentResponse>> SavePaymentsAsync(SaveForooshPaymentCommand request)
     {
         try
         {
-            var item = await _context.ForooshFactors.FindAsync(request.IdFactor);
-            if (item is null) return new Result<SavePaymentResponse>(new ValidationException("شماره فاکتور اشتباه است")); ;
+            var resultFactor = await _context.ForooshFactors.FindAsync(request.IdFactor);
+            if (resultFactor is null) return new Result<SaveForooshPaymentResponse>(new ValidationException("شماره فاکتور اشتباه است")); ;
 
-            item.Amount = request.Amount;
-            item.AmountTax = request.AmountTax;
-            item.PaymentMethod = request.PaymentMethod;
-            item.ShippingMethodType = request.ShippingMethodType;
-            item.IdCustomer = request.CustomerId;
-            item.IdCustomerAddress = request.CustomersAddressId;
-            item.IdUserAdded = request.UserIdAdded;
-            item.IdUserUpdated = request.UserIdUpdated;
-            item.AmountTotal = request.Amount + request.AmountTax;
-            item.DatePayed = DateTime.UtcNow;
+            resultFactor.Amount = request.Amount;
+            resultFactor.AmountTax = request.AmountTax;
+            resultFactor.PaymentMethod = request.PaymentMethod;
+            resultFactor.ShippingMethodType = request.ShippingMethodType;
+            // item.IdUserUpdated = request.UserIdUpdated;
+            resultFactor.AmountTotal = request.Amount + request.AmountTax;
+            resultFactor.DatePayed = DateTime.UtcNow;
 
             if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
             {
-                item.TedadeAghsat = request.TedadeAghsat;
-                item.BazeyeZamany = request.BazeyeZamany;
-                item.DarSadeSoud = request.DarSadeSoud;
-                item.PishPardakht = request.PishPardakht;
-                item.MablagheKoleSoud = request.MablagheKoleSoud;
-                item.ShoroAghsat = request.ShoroAghsat;
+                resultFactor.TedadeAghsat = request.TedadeAghsat;
+                resultFactor.BazeyeZamany = request.BazeyeZamany;
+                resultFactor.DarSadeSoud = request.DarSadeSoud;
+                resultFactor.PishPardakht = request.PishPardakht;
+                resultFactor.MablagheKoleSoud = request.MablagheKoleSoud;
+                resultFactor.ShoroAghsat = request.ShoroAghsat;
             }
 
-            await _context.ForooshFactors.AddAsync(item);
             await _context.SaveChangesAsync();
+            
+            // Delete All Payments
+            var lstPayments = await _context.Payments.Where(x => x.IdForooshFactor == request.IdFactor).ToListAsync();
+            _context.Payments.RemoveRange(lstPayments);
+            await _context.SaveChangesAsync();
+
 
             if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
             {
                 Payment payment = new()
                 {
                     PaymentAmount = request.PishPardakht!.Value,
-                    IdForooshFactor = item.Id,
+                    IdForooshFactor = resultFactor.Id,
                     DatePay = DateTime.UtcNow
                 };
             
@@ -150,13 +152,13 @@ public class PaymentRepository : IPaymentRepository
                 var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
                                     request.TedadeAghsat;
                 var paymentDate = request.ShoroAghsat;
-                // ToDo : Payment
+                
                 for (var i = 0; i < request.TedadeAghsat; i++)
                 {
                     payment = new Payment
                     {
                         PaymentAmount = paymentAmount!.Value,
-                        IdForooshFactor = item.Id,
+                        IdForooshFactor = resultFactor.Id,
                         DatePay = paymentDate!.Value
                     };
                     await _context.Payments.AddAsync(payment);
@@ -169,7 +171,7 @@ public class PaymentRepository : IPaymentRepository
                 Payment payment = new()
                 {
                     PaymentAmount = request.AmountTotal,
-                    IdForooshFactor = item.Id,
+                    IdForooshFactor = resultFactor.Id,
                     DatePay = DateTime.UtcNow
                 };
             
@@ -186,7 +188,7 @@ public class PaymentRepository : IPaymentRepository
                 CustomerId = null,
                 ProductId = null,
                 ProductCategoryId = null,
-                ForooshId = item.Id,
+                ForooshId = resultFactor.Id,
                 Type = LogTypes.InsertForoosh,
                 UserId = request.UserIdAdded,
                 IpAddress = "IPAddress",
@@ -197,7 +199,7 @@ public class PaymentRepository : IPaymentRepository
             await _log.InsertAsync(command);
 
             var result = await _context.ForooshFactors
-                .Select(x => new SavePaymentResponse
+                .Select(x => new SaveForooshPaymentResponse
                 {
                     AmountTax = x.AmountTax,
                     PaymentMethod = x.PaymentMethod,
@@ -205,6 +207,7 @@ public class PaymentRepository : IPaymentRepository
                     AmountTotal = x.AmountTotal,
                     TedadeAghsat = x.TedadeAghsat,
                     PishPardakht = x.PishPardakht,
+                    IdCustomer = x.IdCustomer,
                     CustomerFullName = x.IdCustomerNavigation.FirstName + " " + x.IdCustomerNavigation.LastName,
                     ShoroAghsat = x.ShoroAghsat,
                     BazeyeZamany = x.BazeyeZamany,
@@ -213,15 +216,32 @@ public class PaymentRepository : IPaymentRepository
                     IdFactor = x.Id,
                     MablagheKoleSoud = x.MablagheKoleSoud,
                     StatusTypeForooshFactor = x.StatusTypeForooshFactor,
-                    Orders = x.ForooshOrders,
-                    Payments = x.Payments
-                }).SingleOrDefaultAsync(x => x.IdFactor == item.Id);
+                    Orders = x.ForooshOrders!.Select(x => new ForooshOrderResponse
+                    {
+                        Id = x.Id,
+                        IdProduct = x.IdProduct,
+                        ProductName = x.IdProductNavigation.ProductName,
+                        Tedad = x.Tedad,
+                        Price = x.Price,
+                        PriceDiscount = x.PriceDiscount,
+                        PriceShipping = x.PriceShipping,
+                        PriceTotal = x.PriceTotal,
+                        StatusTypeForooshOrder = x.StatusTypeForooshOrder
+                    }).ToList(),
+                    Payments = x.Payments!.Select(x => new ForooshPaymentResponse
+                    {
+                        Id = x.Id,
+                        DatePay = x.DatePay,
+                        PaymentAmount = x.PaymentAmount,
+                        PaymentStatusType = x.PaymentStatusType
+                    }).ToList()
+                }).SingleOrDefaultAsync(x => x.IdFactor == resultFactor.Id);
 
-            return new Result<SavePaymentResponse>(result);
+            return new Result<SaveForooshPaymentResponse>(result);
         }
         catch (Exception e)
         {
-            return new Result<SavePaymentResponse>(new ValidationException(e.Message));
+            return new Result<SaveForooshPaymentResponse>(new ValidationException(e.Message));
         }
     }
 }

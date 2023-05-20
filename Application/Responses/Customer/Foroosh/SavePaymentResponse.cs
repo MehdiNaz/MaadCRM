@@ -1,6 +1,6 @@
 namespace Application.Responses;
 
-public struct SavePaymentResponse
+public struct SaveForooshPaymentResponse
 {
     public Ulid IdFactor { get; set; }
     public Ulid IdCustomer { get; set; }
@@ -21,6 +21,6 @@ public struct SavePaymentResponse
     public decimal? MablagheKoleSoud { get; set; }
     public DateTime? ShoroAghsat { get; set; }
 
-    public ICollection<ForooshOrder>? Orders { get; set; }
-    public ICollection<Payment>? Payments { get; set; }
+    public ICollection<ForooshOrderResponse>? Orders { get; set; }
+    public ICollection<ForooshPaymentResponse>? Payments { get; set; }
 }
