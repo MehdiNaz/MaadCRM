@@ -21,6 +21,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -46,6 +48,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -71,6 +75,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -103,6 +109,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -133,6 +141,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -197,6 +207,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = item.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -239,6 +251,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
@@ -273,6 +287,8 @@ public class ContactRepository : IContactRepository
                 {
                     IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Job = x.Job,
                     EmailAddress = x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress,
                     MobileNumber = x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo,
