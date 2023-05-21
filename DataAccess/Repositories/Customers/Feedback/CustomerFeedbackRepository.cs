@@ -16,6 +16,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         try
         {
             return new Result<ICollection<CustomerFeedbackResponse>>(await _context.CustomerFeedbacks
+                .Where(x => x.CustomerFeedbackStatusType == StatusType.Show)
                 .Include(x => x.IdUserNavigation)
                 .Select(x => new CustomerFeedbackResponse
                 {
@@ -44,7 +45,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         {
             return await _context.CustomerFeedbacks
                 .Include(x => x.IdUserNavigation)
-                .Include(x=>x.IdProductNavigation)
+                .Include(x => x.IdProductNavigation)
                 .FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show)
                 .Select(x => new CustomerFeedbackResponse
                 {
@@ -54,7 +55,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                     IdCustomer = x.IdCustomer,
                     IdCategory = x.IdCategory,
                     IdProduct = x.IdProduct,
-                    IdProductNavigation = x.IdProductNavigation!,
+                    IdProductNavigation = x.IdProductNavigation,
                     IdUserAdded = x.IdUser,
                     IdUserUpdated = x.IdUser,
                     IdUser = x.IdUser,
@@ -100,32 +101,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
     {
         try
         {
-            CustomerFeedback feedback = new()
-            {
-                Id = request.Id
-            };
-
             var item = await _context.CustomerFeedbacks.FindAsync(request.Id);
             if (item is null) return new Result<CustomerFeedbackResponse>(new ValidationException(ResultErrorMessage.NotFound));
             item.CustomerFeedbackStatusType = request.CustomerFeedbackStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerFeedbackResponse>
-            (await _context.CustomerFeedbacks
-                .Include(x => x.IdUserUpdateNavigation)
-                .FirstOrDefaultAsync(x => x.Id == request.Id)
-                .Select(x => new CustomerFeedbackResponse
-                {
-                    Id = x.Id,
-                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
-                    Description = x.Description,
-                    IdCustomer = x.IdCustomer,
-                    IdCategory = x.IdCategory,
-                    IdProduct = x.IdProduct,
-                    IdProductNavigation = x.IdProductNavigation,
-                    IdUserAdded = x.IdUser,
-                    IdUserUpdated = x.IdUser,
-                    IdUser = x.IdUser
-                }));
+            return await GetCustomerFeedbackByIdAsync(request.Id);
         }
         catch (Exception e)
         {
@@ -168,24 +148,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerFeedbackResponse>
-            (await _context.CustomerFeedbacks
-                .Include(x => x.IdUserNavigation)
-                .FirstOrDefaultAsync(x => x.Id == item.Id)
-                .Select(x => new CustomerFeedbackResponse
-                {
-                    Id = x.Id,
-                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
-                    Description = x.Description,
-                    IdCustomer = x.IdCustomer,
-                    IdCategory = x.IdCategory,
-                    IdProduct = x.IdProduct,
-                    IdProductNavigation = x.IdProductNavigation,
-                    IdUserAdded = x.IdUser,
-                    IdUserUpdated = x.IdUser,
-                    IdUser = x.IdUser,
-                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
-                }));
+            return await GetCustomerFeedbackByIdAsync(item.Id);
         }
         catch (Exception e)
         {
@@ -221,24 +184,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             };
 
             await _log.InsertAsync(command);
-            return new Result<CustomerFeedbackResponse>
-            (await _context.CustomerFeedbacks
-                .Include(x => x.IdUserNavigation)
-                .FirstOrDefaultAsync(x => x.Id == request.Id)
-                .Select(x => new CustomerFeedbackResponse
-                {
-                    Id = x.Id,
-                    CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
-                    Description = x.Description,
-                    IdCustomer = x.IdCustomer,
-                    IdCategory = x.IdCategory,
-                    IdProduct = x.IdProduct,
-                    IdProductNavigation = x.IdProductNavigation,
-                    IdUserAdded = x.IdUser,
-                    IdUserUpdated = x.IdUser,
-                    IdUser = x.IdUser,
-                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
-                }));
+            return await GetCustomerFeedbackByIdAsync(request.Id);
         }
         catch (Exception e)
         {
@@ -246,7 +192,7 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         }
     }
 
-    public async ValueTask<Result<CustomerFeedbackResponse>> DeleteCustomerFeedbackAsync(Ulid id)
+    public async ValueTask<string> DeleteCustomerFeedbackAsync(Ulid id)
     {
         try
         {
@@ -271,29 +217,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
             };
 
             await _log.InsertAsync(command);
-
-            return new Result<CustomerFeedbackResponse>
-            (await _context.CustomerFeedbacks
-                .Include(x => x.IdUserNavigation)
-                .FirstOrDefaultAsync(x => x.Id == id)
-             .Select(x => new CustomerFeedbackResponse
-             {
-                 Id = x.Id,
-                 CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
-                 Description = x.Description,
-                 IdCustomer = x.IdCustomer,
-                 IdCategory = x.IdCategory,
-                 IdProduct = x.IdProduct,
-                 IdProductNavigation = x.IdProductNavigation,
-                 IdUserAdded = x.IdUser,
-                 IdUserUpdated = x.IdUser,
-                 UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family,
-                 IdUser = x.IdUser
-             }));
+            return "Customer Feedback Deleted.";
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackResponse>(new ValidationException(e.Message));
+            return e.Message;
         }
     }
 }

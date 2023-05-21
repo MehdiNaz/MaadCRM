@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.Feedback.CustomerFeedbackService.CommandHandler;
 
-public readonly struct DeleteCustomerFeedbackCommandHandler : IRequestHandler<DeleteCustomerFeedbackCommand, Result<CustomerFeedbackResponse>>
+public readonly struct DeleteCustomerFeedbackCommandHandler : IRequestHandler<DeleteCustomerFeedbackCommand, string>
 {
     private readonly ICustomerFeedbackRepository _repository;
 
@@ -9,17 +9,15 @@ public readonly struct DeleteCustomerFeedbackCommandHandler : IRequestHandler<De
         _repository = repository;
     }
 
-    public async Task<Result<CustomerFeedbackResponse>> Handle(DeleteCustomerFeedbackCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(DeleteCustomerFeedbackCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.DeleteCustomerFeedbackAsync(request.Id))
-                .Match(result => new Result<CustomerFeedbackResponse>(result),
-                    exception => new Result<CustomerFeedbackResponse>(exception));
+            return await _repository.DeleteCustomerFeedbackAsync(request.Id);
         }
         catch (Exception e)
         {
-            return new Result<CustomerFeedbackResponse>(new Exception(e.Message));
+            return e.Message;
         }
     }
 }

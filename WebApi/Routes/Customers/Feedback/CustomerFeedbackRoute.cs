@@ -259,39 +259,31 @@ public static class CustomerFeedbackRoute
                 });
 
                 return id.Result.Match(
-                        _ =>
+                    userId =>
+                    {
+                        var result = mediator.Send(new DeleteCustomerFeedbackCommand
                         {
-                            var result = mediator.Send(new DeleteCustomerFeedbackCommand
-                            {
-                                Id = Id
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Insert Customer Feedbacks Done.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                        exception => Results.BadRequest(new ErrorResponse
+                            Id = Id
+                        });
+                        return Results.Ok(new
                         {
-                            Valid = false,
-                            Exceptions = exception
-                        }));
+                            Valid = true,
+                            Message = "Customer Feedback Deleted.",
+                            Data = result.Result
+                        });
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return Results.BadRequest(new
+                return Results.BadRequest(new ErrorResponse
                 {
                     Valid = false,
-                    e.Message,
-                    e.StackTrace
+                    Exceptions = e
                 });
             }
         });

@@ -2,7 +2,7 @@
 
 public struct CreateCustomerFeedbackCommand : IRequest<Result<CustomerFeedbackResponse>>
 {
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public Ulid IdCategory { get; set; }
     public Ulid? IdProduct { get; set; }
     public Ulid? IdCustomer { get; set; }
