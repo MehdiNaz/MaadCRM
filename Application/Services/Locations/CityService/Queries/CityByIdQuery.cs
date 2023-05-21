@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Locations.CityService.Queries;
+﻿using Application.Responses.Location;
+
+namespace Application.Services.Locations.CityService.Queries;
 
 public struct CityByIdQuery : IRequest<Result<CityResponse>>
 {

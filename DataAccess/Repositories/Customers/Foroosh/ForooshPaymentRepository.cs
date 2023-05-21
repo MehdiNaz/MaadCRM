@@ -1,6 +1,8 @@
-﻿namespace DataAccess.Repositories.Customers.Foroosh;
+﻿using Application.Responses.Customer.Foroosh;
 
-public class PaymentRepository : IPaymentRepository
+namespace DataAccess.Repositories.Customers.Foroosh;
+
+public class PaymentRepository : IForooshPaymentRepository
 {
     private readonly MaadContext _context;
     private readonly ILogRepository _log;
@@ -12,7 +14,7 @@ public class PaymentRepository : IPaymentRepository
     }
 
 
-    public async ValueTask<Result<ICollection<Payment>>> GetAllPaymentsAsync()
+    public async ValueTask<Result<ICollection<ForooshPayment>>> GetAllPaymentsAsync()
     {
         try
         {
@@ -20,11 +22,11 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<ICollection<Payment>>(new ValidationException(e.Message));
+            return new Result<ICollection<ForooshPayment>>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Payment>> GetPaymentByIdAsync(Ulid paymentId)
+    public async ValueTask<Result<ForooshPayment>> GetPaymentByIdAsync(Ulid paymentId)
     {
         try
         {
@@ -32,16 +34,16 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new ValidationException(e.Message));
+            return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Payment>> ChangeStatusPaymentByIdAsync(ChangeStatusPaymentCommand request)
+    public async ValueTask<Result<ForooshPayment>> ChangeStatusPaymentByIdAsync(ChangeStatusPaymentCommand request)
     {
         try
         {
             var item = await _context.Payments.FindAsync(request.Id);
-            if (item is null) return new Result<Payment>(new ValidationException(ResultErrorMessage.NotFound));
+            if (item is null) return new Result<ForooshPayment>(new ValidationException(ResultErrorMessage.NotFound));
             item.PaymentStatusType = request.PaymentStatusType;
             await _context.SaveChangesAsync();
 
@@ -49,15 +51,15 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new ValidationException(e.Message));
+            return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Payment>> CreatePaymentAsync(CreatePaymentCommand request)
+    public async ValueTask<Result<ForooshPayment>> CreatePaymentAsync(CreatePaymentCommand request)
     {
         try
         {
-            Payment item = new()
+            ForooshPayment item = new()
             {
                 DatePay = request.DatePay,
                 PaymentAmount = request.PaymentAmount,
@@ -69,15 +71,15 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new ValidationException(e.Message));
+            return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Payment>> UpdatePaymentAsync(UpdatePaymentCommand request)
+    public async ValueTask<Result<ForooshPayment>> UpdatePaymentAsync(UpdatePaymentCommand request)
     {
         try
         {
-            Payment item = await _context.Payments.FindAsync(request.Id);
+            ForooshPayment item = await _context.Payments.FindAsync(request.Id);
 
             item.PaymentAmount = request.PaymentAmount;
 
@@ -86,11 +88,11 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new ValidationException(e.Message));
+            return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
 
-    public async ValueTask<Result<Payment>> DeletePaymentAsync(Ulid paymentId)
+    public async ValueTask<Result<ForooshPayment>> DeletePaymentAsync(Ulid paymentId)
     {
         try
         {
@@ -101,7 +103,7 @@ public class PaymentRepository : IPaymentRepository
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new ValidationException(e.Message));
+            return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
     
@@ -114,6 +116,7 @@ public class PaymentRepository : IPaymentRepository
 
             resultFactor.Amount = request.Amount;
             resultFactor.AmountTax = request.AmountTax;
+            resultFactor.AmountDiscount = request.AmountDiscount;
             resultFactor.PaymentMethod = request.PaymentMethod;
             resultFactor.ShippingMethodType = request.ShippingMethodType;
             // item.IdUserUpdated = request.UserIdUpdated;
@@ -140,7 +143,7 @@ public class PaymentRepository : IPaymentRepository
 
             if (request.PaymentMethod is PaymentMethodTypes.OnCredit)
             {
-                Payment payment = new()
+                ForooshPayment payment = new()
                 {
                     PaymentAmount = request.PishPardakht!.Value,
                     IdForooshFactor = resultFactor.Id,
@@ -155,7 +158,7 @@ public class PaymentRepository : IPaymentRepository
                 
                 for (var i = 0; i < request.TedadeAghsat; i++)
                 {
-                    payment = new Payment
+                    payment = new ForooshPayment
                     {
                         PaymentAmount = paymentAmount!.Value,
                         IdForooshFactor = resultFactor.Id,
@@ -168,7 +171,7 @@ public class PaymentRepository : IPaymentRepository
             }
             else
             {
-                Payment payment = new()
+                ForooshPayment payment = new()
                 {
                     PaymentAmount = request.AmountTotal,
                     IdForooshFactor = resultFactor.Id,
@@ -190,7 +193,7 @@ public class PaymentRepository : IPaymentRepository
                 ProductCategoryId = null,
                 ForooshId = resultFactor.Id,
                 Type = LogTypes.InsertForoosh,
-                UserId = request.UserIdAdded,
+                UserId = request.IdUserAdded,
                 IpAddress = "IPAddress",
                 UserAgent = "UserAgent",
                 Description = "Description"
@@ -204,6 +207,7 @@ public class PaymentRepository : IPaymentRepository
                     AmountTax = x.AmountTax,
                     PaymentMethod = x.PaymentMethod,
                     Amount = x.Amount,
+                    AmountDiscount = x.AmountDiscount,
                     AmountTotal = x.AmountTotal,
                     TedadeAghsat = x.TedadeAghsat,
                     PishPardakht = x.PishPardakht,

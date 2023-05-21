@@ -1,12 +1,14 @@
-﻿namespace Application.Interfaces.Customers.Foroosh;
+﻿using Application.Responses.Customer.Foroosh;
 
-public interface IPaymentRepository
+namespace Application.Interfaces.Customers.Foroosh;
+
+public interface IForooshPaymentRepository
 {
-    ValueTask<Result<ICollection<Payment>>> GetAllPaymentsAsync();
-    ValueTask<Result<Payment>> GetPaymentByIdAsync(Ulid paymentId);
-    ValueTask<Result<Payment>> ChangeStatusPaymentByIdAsync(ChangeStatusPaymentCommand request);
-    ValueTask<Result<Payment>> CreatePaymentAsync(CreatePaymentCommand request);
-    ValueTask<Result<Payment>> UpdatePaymentAsync(UpdatePaymentCommand request);
-    ValueTask<Result<Payment>> DeletePaymentAsync(Ulid paymentId);
+    ValueTask<Result<ICollection<ForooshPayment>>> GetAllPaymentsAsync();
+    ValueTask<Result<ForooshPayment>> GetPaymentByIdAsync(Ulid paymentId);
+    ValueTask<Result<ForooshPayment>> ChangeStatusPaymentByIdAsync(ChangeStatusPaymentCommand request);
+    ValueTask<Result<ForooshPayment>> CreatePaymentAsync(CreatePaymentCommand request);
+    ValueTask<Result<ForooshPayment>> UpdatePaymentAsync(UpdatePaymentCommand request);
+    ValueTask<Result<ForooshPayment>> DeletePaymentAsync(Ulid paymentId);
     ValueTask<Result<SaveForooshPaymentResponse>> SavePaymentsAsync(SaveForooshPaymentCommand request);
 }

@@ -13,6 +13,8 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public Ulid Id { get; set; }
     public decimal Amount { get; set; }
     public decimal AmountTax { get; set; }
+    public decimal AmountDiscount { get; set; }
+
     public decimal AmountTotal { get; set; }
     public StatusType StatusTypeForooshFactor { get; set; }
     public DateTime DatePayed { get; set; }
@@ -34,6 +36,6 @@ public sealed class ForooshFactor : BaseEntityWithUserUpdate
     public CustomerAddress? IdCustomerAddressNavigation { get; set; }
 
     public ICollection<ForooshOrder>? ForooshOrders { get; set; }
-    public ICollection<Payment>? Payments { get; set; }
+    public ICollection<ForooshPayment>? Payments { get; set; }
     public ICollection<Log>? Logs { get; set; }
 }

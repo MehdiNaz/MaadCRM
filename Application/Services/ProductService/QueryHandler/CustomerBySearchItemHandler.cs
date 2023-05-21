@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductService.QueryHandler;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductService.QueryHandler;
 
 public readonly struct CustomerBySearchItemHandler : IRequestHandler<ProductBySearchItemQuery, Result<ICollection<ProductResponse>>>
 {

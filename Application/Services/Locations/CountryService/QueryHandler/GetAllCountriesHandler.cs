@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Locations.CountryService.QueryHandler;
+﻿using Application.Responses.Location;
+
+namespace Application.Services.Locations.CountryService.QueryHandler;
 
 public readonly struct GetAllCountriesHandler : IRequestHandler<GetAllCountriesQuery, Result<ICollection<CountryResponse>>>
 {

@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Locations;
+﻿using Application.Responses.Location;
+
+namespace DataAccess.Repositories.Locations;
 
 public class CityRepository : ICityRepository
 {

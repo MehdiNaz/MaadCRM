@@ -1,10 +1,12 @@
+using Application.Responses.Customer.Foroosh;
+
 namespace Application.Services.Customer.Foroosh.PaymentService.CommandHandler;
 
 public readonly struct SaveForooshPaymentCommandHandler : IRequestHandler<SaveForooshPaymentCommand, Result<SaveForooshPaymentResponse>>
 {
-    private readonly IPaymentRepository _repository;
+    private readonly IForooshPaymentRepository _repository;
 
-    public SaveForooshPaymentCommandHandler(IPaymentRepository repository)
+    public SaveForooshPaymentCommandHandler(IForooshPaymentRepository repository)
     {
         _repository = repository;
     }
@@ -29,10 +31,10 @@ public readonly struct SaveForooshPaymentCommandHandler : IRequestHandler<SaveFo
                 ShoroAghsat = request.ShoroAghsat,
                 PaymentAmount = request.PaymentAmount,
                 DatePay = request.DatePay,
-                CustomerId = request.CustomerId,
+                IdCustomer = request.IdCustomer,
                 // CustomersAddressId = request.CustomersAddressId,
-                UserIdAdded = request.UserIdAdded,
-                UserIdUpdated = request.UserIdUpdated
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.SavePaymentsAsync(item))
                 .Match(result => new Result<SaveForooshPaymentResponse>(result),

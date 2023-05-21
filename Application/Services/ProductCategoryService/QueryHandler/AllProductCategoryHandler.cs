@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductCategoryService.QueryHandler;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductCategoryService.QueryHandler;
 
 public readonly struct AllProductCategoryHandler : IRequestHandler<AllProductCategoriesQuery, Result<ICollection<ProductCategoryResponse>>>
 {

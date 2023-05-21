@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductCategoryService.CommandHandler;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductCategoryService.CommandHandler;
 
 public readonly struct CreateProductCategoryHandler : IRequestHandler<CreateProductCategoryCommand, Result<ProductCategoryResponse>>
 {

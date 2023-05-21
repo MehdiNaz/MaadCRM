@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.Locations;
+﻿using Application.Responses.Location;
+
+namespace Application.Interfaces.Locations;
 
 public interface IProvinceRepository
 {

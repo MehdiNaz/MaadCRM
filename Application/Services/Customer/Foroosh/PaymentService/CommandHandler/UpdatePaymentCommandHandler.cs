@@ -1,15 +1,15 @@
 ﻿namespace Application.Services.Customer.Foroosh.PaymentService.CommandHandler;
 
-public readonly struct UpdatePaymentCommandHandler : IRequestHandler<UpdatePaymentCommand, Result<Payment>>
+public readonly struct UpdatePaymentCommandHandler : IRequestHandler<UpdatePaymentCommand, Result<ForooshPayment>>
 {
-    private readonly IPaymentRepository _repository;
+    private readonly IForooshPaymentRepository _repository;
 
-    public UpdatePaymentCommandHandler(IPaymentRepository repository)
+    public UpdatePaymentCommandHandler(IForooshPaymentRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<Payment>> Handle(UpdatePaymentCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ForooshPayment>> Handle(UpdatePaymentCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -21,12 +21,12 @@ public readonly struct UpdatePaymentCommandHandler : IRequestHandler<UpdatePayme
             };
 
             return (await _repository.UpdatePaymentAsync(item))
-                .Match(result => new Result<Payment>(result),
-                    exception => new Result<Payment>(exception));
+                .Match(result => new Result<ForooshPayment>(result),
+                    exception => new Result<ForooshPayment>(exception));
         }
         catch (Exception e)
         {
-            return new Result<Payment>(new Exception(e.Message));
+            return new Result<ForooshPayment>(new Exception(e.Message));
         }
     }
 }

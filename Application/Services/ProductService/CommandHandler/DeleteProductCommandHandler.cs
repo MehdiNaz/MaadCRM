@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductService.CommandHandler;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductService.CommandHandler;
 
 public readonly struct DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Result<ProductResponse>>
 {

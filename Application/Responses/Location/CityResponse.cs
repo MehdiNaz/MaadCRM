@@ -1,4 +1,4 @@
-﻿namespace Application.Responses;
+﻿namespace Application.Responses.Location;
 
 public struct CityResponse
 {

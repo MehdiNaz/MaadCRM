@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.Customers.Foroosh;
+﻿using Application.Responses.Customer.Foroosh;
+
+namespace Application.Interfaces.Customers.Foroosh;
 
 public interface IForooshFactorRepository
 {

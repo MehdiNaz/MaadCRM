@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Customer.Foroosh.PaymentService.Commands;
 
-public struct CreatePaymentCommand : IRequest<Result<Payment>>
+public struct CreatePaymentCommand : IRequest<Result<ForooshPayment>>
 {
     public DateTime DatePay { get; set; }
     public decimal PaymentAmount { get; set; }

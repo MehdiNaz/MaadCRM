@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductCategoryService.Queries;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductCategoryService.Queries;
 
 public struct AllProductCategoriesQuery : IRequest<Result<ICollection<ProductCategoryResponse>>>
 {

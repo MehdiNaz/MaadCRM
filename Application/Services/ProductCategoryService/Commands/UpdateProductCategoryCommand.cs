@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductCategoryService.Commands;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductCategoryService.Commands;
 
 public struct UpdateProductCategoryCommand : IRequest<Result<ProductCategoryResponse>>
 {

@@ -1,4 +1,4 @@
-namespace Application.Responses;
+namespace Application.Responses.Customer.Foroosh;
 
 public struct SaveForooshPaymentResponse
 {
@@ -7,6 +7,7 @@ public struct SaveForooshPaymentResponse
     public string CustomerFullName { get; set; }
     public decimal Amount { get; set; }
     public decimal AmountTax { get; set; }
+    public decimal AmountDiscount { get; set; }
     public decimal AmountTotal { get; set; }
     public StatusType StatusTypeForooshFactor { get; set; }
     public DateTime DatePayed { get; set; }

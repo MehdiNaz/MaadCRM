@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Locations.CityService.QueryHandler;
+﻿using Application.Responses.Location;
+
+namespace Application.Services.Locations.CityService.QueryHandler;
 
 public readonly struct ShowCitiesByIdProvinceHandler : IRequestHandler<ShowCitiesByIdProvinceQuery, Result<ICollection<CityResponse>>>
 {

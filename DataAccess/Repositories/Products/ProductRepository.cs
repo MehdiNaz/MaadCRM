@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Products;
+﻿using Application.Responses.Product;
+
+namespace DataAccess.Repositories.Products;
 
 public class ProductRepository : IProductRepository
 {

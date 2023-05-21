@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.Products;
+﻿using Application.Responses.Product;
+
+namespace Application.Interfaces.Products;
 
 public interface IProductCategoryRepository
 {

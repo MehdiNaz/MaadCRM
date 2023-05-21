@@ -1,4 +1,6 @@
-﻿namespace Application.Services.ProductService.Queries;
+﻿using Application.Responses.Product;
+
+namespace Application.Services.ProductService.Queries;
 
 public struct ProductBySearchItemQuery : IRequest<Result<ICollection<ProductResponse>>>
 {

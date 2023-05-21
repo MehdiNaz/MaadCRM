@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Customers.Foroosh;
+﻿using Application.Responses.Customer.Foroosh;
+
+namespace DataAccess.Repositories.Customers.Foroosh;
 
 public class ForooshFactorRepository : IForooshFactorRepository
 {

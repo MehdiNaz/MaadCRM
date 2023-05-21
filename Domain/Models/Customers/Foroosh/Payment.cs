@@ -1,8 +1,8 @@
 ﻿namespace Domain.Models.Customers.Foroosh;
 
-public class Payment : BaseEntity
+public class ForooshPayment : BaseEntity
 {
-    public Payment()
+    public ForooshPayment()
     {
         Id = Ulid.NewUlid();
         PaymentStatusType = StatusType.Show;

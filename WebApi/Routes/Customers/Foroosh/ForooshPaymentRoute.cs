@@ -315,9 +315,9 @@ public static class PaymentRoute
                             ShoroAghsat = request.ShoroAghsat,
                             PaymentAmount = request.PaymentAmount,
                             DatePay = request.DatePay,
-                            CustomerId = request.CustomerId,
+                            IdCustomer = request.IdCustomer,
                             // CustomersAddressId = request.CustomersAddressId,
-                            UserIdUpdated = userId
+                            IdUserUpdated = userId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new

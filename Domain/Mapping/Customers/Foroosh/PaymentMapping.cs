@@ -1,8 +1,8 @@
 ﻿namespace Domain.Mapping.Customers.Foroosh;
 
-public class PaymentMapping : IEntityTypeConfiguration<Payment>
+public class PaymentMapping : IEntityTypeConfiguration<ForooshPayment>
 {
-    public void Configure(EntityTypeBuilder<Payment> builder)
+    public void Configure(EntityTypeBuilder<ForooshPayment> builder)
     {
         builder.ToTable("Payments");
         builder.HasKey(x => x.Id);

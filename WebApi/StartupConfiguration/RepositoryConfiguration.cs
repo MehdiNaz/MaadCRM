@@ -38,7 +38,7 @@ public static class RepositoryConfiguration
 
         collection.AddTransient<IForooshOrderRepository, ForooshOrderRepository>();
         collection.AddTransient<IForooshFactorRepository, ForooshFactorRepository>();
-        collection.AddTransient<IPaymentRepository, PaymentRepository>();
+        collection.AddTransient<IForooshPaymentRepository, PaymentRepository>();
 
 
         collection.AddTransient<IProductCustomerFavoritesListRepository, ProductCustomerFavoritesListRepository>();

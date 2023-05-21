@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Customer.Foroosh.ForooshFactorService.Commands;
+﻿using Application.Responses.Customer.Foroosh;
+
+namespace Application.Services.Customer.Foroosh.ForooshFactorService.Commands;
 
 public struct CreateForooshFactorCommand : IRequest<Result<FactorInformationResponse>>
 {

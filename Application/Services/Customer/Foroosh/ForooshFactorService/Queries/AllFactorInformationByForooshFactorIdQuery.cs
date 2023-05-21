@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Customer.Foroosh.ForooshFactorService.Queries;
+﻿using Application.Responses.Customer.Foroosh;
+
+namespace Application.Services.Customer.Foroosh.ForooshFactorService.Queries;
 
 public struct AllFactorInformationByForooshFactorIdQuery : IRequest<Result<ICollection<FactorInformationResponse>>>
 {
