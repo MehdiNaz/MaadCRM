@@ -9,4 +9,5 @@ public struct ContactsResponse
     public string? EmailAddress { get; set; }
     public Ulid? IdContactGroup { get; set; }
     public string? ContactGroupName { get; set; }
+    public StatusType Status { get; set; }
 }
