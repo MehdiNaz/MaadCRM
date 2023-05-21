@@ -15,8 +15,6 @@ public class ContactRepository : IContactRepository
         {
             return new Result<ICollection<ContactsResponse>>(await _context.Contacts
                 .Where(x => x.ContactStatusType == StatusType.Show)
-                .Include(x => x.ContactsEmailAddresses)
-                .Include(x => x.ContactGroup)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
@@ -41,9 +39,6 @@ public class ContactRepository : IContactRepository
         try
         {
             return new Result<ContactsResponse>(await _context.Contacts
-                .Include(x => x.ContactsEmailAddresses)
-                .Include(x => x.ContactPhoneNumbers)
-                .Include(x => x.ContactGroup)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
@@ -200,12 +195,9 @@ public class ContactRepository : IContactRepository
             await _context.SaveChangesAsync();
 
             return new Result<ContactsResponse>(await _context.Contacts
-                .Include(x => x.ContactsEmailAddresses)
-                .Include(x => x.ContactPhoneNumbers)
-                .Include(x => x.ContactGroup)
                 .Select(x => new ContactsResponse
                 {
-                    IdContact = item.Id,
+                    IdContact = x.Id,
                     FullName = x.FirstName + " " + x.LastName,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
@@ -215,7 +207,7 @@ public class ContactRepository : IContactRepository
                     IdContactGroup = x.ContactGroup.Id,
                     ContactGroupName = x.ContactGroup.GroupName,
                     Status = x.ContactStatusType
-                }).FirstOrDefaultAsync(x => x.IdContact == item.Id ));
+                }).FirstOrDefaultAsync(x => x.IdContact == item.Id));
         }
         catch (Exception e)
         {
