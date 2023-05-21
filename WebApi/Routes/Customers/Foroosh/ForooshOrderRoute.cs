@@ -217,6 +217,7 @@ public static class ForooshOrderRoute
                             ShippingPrice = request.ShippingPrice,
                             PriceTotal = request.PriceTotal,
                             DiscountPrice = request.DiscountPrice,
+                            IdForoosh = request.IdForoosh,
                             IdUserUpdated = userId
                         });
                         return result.Result.Match(
