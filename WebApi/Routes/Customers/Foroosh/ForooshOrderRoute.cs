@@ -112,7 +112,7 @@ public static class ForooshOrderRoute
                         var result = mediator.Send(new ChangeStatusForooshOrderCommand
                         {
                             ForooshOrderId = request.ForooshOrderId,
-                            ForooshOrderStatusType = request.ForooshOrderStatusType
+                            ForooshOrderStatusType = request.ForooshOrderStatusType,
                         });
 
                         return result.Result.Match(
@@ -164,7 +164,9 @@ public static class ForooshOrderRoute
                             PriceTotal = request.PriceTotal,
                             DiscountPrice = request.DiscountPrice,
                             ProductId = request.ProductId,
-                            FactorId = request.FactorId
+                            FactorId = request.FactorId,
+                            IdUserAdded = userId,
+                            IdUserUpdated = userId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new
@@ -214,7 +216,8 @@ public static class ForooshOrderRoute
                             Price = request.Price,
                             ShippingPrice = request.ShippingPrice,
                             PriceTotal = request.PriceTotal,
-                            DiscountPrice = request.DiscountPrice
+                            DiscountPrice = request.DiscountPrice,
+                            IdUserUpdated = userId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new

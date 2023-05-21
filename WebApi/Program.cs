@@ -83,6 +83,7 @@ app.MapPaymentRoute();
 app.MapAttributeRoute();
 app.MapAttributeOptionRoute();
 app.MapLogRoute();
+app.MapForooshOrderRoute();
 app.MapUserRoute();
 #endregion
 

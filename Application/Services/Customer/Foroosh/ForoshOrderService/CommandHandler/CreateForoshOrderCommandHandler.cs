@@ -19,8 +19,10 @@ public readonly struct CreateForooshOrderCommandHandler : IRequestHandler<Create
                 ShippingPrice = request.ShippingPrice,
                 PriceTotal = request.PriceTotal,
                 DiscountPrice = request.DiscountPrice,
-                ShippingMethodType = request.ShippingMethodType,
-                ProductId = request.ProductId
+                ProductId = request.ProductId,
+                FactorId = request.FactorId,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.CreateForooshOrderAsync(item))
                     .Match(result => new Result<ForooshOrder>(result),

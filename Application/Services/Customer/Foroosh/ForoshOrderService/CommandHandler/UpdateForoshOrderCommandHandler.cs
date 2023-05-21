@@ -20,6 +20,7 @@ public readonly struct UpdateForooshOrderCommandHandler : IRequestHandler<Update
                 ShippingPrice = request.ShippingPrice,
                 PriceTotal = request.PriceTotal,
                 DiscountPrice = request.DiscountPrice,
+                IdUserUpdated = request.IdUserUpdated
             };
             return (await _repository.UpdateForooshOrderAsync(item))
                 .Match(result => new Result<ForooshOrder>(result),

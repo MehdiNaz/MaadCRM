@@ -44,20 +44,21 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         {
             return await _context.CustomerFeedbacks
                 .Include(x => x.IdUserNavigation)
+                .Include(x=>x.IdProductNavigation)
                 .FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show)
                 .Select(x => new CustomerFeedbackResponse
                 {
-                    Id = x.Id,
+                    Id = x!.Id,
                     CustomerFeedbackStatusType = x.CustomerFeedbackStatusType,
                     Description = x.Description,
                     IdCustomer = x.IdCustomer,
                     IdCategory = x.IdCategory,
                     IdProduct = x.IdProduct,
-                    IdProductNavigation = x.IdProductNavigation,
+                    IdProductNavigation = x.IdProductNavigation!,
                     IdUserAdded = x.IdUser,
                     IdUserUpdated = x.IdUser,
                     IdUser = x.IdUser,
-                    UserFullName = x.IdUserNavigation.Name + " " + x.IdUserNavigation.Family
+                    UserFullName = x.IdUserNavigation?.Name + " " + x.IdUserNavigation?.Family
                 });
         }
         catch (Exception e)

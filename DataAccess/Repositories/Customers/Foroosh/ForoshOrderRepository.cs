@@ -60,7 +60,9 @@ public class ForooshOrderRepository : IForooshOrderRepository
                 PriceTotal = request.PriceTotal,
                 PriceDiscount = request.DiscountPrice,
                 IdProduct = request.ProductId,
-                IdForooshFactor = request.FactorId
+                IdForooshFactor = request.FactorId,
+                IdUserAdded = request.IdUserAdded,
+                IdUserUpdated = request.IdUserUpdated
             };
             await _context.ForooshOrders!.AddAsync(item!);
             await _context.SaveChangesAsync();
@@ -76,14 +78,12 @@ public class ForooshOrderRepository : IForooshOrderRepository
     {
         try
         {
-            // TODO: add Id Factor
             ForooshOrder item = await _context.ForooshOrders.FindAsync(request.Id);
             item.Price = request.Price;
             item.PriceShipping = request.ShippingPrice;
             item.PriceTotal = request.PriceTotal;
             item.PriceDiscount = request.DiscountPrice;
-            item.IdForooshFactor = default;
-            _context.Update(item);
+            item.IdForooshFactor = request.IdForoosh;
             await _context.SaveChangesAsync();
             return item;
         }
