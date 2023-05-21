@@ -304,6 +304,7 @@ public static class PaymentRoute
                             IdFactor = request.IdFactor,
                             Amount = request.Amount,
                             AmountTax = request.AmountTax,
+                            AmountDiscount = request.AmountDiscount,
                             AmountTotal = request.AmountTotal,
                             PaymentMethod = request.PaymentMethod,
                             ShippingMethodType = request.ShippingMethodType,
