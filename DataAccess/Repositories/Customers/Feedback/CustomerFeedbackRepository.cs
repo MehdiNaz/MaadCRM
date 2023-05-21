@@ -46,7 +46,6 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                 .Include(x => x.IdUserNavigation)
                 .Include(x => x.IdProductNavigation)
                 .FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show)
-                //&& x.IdUserAdded ==)
                 .Select(x => new CustomerFeedbackResponse
                 {
                     Id = x!.Id,
