@@ -10,7 +10,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<Log> Logs { get; set; }
     public DbSet<Plan> Plans { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<CustomerActivity> CustomerActivities { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Province> Provinces { get; set; }
@@ -42,6 +41,10 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }
     public DbSet<CustomerFeedbackCategory> CustomerFeedbackCategories { get; set; }
+
+    // Undefined Model :
+    public DbSet<CustomerActivity> CustomerActivities { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -110,7 +113,6 @@ public class MaadContext : IdentityDbContext
         }
 
         new DbInitializer(builder).Seed();
-
 
         base.OnModelCreating(builder);
     }
