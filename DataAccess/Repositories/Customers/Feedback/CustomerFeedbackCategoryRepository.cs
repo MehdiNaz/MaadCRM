@@ -21,8 +21,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
                     PositiveNegative = x.PositiveNegative,
                     CustomerFeedbackCategoryStatusType = x.CustomerFeedbackCategoryStatusType,
                     TypeFeedback = x.TypeFeedback
-                })
-                .ToListAsync();
+                }).ToListAsync();
         }
         catch (Exception e)
         {
@@ -54,9 +53,9 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
     {
         try
         {
-            return await _context.CustomerFeedbackCategories
-                .Where(x => x.IdBusiness == businessId && x.CustomerFeedbackCategoryStatusType == StatusType.Show && x.Name.ToLower()
-                .Contains(request.ToLower()))
+            return await _context.CustomerFeedbackCategories.Where(x => x.IdBusiness == businessId
+                                                                        && x.CustomerFeedbackCategoryStatusType == StatusType.Show
+                                                                        && x.Name.ToLower().Contains(request.ToLower()))
                 .Select(x => new CustomerFeedbackCategoryResponse
                 {
                     Id = x.Id,
@@ -77,7 +76,7 @@ public class CustomerFeedbackCategoryRepository : ICustomerFeedbackCategoryRepos
         try
         {
             return await _context.CustomerFeedbackCategories
-                .Where(x => x.TypeFeedback ==request && x.CustomerFeedbackCategoryStatusType == StatusType.Show)
+                .Where(x => x.TypeFeedback == request && x.CustomerFeedbackCategoryStatusType == StatusType.Show)
                     .Select(x => new CustomerFeedbackCategoryResponse
                     {
                         Id = x.Id,
