@@ -13,7 +13,14 @@ public readonly struct CustomerBySearchItemHandler : IRequestHandler<CustomerByS
     {
         try
         {
-            return (await _repository.SearchByItemsAsync(request.Q, request.UserId)).Match(result => new Result<CustomerDashboardResponse>(result), exception => new Result<CustomerDashboardResponse>(exception));
+            return (
+                    await _repository.SearchByItemsAsync(request.Q, request.UserId))
+                .Match(
+                    result => 
+                        new Result<CustomerDashboardResponse>(result), 
+                    exception => 
+                        new Result<CustomerDashboardResponse>(exception)
+                    );
         }
         catch (Exception e)
         {

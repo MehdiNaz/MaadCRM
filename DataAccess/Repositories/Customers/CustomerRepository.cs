@@ -270,12 +270,11 @@ public class CustomerRepository : ICustomerRepository
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
         var resultsListCustomer = await _context.Customers
-            .Where(x =>
-                x.CustomerStatusType == StatusType.Show &&
-                        (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) &&
-                             x.IdUser == userId ||
-                             x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) ||
-                             x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress.ToLower().Contains(request.ToLower()))
+            .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
+            .Where(x => 
+                (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) ||
+                x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) ||
+                x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress.ToLower().Contains(request.ToLower()))
             .Select(x => new CustomerResponse
             {
                 IdCustomer = x.Id,
