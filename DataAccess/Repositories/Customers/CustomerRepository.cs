@@ -33,7 +33,9 @@ public class CustomerRepository : ICustomerRepository
                         IdCity = x.IdCity,
                         CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
                         IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
+                        ProvinceName = x.IdCityNavigation != null
+                            ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
+                            : null,
                         Gender = x.Gender,
                         MoarefFullName = x.IdMoarefNavigation.FirstName + " " + x.IdMoarefNavigation.LastName,
                         FirstName = x.FirstName,
@@ -72,7 +74,9 @@ public class CustomerRepository : ICustomerRepository
                         IdCity = x.IdCity,
                         CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
                         IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
+                        ProvinceName = x.IdCityNavigation != null
+                            ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
+                            : null,
                         Gender = x.Gender,
                         DateCreated = x.DateCreated,
                         MoshtaryMoAref = x.IdMoaref,
@@ -88,97 +92,97 @@ public class CustomerRepository : ICustomerRepository
         }
     }
 
-    public async ValueTask<Result<int>> ShowBelghovehCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                    x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatusType == StatusType.Show)
-                .CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
+    // private async ValueTask<Result<int>> ShowBelghovehCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //                 x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatusType == StatusType.Show)
+    //             .CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
+    //
+    // private async ValueTask<Result<int>> ShowBelFelCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //             x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatusType == StatusType.Show).CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
+    //
+    // private async ValueTask<Result<int>> ShowRazyCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //             x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatusType == StatusType.Show).CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
+    //
+    // private async ValueTask<Result<int>> ShowNaRazyCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //             x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatusType == StatusType.Show).CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
+    //
+    // private async ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //                 x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatusType == StatusType.Show)
+    //             .CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
+    //
+    // private async ValueTask<Result<int>> ShowVafadarCustomersCountAsync()
+    // {
+    //     try
+    //     {
+    //         return await _context.Customers.Where(x =>
+    //             x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatusType == StatusType.Show).CountAsync();
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return new Result<int>(new ValidationException(e.Message));
+    //     }
+    // }
 
-    public async ValueTask<Result<int>> ShowBelFelCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatusType == StatusType.Show).CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
-
-    public async ValueTask<Result<int>> ShowRazyCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatusType == StatusType.Show).CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
-
-    public async ValueTask<Result<int>> ShowNaRazyCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatusType == StatusType.Show).CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
-
-    public async ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                    x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatusType == StatusType.Show)
-                .CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
-
-    public async ValueTask<Result<int>> ShowVafadarCustomersCountAsync()
-    {
-        try
-        {
-            return await _context.Customers.Where(x =>
-                x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatusType == StatusType.Show).CountAsync();
-        }
-        catch (Exception e)
-        {
-            return new Result<int>(new ValidationException(e.Message));
-        }
-    }
-
-    public async ValueTask<Result<int>> ShowAllCustomersCountAsync()
+    private async ValueTask<int> ShowAllCustomersCountAsync(string userId)
     {
         try
         {
             return await _context.Customers
-                .Where(x => x.CustomerStatusType == StatusType.Show && x.CustomerStatusType == StatusType.Show)
+                .Where(x => x.CustomerStatusType == StatusType.Show)
                 .CountAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return new Result<int>(new ValidationException(e.Message));
+            return 0;
         }
     }
 
@@ -203,7 +207,9 @@ public class CustomerRepository : ICustomerRepository
                     IdCity = x.IdCity,
                     CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
                     IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                    ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
+                    ProvinceName = x.IdCityNavigation != null
+                        ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
+                        : null,
                     Gender = x.Gender,
                     DateCreated = x.DateCreated,
                     MoshtaryMoAref = x.IdMoaref,
@@ -269,47 +275,57 @@ public class CustomerRepository : ICustomerRepository
 
     public async ValueTask<Result<CustomerDashboardResponse>> SearchByItemsAsync(string request, string userId)
     {
-        var resultsListCustomer = await _context.Customers
-            .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
-            .Where(x => 
-                (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) ||
-                x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) ||
-                x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress.ToLower().Contains(request.ToLower()))
-            .Select(x => new CustomerResponse
-            {
-                IdCustomer = x.Id,
-                Name = x.FirstName + " " + x.LastName,
-                PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
-                EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
-                Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
-                CustomerStateType = x.CustomerState,
-                CustomerStatusType = x.CustomerStatusType,
-                From = x.DateCreated,
-                UpTo = DateTime.UtcNow,
-                BirthDayDate = x.BirthDayDate,
-                IdCity = x.IdCity,
-                CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
-                IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
-                Gender = x.Gender,
-                DateCreated = x.DateCreated,
-                MoshtaryMoAref = x.IdMoaref,
-                MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation.LastName,
-                IdUser = x.IdUser,
-            }).ToListAsync();
-
-        return new CustomerDashboardResponse
+        try
         {
-            AllCustomersInfo = resultsListCustomer,
-            AllCount = resultsListCustomer.Count,
-            BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
-            BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
-            RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
-            NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-            DarHalePeyGiryCount =
-                resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
-            VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
-        };
+            var resultsListCustomer = await _context.Customers
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
+                .Where(x =>
+                    (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) ||
+                    x.PhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.ToLower()) ||
+                    x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress.ToLower().Contains(request.ToLower()))
+                .Select(x => new CustomerResponse
+                {
+                    IdCustomer = x.Id,
+                    Name = x.FirstName + " " + x.LastName,
+                    PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
+                    EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
+                    Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatusType = x.CustomerStatusType,
+                    From = x.DateCreated,
+                    UpTo = DateTime.UtcNow,
+                    BirthDayDate = x.BirthDayDate,
+                    IdCity = x.IdCity,
+                    CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
+                    IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
+                    ProvinceName = x.IdCityNavigation != null
+                        ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
+                        : null,
+                    Gender = x.Gender,
+                    DateCreated = x.DateCreated,
+                    MoshtaryMoAref = x.IdMoaref,
+                    MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation.LastName,
+                    IdUser = x.IdUser,
+                }).ToListAsync();
+
+            var resultAll = await ShowAllCustomersCountAsync(userId);
+
+            return new Result<CustomerDashboardResponse>(new CustomerDashboardResponse
+            {
+                AllCustomersInfo = resultsListCustomer,
+                AllCount = resultAll,
+                BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+                BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+                RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+                NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+                DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
+            });
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerDashboardResponse>(new ValidationException(e.Message));
+        }
     }
 
     public async ValueTask<Result<CustomerResponse>> ChangeStatusCustomerByIdAsync(ChangeStatusCustomerCommand request)
@@ -493,7 +509,7 @@ public class CustomerRepository : ICustomerRepository
                         MoarefPhoneNumber = x.IdMoarefNavigation!.PhoneNumbers!.FirstOrDefault()!.PhoneNo
                     })
                     .FirstOrDefaultAsync(x => x.IdCustomer == entityEntry.Id && x.CustomerStatusType == StatusType.Show)
-                );
+            );
         }
         catch (Exception e)
         {
@@ -580,7 +596,9 @@ public class CustomerRepository : ICustomerRepository
                         IdCity = x.IdCity,
                         CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
                         IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                        ProvinceName = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName : null,
+                        ProvinceName = x.IdCityNavigation != null
+                            ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
+                            : null,
                         Gender = x.Gender,
                         DateCreated = x.DateCreated,
                         MoshtaryMoAref = x.IdMoaref,
@@ -602,7 +620,7 @@ public class CustomerRepository : ICustomerRepository
             var customer = await _context.Customers.FindAsync(customerId);
             if (customer == null)
                 return "Error.";
-            
+
             customer.CustomerStatusType = StatusType.Deleted;
             await _context.SaveChangesAsync();
 
