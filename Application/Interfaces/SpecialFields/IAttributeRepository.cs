@@ -2,7 +2,7 @@
 
 public interface IAttributeRepository
 {
-    ValueTask<Result<ICollection<AttributeResponse>>> GetAllAttributesAsync();
+    ValueTask<Result<ICollection<AttributeResponse>>> GetAllAttributesAsync(AttributeType type,Ulid idBusiness);
     ValueTask<Result<AttributeResponse>> GetAttributesByIdAsync(Ulid attributeId);
     ValueTask<Result<AttributeResponse>> ChangeStatusAttributeIdAsync(ChangeStatusAttributeCommand request);
     ValueTask<Result<AttributeResponse>> CreateAttributesAsync(CreateAttributeCommand request);

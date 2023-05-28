@@ -9,11 +9,13 @@ public class AttributeRepository : IAttributeRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<AttributeResponse>>> GetAllAttributesAsync()
+    public async ValueTask<Result<ICollection<AttributeResponse>>> GetAllAttributesAsync(AttributeType type,Ulid idBusiness)
     {
         try
         {
-            return new Result<ICollection<AttributeResponse>>(await _context.Attributes.Where(x => x.Status == StatusType.Show)
+            var result = await _context
+                .Attributes
+                .Where(x => x.Status == StatusType.Show && x.AttributeTypeId == type && x.IdBusiness == idBusiness)
                 .Select(x => new AttributeResponse
                 {
                     Id = x.Id,
@@ -29,7 +31,10 @@ public class AttributeRepository : IAttributeRepository
                     DefaultValue = x.DefaultValue,
                     IdBusiness = x.IdBusiness
                 })
-                .ToListAsync());
+                .ToListAsync();
+            
+            return new Result<ICollection<AttributeResponse>>(result);
+
         }
         catch (Exception e)
         {

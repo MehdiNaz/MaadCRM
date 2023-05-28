@@ -6,7 +6,7 @@ public static class AttributeRoute
     {
         var plan = app.MapGroup("v1/Attribute").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllAttributes", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllAttributes/{type}", (AttributeType type,IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -19,7 +19,7 @@ public static class AttributeRoute
                 return id.Result.Match(
                     userId =>
                     {
-                        var result = mediator.Send(new AllAttributeQuery());
+                        var result = mediator.Send(new AllAttributeQuery{Type = type, IdUser = userId});
 
                         return result.Result.Match(
                             succes => Results.Ok(new
