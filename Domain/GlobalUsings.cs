@@ -19,4 +19,5 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Domain.Models.LogsUser;
+global using Domain.Models.Notifications;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

@@ -41,9 +41,12 @@ public class MaadContext : IdentityDbContext
     public DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
     public DbSet<CustomerFeedbackAttachment> CustomerFeedbackAttachments { get; set; }
     public DbSet<CustomerFeedbackCategory> CustomerFeedbackCategories { get; set; }
+    
+    public DbSet<Notif> Notifications { get; set; }
+
 
     // Undefined Model :
-    public DbSet<CustomerActivity> CustomerActivities { get; set; }
+    // public DbSet<CustomerActivity> CustomerActivities { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -60,6 +63,7 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new NoteHashTableMapping());
         builder.ApplyConfiguration(new CustomerPeyGiryMapping());
         builder.ApplyConfiguration(new PeyGiryCategoryMapping());
+        builder.ApplyConfiguration(new NotificationMapping());
         builder.ApplyConfiguration(new NoteHashTagMapping());
         builder.ApplyConfiguration(new NoteAttachmentMapping());
         builder.ApplyConfiguration(new PeyGiryAttachmentMapping());
@@ -112,7 +116,8 @@ public class MaadContext : IdentityDbContext
             }
         }
 
-        new DbInitializer(builder).Seed();
+        // TODO: Seed Database
+        // new DbInitializer(builder).Seed();
 
         base.OnModelCreating(builder);
     }

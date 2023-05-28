@@ -8,6 +8,7 @@ public sealed class CustomerPeyGiry : BaseEntityWithOptionalUserId
         Status = StatusType.Show;
         Logs = new HashSet<Log>();
         PeyGiryAttachments = new HashSet<PeyGiryAttachment>();
+        Notifications = new HashSet<Notif>();
     }
 
     public Ulid Id { get; set; }
@@ -23,4 +24,6 @@ public sealed class CustomerPeyGiry : BaseEntityWithOptionalUserId
 
     public ICollection<Log>? Logs { get; set; }
     public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
+    
+    public ICollection<Notif>? Notifications { get; set; }
 }

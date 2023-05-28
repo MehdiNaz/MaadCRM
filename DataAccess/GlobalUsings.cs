@@ -92,4 +92,6 @@ global using System.ComponentModel.DataAnnotations;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+global using Domain.Mapping.Notifications;
+global using Domain.Models.Notifications;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

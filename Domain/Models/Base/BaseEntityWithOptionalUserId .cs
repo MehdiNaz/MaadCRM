@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain.Models.Base;
 
 public class BaseEntityWithOptionalUserId : BaseEntityWithUserUpdate
 {

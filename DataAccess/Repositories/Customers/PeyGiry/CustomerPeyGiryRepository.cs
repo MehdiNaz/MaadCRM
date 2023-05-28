@@ -16,7 +16,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             return await _context.CustomerPeyGiries
-                .Include(x=>x.IdPeyGiryCategoryNavigation)
+                .Include(x => x.IdPeyGiryCategoryNavigation)
                 .Where(x => x.Status == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
@@ -37,7 +37,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         try
         {
             return await _context.CustomerPeyGiries
-                .Include(x=>x.IdPeyGiryCategoryNavigation)
+                .Include(x => x.IdPeyGiryCategoryNavigation)
                 .SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
                 .Select(x => new CustomerPeyGiryResponse
                 {
@@ -53,7 +53,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiryResponse>> ChangeStatusCustomerPeyGiryByIdAsync(ChangeStatusCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> ChangeStatusCustomerPeyGiryByIdAsync(
+        ChangeStatusCustomerPeyGiryCommand request)
     {
         try
         {
@@ -76,7 +77,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiryResponse>> CreateCustomerPeyGiryAsync(CreateCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> CreateCustomerPeyGiryAsync(
+        CreateCustomerPeyGiryCommand request)
     {
         try
         {
@@ -91,13 +93,26 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             };
 
             await _context.CustomerPeyGiries.AddAsync(item);
+            await _context.SaveChangesAsync();
 
             if (request.DatePeyGiry > DateTime.UtcNow)
             {
-                var customerId = (await _context.CustomerPeyGiries.SingleOrDefaultAsync(x => x.Id == item.Id)).IdCustomer;
-                (await _context.Customers.SingleOrDefaultAsync(x => x.Id == customerId)).CustomerState = CustomerStateTypes.BelFel;
+                // Change CustomerState to BelFel
+                var changeState = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.CustomerId);
+                changeState.CustomerState = CustomerStateTypes.BelFel;
+
+                // Create Notif
+                Notif notif = new()
+                {
+                    IdPeyGiry = item.Id,
+                    NotificationType = NotificationType.PeyGiry,
+                    IdUser = request.IdUser,
+                    Status = StatusType.Show,
+                    DateDue = request.DatePeyGiry.Value
+                };
+                await _context.Notifications.AddAsync(notif);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
 
 
             CreateLogCommand command = new()
@@ -133,7 +148,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
-    public async ValueTask<Result<CustomerPeyGiryResponse>> UpdateCustomerPeyGiryAsync(UpdateCustomerPeyGiryCommand request)
+    public async ValueTask<Result<CustomerPeyGiryResponse>> UpdateCustomerPeyGiryAsync(
+        UpdateCustomerPeyGiryCommand request)
     {
         try
         {
@@ -212,7 +228,6 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     Description = x.Description,
                     DateCreated = x.DateCreated
                 }));
-
         }
         catch (Exception e)
         {
