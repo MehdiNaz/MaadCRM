@@ -46,7 +46,7 @@ public class MaadContext : IdentityDbContext
 
 
     // Undefined Model :
-    // public DbSet<CustomerActivity> CustomerActivities { get; set; }
+    public DbSet<CustomerActivity> CustomerActivities { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
