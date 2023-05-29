@@ -6,10 +6,6 @@ public class NotificationMapping : IEntityTypeConfiguration<Notif>
     {
         builder.ToTable("Notifications");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.DateDue).HasColumnType("datetime2(7)");
-        builder.Property(x => x.DateCreated).HasColumnType("datetime2(7)");
-        builder.Property(x => x.DateLastUpdate).HasColumnType("datetime2(7)");
-        
         
 
         builder.Property(e => e.Version).IsRowVersion();
