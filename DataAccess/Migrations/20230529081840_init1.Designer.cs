@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230521105648_CustomerFeedbackUpdated")]
-    partial class CustomerFeedbackUpdated
+    [Migration("20230529081840_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -361,7 +361,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("IdUser")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IdUserAdded")
@@ -723,6 +722,9 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
+                    b.Property<decimal>("AmountDiscount")
+                        .HasColumnType("numeric");
+
                     b.Property<decimal>("AmountTax")
                         .HasColumnType("numeric");
 
@@ -863,7 +865,7 @@ namespace DataAccess.Migrations
                     b.ToTable("ForooshOrders", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Customers.Foroosh.Payment", b =>
+            modelBuilder.Entity("Domain.Models.Customers.Foroosh.ForooshPayment", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("character varying(26)");
@@ -1290,11 +1292,11 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01H0YZ8T7XTR0E7CYVMGGPXEFH",
+                            Id = "01H1K9D1EMVVA8624N317FGC8D",
                             CityName = "شیراز",
                             CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4049),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4050),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8250),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8250),
                             DisplayOrder = 1L,
                             IdProvince = "01GZTMF256K84ZGQFMWRB6VTV9",
                             IsDefault = true,
@@ -1302,11 +1304,11 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XBW1RKJB279V0VNC4",
+                            Id = "01H1K9D1EMF9WSH7JE0S7CG4BX",
                             CityName = "لار",
                             CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4068),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4069),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8260),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8260),
                             DisplayOrder = 1L,
                             IdProvince = "01GZTMF256K84ZGQFMWRB6VTV9",
                             IsDefault = true,
@@ -1314,11 +1316,11 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X5HWNPWR5YGBV024X",
+                            Id = "01H1K9D1EMHTK7WHCG5ZE0D70F",
                             CityName = "کرج",
                             CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4082),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4083),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8270),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8270),
                             DisplayOrder = 1L,
                             IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
                             IsDefault = true,
@@ -1326,11 +1328,11 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XGFW5YHHCQ9K18Q93",
+                            Id = "01H1K9D1EMGC8PQTA1CETMW6ZM",
                             CityName = "شهریار",
                             CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4096),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4096),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8280),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8280),
                             DisplayOrder = 1L,
                             IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
                             IsDefault = true,
@@ -1338,11 +1340,11 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XG4T3PGXY7SFC25SP",
+                            Id = "01H1K9D1EMCMZE7BKDS4XAYMKD",
                             CityName = "قدس",
                             CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4109),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4109),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8300),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8300),
                             DisplayOrder = 1L,
                             IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
                             IsDefault = true,
@@ -1388,8 +1390,8 @@ namespace DataAccess.Migrations
                             Id = "01GZTM8DSTQH037TNTFSK9RX9W",
                             CountryName = "Iran",
                             CountryStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(2883),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(2886),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7630),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7630),
                             DisplayOrder = 1L,
                             IsDefault = true,
                             Version = 0L
@@ -1437,9 +1439,9 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "01H0YZ8T7XCYA38YVDSE0BM2YP",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3366),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3367),
+                            Id = "01H1K9D1EMNJDGMT1C8XZBKDFA",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7850),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7850),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1449,9 +1451,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XBBN3KTPNPVVG9BVR",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3393),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3393),
+                            Id = "01H1K9D1EMKH817CEGRZM1C1CZ",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7870),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7870),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1461,9 +1463,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X9ND76XF22S9RDJAX",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3408),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3409),
+                            Id = "01H1K9D1EMGDCWYDZEWS9JEM7S",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7880),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7880),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1473,9 +1475,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XCCR66917J1R9NWWC",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3424),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3424),
+                            Id = "01H1K9D1EM5F4CA14SHBQY5A3M",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7900),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7900),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1485,9 +1487,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X32JCR136Q3C4XN15",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3439),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3440),
+                            Id = "01H1K9D1EMN9WZRNTXJA9B2KCK",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7910),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7910),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1497,9 +1499,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XMQZK7XMFGANZXCPG",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3456),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3457),
+                            Id = "01H1K9D1EMWANWYD74B58CS011",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7920),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7920),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1510,8 +1512,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = "01GZTT98N8S8TE5J1WE205Q4WV",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3471),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3472),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7930),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7940),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1521,9 +1523,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XBEH1SNH84BG4QQPV",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3493),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3494),
+                            Id = "01H1K9D1EM4G2AZKW55G0XXY4K",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7950),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7950),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1533,9 +1535,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XMN2PXSXPVZJARRK5",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3521),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3521),
+                            Id = "01H1K9D1EMXJS0W9WM8J4NNWQH",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7960),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7960),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1545,9 +1547,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XSB8N1B9SZQPT9VD7",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3598),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3598),
+                            Id = "01H1K9D1EM2HNY8V6FMBJ8KNGJ",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7970),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7970),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1557,9 +1559,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XKGBQ0N5F580XHKYD",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3617),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3617),
+                            Id = "01H1K9D1EMT7FWNBAEJXNMMR5J",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7980),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7980),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1569,9 +1571,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XJQESWCTY8W43PKN3",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3631),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3631),
+                            Id = "01H1K9D1EMVCW72SFKRW8EX78W",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8000),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8000),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1581,9 +1583,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XMBYK8N94PQ3X0VGY",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3645),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3646),
+                            Id = "01H1K9D1EM3V9V0YQ24VWQH3NW",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8020),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8020),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1593,9 +1595,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XRNV4ZJB4REYCB386",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3659),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3659),
+                            Id = "01H1K9D1EM4VCR6P076HZP9NE0",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8030),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8030),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1605,9 +1607,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XRX3HB0E3QZTWRQZS",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3678),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3678),
+                            Id = "01H1K9D1EM90RG4C1EEWTMV7T7",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8040),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8040),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1618,8 +1620,8 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = "01GZTMF256K84ZGQFMWRB6VTV9",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3717),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3717),
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8050),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8050),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1629,9 +1631,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X9W45GTJFHD6G4VW7",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3734),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3735),
+                            Id = "01H1K9D1EM5RX3H602KTN8B645",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8060),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8070),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1641,9 +1643,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XS6HAMGXQFVVDCD7T",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3750),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3750),
+                            Id = "01H1K9D1EM6F55N6Y6KGWFN9T6",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8080),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8080),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1653,9 +1655,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X0VPF29B0YZTTYF56",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3764),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3764),
+                            Id = "01H1K9D1EMJ26V58SN60PVHVKB",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8090),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8090),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1665,9 +1667,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X5P16F2F350C9920D",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3777),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3777),
+                            Id = "01H1K9D1EMB12ERVXGDF2H1CTN",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8100),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8100),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1677,9 +1679,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X6627Z1RX42N717FB",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3791),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3791),
+                            Id = "01H1K9D1EMFQEMR64YSEWW97KQ",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8110),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8110),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1689,9 +1691,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XEWZFBACB4H1A0ZTJ",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3804),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3804),
+                            Id = "01H1K9D1EMPTXCDES80PH5VK17",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8130),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8130),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1701,9 +1703,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XFMRVNDMZMFVMD7G4",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3817),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3817),
+                            Id = "01H1K9D1EMB464J1AXYQD5M1S3",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8140),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8140),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1713,9 +1715,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XKGD3CQKETHNAZXH1",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3830),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3830),
+                            Id = "01H1K9D1EM4B4CX6C4NNEM7758",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8150),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8150),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1725,9 +1727,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XCJ9Q89XPVG3K25AV",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3844),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3844),
+                            Id = "01H1K9D1EMVN4RWA5CB93GNMBA",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8160),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8160),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1737,9 +1739,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XPTBH1C6C9RNVX8DJ",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3858),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3859),
+                            Id = "01H1K9D1EMMCQ9RVJ3ND78RXGZ",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8170),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8170),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1749,9 +1751,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XVE32WV59ZSWQS11C",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3872),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3873),
+                            Id = "01H1K9D1EMVFQ9N0RPTG9ZM5FW",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8190),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8190),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1761,9 +1763,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XSJMPPV4D0PBF0QPK",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3904),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3904),
+                            Id = "01H1K9D1EMXWHRAJGAH13Q7S2A",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8200),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8200),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1773,9 +1775,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7X4KNDHD53QRQ5GXTR",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3920),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(3920),
+                            Id = "01H1K9D1EM0ETHJXSCSCVAA279",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8210),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8210),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -1785,9 +1787,9 @@ namespace DataAccess.Migrations
                         },
                         new
                         {
-                            Id = "01H0YZ8T7XK4BZ9YCQTNWJ6TW8",
-                            DateCreated = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4021),
-                            DateLastUpdate = new DateTime(2023, 5, 21, 10, 56, 47, 869, DateTimeKind.Utc).AddTicks(4021),
+                            Id = "01H1K9D1EMAQX3TWKE4E2QYF7D",
+                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8220),
+                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8220),
                             DisplayOrder = 1L,
                             IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
                             IsDefault = true,
@@ -2562,7 +2564,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserNavigation")
                         .WithMany("Customers")
                         .HasForeignKey("IdUser")
-                        .IsRequired()
                         .HasConstraintName("FK_Customer_User");
 
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")
@@ -2787,7 +2788,7 @@ namespace DataAccess.Migrations
                     b.Navigation("IdUserUpdateNavigation");
                 });
 
-            modelBuilder.Entity("Domain.Models.Customers.Foroosh.Payment", b =>
+            modelBuilder.Entity("Domain.Models.Customers.Foroosh.ForooshPayment", b =>
                 {
                     b.HasOne("Domain.Models.Customers.Foroosh.ForooshFactor", "IdForooshFactorNavigation")
                         .WithMany("Payments")

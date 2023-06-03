@@ -21,13 +21,13 @@ public class NotificationMapping : IEntityTypeConfiguration<Notif>
             .HasForeignKey(d => d.IdUser)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Notifications_User");
-
+        
         builder.HasOne(x => x.IdUserUpdateNavigation)
             .WithMany(x => x.NotificationUpdated)
             .HasForeignKey(d => d.IdUserUpdated)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Update_Notifications_User");
-
+        
         builder.HasOne(x => x.IdUserAddNavigation)
             .WithMany(x => x.NotificationAdded)
             .HasForeignKey(d => d.IdUserAdded)

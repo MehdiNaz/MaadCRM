@@ -4,12 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -715,7 +713,7 @@ namespace DataAccess.Migrations
                     xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false),
                     IdUserUpdated = table.Column<string>(type: "text", nullable: false),
                     IdUserAdded = table.Column<string>(type: "text", nullable: false),
-                    IdUser = table.Column<string>(type: "text", nullable: false)
+                    IdUser = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -833,7 +831,7 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "character varying(26)", nullable: false),
-                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     CustomerFeedbackStatusType = table.Column<int>(type: "integer", nullable: false),
                     IdCategory = table.Column<string>(type: "character varying(26)", nullable: false),
                     IdProduct = table.Column<string>(type: "character varying(26)", nullable: true),
@@ -1048,6 +1046,7 @@ namespace DataAccess.Migrations
                     Id = table.Column<string>(type: "character varying(26)", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     AmountTax = table.Column<decimal>(type: "numeric", nullable: false),
+                    AmountDiscount = table.Column<decimal>(type: "numeric", nullable: false),
                     AmountTotal = table.Column<decimal>(type: "numeric", nullable: false),
                     StatusTypeForooshFactor = table.Column<int>(type: "integer", nullable: false),
                     DatePayed = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -1323,60 +1322,6 @@ namespace DataAccess.Migrations
                         column: x => x.IdForooshFactor,
                         principalTable: "ForooshFactors",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "Id", "CountryName", "CountryStatusType", "DateCreated", "DateLastUpdate", "DisplayOrder", "IsDefault", "Version" },
-                values: new object[] { "01GZTM8DSTQH037TNTFSK9RX9W", "Iran", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5000), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5000), 1L, true, 0L });
-
-            migrationBuilder.InsertData(
-                table: "Provinces",
-                columns: new[] { "Id", "DateCreated", "DateLastUpdate", "DisplayOrder", "IdCountry", "IsDefault", "ProvinceName", "ProvinceStatusType", "Version" },
-                values: new object[,]
-                {
-                    { "01GZTMF256K84ZGQFMWRB6VTV9", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5440), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5440), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "فارس", 1, 0L },
-                    { "01GZTT98N8S8TE5J1WE205Q4WV", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5330), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5330), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "تهران", 1, 0L },
-                    { "01H0NBHRJ104X9R6B79885B6V2", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5600), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5600), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "همدان", 1, 0L },
-                    { "01H0NBHRJ10HE2PKH3Y5YZH23F", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5450), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5450), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "قزوين", 1, 0L },
-                    { "01H0NBHRJ10SF2HY0DYY1Y28JR", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5430), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5430), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "سيستان و بلوچستان", 1, 0L },
-                    { "01H0NBHRJ143JDNYCJDEFN29K9", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5550), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5550), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "لرستان", 1, 0L },
-                    { "01H0NBHRJ14MXB2FS9T7NNH8CF", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5280), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5280), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "اصفهان", 1, 0L },
-                    { "01H0NBHRJ16A77JRZHM4VAAHCB", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5380), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5380), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "خراسان شمالي", 1, 0L },
-                    { "01H0NBHRJ17GSPMKHNAP8Q4EGV", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5530), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5530), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "گلستان", 1, 0L },
-                    { "01H0NBHRJ18AGW5CR1ZD893DEF", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5420), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5420), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "سمنان", 1, 0L },
-                    { "01H0NBHRJ19HK6RNEXS7K155HE", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5360), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5360), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "خراسان جنوبي", 1, 0L },
-                    { "01H0NBHRJ1CKYW70S8JNE1ZCWM", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5580), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5580), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "مركزي", 1, 0L },
-                    { "01H0NBHRJ1DQ415JSBAD0BZYHY", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5500), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5500), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "كرمانشاه", 1, 0L },
-                    { "01H0NBHRJ1E4MFKJ2FXV9WEYKA", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5410), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5410), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "زنجان", 1, 0L },
-                    { "01H0NBHRJ1ESFC933HV75QTVXX", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5480), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5480), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "كردستان", 1, 0L },
-                    { "01H0NBHRJ1EVW9F2B62988DMBN", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5570), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5570), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "مازندران", 1, 0L },
-                    { "01H0NBHRJ1FDMS37QJA3NR4H8W", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5590), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5590), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "هرمزگان", 1, 0L },
-                    { "01H0NBHRJ1HBJ5M37BKNDWP8BS", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5370), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5370), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "خراسان رضوي", 1, 0L },
-                    { "01H0NBHRJ1KAEV4R65PM6J151Z", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5540), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5540), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "گيلان", 1, 0L },
-                    { "01H0NBHRJ1KZ4DS0YTH140TMST", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5300), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5300), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "بوشهر", 1, 0L },
-                    { "01H0NBHRJ1P983CYHG99Y972FH", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5470), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5470), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "قم", 1, 0L },
-                    { "01H0NBHRJ1QF5V08W53VRHZQK5", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5340), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5340), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "چهارمحال بختياري", 1, 0L },
-                    { "01H0NBHRJ1QT0535X5NFVGF8EK", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5260), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5260), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "اردبيل", 1, 0L },
-                    { "01H0NBHRJ1RYNY6ZWPR2BW2P16", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5520), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5520), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "كهكيلويه و بويراحمد", 1, 0L },
-                    { "01H0NBHRJ1SJHAXCFATERM7JS6", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5320), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5320), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "البرز", 1, 0L },
-                    { "01H0NBHRJ1SND56GKJQ4QK1QAZ", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5490), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5490), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "كرمان", 1, 0L },
-                    { "01H0NBHRJ1T5H58YQVBW4E5RMY", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5390), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5390), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "خوزستان", 1, 0L },
-                    { "01H0NBHRJ1TE7A050HAAA72EF9", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5290), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5290), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "ايلام", 1, 0L },
-                    { "01H0NBHRJ1Y72AZ4HM0JD4AZ2R", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5240), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5240), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "آذربايجان غربي", 1, 0L },
-                    { "01H0NBHRJ1Z1M742GXHJVKHNSJ", new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5610), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5610), 1L, "01GZTM8DSTQH037TNTFSK9RX9W", true, "يزد", 1, 0L }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Cities",
-                columns: new[] { "Id", "CityName", "CityStatusType", "DateCreated", "DateLastUpdate", "DisplayOrder", "IdProvince", "IsDefault" },
-                values: new object[,]
-                {
-                    { "01H0NBHRJ164K2WZ5BH1GHWG5Q", "شیراز", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5630), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5630), 1L, "01GZTMF256K84ZGQFMWRB6VTV9", true },
-                    { "01H0NBHRJ16A3VV8WF1BF8P179", "قدس", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5690), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5690), 1L, "01GZTT98N8S8TE5J1WE205Q4WV", true },
-                    { "01H0NBHRJ1C41VGJGVR9Q6HNK5", "شهریار", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5680), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5680), 1L, "01GZTT98N8S8TE5J1WE205Q4WV", true },
-                    { "01H0NBHRJ1F8Y7M6A5P80CCHGQ", "لار", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5650), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5650), 1L, "01GZTMF256K84ZGQFMWRB6VTV9", true },
-                    { "01H0NBHRJ1H1SX72C4MD4KD543", "کرج", 1, new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5670), new DateTime(2023, 5, 17, 17, 18, 59, 649, DateTimeKind.Utc).AddTicks(5670), 1L, "01GZTT98N8S8TE5J1WE205Q4WV", true }
                 });
 
             migrationBuilder.CreateIndex(

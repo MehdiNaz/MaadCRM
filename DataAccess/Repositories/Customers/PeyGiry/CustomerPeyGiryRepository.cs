@@ -84,7 +84,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             CustomerPeyGiry item = new()
             {
-                Description = request.Description,
+                // Description = request.Description,
                 IdCustomer = request.CustomerId,
                 DatePeyGiry = request.DatePeyGiry,
                 IdUserAdded = request.IdUser,
@@ -111,6 +111,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     DateDue = request.DatePeyGiry.Value
                 };
                 await _context.Notifications.AddAsync(notif);
+                
                 await _context.SaveChangesAsync();
             }
 

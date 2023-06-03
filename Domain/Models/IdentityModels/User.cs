@@ -26,9 +26,9 @@ public class User : IdentityUser
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
 
-        NotificationAdded = new HashSet<Notif>();
-        NotificationUpdated = new HashSet<Notif>();
-        Notifications = new HashSet<Notif>();
+        // NotificationAdded = new HashSet<Notif>();
+        // NotificationUpdated = new HashSet<Notif>();
+        // Notifications = new HashSet<Notif>();
         
         AttributeAdded = new HashSet<Attribute>();
         AttributeUpdated = new HashSet<Attribute>();
