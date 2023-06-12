@@ -186,7 +186,8 @@ public class PaymentRepository : IForooshPaymentRepository
             
 
             var resultCustomer = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.IdCustomer);
-            resultCustomer!.CustomerState = CustomerStateTypes.BelFel;
+            if (resultCustomer != null) resultCustomer.CustomerState = CustomerStateTypes.BelFel;
+            
             await _context.SaveChangesAsync();
             
             // Create Log
