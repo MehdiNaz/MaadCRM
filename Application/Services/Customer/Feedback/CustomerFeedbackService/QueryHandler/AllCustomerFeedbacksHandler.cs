@@ -13,7 +13,7 @@ public readonly struct AllCustomerFeedbacksHandler : IRequestHandler<AllCustomer
     {
         try
         {
-            return (await _repository.GetAllCustomerFeedbacksAsync())
+            return (await _repository.GetAllCustomerFeedbacksAsync(request.Id))
                 .Match(result => new Result<ICollection<CustomerFeedbackResponse>>(result),
                     exception => new Result<ICollection<CustomerFeedbackResponse>>(exception));
         }

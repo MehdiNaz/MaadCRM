@@ -2,4 +2,5 @@
 
 public struct AllCustomerFeedbacksQuery : IRequest<Result<ICollection<CustomerFeedbackResponse>>>
 {
+    public Ulid Id { get; set; }
 }

@@ -11,12 +11,12 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
         _log = log;
     }
 
-    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> GetAllCustomerFeedbacksAsync()
+    public async ValueTask<Result<ICollection<CustomerFeedbackResponse>>> GetAllCustomerFeedbacksAsync(Ulid idCustomer)
     {
         try
         {
             return new Result<ICollection<CustomerFeedbackResponse>>(await _context.CustomerFeedbacks
-                .Where(x => x.CustomerFeedbackStatusType == StatusType.Show)
+                .Where(x => x.CustomerFeedbackStatusType == StatusType.Show && x.IdCustomer == idCustomer)
                 .Include(x => x.IdUserNavigation)
                 .Select(x => new CustomerFeedbackResponse
                 {

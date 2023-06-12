@@ -2,7 +2,7 @@
 
 public interface ICustomerFeedbackRepository
 {
-    ValueTask<Result<ICollection<CustomerFeedbackResponse>>> GetAllCustomerFeedbacksAsync();
+    ValueTask<Result<ICollection<CustomerFeedbackResponse>>> GetAllCustomerFeedbacksAsync(Ulid idCustomer);
     ValueTask<Result<CustomerFeedbackResponse>> GetCustomerFeedbackByIdAsync(Ulid feedbackId);
     ValueTask<Result<ICollection<CustomerFeedbackResponse>>> SearchByItemsAsync(string request, string userId);
     ValueTask<Result<CustomerFeedbackResponse>> ChangeStatusCustomerFeedbacksByIdAsync(ChangeStateCustomerFeedbackCommand request);

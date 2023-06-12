@@ -6,7 +6,7 @@ public static class CustomerFeedbackRoute
     {
         RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedback").EnableOpenApiWithAuthentication().WithOpenApi();
 
-        plan.MapGet("/AllCustomerFeedbacks", (IMediator mediator, HttpContext httpContext) =>
+        plan.MapGet("/AllCustomerFeedbacks/{idCustomer}", (Ulid idCustomer,IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -19,7 +19,10 @@ public static class CustomerFeedbackRoute
                 return id.Result.Match(
                         _ =>
                         {
-                            var result = mediator.Send(new AllCustomerFeedbacksQuery());
+                            var result = mediator.Send(new AllCustomerFeedbacksQuery
+                            {
+                                Id = idCustomer
+                            });
 
                             return result.Result.Match(
                                 succes => Results.Ok(new
