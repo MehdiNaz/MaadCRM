@@ -23,7 +23,11 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated,
-                    CategoryName = x.IdPeyGiryCategoryNavigation.Kind
+                    NamePeyGiryCategory = x.IdPeyGiryCategoryNavigation.Kind,
+                    DatePeyGiry = x.DatePeyGiry,
+                    IdCustomer = x.IdCustomer,
+                    IdPeyGiryCategory = x.IdPeyGiryCategory,
+                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -32,20 +36,25 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         }
     }
 
+    
     public async ValueTask<Result<CustomerPeyGiryResponse>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
     {
         try
         {
             return await _context.CustomerPeyGiries
                 .Include(x => x.IdPeyGiryCategoryNavigation)
-                .SingleOrDefaultAsync(x => x.Id == customerPeyGiryId && x.Status == StatusType.Show)
                 .Select(x => new CustomerPeyGiryResponse
                 {
                     IdCustomerPeyGiry = x.Id,
                     Description = x.Description,
                     DateCreated = x.DateCreated,
-                    CategoryName = x.IdPeyGiryCategoryNavigation.Kind
-                });
+                    NamePeyGiryCategory = x.IdPeyGiryCategoryNavigation.Kind,
+                    DatePeyGiry = x.DatePeyGiry,
+                    IdCustomer = x.IdCustomer,
+                    IdPeyGiryCategory = x.IdPeyGiryCategory,
+                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
+                }).FirstOrDefaultAsync(x => x.IdCustomerPeyGiry == customerPeyGiryId);
+            // TODO: x.Status == StatusType.Show
         }
         catch (Exception e)
         {
