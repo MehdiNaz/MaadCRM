@@ -10,5 +10,5 @@ public enum ProductStatus : byte
     Reject = 2,
     Published = 3,
     Deleted = 4,
-    Show = 5
+    Show = 5,
 }

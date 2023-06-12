@@ -448,7 +448,8 @@ public static class ProductRoute
                                 DiscountPercent = request.DiscountPercent,
                                 Picture = request.Picture,
                                 IdUserAdded = UserId,
-                                IdUserUpdated = UserId
+                                IdUserUpdated = UserId,
+                                Status = request.Status
                             });
 
                             return result.Result.Match(

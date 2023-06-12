@@ -232,7 +232,7 @@ public class ProductRepository : IProductRepository
                 Picture = request.Picture,
                 IdUserAdded = request.IdUserAdded,
                 IdUserUpdated = request.IdUserUpdated,
-                StatusPublish = request.StatusPublish,
+                StatusTypeProduct = request.Status,
             };
 
             await _context.Products.AddAsync(item);
