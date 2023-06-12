@@ -15,4 +15,5 @@ public struct CreateProductCommand : IRequest<Result<ProductResponse>>
     public byte[]? Picture { get; set; }
     public string IdUserAdded { get; set; }
     public string IdUserUpdated { get; set; }
+    public ProductStatus StatusPublish { get; set; }
 }

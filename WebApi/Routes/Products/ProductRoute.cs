@@ -71,6 +71,69 @@ public static class ProductRoute
                 });
             }
         });
+        
+        plan.MapGet("/AllProductsActive", (IMediator mediator, HttpContext httpContext) =>
+        {
+            try
+            {
+                var id = mediator.Send(new DecodeTokenQuery
+                {
+                    Token = httpContext.Request.Headers["Authorization"].ToString(),
+                    ReturnType = TokenReturnType.UserId
+                });
+
+                return id.Result.Match(
+                    UserId =>
+                    {
+                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        {
+                            UserId = UserId
+                        });
+
+                        return business.Result.Match(bId =>
+                            {
+                                var result = mediator.Send(new AllProductsActiveQuery
+                                {
+                                    BusinessId = bId.Id
+                                });
+
+
+                                return result.Result.Match(
+                                    succes => Results.Ok(new
+                                    {
+                                        Valid = true,
+                                        Message = "Show All Products Active.",
+                                        Data = succes
+                                    }),
+                                    error => Results.BadRequest(new ErrorResponse
+                                    {
+                                        Valid = false,
+                                        Exceptions = error
+                                    }));
+                            },
+                            exception => Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = exception
+                            }));
+
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
+            }
+            catch (Exception e)
+            {
+                return Results.BadRequest(new
+                {
+                    Valid = false,
+                    e.Message,
+                    e.StackTrace
+                });
+            }
+        });
 
         plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {

@@ -40,6 +40,34 @@ public class ProductRepository : IProductRepository
             return new Result<ICollection<ProductResponse>>(new ValidationException(e.Message));
         }
     }
+    
+    public async ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsActiveAsync(Ulid businessId)
+    {
+        try
+        {
+            return await _context.Products.Where(x => x.StatusTypeProduct == StatusType.Show && x.StatusPublish == ProductStatus.Published)
+                .Include(c => c.ProductCategory)
+                .Where(x => x.ProductCategory.BusinessId == businessId)
+                .Select(x => new ProductResponse
+                {
+                    IdProduct = x.Id,
+                    IdProductCategory = x.ProductCategory.Id,
+                    Title = x.Title,
+                    CategoryName = x.ProductCategory.ProductCategoryName,
+                    Discount = x.Discount,
+                    DiscountPercent = x.DiscountPercent,
+                    Picture = x.Picture,
+                    Price = x.Price,
+                    ProductName = x.ProductName,
+                    SecondaryPrice = x.SecondaryPrice,
+                    Summery = x.Summery
+                }).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            return new Result<ICollection<ProductResponse>>(new ValidationException(e.Message));
+        }
+    }
 
     public async ValueTask<Result<ProductResponse>> GetProductByIdAsync(Ulid productId)
     {
@@ -203,7 +231,8 @@ public class ProductRepository : IProductRepository
                 DiscountPercent = request.DiscountPercent,
                 Picture = request.Picture,
                 IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated
+                IdUserUpdated = request.IdUserUpdated,
+                StatusPublish = request.StatusPublish,
             };
 
             await _context.Products.AddAsync(item);

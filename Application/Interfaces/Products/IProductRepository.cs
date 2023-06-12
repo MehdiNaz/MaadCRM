@@ -5,6 +5,7 @@ namespace Application.Interfaces.Products;
 public interface IProductRepository
 {
     ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsAsync(Ulid businessId);
+    ValueTask<Result<ICollection<ProductResponse>>> GetAllProductsActiveAsync(Ulid businessId);
     ValueTask<Result<ProductResponse>> GetProductByIdAsync(Ulid productId);
     ValueTask<Result<ICollection<ProductResponse>>> GetProductByIdCategoryAsync(Ulid categoryId);
     ValueTask<Result<ProductResponse>> ChangeStatusProductByIdAsync(StatusType statusType, Ulid productId);

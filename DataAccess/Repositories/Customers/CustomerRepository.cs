@@ -253,16 +253,25 @@ public class CustomerRepository : ICustomerRepository
 
             var finalResult = await resultsListCustomer.Where(x => x.IdUser == request.UserId).ToListAsync();
 
+            var resultsCountCustomer = await _context.Customers
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == request.UserId)
+                .Select(x => new CustomerResponse
+                {
+                    IdCustomer = x.Id,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatusType = x.CustomerStatusType,
+                }).ToListAsync();
+            
             CustomerDashboardResponse result = new()
             {
                 AllCustomersInfo = finalResult,
-                AllCount = resultsListCustomer.Count(),
-                BelghovehCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
-                BelFelCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
-                RazyCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
-                NaRazyCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-                DarHalePeyGiryCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
-                VafadarCount = finalResult.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
+                AllCount = resultsCountCustomer.Count,
+                BelghovehCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+                BelFelCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+                RazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+                NaRazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+                DarHalePeyGiryCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                VafadarCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             };
 
             return result;
@@ -310,16 +319,25 @@ public class CustomerRepository : ICustomerRepository
 
             var resultAll = await ShowAllCustomersCountAsync(userId);
 
+            var resultsCountCustomer = await _context.Customers
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
+                .Select(x => new CustomerResponse
+                {
+                    IdCustomer = x.Id,
+                    CustomerStateType = x.CustomerState,
+                    CustomerStatusType = x.CustomerStatusType,
+                }).ToListAsync();
+            
             return new Result<CustomerDashboardResponse>(new CustomerDashboardResponse
             {
                 AllCustomersInfo = resultsListCustomer,
-                AllCount = resultAll,
-                BelghovehCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
-                BelFelCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
-                RazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
-                NaRazyCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-                DarHalePeyGiryCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
-                VafadarCount = resultsListCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
+                AllCount = resultsCountCustomer.Count,
+                BelghovehCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
+                BelFelCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
+                RazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
+                NaRazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
+                DarHalePeyGiryCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                VafadarCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             });
         }
         catch (Exception e)
