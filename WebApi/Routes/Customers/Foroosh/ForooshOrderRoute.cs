@@ -2,11 +2,9 @@
 
 public static class ForooshOrderRoute
 {
-    public static void MapForooshOrderRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapForooshOrderRoute(this RouteGroupBuilder forooshOrder)
     {
-        var plan = app.MapGroup("v1/ForooshOrder").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllForooshOrders", (IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapGet("/AllForooshOrders", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -51,7 +49,7 @@ public static class ForooshOrderRoute
             }
         });
 
-        plan.MapGet("/ById/{forooshOrderId}", (Ulid forooshOrderId, IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapGet("/ById/{forooshOrderId}", (Ulid forooshOrderId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -96,7 +94,7 @@ public static class ForooshOrderRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapPost("/ChangeStatus", ([FromBody] ChangeStatusForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -144,7 +142,7 @@ public static class ForooshOrderRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapPost("/Insert", ([FromBody] CreateForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -197,7 +195,7 @@ public static class ForooshOrderRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapPut("/Update", ([FromBody] UpdateForooshOrderCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -249,7 +247,7 @@ public static class ForooshOrderRoute
             }
         });
 
-        plan.MapDelete("/Delete/{forooshOrderId}", (Ulid forooshOrderId, IMediator mediator, HttpContext httpContext) =>
+        forooshOrder.MapDelete("/Delete/{forooshOrderId}", (Ulid forooshOrderId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -294,5 +292,7 @@ public static class ForooshOrderRoute
                 });
             }
         });
+        
+        return forooshOrder;
     }
 }

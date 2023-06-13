@@ -1,5 +1,3 @@
-using WebApi.Routes.IdentityUser;
-
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -51,40 +49,7 @@ app.UseFileServer();
 #endregion
 
 #region Routes
-
-
-app.MapProfileRoute();
-app.MapLoginRoute();
-app.MapBusinessPlanRout();
-app.MapBusinessRoute();
-app.MapCustomerActivityRoute();
-app.MapCustomerAddressRoute();
-app.MapCustomerPeyGiryRoute();
-app.MapPeyGiryCategoryRoute();
-app.MapCustomerNoteRoute();
-app.MapNoteHashTableRoute();
-app.MapCustomerRoute();
-app.MapNoteAttachmentRoute();
-app.MapNoteHashTagRoute();
-app.MapCustomerPeyGiryAttachmentRoute();
-app.MapPlanRoute();
-app.MapProductRoute();
-app.MapProductCategoryRoute();
-app.MapCityRoute();
-app.MapCountryRoute();
-app.MapProvinceRoute();
-app.MapContactRoute();
-app.MapContactGroupRoute();
-app.MapCustomerFeedbackRoute();
-app.MapCustomerFeedbackCategoryRoute();
-app.MapCustomerFeedbackAttachmentRoute();
-app.MapForooshFactorRoute();
-app.MapPaymentRoute();
-app.MapAttributeRoute();
-app.MapAttributeOptionRoute();
-app.MapLogRoute();
-app.MapForooshOrderRoute();
-app.MapUserRoute();
+app.MapRoutsMain();
 #endregion
 
 app.Run();

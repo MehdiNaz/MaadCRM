@@ -2,11 +2,9 @@
 
 public static class PeyGiryCategoryRoute
 {
-    public static void MapPeyGiryCategoryRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapPeyGiryCategoryRoute(this RouteGroupBuilder peyGiryCategory)
     {
-        var plan = app.MapGroup("v1/PeyGiryCategory").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllPeyGiryCategories", (IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapGet("/AllPeyGiryCategories", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -68,7 +66,7 @@ public static class PeyGiryCategoryRoute
             }
         });
 
-        plan.MapGet("/ById/{peyGiryCategoryId}", (Ulid peyGiryCategoryId, IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapGet("/ById/{peyGiryCategoryId}", (Ulid peyGiryCategoryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -113,7 +111,7 @@ public static class PeyGiryCategoryRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -161,7 +159,7 @@ public static class PeyGiryCategoryRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreatePeyGiryCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapPost("/Insert", ([FromBody] CreatePeyGiryCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -226,7 +224,7 @@ public static class PeyGiryCategoryRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdatePeyGiryCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapPut("/Update", ([FromBody] UpdatePeyGiryCategoryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -292,7 +290,7 @@ public static class PeyGiryCategoryRoute
             }
         });
 
-        plan.MapDelete("/Delete/{peyGiryCategoryId}", (Ulid peyGiryCategoryId, IMediator mediator, HttpContext httpContext) =>
+        peyGiryCategory.MapDelete("/Delete/{peyGiryCategoryId}", (Ulid peyGiryCategoryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -337,5 +335,7 @@ public static class PeyGiryCategoryRoute
                 });
             }
         });
+        
+        return peyGiryCategory;
     }
 }

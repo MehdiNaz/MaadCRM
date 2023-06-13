@@ -2,15 +2,9 @@
 
 public static class BusinessPlansRoute
 {
-    public static void MapBusinessPlanRout(this IEndpointRouteBuilder app)
+    
+    public static RouteGroupBuilder MapBusinessPlanRout(this RouteGroupBuilder plan)
     {
-        #region BusinessPlans
-
-        var plan = app.MapGroup("v1/BusinessPlan")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
         plan.MapGet("/AllBusinessByBusinessId/{businessId}", async (Ulid businessId, IMediator mediator) =>
         {
             try
@@ -162,6 +156,6 @@ public static class BusinessPlansRoute
             }
         });
 
-        #endregion
+        return plan;
     }
 }

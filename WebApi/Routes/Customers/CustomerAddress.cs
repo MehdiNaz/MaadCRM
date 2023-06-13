@@ -2,14 +2,10 @@
 
 public static class CustomerAddressRoute
 {
-    public static void MapCustomerAddressRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerAddressRoute(this RouteGroupBuilder customerAddress)
     {
-        var plan = app.MapGroup("v1/CustomerAddress")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
 
-        plan.MapGet("/AllCustomerAddress/{id}", async (Ulid id, IMediator mediator) =>
+        customerAddress.MapGet("/AllCustomerAddress/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
@@ -25,7 +21,7 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapGet("/ById/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
+        customerAddress.MapGet("/ById/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
         {
             try
             {
@@ -37,7 +33,7 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPost("/Insert", async ([FromBody] CreateCustomersAddressCommand request, IMediator mediator) =>
         {
             try
             {
@@ -61,7 +57,7 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomersAddressCommand request, IMediator mediator) =>
         {
             try
             {
@@ -78,7 +74,7 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPut("/Update", async ([FromBody] UpdateCustomersAddressCommand request, IMediator mediator) =>
         {
             try
             {
@@ -102,7 +98,7 @@ public static class CustomerAddressRoute
             }
         });
 
-        plan.MapDelete("/Delete/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
+        customerAddress.MapDelete("/Delete/{customersAddressId}", async (Ulid customersAddressId, IMediator mediator) =>
         {
             try
             {
@@ -113,5 +109,7 @@ public static class CustomerAddressRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
+        
+        return customerAddress;
     }
 }

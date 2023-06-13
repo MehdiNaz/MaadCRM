@@ -2,13 +2,9 @@
 
 public static class ProvinceRoute
 {
-    public static void MapProvinceRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapProvinceRoute(this RouteGroupBuilder province)
     {
-        var plan = app.MapGroup("v1/Province")
-   .EnableOpenApiWithAuthentication()
-   .WithOpenApi();
-
-        plan.MapGet("/AllProvinces", (IMediator mediator, HttpContext httpContext) =>
+        province.MapGet("/AllProvinces", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -53,7 +49,7 @@ public static class ProvinceRoute
             }
         });
 
-        plan.MapGet("/ById/{provinceId}", (Ulid provinceId, IMediator mediator, HttpContext httpContext) =>
+        province.MapGet("/ById/{provinceId}", (Ulid provinceId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -97,5 +93,7 @@ public static class ProvinceRoute
                 });
             }
         });
+        
+        return province;
     }
 }

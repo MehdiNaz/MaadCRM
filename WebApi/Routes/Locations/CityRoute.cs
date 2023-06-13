@@ -2,13 +2,9 @@
 
 public static class CityRoute
 {
-    public static void MapCityRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCityRoute(this RouteGroupBuilder city)
     {
-        var plan = app.MapGroup("v1/City")
-    .EnableOpenApiWithAuthentication()
-    .WithOpenApi();
-
-        plan.MapGet("/AllCities", (IMediator mediator, HttpContext httpContext) =>
+        city.MapGet("/AllCities", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -53,7 +49,7 @@ public static class CityRoute
             }
         });
 
-        plan.MapGet("/ById/{cityId}", (Ulid cityId, IMediator mediator, HttpContext httpContext) =>
+        city.MapGet("/ById/{cityId}", (Ulid cityId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -98,7 +94,7 @@ public static class CityRoute
             }
         });
 
-        plan.MapGet("/ByProvinceId/{provinceId}", (Ulid provinceId, IMediator mediator, HttpContext httpContext) =>
+        city.MapGet("/ByProvinceId/{provinceId}", (Ulid provinceId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -142,6 +138,6 @@ public static class CityRoute
                 });
             }
         });
-
+        return city;
     }
 }

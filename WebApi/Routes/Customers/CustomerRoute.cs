@@ -2,11 +2,10 @@
 
 public static class CustomerRoute
 {
-    public static void MapCustomerRoute(this IEndpointRouteBuilder app)
+    // public static RouteGroupBuilder MapCustomerRoute(this RouteGroupBuilder login) // return MapCustomerRoute;
+    public static RouteGroupBuilder MapCustomerRoute(this RouteGroupBuilder customer)
     {
-        var plan = app.MapGroup("v1/Customer").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapPost("/CustomerByFilterItems", ([FromBody] CustomerFilterRequest request, IMediator mediator, HttpContext httpContext) =>
+        customer.MapPost("/CustomerByFilterItems", ([FromBody] CustomerFilterRequest request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -65,7 +64,7 @@ public static class CustomerRoute
 
         });
 
-        plan.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        customer.MapGet("/CustomerBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -114,7 +113,7 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapGet("/ById/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
+        customer.MapGet("/ById/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -163,7 +162,7 @@ public static class CustomerRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        customer.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -212,7 +211,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPost("/ChangeState", ([FromBody] ChangeStateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        customer.MapPost("/ChangeState", ([FromBody] ChangeStateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -261,7 +260,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        customer.MapPost("/Insert", ([FromBody] CreateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -323,7 +322,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
+        customer.MapPut("/Update", ([FromBody] UpdateCustomerCommand request, IMediator mediator, HttpContext httpContext) =>
             {
                 try
                 {
@@ -385,7 +384,7 @@ public static class CustomerRoute
                 }
             });
 
-        plan.MapDelete("/Delete/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
+        customer.MapDelete("/Delete/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -424,5 +423,7 @@ public static class CustomerRoute
                 });
             }
         });
+        
+        return customer;
     }
 }

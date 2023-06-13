@@ -2,16 +2,9 @@
 
 public static class NoteAttachmentRoute
 {
-    public static void MapNoteAttachmentRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapNoteAttachmentRoute(this RouteGroupBuilder noteAttachment)
     {
-        #region BusinessPlans
-
-        var plan = app.MapGroup("v1/NoteAttachment")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapPost("/AllNoteAttachments", async (IMediator mediator) =>
+        noteAttachment.MapPost("/AllNoteAttachments", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +17,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById/{noteAttachmentId}", async (Ulid noteAttachmentId, IMediator mediator) =>
+        noteAttachment.MapGet("/ById/{noteAttachmentId}", async (Ulid noteAttachmentId, IMediator mediator) =>
         {
             try
             {
@@ -40,7 +33,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateNoteAttachmentCommand request, IMediator mediator) =>
+        noteAttachment.MapPost("/Insert", async ([FromBody] CreateNoteAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
@@ -58,7 +51,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteAttachmentCommand request, IMediator mediator) =>
+        noteAttachment.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
@@ -75,7 +68,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateNoteAttachmentCommand request, IMediator mediator) =>
+        noteAttachment.MapPut("/Update", async ([FromBody] UpdateNoteAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
@@ -94,7 +87,7 @@ public static class NoteAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{idAttachment}", async (Ulid idAttachment, IMediator mediator) =>
+        noteAttachment.MapDelete("/Delete/{idAttachment}", async (Ulid idAttachment, IMediator mediator) =>
         {
             try
             {
@@ -109,7 +102,7 @@ public static class NoteAttachmentRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-        #endregion
+        
+        return noteAttachment;
     }
 }

@@ -2,14 +2,9 @@
 
 public static class ProductRoute
 {
-    public static void MapProductRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapProductRoute(this RouteGroupBuilder product)
     {
-        var plan = app.MapGroup("v1/Product")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapGet("/AllProducts", (IMediator mediator, HttpContext httpContext) =>
+        product.MapGet("/AllProducts", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -72,7 +67,7 @@ public static class ProductRoute
             }
         });
         
-        plan.MapGet("/AllProductsActive", (IMediator mediator, HttpContext httpContext) =>
+        product.MapGet("/AllProductsActive", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -135,7 +130,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        product.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -198,7 +193,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapGet("/ByProductCategoryId/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>
+        product.MapGet("/ByProductCategoryId/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -261,7 +256,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusProductByIdCommand request, IMediator mediator, HttpContext httpContext) =>
+        product.MapPost("/ChangeStatus", ([FromBody] ChangeStatusProductByIdCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -325,7 +320,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapGet("/ProductBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        product.MapGet("/ProductBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -369,7 +364,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPost("/ChangeState", ([FromBody] ChangeStateProductCommand request, IMediator mediator, HttpContext httpContext) =>
+        product.MapPost("/ChangeState", ([FromBody] ChangeStateProductCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -416,7 +411,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateProductCommand request, IMediator mediator, HttpContext httpContext) =>
+        product.MapPost("/Insert", ([FromBody] CreateProductCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -489,7 +484,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateProductCommand request, IMediator mediator, HttpContext httpContext) =>
+        product.MapPut("/Update", ([FromBody] UpdateProductCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -546,7 +541,7 @@ public static class ProductRoute
             }
         });
 
-        plan.MapDelete("/Delete/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
+        product.MapDelete("/Delete/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -588,5 +583,7 @@ public static class ProductRoute
                 });
             }
         });
+        
+        return product;
     }
 }

@@ -7,7 +7,6 @@ public struct CustomerFeedbackResponse
     public StatusType CustomerFeedbackStatusType { get; set; }
     public Ulid IdCategory { get; set; }
     public Ulid? IdProduct { get; set; }
-    //public Product? IdProductNavigation { get; set; }
     public Ulid? IdCustomer { get; set; }
     public string IdUserAdded { get; set; }
     public string IdUserUpdated { get; set; }

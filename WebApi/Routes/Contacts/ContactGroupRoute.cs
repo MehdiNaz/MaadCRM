@@ -2,11 +2,9 @@
 
 public static class ContactGroupRoute
 {
-    public static void MapContactGroupRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapContactGroupRoute(this RouteGroupBuilder contactGroup)
     {
-        RouteGroupBuilder plan = app.MapGroup("v1/ContactGroup").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllContactGroups", (IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapGet("/AllContactGroups", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -54,7 +52,7 @@ public static class ContactGroupRoute
             }
         });
 
-        plan.MapGet("/ById/{contactGroupId}", (Ulid contactGroupId, IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapGet("/ById/{contactGroupId}", (Ulid contactGroupId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -99,7 +97,7 @@ public static class ContactGroupRoute
             }
         });
 
-        plan.MapGet("/ContactGroupBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapGet("/ContactGroupBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -147,7 +145,7 @@ public static class ContactGroupRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateContactGroupCommand request, IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapPost("/Insert", ([FromBody] CreateContactGroupCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -213,7 +211,7 @@ public static class ContactGroupRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateContactGroupCommand request, IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapPut("/Update", ([FromBody] UpdateContactGroupCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -261,7 +259,7 @@ public static class ContactGroupRoute
             }
         });
 
-        plan.MapDelete("/Delete/{contactGroupId}", (Ulid contactGroupId, IMediator mediator, HttpContext httpContext) =>
+        contactGroup.MapDelete("/Delete/{contactGroupId}", (Ulid contactGroupId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -306,5 +304,7 @@ public static class ContactGroupRoute
                 });
             }
         });
+        
+        return contactGroup;
     }
 }

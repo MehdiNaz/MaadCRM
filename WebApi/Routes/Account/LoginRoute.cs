@@ -1,14 +1,9 @@
-using LanguageExt;
-
 namespace WebApi.Routes.Account;
+
 public static class LoginRoute
 {
-    public static void MapLoginRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapLoginRoute(this RouteGroupBuilder login)
     {
-        var login = app.MapGroup("v1/login")
-            .WithOpenApi()
-            .AllowAnonymous();
-
         login.MapPost("/loginWithPhone",  ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] UserByPhoneNumberQuery request,IMediator mediator) =>
         {
             try
@@ -102,7 +97,7 @@ public static class LoginRoute
                 });
             }
         });
+
+        return login;
     }
 }
-
-    

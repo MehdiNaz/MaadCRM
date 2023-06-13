@@ -2,14 +2,9 @@
 
 public static class CustomerActivityRoute
 {
-    public static void MapCustomerActivityRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerActivityRoute(this RouteGroupBuilder customerActivity)
     {
-        var plan = app.MapGroup("v1/CustomerActivity")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapPost("/AllCustomerActivities", async ([FromBody] AllItemsCustomerActivitiesQuery request, IMediator mediator) =>
+        customerActivity.MapPost("/AllCustomerActivities", async ([FromBody] AllItemsCustomerActivitiesQuery request, IMediator mediator) =>
         {
             try
             {
@@ -25,7 +20,7 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapGet("/ById/{customerActivityId}", async (Ulid customerActivityId, IMediator mediator) =>
+        customerActivity.MapGet("/ById/{customerActivityId}", async (Ulid customerActivityId, IMediator mediator) =>
         {
             try
             {
@@ -41,7 +36,7 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateCustomerActivityCommand request, IMediator mediator) =>
+        customerActivity.MapPost("/Insert", async ([FromBody] CreateCustomerActivityCommand request, IMediator mediator) =>
         {
             try
             {
@@ -59,7 +54,7 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateCustomerActivityCommand request, IMediator mediator) =>
+        customerActivity.MapPut("/Update", async ([FromBody] UpdateCustomerActivityCommand request, IMediator mediator) =>
         {
             try
             {
@@ -78,7 +73,7 @@ public static class CustomerActivityRoute
             }
         });
 
-        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
+        customerActivity.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
@@ -93,5 +88,7 @@ public static class CustomerActivityRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
+
+        return customerActivity;
     }
 }

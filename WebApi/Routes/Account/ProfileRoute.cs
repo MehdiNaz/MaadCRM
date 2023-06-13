@@ -2,12 +2,8 @@ namespace WebApi.Routes.Account;
 
 public static class ProfileRoute
 {
-    public static void MapProfileRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapProfileRoute(this RouteGroupBuilder profile)
     {
-        var profile = app.MapGroup("v1/profile")
-            .WithOpenApi()
-            .AllowAnonymous();
-
         profile.MapPost("/SetProfile",
              ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] SetProfileCommand request,
                 IMediator mediator, HttpContext httpContext) =>
@@ -54,5 +50,6 @@ public static class ProfileRoute
                     });
                 }
             });
+        return profile;
     }
 }

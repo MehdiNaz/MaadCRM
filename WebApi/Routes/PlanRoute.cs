@@ -2,15 +2,8 @@ namespace WebApi.Routes;
 
 public static class PlanRoute
 {
-    public static void MapPlanRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapPlanRoute(this RouteGroupBuilder plan)
     {
-        #region Plan
-
-        var plan = app.MapGroup("v1/plan")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
         plan.MapPost("/AllPlans", async (IMediator mediator) =>
         {
             try
@@ -116,7 +109,6 @@ public static class PlanRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
-
-        #endregion
+        return plan;
     }
 }

@@ -2,11 +2,9 @@
 
 public static class LogRoute
 {
-    public static void MapLogRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapLogRoute(this RouteGroupBuilder log)
     {
-        var plan = app.MapGroup("v1/Log").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllLogs", (IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/AllLogs", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -51,7 +49,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -99,7 +97,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByCustomerId/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByCustomerId/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -147,7 +145,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -195,7 +193,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -243,7 +241,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -291,7 +289,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -339,7 +337,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeletePeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeletePeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -387,7 +385,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -435,7 +433,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByDeleteProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByDeleteProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -483,7 +481,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByForooshId/{forooshId}", (Ulid forooshId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByForooshId/{forooshId}", (Ulid forooshId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -531,7 +529,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -579,7 +577,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -627,7 +625,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -675,7 +673,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -723,7 +721,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertPeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertPeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -771,7 +769,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -819,7 +817,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByInsertProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByInsertProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -867,7 +865,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByLogId/{logId}", (Ulid logId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByLogId/{logId}", (Ulid logId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -915,7 +913,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByNoteId/{noteId}", (Ulid noteId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByNoteId/{noteId}", (Ulid noteId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -963,7 +961,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByPeyGiryId/{peyGiryId}", (Ulid peyGiryId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByPeyGiryId/{peyGiryId}", (Ulid peyGiryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1011,7 +1009,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByProductCategoryId/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByProductCategoryId/{productCategoryId}", (Ulid productCategoryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1059,7 +1057,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByProductId/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByProductId/{productId}", (Ulid productId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1107,7 +1105,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateCustomer/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1155,7 +1153,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateFeedBack/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1203,7 +1201,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateForoosh/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1251,7 +1249,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateNote/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1299,7 +1297,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdatePeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdatePeyGiry/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1347,7 +1345,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateProductCategory/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1395,7 +1393,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUpdateProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUpdateProduct/{type}", (LogTypes type, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1443,7 +1441,7 @@ public static class LogRoute
             }
         });
 
-        plan.MapGet("/GetByUserId/{userId}", (string userId, IMediator mediator, HttpContext httpContext) =>
+        log.MapGet("/GetByUserId/{userId}", (string userId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -1490,6 +1488,7 @@ public static class LogRoute
                 });
             }
         });
-
+        
+        return log;
     }
 }

@@ -2,11 +2,9 @@
 
 public static class ForooshFactorRoute
 {
-    public static void MapForooshFactorRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapForooshFactorRoute(this RouteGroupBuilder forooshFactor)
     {
-        var plan = app.MapGroup("v1/ForooshFactor").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllForooshFactors", (IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapGet("/AllForooshFactors", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -51,7 +49,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapGet("/ById/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapGet("/ById/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -96,7 +94,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapGet("/AllFactorInformationByFactorId/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapGet("/AllFactorInformationByFactorId/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -141,7 +139,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapPost("/ChangeStatus", ([FromBody] ChangeStatusForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -189,7 +187,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapPost("/Insert", ([FromBody] CreateForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -251,7 +249,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapPut("/Update", ([FromBody] UpdateForooshFactorCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -310,7 +308,7 @@ public static class ForooshFactorRoute
             }
         });
 
-        plan.MapDelete("/Delete/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
+        forooshFactor.MapDelete("/Delete/{forooshFactorId}", (Ulid forooshFactorId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -355,5 +353,7 @@ public static class ForooshFactorRoute
                 });
             }
         });
+        
+        return forooshFactor;
     }
 }

@@ -2,11 +2,9 @@
 
 public static class AttributeRoute
 {
-    public static void MapAttributeRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapAttributeRoute(this RouteGroupBuilder attribute)
     {
-        var plan = app.MapGroup("v1/Attribute").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllAttributes/{type}", (AttributeType type,IMediator mediator, HttpContext httpContext) =>
+        attribute.MapGet("/AllAttributes/{type}", (AttributeType type,IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -51,7 +49,7 @@ public static class AttributeRoute
             }
         });
 
-        plan.MapGet("/ById/{attributeId}", (Ulid attributeId, IMediator mediator, HttpContext httpContext) =>
+        attribute.MapGet("/ById/{attributeId}", (Ulid attributeId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -96,7 +94,7 @@ public static class AttributeRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
+        attribute.MapPost("/ChangeStatus", ([FromBody] ChangeStatusAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -144,7 +142,7 @@ public static class AttributeRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
+        attribute.MapPost("/Insert", ([FromBody] CreateAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -219,7 +217,7 @@ public static class AttributeRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
+        attribute.MapPut("/Update", ([FromBody] UpdateAttributeCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -294,7 +292,7 @@ public static class AttributeRoute
             }
         });
 
-        plan.MapDelete("/Delete/{attributeId}", (Ulid attributeId, IMediator mediator, HttpContext httpContext) =>
+        attribute.MapDelete("/Delete/{attributeId}", (Ulid attributeId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -339,5 +337,7 @@ public static class AttributeRoute
                 });
             }
         });
+        
+        return attribute;
     }
 }

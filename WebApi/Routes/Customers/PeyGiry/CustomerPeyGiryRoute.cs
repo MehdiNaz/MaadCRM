@@ -2,14 +2,9 @@
 
 public static class CustomerPeyGiryRoute
 {
-    public static void MapCustomerPeyGiryRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerPeyGiryRoute(this RouteGroupBuilder customerPeyGiry)
     {
-        var plan = app.MapGroup("v1/CustomerPeyGiry")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapGet("/AllCustomerPeyGiries/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
+        customerPeyGiry.MapGet("/AllCustomerPeyGiries/{customerId}", (Ulid customerId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -57,7 +52,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapGet("/ById/{customerPeyGiryId}", (Ulid customerPeyGiryId, IMediator mediator, HttpContext httpContext) =>
+        customerPeyGiry.MapGet("/ById/{customerPeyGiryId}", (Ulid customerPeyGiryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -104,7 +99,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerPeyGiry.MapPost("/Insert", ([FromBody] CreateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -156,7 +151,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerPeyGiry.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -203,7 +198,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerPeyGiry.MapPut("/Update", ([FromBody] UpdateCustomerPeyGiryCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -252,7 +247,7 @@ public static class CustomerPeyGiryRoute
             }
         });
 
-        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
+        customerPeyGiry.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
@@ -284,5 +279,7 @@ public static class CustomerPeyGiryRoute
                 });
             }
         });
+        
+        return customerPeyGiry;
     }
 }

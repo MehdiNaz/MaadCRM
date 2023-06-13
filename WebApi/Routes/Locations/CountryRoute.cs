@@ -2,13 +2,9 @@
 
 public static class CountryRoute
 {
-    public static void MapCountryRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCountryRoute(this RouteGroupBuilder country)
     {
-        var plan = app.MapGroup("v1/Country")
-.EnableOpenApiWithAuthentication()
-.WithOpenApi();
-
-        plan.MapGet("/AllCountries", (IMediator mediator, HttpContext httpContext) =>
+        country.MapGet("/AllCountries", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -53,7 +49,7 @@ public static class CountryRoute
             }
         });
 
-        plan.MapGet("/ById/{countryId}", (Ulid countryId, IMediator mediator, HttpContext httpContext) =>
+        country.MapGet("/ById/{countryId}", (Ulid countryId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -97,5 +93,7 @@ public static class CountryRoute
                 });
             }
         });
+        
+        return country;
     }
 }

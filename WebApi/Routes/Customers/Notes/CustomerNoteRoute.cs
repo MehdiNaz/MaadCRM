@@ -2,14 +2,9 @@
 
 public static class CustomerNoteRoute
 {
-    public static void MapCustomerNoteRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerNoteRoute(this RouteGroupBuilder mapCustomerNoteRoute)
     {
-        var plan = app.MapGroup("v1/CustomerNote")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapPost("/AllCustomersNote", ([FromBody] AllCustomerNotesQuery request, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapPost("/AllCustomersNote", ([FromBody] AllCustomerNotesQuery request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -57,7 +52,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapGet("/ById/{customerNoteId}", (Ulid customerNoteId, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapGet("/ById/{customerNoteId}", (Ulid customerNoteId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -102,7 +97,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapPost("/Insert", ([FromBody] CreateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -153,7 +148,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapPost("/ChangeStatus", ([FromBody] ChangeStatusCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -201,7 +196,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapPut("/Update", ([FromBody] UpdateCustomerNoteCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -250,7 +245,7 @@ public static class CustomerNoteRoute
             }
         });
 
-        plan.MapDelete("/Delete/{idNote}", (Ulid idNote, IMediator mediator, HttpContext httpContext) =>
+        mapCustomerNoteRoute.MapDelete("/Delete/{idNote}", (Ulid idNote, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -297,5 +292,6 @@ public static class CustomerNoteRoute
                 });
             }
         });
+        return mapCustomerNoteRoute;
     }
 }

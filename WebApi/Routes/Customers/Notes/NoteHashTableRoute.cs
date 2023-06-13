@@ -2,16 +2,9 @@
 
 public static class NoteHashTableRoute
 {
-    public static void MapNoteHashTableRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapNoteHashTableRoute(this RouteGroupBuilder noteHashTableG)
     {
-        #region NoteHashTable
-
-        var plan = app.MapGroup("v1/NoteHashTable")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapGet("/AllNoteHashTables", (IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapGet("/AllNoteHashTables", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -73,7 +66,7 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapGet("/ById/{noteHashTable}", (Ulid noteHashTable, IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapGet("/ById/{noteHashTable}", (Ulid noteHashTable, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -118,7 +111,7 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapPost("/Insert", ([FromBody] CreateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -182,7 +175,7 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStatusNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapPost("/ChangeStatus", ([FromBody] ChangeStatusNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -231,7 +224,7 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapPut("/Update", ([FromBody] UpdateNoteHashTableCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -280,7 +273,7 @@ public static class NoteHashTableRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        noteHashTableG.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -323,24 +316,8 @@ public static class NoteHashTableRoute
                     e.StackTrace
                 });
             }
-
-
-
-
-
-
-
-
-
-            //try
-            //{
-            //    return Results.Ok(await );
-            //}
-            //catch (ArgumentException e)
-            //{
-            //    return Results.BadRequest(e.ParamName);
-            //}
         });
-        #endregion
+        
+        return noteHashTableG;
     }
 }

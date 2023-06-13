@@ -2,11 +2,9 @@
 
 public static class CustomerFeedbackAttachmentRoute
 {
-    public static void MapCustomerFeedbackAttachmentRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerFeedbackAttachmentRoute(this RouteGroupBuilder customerFeedbackAttachment)
     {
-        RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedbackAttachment").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllCustomerFeedbackAttachment/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
+        customerFeedbackAttachment.MapGet("/AllCustomerFeedbackAttachment/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -54,7 +52,7 @@ public static class CustomerFeedbackAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        customerFeedbackAttachment.MapGet("/ById/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -101,7 +99,7 @@ public static class CustomerFeedbackAttachmentRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerFeedbackAttachment.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -151,7 +149,7 @@ public static class CustomerFeedbackAttachmentRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerFeedbackAttachment.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackAttachmentCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -202,7 +200,7 @@ public static class CustomerFeedbackAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        customerFeedbackAttachment.MapDelete("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -247,5 +245,7 @@ public static class CustomerFeedbackAttachmentRoute
                 });
             }
         });
+        
+        return customerFeedbackAttachment;
     }
 }

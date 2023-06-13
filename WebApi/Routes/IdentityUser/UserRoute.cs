@@ -2,11 +2,9 @@
 
 public static class UserRoute
 {
-    public static void MapUserRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapUserRoute(this RouteGroupBuilder user)
     {
-        var plan = app.MapGroup("v1/User").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllUsers", (IMediator mediator, HttpContext httpContext) =>
+        user.MapGet("/AllUsers", (IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -68,5 +66,7 @@ public static class UserRoute
                 });
             }
         });
+        
+        return user;
     }
 }

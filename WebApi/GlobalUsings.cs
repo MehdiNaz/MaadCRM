@@ -135,6 +135,7 @@ global using WebApi.Routes.Customers.Feedback;
 global using WebApi.Routes.Customers.Foroosh;
 global using WebApi.Routes.Customers.Notes;
 global using WebApi.Routes.Customers.PeyGiry;
+global using WebApi.Routes.IdentityUser;
 global using WebApi.Routes.Locations;
 global using WebApi.Routes.Products;
 global using WebApi.Routes.SpecialFields;

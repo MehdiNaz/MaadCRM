@@ -2,14 +2,9 @@
 
 public static class PeyGiryAttachmentRoute
 {
-    public static void MapCustomerPeyGiryAttachmentRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapCustomerPeyGiryAttachmentRoute(this RouteGroupBuilder customerPeyGiryAttachment)
     {
-        var plan = app.MapGroup("v1/PeyGiryAttachment")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapGet("/AllPeyGiryAttachments", async (IMediator mediator) =>
+        customerPeyGiryAttachment.MapGet("/AllPeyGiryAttachments", async (IMediator mediator) =>
         {
             try
             {
@@ -22,7 +17,7 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapGet("/ById/{peyGiryAttachmentId}", async (Ulid peyGiryAttachmentId, IMediator mediator) =>
+        customerPeyGiryAttachment.MapGet("/ById/{peyGiryAttachmentId}", async (Ulid peyGiryAttachmentId, IMediator mediator) =>
         {
             try
             {
@@ -38,7 +33,7 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreatePeyGiryAttachmentCommand request, IMediator mediator) =>
+        customerPeyGiryAttachment.MapPost("/Insert", async ([FromBody] CreatePeyGiryAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
@@ -56,7 +51,7 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdatePeyGiryAttachmentCommand request, IMediator mediator) =>
+        customerPeyGiryAttachment.MapPut("/Update", async ([FromBody] UpdatePeyGiryAttachmentCommand request, IMediator mediator) =>
         {
             try
             {
@@ -75,7 +70,7 @@ public static class PeyGiryAttachmentRoute
             }
         });
 
-        plan.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
+        customerPeyGiryAttachment.MapDelete("/Delete/{id}", async (Ulid id, IMediator mediator) =>
         {
             try
             {
@@ -90,5 +85,7 @@ public static class PeyGiryAttachmentRoute
                 return Results.BadRequest(e.ParamName);
             }
         });
+        
+        return customerPeyGiryAttachment;
     }
 }

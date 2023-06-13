@@ -2,11 +2,10 @@
 
 public static class CustomerFeedbackRoute
 {
-    public static void MapCustomerFeedbackRoute(this IEndpointRouteBuilder app)
+    // public static RouteGroupBuilder MapCustomerFeedbackRoute(this RouteGroupBuilder customerFeedback) // return customerFeedback;
+    public static RouteGroupBuilder MapCustomerFeedbackRoute(this RouteGroupBuilder customerFeedback)
     {
-        RouteGroupBuilder plan = app.MapGroup("v1/CustomerFeedback").EnableOpenApiWithAuthentication().WithOpenApi();
-
-        plan.MapGet("/AllCustomerFeedbacks/{idCustomer}", (Ulid idCustomer,IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapGet("/AllCustomerFeedbacks/{idCustomer}", (Ulid idCustomer,IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -54,7 +53,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapGet("/ById/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapGet("/ById/{customerFeedbackId}", (Ulid customerFeedbackId, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -101,7 +100,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapGet("/CustomerFeedbackBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapGet("/CustomerFeedbackBySearchItem/{q}", (string q, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -150,7 +149,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapPost("/Insert", ([FromBody] CreateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -202,7 +201,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", ([FromBody] ChangeStateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapPost("/ChangeStatus", ([FromBody] ChangeStateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -251,7 +250,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapPut("/Update", ([FromBody] UpdateCustomerFeedbackCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -300,7 +299,7 @@ public static class CustomerFeedbackRoute
             }
         });
 
-        plan.MapPut("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
+        customerFeedback.MapPut("/Delete/{Id}", (Ulid Id, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -339,5 +338,7 @@ public static class CustomerFeedbackRoute
                 });
             }
         });
+        
+        return customerFeedback;
     }
 }

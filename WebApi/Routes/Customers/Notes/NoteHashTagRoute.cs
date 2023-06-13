@@ -2,16 +2,10 @@
 
 public static class NoteHashTagRoute
 {
-    public static void MapNoteHashTagRoute(this IEndpointRouteBuilder app)
+    //  // 
+    public static RouteGroupBuilder MapNoteHashTagRoute(this RouteGroupBuilder noteHashTag)
     {
-        #region NoteHashTag
-
-        var plan = app.MapGroup("v1/NoteHashTag")
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-
-        plan.MapPost("/AllNoteHashTags", async (IMediator mediator) =>
+        noteHashTag.MapPost("/AllNoteHashTags", async (IMediator mediator) =>
         {
             try
             {
@@ -24,7 +18,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapGet("/ById/{noteHashTagId}", async (Ulid noteHashTagId, IMediator mediator) =>
+        noteHashTag.MapGet("/ById/{noteHashTagId}", async (Ulid noteHashTagId, IMediator mediator) =>
         {
             try
             {
@@ -40,7 +34,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapPost("/Insert", async ([FromBody] CreateNoteHashTagCommand request, IMediator mediator) =>
+        noteHashTag.MapPost("/Insert", async ([FromBody] CreateNoteHashTagCommand request, IMediator mediator) =>
         {
             try
             {
@@ -57,7 +51,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteHashTagCommand request, IMediator mediator) =>
+        noteHashTag.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusNoteHashTagCommand request, IMediator mediator) =>
         {
             try
             {
@@ -74,7 +68,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapPut("/Update", async ([FromBody] UpdateNoteHashTagCommand request, IMediator mediator) =>
+        noteHashTag.MapPut("/Update", async ([FromBody] UpdateNoteHashTagCommand request, IMediator mediator) =>
         {
             try
             {
@@ -91,7 +85,7 @@ public static class NoteHashTagRoute
             }
         });
 
-        plan.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
+        noteHashTag.MapDelete("/Delete/{Id}", async (Ulid Id, IMediator mediator) =>
         {
             try
             {
@@ -107,6 +101,6 @@ public static class NoteHashTagRoute
             }
         });
 
-        #endregion
+        return noteHashTag;
     }
 }
