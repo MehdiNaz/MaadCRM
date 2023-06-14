@@ -2,10 +2,8 @@
 
 public static class PaymentRoute
 {
-    public static void MapPaymentRoute(this IEndpointRouteBuilder app)
+    public static RouteGroupBuilder MapPaymentRoute(this RouteGroupBuilder payment)
     {
-        var payment = app.MapGroup("v1/ForooshPayment").EnableOpenApiWithAuthentication().WithOpenApi();
-
         payment.MapGet("/AllPayments", (IMediator mediator, HttpContext httpContext) =>
         {
             try
@@ -348,5 +346,7 @@ public static class PaymentRoute
                 });
             }
         });
+        
+        return payment;
     }
 }

@@ -262,7 +262,6 @@ public class ProductRepository : IProductRepository
 
             return await _context.Products
                 .Include(x => x.ProductCategory)
-                .FirstOrDefaultAsync(x => x.Id == item.Id && x.StatusTypeProduct == StatusType.Show)
                 .Select(x => new ProductResponse
                 {
                     IdProduct = x.Id,
@@ -276,7 +275,8 @@ public class ProductRepository : IProductRepository
                     ProductName = x.ProductName,
                     SecondaryPrice = x.SecondaryPrice,
                     Summery = x.Summery
-                });
+                })
+                .FirstOrDefaultAsync(x => x.IdProduct == item.Id);
         }
         catch (Exception e)
         {

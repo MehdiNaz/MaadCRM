@@ -173,6 +173,12 @@ public static class RoutsMain
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
         
+        app.MapGroup("v1/ForooshPayment")
+            .MapPaymentRoute()
+            .EnableOpenApiWithAuthentication()
+            .WithOpenApi();
+        
+        
         app.MapGroup("v1/User")
             .MapUserRoute()
             .EnableOpenApiWithAuthentication()
