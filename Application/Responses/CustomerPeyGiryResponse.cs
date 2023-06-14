@@ -10,6 +10,9 @@ public struct CustomerPeyGiryResponse
 
     public Ulid IdCustomer { get; set; }
     public string NameCustomer { get; set; }
+    
+    public string? IdUser { get; set; }
+    public string? NameUser { get; set; }
 
     public Ulid IdPeyGiryCategory { get; set; }
     public string NamePeyGiryCategory { get; set; }

@@ -27,7 +27,9 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     DatePeyGiry = x.DatePeyGiry,
                     IdCustomer = x.IdCustomer,
                     IdPeyGiryCategory = x.IdPeyGiryCategory,
-                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
+                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName,
+                    NameUser = x.IdUserNavigation!.Name + " " + x.IdUserNavigation.Family,
+                    IdUser = x.IdUser
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -98,6 +100,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                 DatePeyGiry = request.DatePeyGiry,
                 IdUserAdded = request.IdUser,
                 IdUserUpdated = request.IdUser,
+                IdUser = request.IdUser,
                 IdPeyGiryCategory = request.IdPeyGiryCategory
             };
 
