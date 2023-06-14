@@ -147,7 +147,8 @@ public class PaymentRepository : IForooshPaymentRepository
                 {
                     PaymentAmount = request.PishPardakht!.Value,
                     IdForooshFactor = resultFactor.Id,
-                    DatePay = DateTime.UtcNow
+                    DatePay = DateTime.UtcNow,
+                    PaymentStatusType = StatusType.Show
                 };
             
                 await _context.Payments.AddAsync(payment);
@@ -162,7 +163,8 @@ public class PaymentRepository : IForooshPaymentRepository
                     {
                         PaymentAmount = paymentAmount!.Value,
                         IdForooshFactor = resultFactor.Id,
-                        DatePay = paymentDate!.Value
+                        DatePay = paymentDate!.Value,
+                        PaymentStatusType = StatusType.Show
                     };
                     await _context.Payments.AddAsync(payment);
             
@@ -175,7 +177,8 @@ public class PaymentRepository : IForooshPaymentRepository
                 {
                     PaymentAmount = request.AmountTotal,
                     IdForooshFactor = resultFactor.Id,
-                    DatePay = DateTime.UtcNow
+                    DatePay = DateTime.UtcNow,
+                    PaymentStatusType = StatusType.Show
                 };
             
                 await _context.Payments.AddAsync(payment);

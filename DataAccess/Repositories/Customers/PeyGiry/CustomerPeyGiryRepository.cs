@@ -17,6 +17,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             return await _context.CustomerPeyGiries
                 .Include(x => x.IdPeyGiryCategoryNavigation)
+                .Include(x => x.IdUserNavigation)
                 .Where(x => x.Status == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
@@ -28,7 +29,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     IdCustomer = x.IdCustomer,
                     IdPeyGiryCategory = x.IdPeyGiryCategory,
                     NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName,
-                    NameUser = x.IdUserNavigation!.Name + " " + x.IdUserNavigation.Family,
+                    NameUser = _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Name + " " + _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Family,
                     IdUser = x.IdUser
                 }).ToListAsync();
         }
