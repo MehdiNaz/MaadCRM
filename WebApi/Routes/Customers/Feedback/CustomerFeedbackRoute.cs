@@ -170,7 +170,7 @@ public static class CustomerFeedbackRoute
                             IdProduct = request.IdProduct,
                             IdUserAdded = userId,
                             IdUserUpdated = userId,
-                            IdUser = request.IdUser
+                            IdUser = userId
                         });
                         return result.Result.Match(
                             succes => Results.Ok(new

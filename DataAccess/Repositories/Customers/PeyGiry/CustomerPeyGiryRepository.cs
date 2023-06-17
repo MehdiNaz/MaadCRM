@@ -110,7 +110,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
             if (request.DatePeyGiry > DateTime.UtcNow)
             {
-                // Change CustomerState to BelFel
+                // Change CustomerState to DarHalePeyGiry
                 var changeState = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.CustomerId);
                 changeState.CustomerState = CustomerStateTypes.DarHalePeyGiry;
 

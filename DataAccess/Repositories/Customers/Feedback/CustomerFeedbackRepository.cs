@@ -42,10 +42,9 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
     {
         try
         {
-            return await _context.CustomerFeedbacks
-                .Include(x => x.IdUserNavigation)
-                .Include(x => x.IdProductNavigation)
-                .FirstOrDefaultAsync(x => x.Id == feedbackId && x.CustomerFeedbackStatusType == StatusType.Show)
+            var result = await _context.CustomerFeedbacks
+                .Include(u => u.IdUserNavigation)
+                .Include(p => p.IdProductNavigation)
                 .Select(x => new CustomerFeedbackResponse
                 {
                     Id = x!.Id,
@@ -57,8 +56,11 @@ public class CustomerFeedbackRepository : ICustomerFeedbackRepository
                     IdUserAdded = x.IdUser,
                     IdUserUpdated = x.IdUser,
                     IdUser = x.IdUser,
-                    UserFullName = x.IdUserNavigation?.Name + " " + x.IdUserNavigation?.Family
-                });
+                    UserFullName = x.IdUserNavigation!.Name + " " + x.IdUserNavigation.Family
+                })
+                .FirstOrDefaultAsync(w => w.Id == feedbackId && w.CustomerFeedbackStatusType == StatusType.Show);
+            
+            return new Result<CustomerFeedbackResponse>(result);
         }
         catch (Exception e)
         {
