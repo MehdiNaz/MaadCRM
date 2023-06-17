@@ -112,7 +112,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             {
                 // Change CustomerState to BelFel
                 var changeState = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.CustomerId);
-                changeState.CustomerState = CustomerStateTypes.BelFel;
+                changeState.CustomerState = CustomerStateTypes.DarHalePeyGiry;
 
                 // Create Notif
                 Notif notif = new()

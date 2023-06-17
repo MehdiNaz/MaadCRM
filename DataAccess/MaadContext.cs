@@ -117,7 +117,7 @@ public class MaadContext : IdentityDbContext
         }
 
         // TODO: Seed Database
-        new DbInitializer(builder).Seed();
+        // new DbInitializer(builder).Seed();
 
         base.OnModelCreating(builder);
     }

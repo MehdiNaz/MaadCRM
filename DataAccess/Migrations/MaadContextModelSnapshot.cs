@@ -1285,68 +1285,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("IdProvince");
 
                     b.ToTable("Cities", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "01H1K9D1EMVVA8624N317FGC8D",
-                            CityName = "شیراز",
-                            CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8250),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8250),
-                            DisplayOrder = 1L,
-                            IdProvince = "01GZTMF256K84ZGQFMWRB6VTV9",
-                            IsDefault = true,
-                            Version = 0u
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMF9WSH7JE0S7CG4BX",
-                            CityName = "لار",
-                            CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8260),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8260),
-                            DisplayOrder = 1L,
-                            IdProvince = "01GZTMF256K84ZGQFMWRB6VTV9",
-                            IsDefault = true,
-                            Version = 0u
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMHTK7WHCG5ZE0D70F",
-                            CityName = "کرج",
-                            CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8270),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8270),
-                            DisplayOrder = 1L,
-                            IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
-                            IsDefault = true,
-                            Version = 0u
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMGC8PQTA1CETMW6ZM",
-                            CityName = "شهریار",
-                            CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8280),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8280),
-                            DisplayOrder = 1L,
-                            IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
-                            IsDefault = true,
-                            Version = 0u
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMCMZE7BKDS4XAYMKD",
-                            CityName = "قدس",
-                            CityStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8300),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8300),
-                            DisplayOrder = 1L,
-                            IdProvince = "01GZTT98N8S8TE5J1WE205Q4WV",
-                            IsDefault = true,
-                            Version = 0u
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Location.Country", b =>
@@ -1380,19 +1318,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            CountryName = "Iran",
-                            CountryStatusType = 1,
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7630),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7630),
-                            DisplayOrder = 1L,
-                            IsDefault = true,
-                            Version = 0L
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Location.Province", b =>
@@ -1432,368 +1357,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("IdCountry");
 
                     b.ToTable("Provinces", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "01H1K9D1EMNJDGMT1C8XZBKDFA",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7850),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7850),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "آذربايجان غربي",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMKH817CEGRZM1C1CZ",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7870),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7870),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "اردبيل",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMGDCWYDZEWS9JEM7S",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7880),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7880),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "اصفهان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM5F4CA14SHBQY5A3M",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7900),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7900),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "ايلام",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMN9WZRNTXJA9B2KCK",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7910),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7910),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "بوشهر",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMWANWYD74B58CS011",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7920),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7920),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "البرز",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01GZTT98N8S8TE5J1WE205Q4WV",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7930),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7940),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "تهران",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM4G2AZKW55G0XXY4K",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7950),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7950),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "چهارمحال بختياري",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMXJS0W9WM8J4NNWQH",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7960),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7960),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "خراسان جنوبي",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM2HNY8V6FMBJ8KNGJ",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7970),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7970),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "خراسان رضوي",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMT7FWNBAEJXNMMR5J",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7980),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(7980),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "خراسان شمالي",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMVCW72SFKRW8EX78W",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8000),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8000),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "خوزستان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM3V9V0YQ24VWQH3NW",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8020),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8020),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "زنجان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM4VCR6P076HZP9NE0",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8030),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8030),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "سمنان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM90RG4C1EEWTMV7T7",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8040),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8040),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "سيستان و بلوچستان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01GZTMF256K84ZGQFMWRB6VTV9",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8050),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8050),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "فارس",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM5RX3H602KTN8B645",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8060),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8070),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "قزوين",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM6F55N6Y6KGWFN9T6",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8080),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8080),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "قم",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMJ26V58SN60PVHVKB",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8090),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8090),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "كردستان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMB12ERVXGDF2H1CTN",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8100),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8100),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "كرمان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMFQEMR64YSEWW97KQ",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8110),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8110),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "كرمانشاه",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMPTXCDES80PH5VK17",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8130),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8130),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "كهكيلويه و بويراحمد",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMB464J1AXYQD5M1S3",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8140),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8140),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "گلستان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM4B4CX6C4NNEM7758",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8150),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8150),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "گيلان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMVN4RWA5CB93GNMBA",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8160),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8160),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "لرستان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMMCQ9RVJ3ND78RXGZ",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8170),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8170),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "مازندران",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMVFQ9N0RPTG9ZM5FW",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8190),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8190),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "مركزي",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMXWHRAJGAH13Q7S2A",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8200),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8200),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "هرمزگان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EM0ETHJXSCSCVAA279",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8210),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8210),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "همدان",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        },
-                        new
-                        {
-                            Id = "01H1K9D1EMAQX3TWKE4E2QYF7D",
-                            DateCreated = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8220),
-                            DateLastUpdate = new DateTime(2023, 5, 29, 8, 18, 40, 724, DateTimeKind.Utc).AddTicks(8220),
-                            DisplayOrder = 1L,
-                            IdCountry = "01GZTM8DSTQH037TNTFSK9RX9W",
-                            IsDefault = true,
-                            ProvinceName = "يزد",
-                            ProvinceStatusType = 1,
-                            Version = 0L
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.LogsUser.Log", b =>
@@ -1871,6 +1434,59 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Domain.Models.Notifications.Notif", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateDue")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IdPeyGiry")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdUserAdded")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdUserUpdated")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPeyGiry");
+
+                    b.HasIndex("IdUser");
+
+                    b.HasIndex("IdUserAdded");
+
+                    b.HasIndex("IdUserUpdated");
+
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
@@ -1968,7 +1584,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
@@ -3048,6 +2663,39 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Models.Notifications.Notif", b =>
+                {
+                    b.HasOne("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", "IdPeyGiryNavigation")
+                        .WithMany("Notifications")
+                        .HasForeignKey("IdPeyGiry")
+                        .HasConstraintName("FK_Notifications_CustomerPeyGiry");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserNavigation")
+                        .WithMany("Notifications")
+                        .HasForeignKey("IdUser")
+                        .HasConstraintName("FK_Notifications_User");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")
+                        .WithMany("NotificationAdded")
+                        .HasForeignKey("IdUserAdded")
+                        .IsRequired()
+                        .HasConstraintName("FK_Add_Notifications_User");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserUpdateNavigation")
+                        .WithMany("NotificationUpdated")
+                        .HasForeignKey("IdUserUpdated")
+                        .IsRequired()
+                        .HasConstraintName("FK_Update_Notifications_User");
+
+                    b.Navigation("IdPeyGiryNavigation");
+
+                    b.Navigation("IdUserAddNavigation");
+
+                    b.Navigation("IdUserNavigation");
+
+                    b.Navigation("IdUserUpdateNavigation");
+                });
+
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
                     b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
@@ -3318,6 +2966,8 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("Logs");
 
+                    b.Navigation("Notifications");
+
                     b.Navigation("PeyGiryAttachments");
                 });
 
@@ -3414,6 +3064,12 @@ namespace DataAccess.Migrations
                     b.Navigation("ForooshOrdersUpdated");
 
                     b.Navigation("Logs");
+
+                    b.Navigation("NotificationAdded");
+
+                    b.Navigation("NotificationUpdated");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("PeyGiryCategories");
 

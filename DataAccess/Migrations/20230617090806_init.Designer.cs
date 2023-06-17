@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    [Migration("20230529065436_init")]
+    [Migration("20230617090806_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -1439,6 +1439,59 @@ namespace DataAccess.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("Domain.Models.Notifications.Notif", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateDue")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IdPeyGiry")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdUserAdded")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdUserUpdated")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPeyGiry");
+
+                    b.HasIndex("IdUser");
+
+                    b.HasIndex("IdUserAdded");
+
+                    b.HasIndex("IdUserUpdated");
+
+                    b.ToTable("Notifications", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
                     b.Property<string>("Id")
@@ -2614,6 +2667,39 @@ namespace DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Models.Notifications.Notif", b =>
+                {
+                    b.HasOne("Domain.Models.Customers.PeyGiry.CustomerPeyGiry", "IdPeyGiryNavigation")
+                        .WithMany("Notifications")
+                        .HasForeignKey("IdPeyGiry")
+                        .HasConstraintName("FK_Notifications_CustomerPeyGiry");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserNavigation")
+                        .WithMany("Notifications")
+                        .HasForeignKey("IdUser")
+                        .HasConstraintName("FK_Notifications_User");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")
+                        .WithMany("NotificationAdded")
+                        .HasForeignKey("IdUserAdded")
+                        .IsRequired()
+                        .HasConstraintName("FK_Add_Notifications_User");
+
+                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserUpdateNavigation")
+                        .WithMany("NotificationUpdated")
+                        .HasForeignKey("IdUserUpdated")
+                        .IsRequired()
+                        .HasConstraintName("FK_Update_Notifications_User");
+
+                    b.Navigation("IdPeyGiryNavigation");
+
+                    b.Navigation("IdUserAddNavigation");
+
+                    b.Navigation("IdUserNavigation");
+
+                    b.Navigation("IdUserUpdateNavigation");
+                });
+
             modelBuilder.Entity("Domain.Models.Products.Product", b =>
                 {
                     b.HasOne("Domain.Models.Products.ProductCategory", "ProductCategory")
@@ -2884,6 +2970,8 @@ namespace DataAccess.Migrations
                 {
                     b.Navigation("Logs");
 
+                    b.Navigation("Notifications");
+
                     b.Navigation("PeyGiryAttachments");
                 });
 
@@ -2980,6 +3068,12 @@ namespace DataAccess.Migrations
                     b.Navigation("ForooshOrdersUpdated");
 
                     b.Navigation("Logs");
+
+                    b.Navigation("NotificationAdded");
+
+                    b.Navigation("NotificationUpdated");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("PeyGiryCategories");
 

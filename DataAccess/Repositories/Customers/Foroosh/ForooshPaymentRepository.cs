@@ -30,7 +30,9 @@ public class PaymentRepository : IForooshPaymentRepository
     {
         try
         {
-            return await _context.Payments.SingleOrDefaultAsync(x => x.Id == paymentId && x.PaymentStatusType == StatusType.Show);
+            var result = await _context.Payments.SingleOrDefaultAsync(x =>
+                x.Id == paymentId && x.PaymentStatusType == StatusType.Show);
+            return new Result<ForooshPayment>(result!);
         }
         catch (Exception e)
         {
@@ -65,9 +67,10 @@ public class PaymentRepository : IForooshPaymentRepository
                 PaymentAmount = request.PaymentAmount,
                 IdForooshFactor = request.IdForooshFactor
             };
-            await _context.Payments.AddAsync(item!);
+            await _context.Payments.AddAsync(item);
             await _context.SaveChangesAsync();
-            return item;
+            
+            return new Result<ForooshPayment>(item);
         }
         catch (Exception e)
         {
@@ -79,12 +82,16 @@ public class PaymentRepository : IForooshPaymentRepository
     {
         try
         {
-            ForooshPayment item = await _context.Payments.FindAsync(request.Id);
+            var item = await _context.Payments.FindAsync(request.Id);
 
+            if (item == null)
+                return new Result<ForooshPayment>(new ValidationException("شماره پرداخت اشتباه است"));
+            
             item.PaymentAmount = request.PaymentAmount;
+            item.DatePay = request.DatePay;
 
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<ForooshPayment>(item);
         }
         catch (Exception e)
         {
@@ -97,22 +104,24 @@ public class PaymentRepository : IForooshPaymentRepository
         try
         {
             var item = await _context.Payments.FindAsync(paymentId);
-            item.PaymentStatusType = StatusType.Deleted;
+            item!.PaymentStatusType = StatusType.Deleted;
+            
             await _context.SaveChangesAsync();
-            return item;
+            return new Result<ForooshPayment>(item);
         }
         catch (Exception e)
         {
             return new Result<ForooshPayment>(new ValidationException(e.Message));
         }
     }
-    
+
     public async ValueTask<Result<SaveForooshPaymentResponse>> SavePaymentsAsync(SaveForooshPaymentCommand request)
     {
         try
         {
             var resultFactor = await _context.ForooshFactors.FindAsync(request.IdFactor);
-            if (resultFactor is null) return new Result<SaveForooshPaymentResponse>(new ValidationException("شماره فاکتور اشتباه است"));
+            if (resultFactor is null)
+                return new Result<SaveForooshPaymentResponse>(new ValidationException("شماره فاکتور اشتباه است"));
 
             resultFactor.Amount = request.Amount;
             resultFactor.AmountTax = request.AmountTax;
@@ -134,7 +143,7 @@ public class PaymentRepository : IForooshPaymentRepository
             }
 
             await _context.SaveChangesAsync();
-            
+
             // Delete All Payments
             var lstPayments = await _context.Payments.Where(x => x.IdForooshFactor == request.IdFactor).ToListAsync();
             _context.Payments.RemoveRange(lstPayments);
@@ -150,13 +159,13 @@ public class PaymentRepository : IForooshPaymentRepository
                     DatePay = DateTime.UtcNow,
                     PaymentStatusType = StatusType.Show
                 };
-            
+
                 await _context.Payments.AddAsync(payment);
-            
+
                 var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
                                     request.TedadeAghsat;
                 var paymentDate = request.ShoroAghsat;
-                
+
                 for (var i = 0; i < request.TedadeAghsat; i++)
                 {
                     payment = new ForooshPayment
@@ -167,7 +176,7 @@ public class PaymentRepository : IForooshPaymentRepository
                         PaymentStatusType = StatusType.Show
                     };
                     await _context.Payments.AddAsync(payment);
-            
+
                     paymentDate = paymentDate.Value.AddDays(request.BazeyeZamany!.Value);
                 }
             }
@@ -180,19 +189,18 @@ public class PaymentRepository : IForooshPaymentRepository
                     DatePay = DateTime.UtcNow,
                     PaymentStatusType = StatusType.Show
                 };
-            
+
                 await _context.Payments.AddAsync(payment);
             }
-            
+
             await _context.SaveChangesAsync();
 
-            
 
             var resultCustomer = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.IdCustomer);
             if (resultCustomer != null) resultCustomer.CustomerState = CustomerStateTypes.BelFel;
-            
+
             await _context.SaveChangesAsync();
-            
+
             // Create Log
             CreateLogCommand command = new()
             {
@@ -210,7 +218,7 @@ public class PaymentRepository : IForooshPaymentRepository
                 Description = "Description"
             };
             await _log.InsertAsync(command);
-            
+
             // Return Result
             var result = await _context.ForooshFactors
                 .Select(s => new SaveForooshPaymentResponse

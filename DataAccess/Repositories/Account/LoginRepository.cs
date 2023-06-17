@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-
-namespace DataAccess.Repositories.Account;
+﻿namespace DataAccess.Repositories.Account;
 
 public class LoginRepository : ILoginRepository
 {
@@ -159,6 +156,20 @@ public class LoginRepository : ILoginRepository
 
             var createUserResult = await _userManager.CreateAsync(user);
 
+            var newUser = await _userManager.FindByNameAsync(request.Phone);
+            if (newUser == null)
+                return new Result<bool>(new ValidationException("خطا در ثبت اطلاعات کاربر"));
+            
+            ProductCategory newProductCategory = new()
+            {
+                Order = 0,
+                ProductCategoryName = "دسته بندی پیش فرض",
+                BusinessId = newBusiness.Id,
+                IdUserAdded = newUser.Id,
+                IdUserUpdated = newUser.Id
+            };
+            await _context.ProductCategories.AddAsync(newProductCategory);
+            
             // TODO: add role to user
             // await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
 
@@ -170,40 +181,60 @@ public class LoginRepository : ILoginRepository
         }
     }
 
-    public async ValueTask<Result<bool>> SendVerifySms(SmsType smsType, string phoneNumber, string otp)
+    private static async ValueTask<Result<bool>> SendVerifySms(SmsType smsType, string phoneNumber, string otp)
     {
         try
         {
-            // Api Key = rFn4iIq9h12xbZdPFuWmsg1KKjFenZRpJPFtcFUZcH0=
+            const string user = "maadcrm3375";
+            const string pass = "jamshidi2294";
             // Sms.smsmarkazi.com
 
             var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://ippanel.com/api/select");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://ippanel.com/api/select");
 
-            var str = $$"""
-                {
-                   "op": "pattern",
-                    "user": "maadcrm3375",
-                    "pass": "jamshidi2294",
-                    "fromNum": "3000505",
-                    "toNum": "{{phoneNumber}}",
-                    "patternCode": "hc3p46s7ehdm9l2",
-                    "inputData": [
-                        {
-                        "code": "{{otp}}"
-                        }
-                    ]
-                }
-            """;
-            
+            var str = smsType switch
+            {
+                SmsType.Verify => $$"""
+                                        {
+                                           "op": "pattern",
+                                            "user": {{user}},
+                                            "pass": {{pass}},
+                                            "fromNum": "3000505",
+                                            "toNum": "{{phoneNumber}}",
+                                            "patternCode": "hc3p46s7ehdm9l2",
+                                            "inputData": [
+                                                {
+                                                "code": "{{otp}}"
+                                                }
+                                            ]
+                                        }
+                                    """,
+                _ => $$"""
+                           {
+                              "op": "pattern",
+                               "user": {{user}},
+                               "pass": {{pass}},
+                               "fromNum": "3000505",
+                               "toNum": "{{phoneNumber}}",
+                               "patternCode": "hc3p46s7ehdm9l2",
+                               "inputData": [
+                                   {
+                                   "code": "{{otp}}"
+                                   }
+                               ]
+                           }
+                       """
+            };
+
             var content = new StringContent(str, null, "application/json");
             
             request.Content = content;
             var response = await client.SendAsync(request);
 
-            var result = await response.Content.ReadAsStringAsync();
+            // var result = 
+            await response.Content.ReadAsStringAsync();
 
-            var i = int.Parse(result);
+            // int.Parse(result);
             // Console.WriteLine(result);
 
             

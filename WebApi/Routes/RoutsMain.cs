@@ -4,11 +4,16 @@ public static class RoutsMain
 {
     public static void MapRoutsMain(this IEndpointRouteBuilder app)
     {
+        app.MapGroup("v1/Notification")
+            .MapNotificationRoute()
+            //.RequireAuthorization()
+            .EnableOpenApiWithAuthentication()
+            .WithOpenApi();
+        
         app.MapGroup("v1/login")
             .MapLoginRoute()
             .WithOpenApi()
             .AllowAnonymous();
-        
         
         app.MapGroup("v1/profile")
             .MapProfileRoute()
@@ -16,6 +21,7 @@ public static class RoutsMain
             .AllowAnonymous();
         
         app.MapGroup("v1/BusinessPlan")
+            .MapBusinessPlanRout()
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
