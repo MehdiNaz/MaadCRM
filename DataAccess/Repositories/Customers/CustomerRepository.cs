@@ -261,7 +261,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
                 }).ToListAsync();
-            
+
             CustomerDashboardResponse result = new()
             {
                 AllCustomersInfo = finalResult,
@@ -270,7 +270,8 @@ public class CustomerRepository : ICustomerRepository
                 BelFelCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
                 RazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
                 NaRazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-                DarHalePeyGiryCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                DarHalePeyGiryCount =
+                    resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
                 VafadarCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             };
 
@@ -327,7 +328,7 @@ public class CustomerRepository : ICustomerRepository
                     CustomerStateType = x.CustomerState,
                     CustomerStatusType = x.CustomerStatusType,
                 }).ToListAsync();
-            
+
             return new Result<CustomerDashboardResponse>(new CustomerDashboardResponse
             {
                 AllCustomersInfo = resultsListCustomer,
@@ -336,7 +337,8 @@ public class CustomerRepository : ICustomerRepository
                 BelFelCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),
                 RazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Razy),
                 NaRazyCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.NaRazy),
-                DarHalePeyGiryCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
+                DarHalePeyGiryCount =
+                    resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.DarHalePeyGiry),
                 VafadarCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Vafadar)
             });
         }
@@ -384,9 +386,13 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            if (await _context.Customers.AnyAsync(x =>
-                    x.PhoneNumbers.Any(p =>
-                        request.PhoneNumbers != null && p.PhoneNo == request.PhoneNumbers.FirstOrDefault())))
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user is null) return new Result<CustomerResponse>(new ValidationException(ResultErrorMessage.NotFound));
+
+            if (await _context.Customers.AnyAsync(x => x.IdUserNavigation.IdBusiness == user.IdBusiness &&
+                                                       x.PhoneNumbers.Any(p =>
+                                                           request.PhoneNumbers != null && p.PhoneNo ==
+                                                           request.PhoneNumbers.FirstOrDefault())))
                 return new Result<CustomerResponse>(
                     new ValidationException("کابری با این شماره تلفن قبلا ثبت شده است"));
 
@@ -409,12 +415,12 @@ public class CustomerRepository : ICustomerRepository
             if (result == 0) return new Result<CustomerResponse>(new ValidationException());
 
             if (request.PhoneNumbers != null)
-                foreach (var PhoneNumbers in request.PhoneNumbers)
+                foreach (var phoneNumbers in request.PhoneNumbers)
                 {
                     CustomersPhoneNumber newPhone = new()
                     {
                         IdCustomer = entityEntry.Id,
-                        PhoneNo = PhoneNumbers,
+                        PhoneNo = phoneNumbers,
                         PhoneType = PhoneTypes.Phone
                     };
 
