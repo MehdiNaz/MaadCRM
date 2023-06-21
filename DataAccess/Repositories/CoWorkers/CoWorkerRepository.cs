@@ -5,19 +5,26 @@ public class CoWorkerRepository:ICoWorkerRepository
 {
     private readonly UserManager<User> _userManager;
     private readonly MaadContext _context;
+    private readonly RoleManager<IdentityRole> _roleManager;
     
     public CoWorkerRepository(
         UserManager<User> userManager, 
-        MaadContext context)
+        MaadContext context, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _context = context;
+        _roleManager = roleManager;
     }
     
     public async ValueTask<Result<bool>> AddCoworkerAsync(AddCoworkerCommand request)
     {
         try
         {
+            // await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.User));
+            // await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.Admin));
+            // await _roleManager.CreateAsync(new IdentityRole(UserRoleTypes.Company));
+
+            
             var findUser = await _context.Users.FindAsync(request.IdUser);
             if (findUser is null) return new Result<bool>(new ValidationException(ResultErrorMessage.NotFound));
 
@@ -45,8 +52,7 @@ public class CoWorkerRepository:ICoWorkerRepository
             if (!createUserResult.Succeeded)
                 return new Result<bool>(new ValidationException("خطا در ثبت اطلاعات کاربر"));
 
-            // TODO: Add to role
-            // await _userManager.AddToRoleAsync(user, UserRoleTypes.User);
+            await _userManager.AddToRoleAsync(user, UserRoleTypes.User);
 
             return new Result<bool>(createUserResult.Succeeded);
         }
