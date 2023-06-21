@@ -1,10 +1,16 @@
-﻿namespace WebApi.StartupConfiguration;
+﻿using Application.Interfaces.CoWorkers;
+using DataAccess.Repositories.CoWorkers;
+
+namespace WebApi.StartupConfiguration;
 
 public static class RepositoryConfiguration
 {
     public static void Configure(IServiceCollection collection)
     {
         collection.AddTransient<IUserRepository, UserRepository>();
+        collection.AddTransient<ICoWorkerRepository, CoWorkerRepository>();
+        collection.AddTransient<ICoWorkerGroupRepository, CoWorkerGroupRepository>();
+
 
         // Repository :
         collection.AddTransient<ILoginRepository, LoginRepository>();

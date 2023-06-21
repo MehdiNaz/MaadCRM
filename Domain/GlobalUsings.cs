@@ -1,5 +1,4 @@
 global using Domain.Enum;
-global using Domain.Models;
 global using Domain.Models.Base;
 global using Domain.Models.Businesses;
 global using Domain.Models.Contacts;
@@ -12,12 +11,10 @@ global using Domain.Models.IdentityModels;
 global using Domain.Models.Location;
 global using Domain.Models.Products;
 global using Domain.Models.SpecialFields;
-global using Domain.UnDifined;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.ComponentModel.DataAnnotations;
-global using System.ComponentModel.DataAnnotations.Schema;
 global using Domain.Models.LogsUser;
 global using Domain.Models.Notifications;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

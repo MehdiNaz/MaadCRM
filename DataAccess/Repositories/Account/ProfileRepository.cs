@@ -29,7 +29,7 @@ public class ProfileRepository : IProfileRepository
             result.Name = request.Name;
             result.Family = request.Family;
             result.Address = request.Address;
-            result.DateOfBirth = request.BirthDatre;
+            result.DateOfBirth = request.BirthDate;
             result.CodeMelli = request.CodeMelli;
             result.CityId = request.CityId;
 

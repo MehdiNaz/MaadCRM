@@ -9,12 +9,15 @@ public class ContactRepository : IContactRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<ContactsResponse>>> GetAllContactAsync()
+    public async ValueTask<Result<ICollection<ContactsResponse>>> GetAllContactAsync(AllContactQuery request)
     {
         try
         {
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user is null) return new Result<ICollection<ContactsResponse>>(new ValidationException(ResultErrorMessage.NotFound));
+            
             return new Result<ICollection<ContactsResponse>>(await _context.Contacts
-                .Where(x => x.ContactStatusType == StatusType.Show)
+                .Where(x => x.ContactStatusType == StatusType.Show && x.BusinessId == user.IdBusiness)
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,
@@ -85,21 +88,25 @@ public class ContactRepository : IContactRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<ContactsResponse>>> SearchContactAsync(string q)
+    public async ValueTask<Result<ICollection<ContactsResponse>>> SearchContactAsync(ContactBySearchItemQuery request)
     {
         try
         {
-            // TODO: add IdUser to search condition x.IdUser == userId
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user is null) return new Result<ICollection<ContactsResponse>>(new ValidationException(ResultErrorMessage.NotFound));
+
             return new Result<ICollection<ContactsResponse>>(await _context.Contacts
                 // .Include(x => x.ContactsEmailAddresses)
                 // .Include(x => x.ContactPhoneNumbers)
                 // .Include(x => x.ContactGroup)
-                .Where(x => x.ContactStatusType == StatusType.Show &&
-                            x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.Contains(q) ||
-                            (x.FirstName + " " + x.LastName).ToLower().Contains(q.ToLower()) &&
-                            x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(q.ToLower()) ||
-                            x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress.ToLower()
-                                .Contains(q.ToLower()))
+                .Where(x => 
+                    x.BusinessId == user.IdBusiness &&
+                    x.ContactStatusType == StatusType.Show &&
+                    x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.Contains(request.Q) ||
+                    (x.FirstName + " " + x.LastName).ToLower().Contains(request.Q.ToLower()) &&
+                    x.ContactPhoneNumbers!.FirstOrDefault()!.PhoneNo.ToLower().Contains(request.Q.ToLower()) ||
+                    x.ContactsEmailAddresses!.FirstOrDefault()!.ContactEmailAddress.ToLower()
+                                .Contains(request.Q.ToLower()))
                 .Select(x => new ContactsResponse
                 {
                     IdContact = x.Id,

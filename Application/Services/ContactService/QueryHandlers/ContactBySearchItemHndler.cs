@@ -13,7 +13,7 @@ public readonly struct ContactBySearchItemHndler : IRequestHandler<ContactBySear
     {
         try
         {
-            return (await _repository.SearchContactAsync(request.Q)).Match(result => new Result<ICollection<ContactsResponse>>(result), exception => new Result<ICollection<ContactsResponse>>(exception));
+            return (await _repository.SearchContactAsync(request)).Match(result => new Result<ICollection<ContactsResponse>>(result), exception => new Result<ICollection<ContactsResponse>>(exception));
         }
         catch (Exception e)
         {

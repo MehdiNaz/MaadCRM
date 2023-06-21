@@ -190,15 +190,15 @@ public class LoginRepository : ILoginRepository
             // Sms.smsmarkazi.com
 
             var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://ippanel.com/api/select");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://ippanel.com/api/select");
 
             var str = smsType switch
             {
                 SmsType.Verify => $$"""
                                         {
                                            "op": "pattern",
-                                            "user": {{user}},
-                                            "pass": {{pass}},
+                                            "user": "{{user}}",
+                                            "pass": "{{pass}}",
                                             "fromNum": "3000505",
                                             "toNum": "{{phoneNumber}}",
                                             "patternCode": "hc3p46s7ehdm9l2",
@@ -212,8 +212,8 @@ public class LoginRepository : ILoginRepository
                 _ => $$"""
                            {
                               "op": "pattern",
-                               "user": {{user}},
-                               "pass": {{pass}},
+                               "user": "{{user}}",
+                               "pass": "{{pass}}",
                                "fromNum": "3000505",
                                "toNum": "{{phoneNumber}}",
                                "patternCode": "hc3p46s7ehdm9l2",

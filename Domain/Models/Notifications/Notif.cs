@@ -14,4 +14,12 @@ public class Notif : BaseEntityWithUserId
     public DateTime DateDue { get; set; }
     public Ulid? IdPeyGiry { get; set; }
     public CustomerPeyGiry? IdPeyGiryNavigation { get; set; }
+    
+    
+    // public bool IsRead { get; set; } = false;
+    // public DateTime DateTimeForAlaram { get; set; }
+    // public string Url { get; set; }
+    // public string Message { get; set; }
+    // public int EntityId { get; set; }
+    // public AlaramType AlaramTypeId { get; set; }
 }

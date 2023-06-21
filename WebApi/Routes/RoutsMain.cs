@@ -1,3 +1,5 @@
+using WebApi.Routes.CoWorkers;
+
 namespace WebApi.Routes;
 
 public static class RoutsMain
@@ -9,6 +11,11 @@ public static class RoutsMain
             //.RequireAuthorization()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
+        
+        app.MapGroup("v1/teammate")
+            .MapCoWorkersRoute()
+            .WithOpenApi()
+            .AllowAnonymous();
         
         app.MapGroup("v1/login")
             .MapLoginRoute()

@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230620141959_coworker")]
+    partial class coworker
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1261,7 +1264,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("IdBusiness")
-                        .IsRequired()
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("IdUserAdded")
@@ -2649,7 +2651,6 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.Businesses.Business", "IdBusinessNavigation")
                         .WithMany("UserGroups")
                         .HasForeignKey("IdBusiness")
-                        .IsRequired()
                         .HasConstraintName("FK_UserGroup_Business");
 
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")

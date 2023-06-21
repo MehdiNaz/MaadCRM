@@ -156,11 +156,12 @@ public static class ContactRoute
                 });
 
                 return id.Result.Match(
-                        UserId =>
+                        userId =>
                         {
                             var result = mediator.Send(new ContactBySearchItemQuery
                             {
-                                Q = q.ToLower()
+                                Q = q.ToLower(),
+                                UserId = userId
                             });
 
                             return result.Result.Match(

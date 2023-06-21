@@ -5,7 +5,8 @@ public class User : IdentityUser
     public User()
     {
         UserStatusType = StatusType.Show;
-
+        CreatedOn = DateTime.UtcNow;
+        
         Customers = new HashSet<Customer>();
         CustomersAdded = new HashSet<Customer>();
         CustomersUpdated = new HashSet<Customer>();
@@ -41,7 +42,11 @@ public class User : IdentityUser
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
         CustomerFeedbackCategoryAdded = new HashSet<CustomerFeedbackCategory>();
         CustomerFeedbackCategoryUpdated = new HashSet<CustomerFeedbackCategory>();
+        
         Logs = new HashSet<Log>();
+        
+        GroupAdded = new HashSet<UserGroup>();
+        GroupUpdated = new HashSet<UserGroup>();
     }
 
     public string? Name { get; set; }
@@ -73,6 +78,12 @@ public class User : IdentityUser
     public Business IdBusinessNavigation { get; set; }
 
     public IEnumerable<Log>? Logs { get; set; }
+    
+    public Ulid? IdGroup { get; set; }
+    public UserGroup IdGroupNavigation { get; set; }
+    public IEnumerable<UserGroup>? GroupAdded { get; set; }
+    public IEnumerable<UserGroup>? GroupUpdated{ get; set; }
+
 
     public IEnumerable<Customer>? Customers { get; }
     public IEnumerable<Customer>? CustomersAdded { get; }

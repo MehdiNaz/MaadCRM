@@ -7,6 +7,7 @@ public class MaadContext : IdentityDbContext
     }
 
     public new DbSet<User> Users { get; set; }
+    public DbSet<UserGroup> UserGroups { get; set; }
     public DbSet<Log> Logs { get; set; }
     public DbSet<Plan> Plans { get; set; }
     public DbSet<Customer> Customers { get; set; }
@@ -52,6 +53,7 @@ public class MaadContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new UserMapping());
+        builder.ApplyConfiguration(new UserGroupMapping());
 
         builder.ApplyConfiguration(new CustomerMapping());
         builder.ApplyConfiguration(new CustomersAddressMapping());

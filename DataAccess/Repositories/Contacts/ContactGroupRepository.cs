@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Contacts;
+﻿using Application.Services.ContactGroupService.Queries;
+
+namespace DataAccess.Repositories.Contacts;
 
 public class ContactGroupRepository : IContactGroupRepository
 {
@@ -9,15 +11,22 @@ public class ContactGroupRepository : IContactGroupRepository
         _context = context;
     }
 
-    public async ValueTask<Result<ICollection<ContactGroup>>> GetAllContactGroupsAsync()
+    public async ValueTask<Result<ICollection<ContactGroup>>> GetAllContactGroupsAsync(AllContactGroupsQuery request)
     {
         try
         {
-            return new Result<ICollection<ContactGroup?>>(await _context.ContactGroups.Where(x => x.ContactGroupStatusType == StatusType.Show).ToListAsync());
+            var user = await _context.Users.FindAsync(request.UserId);
+            return user is null ? 
+                new Result<ICollection<ContactGroup>>(new ValidationException(ResultErrorMessage.NotFound)) : 
+                new Result<ICollection<ContactGroup?>>(
+                    await _context.ContactGroups.Where(x => 
+                        x.ContactGroupStatusType == StatusType.Show && 
+                        x.BusinessId == user.IdBusiness)
+                    .ToListAsync());
         }
         catch (Exception e)
         {
-            return new Result<ICollection<ContactGroup?>>(new ValidationException(e.Message));
+            return new Result<ICollection<ContactGroup?>>(new ValidationException(e.Message))!;
         }
     }
 

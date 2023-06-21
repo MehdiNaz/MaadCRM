@@ -2,7 +2,7 @@
 
 public interface IContactGroupRepository
 {
-    ValueTask<Result<ICollection<ContactGroup>>> GetAllContactGroupsAsync();
+    ValueTask<Result<ICollection<ContactGroup>>> GetAllContactGroupsAsync(AllContactGroupsQuery request);
     ValueTask<Result<ContactGroup>> GetContactGroupByIdAsync(Ulid requestId);
     ValueTask<Result<ContactGroup>> ChangeStatusContactGroupAsync(ChangeStatusContactGroupCommand request);
     ValueTask<Result<ICollection<ContactGroup>>> SearchContactGroupAsync(string q);

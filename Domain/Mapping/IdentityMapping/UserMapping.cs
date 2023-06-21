@@ -28,7 +28,11 @@ public class UserMapping : IEntityTypeConfiguration<User>
             .HasForeignKey(d => d.IdBusiness)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Business_User");
-        // builder.HasOne(x => x.City).WithMany(x => x.Users).HasForeignKey(x => x.CityId);
-        // builder.HasOne(x => x.Business).WithMany(x => x.Users).HasForeignKey(x => x.Id);
+        
+        builder.HasOne(x => x.IdGroupNavigation)
+            .WithMany(x => x.Users)
+            .HasForeignKey(d => d.IdGroup)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_UserGroup_User");
     }
 }

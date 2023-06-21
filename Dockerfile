@@ -1,4 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0.5-jammy-amd64 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0.7-alpine3.18-amd64 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -18,3 +18,9 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApi.dll"]
+
+
+
+# 7.0.7-bullseye-slim-amd64
+# 7.0.7-alpine3.18-amd64
+# 7.0.7-jammy-amd64

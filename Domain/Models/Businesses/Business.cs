@@ -1,4 +1,6 @@
-﻿namespace Domain.Models.Businesses;
+﻿using System.Collections;
+
+namespace Domain.Models.Businesses;
 
 public class Business : BaseEntity
 {
@@ -33,6 +35,8 @@ public class Business : BaseEntity
     public virtual ICollection<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; set; }
     public virtual ICollection<Attribute>? Attributes { get; set; }
     public virtual ICollection<PeyGiryCategory>? PeyGiryCategories { get; set; }
+    
+    public virtual ICollection<UserGroup>? UserGroups { get; set; }
 
 
     //public Ulid? AttributeOptionsValueId { get; set; }

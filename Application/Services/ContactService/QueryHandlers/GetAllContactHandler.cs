@@ -13,7 +13,7 @@ public readonly struct GetAllContactHandler : IRequestHandler<AllContactQuery, R
     {
         try
         {
-            return (await _repository.GetAllContactAsync()).Match(result => new Result<ICollection<ContactsResponse>>(result), exception => new Result<ICollection<ContactsResponse>>(exception));
+            return (await _repository.GetAllContactAsync(request)).Match(result => new Result<ICollection<ContactsResponse>>(result), exception => new Result<ICollection<ContactsResponse>>(exception));
         }
         catch (Exception e)
         {
