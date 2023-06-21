@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f97bfc3-d2d6-4031-9d6b-f98e538af4a8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/WebApi/Routes/Notification/NotificationRout.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/MaadContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/MaadContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230529065436_init.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Migrations/20230617090806_init.Designer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230529065436_init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Migrations/20230617090806_init.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230529081840_init1.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/20230529081840_init1.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Customers/Foroosh/ForooshPaymentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Customers/Foroosh/ForooshPaymentRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi/GlobalUsings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/GlobalUsings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebApi/Routes/RoutsMain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/Routes/RoutsMain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maad-api.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/maad-api.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/Location.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Location.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

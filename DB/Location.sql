@@ -1,3 +1,8 @@
+-- Roles
+INSERT INTO public."AspNetRoles"("Id", "Name", "NormalizedName", "ConcurrencyStamp") VALUES ('3f9a196f-a174-4ed0-b7a2-4311d481aa6c', 'Admin', 'ADMIN', null);
+INSERT INTO public."AspNetRoles"("Id", "Name", "NormalizedName", "ConcurrencyStamp") VALUES ('721c3418-122b-417d-a100-2d77f90e6265', 'Users', 'USERS', null);
+INSERT INTO public."AspNetRoles"("Id", "Name", "NormalizedName", "ConcurrencyStamp") VALUES ('dbf308dd-c988-4a32-97c7-72558d96f7be', 'Company', 'COMPANY', null);
+
 -- Countries
 INSERT Into public."Countries" ("Id","CountryName","IsDefault","DisplayOrder","CountryStatusType","DateCreated","DateLastUpdate","Version")values ('01GZTM8DSTQH037TNTFSK9RX9W',N'ایران',true,1,1,'2023-05-29 08:18:40.724763 +00:00','2023-05-29 08:18:40.724763 +00:00',0);
 

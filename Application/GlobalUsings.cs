@@ -108,3 +108,4 @@ global using System.Text;
 global using Application.Interfaces.CoWorkers;
 global using Application.Responses.TeamMate;
 global using Application.Services.CoWorkers.Command;
+global using Application.Services.CoWorkers.Query;
