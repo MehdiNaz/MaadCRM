@@ -6,8 +6,7 @@ public static class CoWorkersRoute
 {
     public static RouteGroupBuilder MapCoWorkersRoute(this RouteGroupBuilder coWorker)
     {
-        // TODO: Change method to put
-        coWorker.MapPut("/Add",
+        coWorker.MapPost("/Add",
              ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddCoworkerCommand request,
                 IMediator mediator, HttpContext httpContext) =>
             {
@@ -253,19 +252,8 @@ public static class CoWorkersRoute
                             });
                         }
                     });
-        
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-        // TODO: Change method to put
-        coWorker.MapPut("/AddGroup",
+
+        coWorker.MapPost("/AddGroup",
             ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddCoworkerGroupCommand request,
                 IMediator mediator, HttpContext httpContext) =>
             {
