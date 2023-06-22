@@ -148,7 +148,7 @@ public class LoginRepository : ILoginRepository
                 LoginCount = 1,
                 PhoneNumber = request.Phone,
                 UserName = request.Phone,
-                UserStatusType = StatusType.Show,
+                Status = StatusType.Show,
                 IdBusiness = newBusiness.Id,
                 PhoneNumberConfirmed = true,
                 CreatedOn = DateTime.UtcNow

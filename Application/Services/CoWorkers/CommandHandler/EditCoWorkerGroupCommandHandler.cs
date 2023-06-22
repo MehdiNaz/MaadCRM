@@ -1,6 +1,6 @@
 namespace Application.Services.CoWorkers.CommandHandler;
 
-public readonly struct EditCoWorkerGroupCommandHandler : IRequestHandler<EditCoworkerGroupCommand, Result<TeamMateGroupRespnse>>
+public readonly struct EditCoWorkerGroupCommandHandler : IRequestHandler<EditCoworkerGroupCommand, Result<TeamMateGroupResponse>>
 {
     private readonly ICoWorkerGroupRepository _repository;
     
@@ -9,19 +9,19 @@ public readonly struct EditCoWorkerGroupCommandHandler : IRequestHandler<EditCow
         _repository = repository;
     }
 
-    public async Task<Result<TeamMateGroupRespnse>> Handle(EditCoworkerGroupCommand request, CancellationToken cancellationToken)
+    public async Task<Result<TeamMateGroupResponse>> Handle(EditCoworkerGroupCommand request, CancellationToken cancellationToken)
     {
         try
         {
             var result = await _repository.EditCoworkerGroupAsync(request);
             return result.Match(
-                succ => new Result<TeamMateGroupRespnse>(succ),
-                exception => new Result<TeamMateGroupRespnse>(exception)
+                succ => new Result<TeamMateGroupResponse>(succ),
+                exception => new Result<TeamMateGroupResponse>(exception)
             );
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(e);
+            return new Result<TeamMateGroupResponse>(e);
         }
     }
 }

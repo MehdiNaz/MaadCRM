@@ -17,12 +17,12 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         _context = context;
     }
 
-    public async ValueTask<Result<TeamMateGroupRespnse>> AddCoworkerGroupAsync(AddCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> AddCoworkerGroupAsync(AddCoworkerGroupCommand request)
     {
         try
         {
             var findUser = await _context.Users.FindAsync(request.IdUser);
-            if (findUser is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUser is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
         
             UserGroup userGroup = new()
             {
@@ -35,7 +35,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
             await _context.UserGroups.AddAsync(userGroup);
             await _context.SaveChangesAsync();
 
-            TeamMateGroupRespnse result = new()
+            TeamMateGroupResponse result = new()
             {
                 Id = userGroup.Id,
                 Title = userGroup.Title,
@@ -43,23 +43,23 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                 Status = userGroup.Status,
                 DisplayOrder = userGroup.DisplayOrder
             };
-            return new Result<TeamMateGroupRespnse>(result);
+            return new Result<TeamMateGroupResponse>(result);
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(e);
+            return new Result<TeamMateGroupResponse>(e);
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupRespnse>> EditCoworkerGroupAsync(EditCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> EditCoworkerGroupAsync(EditCoworkerGroupCommand request)
     {
         try
         {
             var findUser = await _context.Users.FindAsync(request.IdUser);
-            if (findUser is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUser is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
         
             var findUserGroup = await _context.UserGroups.FindAsync(request.Id);
-            if (findUserGroup is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUserGroup is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
             
             findUserGroup.Title = request.Title;
             findUserGroup.IdUserUpdated = request.IdUser;
@@ -68,7 +68,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
             _context.UserGroups.Update(findUserGroup);
             await _context.SaveChangesAsync();
 
-            TeamMateGroupRespnse result = new()
+            TeamMateGroupResponse result = new()
             {
                 Id = findUserGroup.Id,
                 Title = findUserGroup.Title,
@@ -76,24 +76,24 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                 Status = findUserGroup.Status,
                 DisplayOrder = findUserGroup.DisplayOrder
             };
-            return new Result<TeamMateGroupRespnse>(result);
+            return new Result<TeamMateGroupResponse>(result);
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(e);
+            return new Result<TeamMateGroupResponse>(e);
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupRespnse>> GetUserGroupById(GetUserGroupByIdQuery request)
+    public async ValueTask<Result<TeamMateGroupResponse>> GetUserGroupById(GetUserGroupByIdQuery request)
     {
         try
         {
             var findUser = await _context.Users.FindAsync(request.IdUser);
-            if (findUser is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUser is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
         
             var findUserGroup = await _context
                 .UserGroups
-                .Select(s => new TeamMateGroupRespnse
+                .Select(s => new TeamMateGroupResponse
                 {
                     Id = s.Id,
                     Title = s.Title,
@@ -103,24 +103,24 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                 })
                 .FirstOrDefaultAsync(g => g.Id == request.Id && g.IdBusiness == findUser.IdBusiness);
             
-            return new Result<TeamMateGroupRespnse>(findUserGroup);
+            return new Result<TeamMateGroupResponse>(findUserGroup);
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(e);
+            return new Result<TeamMateGroupResponse>(e);
         }
     }
 
-    public async ValueTask<Result<ICollection<TeamMateGroupRespnse>>> AllCoworkerGroupAsync(AllUserGroupsQuery request)
+    public async ValueTask<Result<ICollection<TeamMateGroupResponse>>> AllCoworkerGroupAsync(AllUserGroupsQuery request)
     {
         try
         {
             var findUser = await _context.Users.FindAsync(request.IdUser);
-            if (findUser is null) return new Result<ICollection<TeamMateGroupRespnse>>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUser is null) return new Result<ICollection<TeamMateGroupResponse>>(new ValidationException(ResultErrorMessage.NotFound));
         
             var findUserGroup = await _context
                 .UserGroups
-                .Select(s => new TeamMateGroupRespnse
+                .Select(s => new TeamMateGroupResponse
                 {
                     Id = s.Id,
                     Title = s.Title,
@@ -131,30 +131,30 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                 .Where(g => g.Id == request.Id && g.IdBusiness == findUser.IdBusiness)
                 .ToListAsync();
             
-            return new Result<ICollection<TeamMateGroupRespnse>>(findUserGroup);
+            return new Result<ICollection<TeamMateGroupResponse>>(findUserGroup);
         }
         catch (Exception e)
         {
-            return new Result<ICollection<TeamMateGroupRespnse>>(e);
+            return new Result<ICollection<TeamMateGroupResponse>>(e);
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupRespnse>> DeleteCoworkerGroupAsync(DeleteCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> DeleteCoworkerGroupAsync(DeleteCoworkerGroupCommand request)
     {
         try
         {
             var findUser = await _context.Users.FindAsync(request.IdUser);
-            if (findUser is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUser is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
         
             var findUserGroup = await _context.UserGroups.FindAsync(request.Id);
-            if (findUserGroup is null) return new Result<TeamMateGroupRespnse>(new ValidationException(ResultErrorMessage.NotFound));
+            if (findUserGroup is null) return new Result<TeamMateGroupResponse>(new ValidationException(ResultErrorMessage.NotFound));
             
             findUserGroup.Status = StatusType.Deleted;
             
             _context.UserGroups.Update(findUserGroup);
             await _context.SaveChangesAsync();
 
-            TeamMateGroupRespnse result = new()
+            TeamMateGroupResponse result = new()
             {
                 Id = findUserGroup.Id,
                 Title = findUserGroup.Title,
@@ -162,11 +162,11 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                 Status = findUserGroup.Status,
                 DisplayOrder = findUserGroup.DisplayOrder
             };
-            return new Result<TeamMateGroupRespnse>(result);
+            return new Result<TeamMateGroupResponse>(result);
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(e);
+            return new Result<TeamMateGroupResponse>(e);
         }
     }
 }

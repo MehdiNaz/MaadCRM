@@ -1,6 +1,6 @@
 namespace Application.Responses.TeamMate;
 
-public struct TeamMateGroupRespnse
+public struct TeamMateGroupResponse
 {
     public Ulid Id { get; set; }
     public string Title { get; set; }

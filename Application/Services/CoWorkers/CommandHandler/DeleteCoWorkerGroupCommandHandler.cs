@@ -1,19 +1,19 @@
 namespace Application.Services.CoWorkers.CommandHandler;
 
-public readonly struct AddCoWorkerGroupCommandHandler : IRequestHandler<AddCoworkerGroupCommand, Result<TeamMateGroupResponse>>
+public readonly struct DeleteCoWorkerGroupCommandHandler : IRequestHandler<DeleteCoworkerGroupCommand, Result<TeamMateGroupResponse>>
 {
     private readonly ICoWorkerGroupRepository _repository;
     
-    public AddCoWorkerGroupCommandHandler(ICoWorkerGroupRepository repository)
+    public DeleteCoWorkerGroupCommandHandler(ICoWorkerGroupRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Result<TeamMateGroupResponse>> Handle(AddCoworkerGroupCommand request, CancellationToken cancellationToken)
+    public async Task<Result<TeamMateGroupResponse>> Handle(DeleteCoworkerGroupCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var result = await _repository.AddCoworkerGroupAsync(request);
+            var result = await _repository.DeleteCoworkerGroupAsync(request);
             return result.Match(
                 succ => new Result<TeamMateGroupResponse>(succ),
                 exception => new Result<TeamMateGroupResponse>(exception)

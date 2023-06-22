@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.CoWorkers.QueryHandler;
 
-public readonly struct GetUserGroupByIdQueryHandler : IRequestHandler<GetUserGroupByIdQuery, Result<TeamMateGroupRespnse>>
+public readonly struct GetUserGroupByIdQueryHandler : IRequestHandler<GetUserGroupByIdQuery, Result<TeamMateGroupResponse>>
 {
     private readonly ICoWorkerGroupRepository _repository;
 
@@ -9,15 +9,15 @@ public readonly struct GetUserGroupByIdQueryHandler : IRequestHandler<GetUserGro
         _repository = repository;
     }
 
-    public async Task<Result<TeamMateGroupRespnse>> Handle(GetUserGroupByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<TeamMateGroupResponse>> Handle(GetUserGroupByIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            return (await _repository.GetUserGroupById(request)).Match(result => new Result<TeamMateGroupRespnse>(result), exception => new Result<TeamMateGroupRespnse>(exception));
+            return (await _repository.GetUserGroupById(request)).Match(result => new Result<TeamMateGroupResponse>(result), exception => new Result<TeamMateGroupResponse>(exception));
         }
         catch (Exception e)
         {
-            return new Result<TeamMateGroupRespnse>(new Exception(e.Message));
+            return new Result<TeamMateGroupResponse>(new Exception(e.Message));
         }
     }
 }

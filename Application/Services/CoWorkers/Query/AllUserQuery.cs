@@ -1,8 +1,8 @@
 ﻿namespace Application.Services.CoWorkers.Query;
 
-public struct AllUserGroupsQuery : IRequest<Result<ICollection<TeamMateGroupResponse>>>
+public struct AllUsersQuery : IRequest<Result<ICollection<TeamMateResponse>>>
 {
-    public Ulid Id { get; set; }
+    public string Id { get; set; }
     public string IdUser { get; set; }
     public int Page { get; set; }
     public int PageSize { get; set; }

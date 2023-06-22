@@ -4,7 +4,7 @@ public class User : IdentityUser
 {
     public User()
     {
-        UserStatusType = StatusType.Show;
+        Status = StatusType.Show;
         CreatedOn = DateTime.UtcNow;
         
         Customers = new HashSet<Customer>();
@@ -57,7 +57,6 @@ public class User : IdentityUser
     public Married? Married { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public GenderTypes? Gender { get; set; }
-    public Ulid? CityId { get; set; }
     //public int? Points { get; set; }
     public int? LoginCount { get; set; }
     public DateTime? LastLogin { get; set; }
@@ -70,16 +69,19 @@ public class User : IdentityUser
     public string? OtpPassword { get; set; }
     public DateTime? OtpPasswordExpired { get; set; }
     public DateTimeOffset? LastLoginDate { get; set; }
-    public StatusType UserStatusType { get; set; }
+    public StatusType Status { get; set; }
     public string? Token { get; set; }// JWT Token
 
 
+    public Ulid? CityId { get; set; }
+    public City? IdCityNavigation { get; set; }
+    
     public required Ulid IdBusiness { get; set; }
     public Business IdBusinessNavigation { get; set; }
 
     public IEnumerable<Log>? Logs { get; set; }
     
-    public Ulid? IdGroup { get; set; }
+    public Ulid IdGroup { get; set; }
     public UserGroup IdGroupNavigation { get; set; }
     public IEnumerable<UserGroup>? GroupAdded { get; set; }
     public IEnumerable<UserGroup>? GroupUpdated{ get; set; }
