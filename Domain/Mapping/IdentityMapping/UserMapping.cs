@@ -34,5 +34,12 @@ public class UserMapping : IEntityTypeConfiguration<User>
             .HasForeignKey(d => d.IdGroup)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_UserGroup_User");
+        
+        builder.HasOne(x => x.IdCityNavigation)
+            .WithMany(x => x.Users)
+            .HasForeignKey(d => d.IdCity)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_AspNetUsers_City")
+            .IsRequired(false);
     }
 }

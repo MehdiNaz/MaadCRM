@@ -27,9 +27,9 @@ public class User : IdentityUser
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
 
-        // NotificationAdded = new HashSet<Notif>();
-        // NotificationUpdated = new HashSet<Notif>();
-        // Notifications = new HashSet<Notif>();
+        NotificationAdded = new HashSet<Notif>();
+        NotificationUpdated = new HashSet<Notif>();
+        Notifications = new HashSet<Notif>();
         
         AttributeAdded = new HashSet<Attribute>();
         AttributeUpdated = new HashSet<Attribute>();
@@ -57,7 +57,6 @@ public class User : IdentityUser
     public Married? Married { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public GenderTypes? Gender { get; set; }
-    //public int? Points { get; set; }
     public int? LoginCount { get; set; }
     public DateTime? LastLogin { get; set; }
     public string? UserAgent { get; set; }
@@ -73,7 +72,7 @@ public class User : IdentityUser
     public string? Token { get; set; }// JWT Token
 
 
-    public Ulid? CityId { get; set; }
+    public Ulid? IdCity { get; set; }
     public City? IdCityNavigation { get; set; }
     
     public required Ulid IdBusiness { get; set; }
@@ -123,13 +122,4 @@ public class User : IdentityUser
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryAdded { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryUpdated { get; }
-
-    // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }  
-    // public ICollection<Plan>? Plans { get; set; }  
-    // public ICollection<CustomerCategory>? CustomerCategories { get; set; }
-    // public ICollection<Business>? Businesses { get; set; }
-    // public ICollection<CustomerPeyGiry>? CustomerPeyGiries { get; set; }
-    // public ICollection<PeyGiryAttachment>? PeyGiryAttachments { get; set; }
-    // public ICollection<CustomerNote>? CustomerNotes { get; set; }
-    // public ICollection<CustomerNoteHashTag>? NoteHashTags{ get; set; }
 }

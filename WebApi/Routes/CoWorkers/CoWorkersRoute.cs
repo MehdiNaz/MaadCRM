@@ -105,7 +105,7 @@ public static class CoWorkersRoute
                         }
                     });
          
-         coWorker.MapGet("/GetByID/{{idU:String}}", (string idU, IMediator mediator, HttpContext httpContext) =>
+         coWorker.MapGet("/GetById/{idU}", (string idU, IMediator mediator, HttpContext httpContext) =>
                              {
                                  try
                                  {
@@ -353,7 +353,7 @@ public static class CoWorkersRoute
                         }
                     });
          
-         coWorker.MapGet("/GetGroupByID/{{idg:Ulid}}", (Ulid idg, IMediator mediator, HttpContext httpContext) =>
+         coWorker.MapGet("/GetGroupByID/{idg}", (Ulid idg, IMediator mediator, HttpContext httpContext) =>
                              {
                                  try
                                  {

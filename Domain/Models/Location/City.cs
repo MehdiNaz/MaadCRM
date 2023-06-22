@@ -20,7 +20,7 @@ public class City : BaseEntity
     public virtual Province IdProvinceNavigation { get; set; }
 
     // public ICollection<Address>? Addresses { get; set; }
-    // public ICollection<User>? Users { get; set; }
+    public ICollection<User>? Users { get; set; }
     public virtual ICollection<Customer>? Customers { get; set; }
 
 }

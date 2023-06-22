@@ -44,12 +44,14 @@ public class CoWorkerRepository:ICoWorkerRepository
                 Address = request.Address,
                 Gender = request.Gender,
                 CodeMelli = request.CodeMelli,
-                CityId = request.IdCity,
                 IdBusiness = findUser.IdBusiness,
                 PhoneNumberConfirmed = true,
                 CreatedOn = DateTime.UtcNow,
                 IdGroup = request.IdGroup
             };
+
+            if (request.IdCity != Ulid.Empty)
+                user.IdCity = request.IdCity;
 
             var createUserResult = await _userManager.CreateAsync(user);
             if (!createUserResult.Succeeded)
@@ -83,18 +85,20 @@ public class CoWorkerRepository:ICoWorkerRepository
             resultEditUser.Address = request.Address;
             resultEditUser.Gender = request.Gender;
             resultEditUser.CodeMelli = request.CodeMelli;
-            resultEditUser.CityId = request.IdCity;
             resultEditUser.IdGroup = request.IdGroup;
             resultEditUser.PhoneNumber = request.PhoneNo;
             resultEditUser.PhoneNumberConfirmed = true;
+            
+            if (request.IdCity != Ulid.Empty)
+                resultEditUser.IdCity = request.IdCity;
         
             await _context.SaveChangesAsync();
 
             var result = await _context
                 .Users
-                .Include(g => g.IdGroupNavigation)
-                .Include(c => c.IdCityNavigation)
-                .ThenInclude(p => p!.IdProvinceNavigation)
+                // .Include(g => g.IdGroupNavigation)
+                // .Include(c => c.IdCityNavigation)
+                // .ThenInclude(p => p!.IdProvinceNavigation)
                 .Select(u => new TeamMateResponse
                 {
                     Id = u.Id,
@@ -105,16 +109,22 @@ public class CoWorkerRepository:ICoWorkerRepository
                     Address = u.Address,
                     Gender = u.Gender,
                     CodeMelli = u.CodeMelli,
-                    IdCity = u.CityId,
+                    IdCity = u.IdCity,
                     IdGroup = u.IdGroup,
                     PhoneNo = u.PhoneNumber,
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
                     GroupTitle = u.IdGroupNavigation.Title,
-                    CityName = u.IdCityNavigation!.CityName,
-                    IdProvince = u.IdCityNavigation!.IdProvince,
-                    ProvinceName = u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName,
+                    CityName = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.CityName
+                        : "",
+                    IdProvince = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.IdProvince
+                        : Ulid.Empty,
+                    ProvinceName =  u.IdCityNavigation != null
+                        ?  u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName
+                        : ""
                 })
                 .FirstOrDefaultAsync(w => w.Id == request.Id);
         
@@ -154,16 +164,22 @@ public class CoWorkerRepository:ICoWorkerRepository
                     Address = u.Address,
                     Gender = u.Gender,
                     CodeMelli = u.CodeMelli,
-                    IdCity = u.CityId,
+                    IdCity = u.IdCity,
                     IdGroup = u.IdGroup,
                     PhoneNo = u.PhoneNumber,
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
                     GroupTitle = u.IdGroupNavigation.Title,
-                    CityName = u.IdCityNavigation!.CityName,
-                    IdProvince = u.IdCityNavigation!.IdProvince,
-                    ProvinceName = u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName,
+                    CityName = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.CityName
+                        : "",
+                    IdProvince = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.IdProvince
+                        : Ulid.Empty,
+                    ProvinceName =  u.IdCityNavigation != null
+                        ?  u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName
+                        : ""
                 })
                 .FirstOrDefaultAsync(w => w.Id == request.Id);
         
@@ -198,16 +214,22 @@ public class CoWorkerRepository:ICoWorkerRepository
                     Address = u.Address,
                     Gender = u.Gender,
                     CodeMelli = u.CodeMelli,
-                    IdCity = u.CityId,
+                    IdCity = u.IdCity,
                     IdGroup = u.IdGroup,
                     PhoneNo = u.PhoneNumber,
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
                     GroupTitle = u.IdGroupNavigation.Title,
-                    CityName = u.IdCityNavigation!.CityName,
-                    IdProvince = u.IdCityNavigation!.IdProvince,
-                    ProvinceName = u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName,
+                    CityName = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.CityName
+                        : "",
+                    IdProvince = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.IdProvince
+                        : Ulid.Empty,
+                    ProvinceName =  u.IdCityNavigation != null
+                        ?  u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName
+                        : ""
                 })
                 .ToListAsync();
                 
@@ -242,16 +264,22 @@ public class CoWorkerRepository:ICoWorkerRepository
                     Address = u.Address,
                     Gender = u.Gender,
                     CodeMelli = u.CodeMelli,
-                    IdCity = u.CityId,
+                    IdCity = u.IdCity,
                     IdGroup = u.IdGroup,
                     PhoneNo = u.PhoneNumber,
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
                     GroupTitle = u.IdGroupNavigation.Title,
-                    CityName = u.IdCityNavigation!.CityName,
-                    IdProvince = u.IdCityNavigation!.IdProvince,
-                    ProvinceName = u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName,
+                    CityName = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.CityName
+                        : "",
+                    IdProvince = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.IdProvince
+                        : Ulid.Empty,
+                    ProvinceName =  u.IdCityNavigation != null
+                        ?  u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName
+                        : ""
                 })
                 .FirstOrDefaultAsync();
                 
