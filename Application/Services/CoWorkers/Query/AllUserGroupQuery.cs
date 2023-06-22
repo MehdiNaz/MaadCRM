@@ -2,7 +2,6 @@
 
 public struct AllUserGroupsQuery : IRequest<Result<ICollection<TeamMateGroupResponse>>>
 {
-    public Ulid Id { get; set; }
     public string IdUser { get; set; }
     public int Page { get; set; }
     public int PageSize { get; set; }

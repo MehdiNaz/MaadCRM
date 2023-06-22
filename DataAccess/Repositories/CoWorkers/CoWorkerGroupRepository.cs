@@ -128,7 +128,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
                     Status = s.Status,
                     DisplayOrder = s.DisplayOrder
                 })
-                .Where(g => g.Id == request.Id && g.IdBusiness == findUser.IdBusiness)
+                .Where(g => g.IdBusiness == findUser.IdBusiness)
                 .ToListAsync();
             
             return new Result<ICollection<TeamMateGroupResponse>>(findUserGroup);
