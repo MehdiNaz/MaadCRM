@@ -1,6 +1,6 @@
-namespace Application.Services.CoWorkers.Command;
+namespace Application.Services.TeamMates.Command;
 
-public struct AddCoworkerCommand : IRequest<Result<bool>>
+public struct AddTeamMateCommand : IRequest<Result<bool>>
 {
     public string IdUser { get; set; }
     public string Name { get; set; }

@@ -1,6 +1,6 @@
-namespace Application.Services.CoWorkers.Command;
+namespace Application.Services.TeamMates.Command;
 
-public struct EditCoworkerCommand : IRequest<Result<TeamMateResponse>>
+public struct EditTeamMateCommand : IRequest<Result<TeamMateResponse>>
 {
     public string Id { get; set; }
     public string IdUser { get; set; }

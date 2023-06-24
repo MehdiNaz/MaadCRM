@@ -1,10 +1,12 @@
-﻿namespace Application.Services.CoWorkers.QueryHandler;
+﻿using Application.Services.TeamMates.Query;
+
+namespace Application.Services.TeamMates.QueryHandler;
 
 public readonly struct AllUserQueryHandler : IRequestHandler<AllUsersQuery, Result<ICollection<TeamMateResponse>>>
 {
-    private readonly ICoWorkerRepository _repository;
+    private readonly ITeamMateRepository _repository;
 
-    public AllUserQueryHandler(ICoWorkerRepository repository)
+    public AllUserQueryHandler(ITeamMateRepository repository)
     {
         _repository = repository;
     }
@@ -13,7 +15,7 @@ public readonly struct AllUserQueryHandler : IRequestHandler<AllUsersQuery, Resu
     {
         try
         {
-            return (await _repository.GetAllCoworkerAsync(request)).Match(
+            return (await _repository.GetAllTeamMatesAsync(request)).Match(
                 result => new Result<ICollection<TeamMateResponse>>(result), 
                 exception => new Result<ICollection<TeamMateResponse>>(exception));
         }

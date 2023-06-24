@@ -1,15 +1,15 @@
+using Application.Interfaces.TeamMates;
+using Application.Services.TeamMates.Command;
+using Application.Services.TeamMates.Query;
 
-using Application.Responses.TeamMate;
-using Application.Services.CoWorkers.Query;
+namespace DataAccess.Repositories.TeamMates;
 
-namespace DataAccess.Repositories.CoWorkers;
-
-public class CoWorkerGroupRepository:ICoWorkerGroupRepository
+public class TeamMateGroupRepository:ITeamMateGroupRepository
 {
     private readonly UserManager<User> _userManager;
     private readonly MaadContext _context;
     
-    public CoWorkerGroupRepository(
+    public TeamMateGroupRepository(
         UserManager<User> userManager, 
         MaadContext context)
     {
@@ -17,7 +17,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         _context = context;
     }
 
-    public async ValueTask<Result<TeamMateGroupResponse>> AddCoworkerGroupAsync(AddCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> AddTeamMateGroupAsync(AddTeamMateGroupCommand request)
     {
         try
         {
@@ -51,7 +51,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupResponse>> EditCoworkerGroupAsync(EditCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> EditTeamMateGroupAsync(EditTeamMateGroupCommand request)
     {
         try
         {
@@ -84,7 +84,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupResponse>> GetUserGroupById(GetUserGroupByIdQuery request)
+    public async ValueTask<Result<TeamMateGroupResponse>> GetTeamMateGroupById(GetTeamMateGroupByIdQuery request)
     {
         try
         {
@@ -111,7 +111,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<TeamMateGroupResponse>>> AllCoworkerGroupAsync(AllUserGroupsQuery request)
+    public async ValueTask<Result<ICollection<TeamMateGroupResponse>>> AllTeamMateGroupsAsync(AllUserGroupsQuery request)
     {
         try
         {
@@ -139,7 +139,7 @@ public class CoWorkerGroupRepository:ICoWorkerGroupRepository
         }
     }
 
-    public async ValueTask<Result<TeamMateGroupResponse>> DeleteCoworkerGroupAsync(DeleteCoworkerGroupCommand request)
+    public async ValueTask<Result<TeamMateGroupResponse>> DeleteTeamMateGroupAsync(DeleteTeamMateGroupCommand request)
     {
         try
         {

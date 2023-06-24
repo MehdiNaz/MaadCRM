@@ -13,7 +13,7 @@ public static class RoutsMain
             .WithOpenApi();
         
         app.MapGroup("v1/teammate")
-            .MapCoWorkersRoute()
+            .MapTeamMatesRoute()
             .WithOpenApi()
             .AllowAnonymous();
         

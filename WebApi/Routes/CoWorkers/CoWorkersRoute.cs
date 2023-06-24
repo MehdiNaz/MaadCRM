@@ -1,13 +1,14 @@
-using Application.Services.CoWorkers.Query;
+using Application.Services.TeamMates.Command;
+using Application.Services.TeamMates.Query;
 
 namespace WebApi.Routes.CoWorkers;
 
 public static class CoWorkersRoute
 {
-    public static RouteGroupBuilder MapCoWorkersRoute(this RouteGroupBuilder coWorker)
+    public static RouteGroupBuilder MapTeamMatesRoute(this RouteGroupBuilder coWorker)
     {
         coWorker.MapPost("/Add",
-             ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddCoworkerCommand request,
+             ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddTeamMateCommand request,
                 IMediator mediator, HttpContext httpContext) =>
             {
                 try
@@ -56,7 +57,7 @@ public static class CoWorkersRoute
             });
         
         coWorker.MapPost("/Edit",
-                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] EditCoworkerCommand request,
+                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] EditTeamMateCommand request,
                         IMediator mediator, HttpContext httpContext) =>
                     {
                         try
@@ -119,7 +120,7 @@ public static class CoWorkersRoute
                                      return id.Result.Match(
                                          idUser =>
                                          {
-                                             var resultAddCoWorkerGroup = mediator.Send(new GetUserByIdQuery
+                                             var resultAddCoWorkerGroup = mediator.Send(new GetTeamMateByIdQuery
                                              {
                                                  IdUser = idUser,
                                                  Id = idU
@@ -204,7 +205,7 @@ public static class CoWorkersRoute
                              }); 
                     
          coWorker.MapDelete("/Delete",
-                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] DeleteCoworkerCommand request,
+                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] DeleteTeamMateCommand request,
                         IMediator mediator, HttpContext httpContext) =>
                     {
                         try
@@ -254,7 +255,7 @@ public static class CoWorkersRoute
                     });
 
         coWorker.MapPost("/AddGroup",
-            ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddCoworkerGroupCommand request,
+            ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] AddTeamMateGroupCommand request,
                 IMediator mediator, HttpContext httpContext) =>
             {
                 try
@@ -304,7 +305,7 @@ public static class CoWorkersRoute
             });
             
         coWorker.MapPost("/EditGroup",
-                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] EditCoworkerGroupCommand request,
+                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] EditTeamMateGroupCommand request,
                         IMediator mediator, HttpContext httpContext) =>
                     {
                         try
@@ -367,7 +368,7 @@ public static class CoWorkersRoute
                                      return id.Result.Match(
                                          idUser =>
                                          {
-                                             var resultAddCoWorkerGroup = mediator.Send(new GetUserGroupByIdQuery
+                                             var resultAddCoWorkerGroup = mediator.Send(new GetTeamMateGroupByIdQuery
                                              {
                                                  IdUser = idUser,
                                                  Id = idg
@@ -452,7 +453,7 @@ public static class CoWorkersRoute
                              }); 
                     
          coWorker.MapDelete("/DeleteGroup",
-                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] DeleteCoworkerGroupCommand request,
+                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] DeleteTeamMateGroupCommand request,
                         IMediator mediator, HttpContext httpContext) =>
                     {
                         try

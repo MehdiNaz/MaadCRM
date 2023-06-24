@@ -1,5 +1,5 @@
-﻿using Application.Interfaces.CoWorkers;
-using DataAccess.Repositories.CoWorkers;
+﻿using Application.Interfaces.TeamMates;
+using DataAccess.Repositories.TeamMates;
 
 namespace WebApi.StartupConfiguration;
 
@@ -8,8 +8,8 @@ public static class RepositoryConfiguration
     public static void Configure(IServiceCollection collection)
     {
         collection.AddTransient<IUserRepository, UserRepository>();
-        collection.AddTransient<ICoWorkerRepository, CoWorkerRepository>();
-        collection.AddTransient<ICoWorkerGroupRepository, CoWorkerGroupRepository>();
+        collection.AddTransient<ITeamMateRepository, TeamMateRepository>();
+        collection.AddTransient<ITeamMateGroupRepository, TeamMateGroupRepository>();
 
 
         // Repository :

@@ -126,7 +126,6 @@ global using Microsoft.OpenApi.Models;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using System.Text;
 global using System.Threading.RateLimiting;
-global using Application.Services.CoWorkers.Command;
 global using WebApi.Routes;
 global using WebApi.Routes.Account;
 global using WebApi.Routes.Business;

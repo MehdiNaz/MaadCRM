@@ -1,4 +1,4 @@
-﻿namespace Application.Services.CoWorkers.Query;
+﻿namespace Application.Services.TeamMates.Query;
 
 public struct AllUserGroupsQuery : IRequest<Result<ICollection<TeamMateGroupResponse>>>
 {

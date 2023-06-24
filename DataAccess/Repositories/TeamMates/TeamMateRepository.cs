@@ -1,25 +1,27 @@
+using Application.Interfaces.TeamMates;
+using Application.Services.TeamMates.Command;
+using Application.Services.TeamMates.Query;
 
-using Application.Responses.TeamMate;
-using Application.Services.CoWorkers.Query;
+namespace DataAccess.Repositories.TeamMates;
 
-namespace DataAccess.Repositories.CoWorkers;
-
-public class CoWorkerRepository:ICoWorkerRepository
+public class TeamMateRepository:ITeamMateRepository
 {
     private readonly UserManager<User> _userManager;
     private readonly MaadContext _context;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    // private readonly RoleManager<IdentityRole> _roleManager;
     
-    public CoWorkerRepository(
+    public TeamMateRepository(
         UserManager<User> userManager, 
-        MaadContext context, RoleManager<IdentityRole> roleManager)
+        MaadContext context 
+        // RoleManager<IdentityRole> roleManager
+        )
     {
         _userManager = userManager;
         _context = context;
-        _roleManager = roleManager;
+        // _roleManager = roleManager;
     }
     
-    public async ValueTask<Result<bool>> AddCoworkerAsync(AddCoworkerCommand request)
+    public async ValueTask<Result<bool>> AddTeamMateAsync(AddTeamMateCommand request)
     {
         try
         {
@@ -68,7 +70,7 @@ public class CoWorkerRepository:ICoWorkerRepository
 
     }
 
-    public async ValueTask<Result<TeamMateResponse>> EditCoworkerAsync(EditCoworkerCommand request)
+    public async ValueTask<Result<TeamMateResponse>> EditTeamMateAsync(EditTeamMateCommand request)
     {
         try
         {
@@ -136,7 +138,7 @@ public class CoWorkerRepository:ICoWorkerRepository
         }
     }
 
-    public async ValueTask<Result<TeamMateResponse>> DeleteCoworkerAsync(DeleteCoworkerCommand request)
+    public async ValueTask<Result<TeamMateResponse>> DeleteTeamMateAsync(DeleteTeamMateCommand request)
     {
         try
         {
@@ -191,7 +193,7 @@ public class CoWorkerRepository:ICoWorkerRepository
         }
     }
 
-    public async ValueTask<Result<ICollection<TeamMateResponse>>> GetAllCoworkerAsync(AllUsersQuery request)
+    public async ValueTask<Result<ICollection<TeamMateResponse>>> GetAllTeamMatesAsync(AllUsersQuery request)
     {
         try
         {
@@ -241,7 +243,7 @@ public class CoWorkerRepository:ICoWorkerRepository
         }
     }
 
-    public async ValueTask<Result<TeamMateResponse>> GetCoworkerByIdAsync(GetUserByIdQuery request)
+    public async ValueTask<Result<TeamMateResponse>> GetTeamMateByIdAsync(GetTeamMateByIdQuery request)
     {
         try
         {
