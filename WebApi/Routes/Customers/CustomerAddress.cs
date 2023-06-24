@@ -33,68 +33,114 @@ public static class CustomerAddressRoute
             }
         });
 
-        customerAddress.MapPost("/Insert", async ([FromBody] CreateCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPost("/Insert", async ([FromBody] CreateCustomersAddressCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new CreateCustomersAddressCommand
+                var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Address = request.Address,
-                    CodePost = request.CodePost,
-                    PhoneNo = request.PhoneNo,
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-
-
-                    // TODO: Get From Token
-                    IdUser = request.IdUser
+                    Token = authHeader,
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+            
+                return id.Result.Match(
+                    idUser =>
+                    {
+                        var resultAddress = mediator.Send(request with
+                        {
+                            IdUser = idUser
+                        });
+
+                        return Results.Ok(resultAddress);
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 
-        customerAddress.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPost("/ChangeStatus", async ([FromBody] ChangeStatusCustomersAddressCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new ChangeStatusCustomersAddressCommand
+                var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    CustomersAddressStatusType = request.CustomersAddressStatusType
+                    Token = authHeader,
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+            
+                return id.Result.Match(
+                    idUser =>
+                    {
+                        var resultAddress = mediator.Send(request with
+                        {
+                            IdUser = idUser
+                        });
+
+                        return Results.Ok(resultAddress);
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 
-        customerAddress.MapPut("/Update", async ([FromBody] UpdateCustomersAddressCommand request, IMediator mediator) =>
+        customerAddress.MapPut("/Update", async ([FromBody] UpdateCustomersAddressCommand request, IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
-                var result = await mediator.Send(new UpdateCustomersAddressCommand
+                var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+                var id = mediator.Send(new DecodeTokenQuery
                 {
-                    Id = request.Id,
-                    Address = request.Address,
-                    CodePost = request.CodePost,
-                    PhoneNo = request.PhoneNo,
-                    Description = request.Description,
-                    CustomerId = request.CustomerId,
-
-                    // TODO: Get From Token
-                    IdUser = request.IdUser
+                    Token = authHeader,
+                    ReturnType = TokenReturnType.UserId
                 });
-                return Results.Ok(result);
+            
+                return id.Result.Match(
+                    idUser =>
+                    {
+                        var resultAddress = mediator.Send(request with
+                        {
+                            IdUser = idUser
+                        });
+
+                        return Results.Ok(resultAddress);
+                    },
+                    exception => Results.BadRequest(new ErrorResponse
+                    {
+                        Valid = false,
+                        Exceptions = exception
+                    }));
             }
             catch (ArgumentException e)
             {
-                return Results.BadRequest(e.ParamName);
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Valid = false,
+                    Exceptions = e
+                });
             }
         });
 

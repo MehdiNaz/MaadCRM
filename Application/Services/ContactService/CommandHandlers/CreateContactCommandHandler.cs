@@ -21,7 +21,7 @@ public readonly struct CreateContactCommandHandler : IRequestHandler<CreateConta
                 PhoneNumber = request.PhoneNumber,
                 ContactGroupId = request.ContactGroupId,
                 Job = request.Job,
-                BusinessId = request.BusinessId
+                IdUser = request.IdUser
             };
             return (await _repository.CreateContactAsync(item)).Match(result => new Result<ContactsResponse>(result), exception => new Result<ContactsResponse>(exception));
         }

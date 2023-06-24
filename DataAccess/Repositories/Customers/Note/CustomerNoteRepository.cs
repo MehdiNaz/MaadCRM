@@ -147,7 +147,6 @@ public class CustomerNoteRepository : ICustomerNoteRepository
 
             await _log.InsertAsync(command);
 
-            // TODO: حل مشکل نام کاربر
             return await _context.CustomerNotes
             .Include(x => x.IdUserAddNavigation)
             .Include(x => x.IdCustomerNavigation)

@@ -509,7 +509,6 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            // TODO: call customer by id
             return new Result<CustomerResponse>(
                 await _context.Customers
                     .Select(x => new CustomerResponse
@@ -599,7 +598,6 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            // TODO: call customer by id
             var resultCustomer = await _context.Customers
                 .Where(x => x.CustomerStatusType == StatusType.Show && x.Id == request.Id)
                 .Select(x =>

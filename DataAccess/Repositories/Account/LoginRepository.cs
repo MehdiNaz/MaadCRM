@@ -170,7 +170,6 @@ public class LoginRepository : ILoginRepository
             };
             await _context.ProductCategories.AddAsync(newProductCategory);
             
-            // TODO: add role to user
             await _userManager.AddToRoleAsync(user, UserRoleTypes.User);
             await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
 

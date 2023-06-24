@@ -2,7 +2,6 @@
 
 public class ContactRepository : IContactRepository
 {
-    // TODO: Return only contact that business id  is from this user
     private readonly MaadContext _context;
     public ContactRepository(MaadContext context)
     {
@@ -163,7 +162,10 @@ public class ContactRepository : IContactRepository
     {
         try
         {
-            if (await _context.Contacts.AnyAsync(x => x.ContactPhoneNumbers!.Any(xx => xx.PhoneNo == request.PhoneNumber.FirstOrDefault())))
+            var user = await _context.Users.FindAsync(request.IdUser);
+            if (user is null) return new Result<ContactsResponse>(new ValidationException(ResultErrorMessage.NotFound));
+            
+            if (await _context.Contacts.AnyAsync(x => x.ContactPhoneNumbers!.Any(xx => xx.PhoneNo == request.PhoneNumber.FirstOrDefault() && x.BusinessId == user.IdBusiness)))
                 return new Result<ContactsResponse>(new ValidationException("این مخاطب قبلا ثبت شده است"));
 
             Contact item = new()
@@ -172,7 +174,7 @@ public class ContactRepository : IContactRepository
                 LastName = request.LastName,
                 ContactGroupId = request.ContactGroupId,
                 Job = request.Job,
-                BusinessId = request.BusinessId
+                BusinessId = user.IdBusiness,
             };
             await _context.Contacts.AddAsync(item);
             await _context.SaveChangesAsync();

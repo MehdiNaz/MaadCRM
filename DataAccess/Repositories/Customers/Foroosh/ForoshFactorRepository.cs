@@ -154,7 +154,7 @@ public class ForooshFactorRepository : IForooshFactorRepository
             //     var paymentAmount = (request.AmountTotal + request.MablagheKoleSoud - request.PishPardakht) /
             //                         request.TedadeAghsat;
             //     var paymentDate = request.ShoroAghsat;
-            //     // ToDo : Payment
+
             //     for (var i = 0; i < request.TedadeAghsat; i++)
             //     {
             //         payment = new Payment

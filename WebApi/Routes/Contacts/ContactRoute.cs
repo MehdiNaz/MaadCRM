@@ -205,45 +205,25 @@ public static class ContactRoute
                 });
 
                 return id.Result.Match(
-                    UserId =>
+                    userId =>
                     {
-                        var business = mediator.Send(new GetBusinessNameByUserIdQuery
+                        var result = mediator.Send(request with
                         {
-                            UserId = UserId
+                            IdUser = userId,
                         });
 
-                        return business.Result.Match(bId =>
-                        {
-                            var result = mediator.Send(new CreateContactCommand
+                        return result.Result.Match(
+                            succes => Results.Ok(new
                             {
-                                FirstName = request.FirstName,
-                                LastName = request.LastName,
-                                EmailAddresses = request.EmailAddresses,
-                                PhoneNumber = request.PhoneNumber,
-                                BusinessId = bId.Id,
-                                Job = request.Job,
-                                ContactGroupId = request.ContactGroupId
-                            });
-
-                            return result.Result.Match(
-                                succes => Results.Ok(new
-                                {
-                                    Valid = true,
-                                    Message = "Insert new Contact.",
-                                    Data = succes
-                                }),
-                                error => Results.BadRequest(new ErrorResponse
-                                {
-                                    Valid = false,
-                                    Exceptions = error
-                                }));
-                        },
-                            exception => Results.BadRequest(new ErrorResponse
+                                Valid = true,
+                                Message = "Insert new Contact.",
+                                Data = succes
+                            }),
+                            error => Results.BadRequest(new ErrorResponse
                             {
                                 Valid = false,
-                                Exceptions = exception
+                                Exceptions = error
                             }));
-
                     },
                     exception => Results.BadRequest(new ErrorResponse
                     {

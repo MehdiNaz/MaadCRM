@@ -24,9 +24,6 @@ public class GetUserByPhoneNumberHandler : IRequestHandler<UserByPhoneNumberQuer
                     Phone = request.Phone
                 }, cancellationToken);
 
-                // TODO: add log
-                // Console.WriteLine(resultRegisterUserCommand.Result);
-
                 if (resultRegisterUserCommand.Result.IsFaulted)
                     return new Result<bool>(resultRegisterUserCommand.Exception);
             }

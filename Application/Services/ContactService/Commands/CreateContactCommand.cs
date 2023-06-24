@@ -7,6 +7,6 @@ public struct CreateContactCommand : IRequest<Result<ContactsResponse>>
     public ICollection<string>? EmailAddresses { get; set; }
     public ICollection<string> PhoneNumber { get; set; }
     public string? Job { get; set; }
-    public Ulid BusinessId { get; set; }
+    public string IdUser { get; set; }
     public Ulid ContactGroupId { get; set; }
 }

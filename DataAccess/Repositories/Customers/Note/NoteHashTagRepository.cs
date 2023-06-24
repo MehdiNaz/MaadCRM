@@ -14,7 +14,6 @@ public class NoteHashTagRepository : INoteHashTagRepository
 
     public async ValueTask<CustomerNoteHashTag?> GetNoteHashTagByIdAsync(Ulid noteHashTagId)
     {
-        // TODO: Fix x.IdCustomerNote == noteHashTagId
         return await _context.NoteHashTags.FirstOrDefaultAsync(x =>
             x.IdNoteHashTable == noteHashTagId && x.IdCustomerNote == noteHashTagId &&
             x.StatusTypeNoteHashTag == StatusType.Show);

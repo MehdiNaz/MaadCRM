@@ -57,7 +57,6 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     IdPeyGiryCategory = x.IdPeyGiryCategory,
                     NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
                 }).FirstOrDefaultAsync(x => x.IdCustomerPeyGiry == customerPeyGiryId);
-            // TODO: x.Status == StatusType.Show
         }
         catch (Exception e)
         {
