@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f97bfc3-d2d6-4031-9d6b-f98e538af4a8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/DataAccess/Migrations/20230626085813_coworker4.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataAccess/Migrations/20230626085813_coworker4.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/Location.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Location.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Responses/TeamMate/TeamMateResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Responses/TeamMate/TeamMateResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Migrations/MaadContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataAccess/Repositories/Account/LoginRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/Models/IdentityModels/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/Models/IdentityModels/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebApi/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

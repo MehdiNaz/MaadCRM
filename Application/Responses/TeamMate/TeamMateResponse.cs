@@ -17,7 +17,7 @@ public struct TeamMateResponse
     public Ulid IdProvince { get; set; }
     public string ProvinceName { get; set; }
     public string? PhoneNo { get; set; }
-    public Ulid IdGroup { get; set; }
+    public Ulid? IdGroup { get; set; }
     public string GroupTitle { get; set; }
     public DateTime? CreatedOn { get; set; }
 }

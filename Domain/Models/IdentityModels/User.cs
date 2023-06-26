@@ -80,8 +80,8 @@ public class User : IdentityUser
 
     public IEnumerable<Log>? Logs { get; set; }
     
-    public Ulid IdGroup { get; set; }
-    public UserGroup IdGroupNavigation { get; set; }
+    public Ulid? IdGroup { get; set; }
+    public UserGroup? IdGroupNavigation { get; set; }
     public IEnumerable<UserGroup>? GroupAdded { get; set; }
     public IEnumerable<UserGroup>? GroupUpdated{ get; set; }
 

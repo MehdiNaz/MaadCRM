@@ -142,7 +142,7 @@ public class LoginRepository : ILoginRepository
 
             if (result == 0)
                 return new Result<bool>(new ValidationException("خطا در ثبت اطلاعات شرکت"));
-
+            
             var user = new User
             {
                 LoginCount = 1,
@@ -151,7 +151,8 @@ public class LoginRepository : ILoginRepository
                 Status = StatusType.Show,
                 IdBusiness = newBusiness.Id,
                 PhoneNumberConfirmed = true,
-                CreatedOn = DateTime.UtcNow
+                CreatedOn = DateTime.UtcNow,
+                // IdGroup = newUserGroup.Id
             };
 
             var createUserResult = await _userManager.CreateAsync(user);
@@ -169,6 +170,19 @@ public class LoginRepository : ILoginRepository
                 IdUserUpdated = newUser.Id
             };
             await _context.ProductCategories.AddAsync(newProductCategory);
+            
+            var newUserGroup = new UserGroup
+            {
+                IdBusiness = newBusiness.Id,
+                IdUserAdded = newUser.Id,
+                IdUserUpdated = newUser.Id,
+                Title = "گروه پیش فرض"
+            };
+            await _context.UserGroups.AddAsync(newUserGroup);
+            
+            
+            var resultCreateUserGroupResult = await _context.SaveChangesAsync();
+            
             
             await _userManager.AddToRoleAsync(user, UserRoleTypes.User);
             await _userManager.AddToRoleAsync(user, UserRoleTypes.Company);
