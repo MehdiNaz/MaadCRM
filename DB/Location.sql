@@ -240,7 +240,7 @@ VALUES ('01H1RJ85TY8CXCX99JTA5MBP8E', N'سروستان',true,0,'01GZTMF256K84ZGQ
 INSERT into public."Cities" ("Id", "CityName", "IsDefault", "DisplayOrder", "IdProvince", "CityStatusType", "DateCreated", "DateLastUpdate")
 VALUES ('01H1RJ85TYXZS2VYR0JZMYCDT7', N'سوريان',true,0,'01GZTMF256K84ZGQFMWRB6VTV9',1,'2023-05-29 08:18:40.724820 +00:00','2023-05-29 08:18:40.724820 +00:00');
 INSERT into public."Cities" ("Id", "CityName", "IsDefault", "DisplayOrder", "IdProvince", "CityStatusType", "DateCreated", "DateLastUpdate")
-VALUES ('01H1RJ85TY3F9K9M81S652S5M9', N'شيراز',true,0,'01GZTMF256K84ZGQFMWRB6VTV9',1,'2023-05-29 08:18:40.724820 +00:00','2023-05-29 08:18:40.724820 +00:00');
+VALUES ('01H1RJ85TY3F9K9M81S652S5M9', N'شیراز',true,0,'01GZTMF256K84ZGQFMWRB6VTV9',1,'2023-05-29 08:18:40.724820 +00:00','2023-05-29 08:18:40.724820 +00:00');
 INSERT into public."Cities" ("Id", "CityName", "IsDefault", "DisplayOrder", "IdProvince", "CityStatusType", "DateCreated", "DateLastUpdate")
 VALUES ('01H1RJ85TYJ6ZJMZQYK9KXWF0J', N'صفاشهر',true,0,'01GZTMF256K84ZGQFMWRB6VTV9',1,'2023-05-29 08:18:40.724820 +00:00','2023-05-29 08:18:40.724820 +00:00');
 INSERT into public."Cities" ("Id", "CityName", "IsDefault", "DisplayOrder", "IdProvince", "CityStatusType", "DateCreated", "DateLastUpdate")
