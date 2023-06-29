@@ -16,5 +16,7 @@ public struct AttributeResponse
     public Ulid? IdBusiness { get; set; }
     public string IdUserAdded { get; set; }
     public string IdUserUpdated { get; set; }
+    
 
+    public List<AttributeOptionResponse> AttributeOptions { get; set; }
 }

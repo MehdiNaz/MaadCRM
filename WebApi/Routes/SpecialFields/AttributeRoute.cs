@@ -153,30 +153,20 @@ public static class AttributeRoute
                 });
 
                 return id.Result.Match(
-                    UserId =>
+                    userId =>
                     {
                         var business = mediator.Send(new GetBusinessNameByUserIdQuery
                         {
-                            UserId = UserId
+                            UserId = userId
                         });
 
                         return business.Result.Match(bId =>
                         {
-                            var result = mediator.Send(new CreateAttributeCommand
+                            var result = mediator.Send(request with
                             {
-                                Label = request.Label,
-                                DisplayOrder = request.DisplayOrder,
-                                IsRequired = request.IsRequired,
-                                AttributeInputTypeId = request.AttributeInputTypeId,
-                                AttributeTypeId = request.AttributeTypeId,
-                                ValidationMinLength = request.ValidationMinLength,
-                                ValidationMaxLength = request.ValidationMaxLength,
-                                ValidationFileAllowExtension = request.ValidationFileAllowExtension,
-                                ValidationFileMaximumSize = request.ValidationFileMaximumSize,
-                                DefaultValue = request.DefaultValue,
                                 IdBusiness = bId.Id,
-                                IdUserAdded = UserId,
-                                IdUserUpdated = UserId
+                                IdUserAdded = userId,
+                                IdUserUpdated = userId
                             });
 
 

@@ -91,7 +91,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
 
             await _context.AttributeOptions.AddAsync(item);
             await _context.SaveChangesAsync();
-            return await _context.AttributeOptions.FindAsync(item.Id)
+            return new Result<AttributeOptionResponse>( await _context.AttributeOptions.FindAsync(item.Id)
                 .Select(x => new AttributeOptionResponse
                 {
                     Id = x.Id,
@@ -100,7 +100,7 @@ public class AttributeOptionsRepository : IAttributeOptionsRepository
                     DisplayOrder = x.DisplayOrder,
                     Status = x.Status,
                     IdAttribute = x.IdAttribute
-                });
+                }));
         }
         catch (Exception e)
         {

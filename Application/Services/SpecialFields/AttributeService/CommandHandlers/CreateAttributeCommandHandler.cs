@@ -27,7 +27,8 @@ public readonly struct CreateAttributeCommandHandler : IRequestHandler<CreateAtt
                 DefaultValue = request.DefaultValue,
                 IdBusiness = request.IdBusiness,
                 IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated
+                IdUserUpdated = request.IdUserUpdated,
+                Options = request.Options
             };
 
             return (await _repository.CreateAttributesAsync(item))
