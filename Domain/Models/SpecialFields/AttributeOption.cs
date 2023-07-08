@@ -8,7 +8,7 @@ public class AttributeOption : BaseEntity
         Status = StatusType.Show;
         DisplayOrder = 0;
         AttributeOptionValues = new HashSet<AttributeOptionValue>();
-        CustomerAttributes = new HashSet<CustomerAttribute>();
+        CustomerAttributes = new HashSet<AttributeCustomer>();
     }
 
     public Ulid Id { get; set; }
@@ -19,5 +19,5 @@ public class AttributeOption : BaseEntity
     public Ulid? IdAttribute { get; set; }
     public Attribute IdAttributeNavigation { get; set; }
     public ICollection<AttributeOptionValue>? AttributeOptionValues { get; set; }
-    public ICollection<CustomerAttribute>? CustomerAttributes { get; set; }
+    public ICollection<AttributeCustomer>? CustomerAttributes { get; set; }
 }

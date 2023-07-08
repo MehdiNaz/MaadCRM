@@ -1754,6 +1754,47 @@ namespace DataAccess.Migrations
                     b.ToTable("Attributes", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeCustomer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateLastUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdAttributeOption")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("IdCustomer")
+                        .IsRequired()
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<long>("Version")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdAttributeOption");
+
+                    b.HasIndex("IdCustomer");
+
+                    b.ToTable("AttributesCustomer", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>
                 {
                     b.Property<string>("Id")
@@ -1827,52 +1868,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("IdAttributeOption");
 
                     b.ToTable("AttributeOptionsValues", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Models.SpecialFields.CustomerAttribute", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DateLastUpdate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IdAttributeOption")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("IdAttributeOptionNavigationId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("IdCustomer")
-                        .IsRequired()
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("IdCustomerNavigationId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("Version")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdAttributeOptionNavigationId");
-
-                    b.HasIndex("IdCustomerNavigationId");
-
-                    b.ToTable("CustomerAttribute");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -2857,6 +2852,24 @@ namespace DataAccess.Migrations
                     b.Navigation("IdUserUpdateNavigation");
                 });
 
+            modelBuilder.Entity("Domain.Models.SpecialFields.AttributeCustomer", b =>
+                {
+                    b.HasOne("Domain.Models.SpecialFields.AttributeOption", "IdAttributeOptionNavigation")
+                        .WithMany("CustomerAttributes")
+                        .HasForeignKey("IdAttributeOption")
+                        .HasConstraintName("FK_AttributeOption_AttributesCustomer");
+
+                    b.HasOne("Domain.Models.Customers.Customer", "IdCustomerNavigation")
+                        .WithMany("CustomerAttributes")
+                        .HasForeignKey("IdCustomer")
+                        .IsRequired()
+                        .HasConstraintName("FK_Customer_AttributesCustomer");
+
+                    b.Navigation("IdAttributeOptionNavigation");
+
+                    b.Navigation("IdCustomerNavigation");
+                });
+
             modelBuilder.Entity("Domain.Models.SpecialFields.AttributeOption", b =>
                 {
                     b.HasOne("Domain.Models.SpecialFields.Attribute", "IdAttributeNavigation")
@@ -2875,21 +2888,6 @@ namespace DataAccess.Migrations
                         .HasConstraintName("FK_AttributeOption_AttributeOptionValue");
 
                     b.Navigation("AttributeOptions");
-                });
-
-            modelBuilder.Entity("Domain.Models.SpecialFields.CustomerAttribute", b =>
-                {
-                    b.HasOne("Domain.Models.SpecialFields.AttributeOption", "IdAttributeOptionNavigation")
-                        .WithMany("CustomerAttributes")
-                        .HasForeignKey("IdAttributeOptionNavigationId");
-
-                    b.HasOne("Domain.Models.Customers.Customer", "IdCustomerNavigation")
-                        .WithMany("CustomerAttributes")
-                        .HasForeignKey("IdCustomerNavigationId");
-
-                    b.Navigation("IdAttributeOptionNavigation");
-
-                    b.Navigation("IdCustomerNavigation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

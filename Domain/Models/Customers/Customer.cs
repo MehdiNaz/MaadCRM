@@ -18,7 +18,7 @@ public class Customer : BaseEntityWithUserId
         Moarefs = new HashSet<Customer>();
         CustomerFeedbacks = new HashSet<CustomerFeedback>();
         Logs = new HashSet<Log>();
-        CustomerAttributes = new HashSet<CustomerAttribute>();
+        CustomerAttributes = new HashSet<AttributeCustomer>();
     }
 
     public Ulid Id { get; set; }
@@ -56,5 +56,5 @@ public class Customer : BaseEntityWithUserId
 
     public virtual ICollection<Log>? Logs { get; }
 
-    public virtual ICollection<CustomerAttribute>? CustomerAttributes { get; }
+    public virtual ICollection<AttributeCustomer>? CustomerAttributes { get; }
 }

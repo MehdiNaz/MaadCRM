@@ -17,8 +17,11 @@ public class MaadContext : IdentityDbContext
     public DbSet<Business> Businesses { get; set; }
     public DbSet<BusinessPlan> BusinessPlans { get; set; }
     public DbSet<Attribute> Attributes { get; set; }
-    public DbSet<AttributeOptionValue> AttributeOptionsValues { get; set; }
     public DbSet<AttributeOption> AttributeOptions { get; set; }
+    public DbSet<AttributeCustomer> AttributesCustomer { get; set; }
+    // public DbSet<AttributeOptionValue> AttributeOptionsValues { get; set; }
+
+
     public DbSet<CustomersPhoneNumber> CustomersPhoneNumbers { get; set; }
     public DbSet<CustomersEmailAddress> CustomersEmailAddresses { get; set; }
     public DbSet<CustomerAddress> CustomersAddresses { get; set; }
@@ -98,7 +101,8 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new AttributeMapping());
         builder.ApplyConfiguration(new AttributeOptionsMapping());
-        builder.ApplyConfiguration(new AttributeOptionsValueMapping());
+        builder.ApplyConfiguration(new AttributeCustomerMapping());
+        // builder.ApplyConfiguration(new AttributeOptionsValueMapping());
 
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
@@ -127,11 +131,11 @@ public class MaadContext : IdentityDbContext
 
 public class UlidToStringConverter : ValueConverter<Ulid, string>
 {
-    private static readonly ConverterMappingHints defaultHints = new(size: 26);
+    private static readonly ConverterMappingHints DefaultHints = new(size: 26);
 
     public UlidToStringConverter(ConverterMappingHints mappingHints = null) : base(
             convertToProviderExpression: x => x.ToString(),
             convertFromProviderExpression: x => Ulid.Parse(x),
-            mappingHints: defaultHints.With(mappingHints))
+            mappingHints: DefaultHints.With(mappingHints))
     { }
 }

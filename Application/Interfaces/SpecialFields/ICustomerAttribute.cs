@@ -1,13 +1,11 @@
-﻿using Application.Services.SpecialFields.CustomerAttributeService.Commands;
+﻿namespace Application.Interfaces.SpecialFields;
 
-namespace Application.Interfaces.SpecialFields;
-
-public interface ICustomerAttribute
+public interface IAttributeCustomerRepository
 {
-    ValueTask<Result<ICollection<CustomerAttributeResponse>>> GetAllForooshOrdersAsync();
-    ValueTask<Result<CustomerAttributeResponse>> GetForooshOrderByIdAsync(Ulid customerAttributeId);
-    ValueTask<Result<CustomerAttributeResponse>> ChangeStatusForooshOrderByIdAsync(ChangeStatusForooshOrderCommand request);
-    ValueTask<Result<CustomerAttributeResponse>> CreateForooshOrderAsync(CreateCustomerAttributeCommand request);
-    ValueTask<Result<CustomerAttributeResponse>> UpdateForooshOrderAsync(UpdateCustomerAttributeCommand request);
-    ValueTask<Result<CustomerAttributeResponse>> DeleteForooshOrderAsync(Ulid customerAttributeId);
+    ValueTask<Result<ICollection<AttributeCustomerResponse>>> GetAllAttributesAsync(Ulid attributeId);
+    ValueTask<Result<AttributeCustomerResponse>> GetAttributeByIdAsync(Ulid idCustomer);
+    ValueTask<Result<AttributeCustomerResponse>> ChangeStatusAttributeIdAsync(ChangeStatusAttributeCustomerCommand request);
+    ValueTask<Result<AttributeCustomerResponse>> CreateAttributesAsync(CreateAttributeCustomerCommand request);
+    ValueTask<Result<AttributeCustomerResponse>> UpdateAttributesAsync(UpdateAttributeCustomerCommand request);
+    ValueTask<Result<AttributeCustomerResponse>> DeleteAttributesAsync(Ulid attributeId);
 }

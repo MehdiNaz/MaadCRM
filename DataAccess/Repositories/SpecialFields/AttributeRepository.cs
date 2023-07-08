@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.SpecialFields;
+﻿using Application.Responses.SpecialFields;
+
+namespace DataAccess.Repositories.SpecialFields;
 
 public class AttributeRepository : IAttributeRepository
 {
@@ -41,6 +43,11 @@ public class AttributeRepository : IAttributeRepository
                     }).ToList()
                 })
                 .ToListAsync();
+
+            // var result1 = await _context.AttributesCustomer
+            //     .Include(x => x.IdAttributeOptionNavigation)
+            //     .ThenInclude(x => x.IdAttributeNavigation)
+            //     .Where(s => s.IdAttributeOptionNavigation.IdAttributeNavigation.IdBusiness == idBusiness).ToListAsync();
             
             return new Result<ICollection<AttributeResponse>>(result);
 

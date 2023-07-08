@@ -174,6 +174,11 @@ public static class RoutsMain
             .MapAttributeOptionRoute()
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
+        
+        app.MapGroup("v1/AttributeCustomer")
+            .MapAttributeCustomerRoute()
+            .EnableOpenApiWithAuthentication()
+            .WithOpenApi();
 
         
         app.MapGroup("v1/Log")

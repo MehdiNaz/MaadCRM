@@ -1,8 +1,8 @@
 namespace Domain.Models.SpecialFields;
 
-public class CustomerAttribute: BaseEntity
+public class AttributeCustomer: BaseEntity
 {
-    public CustomerAttribute()
+    public AttributeCustomer()
     {
         Id = Ulid.NewUlid();
         Status = StatusType.Show;

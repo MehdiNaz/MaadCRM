@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.SpecialFields;
+﻿using Application.Responses.SpecialFields;
+
+namespace DataAccess.Repositories.SpecialFields;
 
 public class AttributeOptionsRepository : IAttributeOptionsRepository
 {
