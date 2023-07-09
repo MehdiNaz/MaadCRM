@@ -12,23 +12,24 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
         _context = context;
     }
     
-    private async ValueTask<Result<AttributeCustomerResponse>> GetCustomerAttributes(Ulid attributeId)
+    private async ValueTask<Result<AttributeCustomerResponse>> GetCustomerAttributes(Ulid attributeOptionId)
     {
         try
         {
+            var resultOption = await _context.AttributeOptions.FindAsync(attributeOptionId);
             var result = await _context
                 .Attributes
                 .Include(attribute => attribute.AttributeOptions!)
                 .ThenInclude(attributeOption => attributeOption.CustomerAttributes!)
-                .FirstOrDefaultAsync(w => w.Id == attributeId)
+                .FirstOrDefaultAsync(w => w.Id == resultOption.IdAttribute)
                     .Select(x => new AttributeCustomerResponse
                     {
                         Id = x.Id,
                         Label = x.Label,
                         DisplayOrder = x.DisplayOrder,
                         IsRequired = x.IsRequired,
-                        IdAttributeInputType = x.AttributeInputTypeId,
-                        IdAttributeType = x.AttributeTypeId,
+                        InputType = x.AttributeInputTypeId,
+                        Type = x.AttributeTypeId,
                         ValidationMinLength = x.ValidationMinLength,
                         ValidationMaxLength = x.ValidationMaxLength,
                         ValidationFileAllowExtension = x.ValidationFileAllowExtension,
@@ -48,8 +49,11 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
                                     {
                                         Id = v.Id,
                                         Status = v.Status,
-                                        Value = v.Value,
+                                        ValueString = v.ValueString,
                                         FilePath = v.FilePath,
+                                        ValueNumber = v.ValueNumber,
+                                        ValueBool = v.ValueBool,
+                                        ValueDate = v.ValueDate,
                                         IdCustomer = v.IdCustomer
                                     }).ToList()
                         }).ToList()
@@ -75,8 +79,8 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
                     Label = x.Label,
                     DisplayOrder = x.DisplayOrder,
                     IsRequired = x.IsRequired,
-                    IdAttributeInputType = x.AttributeInputTypeId,
-                    IdAttributeType = x.AttributeTypeId,
+                    InputType = x.AttributeInputTypeId,
+                    Type = x.AttributeTypeId,
                     ValidationMinLength = x.ValidationMinLength,
                     ValidationMaxLength = x.ValidationMaxLength,
                     ValidationFileAllowExtension = x.ValidationFileAllowExtension,
@@ -96,8 +100,11 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
                                 {
                                     Id = v.Id,
                                     Status = v.Status,
-                                    Value = v.Value,
+                                    ValueString = v.ValueString,
                                     FilePath = v.FilePath,
+                                    ValueNumber = v.ValueNumber,
+                                    ValueBool = v.ValueBool,
+                                    ValueDate = v.ValueDate,
                                     IdCustomer = v.IdCustomer
                                 }).ToList()
                     }).ToList()
@@ -159,19 +166,42 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
     {
         try
         {
+            Result<AttributeCustomerResponse> result;
+
+            
+            var find = await _context.AttributesCustomer.FirstOrDefaultAsync(w => w.IdCustomer == request.IdCustomer && w.IdAttributeOption == request.IdAttributeOption);
+            if (find is not null)
+            {
+                find.ValueDate = request.ValueDate;
+                find.ValueBool = request.ValueBool;
+                find.ValueNumber = request.ValueNumber;
+                find.ValueString = request.ValueString;
+                find.FilePath = request.FilePath;
+                find.Status = StatusType.Show;
+                await _context.SaveChangesAsync();
+                
+                result = await GetCustomerAttributes(find.IdAttributeOption.Value);
+                return result.Match(
+                    succ => new Result<AttributeCustomerResponse>(succ),
+                    exception => new Result<AttributeCustomerResponse>(exception)
+                );
+            }
+            
             AttributeCustomer item = new()
             {  
                 IdAttributeOption = request.IdAttributeOption,
                 IdCustomer = request.IdCustomer,
                 Status = StatusType.Show,
-                Value = request.Value,
+                ValueString = request.ValueString,
+                ValueNumber = request.ValueNumber,
+                ValueBool = request.ValueBool,
+                ValueDate = request.ValueDate,
                 FilePath = request.FilePath
             };
             await _context.AttributesCustomer.AddAsync(item);
             await _context.SaveChangesAsync();
-
-
-            var result = await GetCustomerAttributes(item.IdAttributeOptionNavigation.IdAttribute.Value);
+                
+            result = await GetCustomerAttributes(item.IdAttributeOption!.Value);
             return result.Match(
                 succ => new Result<AttributeCustomerResponse>(succ),
                 exception => new Result<AttributeCustomerResponse>(exception)
@@ -196,7 +226,7 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
             
 
             // itemValue.Status = request.Status;
-            itemValue.Value = request.Value;
+            itemValue.ValueString = request.Value;
             itemValue.FilePath = request.FilePath;
             
             await _context.SaveChangesAsync();

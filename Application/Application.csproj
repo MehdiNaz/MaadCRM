@@ -26,8 +26,6 @@
 
     <ItemGroup>
       <Folder Include="Interfaces\IdentityUsers\" />
-      <Folder Include="Services\SpecialFields\AttributeCustomerService\QueryHandlers\" />
-      <Folder Include="Services\SpecialFields\AttributeCustomerService\Queries\" />
       <Folder Include="Services\UserService\CommandHandlers\" />
       <Folder Include="Services\UserService\Commands\" />
       <Folder Include="Services\UserService\QueryHandlers\" />

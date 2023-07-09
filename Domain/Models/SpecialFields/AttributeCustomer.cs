@@ -10,8 +10,11 @@ public class AttributeCustomer: BaseEntity
 
     public Ulid Id { get; set; }
     public StatusType Status { get; set; }
-    public required string Value { get; set; }
+    public string? ValueString { get; set; }
     public string? FilePath { get; set; }
+    public bool? ValueBool { get; set; }
+    public DateOnly? ValueDate { get; set; }
+    public int? ValueNumber { get; set; }
 
     public Ulid? IdAttributeOption { get; set; }
     public AttributeOption? IdAttributeOptionNavigation { get; set; }

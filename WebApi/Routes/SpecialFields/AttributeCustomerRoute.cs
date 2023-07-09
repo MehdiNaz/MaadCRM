@@ -1,4 +1,5 @@
 ﻿using Application.Services.SpecialFields.AttributeCustomerService.Commands;
+using Application.Services.SpecialFields.AttributeCustomerService.Queries;
 
 namespace WebApi.Routes.SpecialFields;
 
@@ -6,7 +7,7 @@ public static class AttributeCustomerRoute
 {
     public static RouteGroupBuilder MapAttributeCustomerRoute(this RouteGroupBuilder attribute)
     {
-        attribute.MapGet("/All", (IMediator mediator, HttpContext httpContext) =>
+        attribute.MapGet("/All/{idCustomer}", (Ulid idCustomer,IMediator mediator, HttpContext httpContext) =>
         {
             try
             {
@@ -19,7 +20,7 @@ public static class AttributeCustomerRoute
                 return id.Result.Match(
                     userId =>
                     {
-                        var result = mediator.Send(new AllAttributeQuery{Type = AttributeType.Customer, IdUser = userId});
+                        var result = mediator.Send(new AllAttributesCustomerQuery{ IdUser = userId,IdCustomer = idCustomer});
 
                         return result.Result.Match(
                             succes => Results.Ok(new

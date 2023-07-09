@@ -6,7 +6,7 @@ public class AttributeCustomerMapping : IEntityTypeConfiguration<AttributeCustom
     {
         builder.ToTable("AttributesCustomer");
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Value).HasMaxLength(255).IsRequired();
+        builder.Property(x => x.ValueString).HasMaxLength(255).IsRequired();
 
         builder.HasOne(x => x.IdAttributeOptionNavigation)
             .WithMany(x => x.CustomerAttributes)

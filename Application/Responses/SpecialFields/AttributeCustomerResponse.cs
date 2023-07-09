@@ -6,8 +6,8 @@ public struct AttributeCustomerResponse
     public string Label { get; set; }
     public int DisplayOrder { get; set; }
     public bool IsRequired { get; set; }
-    public AttributeInputType IdAttributeInputType { get; set; }
-    public AttributeType IdAttributeType { get; set; }
+    public AttributeInputType InputType { get; set; }
+    public AttributeType Type { get; set; }
     public int? ValidationMinLength { get; set; }
     public int? ValidationMaxLength { get; set; }
     public string ValidationFileAllowExtension { get; set; }
@@ -37,8 +37,10 @@ public struct AttributeCustomerValueResponse
 {
     public Ulid Id { get; set; }
     public StatusType? Status { get; set; }
-    public string Value { get; set; }
+    public string ValueString { get; set; }
     public string? FilePath { get; set; }
-
+    public bool? ValueBool { get; set; }
+    public DateOnly? ValueDate { get; set; }
+    public int? ValueNumber { get; set; }
     public Ulid IdCustomer { get; set; }
 }

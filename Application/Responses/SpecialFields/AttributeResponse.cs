@@ -6,8 +6,8 @@ public struct AttributeResponse
     public string Label { get; set; }
     public int DisplayOrder { get; set; }
     public bool IsRequired { get; set; }
-    public AttributeInputType IdAttributeInputType { get; set; }
-    public AttributeType IdAttributeType { get; set; }
+    public AttributeInputType InputType { get; set; }
+    public AttributeType Type { get; set; }
     public int? ValidationMinLength { get; set; }
     public int? ValidationMaxLength { get; set; }
     public string ValidationFileAllowExtension { get; set; }

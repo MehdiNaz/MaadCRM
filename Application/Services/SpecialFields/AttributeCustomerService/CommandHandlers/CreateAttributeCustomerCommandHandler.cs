@@ -15,8 +15,11 @@ public class CreateAttributeCustomerCommandHandler : IRequestHandler<CreateAttri
         {
             CreateAttributeCustomerCommand item = new()
             {
-                Value = request.Value,
+                ValueString = request.ValueString,
                 FilePath = request.FilePath,
+                ValueNumber = request.ValueNumber,
+                ValueBool = request.ValueBool,
+                ValueDate = request.ValueDate,
                 IdCustomer = request.IdCustomer,
                 IdAttributeOption = request.IdAttributeOption
             };

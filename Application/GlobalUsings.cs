@@ -110,4 +110,5 @@ global using Application.Responses.SpecialFields;
 global using Application.Responses.TeamMate;
 global using Application.Services.SpecialFields.AttributeCustomerService.CommandHandlers;
 global using Application.Services.SpecialFields.AttributeCustomerService.Commands;
+global using Application.Services.SpecialFields.AttributeCustomerService.Queries;
 global using Application.Services.TeamMates.Command;

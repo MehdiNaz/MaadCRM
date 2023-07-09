@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230704135544_attribute")]
+    partial class attribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1778,16 +1781,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<bool?>("ValueBool")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateOnly?>("ValueDate")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("ValueNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ValueString")
+                    b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
