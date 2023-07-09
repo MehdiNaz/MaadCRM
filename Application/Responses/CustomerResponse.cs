@@ -33,4 +33,6 @@ public struct CustomerResponse
     //public GenderTypes? Gender { get; set; }
     //public Ulid? IdCity { get; set; }
     //public Ulid? IdProvince { get; set; }
+    
+    public List<AttributeCustomerResponse>? Attributes { get; set; }
 }

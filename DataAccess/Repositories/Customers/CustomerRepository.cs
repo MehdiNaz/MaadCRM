@@ -1,14 +1,18 @@
-﻿namespace DataAccess.Repositories.Customers;
+﻿using Application.Responses.SpecialFields;
+
+namespace DataAccess.Repositories.Customers;
 
 public class CustomerRepository : ICustomerRepository
 {
     private readonly MaadContext _context;
     private readonly ILogRepository _log;
+    private readonly UserManager<User> _userManager;
 
-    public CustomerRepository(MaadContext maadContext, ILogRepository log)
+    public CustomerRepository(MaadContext maadContext, ILogRepository log, UserManager<User> userManager)
     {
         _context = maadContext;
         _log = log;
+        _userManager = userManager;
     }
 
     public async ValueTask<Result<ICollection<CustomerResponse>>> GetAllCustomersAsync(string userId)
@@ -54,6 +58,14 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
+            var resultUser = await _userManager.FindByIdAsync(userId);
+            if (resultUser == null)
+                return new Result<CustomerResponse>(new ValidationException("کاربری با این مشخصات یافت نشد"));
+            
+            var resultBusiness = await _context.Businesses.FindAsync(resultUser.IdBusiness);
+            if (resultBusiness == null)
+                return new Result<CustomerResponse>(new ValidationException("کسب و کاری با این مشخصات یافت نشد"));
+            
             var resultCustomer = await _context.Customers
                 .Where(x => x.CustomerStatusType == StatusType.Show && x.Id == customerId && x.IdUser == userId)
                 .Select(x =>
@@ -81,8 +93,48 @@ public class CustomerRepository : ICustomerRepository
                         DateCreated = x.DateCreated,
                         MoshtaryMoAref = x.IdMoaref,
                         MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
-                        IdUser = x.IdUser,
+                        IdUser = x.IdUser
                     }).FirstOrDefaultAsync();
+            
+            resultCustomer.Attributes = await _context
+                .Attributes
+                .Where(w => w.AttributeTypeId == AttributeType.Customer && w.IdBusiness == resultBusiness!.Id )
+                .Select(x => new AttributeCustomerResponse
+                {
+                    Id = x.Id,
+                    Label = x.Label,
+                    DisplayOrder = x.DisplayOrder,
+                    IsRequired = x.IsRequired,
+                    InputType = x.AttributeInputTypeId,
+                    Type = x.AttributeTypeId,
+                    ValidationMinLength = x.ValidationMinLength,
+                    ValidationMaxLength = x.ValidationMaxLength,
+                    ValidationFileAllowExtension = x.ValidationFileAllowExtension,
+                    ValidationFileMaximumSize = x.ValidationFileMaximumSize,
+                    DefaultValue = x.DefaultValue,
+                    IdBusiness = x.IdBusiness,
+                    AttributeOptions = x.AttributeOptions!.Select(s => new AttributeCustomerOptionsResponse
+                    {
+                        Id = s.Id,
+                        Title = s.Title,
+                        ColorSquaresRgb = s.ColorSquaresRgb,
+                        DisplayOrder = s.DisplayOrder,
+                        Status = s.Status,
+                        Value = s.CustomerAttributes!
+                            .Where(w => w.IdCustomer == resultCustomer.IdCustomer && w.IdAttributeOption == s.Id).Select(v =>
+                                new AttributeCustomerValueResponse
+                                {
+                                    Id = v.Id,
+                                    Status = v.Status,
+                                    ValueString = v.ValueString,
+                                    FilePath = v.FilePath,
+                                    ValueNumber = v.ValueNumber,
+                                    ValueBool = v.ValueBool,
+                                    ValueDate = v.ValueDate,
+                                    IdCustomer = v.IdCustomer
+                                }).ToList()
+                    }).ToList()
+                }).ToListAsync();
 
             return new Result<CustomerResponse>(resultCustomer);
         }
@@ -91,87 +143,7 @@ public class CustomerRepository : ICustomerRepository
             return new Result<CustomerResponse>(new ValidationException(e.Message));
         }
     }
-
-    // private async ValueTask<Result<int>> ShowBelghovehCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //                 x.CustomerState == CustomerStateTypes.Belghoveh && x.CustomerStatusType == StatusType.Show)
-    //             .CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-    //
-    // private async ValueTask<Result<int>> ShowBelFelCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //             x.CustomerState == CustomerStateTypes.BelFel && x.CustomerStatusType == StatusType.Show).CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-    //
-    // private async ValueTask<Result<int>> ShowRazyCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //             x.CustomerState == CustomerStateTypes.Razy && x.CustomerStatusType == StatusType.Show).CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-    //
-    // private async ValueTask<Result<int>> ShowNaRazyCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //             x.CustomerState == CustomerStateTypes.NaRazy && x.CustomerStatusType == StatusType.Show).CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-    //
-    // private async ValueTask<Result<int>> ShowDarHalePeyGiryCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //                 x.CustomerState == CustomerStateTypes.DarHalePeyGiry && x.CustomerStatusType == StatusType.Show)
-    //             .CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-    //
-    // private async ValueTask<Result<int>> ShowVafadarCustomersCountAsync()
-    // {
-    //     try
-    //     {
-    //         return await _context.Customers.Where(x =>
-    //             x.CustomerState == CustomerStateTypes.Vafadar && x.CustomerStatusType == StatusType.Show).CountAsync();
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         return new Result<int>(new ValidationException(e.Message));
-    //     }
-    // }
-
+    
     private async ValueTask<int> ShowAllCustomersCountAsync(string userId)
     {
         try
@@ -414,6 +386,26 @@ public class CustomerRepository : ICustomerRepository
             var result = await _context.SaveChangesAsync();
             if (result == 0) return new Result<CustomerResponse>(new ValidationException());
 
+            if (request.AttributesValue is not null)
+            {
+                foreach (var attribute in request.AttributesValue)
+                {
+                    var item = new AttributeCustomer
+                    {
+                        IdAttributeOption = attribute.IdAttributeOption,
+                        IdCustomer = entityEntry.Id,
+                        Status = StatusType.Show,
+                        ValueString = attribute.ValueString,
+                        ValueNumber = attribute.ValueNumber,
+                        ValueBool = attribute.ValueBool,
+                        ValueDate = attribute.ValueDate,
+                        FilePath = attribute.FilePath
+                    };
+                    await _context.AttributesCustomer.AddAsync(item);
+                }
+            }
+            
+            
             if (request.PhoneNumbers != null)
                 foreach (var phoneNumbers in request.PhoneNumbers)
                 {
@@ -509,30 +501,7 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerResponse>(
-                await _context.Customers
-                    .Select(x => new CustomerResponse
-                    {
-                        BirthDayDate = x.BirthDayDate,
-                        IdCustomer = x.Id,
-                        From = x.DateCreated,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
-                        PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
-                        Name = x.FirstName + " " + x.LastName,
-                        MoshtaryMoAref = x.IdMoaref,
-                        Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
-                        IdCity = x.IdCity,
-                        Gender = x.Gender,
-                        CityName = x.IdCityNavigation!.CityName,
-                        MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        MoarefPhoneNumber = x.IdMoarefNavigation!.PhoneNumbers!.FirstOrDefault()!.PhoneNo
-                    })
-                    .FirstOrDefaultAsync(x => x.IdCustomer == entityEntry.Id && x.CustomerStatusType == StatusType.Show)
-            );
+            return await GetCustomerByIdAsync(entityEntry.Id, request.UserId);
         }
         catch (Exception e)
         {
@@ -544,10 +513,16 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var customer = await _context.Customers.FindAsync(request.Id);
+            var user = await _context.Users.FindAsync(request.UserId);
+            if (user is null) return new Result<CustomerResponse>(new Exception("کاربری با این مشخصات یافت نشد"));
 
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.IdUserNavigation.IdBusiness == user.IdBusiness &&
+                                                                            x.PhoneNumbers.Any(p =>
+                                                                                request.PhoneNumbers != null && p.PhoneNo ==
+                                                                                request.PhoneNumbers.FirstOrDefault()));
+                
             if (customer == null)
-                return new Result<CustomerResponse>(new Exception("Customer Not Found"));
+                return new Result<CustomerResponse>(new Exception("مشتری با این شماره تلفن یافت نشد"));
 
             customer.FirstName = request.FirstName;
             customer.LastName = request.LastName;
@@ -555,6 +530,7 @@ public class CustomerRepository : ICustomerRepository
             customer.IdMoaref = request.CustomerMoarefId;
             customer.IdCity = request.CityId;
             customer.Gender = request.Gender;
+            customer.IdUserUpdated = request.UserId;
 
             if (request.CustomersAddresses != null)
             {
@@ -578,6 +554,37 @@ public class CustomerRepository : ICustomerRepository
                 if (emailAddress != null) emailAddress.CustomerEmailAddress = request.EmailAddresses.FirstOrDefault();
             }
 
+            if (request.AttributesValue is not null)
+            {
+                foreach (var attribute in request.AttributesValue)
+                {
+                    var find = await _context.AttributesCustomer.FirstOrDefaultAsync(w => w.IdCustomer == customer.Id && w.IdAttributeOption == attribute.IdAttributeOption);
+                    if (find is not null)
+                    {
+                        find.ValueDate = attribute.ValueDate;
+                        find.ValueBool = attribute.ValueBool;
+                        find.ValueNumber = attribute.ValueNumber;
+                        find.ValueString = attribute.ValueString;
+                        find.FilePath = attribute.FilePath;
+                    }
+                    else
+                    {
+                        var item = new AttributeCustomer
+                        {
+                            IdAttributeOption = attribute.IdAttributeOption,
+                            IdCustomer = customer.Id,
+                            Status = StatusType.Show,
+                            ValueString = attribute.ValueString,
+                            ValueNumber = attribute.ValueNumber,
+                            ValueBool = attribute.ValueBool,
+                            ValueDate = attribute.ValueDate,
+                            FilePath = attribute.FilePath
+                        };
+                        await _context.AttributesCustomer.AddAsync(item);
+                    }
+                }
+            }
+            
             await _context.SaveChangesAsync();
 
             CreateLogCommand command = new()
@@ -598,36 +605,7 @@ public class CustomerRepository : ICustomerRepository
 
             await _log.InsertAsync(command);
 
-            var resultCustomer = await _context.Customers
-                .Where(x => x.CustomerStatusType == StatusType.Show && x.Id == request.Id)
-                .Select(x =>
-                    new CustomerResponse
-                    {
-                        IdCustomer = x.Id,
-                        Name = x.FirstName + " " + x.LastName,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        PhoneNumber = x.PhoneNumbers!.FirstOrDefault()!.PhoneNo,
-                        EmailAddress = x.EmailAddresses!.FirstOrDefault()!.CustomerEmailAddress,
-                        Address = x.CustomerAddresses!.FirstOrDefault()!.Address,
-                        CustomerStateType = x.CustomerState,
-                        CustomerStatusType = x.CustomerStatusType,
-                        From = x.DateCreated,
-                        UpTo = DateTime.UtcNow,
-                        BirthDayDate = x.BirthDayDate,
-                        IdCity = x.IdCity,
-                        CityName = x.IdCityNavigation != null ? x.IdCityNavigation!.CityName : null,
-                        IdProvince = x.IdCityNavigation != null ? x.IdCityNavigation.IdProvince : new Ulid(),
-                        ProvinceName = x.IdCityNavigation != null
-                            ? x.IdCityNavigation.IdProvinceNavigation.ProvinceName
-                            : null,
-                        Gender = x.Gender,
-                        DateCreated = x.DateCreated,
-                        MoshtaryMoAref = x.IdMoaref,
-                        MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation!.LastName,
-                        IdUser = x.IdUser,
-                    }).FirstOrDefaultAsync();
-            return new Result<CustomerResponse>(resultCustomer);
+            return await GetCustomerByIdAsync(customer.Id, request.UserId);
         }
         catch (Exception e)
         {

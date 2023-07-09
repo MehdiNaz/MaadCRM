@@ -19,4 +19,7 @@ public struct CreateCustomerCommand : IRequest<Result<CustomerResponse>>
     public ICollection<string>? CustomersAddresses { get; set; }
     public ICollection<string>? CustomerNotes { get; set; }
     public ICollection<string>? CustomerPeyGiries { get; set; }
+    
+    public List<AttributeCustomerValueRequest>? AttributesValue { get; set; }
+
 }

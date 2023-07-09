@@ -175,10 +175,8 @@ public static class CustomerRoute
                     return id.Result.Match(
                         UserId =>
                         {
-                            var result = mediator.Send(new ChangeStatusCustomerCommand
+                            var result = mediator.Send(request with
                             {
-                                CustomerStatusType = request.CustomerStatusType,
-                                CustomerId = request.CustomerId,
                                 UserId = UserId
                             });
 
@@ -224,10 +222,8 @@ public static class CustomerRoute
                     return id.Result.Match(
                         UserId =>
                         {
-                            var result = mediator.Send(new ChangeStateCustomerCommand
+                            var result = mediator.Send(request with
                             {
-                                CustomerStateType = request.CustomerStateType,
-                                CustomerId = request.CustomerId,
                                 UserId = UserId
                             });
 
@@ -273,23 +269,9 @@ public static class CustomerRoute
                     return id.Result.Match(
                         userId =>
                         {
-                            var result = mediator.Send(new CreateCustomerCommand
+                            var result = mediator.Send(request with
                             {
                                 UserId = userId,
-                                FirstName = request.FirstName,
-                                LastName = request.LastName,
-                                BirthDayDate = request.BirthDayDate,
-                                CustomerPic = request.CustomerPic,
-                                CustomerCategoryId = request.CustomerCategoryId,
-                                Gender = request.Gender,
-                                CustomerMoarefId = request.CustomerMoarefId,
-                                PhoneNumbers = request.PhoneNumbers,
-                                EmailAddresses = request.EmailAddresses,
-                                FavoritesLists = request.FavoritesLists,
-                                CustomersAddresses = request.CustomersAddresses,
-                                CustomerNotes = request.CustomerNotes,
-                                CustomerPeyGiries = request.CustomerPeyGiries,
-                                CityId = request.CityId,
                                 IdUserAdded = userId,
                                 IdUserUpdated = userId
                             });
@@ -335,24 +317,9 @@ public static class CustomerRoute
                     return id.Result.Match(
                         userId =>
                         {
-                            var result = mediator.Send(new UpdateCustomerCommand
+                            var result = mediator.Send(request with
                             {
                                 UserId = userId,
-                                Id = request.Id,
-                                FirstName = request.FirstName,
-                                LastName = request.LastName,
-                                BirthDayDate = request.BirthDayDate,
-                                CustomerPic = request.CustomerPic,
-                                CustomerCategoryId = request.CustomerCategoryId,
-                                Gender = request.Gender,
-                                CustomerMoarefId = request.CustomerMoarefId,
-                                PhoneNumbers = request.PhoneNumbers,
-                                EmailAddresses = request.EmailAddresses,
-                                FavoritesLists = request.FavoritesLists,
-                                CustomersAddresses = request.CustomersAddresses,
-                                CustomerNotes = request.CustomerNotes,
-                                CustomerPeyGiries = request.CustomerPeyGiries,
-                                CityId = request.CityId,
                                 IdUserUpdated = userId
                             });
                             return result.Result.Match(

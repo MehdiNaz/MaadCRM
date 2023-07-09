@@ -13,27 +13,7 @@ public readonly struct CreateCustomerCommandHandler : IRequestHandler<CreateCust
     {
         try
         {
-            var item = new CreateCustomerCommand
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                BirthDayDate = request.BirthDayDate!,
-                CustomerPic = request.CustomerPic,
-                CustomerCategoryId = request.CustomerCategoryId,
-                UserId = request.UserId,
-                Gender = request.Gender,
-                CustomerMoarefId = request.CustomerMoarefId,
-                PhoneNumbers = request.PhoneNumbers,
-                EmailAddresses = request.EmailAddresses,
-                FavoritesLists = request.FavoritesLists!,
-                CustomersAddresses = request.CustomersAddresses,
-                CustomerNotes = request.CustomerNotes,
-                CustomerPeyGiries = request.CustomerPeyGiries,
-                CityId = request.CityId,
-                IdUserAdded = request.IdUserAdded,
-                IdUserUpdated = request.IdUserUpdated
-            };
-            return (await _repository.CreateCustomerAsync(item)).Match(result =>
+            return (await _repository.CreateCustomerAsync(request)).Match(result =>
             new Result<CustomerResponse>(result), exception => new Result<CustomerResponse>(exception));
         }
         catch (Exception e)
