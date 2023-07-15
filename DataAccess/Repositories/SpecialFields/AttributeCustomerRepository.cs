@@ -21,7 +21,7 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
                 .Attributes
                 .Include(attribute => attribute.AttributeOptions!)
                 .ThenInclude(attributeOption => attributeOption.CustomerAttributes!)
-                .FirstOrDefaultAsync(w => w.Id == resultOption.IdAttribute)
+                .FirstOrDefaultAsync(w => w.Status == StatusType.Show && w.Id == resultOption.IdAttribute)
                     .Select(x => new AttributeCustomerResponse
                     {
                         Id = x.Id,
@@ -44,7 +44,7 @@ public class AttributeCustomerRepository : IAttributeCustomerRepository
                             DisplayOrder = s.DisplayOrder,
                             Status = s.Status,
                             Value = s.CustomerAttributes!
-                                .Where(w => w.IdAttributeOption == s.Id).Select(v =>
+                                .Where(w => w.IdAttributeOption == s.Id && w.Status == StatusType.Show).Select(v =>
                                     new AttributeCustomerValueResponse
                                     {
                                         Id = v.Id,

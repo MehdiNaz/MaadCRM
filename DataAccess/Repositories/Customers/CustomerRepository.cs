@@ -98,7 +98,7 @@ public class CustomerRepository : ICustomerRepository
             
             resultCustomer.Attributes = await _context
                 .Attributes
-                .Where(w => w.AttributeTypeId == AttributeType.Customer && w.IdBusiness == resultBusiness!.Id )
+                .Where(w => w.Status == StatusType.Show && w.AttributeTypeId == AttributeType.Customer && w.IdBusiness == resultBusiness!.Id )
                 .Select(x => new AttributeCustomerResponse
                 {
                     Id = x.Id,
@@ -121,7 +121,7 @@ public class CustomerRepository : ICustomerRepository
                         DisplayOrder = s.DisplayOrder,
                         Status = s.Status,
                         Value = s.CustomerAttributes!
-                            .Where(w => w.IdCustomer == resultCustomer.IdCustomer && w.IdAttributeOption == s.Id).Select(v =>
+                            .Where(w => w.Status == StatusType.Show && w.IdCustomer == resultCustomer.IdCustomer && w.IdAttributeOption == s.Id).Select(v =>
                                 new AttributeCustomerValueResponse
                                 {
                                     Id = v.Id,
