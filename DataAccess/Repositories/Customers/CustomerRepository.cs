@@ -538,8 +538,7 @@ public class CustomerRepository : ICustomerRepository
                     await _context.CustomersAddresses.FirstOrDefaultAsync(x => x.IdCustomer == request.Id);
                 if (resultAddress != null) resultAddress.Address = request.CustomersAddresses.FirstOrDefault();
             }
-
-
+            
             if (request.PhoneNumbers != null)
             {
                 var phoneNumber =

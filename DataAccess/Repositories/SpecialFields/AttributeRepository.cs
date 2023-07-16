@@ -15,7 +15,13 @@ public class AttributeRepository : IAttributeRepository
     {
         try
         {
-            var result = await _context
+
+            // var result1 = await _context.AttributesCustomer
+            //     .Include(x => x.IdAttributeOptionNavigation)
+            //     .ThenInclude(x => x.IdAttributeNavigation)
+            //     .Where(s => s.IdAttributeOptionNavigation.IdAttributeNavigation.IdBusiness == idBusiness).ToListAsync();
+            
+            return new Result<ICollection<AttributeResponse>>(await _context
                 .Attributes
                 .Where(x => x.Status == StatusType.Show && x.AttributeTypeId == type && x.IdBusiness == idBusiness)
                 .Select(x => new AttributeResponse
@@ -42,14 +48,7 @@ public class AttributeRepository : IAttributeRepository
                         IdAttribute = x.IdAttribute
                     }).ToList()
                 })
-                .ToListAsync();
-
-            // var result1 = await _context.AttributesCustomer
-            //     .Include(x => x.IdAttributeOptionNavigation)
-            //     .ThenInclude(x => x.IdAttributeNavigation)
-            //     .Where(s => s.IdAttributeOptionNavigation.IdAttributeNavigation.IdBusiness == idBusiness).ToListAsync();
-            
-            return new Result<ICollection<AttributeResponse>>(result);
+                .ToListAsync());
 
         }
         catch (Exception e)
@@ -62,7 +61,7 @@ public class AttributeRepository : IAttributeRepository
     {
         try
         {
-            var result = await _context
+            return new Result<AttributeResponse>(await _context
                 .Attributes
                 .Select(x => new AttributeResponse
                 {
@@ -88,9 +87,7 @@ public class AttributeRepository : IAttributeRepository
                         IdAttribute = x.IdAttribute
                     }).ToList()
                 })
-                .FirstOrDefaultAsync(w => w.Id == attributeId);
-            
-            return new Result<AttributeResponse>(result);
+                .FirstOrDefaultAsync(w => w.Id == attributeId));
         }
         catch (Exception e)
         {
@@ -151,18 +148,17 @@ public class AttributeRepository : IAttributeRepository
             };
             await _context.Attributes.AddAsync(item);
             await _context.SaveChangesAsync();
-
+             
             if (request.Options is not null)
             {
-                foreach (var option in request.Options)
+                foreach (var itemOption in request.Options.Select(option => new AttributeOption()
+                         {
+                             Title = option.Title,
+                             ColorSquaresRgb = option.ColorSquaresRgb,
+                             DisplayOrder = option.DisplayOrder,
+                             IdAttribute = item.Id
+                         }))
                 {
-                    AttributeOption itemOption = new()
-                    {
-                        Title = option.Title,
-                        ColorSquaresRgb = option.ColorSquaresRgb,
-                        DisplayOrder = option.DisplayOrder,
-                        IdAttribute = item.Id
-                    };
                     await _context.AttributeOptions.AddAsync(itemOption);
                 }
 
@@ -170,7 +166,7 @@ public class AttributeRepository : IAttributeRepository
             }
 
 
-            return await _context.Attributes
+            return new Result<AttributeResponse>(await _context.Attributes
                 .Select(x => new AttributeResponse
                 {
                     Id = x.Id,
@@ -195,7 +191,7 @@ public class AttributeRepository : IAttributeRepository
                         IdAttribute = x.IdAttribute
                     }).ToList()
                 })
-                .FirstOrDefaultAsync(w => w.Id == item.Id);
+                .FirstOrDefaultAsync(w => w.Id == item.Id));
         }
         catch (Exception e)
         {
@@ -207,7 +203,8 @@ public class AttributeRepository : IAttributeRepository
     {
         try
         {
-            Attribute item = await _context.Attributes.FindAsync(request.Id);
+            var item = await _context.Attributes.FindAsync(request.Id);
+            if (item is null) return new Result<AttributeResponse>(new ValidationException(ResultErrorMessage.NotFound));
 
             item.Label = request.Label;
             item.DisplayOrder = request.DisplayOrder;
@@ -223,7 +220,7 @@ public class AttributeRepository : IAttributeRepository
             item.IdUserUpdated = request.IdUserUpdated;
 
             await _context.SaveChangesAsync();
-            return await _context.Attributes.FindAsync(request.Id)
+            return new Result<AttributeResponse>(await _context.Attributes.FindAsync(request.Id)
                 .Select(x => new AttributeResponse
                 {
                     Id = x.Id,
@@ -238,7 +235,88 @@ public class AttributeRepository : IAttributeRepository
                     ValidationFileMaximumSize = x.ValidationFileMaximumSize,
                     DefaultValue = x.DefaultValue,
                     IdBusiness = x.IdBusiness
-                });
+                }));
+        }
+        catch (Exception e)
+        {
+            return new Result<AttributeResponse>(new ValidationException(e.Message));
+        }
+    }
+    
+    public async ValueTask<Result<AttributeResponse>> UpdateAttributesAsync(UpdateAttributeAndOptionsCommand request)
+    {
+        try
+        {
+            var item = await _context.Attributes.FindAsync(request.Id);
+
+            if (item is null) return new Result<AttributeResponse>(new ValidationException(ResultErrorMessage.NotFound));
+
+            item.Label = request.Label;
+            item.DisplayOrder = request.DisplayOrder;
+            item.IsRequired = request.IsRequired;
+            item.AttributeInputTypeId = request.AttributeInputTypeId;
+            item.AttributeTypeId = request.AttributeTypeId;
+            item.ValidationMinLength = request.ValidationMinLength;
+            item.ValidationMaxLength = request.ValidationMaxLength;
+            item.ValidationFileAllowExtension = request.ValidationFileAllowExtension;
+            item.ValidationFileMaximumSize = request.ValidationFileMaximumSize;
+            item.DefaultValue = request.DefaultValue;
+            item.IdBusiness = request.IdBusiness;
+            item.IdUserUpdated = request.IdUserUpdated;
+            
+            if (request.Options is not null)
+            {
+                foreach (var option in request.Options)
+                {
+                    if (option.Id is null)
+                    {
+                        AttributeOption itemOption = new()
+                        {
+                            Title = option.Title,
+                            ColorSquaresRgb = option.ColorSquaresRgb,
+                            DisplayOrder = option.DisplayOrder,
+                            IdAttribute = item.Id
+                        };
+                        await _context.AttributeOptions.AddAsync(itemOption);
+                    }
+                    else
+                    {
+                        var itemOption = await _context.AttributeOptions.FindAsync(option.Id);
+                        if (itemOption == null) continue;
+                        itemOption.Title = option.Title;
+                        itemOption.ColorSquaresRgb = option.ColorSquaresRgb;
+                        itemOption.DisplayOrder = option.DisplayOrder;
+                        itemOption.IdAttribute = item.Id;
+                    }
+                    
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var options = await _context.AttributeOptions.Where(x => x.IdAttribute == item.Id).ToListAsync();
+                _context.AttributeOptions.RemoveRange(options);
+            }
+
+            await _context.SaveChangesAsync();
+            
+            return new Result<AttributeResponse>(await _context.Attributes.FindAsync(request.Id)
+                .Select(x => new AttributeResponse
+                {
+                    Id = x.Id,
+                    Label = x.Label,
+                    DisplayOrder = x.DisplayOrder,
+                    IsRequired = x.IsRequired,
+                    InputType = x.AttributeInputTypeId,
+                    Type = x.AttributeTypeId,
+                    ValidationMinLength = x.ValidationMinLength,
+                    ValidationMaxLength = x.ValidationMaxLength,
+                    ValidationFileAllowExtension = x.ValidationFileAllowExtension,
+                    ValidationFileMaximumSize = x.ValidationFileMaximumSize,
+                    DefaultValue = x.DefaultValue,
+                    IdBusiness = x.IdBusiness
+                }));
         }
         catch (Exception e)
         {
@@ -253,7 +331,7 @@ public class AttributeRepository : IAttributeRepository
             var item = await _context.Attributes.FindAsync(attributeId);
             item!.Status = StatusType.Deleted;
             await _context.SaveChangesAsync();
-            return await _context.Attributes.FindAsync(attributeId)
+            return new Result<AttributeResponse>(await _context.Attributes.FindAsync(attributeId)
                 .Select(x => new AttributeResponse
                 {
                     Id = x.Id,
@@ -268,7 +346,7 @@ public class AttributeRepository : IAttributeRepository
                     ValidationFileMaximumSize = x.ValidationFileMaximumSize,
                     DefaultValue = x.DefaultValue,
                     IdBusiness = x.IdBusiness
-                });
+                }));
         }
         catch (Exception e)
         {
