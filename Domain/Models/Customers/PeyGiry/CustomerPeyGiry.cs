@@ -1,11 +1,12 @@
 ﻿namespace Domain.Models.Customers.PeyGiry;
 
-public sealed class CustomerPeyGiry : BaseEntityWithOptionalUserId
+public sealed class CustomerPeyGiry : BaseEntityWithUserId
 {
     public CustomerPeyGiry()
     {
         Id = Ulid.NewUlid();
         Status = StatusType.Show;
+        PeyGiryStatus = PeyGiryStatusType.Undefined;
         Logs = new HashSet<Log>();
         PeyGiryAttachments = new HashSet<PeyGiryAttachment>();
         Notifications = new HashSet<Notif>();
@@ -14,6 +15,7 @@ public sealed class CustomerPeyGiry : BaseEntityWithOptionalUserId
     public Ulid Id { get; set; }
     public string? Description { get; set; }
     public StatusType Status { get; set; }
+    public PeyGiryStatusType PeyGiryStatus { get; set; }
     public DateTime? DatePeyGiry { get; set; }
 
     public required Ulid IdCustomer { get; set; }

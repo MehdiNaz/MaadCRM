@@ -27,11 +27,17 @@ public class CustomerPeyGiryMapping : IEntityTypeConfiguration<CustomerPeyGiry>
             .HasForeignKey(d => d.IdUserUpdated)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Update_CustomerPeyGiry_User");
-
+        
         builder.HasOne(x => x.IdUserAddNavigation)
             .WithMany(x => x.CustomerPeyGiriesAdded)
             .HasForeignKey(d => d.IdUserAdded)
             .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_Add_CustomerPeyGiry_User");
+        
+        builder.HasOne(x => x.IdUserNavigation)
+            .WithMany(x => x.CustomerPeyGiries)
+            .HasForeignKey(d => d.IdUser)
+            .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_user_CustomerPeyGiry_User");
     }
 }

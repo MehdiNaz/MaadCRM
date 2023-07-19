@@ -26,6 +26,7 @@ public class User : IdentityUser
 
         CustomerPeyGiriesAdded = new HashSet<CustomerPeyGiry>();
         CustomerPeyGiriesUpdated = new HashSet<CustomerPeyGiry>();
+        CustomerPeyGiries = new HashSet<CustomerPeyGiry>();
 
         NotificationAdded = new HashSet<Notif>();
         NotificationUpdated = new HashSet<Notif>();
@@ -95,6 +96,7 @@ public class User : IdentityUser
     public IEnumerable<CustomerNote>? CustomerNotesUpdated { get; }
 
 
+    public IEnumerable<CustomerPeyGiry>? CustomerPeyGiries { get; }
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesAdded { get; }
     public IEnumerable<CustomerPeyGiry>? CustomerPeyGiriesUpdated { get; }
     

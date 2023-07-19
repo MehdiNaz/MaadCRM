@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230719151838_notification9")]
+    partial class notification9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1090,6 +1093,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("character varying(26)");
 
                     b.Property<string>("IdUser")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IdUserAdded")
@@ -2579,6 +2583,7 @@ namespace DataAccess.Migrations
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserNavigation")
                         .WithMany("CustomerPeyGiries")
                         .HasForeignKey("IdUser")
+                        .IsRequired()
                         .HasConstraintName("FK_user_CustomerPeyGiry_User");
 
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")

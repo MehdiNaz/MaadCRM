@@ -17,7 +17,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         {
             return await _context.CustomerPeyGiries
                 .Include(x => x.IdPeyGiryCategoryNavigation)
-                .Include(x => x.IdUserNavigation)
+                // .Include(x => x.IdUserNavigation)
                 .Where(x => x.Status == StatusType.Show && x.IdCustomer == customerId)
                 .Select(x => new CustomerPeyGiryResponse
                 {
@@ -29,8 +29,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     IdCustomer = x.IdCustomer,
                     IdPeyGiryCategory = x.IdPeyGiryCategory,
                     NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName,
-                    NameUser = _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Name + " " + _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Family,
-                    IdUser = x.IdUser
+                    // NameUser = _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Name + " " + _context.Users.FirstOrDefault(u => u.Id == x.IdUser).Family,
+                    // IdUser = x.IdUser
                 }).ToListAsync();
         }
         catch (Exception e)
@@ -98,9 +98,9 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                 // Description = request.Description,
                 IdCustomer = request.CustomerId,
                 DatePeyGiry = request.DatePeyGiry,
-                IdUserAdded = request.IdUser,
-                IdUserUpdated = request.IdUser,
-                IdUser = request.IdUser,
+                // IdUserAdded = request.IdUser,
+                // IdUserUpdated = request.IdUser,
+                // IdUser = request.IdUser,
                 IdPeyGiryCategory = request.IdPeyGiryCategory
             };
 
@@ -120,7 +120,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     NotificationType = NotificationType.PeyGiry,
                     IdUser = request.IdUser,
                     Status = StatusType.Show,
-                    DateDue = request.DatePeyGiry.Value
+                    DateDue = request.DatePeyGiry.Value,
+                    DateAlarm = request.DatePeyGiry.Value
                 };
                 await _context.Notifications.AddAsync(notif);
                 
@@ -169,7 +170,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             CustomerPeyGiry item = await _context.CustomerPeyGiries.FindAsync(request.Id);
             item.Description = request.Description;
             item.DatePeyGiry = request.DatePeyGiry;
-            item.IdUserUpdated = request.IdUser;
+            // item.IdUserUpdated = request.IdUser;
 
             _context.Update(item);
 

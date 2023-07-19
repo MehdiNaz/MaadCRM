@@ -3,6 +3,7 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MaadContext))]
-    partial class MaadContextModelSnapshot : ModelSnapshot
+    [Migration("20230719151421_notification7")]
+    partial class notification7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1089,9 +1092,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("IdUser")
-                        .HasColumnType("text");
-
                     b.Property<string>("IdUserAdded")
                         .IsRequired()
                         .HasColumnType("text");
@@ -1117,8 +1117,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("IdCustomer");
 
                     b.HasIndex("IdPeyGiryCategory");
-
-                    b.HasIndex("IdUser");
 
                     b.HasIndex("IdUserAdded");
 
@@ -2576,11 +2574,6 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_PeyGiryCategory_CustomerPeyGiry");
 
-                    b.HasOne("Domain.Models.IdentityModels.User", "IdUserNavigation")
-                        .WithMany("CustomerPeyGiries")
-                        .HasForeignKey("IdUser")
-                        .HasConstraintName("FK_user_CustomerPeyGiry_User");
-
                     b.HasOne("Domain.Models.IdentityModels.User", "IdUserAddNavigation")
                         .WithMany("CustomerPeyGiriesAdded")
                         .HasForeignKey("IdUserAdded")
@@ -2598,8 +2591,6 @@ namespace DataAccess.Migrations
                     b.Navigation("IdPeyGiryCategoryNavigation");
 
                     b.Navigation("IdUserAddNavigation");
-
-                    b.Navigation("IdUserNavigation");
 
                     b.Navigation("IdUserUpdateNavigation");
                 });
@@ -3178,8 +3169,6 @@ namespace DataAccess.Migrations
                     b.Navigation("CustomerNotesAdded");
 
                     b.Navigation("CustomerNotesUpdated");
-
-                    b.Navigation("CustomerPeyGiries");
 
                     b.Navigation("CustomerPeyGiriesAdded");
 
