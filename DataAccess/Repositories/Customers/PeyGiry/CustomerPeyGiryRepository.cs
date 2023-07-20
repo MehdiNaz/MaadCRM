@@ -38,7 +38,6 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             return new Result<ICollection<CustomerPeyGiryResponse>>(new ValidationException(e.Message));
         }
     }
-
     
     public async ValueTask<Result<CustomerPeyGiryResponse>> GetCustomerPeyGiryByIdAsync(Ulid customerPeyGiryId)
     {

@@ -106,6 +106,7 @@ global using System.Globalization;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Text;
 global using Application.Interfaces.TeamMates;
+global using Application.Responses.Notification;
 global using Application.Responses.SpecialFields;
 global using Application.Responses.TeamMate;
 global using Application.Services.SpecialFields.AttributeCustomerService.CommandHandlers;
