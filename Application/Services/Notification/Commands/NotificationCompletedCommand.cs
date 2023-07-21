@@ -2,6 +2,6 @@
 
 public struct NotificationCompletedCommand : IRequest<Result<NotificationResponse>>
 {
-    public string IdUser { get; set; }
+    public string? IdUser { get; set; }
     public Ulid IdNotification { get; set; }
 }

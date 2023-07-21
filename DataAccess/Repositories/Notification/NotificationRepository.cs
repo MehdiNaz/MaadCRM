@@ -41,7 +41,11 @@ public class NotificationRepository : INotificationRepository
                         DatePeyGiry = s.IdPeyGiryNavigation.DatePeyGiry,
                         IdCustomer = s.IdPeyGiryNavigation.IdCustomer,
                         NameCustomer = s.IdPeyGiryNavigation.IdCustomerNavigation.FirstName + " " + s.IdPeyGiryNavigation.IdCustomerNavigation.LastName,
-                        IdUser = s.IdPeyGiryNavigation.IdUser,
+                        // NameCustomer = s.IdPeyGiryNavigation != null ? 
+                        //     s.IdPeyGiryNavigation.IdCustomerNavigation.FirstName != null ?  
+                        //         s.IdPeyGiryNavigation.IdCustomerNavigation.FirstName : "" + 
+                        //     " " + s.IdPeyGiryNavigation.IdCustomerNavigation.LastName : "",
+                        IdUser = s.IdPeyGiryNavigation != null ? s.IdPeyGiryNavigation.IdUser : "",
                         NameUser = s.IdPeyGiryNavigation.IdUserNavigation.Name + " " + s.IdPeyGiryNavigation.IdUserNavigation.Family,
                         IdPeyGiryCategory = s.IdPeyGiryNavigation.IdPeyGiryCategory,
                         NamePeyGiryCategory = s.IdPeyGiryNavigation.IdPeyGiryCategoryNavigation.Kind,
@@ -178,16 +182,20 @@ public class NotificationRepository : INotificationRepository
             var findPeyGiry = await _context.CustomerPeyGiries.FirstOrDefaultAsync(f => f.Id == findResult.IdPeyGiry);
             if (findPeyGiry is null) return new Result<NotificationResponse>(new ValidationException("پیگیری یافت نشد"));
             findPeyGiry.PeyGiryStatus = PeyGiryStatusType.Later;
+            findPeyGiry.DatePeyGiry = request.DateDue;
+            findResult.DateDue = request.DateDue;
             
             Notif notif = new()
             {
                 IdPeyGiry = findPeyGiry.Id,
                 NotificationType = NotificationType.PeyGiry,
                 Status = StatusType.Show,
-                // TODO: DateDue and DateAlarm and IdUser
-                // IdUser = findPeyGiry.IdUser,
-                // DateDue = request.DatePeyGiry,
-                // DateAlarm = request.DatePeyGiry
+                IdUser = findPeyGiry.IdUser,
+                DateDue = request.DateDue,
+                DateAlarm = request.DateDue,
+                IdUserAdded = request.IdUser,
+                IdUserUpdated = request.IdUser,
+                Message = "پیگیری"
             };
             await _context.Notifications.AddAsync(notif);
             
