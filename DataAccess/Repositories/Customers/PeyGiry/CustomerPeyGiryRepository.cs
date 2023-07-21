@@ -118,9 +118,12 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     IdPeyGiry = item.Id,
                     NotificationType = NotificationType.PeyGiry,
                     IdUser = request.IdUser,
+                    IdUserAdded = request.IdUser,
+                    IdUserUpdated = request.IdUser,
                     Status = StatusType.Show,
                     DateDue = request.DatePeyGiry.Value,
-                    DateAlarm = request.DatePeyGiry.Value
+                    DateAlarm = request.DatePeyGiry.Value,
+                    Message = "پیگیری"
                 };
                 await _context.Notifications.AddAsync(notif);
                 
