@@ -177,9 +177,12 @@ public class NotificationRepository : INotificationRepository
             var findResult = await _context.Notifications.FirstOrDefaultAsync(f => f.Id == request.IdNotification);
             if (findResult is null) return new Result<NotificationResponse>(new ValidationException("اطلاعیه ای یافت نشد"));
             findResult.Status = StatusType.Hidden;
-            await _context.SaveChangesAsync();
             
-            var findPeyGiry = await _context.CustomerPeyGiries.FirstOrDefaultAsync(f => f.Id == findResult.IdPeyGiry);
+            var findPeyGiry = await _context
+                .CustomerPeyGiries
+                .Include(i => i.IdPeyGiryCategoryNavigation)
+                .Include(i => i.IdCustomerNavigation)
+                .FirstOrDefaultAsync(f => f.Id == findResult.IdPeyGiry);
             if (findPeyGiry is null) return new Result<NotificationResponse>(new ValidationException("پیگیری یافت نشد"));
             findPeyGiry.PeyGiryStatus = PeyGiryStatusType.Later;
             findPeyGiry.DatePeyGiry = request.DateDue;
@@ -195,7 +198,9 @@ public class NotificationRepository : INotificationRepository
                 DateAlarm = request.DateDue,
                 IdUserAdded = request.IdUser,
                 IdUserUpdated = request.IdUser,
-                Message = "پیگیری"
+                Message = "  پیگیری" + findPeyGiry.IdPeyGiryCategoryNavigation.Kind + "  " + 
+                          findPeyGiry.IdCustomerNavigation.FirstName + " " + 
+                          findPeyGiry.IdCustomerNavigation.LastName
             };
             await _context.Notifications.AddAsync(notif);
             

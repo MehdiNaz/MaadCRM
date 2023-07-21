@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Repositories.Customers.PeyGiry;
+﻿using LanguageExt.SomeHelp;
+
+namespace DataAccess.Repositories.Customers.PeyGiry;
 
 public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 {
@@ -11,6 +13,29 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
         _log = log;
     }
 
+    private async ValueTask<Result<CustomerPeyGiryResponse>> PeyGiryById(Ulid idCustomerPeyGiry)
+    {
+        try
+        {
+            return new Result<CustomerPeyGiryResponse>(await _context.CustomerPeyGiries
+                .Include(x => x.IdPeyGiryCategoryNavigation)
+                .Select(x => new CustomerPeyGiryResponse
+                {
+                    IdCustomerPeyGiry = x.Id,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated,
+                    NamePeyGiryCategory = x.IdPeyGiryCategoryNavigation.Kind,
+                    DatePeyGiry = x.DatePeyGiry,
+                    IdCustomer = x.IdCustomer,
+                    IdPeyGiryCategory = x.IdPeyGiryCategory,
+                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
+                }).FirstOrDefaultAsync(x => x.IdCustomerPeyGiry == idCustomerPeyGiry));
+        }
+        catch (Exception e)
+        {
+            return new Result<CustomerPeyGiryResponse>(new ValidationException(e.Message));
+        }
+    }
     public async ValueTask<Result<ICollection<CustomerPeyGiryResponse>>> GetAllCustomerPeyGiriesAsync(Ulid customerId)
     {
         try
@@ -43,19 +68,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
     {
         try
         {
-            return await _context.CustomerPeyGiries
-                .Include(x => x.IdPeyGiryCategoryNavigation)
-                .Select(x => new CustomerPeyGiryResponse
-                {
-                    IdCustomerPeyGiry = x.Id,
-                    Description = x.Description,
-                    DateCreated = x.DateCreated,
-                    NamePeyGiryCategory = x.IdPeyGiryCategoryNavigation.Kind,
-                    DatePeyGiry = x.DatePeyGiry,
-                    IdCustomer = x.IdCustomer,
-                    IdPeyGiryCategory = x.IdPeyGiryCategory,
-                    NameCustomer = x.IdCustomerNavigation!.FirstName + " " + x.IdCustomerNavigation.LastName
-                }).FirstOrDefaultAsync(x => x.IdCustomerPeyGiry == customerPeyGiryId);
+            return await PeyGiryById(customerPeyGiryId);
         }
         catch (Exception e)
         {
@@ -72,14 +85,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             if (item is null) return new Result<CustomerPeyGiryResponse>(new ValidationException());
             item.Status = request.CustomerPeyGiryStatusType;
             await _context.SaveChangesAsync();
-            return new Result<CustomerPeyGiryResponse>
-            (await _context.CustomerPeyGiries.FindAsync(request.CustomerPeyGiryId)
-                .Select(x => new CustomerPeyGiryResponse
-                {
-                    IdCustomerPeyGiry = x.Id,
-                    Description = x.Description,
-                    DateCreated = x.DateCreated
-                }));
+            
+            return await PeyGiryById(item.Id);
         }
         catch (Exception e)
         {
@@ -106,12 +113,21 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             await _context.CustomerPeyGiries.AddAsync(item);
             await _context.SaveChangesAsync();
 
+            var result = await PeyGiryById(item.Id);
+            
             if (request.DatePeyGiry > DateTime.UtcNow)
             {
+                CustomerPeyGiryResponse response=new();
+
+                result.Match<CustomerPeyGiryResponse>(
+                    succ => response = succ,
+                    fail => response = new CustomerPeyGiryResponse()
+                );
+                
                 // Change CustomerState to DarHalePeyGiry
                 var changeState = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.CustomerId);
                 changeState.CustomerState = CustomerStateTypes.DarHalePeyGiry;
-
+                
                 // Create Notif
                 Notif notif = new()
                 {
@@ -123,11 +139,12 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
                     Status = StatusType.Show,
                     DateDue = request.DatePeyGiry.Value,
                     DateAlarm = request.DatePeyGiry.Value,
-                    Message = "پیگیری"
+                    Message = "پیگیری  " +  response.NamePeyGiryCategory + "  " + response.NameCustomer
                 };
                 await _context.Notifications.AddAsync(notif);
                 
                 await _context.SaveChangesAsync();
+                
             }
 
 
@@ -149,14 +166,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerPeyGiryResponse>
-            (await _context.CustomerPeyGiries.FindAsync(item.Id)
-                .Select(x => new CustomerPeyGiryResponse
-                {
-                    IdCustomerPeyGiry = x.Id,
-                    Description = x.Description,
-                    DateCreated = x.DateCreated
-                }));
+            return result;
         }
         catch (Exception e)
         {
@@ -195,14 +205,8 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
             await _log.InsertAsync(command);
 
             await _context.SaveChangesAsync();
-            return new Result<CustomerPeyGiryResponse>
-            (await _context.CustomerPeyGiries.FindAsync(item.Id)
-                .Select(x => new CustomerPeyGiryResponse
-                {
-                    IdCustomerPeyGiry = x.Id,
-                    Description = x.Description,
-                    DateCreated = x.DateCreated
-                }));
+            
+            return await PeyGiryById(item.Id);
         }
         catch (Exception e)
         {
@@ -236,14 +240,7 @@ public class CustomerPeyGiryRepository : ICustomerPeyGiryRepository
 
             await _log.InsertAsync(command);
 
-            return new Result<CustomerPeyGiryResponse>
-            (await _context.CustomerPeyGiries.FindAsync(item.Id)
-                .Select(x => new CustomerPeyGiryResponse
-                {
-                    IdCustomerPeyGiry = x.Id,
-                    Description = x.Description,
-                    DateCreated = x.DateCreated
-                }));
+            return await PeyGiryById(item.Id);
         }
         catch (Exception e)
         {
