@@ -2,7 +2,10 @@
 
 public interface INotificationRepository
 {
-    ValueTask<Result<ICollection<NotificationResponse>>> AllNotificationAsync(string idUser);
-    ValueTask<Result<NotificationResponse>> NotificationByIdAsync(Ulid idNotification);
-    ValueTask<Result<int>> NotificationCountAsync(string idUser);
+    ValueTask<Result<ICollection<NotificationResponse>>> AllNotificationAsync(AllNotificationsQuery request);
+    ValueTask<Result<NotificationResponse>> NotificationByIdAsync(NotificationsByIdQuery request);
+    ValueTask<Result<int>> NotificationCountAsync(CountNotificationsQuery request);
+    ValueTask<Result<NotificationResponse>> NotificationCompletedAsync(NotificationCompletedCommand request);
+    ValueTask<Result<NotificationResponse>> NotificationCancelAsync(NotificationCanceledCommand request);
+    ValueTask<Result<NotificationResponse>> NotificationLaterAsync(NotificationLaterCommand request);
 }

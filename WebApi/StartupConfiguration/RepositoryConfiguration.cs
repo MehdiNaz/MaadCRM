@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.TeamMates;
+﻿using Application.Interfaces.Notification;
+using Application.Interfaces.TeamMates;
+using DataAccess.Repositories.Notification;
 using DataAccess.Repositories.TeamMates;
 
 namespace WebApi.StartupConfiguration;
@@ -16,6 +18,8 @@ public static class RepositoryConfiguration
         collection.AddTransient<IUserRepository, UserRepository>();
         collection.AddTransient<ITeamMateRepository, TeamMateRepository>();
         collection.AddTransient<ITeamMateGroupRepository, TeamMateGroupRepository>();
+        
+        collection.AddTransient<INotificationRepository, NotificationRepository>();
 
         collection.AddTransient<ILoginRepository, LoginRepository>();
         
