@@ -33,7 +33,19 @@ public class NotificationRepository : INotificationRepository
                     IsRead = s.IsRead,
                     IdPeyGiry = s.IdPeyGiry,
                     IdUser = s.IdUser,
-                    IdPeyGiryNavigation = s.IdPeyGiryNavigation
+                    IdPeyGiryNavigation = new CustomerPeyGiryResponse
+                    {
+                        Description = s.IdPeyGiryNavigation.Description,
+                        DateCreated = s.IdPeyGiryNavigation.DateCreated,
+                        IdCustomerPeyGiry = s.IdPeyGiryNavigation.IdCustomer,
+                        DatePeyGiry = s.IdPeyGiryNavigation.DatePeyGiry,
+                        IdCustomer = s.IdPeyGiryNavigation.IdCustomer,
+                        NameCustomer = s.IdPeyGiryNavigation.IdCustomerNavigation.FirstName + " " + s.IdPeyGiryNavigation.IdCustomerNavigation.LastName,
+                        IdUser = s.IdPeyGiryNavigation.IdUser,
+                        NameUser = s.IdPeyGiryNavigation.IdUserNavigation.Name + " " + s.IdPeyGiryNavigation.IdUserNavigation.Family,
+                        IdPeyGiryCategory = s.IdPeyGiryNavigation.IdPeyGiryCategory,
+                        NamePeyGiryCategory = s.IdPeyGiryNavigation.IdPeyGiryCategoryNavigation.Kind,
+                    }
                 })
                 .FirstOrDefaultAsync(f => f.Id == idNotification);
                 
@@ -85,7 +97,6 @@ public class NotificationRepository : INotificationRepository
             findResult.IsRead = true;
             await _context.SaveChangesAsync();
             
-                
             return await GetNotificationByIdAsync(request.IdNotification);
         }
         catch (Exception e)

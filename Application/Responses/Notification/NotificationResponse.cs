@@ -15,7 +15,7 @@ public struct NotificationResponse
     public string? Url { get; set; }
     
     public Ulid? IdPeyGiry { get; set; }
-    public CustomerPeyGiry? IdPeyGiryNavigation { get; set; }
+    public CustomerPeyGiryResponse? IdPeyGiryNavigation { get; set; }
     
     public string IdUser { get; set; }
 }
