@@ -15,7 +15,7 @@ public class CustomerFeedback : BaseEntityWithOptionalUserId
     public StatusType CustomerFeedbackStatusType { get; set; }
 
     public Ulid IdCategory { get; set; }
-    public CustomerFeedbackCategory? Category { get; set; }
+    public CustomerFeedbackCategory? IdCategoryNavigation { get; set; }
 
     public Ulid? IdProduct { get; set; }
     public Product? IdProductNavigation { get; set; }

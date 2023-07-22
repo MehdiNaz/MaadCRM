@@ -196,6 +196,7 @@ public class PaymentRepository : IForooshPaymentRepository
             await _context.SaveChangesAsync();
 
 
+            // TODO: Customer State kharid BelFel
             var resultCustomer = await _context.Customers.SingleOrDefaultAsync(x => x.Id == request.IdCustomer);
             if (resultCustomer != null) resultCustomer.CustomerState = CustomerStateTypes.BelFel;
 

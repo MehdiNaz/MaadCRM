@@ -8,7 +8,7 @@ public class CustomerFeedbackMapping : IEntityTypeConfiguration<CustomerFeedback
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Description).HasMaxLength(255);
 
-        builder.HasOne(x => x.Category)
+        builder.HasOne(x => x.IdCategoryNavigation)
         .WithMany(x => x.Feedbacks)
         .HasForeignKey(d => d.IdCategory)
         .OnDelete(DeleteBehavior.ClientSetNull)
