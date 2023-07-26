@@ -7,25 +7,25 @@
 /// .قیمت هم به صورت صفر در نظر گرفته می شود
 /// </summary>
 
-public class Plan : BaseEntity
+public class Plan : BaseEntityWithUserUpdate
 {
     public Plan()
     {
         Id = Ulid.NewUlid();
-        StatusTypePlan = StatusType.Show;
+        Status = StatusType.Show;
+        BusinessPlans = new HashSet<BusinessPlan>();
     }
 
     public Ulid Id { get; set; }
-    public string PlanName { get; set; }
+    public string Title { get; set; }
     public uint CountOfUsers { get; set; }
-    public decimal PriceOfUsers { get; set; }
+    public decimal PriceOfEachUsers { get; set; }
     public uint CountOfDay { get; set; }
-    public decimal PriceOfDay { get; set; }
-    public decimal? Discount { get; set; } 
-    public decimal PriceFinal { get; set; }
-    public StatusType StatusTypePlan { get; set; }
+    public decimal PriceOfEachDay { get; set; }
+
+    public uint MaxUser { get; set; }
+    public uint MinUser { get; set; }
+    public StatusType Status { get; set; }
     
-    public string UserId { get; set; }
-    
-    public ICollection<BusinessPlan>? UsersPlans { get; set; }  //Relation OK
+    public ICollection<BusinessPlan>? BusinessPlans { get; set; }
 }

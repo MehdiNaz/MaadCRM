@@ -1,4 +1,6 @@
-﻿namespace Application.Interfaces.Businesses;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Interfaces.Businesses;
 
 public interface IBusinessPlanRepository
 {

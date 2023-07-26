@@ -1,3 +1,8 @@
+using Domain.Mapping.Business;
+using Domain.Mapping.Business.Pardakhts;
+using Domain.Mapping.Business.Plans;
+using Domain.Models.Businesses.Pardakhts;
+
 namespace DataAccess;
 
 public class MaadContext : IdentityDbContext
@@ -9,19 +14,24 @@ public class MaadContext : IdentityDbContext
     public new DbSet<User> Users { get; set; }
     public DbSet<UserGroup> UserGroups { get; set; }
     public DbSet<Log> Logs { get; set; }
+    
+    public DbSet<Business> Businesses { get; set; }
     public DbSet<Plan> Plans { get; set; }
+    public DbSet<BusinessPlan> BusinessPlans { get; set; }
+    public DbSet<PardakhtTakhfif> PardakhtTakhfifs { get; set; }
+    public DbSet<Takhfif> Takhfifs { get; set; }
+    public DbSet<Pardakht> Pardakhts { get; set; }
+
     public DbSet<Customer> Customers { get; set; }
+    
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Province> Provinces { get; set; }
-    public DbSet<Business> Businesses { get; set; }
-    public DbSet<BusinessPlan> BusinessPlans { get; set; }
+    
     public DbSet<Attribute> Attributes { get; set; }
     public DbSet<AttributeOption> AttributeOptions { get; set; }
     public DbSet<AttributeCustomer> AttributesCustomer { get; set; }
-    // public DbSet<AttributeOptionValue> AttributeOptionsValues { get; set; }
-
-
+    
     public DbSet<CustomersPhoneNumber> CustomersPhoneNumbers { get; set; }
     public DbSet<CustomersEmailAddress> CustomersEmailAddresses { get; set; }
     public DbSet<CustomerAddress> CustomersAddresses { get; set; }
@@ -78,8 +88,6 @@ public class MaadContext : IdentityDbContext
         builder.ApplyConfiguration(new CountryMapping());
         builder.ApplyConfiguration(new ProvinceMapping());
         builder.ApplyConfiguration(new AttributeOptionsValueMapping());
-        builder.ApplyConfiguration(new PlanMapping());
-        builder.ApplyConfiguration(new UsersPlansMapping());
 
         builder.ApplyConfiguration(new CustomersEmailAddressMapping());
         builder.ApplyConfiguration(new ContactGroupMapping());
@@ -92,13 +100,15 @@ public class MaadContext : IdentityDbContext
 
         builder.ApplyConfiguration(new BusinessMapping());
         builder.ApplyConfiguration(new BusinessPlanMapping());
-
-
+        builder.ApplyConfiguration(new PlanMapping());
+        builder.ApplyConfiguration(new PardakhtTakhfifMapping());
+        builder.ApplyConfiguration(new TakhfifMapping());
+        builder.ApplyConfiguration(new PardakhtMapping());
+        
         builder.ApplyConfiguration(new ForooshOrderMapping());
         builder.ApplyConfiguration(new ForooshFactorMapping());
         builder.ApplyConfiguration(new PaymentMapping());
-
-
+        
         builder.ApplyConfiguration(new AttributeMapping());
         builder.ApplyConfiguration(new AttributeOptionsMapping());
         builder.ApplyConfiguration(new AttributeCustomerMapping());

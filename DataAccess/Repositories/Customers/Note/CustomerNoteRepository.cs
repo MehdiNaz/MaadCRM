@@ -70,7 +70,7 @@ public class CustomerNoteRepository : ICustomerNoteRepository
         {
             BusinessPlan businessPlan = new()
             {
-                BusinessId = request.CustomerNoteId
+                IdBusiness = request.CustomerNoteId
             };
 
             var item = await _context.CustomerNotes.FindAsync(request.CustomerNoteId);

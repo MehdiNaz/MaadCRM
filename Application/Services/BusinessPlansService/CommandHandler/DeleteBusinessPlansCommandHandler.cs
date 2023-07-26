@@ -1,4 +1,6 @@
-﻿namespace Application.Services.BusinessPlansService.CommandHandler;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Services.BusinessPlansService.CommandHandler;
 
 public readonly struct DeleteBusinessPlansCommandHandler : IRequestHandler<DeleteBusinessPlansCommand, Result<BusinessPlan>>
 {

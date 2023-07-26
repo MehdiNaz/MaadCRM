@@ -1,4 +1,6 @@
-﻿namespace Application.Services.BusinessPlansService.QueryHandler;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Services.BusinessPlansService.QueryHandler;
 
 public readonly struct GetTheLatestPlanHandler : IRequestHandler<TheLatestPlanQuery, Result<BusinessPlan>>
 {

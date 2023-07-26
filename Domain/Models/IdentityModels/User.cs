@@ -48,6 +48,23 @@ public class User : IdentityUser
         
         GroupAdded = new HashSet<UserGroup>();
         GroupUpdated = new HashSet<UserGroup>();
+
+        PlansAdded = new HashSet<Plan>();
+        PlansUpdated = new HashSet<Plan>();
+
+        Pardakhts = new HashSet<Pardakht>();
+        PardakhtsAdded = new HashSet<Pardakht>();
+        PardakhtsUpdated = new HashSet<Pardakht>();
+
+        TakhfifsAdded = new HashSet<Takhfif>();
+        TakhfifsUpdated = new HashSet<Takhfif>();
+    
+        PardakhtTakhfifsAdded = new HashSet<PardakhtTakhfif>();
+        PardakhtTakhfifsUpdated = new HashSet<PardakhtTakhfif>();
+        
+        BusinessPlans = new HashSet<BusinessPlan>();
+        BusinessPlansAdded = new HashSet<BusinessPlan>();
+        BusinessPlansUpdated = new HashSet<BusinessPlan>();
     }
 
     public string? Name { get; set; }
@@ -124,4 +141,23 @@ public class User : IdentityUser
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryAdded { get; }
     public IEnumerable<CustomerFeedbackCategory>? CustomerFeedbackCategoryUpdated { get; }
+    
+    
+    public IEnumerable<Plan>? PlansAdded { get; }
+    public IEnumerable<Plan>? PlansUpdated { get; }
+    
+    
+    public IEnumerable<Pardakht>? Pardakhts { get; }
+    public IEnumerable<Pardakht>? PardakhtsAdded { get; }
+    public IEnumerable<Pardakht>? PardakhtsUpdated { get; }
+    
+    public IEnumerable<Takhfif>? TakhfifsAdded { get; }
+    public IEnumerable<Takhfif>? TakhfifsUpdated { get; }
+    
+    public IEnumerable<PardakhtTakhfif>? PardakhtTakhfifsAdded { get; }
+    public IEnumerable<PardakhtTakhfif>? PardakhtTakhfifsUpdated { get; }
+    
+    public IEnumerable<BusinessPlan>? BusinessPlans { get; }
+    public IEnumerable<BusinessPlan>? BusinessPlansAdded { get; }
+    public IEnumerable<BusinessPlan>? BusinessPlansUpdated { get; }
 }

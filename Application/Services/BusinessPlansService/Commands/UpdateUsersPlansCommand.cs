@@ -1,4 +1,6 @@
-﻿namespace Application.Services.BusinessPlansService.Commands;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Services.BusinessPlansService.Commands;
 
 public struct UpdateBusinessPlansCommand : IRequest<Result<BusinessPlan>>
 {

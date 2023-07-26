@@ -15,6 +15,8 @@ global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.ComponentModel.DataAnnotations;
+global using Domain.Models.Businesses.Pardakhts;
+global using Domain.Models.Businesses.Plans;
 global using Domain.Models.LogsUser;
 global using Domain.Models.Notifications;
 global using Attribute = Domain.Models.SpecialFields.Attribute;

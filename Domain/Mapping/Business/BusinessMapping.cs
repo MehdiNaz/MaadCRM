@@ -1,8 +1,8 @@
-﻿namespace Domain.Mapping.BusinessMapping;
+﻿namespace Domain.Mapping.Business;
 
-public class BusinessMapping : IEntityTypeConfiguration<Business>
+public class BusinessMapping : IEntityTypeConfiguration<Models.Businesses.Business>
 {
-    public void Configure(EntityTypeBuilder<Business> builder)
+    public void Configure(EntityTypeBuilder<Models.Businesses.Business> builder)
     {
         builder.ToTable("Businesses");
         builder.HasKey(x => x.Id);

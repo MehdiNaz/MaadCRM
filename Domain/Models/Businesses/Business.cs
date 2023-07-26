@@ -14,6 +14,8 @@ public class Business : BaseEntity
         CustomerFeedbackCategories = new HashSet<CustomerFeedbackCategory>();
         Attributes = new HashSet<Attribute>();
         PeyGiryCategories = new HashSet<PeyGiryCategory>();
+        Pardakhts = new HashSet<Pardakht>();
+        BusinessPlans = new HashSet<BusinessPlan>();
     }
 
     public Ulid Id { get; set; }
@@ -35,22 +37,9 @@ public class Business : BaseEntity
     public virtual ICollection<CustomerFeedbackCategory>? CustomerFeedbackCategories { get; set; }
     public virtual ICollection<Attribute>? Attributes { get; set; }
     public virtual ICollection<PeyGiryCategory>? PeyGiryCategories { get; set; }
-    
+
     public virtual ICollection<UserGroup>? UserGroups { get; set; }
 
-
-    //public Ulid? AttributeOptionsValueId { get; set; }
-    //public Ulid? BusinessAttributeId { get; set; }
-    // public ICollection<User>? Users { get; set; }
-    // public ICollection<Contact>? Contacts { get; set; }
-    // public ICollection<ContactGroup>? ContactGroups { get; set; }
-    // public ICollection<AttributeOption>? AttributeOptions { get; set; }
-    // public ICollection<AttributeOptionsValue>? AttributeOptionsValues { get; set; }
-    //public BusinessAttribute BusinessAttribute { get; set; }
-    //public CategoryAttribute CategoryAttribute { get; set; }
-
-    // public ICollection<Setting>? Setting { get; set; }
-    // public ICollection<CategoryAttribute>? CategoryAttributes { get; set; }
-    // public ICollection<BusinessPlan>? BusinessPlans { get; set; }
-    // public ICollection<Customer>? Customers { get; set; }                        
+    public virtual ICollection<BusinessPlan>? BusinessPlans { get; set; }
+    public virtual ICollection<Pardakht>? Pardakhts { get; set; }
 }

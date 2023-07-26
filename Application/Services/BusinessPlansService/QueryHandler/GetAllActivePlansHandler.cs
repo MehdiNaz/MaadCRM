@@ -1,4 +1,6 @@
-﻿namespace Application.Services.BusinessPlansService.QueryHandler;
+﻿using Domain.Models.Businesses.Plans;
+
+namespace Application.Services.BusinessPlansService.QueryHandler;
 
 public readonly struct GetAllActivePlansHandler : IRequestHandler<AllActivePlansQuery, Result<ICollection<BusinessPlan>>>
 {

@@ -13,7 +13,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            return new Result<ICollection<BusinessPlan>>(await _context.BusinessPlans.Where(x => x.BusinessId == businessId).ToListAsync());
+            return new Result<ICollection<BusinessPlan>>(await _context.BusinessPlans.Where(x => x.IdBusiness == businessId).ToListAsync());
         }
         catch (Exception e)
         {
@@ -26,7 +26,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
 
         try
         {
-            return await _context.BusinessPlans.Where(x => x.BusinessId == businessId && x.BusinessPlansStatusType == StatusType.Show).ToListAsync();
+            return await _context.BusinessPlans.Where(x => x.IdBusiness == businessId && x.Status == StatusType.Show).ToListAsync();
         }
         catch (Exception e)
         {
@@ -38,7 +38,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            return await _context.BusinessPlans.OrderByDescending(o => o.Id).LastAsync(x => x.BusinessId == businessId);
+            return await _context.BusinessPlans.OrderByDescending(o => o.Id).LastAsync(x => x.IdBusiness == businessId);
         }
         catch (Exception e)
         {
@@ -50,7 +50,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
     {
         try
         {
-            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.BusinessPlansStatusType == StatusType.Show);
+            return await _context.BusinessPlans.FirstOrDefaultAsync(x => x.Id == businessPlansId && x.Status == StatusType.Show);
         }
         catch (Exception e)
         {
@@ -64,12 +64,12 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         {
             BusinessPlan businessPlan = new()
             {
-                BusinessId = request.BusinessPlansId
+                IdBusiness = request.BusinessPlansId
             };
 
             var item = await _context.BusinessPlans!.FindAsync(businessPlan);
             if (item is null) return new Result<BusinessPlan>(new ValidationException(ResultErrorMessage.NotFound));
-            item.BusinessPlansStatusType = request.StatusType;
+            item.Status = request.StatusType;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(item);
         }
@@ -85,8 +85,8 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         {
             BusinessPlan item = new()
             {
-                PlanId = entity.PlanId,
-                BusinessId = entity.BusinessId,
+                IdPlan = entity.PlanId,
+                IdBusiness = entity.BusinessId,
                 CountOfDay = entity.CountOfDay,
                 CountOfUsers = entity.CountOfUsers
             };
@@ -106,8 +106,8 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         {
             BusinessPlan item = await _context.BusinessPlans.FindAsync(request.BusinessPlansId);
 
-            item.PlanId = request.PlanId;
-            item.BusinessId = request.BusinessId;
+            item.IdPlan = request.PlanId;
+            item.IdBusiness = request.BusinessId;
             item.CountOfDay = request.CountOfDay;
             item.CountOfUsers = request.CountOfUsers;
 
@@ -127,7 +127,7 @@ public class BusinessPlanRepository : IBusinessPlanRepository
         try
         {
             var businessPlan = await _context.BusinessPlans.FindAsync(id);
-            businessPlan.BusinessPlansStatusType = StatusType.Deleted;
+            businessPlan.Status = StatusType.Deleted;
             await _context.SaveChangesAsync();
             return new Result<BusinessPlan>(businessPlan);
         }

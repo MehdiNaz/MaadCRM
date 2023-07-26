@@ -1,22 +1,31 @@
-﻿namespace Domain.Models.Businesses;
+﻿namespace Domain.Models.Businesses.Plans;
 
-public class BusinessPlan : BaseEntity
+public class BusinessPlan : BaseEntityWithUserId
 {
     public BusinessPlan()
     {
         Id = Ulid.NewUlid();
-        BusinessPlansStatusType = StatusType.Show;
+        Status = StatusType.Show;
     }
 
     public Ulid Id { get; set; }
-    public Ulid PlanId { get; set; }
-    public Ulid BusinessId { get; set; }
-    public uint CountOfDay { get; set; }
+    
+    
+    public decimal Price { get; set; }
     public uint CountOfUsers { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime FinishDate { get; set; }
-    public StatusType BusinessPlansStatusType { get; set; }
 
-    // public Business Business { get; set; }
-    // public Plan Plan { get; set; }
+    public DateTime DateStarted { get; set; }
+    public DateTime DateFinished { get; set; }
+    public uint CountOfDay { get; set; }
+    
+    public StatusType Status { get; set; }
+    
+    public Ulid IdPlan { get; set; }
+    public Plan IdPlanNavigation { get; set; }
+
+    public Ulid IdBusiness { get; set; }
+    public Business IdBusinessNavigation { get; set; }
+    
+    public Ulid IdPardakht { get; set; }
+    public Pardakht IdPardakhtNavigation { get; set; }
 }
