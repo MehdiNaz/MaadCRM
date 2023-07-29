@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MaadDb@185.164.72.160">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.48">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.49">
     <root id="1"/>
     <database id="2" parent="1" name="postgres">
       <Comment>default administrative connection database</Comment>
@@ -3760,9 +3760,9 @@
       <ColNames>RoleId</ColNames>
       <ObjectId>20014</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19968</RefTableId>
       <RefTableName>AspNetRoles</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3874,9 +3874,9 @@
       <ColNames>UserId</ColNames>
       <ObjectId>20081</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3935,9 +3935,9 @@
       <ColNames>UserId</ColNames>
       <ObjectId>20093</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -3990,9 +3990,9 @@ pg_catalog</CollationParentNames>
       <ColNames>UserId</ColNames>
       <ObjectId>20110</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4001,9 +4001,9 @@ pg_catalog</CollationParentNames>
       <ColNames>RoleId</ColNames>
       <ObjectId>20105</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19968</RefTableId>
       <RefTableName>AspNetRoles</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4069,9 +4069,9 @@ pg_catalog</CollationParentNames>
       <ColNames>UserId</ColNames>
       <ObjectId>20122</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4345,9 +4345,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="396" parent="274" name="FK_Business_User">
       <ColNames>IdBusiness</ColNames>
       <ObjectId>20026</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4461,9 +4461,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="411" parent="275" name="FK_AttributeOption_Attribute">
       <ColNames>IdAttribute</ColNames>
       <ObjectId>20264</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20127</RefTableId>
       <RefTableName>Attributes</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4551,9 +4551,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="423" parent="276" name="FK_AttributeOption_AttributeOptionValue">
       <ColNames>IdAttributeOption</ColNames>
       <ObjectId>20330</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20257</RefTableId>
       <RefTableName>AttributeOptions</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4707,9 +4707,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="445" parent="277" name="FK_Attribute_Business">
       <ColNames>IdBusiness</ColNames>
       <ObjectId>20134</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4718,9 +4718,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20144</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4729,9 +4729,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20139</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -4861,9 +4861,9 @@ pg_catalog</CollationParentNames>
       <ColNames>PlanId</ColNames>
       <ObjectId>20068</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19999</RefTableId>
       <RefTableName>Plans</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5042,9 +5042,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="489" parent="280" name="FK_City_Province">
       <ColNames>IdProvince</ColNames>
       <ObjectId>20252</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20053</RefTableId>
       <RefTableName>Provinces</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5215,9 +5215,9 @@ pg_catalog</CollationParentNames>
       <ColNames>ContactId</ColNames>
       <ObjectId>20230</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20041</RefTableId>
       <RefTableName>Contacts</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5331,9 +5331,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="528" parent="283" name="FK_ContactGroup_Contact">
       <ColNames>ContactGroupId</ColNames>
       <ObjectId>20048</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19982</RefTableId>
       <RefTableName>ContactGroups</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5417,9 +5417,9 @@ pg_catalog</CollationParentNames>
       <ColNames>ContactId</ColNames>
       <ObjectId>20240</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20041</RefTableId>
       <RefTableName>Contacts</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5659,9 +5659,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="572" parent="287" name="FK_CustomerAddresses_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20342</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5768,9 +5768,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="587" parent="288" name="FK_CustomerAttribute_AttributeOptions_IdAttributeOptionNavigat~">
       <ColNames>IdAttributeOptionNavigationId</ColNames>
       <ObjectId>20354</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20257</RefTableId>
       <RefTableName>AttributeOptions</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5778,9 +5778,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="588" parent="288" name="FK_CustomerAttribute_Customers_IdCustomerNavigationId">
       <ColNames>IdCustomerNavigationId</ColNames>
       <ObjectId>20359</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5886,9 +5886,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="602" parent="289" name="FK_CustomerFeedback_CustomerFeedbackAttachment">
       <ColNames>IdCustomerFeedback</ColNames>
       <ObjectId>20529</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20364</RefTableId>
       <RefTableName>CustomerFeedbacks</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -5999,9 +5999,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdBusiness</ColNames>
       <ObjectId>20161</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6009,9 +6009,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="618" parent="290" name="FK_CustomerFeedbackCategories_AspNetUsers_UserId">
       <ColNames>UserId</ColNames>
       <ObjectId>20156</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6020,9 +6020,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20166</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6031,9 +6031,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20171</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6174,9 +6174,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="639" parent="291" name="FK_CustomerFeedbacks_Category">
       <ColNames>IdCategory</ColNames>
       <ObjectId>20371</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20149</RefTableId>
       <RefTableName>CustomerFeedbackCategories</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6184,9 +6184,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="640" parent="291" name="FK_CustomerFeedbacks_Product">
       <ColNames>IdProduct</ColNames>
       <ObjectId>20381</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20269</RefTableId>
       <RefTableName>Products</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6194,9 +6194,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="641" parent="291" name="FK_CustomerFeedbacks_Customer">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20376</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6205,9 +6205,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20396</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6216,9 +6216,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20391</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6226,9 +6226,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="644" parent="291" name="FK_CustomerFeedbacks_User">
       <ColNames>IdUser</ColNames>
       <ObjectId>20386</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6369,9 +6369,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="662" parent="292" name="FK_CustomerNote_Product">
       <ColNames>IdProduct</ColNames>
       <ObjectId>20418</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20269</RefTableId>
       <RefTableName>Products</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6379,9 +6379,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="663" parent="292" name="FK_CustomerNote_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20413</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6389,9 +6389,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="664" parent="292" name="FK_Update_CustomerNote_User">
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20423</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6399,9 +6399,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="665" parent="292" name="FK_Add_CustomerNote_User">
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20408</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6542,9 +6542,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="684" parent="293" name="FK_CustomerPeyGiry_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20445</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6552,9 +6552,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="685" parent="293" name="FK_PeyGiryCategory_CustomerPeyGiry">
       <ColNames>IdPeyGiryCategory</ColNames>
       <ObjectId>20450</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20176</RefTableId>
       <RefTableName>PeyGiryCategories</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6562,9 +6562,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="686" parent="293" name="FK_Update_CustomerPeyGiry_User">
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20455</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6572,9 +6572,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="687" parent="293" name="FK_Add_CustomerPeyGiry_User">
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20435</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6582,9 +6582,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="688" parent="293" name="FK_CustomerPeyGiries_AspNetUsers_IdUserNavigationId">
       <ColNames>IdUserNavigationId</ColNames>
       <ObjectId>20440</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6759,9 +6759,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="712" parent="294" name="FK_Customer_MoAref">
       <ColNames>IdMoaref</ColNames>
       <ObjectId>20303</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6769,9 +6769,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="713" parent="294" name="FK_Customer_City">
       <ColNames>IdCity</ColNames>
       <ObjectId>20298</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20245</RefTableId>
       <RefTableName>Cities</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6780,9 +6780,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20318</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6791,9 +6791,9 @@ pg_catalog</CollationParentNames>
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20313</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6801,9 +6801,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="716" parent="294" name="FK_Customer_User">
       <ColNames>IdUser</ColNames>
       <ObjectId>20308</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -6915,9 +6915,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="730" parent="295" name="FK_CustomersEmailAddress_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20465</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7090,9 +7090,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="755" parent="296" name="FK_ForooshFactor_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20512</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7100,9 +7100,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="756" parent="296" name="FK_ForooshFactor_CustomerAddress">
       <ColNames>IdCustomerAddress</ColNames>
       <ObjectId>20507</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20335</RefTableId>
       <RefTableName>CustomerAddresses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7110,9 +7110,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="757" parent="296" name="FK_Update_ForooshFactor_User">
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20517</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7120,9 +7120,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="758" parent="296" name="FK_Add_ForooshFactor_User">
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20502</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7274,9 +7274,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="778" parent="297" name="FK_ForooshOrder_Product">
       <ColNames>IdProduct</ColNames>
       <ObjectId>20590</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20269</RefTableId>
       <RefTableName>Products</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7284,9 +7284,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="779" parent="297" name="FK_ForooshFactor_ForooshOrder">
       <ColNames>IdForooshFactor</ColNames>
       <ObjectId>20585</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20495</RefTableId>
       <RefTableName>ForooshFactors</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7294,9 +7294,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="780" parent="297" name="FK_Update_ForooshOrder_User">
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20595</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7304,9 +7304,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="781" parent="297" name="FK_Add_ForooshOrder_User">
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20580</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7477,9 +7477,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="805" parent="298" name="FK_Logs_CustomerPeyGiries_PeyGiryId">
       <ColNames>PeyGiryId</ColNames>
       <ObjectId>20622</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20428</RefTableId>
       <RefTableName>CustomerPeyGiries</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7487,9 +7487,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="806" parent="298" name="FK_Logs_CustomerNotes_NoteId">
       <ColNames>NoteId</ColNames>
       <ObjectId>20617</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20401</RefTableId>
       <RefTableName>CustomerNotes</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7497,9 +7497,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="807" parent="298" name="FK_Logs_CustomerFeedbacks_FeedBackId">
       <ColNames>FeedBackId</ColNames>
       <ObjectId>20612</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20364</RefTableId>
       <RefTableName>CustomerFeedbacks</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7507,9 +7507,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="808" parent="298" name="FK_Logs_Customers_CustomerId">
       <ColNames>CustomerId</ColNames>
       <ObjectId>20627</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7517,9 +7517,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="809" parent="298" name="FK_Logs_Products_ProductId">
       <ColNames>ProductId</ColNames>
       <ObjectId>20642</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20269</RefTableId>
       <RefTableName>Products</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7527,9 +7527,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="810" parent="298" name="FK_Logs_ProductCategories_ProductCategoryId">
       <ColNames>ProductCategoryId</ColNames>
       <ObjectId>20637</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20203</RefTableId>
       <RefTableName>ProductCategories</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7538,9 +7538,9 @@ pg_catalog</CollationParentNames>
       <ColNames>UserId</ColNames>
       <ObjectId>20607</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7548,9 +7548,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="812" parent="298" name="FK_Logs_ForooshFactors_ForooshFactorId">
       <ColNames>ForooshFactorId</ColNames>
       <ObjectId>20632</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20495</RefTableId>
       <RefTableName>ForooshFactors</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7696,9 +7696,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="830" parent="299" name="FK_CustomerNoteAttachment_CustomerNote">
       <ColNames>IdCustomerNote</ColNames>
       <ObjectId>20541</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20401</RefTableId>
       <RefTableName>CustomerNotes</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7774,9 +7774,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="840" parent="300" name="FK_CustomersEmailAddress_Business">
       <ColNames>IdBusiness</ColNames>
       <ObjectId>20036</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7858,9 +7858,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="851" parent="301" name="FK_CustomerNoteHashTag_CustomerNoteHashTable">
       <ColNames>IdNoteHashTable</ColNames>
       <ObjectId>20551</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20031</RefTableId>
       <RefTableName>NoteHashTables</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7868,9 +7868,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="852" parent="301" name="FK_NoteHashTags_CustomerNotes_IdCustomerNoteNavigationId">
       <ColNames>IdCustomerNoteNavigationId</ColNames>
       <ObjectId>20556</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20401</RefTableId>
       <RefTableName>CustomerNotes</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -7973,9 +7973,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="865" parent="302" name="FK_Payment_ForooshFactor">
       <ColNames>IdForooshFactor</ColNames>
       <ObjectId>20654</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20495</RefTableId>
       <RefTableName>ForooshFactors</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8058,9 +8058,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="876" parent="303" name="FK_PeyGiryAttachment_PeyGiry">
       <ColNames>IdPeyGiry</ColNames>
       <ObjectId>20568</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20428</RefTableId>
       <RefTableName>CustomerPeyGiries</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8162,9 +8162,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="890" parent="304" name="FK_Business_PeyGiryCategory">
       <ColNames>BusinessId</ColNames>
       <ObjectId>20183</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8172,9 +8172,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="891" parent="304" name="FK_UserUpdated_PeyGiryCategory">
       <ColNames>IdUserUpdated</ColNames>
       <ObjectId>20193</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8182,9 +8182,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="892" parent="304" name="FK_UserAdded_PeyGiryCategory">
       <ColNames>IdUserAdded</ColNames>
       <ObjectId>20188</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8192,9 +8192,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="893" parent="304" name="FK_User_PeyGiryCategory">
       <ColNames>IdUser</ColNames>
       <ObjectId>20198</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8304,9 +8304,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="907" parent="305" name="FK_CustomersPhoneNumber_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20475</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8541,9 +8541,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="940" parent="307" name="FK_ProductCategories_Business">
       <ColNames>BusinessId</ColNames>
       <ObjectId>20220</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19975</RefTableId>
       <RefTableName>Businesses</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8551,9 +8551,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="941" parent="307" name="FK_ProductCategories_AspNetUsers_IdUserUpdateNavigationId">
       <ColNames>IdUserUpdateNavigationId</ColNames>
       <ObjectId>20215</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8561,9 +8561,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="942" parent="307" name="FK_ProductCategories_AspNetUsers_IdUserAddNavigationId">
       <ColNames>IdUserAddNavigationId</ColNames>
       <ObjectId>20210</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8650,9 +8650,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="953" parent="308" name="FK_ProductCustomerFavoritesList_Products">
       <ColNames>IdProduct</ColNames>
       <ObjectId>20490</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20269</RefTableId>
       <RefTableName>Products</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8660,9 +8660,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="954" parent="308" name="FK_ProductCustomerFavoritesList_Customers">
       <ColNames>IdCustomer</ColNames>
       <ObjectId>20485</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20291</RefTableId>
       <RefTableName>Customers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8826,9 +8826,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="977" parent="309" name="FK_Product_ProductCategory">
       <ColNames>IdProductCategory</ColNames>
       <ObjectId>20276</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20203</RefTableId>
       <RefTableName>ProductCategories</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8836,9 +8836,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="978" parent="309" name="FK_Products_AspNetUsers_IdUserUpdateNavigationId">
       <ColNames>IdUserUpdateNavigationId</ColNames>
       <ObjectId>20286</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8846,9 +8846,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="979" parent="309" name="FK_Products_AspNetUsers_IdUserAddNavigationId">
       <ColNames>IdUserAddNavigationId</ColNames>
       <ObjectId>20281</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>20019</RefTableId>
       <RefTableName>AspNetUsers</RefTableName>
       <RefTableKind>table</RefTableKind>
@@ -8963,9 +8963,9 @@ pg_catalog</CollationParentNames>
     <foreign-key id="994" parent="310" name="FK_Province_Country">
       <ColNames>IdCountry</ColNames>
       <ObjectId>20058</ObjectId>
-      <RefColNames>Id</RefColNames>
-      <RefColPositions>1</RefColPositions>
       <StateNumber>30189</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefKeyColNames>Id</RefKeyColNames>
       <RefTableId>19987</RefTableId>
       <RefTableName>Countries</RefTableName>
       <RefTableKind>table</RefTableKind>

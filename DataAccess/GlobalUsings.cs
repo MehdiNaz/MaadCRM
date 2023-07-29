@@ -29,7 +29,6 @@ global using Application.Services.Customer.Foroosh.ForooshFactorService.Commands
 global using Application.Services.Customer.Foroosh.ForoshOrderService.Commands;
 global using Application.Services.Customer.Foroosh.PaymentService.Commands;
 global using Application.Services.Customer.PeyGiryCategoryService.Commands;
-global using Application.Services.CustomerActivityService.Commands;
 global using Application.Services.CustomerNoteService.Commands;
 global using Application.Services.CustomerPhoneNumberService.Commands;
 global using Application.Services.CustomersAddressService.Commands;

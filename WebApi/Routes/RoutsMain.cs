@@ -39,12 +39,6 @@ public static class RoutsMain
             .EnableOpenApiWithAuthentication()
             .WithOpenApi();
         
-        app.MapGroup("v1/CustomerActivity")
-            .MapCustomerActivityRoute()
-            //.RequireAuthorization()
-            .EnableOpenApiWithAuthentication()
-            .WithOpenApi();
-        
         app.MapGroup("v1/CustomerAddress")
             .MapCustomerAddressRoute()
             //.RequireAuthorization()

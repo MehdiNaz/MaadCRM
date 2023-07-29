@@ -59,10 +59,6 @@ public class MaadContext : IdentityDbContext
     public DbSet<Notif> Notifications { get; set; }
 
 
-    // Undefined Model :
-    public DbSet<CustomerActivity> CustomerActivities { get; set; }
-
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfiguration(new UserMapping());

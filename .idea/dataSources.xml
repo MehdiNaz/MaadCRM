@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://185.164.72.160:5432/MaadDb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="MaadDb1@185.164.72.160" uuid="ed21a044-e5d6-40a5-afba-a9a6699f1ee4">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://185.164.72.160:5432/MaadDb1</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
