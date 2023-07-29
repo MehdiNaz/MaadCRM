@@ -6,6 +6,7 @@ public class User : IdentityUser
     {
         Status = StatusType.Show;
         CreatedOn = DateTime.UtcNow;
+        Permission = UserPermissionType.Self;
         
         Customers = new HashSet<Customer>();
         CustomersAdded = new HashSet<Customer>();
@@ -88,7 +89,7 @@ public class User : IdentityUser
     public DateTimeOffset? LastLoginDate { get; set; }
     public StatusType Status { get; set; }
     public string? Token { get; set; }// JWT Token
-
+    public UserPermissionType Permission { get; set; }
 
     public Ulid? IdCity { get; set; }
     public City? IdCityNavigation { get; set; }

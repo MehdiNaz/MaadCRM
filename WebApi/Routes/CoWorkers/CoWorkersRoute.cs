@@ -105,6 +105,56 @@ public static class CoWorkersRoute
                             });
                         }
                     });
+        
+        coWorker.MapPost("/ChangePermission",
+                    ([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Disallow)] ChangePermissionCommand request,
+                        IMediator mediator, HttpContext httpContext) =>
+                    {
+                        try
+                        {
+                            var authHeader = httpContext.Request.Headers["Authorization"].ToString();
+                            var id = mediator.Send(new DecodeTokenQuery
+                            {
+                                Token = authHeader,
+                                ReturnType = TokenReturnType.UserId
+                            });
+        
+                            return id.Result.Match(
+                                idUser =>
+                                {
+                                    var resultAddCoWorkerGroup = mediator.Send(request with
+                                    {
+                                        IdUser = idUser
+                                    });
+        
+                                    return resultAddCoWorkerGroup.Result.Match<IResult>(
+                                        result => Results.Ok(new
+                                        {
+                                            Valid = true,
+                                            Message = "همکار با موفقیت ویرایش شد",
+                                            data = result
+                                        }),
+                                        exception => Results.BadRequest(new ErrorResponse
+                                        {
+                                            Valid = false,
+                                            Exceptions = exception
+                                        }));
+                                },
+                                exception => Results.BadRequest(new ErrorResponse
+                                {
+                                    Valid = false,
+                                    Exceptions = exception
+                                }));
+                        }
+                        catch (ArgumentException e)
+                        {
+                            return Results.BadRequest(new ErrorResponse
+                            {
+                                Valid = false,
+                                Exceptions = e
+                            });
+                        }
+                    });
          
          coWorker.MapGet("/GetById/{idU}", (string idU, IMediator mediator, HttpContext httpContext) =>
                              {

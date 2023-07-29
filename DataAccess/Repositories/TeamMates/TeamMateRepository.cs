@@ -89,6 +89,7 @@ public class TeamMateRepository:ITeamMateRepository
             resultEditUser.CodeMelli = request.CodeMelli;
             resultEditUser.IdGroup = request.IdGroup;
             resultEditUser.PhoneNumber = request.PhoneNo;
+            resultEditUser.UserName = request.PhoneNo;
             resultEditUser.PhoneNumberConfirmed = true;
             
             if (request.IdCity != Ulid.Empty)
@@ -101,6 +102,59 @@ public class TeamMateRepository:ITeamMateRepository
                 // .Include(g => g.IdGroupNavigation)
                 // .Include(c => c.IdCityNavigation)
                 // .ThenInclude(p => p!.IdProvinceNavigation)
+                .Select(u => new TeamMateResponse
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Family = u.Family,
+                    DateOfBirth = u.DateOfBirth,
+                    Email = u.Email,
+                    Address = u.Address,
+                    Gender = u.Gender,
+                    CodeMelli = u.CodeMelli,
+                    IdCity = u.IdCity,
+                    IdGroup = u.IdGroup,
+                    PhoneNo = u.PhoneNumber,
+                    PostalCode = u.PostalCode,
+                    Married = u.Married,
+                    CreatedOn = u.CreatedOn,
+                    GroupTitle = u.IdGroupNavigation.Title,
+                    CityName = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.CityName
+                        : "",
+                    IdProvince = u.IdCityNavigation != null
+                        ?  u.IdCityNavigation.IdProvince
+                        : Ulid.Empty,
+                    ProvinceName =  u.IdCityNavigation != null
+                        ?  u.IdCityNavigation!.IdProvinceNavigation!.ProvinceName
+                        : ""
+                })
+                .FirstOrDefaultAsync(w => w.Id == request.Id);
+        
+            return new Result<TeamMateResponse>(result);
+        }
+        catch (Exception e)
+        {
+            return new Result<TeamMateResponse>(new ValidationException(e.Message));
+        }
+    }
+
+    public async ValueTask<Result<TeamMateResponse>> ChangePermissionAsync(ChangePermissionCommand request)
+    {
+        try
+        {
+            var findUser = await _context.Users.FindAsync(request.IdUser);
+            if (findUser is null) return new Result<TeamMateResponse>(new ValidationException(ResultErrorMessage.NotFound));
+
+            var resultEditUser = await _context.Users.FirstOrDefaultAsync(w => w.Id == request.Id && w.IdBusiness == findUser.IdBusiness);
+            if (resultEditUser is null) return new Result<TeamMateResponse>(new ValidationException(ResultErrorMessage.NotFound));
+        
+            resultEditUser.Permission = request.Permission;
+            
+            await _context.SaveChangesAsync();
+
+            var result = await _context
+                .Users
                 .Select(u => new TeamMateResponse
                 {
                     Id = u.Id,
@@ -222,6 +276,7 @@ public class TeamMateRepository:ITeamMateRepository
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
+                    Permission = u.Permission,
                     GroupTitle = u.IdGroupNavigation.Title,
                     CityName = u.IdCityNavigation != null
                         ?  u.IdCityNavigation.CityName
@@ -272,6 +327,7 @@ public class TeamMateRepository:ITeamMateRepository
                     PostalCode = u.PostalCode,
                     Married = u.Married,
                     CreatedOn = u.CreatedOn,
+                    Permission = u.Permission,
                     GroupTitle = u.IdGroupNavigation.Title,
                     CityName = u.IdCityNavigation != null
                         ?  u.IdCityNavigation.CityName

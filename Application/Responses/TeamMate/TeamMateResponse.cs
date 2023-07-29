@@ -12,6 +12,7 @@ public struct TeamMateResponse
     public Married? Married { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public GenderTypes? Gender { get; set; }
+    public UserPermissionType Permission { get; set; }
     public Ulid? IdCity { get; set; }
     public string CityName { get; set; }
     public Ulid IdProvince { get; set; }
