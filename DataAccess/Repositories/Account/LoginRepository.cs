@@ -178,6 +178,9 @@ public class LoginRepository : ILoginRepository
                 IdUserUpdated = newUser.Id,
                 Title = "گروه پیش فرض"
             };
+
+            newUser.IdGroup = newUserGroup.Id;
+            
             await _context.UserGroups.AddAsync(newUserGroup);
             
             

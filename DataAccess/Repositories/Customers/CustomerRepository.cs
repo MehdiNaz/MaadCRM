@@ -162,8 +162,12 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
+            var user = await _userManager.FindByIdAsync(request.IdUser);
+            if (user == null)
+                return new Result<CustomerDashboardResponse>(new ValidationException("کاربری با این مشخصات یافت نشد"));
+            
             var resultsListCustomer = _context.Customers
-                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == request.UserId)
+                .Where(x => x.CustomerStatusType == StatusType.Show)
                 .Select(x => new CustomerResponse
                 {
                     IdCustomer = x.Id,
@@ -187,7 +191,17 @@ public class CustomerRepository : ICustomerRepository
                     MoshtaryMoAref = x.IdMoaref,
                     MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation.LastName,
                     IdUser = x.IdUser,
+                    IdBusiness = x.IdUserNavigation.IdBusiness,
+                    IdDepartment = x.IdUserNavigation.IdGroup
                 }).AsQueryable();
+
+            resultsListCustomer = user.Permission switch
+            {
+                UserPermissionType.Self => resultsListCustomer.Where(x => x.IdUser == user.Id),
+                UserPermissionType.Department => resultsListCustomer.Where(x => x.IdDepartment == user.IdGroup),
+                UserPermissionType.Business => resultsListCustomer.Where(x => x.IdBusiness == user.IdBusiness),
+                _ => resultsListCustomer
+            };
 
             resultsListCustomer = request switch
             {
@@ -223,10 +237,10 @@ public class CustomerRepository : ICustomerRepository
             // //}
             // // TODO: Add Favirout List
 
-            var finalResult = await resultsListCustomer.Where(x => x.IdUser == request.UserId).ToListAsync();
+            var finalResult = await resultsListCustomer.Where(x => x.IdUser == request.IdUser).ToListAsync();
 
             var resultsCountCustomer = await _context.Customers
-                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == request.UserId)
+                .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == request.IdUser)
                 .Select(x => new CustomerResponse
                 {
                     IdCustomer = x.Id,
@@ -259,7 +273,11 @@ public class CustomerRepository : ICustomerRepository
     {
         try
         {
-            var resultsListCustomer = await _context.Customers
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return new Result<CustomerDashboardResponse>(new ValidationException("کاربری با این مشخصات یافت نشد"));
+            
+            var resultsListCustomer = _context.Customers
                 .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
                 .Where(x =>
                     (x.FirstName + " " + x.LastName).ToLower().Contains(request.ToLower()) ||
@@ -288,9 +306,21 @@ public class CustomerRepository : ICustomerRepository
                     MoshtaryMoAref = x.IdMoaref,
                     MoarefFullName = x.IdMoarefNavigation!.FirstName + " " + x.IdMoarefNavigation.LastName,
                     IdUser = x.IdUser,
-                }).ToListAsync();
+                }).AsQueryable();
+            
 
-            var resultAll = await ShowAllCustomersCountAsync(userId);
+            resultsListCustomer = user.Permission switch
+            {
+                UserPermissionType.Self => resultsListCustomer.Where(x => x.IdUser == user.Id),
+                UserPermissionType.Department => resultsListCustomer.Where(x => x.IdDepartment == user.IdGroup),
+                UserPermissionType.Business => resultsListCustomer.Where(x => x.IdBusiness == user.IdBusiness),
+                _ => resultsListCustomer
+            };
+            
+            
+            var finalResult = await resultsListCustomer.ToListAsync();
+            
+            // var resultAll = await ShowAllCustomersCountAsync(userId);
 
             var resultsCountCustomer = await _context.Customers
                 .Where(x => x.CustomerStatusType == StatusType.Show && x.IdUser == userId)
@@ -303,7 +333,7 @@ public class CustomerRepository : ICustomerRepository
 
             return new Result<CustomerDashboardResponse>(new CustomerDashboardResponse
             {
-                AllCustomersInfo = resultsListCustomer,
+                AllCustomersInfo = finalResult,
                 AllCount = resultsCountCustomer.Count,
                 BelghovehCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.Belghoveh),
                 BelFelCount = resultsCountCustomer.Count(c => c.CustomerStateType == CustomerStateTypes.BelFel),

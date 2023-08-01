@@ -27,6 +27,8 @@ public struct CustomerResponse
     public Ulid? IdProduct { get; set; }
     public string? ProductName { get; set; }
     public string? IdUser { get; set; }
+    public Ulid? IdBusiness { get; set; }
+    public Ulid? IdDepartment { get; set; }
 
     public DateTime? DateCreated { get; set; }
     // public Ulid? ProductCustomerFavorite { get; set; }

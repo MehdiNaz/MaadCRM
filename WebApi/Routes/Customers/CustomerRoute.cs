@@ -30,7 +30,7 @@ public static class CustomerRoute
                             ProvinceId = request.ProvinceId,
                             MoshtaryMoAref = request.MoshtaryMoAref,
                             ProductCustomerFavorite = request.ProductCustomerFavorite,
-                            UserId = userId
+                            IdUser = userId
                         });
 
                         return result.Result.Match(
