@@ -1,0 +1,22 @@
+.card::before {
+    content: '';
+    width: 90%;
+    height: 100%;
+    background-color: #F9FAFC;
+    display: block;
+    border-radius: 20px;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 13px auto 0;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.0313726);
+}
+
+.card--active {
+    transform: scale(.97);
+}
+
+.card--active::before {
+    content: '';
+    display: none;
+}

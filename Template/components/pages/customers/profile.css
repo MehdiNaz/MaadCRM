@@ -1,0 +1,27 @@
+.user-type-boxes {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.user-type-boxes::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: #444;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.user-type-box {
+    background-color: white;
+    z-index: 1;
+}
+
+.user-type-box * {
+    z-index: 1;
+}

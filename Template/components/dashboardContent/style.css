@@ -1,0 +1,43 @@
+.page {
+    background-color: #2141A8;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.active_menu {
+    background-color: #F1F5F8;
+    position: relative;
+    color: #000;
+}
+
+.active_menu div * {
+    color: #000;
+}
+
+#sidebar {
+    transition: .2s ease-in;
+    overflow-x: hidden;
+}
+
+#close_sidebar {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    z-index: 99999;
+    padding: 10px;
+    color: #fff;
+    font-size: 25px;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.menu_close {
+    width: 80px;
+}
+
+#sidebar.menu_close .menu-title {
+    display: none;
+    transition: 3s ease-in;
+}

@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/types/*": [
+        "types/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
+      ],
+      "@/services/*": [
+        "services/*"
+      ],
+      "@/slices/*": [
+        "slices/*"
+      ],
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "/Users/mohammadhadi/Desktop/projects/maad-crm/.next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

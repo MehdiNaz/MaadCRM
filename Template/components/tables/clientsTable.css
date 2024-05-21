@@ -1,0 +1,7 @@
+.clients-table__actions button {
+    margin: 0 6px;
+}
+
+.mantine-rtl-Tooltip-tooltip {
+    font-family: IRANSansX !important;
+}

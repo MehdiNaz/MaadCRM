@@ -1,0 +1,15 @@
+.absolute-menu-box {
+    visibility: hidden;
+    opacity: 0;
+    z-index: 9;
+}
+
+.absolute-menu-box--active {
+    visibility: visible;
+    opacity: 1;
+    transition-duration: .3s;
+}
+
+.absolute-menu-box li {
+    margin-top: 10px;
+}

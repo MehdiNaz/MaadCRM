@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: IRANSansX;
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/woff/IRANSansXFaNum-Bold.woff') format('woff'),
+      url('/fonts/woff2/IRANSansXFaNum-Bold.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: IRANSansX;
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/woff/IRANSansXFaNum-Regular.woff') format('woff'),
+      url('/fonts/woff2/IRANSansXFaNum-Regular.woff2') format('woff2');
+  }
+}
+
+body {
+  direction: rtl;
+  font-family: IRANSansX;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+input {
+  outline: none;
+}
+
+html body *[class^='mantine-'],
+textarea,
+.__mantine-ref-label {
+  font-family: IRANSansX !important;
+}
+
+.mantine-rtl-TextInput-input {
+  border: 2px solid #dcdcdc;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+#sidebar::-webkit-scrollbar,
+#notifications-box::-webkit-scrollbar {
+  display: none;
+}
+
+*,
+#notifications-box {
+  scrollbar-width: none;
+}
+
+.mantine-rtl-SegmentedControl-root .___ref-label {
+  font-family: IRANSansX !important;
+}
+
+[id^='modalBox-'] {
+  /* From https://css.glass */
+  /* background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3); */
+}
+
+.__datepicker-input input {
+  width: 100%;
+  border: 0.0625rem solid #ced4da;
+  border-radius: 0.25rem;
+  padding-right: calc(2.25rem / 3);
+  padding-left: calc(2.25rem / 3);
+  line-height: calc(2.125rem);
+  font-size: 0.875rem;
+}
+
+.SegmentedControlComponent-box .mantine-rtl-SegmentedControl-controlActive .mantine-rtl-Center-root {
+  color: #fff;
+}

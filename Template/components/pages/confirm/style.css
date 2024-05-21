@@ -1,0 +1,7 @@
+.gender .mantine-rtl-SegmentedControl-root {
+    width: 100%;
+}
+
+.gender .__mantine-ref-control {
+    width: 50% !important;
+}
